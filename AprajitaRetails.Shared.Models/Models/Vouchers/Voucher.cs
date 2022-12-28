@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AprajitaRetails.Shared.Models.Models.Vouchers
@@ -24,7 +25,7 @@ namespace AprajitaRetails.Shared.Models.Models.Vouchers
     {
         [Key]
         public string CashVoucherNo { get; set; }
-        public string TranscationCategoryId { get; set; }
+        public string CategoryId { get; set; }
         public string VoucherType { get; set; }
         public DateTime OnDate { get; set; }
         public string PaidTo { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using AprajitaRetails.Shared.Models.Models.Vouchers;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aprajita_Retails.Data
@@ -9,5 +10,7 @@ namespace Aprajita_Retails.Data
             : base(options)
         {
         }
+        public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<CashVoucher> CashVouchers { get; set; }
     }
 }

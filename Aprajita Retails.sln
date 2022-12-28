@@ -59,8 +59,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{3b09a873-a6f9-4fc7-9572-9ed3dadc5066}*SharedItemsImports = 13
+		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{3c594e41-10b1-43ca-86e2-5116072af9e9}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{3c594e41-10b1-43ca-86e2-5116072af9e9}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{3c594e41-10b1-43ca-86e2-5116072af9e9}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{683f7ef9-c0c7-46cc-b2e8-f28a3f325ece}*SharedItemsImports = 13
 		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{6fc17319-be7b-456e-b25c-db308c4d4c85}*SharedItemsImports = 13
+		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{75999da2-aa15-4360-a60f-91a3d57a62be}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{75999da2-aa15-4360-a60f-91a3d57a62be}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{75999da2-aa15-4360-a60f-91a3d57a62be}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5

@@ -21,8 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AKS.Databases\AKS.Databases.csproj" />
     <ProjectReference Include="..\AprajitaRetails.BM\AprajitaRetails.BM.csproj" />
   </ItemGroup>
+
+  <Import Project="..\AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems" Label="Shared" />
+
+  <Import Project="..\AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems" Label="Shared" />
+
+  <Import Project="..\AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems" Label="Shared" />
 
 </Project>
