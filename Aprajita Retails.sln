@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aprajita Retails", "Aprajita Retails\Aprajita Retails.csproj", "{75999DA2-AA15-4360-A60F-91A3D57A62BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aprajita Retails", "Aprajita Retails\Aprajita Retails.csproj", "{75999DA2-AA15-4360-A60F-91A3D57A62BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.API", "AprajitaRetails.API\AprajitaRetails.API.csproj", "{3C594E41-10B1-43CA-86E2-5116072AF9E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.API", "AprajitaRetails.API\AprajitaRetails.API.csproj", "{3C594E41-10B1-43CA-86E2-5116072AF9E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AKS.Databases", "AKS.Databases\AKS.Databases.csproj", "{CB1FBD3C-253A-4A30-BE65-53EB73898DB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AKS.Databases", "AKS.Databases\AKS.Databases.csproj", "{CB1FBD3C-253A-4A30-BE65-53EB73898DB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.BM", "AprajitaRetails.BM\AprajitaRetails.BM.csproj", "{B23C6373-744D-45B4-BF91-F73A2B450D47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.BM", "AprajitaRetails.BM\AprajitaRetails.BM.csproj", "{B23C6373-744D-45B4-BF91-F73A2B450D47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4860070D-CF52-4E08-953D-4ED84B094715}"
 EndProject
@@ -61,5 +61,8 @@ Global
 		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{3b09a873-a6f9-4fc7-9572-9ed3dadc5066}*SharedItemsImports = 13
 		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{683f7ef9-c0c7-46cc-b2e8-f28a3f325ece}*SharedItemsImports = 13
 		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{6fc17319-be7b-456e-b25c-db308c4d4c85}*SharedItemsImports = 13
+		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

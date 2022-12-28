@@ -20,4 +20,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AKS.Databases\AKS.Databases.csproj" />
+    <ProjectReference Include="..\AprajitaRetails.BM\AprajitaRetails.BM.csproj" />
+  </ItemGroup>
+
 </Project>

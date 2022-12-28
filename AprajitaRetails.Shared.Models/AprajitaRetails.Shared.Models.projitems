@@ -9,7 +9,9 @@
     <Import_RootNamespace>AprajitaRetails.Shared.Models</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Vouchers\Voucher.cs" />
   </ItemGroup>
 </Project>
