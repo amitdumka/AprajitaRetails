@@ -20,12 +20,24 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AprajitaRetails.BM\AprajitaRetails.BM.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Pages\Apps\" />
+    <None Remove="Pages\Apps\Vouchers\" />
+    <None Remove="Pages\Apps\Vouchers\CashVouchers\" />
+    <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Apps\" />
+    <Folder Include="Pages\Apps\Vouchers\" />
+    <Folder Include="Pages\Apps\Vouchers\CashVouchers\" />
+  </ItemGroup>
   <Import Project="..\AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems" Label="Shared" />
 
   <Import Project="..\AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems" Label="Shared" />

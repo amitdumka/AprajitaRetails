@@ -1,0 +1,72 @@
+@page
+@model Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].VoucherType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].OnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].PaidTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].IssuedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CashVoucher) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VoucherType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssuedBy)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CashVoucherNo">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CashVoucherNo">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CashVoucherNo">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

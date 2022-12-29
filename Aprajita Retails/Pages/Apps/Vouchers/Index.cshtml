@@ -1,0 +1,84 @@
+@page
+@model Aprajita_Retails.Pages.Apps.Vouchers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].VoucherType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].OnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].PaidTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].PayMode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].PaymentDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].IssuedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].PartyId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Voucher) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VoucherType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayMode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssuedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartyId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.VoucherNo">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.VoucherNo">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.VoucherNo">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
