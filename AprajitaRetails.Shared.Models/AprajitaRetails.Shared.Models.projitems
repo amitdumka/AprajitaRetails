@@ -10,8 +10,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Stores\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Payroll\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Vouchers\Voucher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Stores\Store.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Payroll\Employee.cs" />
   </ItemGroup>
 </Project>
