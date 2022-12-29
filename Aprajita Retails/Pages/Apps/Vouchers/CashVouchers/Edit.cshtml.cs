@@ -30,12 +30,16 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers
                 return NotFound();
             }
 
-            var cashvoucher =  await _context.CashVouchers.FirstOrDefaultAsync(m => m.CashVoucherNo == id);
+            var cashvoucher =  await _context.CashVouchers.FirstOrDefaultAsync(m => m.VoucherNumber == id);
             if (cashvoucher == null)
             {
                 return NotFound();
             }
             CashVoucher = cashvoucher;
+           ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId");
+           ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId");
+           ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+           ViewData["TranscationId"] = new SelectList(_context.TranscationModes, "TranscationId", "TranscationId");
             return Page();
         }
 
@@ -56,7 +60,7 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CashVoucherExists(CashVoucher.CashVoucherNo))
+                if (!CashVoucherExists(CashVoucher.VoucherNumber))
                 {
                     return NotFound();
                 }
@@ -71,7 +75,7 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers
 
         private bool CashVoucherExists(string id)
         {
-          return _context.CashVouchers.Any(e => e.CashVoucherNo == id);
+          return _context.CashVouchers.Any(e => e.VoucherNumber == id);
         }
     }
 }

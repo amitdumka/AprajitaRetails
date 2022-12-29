@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Shared.Models.Models.Vouchers;
 using Aprajita_Retails.Data;
 
-namespace Aprajita_Retails.Pages.Apps.Vouchers
+namespace Aprajita_Retails.Pages.Apps.Vouchers.Notes
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
             _context = context;
         }
 
-      public Voucher Voucher { get; set; }
+      public Note Note { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.Vouchers == null)
+            if (id == null || _context.Notes == null)
             {
                 return NotFound();
             }
 
-            var voucher = await _context.Vouchers.FirstOrDefaultAsync(m => m.VoucherNumber == id);
-            if (voucher == null)
+            var note = await _context.Notes.FirstOrDefaultAsync(m => m.NoteNumber == id);
+            if (note == null)
             {
                 return NotFound();
             }
             else 
             {
-                Voucher = voucher;
+                Note = note;
             }
             return Page();
         }

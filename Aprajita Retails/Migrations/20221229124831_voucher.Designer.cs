@@ -3,6 +3,7 @@ using System;
 using Aprajita_Retails.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aprajita_Retails.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221229124831_voucher")]
+    partial class voucher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.12");
@@ -167,7 +169,7 @@ namespace Aprajita_Retails.Migrations
 
                     b.HasKey("StoreId");
 
-                    b.ToTable("Stores");
+                    b.ToTable("Store");
                 });
 
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.CashVoucher", b =>
@@ -242,106 +244,6 @@ namespace Aprajita_Retails.Migrations
                     b.ToTable("CashVouchers");
                 });
 
-            modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.LedgerGroup", b =>
-                {
-                    b.Property<string>("LedgerGroupId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Category")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("GroupName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("LedgerGroupId");
-
-                    b.ToTable("LedgerGroups");
-                });
-
-            modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.LedgerMaster", b =>
-                {
-                    b.Property<string>("PartyId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("OpeningDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PartyName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("PartyId");
-
-                    b.ToTable("V1_LedgerMasters");
-                });
-
-            modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.Note", b =>
-                {
-                    b.Property<string>("NoteNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("NotesType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PartyId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PartyName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StoreId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("TaxRate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("WithGST")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("NoteNumber");
-
-                    b.HasIndex("PartyId");
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("V1_Notes");
-                });
-
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.Party", b =>
                 {
                     b.Property<string>("PartyId")
@@ -408,77 +310,6 @@ namespace Aprajita_Retails.Migrations
                     b.HasIndex("StoreId");
 
                     b.ToTable("V1_Parties");
-                });
-
-            modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.PettyCashSheet", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("BankDeposit")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("BankWithdrawal")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("CardSale")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("ClosingBalance")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("CustomerDue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("CustomerRecovery")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("DailySale")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DueList")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("ManualSale")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("NonCashSale")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("OpeningBalance")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PaymentNaration")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("PaymentTotal")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ReceiptsNaration")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("ReceiptsTotal")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RecoveryList")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("TailoringPayment")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("TailoringSale")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("V1_PettyCashSheets");
                 });
 
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.TranscationMode", b =>
@@ -812,25 +643,6 @@ namespace Aprajita_Retails.Migrations
                     b.Navigation("Store");
 
                     b.Navigation("TranscationMode");
-                });
-
-            modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.Note", b =>
-                {
-                    b.HasOne("AprajitaRetails.Shared.Models.Models.Vouchers.Party", "Party")
-                        .WithMany()
-                        .HasForeignKey("PartyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AprajitaRetails.Shared.Models.Models.Stores.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Party");
-
-                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Models.Vouchers.Party", b =>

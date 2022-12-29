@@ -14,18 +14,13 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CashVoucher.CashVoucherNo" class="control-label"></label>
-                <input asp-for="CashVoucher.CashVoucherNo" class="form-control" />
-                <span asp-validation-for="CashVoucher.CashVoucherNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CashVoucher.CategoryId" class="control-label"></label>
-                <input asp-for="CashVoucher.CategoryId" class="form-control" />
-                <span asp-validation-for="CashVoucher.CategoryId" class="text-danger"></span>
+                <label asp-for="CashVoucher.VoucherNumber" class="control-label"></label>
+                <input asp-for="CashVoucher.VoucherNumber" class="form-control" />
+                <span asp-validation-for="CashVoucher.VoucherNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CashVoucher.VoucherType" class="control-label"></label>
-                <input asp-for="CashVoucher.VoucherType" class="form-control" />
+                <select asp-for="CashVoucher.VoucherType" class="form-control"></select>
                 <span asp-validation-for="CashVoucher.VoucherType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,9 +29,23 @@
                 <span asp-validation-for="CashVoucher.OnDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CashVoucher.PaidTo" class="control-label"></label>
-                <input asp-for="CashVoucher.PaidTo" class="form-control" />
-                <span asp-validation-for="CashVoucher.PaidTo" class="text-danger"></span>
+                <label asp-for="CashVoucher.TranscationId" class="control-label"></label>
+                <select asp-for="CashVoucher.TranscationId" class ="form-control" asp-items="ViewBag.TranscationId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CashVoucher.SlipNumber" class="control-label"></label>
+                <input asp-for="CashVoucher.SlipNumber" class="form-control" />
+                <span asp-validation-for="CashVoucher.SlipNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CashVoucher.PartyName" class="control-label"></label>
+                <input asp-for="CashVoucher.PartyName" class="form-control" />
+                <span asp-validation-for="CashVoucher.PartyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CashVoucher.Particulars" class="control-label"></label>
+                <input asp-for="CashVoucher.Particulars" class="form-control" />
+                <span asp-validation-for="CashVoucher.Particulars" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CashVoucher.Amount" class="control-label"></label>
@@ -49,9 +58,36 @@
                 <span asp-validation-for="CashVoucher.Remarks" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CashVoucher.IssuedBy" class="control-label"></label>
-                <input asp-for="CashVoucher.IssuedBy" class="form-control" />
-                <span asp-validation-for="CashVoucher.IssuedBy" class="text-danger"></span>
+                <label asp-for="CashVoucher.EmployeeId" class="control-label"></label>
+                <select asp-for="CashVoucher.EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CashVoucher.PartyId" class="control-label"></label>
+                <select asp-for="CashVoucher.PartyId" class ="form-control" asp-items="ViewBag.PartyId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CashVoucher.StoreId" class="control-label"></label>
+                <select asp-for="CashVoucher.StoreId" class ="form-control" asp-items="ViewBag.StoreId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CashVoucher.EntryStatus" class="control-label"></label>
+                <select asp-for="CashVoucher.EntryStatus" class="form-control"></select>
+                <span asp-validation-for="CashVoucher.EntryStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CashVoucher.UserId" class="control-label"></label>
+                <input asp-for="CashVoucher.UserId" class="form-control" />
+                <span asp-validation-for="CashVoucher.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="CashVoucher.IsReadOnly" /> @Html.DisplayNameFor(model => model.CashVoucher.IsReadOnly)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="CashVoucher.MarkedDeleted" /> @Html.DisplayNameFor(model => model.CashVoucher.MarkedDeleted)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

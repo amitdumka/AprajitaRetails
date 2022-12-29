@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AprajitaRetails.Shared.Models.Models.Vouchers;
 using Aprajita_Retails.Data;
 
-namespace Aprajita_Retails.Pages.Apps.Vouchers
+namespace Aprajita_Retails.Pages.Apps.Vouchers.Notes
 {
     public class CreateModel : PageModel
     {
@@ -21,14 +21,13 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
 
         public IActionResult OnGet()
         {
-        ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId");
         ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId");
         ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return Page();
         }
 
         [BindProperty]
-        public Voucher Voucher { get; set; }
+        public Note Note { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -39,7 +38,7 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
                 return Page();
             }
 
-            _context.Vouchers.Add(Voucher);
+            _context.Notes.Add(Note);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

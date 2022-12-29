@@ -1,4 +1,4 @@
-@page
+@page "/vouchers/edit"
 @model Aprajita_Retails.Pages.Apps.Vouchers.EditModel
 
 @{
@@ -13,10 +13,10 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Voucher.VoucherNo" />
+            <input type="hidden" asp-for="Voucher.VoucherNumber" />
             <div class="form-group">
                 <label asp-for="Voucher.VoucherType" class="control-label"></label>
-                <input asp-for="Voucher.VoucherType" class="form-control" />
+                <select asp-for="Voucher.VoucherType" class="form-control"></select>
                 <span asp-validation-for="Voucher.VoucherType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -25,9 +25,19 @@
                 <span asp-validation-for="Voucher.OnDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Voucher.PaidTo" class="control-label"></label>
-                <input asp-for="Voucher.PaidTo" class="form-control" />
-                <span asp-validation-for="Voucher.PaidTo" class="text-danger"></span>
+                <label asp-for="Voucher.SlipNumber" class="control-label"></label>
+                <input asp-for="Voucher.SlipNumber" class="form-control" />
+                <span asp-validation-for="Voucher.SlipNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.PartyName" class="control-label"></label>
+                <input asp-for="Voucher.PartyName" class="form-control" />
+                <span asp-validation-for="Voucher.PartyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.Particulars" class="control-label"></label>
+                <input asp-for="Voucher.Particulars" class="form-control" />
+                <span asp-validation-for="Voucher.Particulars" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Voucher.Amount" class="control-label"></label>
@@ -35,9 +45,9 @@
                 <span asp-validation-for="Voucher.Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Voucher.PayMode" class="control-label"></label>
-                <input asp-for="Voucher.PayMode" class="form-control" />
-                <span asp-validation-for="Voucher.PayMode" class="text-danger"></span>
+                <label asp-for="Voucher.PaymentMode" class="control-label"></label>
+                <select asp-for="Voucher.PaymentMode" class="form-control"></select>
+                <span asp-validation-for="Voucher.PaymentMode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Voucher.PaymentDetails" class="control-label"></label>
@@ -50,14 +60,44 @@
                 <span asp-validation-for="Voucher.Remarks" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Voucher.IssuedBy" class="control-label"></label>
-                <input asp-for="Voucher.IssuedBy" class="form-control" />
-                <span asp-validation-for="Voucher.IssuedBy" class="text-danger"></span>
+                <label asp-for="Voucher.AccountId" class="control-label"></label>
+                <input asp-for="Voucher.AccountId" class="form-control" />
+                <span asp-validation-for="Voucher.AccountId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.EmployeeId" class="control-label"></label>
+                <select asp-for="Voucher.EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="Voucher.EmployeeId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Voucher.PartyId" class="control-label"></label>
-                <input asp-for="Voucher.PartyId" class="form-control" />
+                <select asp-for="Voucher.PartyId" class="form-control" asp-items="ViewBag.PartyId"></select>
                 <span asp-validation-for="Voucher.PartyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.StoreId" class="control-label"></label>
+                <select asp-for="Voucher.StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
+                <span asp-validation-for="Voucher.StoreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.EntryStatus" class="control-label"></label>
+                <select asp-for="Voucher.EntryStatus" class="form-control"></select>
+                <span asp-validation-for="Voucher.EntryStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.UserId" class="control-label"></label>
+                <input asp-for="Voucher.UserId" class="form-control" />
+                <span asp-validation-for="Voucher.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Voucher.IsReadOnly" /> @Html.DisplayNameFor(model => model.Voucher.IsReadOnly)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Voucher.MarkedDeleted" /> @Html.DisplayNameFor(model => model.Voucher.MarkedDeleted)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

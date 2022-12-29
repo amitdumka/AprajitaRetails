@@ -32,11 +32,22 @@
     <None Remove="Pages\Apps\Vouchers\" />
     <None Remove="Pages\Apps\Vouchers\CashVouchers\" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Data\Data\" />
+    <None Remove="Pages\Apps\Vouchers\Notes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Apps\" />
     <Folder Include="Pages\Apps\Vouchers\" />
     <Folder Include="Pages\Apps\Vouchers\CashVouchers\" />
+    <Folder Include="Data\Data\" />
+    <Folder Include="Pages\Apps\Vouchers\Notes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
+    <Compile Remove="Data\Migrations\20221229123603_voucher.cs" />
+    <Compile Remove="Data\Migrations\20221229123603_voucher.Designer.cs" />
   </ItemGroup>
   <Import Project="..\AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems" Label="Shared" />
 

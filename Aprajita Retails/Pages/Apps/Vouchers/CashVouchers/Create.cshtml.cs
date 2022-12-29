@@ -21,6 +21,10 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers
 
         public IActionResult OnGet()
         {
+        ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId");
+        ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId");
+        ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+        ViewData["TranscationId"] = new SelectList(_context.TranscationModes, "TranscationId", "TranscationId");
             return Page();
         }
 

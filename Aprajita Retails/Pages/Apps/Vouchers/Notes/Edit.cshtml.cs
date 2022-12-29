@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Shared.Models.Models.Vouchers;
 using Aprajita_Retails.Data;
 
-namespace Aprajita_Retails.Pages.Apps.Vouchers
+namespace Aprajita_Retails.Pages.Apps.Vouchers.Notes
 {
     public class EditModel : PageModel
     {
@@ -21,22 +21,21 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
         }
 
         [BindProperty]
-        public Voucher Voucher { get; set; } = default!;
+        public Note Note { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.Vouchers == null)
+            if (id == null || _context.Notes == null)
             {
                 return NotFound();
             }
 
-            var voucher =  await _context.Vouchers.FirstOrDefaultAsync(m => m.VoucherNumber == id);
-            if (voucher == null)
+            var note =  await _context.Notes.FirstOrDefaultAsync(m => m.NoteNumber == id);
+            if (note == null)
             {
                 return NotFound();
             }
-            Voucher = voucher;
-           ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId");
+            Note = note;
            ViewData["PartyId"] = new SelectList(_context.Parties, "PartyId", "PartyId");
            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return Page();
@@ -51,7 +50,7 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
                 return Page();
             }
 
-            _context.Attach(Voucher).State = EntityState.Modified;
+            _context.Attach(Note).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +58,7 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!VoucherExists(Voucher.VoucherNumber))
+                if (!NoteExists(Note.NoteNumber))
                 {
                     return NotFound();
                 }
@@ -72,9 +71,9 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
             return RedirectToPage("./Index");
         }
 
-        private bool VoucherExists(string id)
+        private bool NoteExists(string id)
         {
-          return _context.Vouchers.Any(e => e.VoucherNumber == id);
+          return _context.Notes.Any(e => e.NoteNumber == id);
         }
     }
 }

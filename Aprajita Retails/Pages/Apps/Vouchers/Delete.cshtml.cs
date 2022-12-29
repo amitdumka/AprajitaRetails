@@ -29,7 +29,7 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
                 return NotFound();
             }
 
-            var voucher = await _context.Vouchers.FirstOrDefaultAsync(m => m.VoucherNo == id);
+            var voucher = await _context.Vouchers.FirstOrDefaultAsync(m => m.VoucherNumber == id);
 
             if (voucher == null)
             {

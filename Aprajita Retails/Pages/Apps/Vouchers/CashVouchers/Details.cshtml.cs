@@ -28,7 +28,7 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers
                 return NotFound();
             }
 
-            var cashvoucher = await _context.CashVouchers.FirstOrDefaultAsync(m => m.CashVoucherNo == id);
+            var cashvoucher = await _context.CashVouchers.FirstOrDefaultAsync(m => m.VoucherNumber == id);
             if (cashvoucher == null)
             {
                 return NotFound();

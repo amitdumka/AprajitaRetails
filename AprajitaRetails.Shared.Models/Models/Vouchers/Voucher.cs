@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using AprajitaRetails.Shared.Models.Models.Base;
+using AprajitaRetails.Shared.Models.Models.Bases;
+using AprajitaRetails.Shared.Models.Models.Payroll;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace AprajitaRetails.Shared.Models.Models.Vouchers

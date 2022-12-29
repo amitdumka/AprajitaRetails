@@ -1,0 +1,114 @@
+@page "/vouchers/notes"
+@model Aprajita_Retails.Pages.Apps.Vouchers.Notes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].NotesType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].OnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].PartyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].WithGST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].TaxRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].Party)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].EntryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].IsReadOnly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note[0].MarkedDeleted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Note) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotesType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WithGST)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Party.PartyId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.StoreId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsReadOnly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarkedDeleted)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.NoteNumber">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.NoteNumber">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.NoteNumber">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

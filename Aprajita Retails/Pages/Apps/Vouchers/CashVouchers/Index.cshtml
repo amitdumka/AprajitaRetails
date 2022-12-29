@@ -1,4 +1,4 @@
-@page
+@page "/vouchers/cashvouchers"
 @model Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers.IndexModel
 
 @{
@@ -14,16 +14,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CashVoucher[0].CategoryId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CashVoucher[0].VoucherType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CashVoucher[0].OnDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CashVoucher[0].PaidTo)
+                @Html.DisplayNameFor(model => model.CashVoucher[0].TranscationMode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].SlipNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].PartyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].Particulars)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CashVoucher[0].Amount)
@@ -32,41 +38,84 @@
                 @Html.DisplayNameFor(model => model.CashVoucher[0].Remarks)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CashVoucher[0].IssuedBy)
+                @Html.DisplayNameFor(model => model.CashVoucher[0].Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].Partys)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].EntryStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].IsReadOnly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashVoucher[0].MarkedDeleted)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CashVoucher) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VoucherType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OnDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaidTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remarks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IssuedBy)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CashVoucherNo">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CashVoucherNo">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CashVoucherNo">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.CashVoucher)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VoucherType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TranscationMode.TranscationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SlipNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PartyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Particulars)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Partys.PartyId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadOnly)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MarkedDeleted)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.VoucherNumber">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.VoucherNumber">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.VoucherNumber">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

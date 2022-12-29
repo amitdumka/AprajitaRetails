@@ -25,7 +25,10 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers
         {
             if (_context.Vouchers != null)
             {
-                Voucher = await _context.Vouchers.ToListAsync();
+                Voucher = await _context.Vouchers
+                .Include(v => v.Employee)
+                .Include(v => v.Partys)
+                .Include(v => v.Store).ToListAsync();
             }
         }
     }

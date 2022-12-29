@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Shared.Models.Models.Vouchers;
 using Aprajita_Retails.Data;
 
-namespace Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers
+namespace Aprajita_Retails.Pages.Apps.Vouchers.Notes
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace Aprajita_Retails.Pages.Apps.Vouchers.CashVouchers
         }
 
         [BindProperty]
-      public CashVoucher CashVoucher { get; set; }
+      public Note Note { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null || _context.CashVouchers == null)
+            if (id == null || _context.Notes == null)
             {
                 return NotFound();
             }
 
-            var cashvoucher = await _context.CashVouchers.FirstOrDefaultAsync(m => m.VoucherNumber == id);
+            var note = await _context.Notes.FirstOrDefaultAsync(m => m.NoteNumber == id);
 
-            if (cashvoucher == null)
+            if (note == null)
             {
                 return NotFound();
             }
             else 
             {
-                CashVoucher = cashvoucher;
+                Note = note;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            if (id == null || _context.CashVouchers == null)
+            if (id == null || _context.Notes == null)
             {
                 return NotFound();
             }
-            var cashvoucher = await _context.CashVouchers.FindAsync(id);
+            var note = await _context.Notes.FindAsync(id);
 
-            if (cashvoucher != null)
+            if (note != null)
             {
-                CashVoucher = cashvoucher;
-                _context.CashVouchers.Remove(CashVoucher);
+                Note = note;
+                _context.Notes.Remove(Note);
                 await _context.SaveChangesAsync();
             }
 
