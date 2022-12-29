@@ -1,5 +1,6 @@
 using Aprajita_Retails.Areas.Identity;
 using Aprajita_Retails.Data;
+using Blazor.AdminLte;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -20,7 +21,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
-
+builder.Services.AddAdminLte();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
