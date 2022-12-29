@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,6 +6,8 @@ using System.Text;
 using AprajitaRetails.Shared.Models.Models.Bases;
 using AprajitaRetails.Shared.Models.Models.Payroll;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Aprajita_Retails.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Shared.Models.Models.Vouchers
 {
@@ -188,5 +190,73 @@ namespace AprajitaRetails.Shared.Models.Models.Vouchers
 
     }
 
+
+public static class VoucherEndpoints
+{
+	public static void MapVoucherEndpoints (this IEndpointRouteBuilder routes)
+    {
+        routes.MapGet("/api/Voucher", async (ApplicationDbContext db) =>
+        {
+            return await db.Vouchers.ToListAsync();
+        })
+        .WithName("GetAllVouchers")
+        .Produces<List<Voucher>>(StatusCodes.Status200OK);
+
+        routes.MapGet("/api/Voucher/{id}", async (string VoucherNumber, ApplicationDbContext db) =>
+        {
+            return await db.Vouchers.FindAsync(VoucherNumber)
+                is Voucher model
+                    ? Results.Ok(model)
+                    : Results.NotFound();
+        })
+        .WithName("GetVoucherById")
+        .Produces<Voucher>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
+
+        routes.MapPut("/api/Voucher/{id}", async (string VoucherNumber, Voucher voucher, ApplicationDbContext db) =>
+        {
+            var foundModel = await db.Vouchers.FindAsync(VoucherNumber);
+
+            if (foundModel is null)
+            {
+                return Results.NotFound();
+            }
+            
+            db.Update(voucher);
+
+            await db.SaveChangesAsync();
+
+            return Results.NoContent();
+        })   
+        .WithName("UpdateVoucher")
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status204NoContent);
+
+        routes.MapPost("/api/Voucher/", async (Voucher voucher, ApplicationDbContext db) =>
+        {
+            db.Vouchers.Add(voucher);
+            await db.SaveChangesAsync();
+            return Results.Created($"/Vouchers/{voucher.VoucherNumber}", voucher);
+        })
+        .WithName("CreateVoucher")
+        .Produces<Voucher>(StatusCodes.Status201Created);
+
+
+        routes.MapDelete("/api/Voucher/{id}", async (string VoucherNumber, ApplicationDbContext db) =>
+        {
+            if (await db.Vouchers.FindAsync(VoucherNumber) is Voucher voucher)
+            {
+                db.Vouchers.Remove(voucher);
+                await db.SaveChangesAsync();
+                return Results.Ok(voucher);
+            }
+
+            return Results.NotFound();
+        })
+        .WithName("DeleteVoucher")
+        .Produces<Voucher>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
+    }
+}
 
 }

@@ -21,6 +21,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,10 @@
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Data\Data\" />
     <None Remove="Pages\Apps\Vouchers\Notes\" />
+    <None Remove="Pages\Apps\Vouchers\VCH\" />
+    <None Remove="Controllers\" />
+    <None Remove="Controllers\Vouchers\" />
+    <None Remove="Swashbuckle.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\Apps\" />
@@ -41,6 +46,9 @@
     <Folder Include="Pages\Apps\Vouchers\CashVouchers\" />
     <Folder Include="Data\Data\" />
     <Folder Include="Pages\Apps\Vouchers\Notes\" />
+    <Folder Include="Pages\Apps\Vouchers\VCH\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Controllers\Vouchers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
