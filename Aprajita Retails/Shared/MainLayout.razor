@@ -83,36 +83,48 @@
                 Widgets
             </SideBarMenuItem>
             <SideBarTreeView Icon="fas fa-copy">
-                <Title>Layout Options</Title>
+                <Title>Vouchers</Title>
                 <Items>
                     <SideBarMenuItem Icon="far fa-circle" Link="layout/grid-system">
-                        Grid System
+                        Voucher
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="layout/grid-system">
+                        Cash Voucher
                     </SideBarMenuItem>
                 </Items>
             </SideBarTreeView>
             <SideBarTreeView Icon="fas fa-tachometer-alt">
-                <Title>Starter Pages</Title>
+                <Title>Payroll</Title>
                 <Items>
                     <SideBarMenuItem Icon="far fa-circle" Link="starter-pages/active-page">
-                        Active Page
+                        Attendance
                     </SideBarMenuItem>
                     <SideBarMenuItem Icon="far fa-circle">
-                        Inactive Page
+                        Employee
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle">
+                        Salary Payment
                     </SideBarMenuItem>
                 </Items>
             </SideBarTreeView>
             <SideBarTreeView Icon="fas fa-tachometer-alt">
-                <Title>Content Injections</Title>
+                <Title>Inventory</Title>
                 <Items>
                     <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left">
-                        NavBar Left
+                        Sale
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left">
+                        Purchase
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left">
+                        Stock
                     </SideBarMenuItem>
                     <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left-override">
-                        NavBar Left Override
+                        Products
                     </SideBarMenuItem>
                 </Items>
             </SideBarTreeView>
-            <SideBarTreeView Icon="fas fa-tree">
+            @*<SideBarTreeView Icon="fas fa-tree">
                 <Title>UI Elements</Title>
                 <Items>
                     <SideBarMenuItem Icon="far fa-circle" Link="ui/general">
@@ -147,7 +159,7 @@
                         Simple Tables
                     </SideBarMenuItem>
                 </Items>
-            </SideBarTreeView>
+            </SideBarTreeView>*@
             <SideBarTreeView Icon="far fa-user">
                 <Title>User</Title>
                 <Items>
@@ -193,8 +205,9 @@
 <MainFooter>
     <Default>
         <strong>Copyright &copy;  2022 <a href="https://adminlte.io">AKS Labs(India)</a>.</strong> All rights reserved.
-
+          @dt
     </Default>
+    
     <Right>
         Developed by Amit Kumar (AKS Labs(India))
     </Right>
