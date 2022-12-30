@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
-using Aprajita_Retails.Controllers.Vouchers;
-using AprajitaRetails.Shared.Models.Models.Vouchers;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
