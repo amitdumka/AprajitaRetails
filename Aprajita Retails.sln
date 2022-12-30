@@ -21,7 +21,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AprajitaRetails.Shared.Enum
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AprajitaRetails.Shared.Commons", "AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.shproj", "{6FC17319-BE7B-456E-B25C-DB308C4D4C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.UI", "AprajitaRetails.UI\AprajitaRetails.UI.csproj", "{95E34CAE-7FAF-4532-869F-0BF64B58EC48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.UI", "AprajitaRetails.UI\AprajitaRetails.UI.csproj", "{95E34CAE-7FAF-4532-869F-0BF64B58EC48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{FCE90B8D-CA2E-4723-B147-51A2DB26F140}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Web.Server", "AprajitaRetails.Web\Server\AprajitaRetails.Web.Server.csproj", "{CEAE16AA-9E39-427F-A604-E021F62F777D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Web.Client", "AprajitaRetails.Web\Client\AprajitaRetails.Web.Client.csproj", "{374D4A88-3ADB-4B92-BC71-FBA767C33928}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Web.Shared", "AprajitaRetails.Web\Shared\AprajitaRetails.Web.Shared.csproj", "{E263A06B-EC71-42AA-9C0F-3763DD55DD13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +57,18 @@ Global
 		{95E34CAE-7FAF-4532-869F-0BF64B58EC48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95E34CAE-7FAF-4532-869F-0BF64B58EC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95E34CAE-7FAF-4532-869F-0BF64B58EC48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEAE16AA-9E39-427F-A604-E021F62F777D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEAE16AA-9E39-427F-A604-E021F62F777D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEAE16AA-9E39-427F-A604-E021F62F777D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEAE16AA-9E39-427F-A604-E021F62F777D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{374D4A88-3ADB-4B92-BC71-FBA767C33928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374D4A88-3ADB-4B92-BC71-FBA767C33928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374D4A88-3ADB-4B92-BC71-FBA767C33928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374D4A88-3ADB-4B92-BC71-FBA767C33928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E263A06B-EC71-42AA-9C0F-3763DD55DD13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E263A06B-EC71-42AA-9C0F-3763DD55DD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E263A06B-EC71-42AA-9C0F-3763DD55DD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E263A06B-EC71-42AA-9C0F-3763DD55DD13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +79,9 @@ Global
 		{683F7EF9-C0C7-46CC-B2E8-F28A3F325ECE} = {8E805B52-86C1-4E6E-9E10-CAFD5F948537}
 		{3B09A873-A6F9-4FC7-9572-9ED3DADC5066} = {8E805B52-86C1-4E6E-9E10-CAFD5F948537}
 		{6FC17319-BE7B-456E-B25C-DB308C4D4C85} = {8E805B52-86C1-4E6E-9E10-CAFD5F948537}
+		{CEAE16AA-9E39-427F-A604-E021F62F777D} = {FCE90B8D-CA2E-4723-B147-51A2DB26F140}
+		{374D4A88-3ADB-4B92-BC71-FBA767C33928} = {FCE90B8D-CA2E-4723-B147-51A2DB26F140}
+		{E263A06B-EC71-42AA-9C0F-3763DD55DD13} = {FCE90B8D-CA2E-4723-B147-51A2DB26F140}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73206ACC-FBF4-4A0A-8D09-E91E0CA8E318}
@@ -73,6 +96,9 @@ Global
 		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{75999da2-aa15-4360-a60f-91a3d57a62be}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{75999da2-aa15-4360-a60f-91a3d57a62be}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{75999da2-aa15-4360-a60f-91a3d57a62be}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{95e34cae-7faf-4532-869f-0bf64b58ec48}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{95e34cae-7faf-4532-869f-0bf64b58ec48}*SharedItemsImports = 5
+		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{95e34cae-7faf-4532-869f-0bf64b58ec48}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
 		AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems*{cb1fbd3c-253a-4a30-be65-53eb73898db9}*SharedItemsImports = 5
