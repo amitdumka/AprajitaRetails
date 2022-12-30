@@ -1,0 +1,25 @@
+@page
+@model AprajitaRetails.UI.Pages.Apps.Accounts.TranscationsMode.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TranscationMode</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TranscationMode.TranscationName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TranscationMode.TranscationName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TranscationMode?.TranscationId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

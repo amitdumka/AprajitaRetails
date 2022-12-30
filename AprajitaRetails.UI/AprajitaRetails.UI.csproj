@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-AprajitaRetails.UI-62de0f13-db47-4e00-b5a3-a7c7522503cd</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\App\Vouchers\" />
+    <None Remove="Pages\App\Vouchers\CashVouchers\" />
+    <None Remove="Pages\App\Vouchers\Notes\" />
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Pages\Apps\Accounts\" />
+    <None Remove="Pages\Apps\Accounts\TranscationsMode\" />
+    <None Remove="Pages\Apps\Accounts\Party\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AprajitaRetails.BM\AprajitaRetails.BM.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Apps\Vouchers\" />
+    <Folder Include="Pages\Apps\Vouchers\CashVouchers\" />
+    <Folder Include="Pages\Apps\Vouchers\Notes\" />
+    <Folder Include="Pages\Apps\Accounts\" />
+    <Folder Include="Pages\Apps\Accounts\TranscationsMode\" />
+    <Folder Include="Pages\Apps\Accounts\Parties\" />
+  </ItemGroup>
+  <Import Project="..\AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems" Label="Shared" Condition="Exists('..\AprajitaRetails.Shared.Models\AprajitaRetails.Shared.Models.projitems')" />
+  <Import Project="..\AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems" Label="Shared" Condition="Exists('..\AprajitaRetails.Shared.Enums\AprajitaRetails.Shared.Enums.projitems')" />
+  <Import Project="..\AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems" Label="Shared" Condition="Exists('..\AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.projitems')" />
+</Project>

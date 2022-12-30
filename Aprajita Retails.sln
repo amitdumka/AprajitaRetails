@@ -21,6 +21,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AprajitaRetails.Shared.Enum
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AprajitaRetails.Shared.Commons", "AprajitaRetails.Shared.Commons\AprajitaRetails.Shared.Commons.shproj", "{6FC17319-BE7B-456E-B25C-DB308C4D4C85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.UI", "AprajitaRetails.UI\AprajitaRetails.UI.csproj", "{95E34CAE-7FAF-4532-869F-0BF64B58EC48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{B23C6373-744D-45B4-BF91-F73A2B450D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B23C6373-744D-45B4-BF91-F73A2B450D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B23C6373-744D-45B4-BF91-F73A2B450D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95E34CAE-7FAF-4532-869F-0BF64B58EC48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E34CAE-7FAF-4532-869F-0BF64B58EC48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E34CAE-7FAF-4532-869F-0BF64B58EC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95E34CAE-7FAF-4532-869F-0BF64B58EC48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

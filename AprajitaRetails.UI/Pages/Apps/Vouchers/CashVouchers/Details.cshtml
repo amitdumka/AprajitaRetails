@@ -1,0 +1,109 @@
+@page
+@model AprajitaRetails.UI.Pages.Apps.Vouchers.CashVouchers.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>CashVoucher</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.VoucherType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.VoucherType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.OnDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.OnDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.TranscationMode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.TranscationMode.TranscationId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.SlipNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.SlipNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.PartyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.PartyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.Particulars)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.Particulars)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.Amount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.Remarks)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.Remarks)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.Employee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.Employee.EmployeeId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.Partys)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.Partys.PartyId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.Store)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.Store.StoreId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.EntryStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.EntryStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.UserId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.UserId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.IsReadOnly)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.IsReadOnly)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CashVoucher.MarkedDeleted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CashVoucher.MarkedDeleted)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.CashVoucher?.VoucherNumber">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
