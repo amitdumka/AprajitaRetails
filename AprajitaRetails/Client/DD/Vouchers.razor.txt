@@ -1,0 +1,91 @@
+﻿@page "/vouchers"
+@inject IJSRuntime JS
+ 
+@* 
+ 
+
+ 
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Vouchers" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    
+    @if (vouchers == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card HeaderBackgroundColor="Color.Teal">
+                <Title>
+                    <CardTitle>Vouchers</CardTitle>
+                    
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <Button Type="ButtonType.Gradient" Size="ButtonSize.Small" Color="Color.Primary">Create New</Button>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <Table>
+                        <TableHead >
+                            <TableHeadCell> Voucher Type</TableHeadCell>
+                            <TableHeadCell> Date</TableHeadCell>
+                            <TableHeadCell>VoucherNo</TableHeadCell>
+                            <TableHeadCell>Party Name</TableHeadCell>
+                            <TableHeadCell>Particulars</TableHeadCell>
+                            <TableHeadCell>Amount</TableHeadCell>
+                            <TableHeadCell>PayMode</TableHeadCell>
+                            <TableHeadCell>Reamrks</TableHeadCell>
+                            <TableHeadCell>Issued By</TableHeadCell>
+                            <TableHeadCell>Slip No</TableHeadCell>
+                        </TableHead>
+                        <TableBody>
+
+                            @foreach (var vch in vouchers)
+                            {
+                                <TableRow>
+                                    <TableCell>@vch.VoucherType</TableCell>
+                                    <TableCell>@vch.OnDate.ToShortDateString()</TableCell>
+                                    <TableCell>@vch.VoucherNumber</TableCell>
+                                    <TableCell>@vch.PartyName</TableCell>
+                                    <TableCell>@vch.Particulars</TableCell>
+                                    <TableCell>@vch.Amount</TableCell>
+                                    <TableCell>@vch.PaymentMode</TableCell>
+                                    <TableCell>@vch.Remarks</TableCell>
+                                    <TableCell>@vch.EmployeeId</TableCell>
+                                    <TableCell>@vch.SlipNumber</TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </Table>
+                </Body>
+            </Card>
+        </Row>
+    }
+</ContentMain>
+@code{
+    private List<Voucher>? vouchers;
+    private bool shouldRender;
+    protected override bool ShouldRender() => shouldRender;
+    private VoucherController api;
+    protected override async Task OnInitializedAsync()
+    {
+        if (api == null)
+        {
+            api = new VoucherController(dbCtx);
+        }
+
+        var x = (await api.GetVouchers());
+        if (x.Value != null)
+        {
+            vouchers = x.Value.ToList();
+        }
+
+    }
+}*@

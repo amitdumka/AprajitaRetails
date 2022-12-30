@@ -1,0 +1,66 @@
+﻿@page "/widgets"
+
+@inject IJSRuntime JS
+@*<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Widgets" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <H5>Info Box</H5>
+    <Row>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Danger" Icon="far fa-envelope">
+                <Title>Messages</Title>
+                <Value>1410</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Success" Icon="far fa-flag">
+                <Title>Bookmarks</Title>
+                <Value>410</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Warning" Icon="far fa-copy">
+                <Title>Uploads</Title>
+                <Value>13648</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox Gradient="Gradient.Gradient" IconBackgroundColor="Color.Info" Icon="far fa-star">
+                <Value>93139</Value>
+                <Title>Likes</Title>
+            </InfoBox>
+        </Column>
+    </Row>
+    <Row>
+        <Card>
+            <Title><CardTitle>Test Table</CardTitle></Title>
+            <Body>
+                <Table>
+                    <TableHead>
+                        <TableHeadCell>SN</TableHeadCell>
+                        <TableHeadCell>ID</TableHeadCell>
+                        <TableHeadCell>Date</TableHeadCell>
+                        <TableHeadCell>Particulars</TableHeadCell>
+                        <TableHeadCell>Amount</TableHeadCell>
+                    </TableHead>
+                    <TableBody>
+
+                        <TableRow>
+                            <TableCell>SN</TableCell>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Date</TableCell>
+                            <TableCell>Particulars</TableCell>
+                            <TableCell>Amount</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+                </Body></Card>
+    </Row>
+    </ContentMain>*@
+    @code {
+
+    }
+

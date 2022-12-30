@@ -8,6 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DD\MainLayout.txt" />
+    <None Remove="DD\VoucherCreate.razor.txt" />
+    <None Remove="DD\Vouchers.razor.txt" />
+    <None Remove="DD\Widgets.razor.txt" />
+    <None Remove="DD\_Host.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="DD\MainLayout.txt" />
+    <Content Include="DD\VoucherCreate.razor.txt" />
+    <Content Include="DD\Vouchers.razor.txt" />
+    <Content Include="DD\Widgets.razor.txt" />
+    <Content Include="DD\_Host.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.1" />
