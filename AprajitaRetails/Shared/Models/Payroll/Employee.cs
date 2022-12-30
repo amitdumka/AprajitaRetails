@@ -1,12 +1,12 @@
-﻿using AprajitaRetails.Shared.Models.Models.Bases;
-using AprajitaRetails.Shared.Models.Models.Stores;
+﻿using AprajitaRetails.Shared.Models.Bases;
+using AprajitaRetails.Shared.Models.Stores;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AprajitaRetails.Shared.Models.Payroll
 {
-    
+
     public class MonthlyAttendance : BaseST
     {
         [Key]

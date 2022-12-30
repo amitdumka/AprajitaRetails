@@ -106,7 +106,7 @@ namespace AprajitaRetails.Shared. Models.Stores
         public bool MarkedDeleted { get; set; }
     }
 
-    [Table("V1_Salesmen")]
+  
     public class Salesman : BaseST
     {
         [Key]
@@ -118,7 +118,7 @@ namespace AprajitaRetails.Shared. Models.Stores
         public bool IsActive { get; set; }
     }
 
-    [Table("V1_Customers")]
+     
     public class Customer
     {
         [Key]
@@ -134,7 +134,7 @@ namespace AprajitaRetails.Shared. Models.Stores
         public decimal TotalAmount { get; set; }
         public DateTime OnDate { get; set; }
     }
-    [Table("V1_CashDetails")]
+     
     public class CashDetail : BaseST
     {
         [Key]

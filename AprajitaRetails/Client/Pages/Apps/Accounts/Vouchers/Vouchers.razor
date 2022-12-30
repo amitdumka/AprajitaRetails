@@ -1,0 +1,53 @@
+﻿@page "/vouchers"
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@attribute [Authorize]
+@inject HttpClient Http
+
+<PageTitle>Vouchers</PageTitle>
+<h3>Vouchers</h3>
+@if (vchlist == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>VCHNo</th>
+                <th>Date</th>
+                <th>Party</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in vchlist)
+            {
+                <tr>
+                    <td>@v.VoucherNumber</td>
+                    <td>@v.OnDate.ToShortDateString()</td>
+                    <td>@v.PartyName</td>
+                    <td>@v.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private Voucher[]? vchlist;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            vchlist = await Http.GetFromJsonAsync<Voucher[]>("Vouchers");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}
