@@ -19,7 +19,7 @@
     else
     {
         <Row>
-            <Card HeaderBackgroundColor="Color.Teal">
+            <Card HeaderBackgroundColor="Color.Teal" ToolOptions="new CardToolOptions { Expandable = true, Collapsable = true }>
                 <Title>
                     <CardTitle>Vouchers</CardTitle>
                     

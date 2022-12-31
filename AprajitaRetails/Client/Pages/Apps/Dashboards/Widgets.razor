@@ -1,0 +1,88 @@
+﻿@page "/widgets"
+
+@inject IJSRuntime JS
+ <ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Widgets" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <H5>Info Box</H5>
+    <Row>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Danger" Icon="far fa-envelope">
+                <Title>Sale</Title>
+                <Value>1410</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Success" Icon="far fa-flag">
+                <Title>Purchase</Title>
+                <Value>410</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Warning" Icon="far fa-copy">
+                <Title>Tailoring</Title>
+                <Value>13648</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox Gradient="Gradient.Gradient" IconBackgroundColor="Color.Info" Icon="far fa-star">
+                <Value>93139</Value>
+                <Title>Expenses</Title>
+            </InfoBox>
+        </Column>
+    </Row>
+    <Row>
+        <Card ToolOptions="new CardToolOptions { Maximizable=true, Collapsable = true, Removable=true }">
+            <Title><CardTitle>Test Table</CardTitle></Title>
+            <Header><CardTools /></Header>
+            <Body>
+                <AprajitaRetails.AdminLte.Table.ATable Bordered=true Striped=true Hover=true>
+                    <TableHead>
+                        <TableHeadCell>SN</TableHeadCell>
+                        <TableHeadCell>ID</TableHeadCell>
+                        <TableHeadCell>Date</TableHeadCell>
+                        <TableHeadCell>Particulars</TableHeadCell>
+                        <TableHeadCell>Amount</TableHeadCell>
+                    </TableHead>
+                    <TableBody>
+
+                        <TableRow>
+                            <TableCell>1</TableCell>
+                            <TableCell>123123</TableCell>
+                            <TableCell>@DateTime.Now</TableCell>
+                            <TableCell>Testing</TableCell>
+                            <TableCell>1001</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>15</TableCell>
+                            <TableCell>432</TableCell>
+                            <TableCell>@DateTime.Now</TableCell>
+                            <TableCell>Testing</TableCell>
+                            <TableCell>123</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>13</TableCell>
+                            <TableCell>123123</TableCell>
+                            <TableCell>@DateTime.Now</TableCell>
+                            <TableCell>Testing</TableCell>
+                            <TableCell>1002351</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>13</TableCell>
+                            <TableCell>46565</TableCell>
+                            <TableCell>@DateTime.Now</TableCell>
+                            <TableCell>Testing</TableCell>
+                            <TableCell>135</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </AprajitaRetails.AdminLte.Table.ATable>
+                </Body></Card>
+    </Row>
+    </ContentMain>
+@code {
+
+    }
+
