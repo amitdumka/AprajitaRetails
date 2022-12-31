@@ -15,8 +15,8 @@
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
     <!--<link rel="stylesheet" href="_content/Syncfusion.Blazor.Themes/fluent.css" />
     <script src="_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js" type="text/javascript"></script>-->
-    <!--<link rel="stylesheet" href="_content/Radzen.Blazor/css/material-base.css">
-    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">-->
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/material-base.css">
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
@@ -33,7 +33,7 @@
     <link type="text/css" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" rel="stylesheet" />
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse">
+<body class="hold-transition sidebar-mini sidebar-collapse dark-mode ">
     <div class="wapper">
         <div id="app">
             <div class="app-load">
@@ -75,6 +75,54 @@
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     <!--overlay scrollbars-->
     <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!--<script>
+      
+        var toggleSwitch = document.querySelector('.rz-switch input[type="checkbox"]');
+        var currentTheme = localStorage.getItem('theme');
+        var mainHeader = document.querySelector('.main-header');
+       
+        if (currentTheme) {
+            if (currentTheme === 'dark') {
+                if (!document.body.classList.contains('dark-mode')) {
+                    document.body.classList.add("dark-mode");
+                }
+                if (mainHeader.classList.contains('navbar-light')) {
+                    mainHeader.classList.add('navbar-dark');
+                    mainHeader.classList.remove('navbar-light');
+                }
+                toggleSwitch.checked = true;
+            } else {
+                toggleSwitch.checked = false;
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function switchTheme(e) {
+
+           
+            if (e.target.checked) {
+                if (!document.body.classList.contains('dark-mode')) {
+                    document.body.classList.add("dark-mode");
+                }
+                if (mainHeader.classList.contains('navbar-light')) {
+                    mainHeader.classList.add('navbar-dark');
+                    mainHeader.classList.remove('navbar-light');
+                }
+                localStorage.setItem('theme', 'dark');
+            } else {
+                if (document.body.classList.contains('dark-mode')) {
+                    document.body.classList.remove("dark-mode");
+                }
+                if (mainHeader.classList.contains('navbar-dark')) {
+                    mainHeader.classList.add('navbar-light');
+                    mainHeader.classList.remove('navbar-dark');
+                }
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+    </script>-->
 </body>
 
 </html>

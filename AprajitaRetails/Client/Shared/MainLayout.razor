@@ -3,6 +3,7 @@
 @inject IJSRuntime JS
 @inject ILayoutManager layoutManager
 @inject NavBarLeftInjectableMenu navBarLeftInjectableMenu
+@using AprajitaRetails.AdminLte
 @*<RadzenDialog />*@
 @*<RadzenNotification />
 <RadzenContextMenu />
@@ -23,19 +24,19 @@
         </article>
     </main>
 </div>*@
-<NavBar>
+<ANavBar DarkMode=true>
     <NavBarLeft>
         @if (!navBarLeftInjectableMenu.OverrideParentContent)
         {
             <NavBarMenuItem Link="/">Home</NavBarMenuItem>
-            <NavBarMenuItem OnClick="HandleContent">Content</NavBarMenuItem><!-- defaults to # -->
+            <NavBarMenuItem OnClick="HandleContent">Content</NavBarMenuItem>
+            <!-- defaults to # -->
         }
         @navBarLeftInjectableMenu.content <!-- Injectable for custom menu content per page -->
     </NavBarLeft>
     <NavBarSearch></NavBarSearch>
     @* <Player></Player>*@
-    
-        <CusotmLogon />
+    <CusotmLogon />
     
     <NavBarRight>
         <NavBarDropDown>
@@ -93,84 +94,85 @@
             </NavBarDropDownMenu>
         </NavBarDropDown>
         <NavBarSideBarControl></NavBarSideBarControl>
+       @* <RadzenSwitch Name="checkbox" id="checkbox" class="theme-switch" />*@
     </NavBarRight>
-</NavBar>
+</ANavBar>
 <SideBarContainer>
     <BrandLogo Link="https://adminlte.io/" Logo="../dist/img/AdminLTELogo.png">Aprajita Retails</BrandLogo>
     <SideBar>
         <!-- Sidebar user panel (optional) -->
         <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="starter-pages/user-page" Elevation="Elevation.Three" UserImage="../dist/img/user2-160x160.jpg">Amit Kumar</SideBarUserPanel>
         @*<SideBarSearch></SideBarSearch>*@
-    <SideBarMenu>
-        <SideBarMenuItem Link="widgets" Icon="fas fa-th">
-            Widgets
-        </SideBarMenuItem>
-        <SideBarTreeView Icon="fas fa-copy">
-            <Title>Layout Options</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="layout/grid-system">
-                    Grid System
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView Icon="fas fa-tachometer-alt">
-            <Title>Starter Pages</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="starter-pages/active-page">
-                    Active Page
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle">
-                    Inactive Page
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView  Icon="fas fa-tachometer-alt">
-            <Title>Content Injections</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left">
-                    NavBar Left
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left-override">
-                    NavBar Left Override
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView Icon="fas fa-tree">
-            <Title>UI Elements</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="ui/general">
-                    General
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="ui/buttons">
-                    Buttons
-                </SideBarMenuItem>
-                <SideBarMenuItem Link="ui/navbar" Icon="far fa-circle">
-                    Navbar & Tabs
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView Icon="fas fa-edit">
-            <Title>Forms</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="forms/general">
-                    General Elements
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="forms/advanced">
-                    Advanced Elements
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="forms/file-management">
+        <SideBarMenu>
+            <SideBarMenuItem Link="widgets" Icon="fas fa-th">
+                Widgets
+            </SideBarMenuItem>
+            <SideBarTreeView Icon="fas fa-copy">
+                <Title>Layout Options</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="layout/grid-system">
+                        Grid System
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>
+            <SideBarTreeView Icon="fas fa-tachometer-alt">
+                <Title>Starter Pages</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="starter-pages/active-page">
+                        Active Page
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle">
+                        Inactive Page
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>
+            <SideBarTreeView Icon="fas fa-tachometer-alt">
+                <Title>Content Injections</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left">
+                        NavBar Left
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left-override">
+                        NavBar Left Override
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>
+            <SideBarTreeView Icon="fas fa-tree">
+                <Title>UI Elements</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="ui/general">
+                        General
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="ui/buttons">
+                        Buttons
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Link="ui/navbar" Icon="far fa-circle">
+                        Navbar & Tabs
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>
+            <SideBarTreeView Icon="fas fa-edit">
+                <Title>Forms</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="forms/general">
+                        General Elements
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="forms/advanced">
+                        Advanced Elements
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="forms/file-management">
                         File Management
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView  Icon="fas fa-table">
-            <Title>Tables</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="simple-tables">
-                    Simple Tables
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>
+            <SideBarTreeView Icon="fas fa-table">
+                <Title>Tables</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="simple-tables">
+                        Simple Tables
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>
             <SideBarTreeView Icon="far fa-user">
                 <Title>User</Title>
                 <Items>
@@ -185,25 +187,25 @@
                     </SideBarMenuItem>
                 </Items>
             </SideBarTreeView>
-        <SideBarTreeView Icon="far fa-plus-square">
-            <Title>Extras</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
-                    Lockscreen
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="404">
-                    Error 404
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="500">
-                    Error 500
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarMenuItem Link="simple-link" Icon="fas fa-th">
-            Simple Link
-            <span class="right badge badge-danger">New</span>
-        </SideBarMenuItem>
-    </SideBarMenu>
+            <SideBarTreeView Icon="far fa-plus-square">
+                <Title>Extras</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
+                        Lockscreen
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="404">
+                        Error 404
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="500">
+                        Error 500
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>
+            <SideBarMenuItem Link="simple-link" Icon="fas fa-th">
+                Simple Link
+                <span class="right badge badge-danger">New</span>
+            </SideBarMenuItem>
+        </SideBarMenu>
     </SideBar>
 </SideBarContainer>
 <ContentWrapper>
@@ -220,7 +222,7 @@
         Developed By Amit Kumar
     </Right>
 </MainFooter>
-                   
+
 @code {
     protected override void OnParametersSet()
     {
