@@ -4,21 +4,61 @@ using AprajitaRetails.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
-options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//Detemining which os
+//bool isWindows = System.Runtime.InteropServices.RuntimeInformation
+//                                              .IsOSPlatform(OSPlatform.Windows);
+//bool isMac = System.Runtime.InteropServices.RuntimeInformation
+//                                               .IsOSPlatform(OSPlatform.OSX);
+//bool isLinux = System.Runtime.InteropServices.RuntimeInformation
+//                                              .IsOSPlatform(OSPlatform.Linux);
+//string connectionString = "";
 
+//if (isWindows)
+//{
+//    // Add services to the container.
+//    connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+
+//    builder.Services.AddDbContext<ARDBContext>(options =>
+//        options.UseSqlServer(connectionString));
+//}
+//else if (isMac) {
+
+//    connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
+//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlite(connectionString));
+
+//    //builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    //options.UseSqlite(connectionString));
+
+//    builder.Services.AddDbContext<ARDBContext>(options =>
+//        options.UseSqlite(connectionString));
+//}
+//else if (isLinux) { }
+//else
+//{
+var connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+options.UseSqlite(connectionString));
+
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//options.UseSqlite(connectionString));
 
 builder.Services.AddDbContext<ARDBContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlite(connectionString));
+//}
+
+
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
