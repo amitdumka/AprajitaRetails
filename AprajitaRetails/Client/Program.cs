@@ -1,4 +1,5 @@
 using AprajitaRetails.Client;
+using Blazor.AdminLte;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -14,6 +15,9 @@ builder.Services.AddHttpClient("AprajitaRetails.ServerAPI", client => client.Bas
 
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AprajitaRetails.ServerAPI"));
+builder.Services.AddAdminLte();
+builder.Services.AddScoped<IFilesManager, WasmFilesManager>();
+
 
 builder.Services.AddApiAuthorization();
 

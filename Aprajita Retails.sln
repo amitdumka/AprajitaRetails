@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Server", "AprajitaRetails\Server\AprajitaRetails.Server.csproj", "{326E1071-1773-41B2-BA31-724A001D0D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.Server", "AprajitaRetails\Server\AprajitaRetails.Server.csproj", "{326E1071-1773-41B2-BA31-724A001D0D01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Client", "AprajitaRetails\Client\AprajitaRetails.Client.csproj", "{06D85981-0EBE-4BDF-A8EF-3733ACAFF0E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.Client", "AprajitaRetails\Client\AprajitaRetails.Client.csproj", "{06D85981-0EBE-4BDF-A8EF-3733ACAFF0E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Shared", "AprajitaRetails\Shared\AprajitaRetails.Shared.csproj", "{5C96516D-2E92-4AF8-8923-146112FD38E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.Shared", "AprajitaRetails\Shared\AprajitaRetails.Shared.csproj", "{5C96516D-2E92-4AF8-8923-146112FD38E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7299D3B0-5627-4FB2-87F0-4A9EEF21EB53}"
 EndProject

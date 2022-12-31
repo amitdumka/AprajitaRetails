@@ -1,14 +1,22 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
 
-<PageTitle>Aprajita Retails Next Gen</PageTitle>
 
-<h2>Aprajita Retails </h2>
 
-<p class="h3">Welcome to our new SRP app.</p>
+<AuthorizeView>
+    <Authorized>
+        <h2>Aprajita Retails </h2>
+        <p class="h3">Welcome to our new SRP app.</p>
+        <p class="h4">Current UserName: @context.User.Identity?.Name</p>
 
-<RadzenButton Text="@text"></RadzenButton>
+    </Authorized>
+    <NotAuthorized>
+        <h2>Aprajita Retails </h2>
 
-<h4> To Be Added</h4>
-@code {
-    string text = "Hi";
-}
+        <p class="h3">Welcome to our new SRP app.</p>
+
+
+    </NotAuthorized>
+</AuthorizeView>
