@@ -2,6 +2,7 @@ using AprajitaRetails.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Radzen;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -15,5 +16,16 @@ builder.Services.AddHttpClient("AprajitaRetails.ServerAPI", client => client.Bas
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AprajitaRetails.ServerAPI"));
 
 builder.Services.AddApiAuthorization();
+
+// Radzen Addition
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<ContextMenuService>();
+
+
+
+
+
 
 await builder.Build().RunAsync();

@@ -7,7 +7,9 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
+    <ExternalConsole>true</ExternalConsole>
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="DD\MainLayout.txt" />
     <None Remove="DD\VoucherCreate.razor.txt" />
@@ -25,9 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
+    <PackageReference Include="Blazorized.AdminLte.Content" Version="3.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.1" />
+    <PackageReference Include="Radzen.Blazor" Version="4.4.7" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.41" />
 <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.41" />
 <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
