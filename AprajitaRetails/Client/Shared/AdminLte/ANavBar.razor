@@ -23,7 +23,7 @@
 	protected override void OnInitialized()
 	{
 		navbarluminosity = DarkMode ? "navbar-dark" : "navbar-light";
-		if (DarkMode) NavColor = NavBarColor.GrayDark;
+
 
 		navbarclass = NavColor switch
 		{
@@ -45,8 +45,10 @@
 			NavBarColor.Orange => "navbar-orange",
 			_ => "navbar-white"
 		};
+		if (DarkMode) { NavColor = NavBarColor.GrayDark;
+			navbarclass = "";
+		}
 
-		
 	}
 
 	private void Update()
