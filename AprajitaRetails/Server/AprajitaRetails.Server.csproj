@@ -32,4 +32,16 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Controllers\Payroll\" />
+    <None Remove="Controllers\Stores\" />
+    <None Remove="Controllers\Banking\" />
+    <None Remove="Controllers\Accounts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\Payroll\" />
+    <Folder Include="Controllers\Stores\" />
+    <Folder Include="Controllers\Banking\" />
+    <Folder Include="Controllers\Accounts\" />
+  </ItemGroup>
 </Project>
