@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Salesman>>> GetSalesman()
         {
-          if (_context.Salesman == null)
+          if (_context.Salesmen == null)
           {
               return NotFound();
           }
-            return await _context.Salesman.ToListAsync();
+            return await _context.Salesmen.ToListAsync();
         }
 
         // GET: api/Salesmen/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Salesman>> GetSalesman(string id)
         {
-          if (_context.Salesman == null)
+          if (_context.Salesmen == null)
           {
               return NotFound();
           }
-            var salesman = await _context.Salesman.FindAsync(id);
+            var salesman = await _context.Salesmen.FindAsync(id);
 
             if (salesman == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<Salesman>> PostSalesman(Salesman salesman)
         {
-          if (_context.Salesman == null)
+          if (_context.Salesmen == null)
           {
               return Problem("Entity set 'ARDBContext.Salesman'  is null.");
           }
-            _context.Salesman.Add(salesman);
+            _context.Salesmen.Add(salesman);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSalesman(string id)
         {
-            if (_context.Salesman == null)
+            if (_context.Salesmen == null)
             {
                 return NotFound();
             }
-            var salesman = await _context.Salesman.FindAsync(id);
+            var salesman = await _context.Salesmen.FindAsync(id);
             if (salesman == null)
             {
                 return NotFound();
             }
 
-            _context.Salesman.Remove(salesman);
+            _context.Salesmen.Remove(salesman);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Stores
 
         private bool SalesmanExists(string id)
         {
-            return (_context.Salesman?.Any(e => e.SalesmanId == id)).GetValueOrDefault();
+            return (_context.Salesmen?.Any(e => e.SalesmanId == id)).GetValueOrDefault();
         }
     }
 }

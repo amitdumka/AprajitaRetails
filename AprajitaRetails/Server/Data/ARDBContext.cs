@@ -25,18 +25,18 @@ namespace AprajitaRetails.Server.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Store> Stores { get; set; }
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.Attendance> Attendances { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.SalaryPayment> SalaryPayments { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Stores.Salesman> Salesmen { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.MonthlyAttendance> MonthlyAttendances { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Bases.Contact> Contacts { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Stores.Customer> Customers{ get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Stores.CashDetail> CashDetails { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.EmployeeDetails> EmployeeDetails { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.Salary> Salaries { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.PaySlip> PaySlips { get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.TimeSheet> TimeSheets{ get; set; } 
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.SalaryLedger> SalaryLedgers { get; set; } 
+        public DbSet< Attendance> Attendances { get; set; } 
+        public DbSet<SalaryPayment> SalaryPayments { get; set; } 
+        public DbSet<Salesman> Salesmen { get; set; } 
+        public DbSet<MonthlyAttendance> MonthlyAttendances { get; set; } 
+        public DbSet<Contact> Contacts { get; set; } 
+        public DbSet<Customer> Customers{ get; set; } 
+        public DbSet<CashDetail> CashDetails { get; set; } 
+        public DbSet<EmployeeDetails> EmployeeDetails { get; set; } 
+        public DbSet<Salary> Salaries { get; set; } 
+        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; } 
+        public DbSet<PaySlip> PaySlips { get; set; } 
+        public DbSet<TimeSheet> TimeSheets{ get; set; } 
+        public DbSet<SalaryLedger> SalaryLedgers { get; set; } 
     }
 }

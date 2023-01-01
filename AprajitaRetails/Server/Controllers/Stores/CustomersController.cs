@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
         {
-          if (_context.Customer == null)
+          if (_context.Customers == null)
           {
               return NotFound();
           }
-            return await _context.Customer.ToListAsync();
+            return await _context.Customers.ToListAsync();
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(string id)
         {
-          if (_context.Customer == null)
+          if (_context.Customers == null)
           {
               return NotFound();
           }
-            var customer = await _context.Customer.FindAsync(id);
+            var customer = await _context.Customers.FindAsync(id);
 
             if (customer == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
-          if (_context.Customer == null)
+          if (_context.Customers == null)
           {
               return Problem("Entity set 'ARDBContext.Customer'  is null.");
           }
-            _context.Customer.Add(customer);
+            _context.Customers.Add(customer);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(string id)
         {
-            if (_context.Customer == null)
+            if (_context.Customers == null)
             {
                 return NotFound();
             }
-            var customer = await _context.Customer.FindAsync(id);
+            var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
             {
                 return NotFound();
             }
 
-            _context.Customer.Remove(customer);
+            _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Stores
 
         private bool CustomerExists(string id)
         {
-            return (_context.Customer?.Any(e => e.MobileNo == id)).GetValueOrDefault();
+            return (_context.Customers?.Any(e => e.MobileNo == id)).GetValueOrDefault();
         }
     }
 }

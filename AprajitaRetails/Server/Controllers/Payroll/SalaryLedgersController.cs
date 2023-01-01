@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SalaryLedger>>> GetSalaryLedger()
         {
-          if (_context.SalaryLedger == null)
+          if (_context.SalaryLedgers == null)
           {
               return NotFound();
           }
-            return await _context.SalaryLedger.ToListAsync();
+            return await _context.SalaryLedgers.ToListAsync();
         }
 
         // GET: api/SalaryLedgers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SalaryLedger>> GetSalaryLedger(int id)
         {
-          if (_context.SalaryLedger == null)
+          if (_context.SalaryLedgers == null)
           {
               return NotFound();
           }
-            var salaryLedger = await _context.SalaryLedger.FindAsync(id);
+            var salaryLedger = await _context.SalaryLedgers.FindAsync(id);
 
             if (salaryLedger == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<SalaryLedger>> PostSalaryLedger(SalaryLedger salaryLedger)
         {
-          if (_context.SalaryLedger == null)
+          if (_context.SalaryLedgers == null)
           {
               return Problem("Entity set 'ARDBContext.SalaryLedger'  is null.");
           }
-            _context.SalaryLedger.Add(salaryLedger);
+            _context.SalaryLedgers.Add(salaryLedger);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSalaryLedger", new { id = salaryLedger.Id }, salaryLedger);
@@ -100,17 +100,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSalaryLedger(int id)
         {
-            if (_context.SalaryLedger == null)
+            if (_context.SalaryLedgers == null)
             {
                 return NotFound();
             }
-            var salaryLedger = await _context.SalaryLedger.FindAsync(id);
+            var salaryLedger = await _context.SalaryLedgers.FindAsync(id);
             if (salaryLedger == null)
             {
                 return NotFound();
             }
 
-            _context.SalaryLedger.Remove(salaryLedger);
+            _context.SalaryLedgers.Remove(salaryLedger);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -118,7 +118,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool SalaryLedgerExists(int id)
         {
-            return (_context.SalaryLedger?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.SalaryLedgers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

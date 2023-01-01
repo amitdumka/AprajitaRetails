@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Contact>>> GetContact()
         {
-          if (_context.Contact == null)
+          if (_context.Contacts == null)
           {
               return NotFound();
           }
-            return await _context.Contact.ToListAsync();
+            return await _context.Contacts.ToListAsync();
         }
 
         // GET: api/Contacts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(int id)
         {
-          if (_context.Contact == null)
+          if (_context.Contacts == null)
           {
               return NotFound();
           }
-            var contact = await _context.Contact.FindAsync(id);
+            var contact = await _context.Contacts.FindAsync(id);
 
             if (contact == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<Contact>> PostContact(Contact contact)
         {
-          if (_context.Contact == null)
+          if (_context.Contacts == null)
           {
               return Problem("Entity set 'ARDBContext.Contact'  is null.");
           }
-            _context.Contact.Add(contact);
+            _context.Contacts.Add(contact);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetContact", new { id = contact.ContactId }, contact);
@@ -100,17 +100,17 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteContact(int id)
         {
-            if (_context.Contact == null)
+            if (_context.Contacts == null)
             {
                 return NotFound();
             }
-            var contact = await _context.Contact.FindAsync(id);
+            var contact = await _context.Contacts.FindAsync(id);
             if (contact == null)
             {
                 return NotFound();
             }
 
-            _context.Contact.Remove(contact);
+            _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -118,7 +118,7 @@ namespace AprajitaRetails.Server.Controllers.Stores
 
         private bool ContactExists(int id)
         {
-            return (_context.Contact?.Any(e => e.ContactId == id)).GetValueOrDefault();
+            return (_context.Contacts?.Any(e => e.ContactId == id)).GetValueOrDefault();
         }
     }
 }

@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TimeSheet>>> GetTimeSheet()
         {
-          if (_context.TimeSheet == null)
+          if (_context.TimeSheets == null)
           {
               return NotFound();
           }
-            return await _context.TimeSheet.ToListAsync();
+            return await _context.TimeSheets.ToListAsync();
         }
 
         // GET: api/TimeSheets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TimeSheet>> GetTimeSheet(string id)
         {
-          if (_context.TimeSheet == null)
+          if (_context.TimeSheets == null)
           {
               return NotFound();
           }
-            var timeSheet = await _context.TimeSheet.FindAsync(id);
+            var timeSheet = await _context.TimeSheets.FindAsync(id);
 
             if (timeSheet == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<TimeSheet>> PostTimeSheet(TimeSheet timeSheet)
         {
-          if (_context.TimeSheet == null)
+          if (_context.TimeSheets == null)
           {
               return Problem("Entity set 'ARDBContext.TimeSheet'  is null.");
           }
-            _context.TimeSheet.Add(timeSheet);
+            _context.TimeSheets.Add(timeSheet);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTimeSheet(string id)
         {
-            if (_context.TimeSheet == null)
+            if (_context.TimeSheets == null)
             {
                 return NotFound();
             }
-            var timeSheet = await _context.TimeSheet.FindAsync(id);
+            var timeSheet = await _context.TimeSheets.FindAsync(id);
             if (timeSheet == null)
             {
                 return NotFound();
             }
 
-            _context.TimeSheet.Remove(timeSheet);
+            _context.TimeSheets.Remove(timeSheet);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool TimeSheetExists(string id)
         {
-            return (_context.TimeSheet?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.TimeSheets?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

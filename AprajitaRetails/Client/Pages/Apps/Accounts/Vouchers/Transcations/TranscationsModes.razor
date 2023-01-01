@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
+@inject IJSRuntime JS
 @attribute [Authorize]
 @inject HttpClient Http
 
@@ -38,7 +39,9 @@
                         <TableHead>
                             <TableHeadCell>ID</TableHeadCell>
                             <TableHeadCell>Name</TableHeadCell>
-                            <TableCell><Button>#</Button><Button>*</Button><Button>$</Button></TableCell>
+                            <TableCell>
+                               <AprajitaRetails.Client.Shared.AdminLte.ActionMenu />
+                            </TableCell>
                         </TableHead>
                         <TableBody>
 
@@ -47,7 +50,9 @@
                                 <TableRow>
                                     <TableCell>@vch.TransactionId</TableCell>
                                     <TableCell>@vch.TransactionName</TableCell>
-                                    <TableCell><Button>#</Button><Button>*</Button><Button>$</Button></TableCell>
+                                    <TableCell>
+                                        <AprajitaRetails.Client.Shared.AdminLte.ActionMenu />
+                                    </TableCell>
 
                                 </TableRow>
                             }

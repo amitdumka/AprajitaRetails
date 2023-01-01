@@ -60,5 +60,6 @@
     <Folder Include="Pages\Apps\Accounts\Vouchers\Notes\" />
     <Folder Include="Pages\Apps\Accounts\Vouchers\Transcations\" />
     <Folder Include="Pages\Apps\Payroll\" />
+    <Folder Include="wwwroot\js\bootstrap\" />
   </ItemGroup>
 </Project>

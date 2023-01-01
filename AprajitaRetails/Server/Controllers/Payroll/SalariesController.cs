@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Salary>>> GetSalary()
         {
-          if (_context.Salary == null)
+          if (_context.Salaries == null)
           {
               return NotFound();
           }
-            return await _context.Salary.ToListAsync();
+            return await _context.Salaries.ToListAsync();
         }
 
         // GET: api/Salaries/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Salary>> GetSalary(string id)
         {
-          if (_context.Salary == null)
+          if (_context.Salaries == null)
           {
               return NotFound();
           }
-            var salary = await _context.Salary.FindAsync(id);
+            var salary = await _context.Salaries.FindAsync(id);
 
             if (salary == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<Salary>> PostSalary(Salary salary)
         {
-          if (_context.Salary == null)
+          if (_context.Salaries == null)
           {
               return Problem("Entity set 'ARDBContext.Salary'  is null.");
           }
-            _context.Salary.Add(salary);
+            _context.Salaries.Add(salary);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSalary(string id)
         {
-            if (_context.Salary == null)
+            if (_context.Salaries == null)
             {
                 return NotFound();
             }
-            var salary = await _context.Salary.FindAsync(id);
+            var salary = await _context.Salaries.FindAsync(id);
             if (salary == null)
             {
                 return NotFound();
             }
 
-            _context.Salary.Remove(salary);
+            _context.Salaries.Remove(salary);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool SalaryExists(string id)
         {
-            return (_context.Salary?.Any(e => e.SalaryId == id)).GetValueOrDefault();
+            return (_context.Salaries?.Any(e => e.SalaryId == id)).GetValueOrDefault();
         }
     }
 }

@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StaffAdvanceReceipt>>> GetStaffAdvanceReceipt()
         {
-          if (_context.StaffAdvanceReceipt == null)
+          if (_context.StaffAdvanceReceipts == null)
           {
               return NotFound();
           }
-            return await _context.StaffAdvanceReceipt.ToListAsync();
+            return await _context.StaffAdvanceReceipts.ToListAsync();
         }
 
         // GET: api/StaffAdvanceReceipts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StaffAdvanceReceipt>> GetStaffAdvanceReceipt(string id)
         {
-          if (_context.StaffAdvanceReceipt == null)
+          if (_context.StaffAdvanceReceipts == null)
           {
               return NotFound();
           }
-            var staffAdvanceReceipt = await _context.StaffAdvanceReceipt.FindAsync(id);
+            var staffAdvanceReceipt = await _context.StaffAdvanceReceipts.FindAsync(id);
 
             if (staffAdvanceReceipt == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<StaffAdvanceReceipt>> PostStaffAdvanceReceipt(StaffAdvanceReceipt staffAdvanceReceipt)
         {
-          if (_context.StaffAdvanceReceipt == null)
+          if (_context.StaffAdvanceReceipts == null)
           {
               return Problem("Entity set 'ARDBContext.StaffAdvanceReceipt'  is null.");
           }
-            _context.StaffAdvanceReceipt.Add(staffAdvanceReceipt);
+            _context.StaffAdvanceReceipts.Add(staffAdvanceReceipt);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaffAdvanceReceipt(string id)
         {
-            if (_context.StaffAdvanceReceipt == null)
+            if (_context.StaffAdvanceReceipts == null)
             {
                 return NotFound();
             }
-            var staffAdvanceReceipt = await _context.StaffAdvanceReceipt.FindAsync(id);
+            var staffAdvanceReceipt = await _context.StaffAdvanceReceipts.FindAsync(id);
             if (staffAdvanceReceipt == null)
             {
                 return NotFound();
             }
 
-            _context.StaffAdvanceReceipt.Remove(staffAdvanceReceipt);
+            _context.StaffAdvanceReceipts.Remove(staffAdvanceReceipt);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool StaffAdvanceReceiptExists(string id)
         {
-            return (_context.StaffAdvanceReceipt?.Any(e => e.StaffAdvanceReceiptId == id)).GetValueOrDefault();
+            return (_context.StaffAdvanceReceipts?.Any(e => e.StaffAdvanceReceiptId == id)).GetValueOrDefault();
         }
     }
 }

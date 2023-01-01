@@ -60,12 +60,18 @@
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
 
 
-    <!--<script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>-->
+
     <script src="/plugins/jquery/jquery.min.js"></script>
+    <!--Popper-->
+    <!--<script src="/plugins/popper/popper.min.js"></script>-->
     <!--Bootstrap 4-->
-    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!--<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>-->
+    <!--Bootstrap 5 latest-->
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+
     <!--AdminLTE App-->
     <script src="/dist/js/adminlte.min.js"></script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
     <script src="/js/interop.js"></script>
     <script src="js/audio/wavesurfer.js"></script>
     <script src="/js/Player.js"></script>
@@ -76,11 +82,11 @@
     <!--overlay scrollbars-->
     <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!--<script>
-      
+
         var toggleSwitch = document.querySelector('.rz-switch input[type="checkbox"]');
         var currentTheme = localStorage.getItem('theme');
         var mainHeader = document.querySelector('.main-header');
-       
+
         if (currentTheme) {
             if (currentTheme === 'dark') {
                 if (!document.body.classList.contains('dark-mode')) {
@@ -99,7 +105,7 @@
 
         function switchTheme(e) {
 
-           
+
             if (e.target.checked) {
                 if (!document.body.classList.contains('dark-mode')) {
                     document.body.classList.add("dark-mode");

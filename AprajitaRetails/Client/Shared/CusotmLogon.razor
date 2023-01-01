@@ -5,7 +5,7 @@
 <AuthorizeView>
     <Authorized>
         <NavBarMenuItem Link="authentication/profile">@context.User.Identity?.Name</NavBarMenuItem>
-        <NavBarMenuItem OnClick="BeginLogOut">Logoff</NavBarMenuItem>
+        <NavBarMenuItem OnClick="BeginLogOut">Logout</NavBarMenuItem>
     </Authorized>
     <NotAuthorized>
                 <NavBarMenuItem Link="authentication/register">Register</NavBarMenuItem>

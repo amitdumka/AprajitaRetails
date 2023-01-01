@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SalaryPayment>>> GetSalaryPayment()
         {
-          if (_context.SalaryPayment == null)
+          if (_context.SalaryPayments == null)
           {
               return NotFound();
           }
-            return await _context.SalaryPayment.ToListAsync();
+            return await _context.SalaryPayments.ToListAsync();
         }
 
         // GET: api/SalaryPayments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SalaryPayment>> GetSalaryPayment(string id)
         {
-          if (_context.SalaryPayment == null)
+          if (_context.SalaryPayments == null)
           {
               return NotFound();
           }
-            var salaryPayment = await _context.SalaryPayment.FindAsync(id);
+            var salaryPayment = await _context.SalaryPayments.FindAsync(id);
 
             if (salaryPayment == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<SalaryPayment>> PostSalaryPayment(SalaryPayment salaryPayment)
         {
-          if (_context.SalaryPayment == null)
+          if (_context.SalaryPayments == null)
           {
               return Problem("Entity set 'ARDBContext.SalaryPayment'  is null.");
           }
-            _context.SalaryPayment.Add(salaryPayment);
+            _context.SalaryPayments.Add(salaryPayment);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSalaryPayment(string id)
         {
-            if (_context.SalaryPayment == null)
+            if (_context.SalaryPayments == null)
             {
                 return NotFound();
             }
-            var salaryPayment = await _context.SalaryPayment.FindAsync(id);
+            var salaryPayment = await _context.SalaryPayments.FindAsync(id);
             if (salaryPayment == null)
             {
                 return NotFound();
             }
 
-            _context.SalaryPayment.Remove(salaryPayment);
+            _context.SalaryPayments.Remove(salaryPayment);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool SalaryPaymentExists(string id)
         {
-            return (_context.SalaryPayment?.Any(e => e.SalaryPaymentId == id)).GetValueOrDefault();
+            return (_context.SalaryPayments?.Any(e => e.SalaryPaymentId == id)).GetValueOrDefault();
         }
     }
 }

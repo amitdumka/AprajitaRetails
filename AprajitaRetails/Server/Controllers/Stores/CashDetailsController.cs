@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CashDetail>>> GetCashDetail()
         {
-          if (_context.CashDetail == null)
+          if (_context.CashDetails == null)
           {
               return NotFound();
           }
-            return await _context.CashDetail.ToListAsync();
+            return await _context.CashDetails.ToListAsync();
         }
 
         // GET: api/CashDetails/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CashDetail>> GetCashDetail(string id)
         {
-          if (_context.CashDetail == null)
+          if (_context.CashDetails == null)
           {
               return NotFound();
           }
-            var cashDetail = await _context.CashDetail.FindAsync(id);
+            var cashDetail = await _context.CashDetails.FindAsync(id);
 
             if (cashDetail == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<CashDetail>> PostCashDetail(CashDetail cashDetail)
         {
-          if (_context.CashDetail == null)
+          if (_context.CashDetails == null)
           {
               return Problem("Entity set 'ARDBContext.CashDetail'  is null.");
           }
-            _context.CashDetail.Add(cashDetail);
+            _context.CashDetails.Add(cashDetail);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCashDetail(string id)
         {
-            if (_context.CashDetail == null)
+            if (_context.CashDetails == null)
             {
                 return NotFound();
             }
-            var cashDetail = await _context.CashDetail.FindAsync(id);
+            var cashDetail = await _context.CashDetails.FindAsync(id);
             if (cashDetail == null)
             {
                 return NotFound();
             }
 
-            _context.CashDetail.Remove(cashDetail);
+            _context.CashDetails.Remove(cashDetail);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Stores
 
         private bool CashDetailExists(string id)
         {
-            return (_context.CashDetail?.Any(e => e.CashDetailId == id)).GetValueOrDefault();
+            return (_context.CashDetails?.Any(e => e.CashDetailId == id)).GetValueOrDefault();
         }
     }
 }
