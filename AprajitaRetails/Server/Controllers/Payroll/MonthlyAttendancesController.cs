@@ -10,7 +10,7 @@ using AprajitaRetails.Shared.Models.Payroll;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MonthlyAttendancesController : ControllerBase
     {

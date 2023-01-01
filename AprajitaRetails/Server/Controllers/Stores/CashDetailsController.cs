@@ -10,7 +10,7 @@ using AprajitaRetails.Shared.Models.Stores;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CashDetailsController : ControllerBase
     {

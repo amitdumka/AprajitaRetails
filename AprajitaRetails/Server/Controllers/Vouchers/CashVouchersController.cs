@@ -14,7 +14,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
     //[Authorize]
     [ApiController]
     [Route("[controller]")]
-    //[Route("api/[controller]")]
+    //[Route("[controller]")]
     //[ApiController]
     public class CashVouchersController : ControllerBase
     {

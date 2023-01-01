@@ -1,0 +1,101 @@
+﻿@page "/temp"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Shared.Models.Payroll
+@attribute [Authorize]
+
+@inject HttpClient Http
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+<ContentMain>
+
+    @if (entities == null)
+    {
+
+
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                <Title>
+                    <CardTitle>Vouchers</CardTitle>
+
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary">
+                                Add
+                            </Button>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                        <TableHead>
+                            <TableHeadCell>ID</TableHeadCell>
+                            <TableHeadCell>Name</TableHeadCell>
+                            <TableHeadCell>City</TableHeadCell>
+                            <TableHeadCell>Working</TableHeadCell>
+                            <TableHeadCell>DOB</TableHeadCell>
+                            <TableHeadCell>Dept</TableHeadCell>
+                            <TableHeadCell>Joined</TableHeadCell>
+                            <TableHeadCell>Left</TableHeadCell>
+                            <TableHeadCell>Store</TableHeadCell>
+                            <TableHeadCell>     </TableHeadCell>
+                        </TableHead>
+                        <TableBody>
+
+                            @foreach (var ent in entities)
+                            {
+                                <TableRow>
+                                    <TableCell>@ent.EmployeeId</TableCell>
+                                    <TableCell>@ent.StaffName</TableCell>
+                                    <TableCell>@ent.City.</TableCell>
+                                    <TableCell>@ent.IsWorking</TableCell>
+                                    <TableCell>@ent.DOB.ToShortDateString()</TableCell>
+                                    <TableCell>@ent.Category.</TableCell>
+                                    <TableCell>@ent.JoiningDate.ToShortDateString()</TableCell>
+                                    <TableCell>@ent.LeavingDate.GetValueOrDefault().ToShortDateString()</TableCell>
+                                    <TableCell>@ent.StoreId.</TableCell>
+                                    <TableCell><div>
+                                        <Button>I</Button><Button>E</Button><Button>D</Button>
+                                        </div> </TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </AprajitaRetails.AdminLte.Table.ATable>
+                </Body>
+            </Card>
+        </Row>
+    }
+
+</ContentMain>
+
+
+
+
+@code{
+
+    private const string Title = "T";
+    private Employee[]? entities;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            entities = await Http.GetFromJsonAsync<Employee[]>("Employees");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

@@ -10,7 +10,7 @@ using AprajitaRetails.Shared.Models.Bases;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ContactsController : ControllerBase
     {

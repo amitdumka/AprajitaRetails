@@ -10,7 +10,7 @@ using AprajitaRetails.Shared.Models.Vouchers;
 
 namespace AprajitaRetails.Server.Controllers.Accounts
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class LedgerGroupsController : ControllerBase
     {
