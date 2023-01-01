@@ -1,4 +1,4 @@
-﻿@page "/vouchers"
+﻿@page "/TransactionMode"
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
@@ -8,7 +8,7 @@
 
 <ContentHeader>
     <Header>
-        <Blazor.AdminLte.PageTitle Title="Vouchers" />
+        <Blazor.AdminLte.PageTitle Title="Transaction Mode" />
     </Header>
 </ContentHeader>
 <ContentMain>
@@ -21,7 +21,7 @@
         <Row>
             <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
                 <Title>
-                    <CardTitle>Vouchers</CardTitle>
+                    <CardTitle>Transaction Mode</CardTitle>
 
                 </Title>
                 <Header>
@@ -36,32 +36,19 @@
                 <Body>
                     <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
                         <TableHead>
-                            <TableHeadCell>Type</TableHeadCell>
-                            <TableHeadCell>Date</TableHeadCell>
-                            <TableHeadCell>VoucherNo</TableHeadCell>
-                            <TableHeadCell>Party Name</TableHeadCell>
-                            <TableHeadCell>Particulars</TableHeadCell>
-                            <TableHeadCell>Amount</TableHeadCell>
-                            <TableHeadCell>PayMode</TableHeadCell>
-                            <TableHeadCell>Remarks</TableHeadCell>
-                            <TableHeadCell>Issued By</TableHeadCell>
-                            <TableHeadCell>Slip No</TableHeadCell>
+                            <TableHeadCell>ID</TableHeadCell>
+                            <TableHeadCell>Name</TableHeadCell>
+                            <TableCell><Button>#</Button><Button>*</Button><Button>$</Button></TableCell>
                         </TableHead>
                         <TableBody>
 
                             @foreach (var vch in vchlist)
                             {
                                 <TableRow>
-                                    <TableCell>@vch.VoucherType</TableCell>
-                                    <TableCell>@vch.OnDate.ToShortDateString()</TableCell>
-                                    <TableCell>@vch.VoucherNumber</TableCell>
-                                    <TableCell>@vch.PartyName</TableCell>
-                                    <TableCell>@vch.Particulars</TableCell>
-                                    <TableCell>@vch.Amount</TableCell>
-                                    <TableCell>@vch.PaymentMode</TableCell>
-                                    <TableCell>@vch.Remarks</TableCell>
-                                    <TableCell>@vch.EmployeeId</TableCell>
-                                    <TableCell>@vch.SlipNumber</TableCell>
+                                    <TableCell>@vch.TransactionId</TableCell>
+                                    <TableCell>@vch.TransactionName</TableCell>
+                                    <TableCell><Button>#</Button><Button>*</Button><Button>$</Button></TableCell>
+
                                 </TableRow>
                             }
                         </TableBody>
@@ -72,13 +59,13 @@
     }
 </ContentMain>
 @code {
-    private Voucher[]? vchlist;
+    private TransactionMode[]? vchlist;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            vchlist = await Http.GetFromJsonAsync<Voucher[]>("Vouchers");
+            vchlist = await Http.GetFromJsonAsync<TransactionMode[]>("TransactionModes");
         }
         catch (AccessTokenNotAvailableException exception)
         {

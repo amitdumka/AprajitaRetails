@@ -1,4 +1,4 @@
-﻿@page "/vouchers"
+﻿@page "/vouchers/cash"
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
@@ -8,7 +8,7 @@
 
 <ContentHeader>
     <Header>
-        <Blazor.AdminLte.PageTitle Title="Vouchers" />
+        <Blazor.AdminLte.PageTitle Title="Cash Vouchers" />
     </Header>
 </ContentHeader>
 <ContentMain>
@@ -21,7 +21,7 @@
         <Row>
             <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
                 <Title>
-                    <CardTitle>Vouchers</CardTitle>
+                    <CardTitle>Cash Vouchers</CardTitle>
 
                 </Title>
                 <Header>
@@ -42,7 +42,7 @@
                             <TableHeadCell>Party Name</TableHeadCell>
                             <TableHeadCell>Particulars</TableHeadCell>
                             <TableHeadCell>Amount</TableHeadCell>
-                            <TableHeadCell>PayMode</TableHeadCell>
+                            <TableHeadCell>Category</TableHeadCell>
                             <TableHeadCell>Remarks</TableHeadCell>
                             <TableHeadCell>Issued By</TableHeadCell>
                             <TableHeadCell>Slip No</TableHeadCell>
@@ -58,7 +58,7 @@
                                     <TableCell>@vch.PartyName</TableCell>
                                     <TableCell>@vch.Particulars</TableCell>
                                     <TableCell>@vch.Amount</TableCell>
-                                    <TableCell>@vch.PaymentMode</TableCell>
+                                    <TableCell>@ModeName(vch.TransactionId)</TableCell>
                                     <TableCell>@vch.Remarks</TableCell>
                                     <TableCell>@vch.EmployeeId</TableCell>
                                     <TableCell>@vch.SlipNumber</TableCell>
@@ -72,17 +72,25 @@
     }
 </ContentMain>
 @code {
-    private Voucher[]? vchlist;
+    private CashVoucher[]? vchlist;
+    private TransactionMode[]? modeList;
+
+    private string ModeName(string id)
+    {
+        return modeList.First(c => c.TransactionId == id).TransactionName;
+    }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            vchlist = await Http.GetFromJsonAsync<Voucher[]>("Vouchers");
+            vchlist = await Http.GetFromJsonAsync<CashVoucher[]>("CashVouchers");
+            modeList = await Http.GetFromJsonAsync<TransactionMode[]>("TransactionModes");
         }
         catch (AccessTokenNotAvailableException exception)
         {
             exception.Redirect();
         }
+
     }
 }

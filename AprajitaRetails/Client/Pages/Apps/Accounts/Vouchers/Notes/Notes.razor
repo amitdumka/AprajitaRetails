@@ -1,4 +1,4 @@
-﻿@page "/vouchers"
+﻿@page "/vouchers/notes"
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
@@ -8,7 +8,7 @@
 
 <ContentHeader>
     <Header>
-        <Blazor.AdminLte.PageTitle Title="Vouchers" />
+        <Blazor.AdminLte.PageTitle Title="Notes" />
     </Header>
 </ContentHeader>
 <ContentMain>
@@ -21,7 +21,7 @@
         <Row>
             <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
                 <Title>
-                    <CardTitle>Vouchers</CardTitle>
+                    <CardTitle>Dedit/Credit Notes</CardTitle>
 
                 </Title>
                 <Header>
@@ -52,16 +52,16 @@
                             @foreach (var vch in vchlist)
                             {
                                 <TableRow>
-                                    <TableCell>@vch.VoucherType</TableCell>
+                                    <TableCell>@vch.NotesType.</TableCell>
                                     <TableCell>@vch.OnDate.ToShortDateString()</TableCell>
-                                    <TableCell>@vch.VoucherNumber</TableCell>
+                                    <TableCell>@vch.NoteNumber</TableCell>
                                     <TableCell>@vch.PartyName</TableCell>
-                                    <TableCell>@vch.Particulars</TableCell>
+                                    <TableCell>@vch.Reason.</TableCell>
                                     <TableCell>@vch.Amount</TableCell>
-                                    <TableCell>@vch.PaymentMode</TableCell>
-                                    <TableCell>@vch.Remarks</TableCell>
-                                    <TableCell>@vch.EmployeeId</TableCell>
-                                    <TableCell>@vch.SlipNumber</TableCell>
+                                    <TableCell>@vch.TaxRate</TableCell>
+                                    <TableCell>@vch.TaxAmount</TableCell>
+                                    <TableCell>@vch.NetAmount.</TableCell>
+                                    <TableCell>@vch.Remarks.</TableCell>
                                 </TableRow>
                             }
                         </TableBody>
@@ -72,13 +72,13 @@
     }
 </ContentMain>
 @code {
-    private Voucher[]? vchlist;
+    private Note[]? vchlist;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            vchlist = await Http.GetFromJsonAsync<Voucher[]>("Vouchers");
+            vchlist = await Http.GetFromJsonAsync<Note[]>("Notes");
         }
         catch (AccessTokenNotAvailableException exception)
         {
