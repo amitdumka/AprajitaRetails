@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MonthlyAttendance>>> GetMonthlyAttendance()
         {
-          if (_context.MonthlyAttendance == null)
+          if (_context.MonthlyAttendances== null)
           {
               return NotFound();
           }
-            return await _context.MonthlyAttendance.ToListAsync();
+            return await _context.MonthlyAttendances.ToListAsync();
         }
 
         // GET: api/MonthlyAttendances/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MonthlyAttendance>> GetMonthlyAttendance(string id)
         {
-          if (_context.MonthlyAttendance == null)
+          if (_context.MonthlyAttendances== null)
           {
               return NotFound();
           }
-            var monthlyAttendance = await _context.MonthlyAttendance.FindAsync(id);
+            var monthlyAttendance = await _context.MonthlyAttendances.FindAsync(id);
 
             if (monthlyAttendance == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<MonthlyAttendance>> PostMonthlyAttendance(MonthlyAttendance monthlyAttendance)
         {
-          if (_context.MonthlyAttendance == null)
+          if (_context.MonthlyAttendances== null)
           {
               return Problem("Entity set 'ARDBContext.MonthlyAttendance'  is null.");
           }
-            _context.MonthlyAttendance.Add(monthlyAttendance);
+            _context.MonthlyAttendances.Add(monthlyAttendance);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMonthlyAttendance(string id)
         {
-            if (_context.MonthlyAttendance == null)
+            if (_context.MonthlyAttendances== null)
             {
                 return NotFound();
             }
-            var monthlyAttendance = await _context.MonthlyAttendance.FindAsync(id);
+            var monthlyAttendance = await _context.MonthlyAttendances.FindAsync(id);
             if (monthlyAttendance == null)
             {
                 return NotFound();
             }
 
-            _context.MonthlyAttendance.Remove(monthlyAttendance);
+            _context.MonthlyAttendances.Remove(monthlyAttendance);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool MonthlyAttendanceExists(string id)
         {
-            return (_context.MonthlyAttendance?.Any(e => e.MonthlyAttendanceId == id)).GetValueOrDefault();
+            return (_context.MonthlyAttendances?.Any(e => e.MonthlyAttendanceId == id)).GetValueOrDefault();
         }
     }
 }

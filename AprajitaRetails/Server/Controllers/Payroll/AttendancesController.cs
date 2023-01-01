@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendance()
         {
-          if (_context.Attendance == null)
+          if (_context.Attendances == null)
           {
               return NotFound();
           }
-            return await _context.Attendance.ToListAsync();
+            return await _context.Attendances.ToListAsync();
         }
 
         // GET: api/Attendances/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Attendance>> GetAttendance(string id)
         {
-          if (_context.Attendance == null)
+          if (_context.Attendances == null)
           {
               return NotFound();
           }
-            var attendance = await _context.Attendance.FindAsync(id);
+            var attendance = await _context.Attendances.FindAsync(id);
 
             if (attendance == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<Attendance>> PostAttendance(Attendance attendance)
         {
-          if (_context.Attendance == null)
+          if (_context.Attendances == null)
           {
               return Problem("Entity set 'ARDBContext.Attendance'  is null.");
           }
-            _context.Attendance.Add(attendance);
+            _context.Attendances.Add(attendance);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAttendance(string id)
         {
-            if (_context.Attendance == null)
+            if (_context.Attendances == null)
             {
                 return NotFound();
             }
-            var attendance = await _context.Attendance.FindAsync(id);
+            var attendance = await _context.Attendances.FindAsync(id);
             if (attendance == null)
             {
                 return NotFound();
             }
 
-            _context.Attendance.Remove(attendance);
+            _context.Attendances.Remove(attendance);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool AttendanceExists(string id)
         {
-            return (_context.Attendance?.Any(e => e.AttendanceId == id)).GetValueOrDefault();
+            return (_context.Attendances?.Any(e => e.AttendanceId == id)).GetValueOrDefault();
         }
     }
 }

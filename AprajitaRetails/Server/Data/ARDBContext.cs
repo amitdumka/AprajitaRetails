@@ -25,18 +25,18 @@ namespace AprajitaRetails.Server.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Store> Stores { get; set; }
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.Attendance> Attendance { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.SalaryPayment> SalaryPayment { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Stores.Salesman> Salesman { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.MonthlyAttendance> MonthlyAttendance { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Bases.Contact> Contact { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Stores.Customer> Customer { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Stores.CashDetail> CashDetail { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.EmployeeDetails> EmployeeDetails { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.Salary> Salary { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.StaffAdvanceReceipt> StaffAdvanceReceipt { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.PaySlip> PaySlip { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.TimeSheet> TimeSheet { get; set; } = default!;
-        public DbSet<AprajitaRetails.Shared.Models.Payroll.SalaryLedger> SalaryLedger { get; set; } = default!;
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.Attendance> Attendances { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.SalaryPayment> SalaryPayments { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Stores.Salesman> Salesmen { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.MonthlyAttendance> MonthlyAttendances { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Bases.Contact> Contacts { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Stores.Customer> Customers{ get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Stores.CashDetail> CashDetails { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.EmployeeDetails> EmployeeDetails { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.Salary> Salaries { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.PaySlip> PaySlips { get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.TimeSheet> TimeSheets{ get; set; } 
+        public DbSet<AprajitaRetails.Shared.Models.Payroll.SalaryLedger> SalaryLedgers { get; set; } 
     }
 }

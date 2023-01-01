@@ -25,22 +25,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PaySlip>>> GetPaySlip()
         {
-          if (_context.PaySlip == null)
+          if (_context.PaySlips == null)
           {
               return NotFound();
           }
-            return await _context.PaySlip.ToListAsync();
+            return await _context.PaySlips.ToListAsync();
         }
 
         // GET: api/PaySlips/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PaySlip>> GetPaySlip(string id)
         {
-          if (_context.PaySlip == null)
+          if (_context.PaySlips == null)
           {
               return NotFound();
           }
-            var paySlip = await _context.PaySlip.FindAsync(id);
+            var paySlip = await _context.PaySlips.FindAsync(id);
 
             if (paySlip == null)
             {
@@ -86,11 +86,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<PaySlip>> PostPaySlip(PaySlip paySlip)
         {
-          if (_context.PaySlip == null)
+          if (_context.PaySlips == null)
           {
               return Problem("Entity set 'ARDBContext.PaySlip'  is null.");
           }
-            _context.PaySlip.Add(paySlip);
+            _context.PaySlips.Add(paySlip);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePaySlip(string id)
         {
-            if (_context.PaySlip == null)
+            if (_context.PaySlips == null)
             {
                 return NotFound();
             }
-            var paySlip = await _context.PaySlip.FindAsync(id);
+            var paySlip = await _context.PaySlips.FindAsync(id);
             if (paySlip == null)
             {
                 return NotFound();
             }
 
-            _context.PaySlip.Remove(paySlip);
+            _context.PaySlips.Remove(paySlip);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
 
         private bool PaySlipExists(string id)
         {
-            return (_context.PaySlip?.Any(e => e.PaySlipId == id)).GetValueOrDefault();
+            return (_context.PaySlips?.Any(e => e.PaySlipId == id)).GetValueOrDefault();
         }
     }
 }
