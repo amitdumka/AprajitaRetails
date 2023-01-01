@@ -16,6 +16,8 @@
     <None Remove="DD\Vouchers.razor.txt" />
     <None Remove="DD\Widgets.razor.txt" />
     <None Remove="DD\_Host.txt" />
+    <None Remove="Shared\Apps\" />
+    <None Remove="Shared\Apps\Menu\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,4 +49,8 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Shared\Apps\" />
+    <Folder Include="Shared\Apps\Menu\" />
+  </ItemGroup>
 </Project>

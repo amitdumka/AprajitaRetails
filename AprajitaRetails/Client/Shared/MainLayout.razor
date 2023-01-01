@@ -22,175 +22,11 @@
     @* <Player></Player>*@
     <CusotmLogon />
     
-    <NavBarRight>
-        <NavBarDropDown>
-            <NavBarBadge Color="Color.Danger" Icon="far fa-comments">4</NavBarBadge>
-            <NavBarDropDownMenu>
-                <NavBarDropDownMenuItem>
-                    <UserMessage DateTime="dt.AddMinutes(-2)" ProfilePicture="../dist/img/user7-128x128.jpg" Icon="fas fa-star">
-                        <UserName>Patricia Maundrell</UserName>
-                        <Message>Follow up</Message>
-                    </UserMessage>
-                </NavBarDropDownMenuItem>
-                <DropdownDivider />
-                <NavBarDropDownMenuItem>
-                    <UserMessage DateTime="dt.AddHours(-4)" ProfilePicture="../dist/img/user1-128x128.jpg" Icon="fas fa-star" IconColor="Color.Warning">
-                        <UserName>Brad Diesel</UserName>
-                        <Message>Call me whenever you can...</Message>
-                    </UserMessage>
-                </NavBarDropDownMenuItem>
-                <DropdownDivider />
-                <NavBarDropDownMenuItem>
-                    <UserMessage DateTime="dt.AddDays(-8)" ProfilePicture="../dist/img/user8-128x128.jpg" Icon="fas fa-star" IconColor="Color.Danger">
-                        <UserName>John Pierce</UserName>
-                        <Message>I got your message bro</Message>
-                    </UserMessage>
-                </NavBarDropDownMenuItem>
-                <DropdownDivider />
-                <NavBarDropDownMenuItem>
-                    <UserMessage DateTime="dt.AddDays(-31)" ProfilePicture="../dist/img/user3-128x128.jpg" Icon="fas fa-star">
-                        <UserName>Nora Silvester</UserName>
-                        <Message>The subject goes here</Message>
-                    </UserMessage>
-                </NavBarDropDownMenuItem>
-                <DropdownDivider />
-                <DropdownFooter OnClick="SeeAllMessages">See All Messages</DropdownFooter>
-            </NavBarDropDownMenu>
-        </NavBarDropDown>
-        <NavBarDropDown>
-            <NavBarBadge Color="Color.Warning" Icon="far fa-bell">15</NavBarBadge>
-            <NavBarDropDownMenu>
-                <DropdownHeader>15 Notifications</DropdownHeader>
-                <DropdownDivider></DropdownDivider>
-                <NotificationMessage DateTime="dt.AddMinutes(-3)" Icon="fas fa-envelope mr-2">
-                    <Message>4 new messages</Message>
-                </NotificationMessage>
-                <DropdownDivider></DropdownDivider>
-                <NotificationMessage DateTime="dt.AddHours(-12)" Icon="fas fa-users mr-2">
-                    <Message>8 friend requests</Message>
-                </NotificationMessage>
-                <DropdownDivider></DropdownDivider>
-                <NotificationMessage DateTime="dt.AddDays(-2)" Icon="fas fa-file mr-2">
-                    <Message>3 new reports</Message>
-                </NotificationMessage>
-                <DropdownDivider></DropdownDivider>
-                <DropdownFooter OnClick="SeeAllNotifications">See All Notifications</DropdownFooter>
-            </NavBarDropDownMenu>
-        </NavBarDropDown>
-        <NavBarSideBarControl></NavBarSideBarControl>
-       @* <RadzenSwitch Name="checkbox" id="checkbox" class="theme-switch" />*@
-    </NavBarRight>
+  <AprajitaRetails.Client.Shared.Apps.Menu.AppTopBar/>
 </ANavBar>
 <SideBarContainer>
     <BrandLogo Link="https://adminlte.io/" Logo="../dist/img/AdminLTELogo.png">Aprajita Retails</BrandLogo>
-    <SideBar>
-        <!-- Sidebar user panel (optional) -->
-        <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="starter-pages/user-page" Elevation="Elevation.Three" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
-        @*<SideBarSearch></SideBarSearch>*@
-        <SideBarMenu>
-            <SideBarMenuItem Link="widgets" Icon="fas fa-th">
-                Dashboard
-            </SideBarMenuItem>
-            <SideBarTreeView Icon="fas fa-copy">
-                <Title>Vouchers</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="layout/grid-system">
-                        Grid System
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>
-            <SideBarTreeView Icon="fas fa-tachometer-alt">
-                <Title>Payroll</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="starter-pages/active-page">
-                        Active Page
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle">
-                        Inactive Page
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>
-            <SideBarTreeView Icon="fas fa-tachometer-alt">
-                <Title>Accounts</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left">
-                        NavBar Left
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left-override">
-                        NavBar Left Override
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>
-            <SideBarTreeView Icon="fas fa-tree">
-                <Title>Inventory</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="ui/general">
-                        General
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="ui/buttons">
-                        Buttons
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Link="ui/navbar" Icon="far fa-circle">
-                        Navbar & Tabs
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>
-            <SideBarTreeView Icon="fas fa-edit">
-                <Title>Sale</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="forms/general">
-                        General Elements
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="forms/advanced">
-                        Advanced Elements
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="forms/file-management">
-                        File Management
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>
-            <SideBarTreeView Icon="fas fa-table">
-                <Title>Stores</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="simple-tables">
-                        Simple Tables
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>
-            <SideBarTreeView Icon="far fa-user">
-                <Title>User</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="login">
-                        Login
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="register">
-                        Register
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="forgot-password">
-                        Forgot Password
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>
-            @*<SideBarTreeView Icon="far fa-plus-square">
-                <Title>Extras</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
-                        Lockscreen
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="404">
-                        Error 404
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="500">
-                        Error 500
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>*@
-            <SideBarMenuItem Link="simple-link" Icon="fas fa-th">
-                Update
-                <span class="right badge badge-danger">New</span>
-            </SideBarMenuItem>
-        </SideBarMenu>
-    </SideBar>
+   <AprajitaRetails.Client.Shared.Apps.Menu.AppSideBar/>
 </SideBarContainer>
 <ContentWrapper>
     @Body
@@ -215,7 +51,7 @@
         navBarLeftInjectableMenu.SetContent(null, false);
     }
 
-    private DateTime dt = DateTime.Now;
+    
 
     private void SeeAllMessages(Tuple<IDropdownFooter, MouseEventArgs> args)
     {

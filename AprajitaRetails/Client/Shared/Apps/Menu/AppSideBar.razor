@@ -1,0 +1,113 @@
+﻿<SideBar>
+    <!-- Sidebar user panel (optional) -->
+    <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="starter-pages/user-page" Elevation="Elevation.Three" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
+    @*<SideBarSearch></SideBarSearch>*@
+    <SideBarMenu>
+        <SideBarMenuItem Link="widgets" Icon="fas fa-th">
+            Dashboard
+        </SideBarMenuItem>
+        <SideBarTreeView Icon="fas fa-copy">
+            <Title>Vouchers</Title>
+            <Items>
+                <SideBarMenuItem Icon="far fa-circle" Link="layout/grid-system">
+                    Grid System
+                </SideBarMenuItem>
+            </Items>
+        </SideBarTreeView>
+        <SideBarTreeView Icon="fas fa-tachometer-alt">
+            <Title>Payroll</Title>
+            <Items>
+                <SideBarMenuItem Icon="far fa-circle" Link="starter-pages/active-page">
+                    Active Page
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle">
+                    Inactive Page
+                </SideBarMenuItem>
+            </Items>
+        </SideBarTreeView>
+        <SideBarTreeView Icon="fas fa-tachometer-alt">
+            <Title>Accounts</Title>
+            <Items>
+                <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left">
+                    NavBar Left
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="injections/navbar-left-override">
+                    NavBar Left Override
+                </SideBarMenuItem>
+            </Items>
+        </SideBarTreeView>
+        <SideBarTreeView Icon="fas fa-tree">
+            <Title>Inventory</Title>
+            <Items>
+                <SideBarMenuItem Icon="far fa-circle" Link="ui/general">
+                    General
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="ui/buttons">
+                    Buttons
+                </SideBarMenuItem>
+                <SideBarMenuItem Link="ui/navbar" Icon="far fa-circle">
+                    Navbar & Tabs
+                </SideBarMenuItem>
+            </Items>
+        </SideBarTreeView>
+        <SideBarTreeView Icon="fas fa-edit">
+            <Title>Sale</Title>
+            <Items>
+                <SideBarMenuItem Icon="far fa-circle" Link="forms/general">
+                    General Elements
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="forms/advanced">
+                    Advanced Elements
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="forms/file-management">
+                    File Management
+                </SideBarMenuItem>
+            </Items>
+        </SideBarTreeView>
+        <SideBarTreeView Icon="fas fa-table">
+            <Title>Stores</Title>
+            <Items>
+                <SideBarMenuItem Icon="far fa-circle" Link="simple-tables">
+                    Simple Tables
+                </SideBarMenuItem>
+            </Items>
+        </SideBarTreeView>
+        <SideBarTreeView Icon="far fa-user">
+            <Title>User</Title>
+            <Items>
+                <SideBarMenuItem Icon="far fa-circle" Link="login">
+                    Login
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="register">
+                    Register
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="forgot-password">
+                    Forgot Password
+                </SideBarMenuItem>
+            </Items>
+        </SideBarTreeView>
+        @*<SideBarTreeView Icon="far fa-plus-square">
+                <Title>Extras</Title>
+                <Items>
+                    <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
+                        Lockscreen
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="404">
+                        Error 404
+                    </SideBarMenuItem>
+                    <SideBarMenuItem Icon="far fa-circle" Link="500">
+                        Error 500
+                    </SideBarMenuItem>
+                </Items>
+            </SideBarTreeView>*@
+        <SideBarMenuItem Link="simple-link" Icon="fas fa-th">
+            Update
+            <span class="right badge badge-danger">New</span>
+        </SideBarMenuItem>
+    </SideBarMenu>
+</SideBar>
+
+@code {
+
+}
+
