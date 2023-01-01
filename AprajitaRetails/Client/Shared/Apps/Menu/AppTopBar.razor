@@ -1,60 +1,73 @@
 ﻿@inject NavBarLeftInjectableMenu navBarLeftInjectableMenu
 @inject NavigationManager NavigationManager
+<NavBarLeft>
+    @if (!navBarLeftInjectableMenu.OverrideParentContent)
+    {
+        <NavBarMenuItem Link="/">Home</NavBarMenuItem>
+        <NavBarMenuItem OnClick="HandleContent">Content</NavBarMenuItem>
+        <!-- defaults to # -->
+    }
+    @navBarLeftInjectableMenu.content <!-- Injectable for custom menu content per page -->
+</NavBarLeft>
+<NavBarSearch></NavBarSearch>
+@* <Player></Player>*@
+
 <NavBarRight>
-    <NavBarDropDown>
-        <NavBarBadge Color="Color.Danger" Icon="far fa-comments">4</NavBarBadge>
-        <NavBarDropDownMenu>
-            <NavBarDropDownMenuItem>
-                <UserMessage DateTime="dt.AddMinutes(-2)" ProfilePicture="../dist/img/user7-128x128.jpg" Icon="fas fa-star">
-                    <UserName>Patricia Maundrell</UserName>
-                    <Message>Follow up</Message>
-                </UserMessage>
-            </NavBarDropDownMenuItem>
-            <DropdownDivider />
-            <NavBarDropDownMenuItem>
-                <UserMessage DateTime="dt.AddHours(-4)" ProfilePicture="../dist/img/user1-128x128.jpg" Icon="fas fa-star" IconColor="Color.Warning">
-                    <UserName>Brad Diesel</UserName>
-                    <Message>Call me whenever you can...</Message>
-                </UserMessage>
-            </NavBarDropDownMenuItem>
-            <DropdownDivider />
-            <NavBarDropDownMenuItem>
-                <UserMessage DateTime="dt.AddDays(-8)" ProfilePicture="../dist/img/user8-128x128.jpg" Icon="fas fa-star" IconColor="Color.Danger">
-                    <UserName>John Pierce</UserName>
-                    <Message>I got your message bro</Message>
-                </UserMessage>
-            </NavBarDropDownMenuItem>
-            <DropdownDivider />
-            <NavBarDropDownMenuItem>
-                <UserMessage DateTime="dt.AddDays(-31)" ProfilePicture="../dist/img/user3-128x128.jpg" Icon="fas fa-star">
-                    <UserName>Nora Silvester</UserName>
-                    <Message>The subject goes here</Message>
-                </UserMessage>
-            </NavBarDropDownMenuItem>
-            <DropdownDivider />
-            <DropdownFooter OnClick="SeeAllMessages">See All Messages</DropdownFooter>
-        </NavBarDropDownMenu>
-    </NavBarDropDown>
-    <NavBarDropDown>
-        <NavBarBadge Color="Color.Warning" Icon="far fa-bell">15</NavBarBadge>
-        <NavBarDropDownMenu>
-            <DropdownHeader>15 Notifications</DropdownHeader>
-            <DropdownDivider></DropdownDivider>
-            <NotificationMessage DateTime="dt.AddMinutes(-3)" Icon="fas fa-envelope mr-2">
-                <Message>4 new messages</Message>
-            </NotificationMessage>
-            <DropdownDivider></DropdownDivider>
-            <NotificationMessage DateTime="dt.AddHours(-12)" Icon="fas fa-users mr-2">
-                <Message>8 friend requests</Message>
-            </NotificationMessage>
-            <DropdownDivider></DropdownDivider>
-            <NotificationMessage DateTime="dt.AddDays(-2)" Icon="fas fa-file mr-2">
-                <Message>3 new reports</Message>
-            </NotificationMessage>
-            <DropdownDivider></DropdownDivider>
-            <DropdownFooter OnClick="SeeAllNotifications">See All Notifications</DropdownFooter>
-        </NavBarDropDownMenu>
-    </NavBarDropDown>
+    <CusotmLogon />
+    @*<NavBarDropDown>
+            <NavBarBadge Color="Color.Danger" Icon="far fa-comments">4</NavBarBadge>
+            <NavBarDropDownMenu>
+                <NavBarDropDownMenuItem>
+                    <UserMessage DateTime="dt.AddMinutes(-2)" ProfilePicture="../dist/img/user7-128x128.jpg" Icon="fas fa-star">
+                        <UserName>Patricia Maundrell</UserName>
+                        <Message>Follow up</Message>
+                    </UserMessage>
+                </NavBarDropDownMenuItem>
+                <DropdownDivider />
+                <NavBarDropDownMenuItem>
+                    <UserMessage DateTime="dt.AddHours(-4)" ProfilePicture="../dist/img/user1-128x128.jpg" Icon="fas fa-star" IconColor="Color.Warning">
+                        <UserName>Brad Diesel</UserName>
+                        <Message>Call me whenever you can...</Message>
+                    </UserMessage>
+                </NavBarDropDownMenuItem>
+                <DropdownDivider />
+                <NavBarDropDownMenuItem>
+                    <UserMessage DateTime="dt.AddDays(-8)" ProfilePicture="../dist/img/user8-128x128.jpg" Icon="fas fa-star" IconColor="Color.Danger">
+                        <UserName>John Pierce</UserName>
+                        <Message>I got your message bro</Message>
+                    </UserMessage>
+                </NavBarDropDownMenuItem>
+                <DropdownDivider />
+                <NavBarDropDownMenuItem>
+                    <UserMessage DateTime="dt.AddDays(-31)" ProfilePicture="../dist/img/user3-128x128.jpg" Icon="fas fa-star">
+                        <UserName>Nora Silvester</UserName>
+                        <Message>The subject goes here</Message>
+                    </UserMessage>
+                </NavBarDropDownMenuItem>
+                <DropdownDivider />
+                <DropdownFooter OnClick="SeeAllMessages">See All Messages</DropdownFooter>
+            </NavBarDropDownMenu>
+        </NavBarDropDown>
+        <NavBarDropDown>
+            <NavBarBadge Color="Color.Warning" Icon="far fa-bell">15</NavBarBadge>
+            <NavBarDropDownMenu>
+                <DropdownHeader>15 Notifications</DropdownHeader>
+                <DropdownDivider></DropdownDivider>
+                <NotificationMessage DateTime="dt.AddMinutes(-3)" Icon="fas fa-envelope mr-2">
+                    <Message>4 new messages</Message>
+                </NotificationMessage>
+                <DropdownDivider></DropdownDivider>
+                <NotificationMessage DateTime="dt.AddHours(-12)" Icon="fas fa-users mr-2">
+                    <Message>8 friend requests</Message>
+                </NotificationMessage>
+                <DropdownDivider></DropdownDivider>
+                <NotificationMessage DateTime="dt.AddDays(-2)" Icon="fas fa-file mr-2">
+                    <Message>3 new reports</Message>
+                </NotificationMessage>
+                <DropdownDivider></DropdownDivider>
+                <DropdownFooter OnClick="SeeAllNotifications">See All Notifications</DropdownFooter>
+            </NavBarDropDownMenu>
+        </NavBarDropDown>*@
     <NavBarSideBarControl></NavBarSideBarControl>
     @* <RadzenSwitch Name="checkbox" id="checkbox" class="theme-switch" />*@
 </NavBarRight>
