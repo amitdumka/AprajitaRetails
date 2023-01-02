@@ -1,0 +1,28 @@
+﻿@namespace AprajitaRetails.AdminLte.Forms
+<div class="mb-3 row">
+    <label for="@Name" class="col-sm-2 col-form-label">@Label</label>
+    <div class="col-sm-10">
+        <input type="number" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Label { get; set; } = " ";
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter]
+    public string Placeholder { get; set; }
+    [Parameter]
+    public decimal Value { get; set; }
+
+    [Parameter]
+    public EventCallback<decimal> ValueChanged { get; set; }
+    private async Task OnValueChanged(ChangeEventArgs e)
+    {
+        Value = decimal.Parse(e?.Value?.ToString());
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+
+}

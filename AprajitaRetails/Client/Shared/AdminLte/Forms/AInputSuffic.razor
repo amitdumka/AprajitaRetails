@@ -1,0 +1,25 @@
+﻿@namespace AprajitaRetails.AdminLte.Forms
+<div class="input-group mb-3">
+    <input type="@Type" class="form-control" placeholder="@PlaceHolder" aria-label="@Name" aria-describedby="basic-addon2" @oninput="@OnValueChanged">
+    <span class="input-group-text" id="@Name">@Suffic</span>
+</div>
+
+@code {
+    [Parameter]
+    public string Suffic { get; set; }
+    [Parameter]
+    public string Type { get; set; } = "text";
+    [Parameter]
+    public string PlaceHolder { get; set; }
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter]
+    public string Value { get; set; }
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+    private async Task OnValueChanged(ChangeEventArgs e)
+    {
+        Value = e?.Value?.ToString();
+        await ValueChanged.InvokeAsync(Value);
+    }
+}

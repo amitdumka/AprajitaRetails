@@ -1,0 +1,10 @@
+﻿@namespace AprajitaRetails.AdminLte.Forms
+
+<form>
+    @ChildContent
+</form>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}
