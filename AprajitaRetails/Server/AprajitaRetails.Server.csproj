@@ -21,6 +21,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Client\AprajitaRetails.Client.csproj" />
     <ProjectReference Include="..\Shared\AprajitaRetails.Shared.csproj" />
+    <ProjectReference Include="..\..\AprajitaRetails.BL\AprajitaRetails.BL.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,11 +40,15 @@
     <None Remove="Controllers\Stores\" />
     <None Remove="Controllers\Banking\" />
     <None Remove="Controllers\Accounts\" />
+    <None Remove="BL\" />
+    <None Remove="BL\Accounts\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
     <Folder Include="Controllers\Stores\" />
     <Folder Include="Controllers\Banking\" />
     <Folder Include="Controllers\Accounts\" />
+    <Folder Include="BL\" />
+    <Folder Include="BL\Accounts\" />
   </ItemGroup>
 </Project>

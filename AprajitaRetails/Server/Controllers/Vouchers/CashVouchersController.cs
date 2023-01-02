@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Authorization;
+using AprajitaRetails.Server.BL.Accounts;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -29,10 +30,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CashVoucher>>> GetCashVouchers()
         {
-          if (_context.CashVouchers == null)
-          {
-              return NotFound();
-          }
+            if (_context.CashVouchers == null)
+            {
+                return NotFound();
+            }
             return await _context.CashVouchers.ToListAsync();
         }
 
@@ -40,10 +41,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet("{id}")]
         public async Task<ActionResult<CashVoucher>> GetCashVoucher(string id)
         {
-          if (_context.CashVouchers == null)
-          {
-              return NotFound();
-          }
+            if (_context.CashVouchers == null)
+            {
+                return NotFound();
+            }
             var cashVoucher = await _context.CashVouchers.FindAsync(id);
 
             if (cashVoucher == null)
@@ -90,10 +91,12 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpPost]
         public async Task<ActionResult<CashVoucher>> PostCashVoucher(CashVoucher cashVoucher)
         {
-          if (_context.CashVouchers == null)
-          {
-              return Problem("Entity set 'ARDBContext.CashVouchers'  is null.");
-          }
+            if (_context.CashVouchers == null)
+            {
+                return Problem("Entity set 'ARDBContext.CashVouchers'  is null.");
+            }
+            // Adding VoucherNumber
+            cashVoucher.VoucherNumber = AccountHelper.VoucherNumberGenerator(_context, cashVoucher.VoucherType, cashVoucher.StoreId, cashVoucher.OnDate);
             _context.CashVouchers.Add(cashVoucher);
             try
             {

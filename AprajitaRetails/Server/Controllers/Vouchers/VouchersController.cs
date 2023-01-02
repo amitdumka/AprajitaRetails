@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Authorization;
+using AprajitaRetails.Server.BL.Accounts;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
     //[Authorize]
     [ApiController]
     [Route("[controller]")]
-   // [Route("[controller]")]
+    // [Route("[controller]")]
     public class VouchersController : ControllerBase
     {
         private readonly ARDBContext _context;
@@ -28,10 +29,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Voucher>>> GetVoucher()
         {
-          if (_context.Vouchers == null)
-          {
-              return NotFound();
-          }
+            if (_context.Vouchers == null)
+            {
+                return NotFound();
+            }
             return await _context.Vouchers.ToListAsync();
         }
 
@@ -39,10 +40,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet("{id}")]
         public async Task<ActionResult<Voucher>> GetVoucher(string id)
         {
-          if (_context.Vouchers == null)
-          {
-              return NotFound();
-          }
+            if (_context.Vouchers == null)
+            {
+                return NotFound();
+            }
             var voucher = await _context.Vouchers.FindAsync(id);
 
             if (voucher == null)
@@ -89,11 +90,15 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpPost]
         public async Task<ActionResult<Voucher>> PostVoucher(Voucher voucher)
         {
-          if (_context.Vouchers == null)
-          {
-              return Problem("Entity set 'ARDBContext.Voucher'  is null.");
-          }
+            if (_context.Vouchers == null)
+            {
+                return Problem("Entity set 'ARDBContext.Voucher'  is null.");
+            }
+            // Adding VoucherNumber
+            voucher.VoucherNumber = AccountHelper.VoucherNumberGenerator(_context, voucher.VoucherType, voucher.StoreId, voucher.OnDate);
+
             _context.Vouchers.Add(voucher);
+
             try
             {
                 await _context.SaveChangesAsync();

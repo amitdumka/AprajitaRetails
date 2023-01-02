@@ -1,0 +1,67 @@
+﻿@page "/vouchers/edit"
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@attribute [Authorize]
+@inject HttpClient Http
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+
+
+<ContentMain>
+    <Row>
+        <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
+            <Title><CardTitle>Add Voucher</CardTitle></Title>
+            <Header><CardTools /></Header>
+            <Body>
+
+            </Body>
+            <Footer>
+                <Button type="button" Color="Color.Danger" OnClick=@Save>Submit</Button>
+            </Footer>
+        </Card>
+    </Row>
+</ContentMain>
+
+
+
+
+@code {
+
+    [Parameter]
+    public VoucherType VoucherType { get; set; } = VoucherType.Payment;
+    [Parameter]
+    public string VoucherNumber { get; set; } = "";
+    [Parameter]
+    public bool IsEdit { get; set; }
+
+    private Voucher voucher = new Voucher { OnDate = DateTime.Now, VoucherType = VoucherType.Payment };
+    private string Title = "Voucher";
+
+    private async void Save()
+    {
+        var result = await Http.PostAsJsonAsync("Vouchers",voucher);
+        
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        voucher.VoucherType = VoucherType;
+
+        if (IsEdit)
+        {
+            Title = "Edit Voucher #" + VoucherNumber;
+        }
+        else Title = "Add " + Title;
+    }
+
+
+
+}
+
