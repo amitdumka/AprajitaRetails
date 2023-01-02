@@ -1,10 +1,10 @@
 ﻿@page "/vouchers/edit"
 @using AprajitaRetails.Shared.Models.Vouchers
-@using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @attribute [Authorize]
 @inject HttpClient Http
+@inject NotificationService NotificationService
 
 <ContentHeader>
     <Header>
@@ -15,16 +15,30 @@
 
 <ContentMain>
     <Row>
-        <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
-            <Title><CardTitle>Add Voucher</CardTitle></Title>
-            <Header><CardTools /></Header>
-            <Body>
-
-            </Body>
-            <Footer>
-                <Button type="button" Color="Color.Danger" OnClick=@Save>Submit</Button>
-            </Footer>
-        </Card>
+        <Column Classes="col.md._6">
+            <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
+                <Title><CardTitle>Add Voucher</CardTitle></Title>
+                <Header><CardTools /></Header>
+                <Body>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                    </div>
+                    <InputText @bind-Value=@voucher.VoucherNumber DisplayName="Voucher Number" />
+                </Body>
+                <Footer>
+                    <Column Classes="col.md._3">
+                        <Button Size=Blazor.AdminLte.ButtonSize.Medium Color="Color.Danger" OnClick=@SaveButton>Save</Button>
+                    </Column>
+                </Footer>
+            </Card>
+        </Column>
     </Row>
 </ContentMain>
 
@@ -40,20 +54,33 @@
     [Parameter]
     public bool IsEdit { get; set; }
 
-    private Voucher voucher = new Voucher { OnDate = DateTime.Now, VoucherType = VoucherType.Payment };
+    private Voucher voucher = new Voucher { OnDate = DateTime.Now, VoucherType = VoucherType.Payment , AccountId="", Amount=0, EmployeeId="", 
+    EntryStatus=EntryStatus.Added, IsReadOnly=false, MarkedDeleted=false, PartyId="", PartyName="", PaymentDetails="", Remarks="", SlipNumber="", 
+    PaymentMode=PaymentMode.Cash, StoreId="", UserId="",VoucherNumber=""};
     private string Title = "Voucher";
 
+    void SaveButton()
+    {
+        Save();
+        //NotificationService.Notify(new Radzen.NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Info Summary", Detail = "Info Detail", Duration = 4000 });
+    }
     private async void Save()
     {
-        var result = await Http.PostAsJsonAsync("Vouchers",voucher);
-        
+        var result = await Http.PostAsJsonAsync<Voucher>("Vouchers", voucher);
+
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = result.Content.ToString(),
+                Detail = result.StatusCode.ToString() + "\n" + result,
+                Duration = 4000
+            };
+        NotificationService.Notify(msg);
     }
 
     protected override async Task OnInitializedAsync()
     {
-
         voucher.VoucherType = VoucherType;
-
         if (IsEdit)
         {
             Title = "Edit Voucher #" + VoucherNumber;
@@ -61,7 +88,7 @@
         else Title = "Add " + Title;
     }
 
-
+    //Swal.fire('Any fool can use a computer')
 
 }
 
