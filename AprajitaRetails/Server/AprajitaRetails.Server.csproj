@@ -42,6 +42,7 @@
     <None Remove="Controllers\Accounts\" />
     <None Remove="BL\" />
     <None Remove="BL\Accounts\" />
+    <None Remove="Controllers\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
@@ -50,5 +51,6 @@
     <Folder Include="Controllers\Accounts\" />
     <Folder Include="BL\" />
     <Folder Include="BL\Accounts\" />
+    <Folder Include="Controllers\Helpers\" />
   </ItemGroup>
 </Project>

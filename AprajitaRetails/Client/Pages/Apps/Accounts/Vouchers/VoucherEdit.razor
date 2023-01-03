@@ -13,11 +13,10 @@
     </Header>
 </ContentHeader>
 
-
 <ContentMain>
     <Row>
         <Column Classes="col.md._6">
-            <EditForm Model=@ModeT OnValidSubmit=@SaveButton OnInvalidSubmit=@ErrorMsg>
+            <EditForm Model=@voucher OnValidSubmit=@SaveButton OnInvalidSubmit=@ErrorMsg>
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
@@ -71,7 +70,6 @@
                     </Body>
                     <Footer>
                         <Column Classes="col.md._3">
-                            @*<Button Size=Blazor.AdminLte.ButtonSize.Medium Color="Color.Danger" OnClick=@SaveButton>Save</Button>*@
                             <ASubmitButton Title="Save" />
                         </Column>
                     </Footer>
@@ -99,8 +97,8 @@
     IList<string> vchTypes = Enum.GetNames(typeof(VoucherType));
 
     string _selectedStringItem;
+
     void onPayModeChange(string value) => _selectedStringItem = value;
-    //string _selectedStringItem;
     void onVoucherChange(string value) => _selectedStringItem = value;
 
 
