@@ -6,6 +6,7 @@
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NotificationService NotificationService
+@using Radzen.Blazor
 
 <ContentHeader>
     <Header>
@@ -24,19 +25,27 @@
                     <Header><CardTools /></Header>
                     <Body>
                         <Row>
-                            <Column Classes="col.md">
-                                <ASelect Label="Voucher Type" Name="VoucheType" TItem="string" Items="vchTypes" Selector="(x => x)" />
+                            <Column Classes="col.lg">
+                                @*  <ASelect Label="Voucher Type" Name="VoucheType" TItem="string" Items="vchTypes" Selector="(x => x)" />*@
+                                <RadzenRadioButtonList Orientation="Orientation.Horizontal" TValue="int" @bind-Value=@SelectedVCHType Change=@((args) => OnVoucherTypeChange(args, "VoucherType"))>
+
+                                    <Items>
+                                        <RadzenRadioButtonListItem Text="Payment" Value="0" />
+                                        <RadzenRadioButtonListItem Text="Receipts" Value="1" />
+                                        <RadzenRadioButtonListItem Text="Expenses" Value="6" />
+                                    </Items>
+
+                                </RadzenRadioButtonList>
                             </Column>
 
 
-
-                            <Column Classes="col.md">
+                           @* <Column Classes="col.md">
                                 @if (IsEdit)
                                 {
                                     <ATextInput @bind-Value=@voucher.VoucherNumber Name="VoucherNumber" Label="Voucher Number" />
                                 }
 
-                            </Column>
+                            </Column>*@
 
 
                             <Column Classes="col.md">
@@ -45,8 +54,14 @@
                         </Row>
                         <Row>
                             <Column Classes="col.md">
-                                Date:
-                                <InputDate @bind-Value=@voucher.OnDate DisplayName="OnDate" />
+                                <div class="mb-3 row">
+                                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                                    <div class="col-sm-6">
+                                        <RadzenDatePicker @bind-Value=@voucher.OnDate  id="ondate" Change=@OnDateChange/>
+                                    </div>
+                                </div>
+                               
+                               
                             </Column>
                             <Column Classes="col.md"><ATextInput @bind-Value=@voucher.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
                             <Column Classes="col.md">
@@ -98,6 +113,12 @@
     public bool IsEdit { get; set; } = false;
 
     private TransactionMode ModeT = new TransactionMode();
+
+    int SelectedVCHType = 0;
+    void OnVoucherTypeChange(int? value, string name)
+    {
+        voucher.VoucherType = (VoucherType)value;
+    }
 
     IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
     IList<string> vchTypes = Enum.GetNames(typeof(VoucherType));
@@ -188,6 +209,6 @@
     }
 
     //Swal.fire('Any fool can use a computer')
-
+    void OnDateChange(DateTime? value) => voucher.OnDate = value.Value;
 }
 
