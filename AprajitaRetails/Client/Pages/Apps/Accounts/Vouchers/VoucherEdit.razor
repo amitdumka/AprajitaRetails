@@ -39,11 +39,11 @@
                             </Column>
 
 
-                           @* <Column Classes="col.md">
-                                @if (IsEdit)
-                                {
-                                    <ATextInput @bind-Value=@voucher.VoucherNumber Name="VoucherNumber" Label="Voucher Number" />
-                                }
+                            @* <Column Classes="col.md">
+                            @if (IsEdit)
+                            {
+                            <ATextInput @bind-Value=@voucher.VoucherNumber Name="VoucherNumber" Label="Voucher Number" />
+                            }
 
                             </Column>*@
 
@@ -57,11 +57,11 @@
                                 <div class="mb-3 row">
                                     <label for="ondate" class="col-sm-4 col-form-label">Date</label>
                                     <div class="col-sm-6">
-                                        <RadzenDatePicker @bind-Value=@voucher.OnDate  id="ondate" Change=@OnDateChange/>
+                                        <RadzenDatePicker @bind-Value=@voucher.OnDate id="ondate" Change=@OnDateChange />
                                     </div>
                                 </div>
-                               
-                               
+
+
                             </Column>
                             <Column Classes="col.md"><ATextInput @bind-Value=@voucher.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
                             <Column Classes="col.md">
@@ -125,30 +125,12 @@
 
     string _selectedStringItem;
 
-    void onPayModeChange(string value) => _selectedStringItem = value;
-    void onVoucherChange(string value) => _selectedStringItem = value;
+    void onPayModeChange(string value) => voucher.PaymentMode = (PaymentMode)payModes.IndexOf(value);
+    //void onVoucherChange(string value) => _selectedStringItem = value;
 
 
-    private Voucher voucher = new Voucher
-        {
-            OnDate = DateTime.Now,
-            VoucherType = VoucherType.Payment,
-            AccountId = "",
-            Amount = 0,
-            EmployeeId = "",
-            EntryStatus = EntryStatus.Added,
-            IsReadOnly = false,
-            MarkedDeleted = false,
-            PartyId = "",
-            PartyName = "",
-            PaymentDetails = "",
-            Remarks = "",
-            SlipNumber = "",
-            PaymentMode = PaymentMode.Cash,
-            StoreId = "",
-            UserId = "",
-            VoucherNumber = ""
-        };
+    [Parameter] public Voucher EditVoucher { get; set; }
+    private Voucher voucher = null;
     private string Title = "Voucher";
     void ErrorMsg()
     {
@@ -201,11 +183,36 @@
     protected override async Task OnInitializedAsync()
     {
         voucher.VoucherType = VoucherType;
+        SelectedVCHType = (int)VoucherType;
         if (IsEdit)
         {
             Title = "Edit Voucher #" + VoucherNumber;
+            voucher = EditVoucher;
         }
-        else Title = "Add " + Title;
+        else
+        {
+            Title = "Add " + Title;
+            voucher = new Voucher
+                {
+                    OnDate = DateTime.Now,
+                    VoucherType = VoucherType.Payment,
+                    AccountId = "",
+                    Amount = 0,
+                    EmployeeId = "",
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    PartyId = "",
+                    PartyName = "",
+                    PaymentDetails = "",
+                    Remarks = "",
+                    SlipNumber = "",
+                    PaymentMode = PaymentMode.Cash,
+                    StoreId = "",
+                    UserId = "",
+                    VoucherNumber = ""
+                };
+        }
     }
 
     //Swal.fire('Any fool can use a computer')
