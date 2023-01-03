@@ -19,4 +19,5 @@ public enum Card { DebitCard, CreditCard, AmexCard }
 public enum CardType { Visa, MasterCard, Mastro, Amex, Dinners, Rupay, }
 
 public enum LedgerCategory { Credit, Debit, Income, Expenses, Assests, Bank, Loan, Purchase, Sale, Vendor, Customer }
+public enum AccountType { Saving, Current, CashCredit, OverDraft, Others, Loan, CF }
 

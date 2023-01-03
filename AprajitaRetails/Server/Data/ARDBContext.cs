@@ -3,6 +3,7 @@ using AprajitaRetails.Shared.Models.Vouchers;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Bases;
+using AprajitaRetails.Shared.Models.Banking;
 
 namespace AprajitaRetails.Server.Data
 {
@@ -37,6 +38,16 @@ namespace AprajitaRetails.Server.Data
         public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; } 
         public DbSet<PaySlip> PaySlips { get; set; } 
         public DbSet<TimeSheet> TimeSheets{ get; set; } 
-        public DbSet<SalaryLedger> SalaryLedgers { get; set; } 
+        public DbSet<SalaryLedger> SalaryLedgers { get; set; }
+
+
+        public DbSet<Bank> Banks { get; set; }
+        public DbSet<VendorBankAccount> VendorBankAccounts { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<BankAccountList> AccountLists { get; set; }
+        public DbSet<ChequeBook> ChequeBooks { get; set; }
+        public DbSet<ChequeIssued> ChequeIssued { get; set; }
+        public DbSet<ChequeLog> ChequeLogs { get; set; }
+
     }
 }

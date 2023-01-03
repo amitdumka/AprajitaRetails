@@ -15,7 +15,7 @@
 
 <ContentMain>
     <Row>
-        <Column Classes="col.md._6">
+        <Column Classes="col.lg.auto">
             <EditForm Model=@voucher OnValidSubmit=@SaveButton OnInvalidSubmit=@ErrorMsg>
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -24,49 +24,55 @@
                     <Header><CardTools /></Header>
                     <Body>
                         <Row>
-                            <Column>
+                            <Column Classes="col.md">
                                 <ASelect Label="Voucher Type" Name="VoucheType" TItem="string" Items="vchTypes" Selector="(x => x)" />
                             </Column>
-                            <Column>
+
+
+
+                            <Column Classes="col.md">
                                 @if (IsEdit)
                                 {
                                     <ATextInput @bind-Value=@voucher.VoucherNumber Name="VoucherNumber" Label="Voucher Number" />
                                 }
+
+                            </Column>
+
+
+                            <Column Classes="col.md">
+                                <ATextInput @bind-Value=@voucher.StoreId Name="Store" Label="Store" />
                             </Column>
                         </Row>
                         <Row>
-                            <Column>
-                                <ATextInput @bind-Value=@voucher.StoreId Name="Store" Label="Store" />
-                            </Column>
-                            <Column>
+                            <Column Classes="col.md">
                                 Date:
                                 <InputDate @bind-Value=@voucher.OnDate DisplayName="OnDate" />
                             </Column>
-                        </Row>
-                        <Row>
-                            <Column>
-                                <ATextInput @bind-Value=@voucher.PartyName Name="PartyName" Label="PartyName" />
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
+                            <Column Classes="col.md">
+                                <ATextInput @bind-Value=@voucher.PartyName Name="PartyName" Label="Party Name" />
                             </Column>
-                            <Column><ATextInput @bind-Value=@voucher.Particulars Name="Particulars" Label="Particulars" /></Column>
                         </Row>
                         <Row>
-                            <Column><AInputNumber @bind-Value=@voucher.Amount Name="AccountId" Label="Amount" /></Column>
-                            <Column><ATextInput @bind-Value=@voucher.Remarks Name="SlipNo" Label="Slip No" /></Column>
-                        </Row>
-                        <Row>
-                            <Column><ATextInput @bind-Value=@voucher.PartyId Name="Party" Label="Party" /></Column>
-                            <Column><ATextInput @bind-Value=@voucher.EmployeeId Name="Issude" Label="Issued By" /></Column>
-                        </Row>
-                        <Row>
-                            <Column><ATextInput @bind-Value=@voucher.AccountId Name="AccountId" Label="Account No" /></Column>
-                            <Column><ATextInput @bind-Value=@voucher.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
-                        </Row>
-                        <Row>
-                            <Column>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.Particulars Name="Particulars" Label="Particulars" /></Column>
+                            <Column Classes="col.md"><AInputNumber @bind-Value=@voucher.Amount Name="Amount" Label="Amount" /></Column>
+                            <Column Classes="col.md">
                                 <ASelect Label="Payment Mode" Name="PayMode" TItem="string" Items="payModes" Selector="(x => x)" />
                             </Column>
-                            <Column><ATextInput @bind-Value=@voucher.PaymentDetails Name="Details" Label="Payment Details" /></Column>
+
                         </Row>
+                        <Row>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.AccountId Name="AccountId" Label="Account No" /></Column>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.PaymentDetails Name="Details" Label="Payment Details" /></Column>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.PartyId Name="Party" Label="Party" /></Column>
+                        </Row>
+                        <Row>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.Remarks Name="Remarls" Label="Remarks" /></Column>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.EmployeeId Name="Issued" Label="Issued By" /></Column>
+                            <Column Classes="col.sm"></Column>
+                        </Row>
+
+
                     </Body>
                     <Footer>
                         <Column Classes="col.md._3">
@@ -83,7 +89,7 @@
 
 
 @code {
-    //TODO: Use bind value in place change in ASelect and See what happen 
+    //TODO: Use bind value in place change in ASelect and See what happen
     [Parameter]
     public VoucherType VoucherType { get; set; } = VoucherType.Payment;
     [Parameter]
@@ -103,35 +109,35 @@
 
 
     private Voucher voucher = new Voucher
-    {
-        OnDate = DateTime.Now,
-        VoucherType = VoucherType.Payment,
-        AccountId = "",
-        Amount = 0,
-        EmployeeId = "",
-        EntryStatus = EntryStatus.Added,
-        IsReadOnly = false,
-        MarkedDeleted = false,
-        PartyId = "",
-        PartyName = "",
-        PaymentDetails = "",
-        Remarks = "",
-        SlipNumber = "",
-        PaymentMode = PaymentMode.Cash,
-        StoreId = "",
-        UserId = "",
-        VoucherNumber = ""
-    };
+        {
+            OnDate = DateTime.Now,
+            VoucherType = VoucherType.Payment,
+            AccountId = "",
+            Amount = 0,
+            EmployeeId = "",
+            EntryStatus = EntryStatus.Added,
+            IsReadOnly = false,
+            MarkedDeleted = false,
+            PartyId = "",
+            PartyName = "",
+            PaymentDetails = "",
+            Remarks = "",
+            SlipNumber = "",
+            PaymentMode = PaymentMode.Cash,
+            StoreId = "",
+            UserId = "",
+            VoucherNumber = ""
+        };
     private string Title = "Voucher";
     void ErrorMsg()
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = NotificationSeverity.Info,
-            Summary = "Error",
-            Detail = "Invalid Sate",
-            Duration = 4000
-        };
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Error",
+                Detail = "Invalid Sate",
+                Duration = 4000
+            };
         NotificationService.Notify(msg);
     }
     void SaveButton()
@@ -149,24 +155,24 @@
         if (result.IsSuccessStatusCode)
         {
             var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Info",
-                Detail = "Voucher is added",
-                Duration = 4000
-            };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Info",
+                    Detail = "Voucher is added",
+                    Duration = 4000
+                };
             NotificationService.Notify(msg);
 
         }
         else
         {
             var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Error",
-                Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
-                Duration = 4000
-            };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Error",
+                    Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
+                    Duration = 4000
+                };
             NotificationService.Notify(msg);
         }
     }
