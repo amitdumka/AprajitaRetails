@@ -1,0 +1,158 @@
+[
+  {
+    "TranscationId": "TM/1",
+    "TranscationName": "Home Expenses"
+  },
+  {
+    "TranscationId": "TM/10",
+    "TranscationName": "OnLinePurchase"
+  },
+  {
+    "TranscationId": "TM/11",
+    "TranscationName": "Petty Cash Expenses"
+  },
+  {
+    "TranscationId": "TM/12",
+    "TranscationName": "Dan"
+  },
+  {
+    "TranscationId": "TM/13",
+    "TranscationName": "Breakfast"
+  },
+  {
+    "TranscationId": "TM/14",
+    "TranscationName": "Lunch"
+  },
+  {
+    "TranscationId": "TM/15",
+    "TranscationName": "Coffee"
+  },
+  {
+    "TranscationId": "TM/16",
+    "TranscationName": "Cup Glass"
+  },
+  {
+    "TranscationId": "TM/17",
+    "TranscationName": "Battery"
+  },
+  {
+    "TranscationId": "TM/19",
+    "TranscationName": "Fuel Expences"
+  },
+  {
+    "TranscationId": "TM/2",
+    "TranscationName": "Other Home Expenses"
+  },
+  {
+    "TranscationId": "TM/20",
+    "TranscationName": "Social \u0026 Staff Welfare"
+  },
+  {
+    "TranscationId": "TM/21",
+    "TranscationName": "Postage \u0026 Courier"
+  },
+  {
+    "TranscationId": "TM/22",
+    "TranscationName": "Snacks \u0026 Refreshment"
+  },
+  {
+    "TranscationId": "TM/23",
+    "TranscationName": "Miscellaneous Expenses"
+  },
+  {
+    "TranscationId": "TM/24",
+    "TranscationName": "Baksheesh \u0026 Others"
+  },
+  {
+    "TranscationId": "TM/25",
+    "TranscationName": "Medicine Expenses"
+  },
+  {
+    "TranscationId": "TM/26",
+    "TranscationName": "Painter"
+  },
+  {
+    "TranscationId": "TM/27",
+    "TranscationName": "Stationary"
+  },
+  {
+    "TranscationId": "TM/28",
+    "TranscationName": "Shop Electricity Bill"
+  },
+  {
+    "TranscationId": "TM/29",
+    "TranscationName": "Mobile bill \u0026 Recharge"
+  },
+  {
+    "TranscationId": "TM/3",
+    "TranscationName": "Mukesh(Home Staff)"
+  },
+  {
+    "TranscationId": "TM/30",
+    "TranscationName": "Labour "
+  },
+  {
+    "TranscationId": "TM/31",
+    "TranscationName": "Short in Cash"
+  },
+  {
+    "TranscationId": "TM/32",
+    "TranscationName": "Repair \u0026 Maintenance"
+  },
+  {
+    "TranscationId": "TM/33",
+    "TranscationName": "Puja Expenses"
+  },
+  {
+    "TranscationId": "TM/34",
+    "TranscationName": "Travelling \u0026 Trip Expenses"
+  },
+  {
+    "TranscationId": "TM/35",
+    "TranscationName": "SINGHANIA SENITRIES"
+  },
+  {
+    "TranscationId": "TM/36",
+    "TranscationName": "Net Communication"
+  },
+  {
+    "TranscationId": "TM/38",
+    "TranscationName": "Freight charges"
+  },
+  {
+    "TranscationId": "TM/39",
+    "TranscationName": "R.S Furniture"
+  },
+  {
+    "TranscationId": "TM/4",
+    "TranscationName": "Amit Kumar"
+  },
+  {
+    "TranscationId": "TM/40",
+    "TranscationName": "Tea"
+  },
+  {
+    "TranscationId": "TM/41",
+    "TranscationName": "Staff Shoes"
+  },
+  {
+    "TranscationId": "TM/5",
+    "TranscationName": "Amit Kumar Expenses"
+  },
+  {
+    "TranscationId": "TM/6",
+    "TranscationName": "CashIn"
+  },
+  {
+    "TranscationId": "TM/7",
+    "TranscationName": "CashOut"
+  },
+  {
+    "TranscationId": "TM/8",
+    "TranscationName": "Regular"
+  },
+  {
+    "TranscationId": "TM/9",
+    "TranscationName": "Suspence"
+  }
+]

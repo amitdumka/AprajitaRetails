@@ -1,0 +1,100 @@
+[
+  {
+    "TaxNameId": 1,
+    "Name": "Local Output GST@ 5%  ",
+    "TaxType": 0,
+    "CompositeRate": 5.0000,
+    "OutPutTax": false
+  },
+  {
+    "TaxNameId": 2,
+    "Name": "Local Output GST@ 12%  ",
+    "TaxType": 0,
+    "CompositeRate": 12.0000,
+    "OutPutTax": false
+  },
+  {
+    "TaxNameId": 3,
+    "Name": "Output IGST@ 5%  ",
+    "TaxType": 3,
+    "CompositeRate": 5.0000,
+    "OutPutTax": false
+  },
+  {
+    "TaxNameId": 4,
+    "Name": "Output IGST@ 12%  ",
+    "TaxType": 3,
+    "CompositeRate": 12.0000,
+    "OutPutTax": false
+  },
+  {
+    "TaxNameId": 5,
+    "Name": "Output Vat@ 12%  ",
+    "TaxType": 4,
+    "CompositeRate": 5.0000,
+    "OutPutTax": false
+  },
+  {
+    "TaxNameId": 6,
+    "Name": "Output VAT@ 5%  ",
+    "TaxType": 4,
+    "CompositeRate": 12.0000,
+    "OutPutTax": false
+  },
+  {
+    "TaxNameId": 7,
+    "Name": "Output Vat Free  ",
+    "TaxType": 4,
+    "CompositeRate": 0.0000,
+    "OutPutTax": false
+  },
+  {
+    "TaxNameId": 8,
+    "Name": "Local Input GST@ 5%  ",
+    "TaxType": 0,
+    "CompositeRate": 5.0000,
+    "OutPutTax": true
+  },
+  {
+    "TaxNameId": 9,
+    "Name": "Local Input GST@ 12%  ",
+    "TaxType": 0,
+    "CompositeRate": 12.0000,
+    "OutPutTax": true
+  },
+  {
+    "TaxNameId": 10,
+    "Name": "Input IGST@ 5%  ",
+    "TaxType": 3,
+    "CompositeRate": 5.0000,
+    "OutPutTax": true
+  },
+  {
+    "TaxNameId": 11,
+    "Name": "Input IGST@ 12%  ",
+    "TaxType": 3,
+    "CompositeRate": 12.0000,
+    "OutPutTax": true
+  },
+  {
+    "TaxNameId": 12,
+    "Name": "Input Vat@ 12%  ",
+    "TaxType": 4,
+    "CompositeRate": 5.0000,
+    "OutPutTax": true
+  },
+  {
+    "TaxNameId": 13,
+    "Name": "Input VAT@ 5%  ",
+    "TaxType": 4,
+    "CompositeRate": 12.0000,
+    "OutPutTax": true
+  },
+  {
+    "TaxNameId": 14,
+    "Name": "Input Vat Free  ",
+    "TaxType": 4,
+    "CompositeRate": 0.0000,
+    "OutPutTax": true
+  }
+]

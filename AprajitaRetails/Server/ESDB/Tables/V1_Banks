@@ -1,0 +1,70 @@
+[
+  {
+    "BankId": "AB005",
+    "Name": "Axis Bank"
+  },
+  {
+    "BankId": "ANB",
+    "Name": "Andhra Bank"
+  },
+  {
+    "BankId": "ANB0013",
+    "Name": "Andhra Bank"
+  },
+  {
+    "BankId": "BHB0011",
+    "Name": "Bandhan Bank"
+  },
+  {
+    "BankId": "BOB007",
+    "Name": "Bank Of Baroda"
+  },
+  {
+    "BankId": "CITI0012",
+    "Name": "Citi Bank"
+  },
+  {
+    "BankId": "DBSB0010",
+    "Name": "D B S Bank"
+  },
+  {
+    "BankId": "HB003",
+    "Name": "HDFC Bank"
+  },
+  {
+    "BankId": "IB002",
+    "Name": "ICICI Bank"
+  },
+  {
+    "BankId": "IDB0016",
+    "Name": "IDBI Bank"
+  },
+  {
+    "BankId": "KMB0015",
+    "Name": "Kotak Mahindra Bank"
+  },
+  {
+    "BankId": "PNB004",
+    "Name": "Punjab National Bank"
+  },
+  {
+    "BankId": "RBLB009",
+    "Name": "R B L Bank"
+  },
+  {
+    "BankId": "SBM008",
+    "Name": "S B M"
+  },
+  {
+    "BankId": "SBOI001",
+    "Name": "State Bank Of India"
+  },
+  {
+    "BankId": "VB0014",
+    "Name": "Vijiya Bank"
+  },
+  {
+    "BankId": "YB006",
+    "Name": "Yes Bank"
+  }
+]

@@ -3,10 +3,13 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NotificationService NotificationService
-@using Radzen.Blazor
+
+
 
 <ContentHeader>
     <Header>
@@ -26,7 +29,7 @@
                     <Body>
                         <Row>
                             <Column Classes="col.lg">
-                                @*  <ASelect Label="Voucher Type" Name="VoucheType" TItem="string" Items="vchTypes" Selector="(x => x)" />*@
+
                                 <RadzenRadioButtonList Orientation="Orientation.Horizontal" TValue="int" @bind-Value=@SelectedVCHType Change=@((args) => OnVoucherTypeChange(args, "VoucherType"))>
 
                                     <Items>
@@ -38,18 +41,9 @@
                                 </RadzenRadioButtonList>
                             </Column>
 
-
-                            @* <Column Classes="col.md">
-                            @if (IsEdit)
-                            {
-                            <ATextInput @bind-Value=@voucher.VoucherNumber Name="VoucherNumber" Label="Voucher Number" />
-                            }
-
-                            </Column>*@
-
-
                             <Column Classes="col.md">
-                                <ATextInput @bind-Value=@voucher.StoreId Name="Store" Label="Store" />
+
+                                <ASelect Label="Store" Name="Store" TItem="string" Items="payModes" Selector="(x => x)" />
                             </Column>
                         </Row>
                         <Row>
@@ -77,13 +71,13 @@
 
                         </Row>
                         <Row>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.AccountId Name="AccountId" Label="Account No" /></Column>
+                            <Column Classes="col.md"> <ASelect Label="Account No" Name="AccountNo" TItem="string" Items="payModes" Selector="(x => x)" /></Column>
                             <Column Classes="col.md"><ATextInput @bind-Value=@voucher.PaymentDetails Name="Details" Label="Payment Details" /></Column>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.PartyId Name="Party" Label="Party" /></Column>
+                            <Column Classes="col.md"> <ASelect Label="Ledger" Name="Party" TItem="string" Items="payModes" Selector="(x => x)" /></Column>
                         </Row>
                         <Row>
                             <Column Classes="col.md"><ATextInput @bind-Value=@voucher.Remarks Name="Remarls" Label="Remarks" /></Column>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.EmployeeId Name="Issued" Label="Issued By" /></Column>
+                            <Column Classes="col.md"> <ASelect Label="Issued By" Name="Employee" TItem="string" Items="payModes" Selector="(x => x)" /></Column>
                             <Column Classes="col.sm"></Column>
                         </Row>
 
@@ -135,12 +129,12 @@
     void ErrorMsg()
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Error",
-                Detail = "Invalid Sate",
-                Duration = 4000
-            };
+        {
+            Severity = NotificationSeverity.Info,
+            Summary = "Error",
+            Detail = "Invalid Sate",
+            Duration = 4000
+        };
         NotificationService.Notify(msg);
     }
     void SaveButton()
@@ -158,24 +152,24 @@
         if (result.IsSuccessStatusCode)
         {
             var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Info",
-                    Detail = "Voucher is added",
-                    Duration = 4000
-                };
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Info",
+                Detail = "Voucher is added",
+                Duration = 4000
+            };
             NotificationService.Notify(msg);
 
         }
         else
         {
             var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Error",
-                    Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
-                    Duration = 4000
-                };
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Error",
+                Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
+                Duration = 4000
+            };
             NotificationService.Notify(msg);
         }
     }
@@ -192,25 +186,25 @@
         {
             Title = "Add " + Title;
             voucher = new Voucher
-                {
-                    OnDate = DateTime.Now,
-                    VoucherType = VoucherType.Payment,
-                    AccountId = "",
-                    Amount = 0,
-                    EmployeeId = "",
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    MarkedDeleted = false,
-                    PartyId = "",
-                    PartyName = "",
-                    PaymentDetails = "",
-                    Remarks = "",
-                    SlipNumber = "",
-                    PaymentMode = PaymentMode.Cash,
-                    StoreId = "",
-                    UserId = "",
-                    VoucherNumber = ""
-                };
+            {
+                OnDate = DateTime.Now,
+                VoucherType = VoucherType.Payment,
+                AccountId = "",
+                Amount = 0,
+                EmployeeId = "",
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                PartyId = "",
+                PartyName = "",
+                PaymentDetails = "",
+                Remarks = "",
+                SlipNumber = "",
+                PaymentMode = PaymentMode.Cash,
+                StoreId = "",
+                UserId = "",
+                VoucherNumber = ""
+            };
         }
         voucher.VoucherType = VoucherType;
         SelectedVCHType = (int)VoucherType;
@@ -218,5 +212,30 @@
 
     //Swal.fire('Any fool can use a computer')
     void OnDateChange(DateTime? value) => voucher.OnDate = value.Value;
+
+    private SelectOption[]? Employees;
+    private SelectOption[]? Parties;
+    private SelectOption[]? Stores;
+    private SelectOption[]? Accounts;
+
+
+    private async void FetchSelectData()
+    {
+        try
+        {
+           
+            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees");
+            Parties = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Parties");
+            Stores = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Stores");
+            Accounts = await Http.GetFromJsonAsync<SelectOption[]>("Helper/BankAccounts");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+
+    }
+
 }
 

@@ -1,0 +1,238 @@
+[
+  {
+    "SubCategory": "Acc- Boxer",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Accessories",
+    "ProductCategory": 9
+  },
+  {
+    "SubCategory": "Accessory",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "After Hours",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "All Wool",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Apparel",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Arv Accessories",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Bag",
+    "ProductCategory": 5
+  },
+  {
+    "SubCategory": "Blazer",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Blazers",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Briefs",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Bundis",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Casual Jeans",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Celebration",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Cot Modal",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Cotton",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Cotton Visc Visc",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Denim",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Ethnic JawaharJacket",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Ethnic Kurta",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Ethnic Pathani Suit",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Ethnic Pyjama",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Ethnic Sherwani",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Formal Shirts",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Formal Suit-Jacket",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Formal Trouser",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Formal Waist Coat",
+    "ProductCategory": 3
+  },
+  {
+    "SubCategory": "Free GV",
+    "ProductCategory": 5
+  },
+  {
+    "SubCategory": "H-Shorts",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Innerwear",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Jackets",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Jeans",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Linen",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Mens Casual",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Mens Formal",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Non Tresca",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Poly Cot",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Poly Visc",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Poly Wool",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Promo",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Shirting",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Shirts",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Shorts",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Silk",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Socks",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Style Duffle",
+    "ProductCategory": 5
+  },
+  {
+    "SubCategory": "Suit Cover",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Suiting",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Suits",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Sweat Shirt",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Sweater",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "T shirts",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Tresca",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Trouser",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Trousers",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "Vests",
+    "ProductCategory": 1
+  },
+  {
+    "SubCategory": "WirstWatch",
+    "ProductCategory": 5
+  },
+  {
+    "SubCategory": "Wool Silk",
+    "ProductCategory": 0
+  },
+  {
+    "SubCategory": "Work",
+    "ProductCategory": 0
+  }
+]

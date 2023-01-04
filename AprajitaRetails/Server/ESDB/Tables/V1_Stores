@@ -1,0 +1,22 @@
+[
+  {
+    "StoreId": "ARD",
+    "StoreCode": "JHC0006",
+    "StoreName": "Aprajita Retails",
+    "BeginDate": "2016-02-17T00:00:00",
+    "EndDate": "",
+    "IsActive": false,
+    "StoreManager": "Alok Kumar",
+    "StoreManagerContactNo": " ",
+    "StorePhoneNumber": "0643422461",
+    "StoreEmailId": "thearvindstoredumka@gmail.com",
+    "City": "Dumka",
+    "State": "Jharkhand",
+    "Country": "India",
+    "ZipCode": "814101",
+    "PanNo": "AJHPA7396P",
+    "GSTIN": "20AJHPA739P1zv",
+    "VatNo": "NA",
+    "MarkedDeleted": true
+  }
+]

@@ -22,6 +22,8 @@
     <None Remove="Pages\Apps\Accounts\Vouchers\Notes\" />
     <None Remove="Pages\Apps\Accounts\Vouchers\Transcations\" />
     <None Remove="Pages\Apps\Payroll\" />
+    <None Remove="Pages\Setup\" />
+    <None Remove="Pages\Setup\Import\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,5 +63,7 @@
     <Folder Include="Pages\Apps\Accounts\Vouchers\Transcations\" />
     <Folder Include="Pages\Apps\Payroll\" />
     <Folder Include="wwwroot\js\bootstrap\" />
+    <Folder Include="Pages\Setup\" />
+    <Folder Include="Pages\Setup\Import\" />
   </ItemGroup>
 </Project>

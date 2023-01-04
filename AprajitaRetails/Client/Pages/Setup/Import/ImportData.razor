@@ -1,0 +1,55 @@
+﻿@page "/importdata"
+@inject HttpClient Http
+@using System.IO;
+@using AprajitaRetails.Shared.Models.Stores
+
+<H3> Import Test</H3>
+<p>@count</p>
+@{
+@if (stores == null)
+{
+        <p>Loading...</p>
+    }
+    else
+    {
+        foreach (var item in stores)
+        {
+            <p>@item.StoreId</p>
+            <p>@item.StoreName</p>
+        }
+    }
+ 
+}
+
+
+@code {
+
+    private ElementReference inputTypeFileElement;
+    string FileName = "";
+    string json = "";
+    Store[]? stores;
+    int count = 0;
+    void LoadJson()
+    {
+
+    }
+
+    public async Task ReadFile()
+    {
+        stores = await Http.GetFromJsonAsync<Store[]>("V1_Stores.json");
+        if (stores != null)
+            count = stores.Count();
+        else count = -1;
+    }
+    protected override async void OnInitialized()
+    {
+        stores = await Http.GetFromJsonAsync<Store[]>("storesjson");
+        if (stores != null)
+            count = stores.Count();
+        else count = -1;
+    }
+}
+
+@*employees = await Http.GetFromJsonAsync<Employee[]>("employee.json");*@
+@*string json = System.IO.File.ReadAllText("data/Users.json");
+    User mahan = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(json);*@

@@ -1,0 +1,202 @@
+[
+  {
+    "ProductTypeId": "PT00001",
+    "ProductTypeName": "Accessories"
+  },
+  {
+    "ProductTypeId": "PT00002",
+    "ProductTypeName": "Accessory"
+  },
+  {
+    "ProductTypeId": "PT00003",
+    "ProductTypeName": "After Hours"
+  },
+  {
+    "ProductTypeId": "PT00004",
+    "ProductTypeName": "Arv Accessories"
+  },
+  {
+    "ProductTypeId": "PT00005",
+    "ProductTypeName": "Celebration"
+  },
+  {
+    "ProductTypeId": "PT00006",
+    "ProductTypeName": "Denim"
+  },
+  {
+    "ProductTypeId": "PT00007",
+    "ProductTypeName": "Innerwear"
+  },
+  {
+    "ProductTypeId": "PT00008",
+    "ProductTypeName": "Mens Casual"
+  },
+  {
+    "ProductTypeId": "PT00009",
+    "ProductTypeName": "Mens Formal"
+  },
+  {
+    "ProductTypeId": "PT00010",
+    "ProductTypeName": "Non Tresca"
+  },
+  {
+    "ProductTypeId": "PT00011",
+    "ProductTypeName": "Tresca"
+  },
+  {
+    "ProductTypeId": "PT00012",
+    "ProductTypeName": "Work"
+  },
+  {
+    "ProductTypeId": "PT00013",
+    "ProductTypeName": "NO Type"
+  },
+  {
+    "ProductTypeId": "PT00014",
+    "ProductTypeName": "Formal"
+  },
+  {
+    "ProductTypeId": "PT00015",
+    "ProductTypeName": "Formal"
+  },
+  {
+    "ProductTypeId": "PT00016",
+    "ProductTypeName": "Ethnic"
+  },
+  {
+    "ProductTypeId": "PT00017",
+    "ProductTypeName": "Ethnic"
+  },
+  {
+    "ProductTypeId": "PT00018",
+    "ProductTypeName": "Formal"
+  },
+  {
+    "ProductTypeId": "PT00019",
+    "ProductTypeName": "Ethnic"
+  },
+  {
+    "ProductTypeId": "PT00020",
+    "ProductTypeName": "Casual"
+  },
+  {
+    "ProductTypeId": "PT00021",
+    "ProductTypeName": "Ethnic"
+  },
+  {
+    "ProductTypeId": "PT00022",
+    "ProductTypeName": "Formal"
+  },
+  {
+    "ProductTypeId": "PT00023",
+    "ProductTypeName": "Ethnic"
+  },
+  {
+    "ProductTypeId": "PT00024",
+    "ProductTypeName": "Linen"
+  },
+  {
+    "ProductTypeId": "PT00025",
+    "ProductTypeName": "Poly Wool"
+  },
+  {
+    "ProductTypeId": "PT00026",
+    "ProductTypeName": "Cotton"
+  },
+  {
+    "ProductTypeId": "PT00027",
+    "ProductTypeName": "Poly Visc"
+  },
+  {
+    "ProductTypeId": "PT00028",
+    "ProductTypeName": "Shirts"
+  },
+  {
+    "ProductTypeId": "PT00029",
+    "ProductTypeName": "T shirts"
+  },
+  {
+    "ProductTypeId": "PT00030",
+    "ProductTypeName": "Trouser"
+  },
+  {
+    "ProductTypeId": "PT00031",
+    "ProductTypeName": "Shirt"
+  },
+  {
+    "ProductTypeId": "PT00032",
+    "ProductTypeName": "Cot Modal"
+  },
+  {
+    "ProductTypeId": "PT00033",
+    "ProductTypeName": "Jeans"
+  },
+  {
+    "ProductTypeId": "PT00034",
+    "ProductTypeName": "SHIRT"
+  },
+  {
+    "ProductTypeId": "PT00035",
+    "ProductTypeName": "Trousers"
+  },
+  {
+    "ProductTypeId": "PT00036",
+    "ProductTypeName": "Poly Cot"
+  },
+  {
+    "ProductTypeId": "PT00037",
+    "ProductTypeName": "Sweater"
+  },
+  {
+    "ProductTypeId": "PT00038",
+    "ProductTypeName": "Jackets"
+  },
+  {
+    "ProductTypeId": "PT00039",
+    "ProductTypeName": "Sweat Shirt"
+  },
+  {
+    "ProductTypeId": "PT00040",
+    "ProductTypeName": "Cotton Visc"
+  },
+  {
+    "ProductTypeId": "PT00041",
+    "ProductTypeName": "Silk"
+  },
+  {
+    "ProductTypeId": "PT00042",
+    "ProductTypeName": "DENIM"
+  },
+  {
+    "ProductTypeId": "PT00043",
+    "ProductTypeName": "Suits"
+  },
+  {
+    "ProductTypeId": "PT00044",
+    "ProductTypeName": "Shorts"
+  },
+  {
+    "ProductTypeId": "PT00045",
+    "ProductTypeName": "POLY COT"
+  },
+  {
+    "ProductTypeId": "PT00046",
+    "ProductTypeName": "Woll Silk"
+  },
+  {
+    "ProductTypeId": "PT00047",
+    "ProductTypeName": "All Wool"
+  },
+  {
+    "ProductTypeId": "PT00048",
+    "ProductTypeName": "Acc- Boxer"
+  },
+  {
+    "ProductTypeId": "PT00049",
+    "ProductTypeName": "TROUSER"
+  },
+  {
+    "ProductTypeId": "PT00050",
+    "ProductTypeName": "H-Shorts"
+  }
+]

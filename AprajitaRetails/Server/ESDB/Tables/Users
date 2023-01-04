@@ -1,0 +1,50 @@
+[
+  {
+    "UserName": "Admin@estore.in",
+    "UserId": 1,
+    "Password": "Admin",
+    "Enabled": true,
+    "CreationTime": "2022-01-01T00:00:00",
+    "Role": 0,
+    "StoreId": "ARD",
+    "EmployeeId": "",
+    "GuestName": "Amit Kumar",
+    "UserType": 0
+  },
+  {
+    "UserName": "Alok@eStore.in",
+    "UserId": 4,
+    "Password": "Alok",
+    "Enabled": true,
+    "CreationTime": "2022-01-01T00:00:00",
+    "Role": 1,
+    "StoreId": "ARD",
+    "EmployeeId": "",
+    "GuestName": "Alok Kumar",
+    "UserType": 2
+  },
+  {
+    "UserName": "Amit@estore.in",
+    "UserId": 2,
+    "Password": "Dumka",
+    "Enabled": true,
+    "CreationTime": "2022-01-01T00:00:00",
+    "Role": 0,
+    "StoreId": "ARD",
+    "EmployeeId": "",
+    "GuestName": "Amit Kumar",
+    "UserType": 1
+  },
+  {
+    "UserName": "Gita@eStore.in",
+    "UserId": 3,
+    "Password": "Geeta",
+    "Enabled": true,
+    "CreationTime": "2022-01-01T00:00:00",
+    "Role": 3,
+    "StoreId": "ARD",
+    "EmployeeId": "",
+    "GuestName": "Geetanjali Verma",
+    "UserType": 4
+  }
+]

@@ -20,6 +20,7 @@ namespace AprajitaRetails.Client
         Task<bool> UploadFileChunk(ChunkedDataRequestDto fileChunkDto);
         Task<List<string>> GetFileNames();
     }
+
     public class WasmFilesManager : IFilesManager
     {
         HttpClient _http;

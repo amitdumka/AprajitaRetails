@@ -1,0 +1,862 @@
+[
+  {
+    "PartyId": 1,
+    "PartyName": "EMP# Alok Kumar ",
+    "OpenningDate": "2016-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dangalpara Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 2,
+    "PartyName": "EMP# Sanjeev Mishra ",
+    "OpenningDate": "2016-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Shivpahar Road Shantinagar Dumka.",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 3,
+    "PartyName": "EMP# Mukesh Mandal ",
+    "OpenningDate": "2016-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "New Bandh Para Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 4,
+    "PartyName": "EMP# Amit Kumar ",
+    "OpenningDate": "2015-10-01T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Next to SBI ATM , Police Line Road, Dumk",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 5,
+    "PartyName": "EMP# Saurabh Turi ",
+    "OpenningDate": "2020-02-24T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Rasikpur Kurwa Dumka.",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 6,
+    "PartyName": "EMP# MD. SHAUKIN AJAM ",
+    "OpenningDate": "2016-08-01T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Sahokhar masjid,Sahokhar,saraia.",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 7,
+    "PartyName": "EMP# MD. HASSAN ",
+    "OpenningDate": "2019-10-04T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "PARASAUNIA NEAR MAHHUA POLICE STATION .",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 8,
+    "PartyName": "EMP# IMTIYAZ ",
+    "OpenningDate": "2016-08-01T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 9,
+    "PartyName": "EMP# IMTIYAZ(A) ",
+    "OpenningDate": "2020-01-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 10,
+    "PartyName": "EMP# Md. Jafar ",
+    "OpenningDate": "2016-05-01T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 11,
+    "PartyName": "EMP# Geetanjali Kumari Verma ",
+    "OpenningDate": "2020-09-11T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Rasikpur Kurwa Dumka.",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 12,
+    "PartyName": "EMP# MD. ABBAS ",
+    "OpenningDate": "2020-10-12T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "MASJID GALI,KARBALA ROAD,DUDHANI,DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 13,
+    "PartyName": "EMP# Sanjay Rana ",
+    "OpenningDate": "2020-12-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Haroraydih PS-Masaliya Dumka.",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 14,
+    "PartyName": "EMP# Amit Thakur ",
+    "OpenningDate": "2021-01-04T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Purabsarai Munger",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 15,
+    "PartyName": "EMP# Timoti Marandi ",
+    "OpenningDate": "2021-01-25T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Shreepur Bazar,Sahebganj",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 1
+  },
+  {
+    "PartyId": 16,
+    "PartyName": "CityNet",
+    "OpenningDate": "2021-02-16T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 2
+  },
+  {
+    "PartyId": 17,
+    "PartyName": "Maa Bhawani Art",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 5
+  },
+  {
+    "PartyId": 18,
+    "PartyName": "Raj Mistry",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 19,
+    "PartyName": "Painter",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 20,
+    "PartyName": "Electrician",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 21,
+    "PartyName": "Workshop",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 16
+  },
+  {
+    "PartyId": 22,
+    "PartyName": "Telephone Bill",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 2
+  },
+  {
+    "PartyId": 23,
+    "PartyName": "Tailoring trims expenses",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 17
+  },
+  {
+    "PartyId": 24,
+    "PartyName": "Freight charge",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 13
+  },
+  {
+    "PartyId": 25,
+    "PartyName": "R.S Enterprises",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 54
+  },
+  {
+    "PartyId": 26,
+    "PartyName": "Prince Tailoring Materials",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 17
+  },
+  {
+    "PartyId": 27,
+    "PartyName": "Shop Electricity Bill",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "AJHPA7396P",
+    "GSTNo": "AJHPA7396P",
+    "LedgerTypeId": 8
+  },
+  {
+    "PartyId": 28,
+    "PartyName": "Anup Sharma(grill shop)",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 29,
+    "PartyName": "Scientific emporium",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 7
+  },
+  {
+    "PartyId": 30,
+    "PartyName": "Bhutu Mistry",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 31,
+    "PartyName": "Singhania Senitries",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 54
+  },
+  {
+    "PartyId": 32,
+    "PartyName": "Bikash Patwari",
+    "OpenningDate": "2015-04-30T18:30:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 50
+  },
+  {
+    "PartyId": 33,
+    "PartyName": "Maa Bhawani Art",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 5
+  },
+  {
+    "PartyId": 34,
+    "PartyName": "Store Renovation",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 35,
+    "PartyName": "Layman\u0027s Net",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 2
+  },
+  {
+    "PartyId": 36,
+    "PartyName": "General Electrical Item",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 41
+  },
+  {
+    "PartyId": 37,
+    "PartyName": "Painting Materials",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 38,
+    "PartyName": "Construction Materials",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 39,
+    "PartyName": "Kites",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 20
+  },
+  {
+    "PartyId": 40,
+    "PartyName": "Ajay Electricals",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 54
+  },
+  {
+    "PartyId": 41,
+    "PartyName": "Glass House",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 54
+  },
+  {
+    "PartyId": 42,
+    "PartyName": "Repair \u0026 Maintenance",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 43,
+    "PartyName": "No Party",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 18
+  },
+  {
+    "PartyId": 44,
+    "PartyName": "TIWARI AUTOMOBILES PVT.LTD.",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 19
+  },
+  {
+    "PartyId": 45,
+    "PartyName": "Fuels",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 47
+  },
+  {
+    "PartyId": 46,
+    "PartyName": "Car Maintenance ",
+    "OpenningDate": "2021-02-17T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Dumka",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 19
+  },
+  {
+    "PartyId": 47,
+    "PartyName": "Puja Expenses",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 20
+  },
+  {
+    "PartyId": 48,
+    "PartyName": "Decoration Expences",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 20
+  },
+  {
+    "PartyId": 49,
+    "PartyName": "Computer \u0026 IT",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 22
+  },
+  {
+    "PartyId": 50,
+    "PartyName": "Painting Goods",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 23
+  },
+  {
+    "PartyId": 51,
+    "PartyName": "Printing Goods",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 32
+  },
+  {
+    "PartyId": 52,
+    "PartyName": "Wallpaper Mistry",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 53,
+    "PartyName": "Municipal Tax \u0026 Rent ",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 26
+  },
+  {
+    "PartyId": 54,
+    "PartyName": "M.S Benaguria",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 54
+  },
+  {
+    "PartyId": 55,
+    "PartyName": "Veena Press",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 32
+  },
+  {
+    "PartyId": 56,
+    "PartyName": "Home Electricity Bill",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 8
+  },
+  {
+    "PartyId": 57,
+    "PartyName": "Shop Electricity Bill",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 8
+  },
+  {
+    "PartyId": 58,
+    "PartyName": "Workshop Electricity Bill",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 8
+  },
+  {
+    "PartyId": 59,
+    "PartyName": "Stationary",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 32
+  },
+  {
+    "PartyId": 60,
+    "PartyName": "Furniture of Aprajita Retails",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "AJHPA7396P",
+    "GSTNo": "AJHPA7396P",
+    "LedgerTypeId": 12
+  },
+  {
+    "PartyId": 61,
+    "PartyName": "Electricity Account",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 8
+  },
+  {
+    "PartyId": 62,
+    "PartyName": "Point Redenative",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 35
+  },
+  {
+    "PartyId": 63,
+    "PartyName": "Lunch \u0026 Snacks",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 3
+  },
+  {
+    "PartyId": 64,
+    "PartyName": "Net Communication",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 36
+  },
+  {
+    "PartyId": 65,
+    "PartyName": "Travelling \u0026 Trip Expenses ",
+    "OpenningDate": "2021-02-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 37
+  },
+  {
+    "PartyId": 66,
+    "PartyName": "Dan",
+    "OpenningDate": "2021-02-20T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 20
+  },
+  {
+    "PartyId": 67,
+    "PartyName": "Anubha Kumari",
+    "OpenningDate": "2021-02-19T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 10
+  },
+  {
+    "PartyId": 68,
+    "PartyName": "Iron Elements",
+    "OpenningDate": "2021-02-26T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 41
+  },
+  {
+    "PartyId": 69,
+    "PartyName": "Telephone Mistry",
+    "OpenningDate": "2021-03-08T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 20
+  },
+  {
+    "PartyId": 70,
+    "PartyName": "Bhakat Brothers Electronic Shop",
+    "OpenningDate": "2021-03-13T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 41
+  },
+  {
+    "PartyId": 71,
+    "PartyName": "Sindri  Fertilizers",
+    "OpenningDate": "2021-03-16T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 6
+  },
+  {
+    "PartyId": 72,
+    "PartyName": "R.S Furniture",
+    "OpenningDate": "2021-03-18T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Thana Road, Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 12
+  },
+  {
+    "PartyId": 74,
+    "PartyName": "Courier",
+    "OpenningDate": "2021-03-20T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 9
+  },
+  {
+    "PartyId": 75,
+    "PartyName": "Staff Shoes",
+    "OpenningDate": "2021-03-23T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "",
+    "GSTNo": "",
+    "LedgerTypeId": 44
+  },
+  {
+    "PartyId": 76,
+    "PartyName": "Battery",
+    "OpenningDate": "2021-04-12T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 20
+  },
+  {
+    "PartyId": 77,
+    "PartyName": "Advertisement Expenses",
+    "OpenningDate": "2021-04-12T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "DUMKA",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 5
+  },
+  {
+    "PartyId": 78,
+    "PartyName": "Arvind Limited",
+    "OpenningDate": "2015-10-01T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Gurjat",
+    "PANNo": "Pending",
+    "GSTNo": "Pending",
+    "LedgerTypeId": 45
+  },
+  {
+    "PartyId": 79,
+    "PartyName": "Pine Labs",
+    "OpenningDate": "2021-04-01T00:00:00",
+    "OpenningBalance": 0.0000,
+    "Address": "Delhi",
+    "PANNo": "Pen",
+    "GSTNo": "Pending",
+    "LedgerTypeId": 46
+  },
+  {
+    "PartyId": 80,
+    "PartyName": "Prakash Sah",
+    "OpenningDate": "2021-08-14T05:16:43.556",
+    "OpenningBalance": 0.0000,
+    "Address": "Bhaglpur Road Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 53
+  },
+  {
+    "PartyId": 81,
+    "PartyName": "Prakash Sah",
+    "OpenningDate": "2021-08-14T05:21:11.036",
+    "OpenningBalance": 0.0000,
+    "Address": "Bhaglpur Road Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 53
+  },
+  {
+    "PartyId": 82,
+    "PartyName": "Shastri Kumar Associate",
+    "OpenningDate": "2013-04-01T17:08:12",
+    "OpenningBalance": 0.0000,
+    "Address": "Duragapur",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 50
+  },
+  {
+    "PartyId": 83,
+    "PartyName": "Adjustment Bill",
+    "OpenningDate": "2021-08-19T05:15:47.247",
+    "OpenningBalance": 0.0000,
+    "Address": "Bhaglpur Road Dumka",
+    "PANNo": "NA",
+    "GSTNo": "NA",
+    "LedgerTypeId": 51
+  },
+  {
+    "PartyId": 84,
+    "PartyName": "Discount Bill",
+    "OpenningDate": "2021-08-21T05:05:50.84",
+    "OpenningBalance": 0.0000,
+    "Address": "Bhaglpur Road Dumka",
+    "PANNo": "AJHPA7396P",
+    "GSTNo": "NA",
+    "LedgerTypeId": 52
+  },
+  {
+    "PartyId": 87,
+    "PartyName": "Legal Expenses",
+    "OpenningDate": "2022-01-09T05:15:03",
+    "OpenningBalance": 0.0000,
+    "Address": "Bhaglpur Road Dumka",
+    "PANNo": "AJHPA7396P",
+    "GSTNo": "NA",
+    "LedgerTypeId": 58
+  },
+  {
+    "PartyId": 88,
+    "PartyName": "Gopi Chourasia",
+    "OpenningDate": "2022-01-09T05:28:42",
+    "OpenningBalance": 0.0000,
+    "Address": "Bhaglpur Road Dumka",
+    "PANNo": "AJHPA7396P",
+    "GSTNo": "NA",
+    "LedgerTypeId": 59
+  },
+  {
+    "PartyId": 89,
+    "PartyName": "Rajendra Prasad Gupta",
+    "OpenningDate": "2022-01-11T05:31:48.874",
+    "OpenningBalance": 0.0000,
+    "Address": "Bhaglpur Road Dumka",
+    "PANNo": "AJHPA7396P",
+    "GSTNo": "NA",
+    "LedgerTypeId": 60
+  }
+]
