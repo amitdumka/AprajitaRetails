@@ -2,54 +2,99 @@
 @inject HttpClient Http
 @using System.IO;
 @using AprajitaRetails.Shared.Models.Stores
+@using AprajitaRetails.Client.AdminLte
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
 
 <H3> Import Test</H3>
-<p>@count</p>
+
+
 @{
-@if (stores == null)
-{
-        <p>Loading...</p>
+    @if (stores == null)
+    {
+        <p><em>Loading...</em></p>
     }
     else
     {
-        foreach (var item in stores)
-        {
-            <p>@item.StoreId</p>
-            <p>@item.StoreName</p>
-        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Store</th>
+                    <th>StoreName</th>
+                    <th>Date</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var forecast in stores)
+                {
+                    <tr>
+
+                        <td>@forecast.StoreId</td>
+                        <td>@forecast.StoreName</td>
+                        <td>@forecast.BeginDate.ToShortDateString()</td>
+                        <td>@forecast.City</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
- 
+    <p>@count</p>
+    <Button @onclick="@save">save</Button>
+    <p>@errmsg</p>
 }
 
 
 @code {
 
-    private ElementReference inputTypeFileElement;
-    string FileName = "";
-    string json = "";
-    Store[]? stores;
+    private Store[]? stores;
     int count = 0;
-    void LoadJson()
+    string errmsg = "";
+    async void save()
     {
+        try
+        {
+            foreach (var store in stores)
+            {
+                var res = await Http.PostAsJsonAsync<Store>("Stores", store);
+                if (res.IsSuccessStatusCode)
+                {
+                    errmsg += $"\n Added id: {store.StoreId}";
+                }
+                else
+                {
+                    errmsg += $"\n failed to Add id: {store.StoreId}\n{res.StatusCode}\n{res.Content}";
+                }
+            }
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        catch (Exception ex)
+        {
+            errmsg = ex.Message + "\n" + ex.StackTrace;
+        }
 
     }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            stores = await Http.GetFromJsonAsync<Store[]>("stores.json");
+            count = stores.Count();
 
-    public async Task ReadFile()
-    {
-        stores = await Http.GetFromJsonAsync<Store[]>("V1_Stores.json");
-        if (stores != null)
-            count = stores.Count();
-        else count = -1;
-    }
-    protected override async void OnInitialized()
-    {
-        stores = await Http.GetFromJsonAsync<Store[]>("storesjson");
-        if (stores != null)
-            count = stores.Count();
-        else count = -1;
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
     }
 }
-
 @*employees = await Http.GetFromJsonAsync<Employee[]>("employee.json");*@
 @*string json = System.IO.File.ReadAllText("data/Users.json");
     User mahan = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(json);*@

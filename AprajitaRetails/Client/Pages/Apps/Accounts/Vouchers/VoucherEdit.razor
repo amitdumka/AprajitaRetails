@@ -43,7 +43,7 @@
 
                             <Column Classes="col.md">
 
-                                <ASelect Label="Store" Name="Store" TItem="string" Items="payModes" Selector="(x => x)" />
+                                <ASelect Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
                             </Column>
                         </Row>
                         <Row>
@@ -99,33 +99,25 @@
 
 @code {
     //TODO: Use bind value in place change in ASelect and See what happen
-    [Parameter]
-    public VoucherType VoucherType { get; set; } = VoucherType.Payment;
-    [Parameter]
-    public string VoucherNumber { get; set; } = "";
-    [Parameter]
-    public bool IsEdit { get; set; } = false;
+    private string Title = "Voucher";
 
-    private TransactionMode ModeT = new TransactionMode();
-
-    int SelectedVCHType = 0;
-    void OnVoucherTypeChange(int? value, string name)
-    {
-        voucher.VoucherType = (VoucherType)value;
-    }
+    [Parameter] public VoucherType VoucherType { get; set; } = VoucherType.Payment;
+    [Parameter] public string VoucherNumber { get; set; } = "";
+    [Parameter] public bool IsEdit { get; set; } = false;
+    [Parameter] public Voucher? EditVoucher { get; set; }
 
     IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
-    IList<string> vchTypes = Enum.GetNames(typeof(VoucherType));
+    int SelectedVCHType = 0;
+    private SelectOption[]? Employees = { new SelectOption { ID = "0", Value = "Select Employee" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
+    private SelectOption[]? Parties = { new SelectOption { ID = "0", Value = "Select Parties" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
+    private IList<SelectOption>? Stores;
+        //= { new SelectOption { ID = "0", Value = "Select Stoes" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
+    private SelectOption[]? Accounts = { new SelectOption { ID = "0", Value = "Select Acccount" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
 
-    string _selectedStringItem;
-
+    void OnVoucherTypeChange(int? value, string name) => voucher.VoucherType = (VoucherType)value;
     void onPayModeChange(string value) => voucher.PaymentMode = (PaymentMode)payModes.IndexOf(value);
-    //void onVoucherChange(string value) => _selectedStringItem = value;
-
-
-    [Parameter] public Voucher EditVoucher { get; set; }
     private Voucher voucher = null;
-    private string Title = "Voucher";
+
     void ErrorMsg()
     {
         var msg = new Radzen.NotificationMessage
@@ -176,7 +168,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+      await  FetchSelectData();
         if (IsEdit)
         {
             Title = "Edit Voucher #" + VoucherNumber;
@@ -212,28 +204,21 @@
 
     //Swal.fire('Any fool can use a computer')
     void OnDateChange(DateTime? value) => voucher.OnDate = value.Value;
-
-    private SelectOption[]? Employees;
-    private SelectOption[]? Parties;
-    private SelectOption[]? Stores;
-    private SelectOption[]? Accounts;
-
-
-    private async void FetchSelectData()
+    private async Task<bool> FetchSelectData()
     {
         try
         {
-           
-            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees");
-            Parties = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Parties");
-            Stores = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Stores");
-            Accounts = await Http.GetFromJsonAsync<SelectOption[]>("Helper/BankAccounts");
+
+            //Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees");
+            //Parties = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Parties");
+            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
+            //Accounts = await Http.GetFromJsonAsync<SelectOption[]>("Helper/BankAccounts");
         }
         catch (AccessTokenNotAvailableException exception)
         {
             exception.Redirect();
         }
-
+        return true;
 
     }
 

@@ -1,0 +1,103 @@
+﻿@page "/stores"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Shared.Models.Stores
+@attribute [Authorize]
+
+@inject HttpClient Http
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+<ContentMain>
+
+    @if (entities == null)
+    {
+
+
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                <Title>
+                    <CardTitle>@Title</CardTitle>
+
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary">
+                                Add
+                            </Button>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                        <TableHead>
+                            <TableHeadCell>Id</TableHeadCell>
+                            <TableHeadCell>Name</TableHeadCell>
+                            <TableHeadCell>City</TableHeadCell>
+                            <TableHeadCell>Active</TableHeadCell>
+                            <TableHeadCell>Started</TableHeadCell>
+                            <TableHeadCell>Pan No</TableHeadCell>
+                            <TableHeadCell>GSTIN</TableHeadCell>
+                            <TableHeadCell>SM</TableHeadCell>
+                            <TableHeadCell>Phone</TableHeadCell>
+                            <TableHeadCell>     </TableHeadCell>
+                        </TableHead>
+                        <TableBody>
+
+                            @foreach (var ent in entities)
+                            {
+                                <TableRow>
+                                    <TableCell>@ent.StoreId</TableCell>
+                                    <TableCell>@ent.StoreName</TableCell>
+                                    <TableCell>@ent.City.</TableCell>
+                                    <TableCell>@ent.IsActive.</TableCell>
+                                    <TableCell>@ent.BeginDate.ToShortDateString()</TableCell>
+                                    <TableCell>@ent.PanNo.</TableCell>
+                                    <TableCell>@ent.GSTIN</TableCell>
+                                    <TableCell>@ent.StoreManager</TableCell>
+                                    <TableCell>@ent.StorePhoneNumber</TableCell>
+                                    <TableCell>
+                                        <div>
+                                            <Button>I</Button><Button>E</Button><Button>D</Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </AprajitaRetails.AdminLte.Table.ATable>
+                </Body>
+            </Card>
+        </Row>
+    }
+
+</ContentMain>
+
+
+
+
+@code{
+
+    private const string Title = "Stores";
+    private Store[]? entities;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            entities = await Http.GetFromJsonAsync<Store[]>("Stores");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

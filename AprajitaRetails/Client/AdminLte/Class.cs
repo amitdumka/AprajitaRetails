@@ -8,6 +8,11 @@ namespace AprajitaRetails.Client.AdminLte
 //}
 //namespace Blazor.AdminLte.Enumerations
 {
+    public class Test
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
 	public enum NavBarColor
 	{
 		Primary,

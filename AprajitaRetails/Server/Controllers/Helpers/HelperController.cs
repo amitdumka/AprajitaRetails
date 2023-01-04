@@ -64,13 +64,13 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return await _context.BankAccounts.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.BankId, Value = c.AccountHolderName + ", Acc: " + c.AccountNumber }).ToListAsync();
         }
         [HttpGet("Stores")]
-        public async Task<ActionResult<IEnumerable<SelectOption>>> GetStores(string storeid)
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetStores()
         {
             if (_context.Stores == null)
             {
                 return NotFound();
             }
-            return await _context.Stores.Where(c =>  !c.MarkedDeleted).Select(c => new SelectOption { ID = c.StoreId, Value = c.StoreName + ", #: " + c.City }).ToListAsync();
+            return await _context.Stores.Select(c => new SelectOption { ID = c.StoreId, Value = c.StoreName + ", #: " + c.City }).ToListAsync();
         }
     }
 }
