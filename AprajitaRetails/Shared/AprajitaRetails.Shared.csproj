@@ -11,8 +11,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="ViewModels\" />
+    <None Remove="Models\Auths\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
+    <Folder Include="Models\Auths\" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using AprajitaRetails.Server.Areas.Identity.Pages.Account;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Models;
+using AprajitaRetails.Shared.Models.Auth;
+using AprajitaRetails.Shared.Models.Vouchers;
 using Blazor.AdminLte;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -18,23 +20,42 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace AprajitaRetails.Server.Controllers.Auths
 {
+    [Route("[controller]")]
+    [ApiController]
     public class AuthsController : ControllerBase
     {
-
-        ApplicationDbContext _appDb;
-        ARDBContext _aRDB;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        public AuthsController(ApplicationDbContext appDb, ARDBContext aRDB, SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
+        //private readonly ILogger<RegisterModel> _logger;
+        private readonly IEmailSender _emailSender;
+
+        public AuthsController(UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
+            SignInManager<ApplicationUser> signInManager,
+            ILogger<LoginModel> logger,
+            IEmailSender emailSender)
         {
-            _appDb = appDb;
-            _aRDB = aRDB;
+
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
+            _userStore = userStore;
+            _emailStore = GetEmailStore();
+            _emailSender = emailSender;
         }
 
-        [HttpPost("customlogin")]
-        public async Task<bool> DoLigin(LoginVM login)
+        [HttpPost("customlogout")]
+        public async Task<ActionResult<bool>> PostLogout()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return Ok(true);
+        }
+        [HttpPost]
+        public async Task<ActionResult<bool>> PostLogin(LoginVM login)
         {
             if (ModelState.IsValid)
             {
@@ -43,81 +64,101 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return true;
+                    return Ok(true);
                 }
 
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return false;
+                    return Problem("User account locked out");
+
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return false;
+                    return Problem("Invalid login attempt.");
+
                 }
             }
-            else return false;
+            else return Problem("parameter is not valid!");
         }
 
-        public void RegisterNewUser()
+        [HttpPost("customregister")]
+        public async Task<ActionResult<bool>> PostRegisterNewUser(RegisterUserVM newUser)
         {
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userStore.SetUserNameAsync(user, newUser.UserName, CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, newUser.Email, CancellationToken.None);
+                var result = await _userManager.CreateAsync(user, newUser.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                    pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    return Ok(await ProcessNewUserAsync(user));
                 }
+                string errormsg = "";
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    errormsg += (error.Description + "\n");
                 }
+                return Problem(errormsg);
+            }
+            return Problem("Model is not valid!");
+        }
+        private ApplicationUser CreateUser()
+        {
+            try
+            {
+
+                return Activator.CreateInstance<ApplicationUser>();
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+            }
+        }
+
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
+        {
+            if (!_userManager.SupportsUserEmail)
+            {
+                throw new NotSupportedException("The default UI requires a user store with email support.");
+            }
+            return (IUserEmailStore<ApplicationUser>)_userStore;
+        }
+        private async Task<bool> ConfirmEmailAsync(ApplicationUser user, string code)
+        {
+            //code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            return result.Succeeded ? true : false;
+        }
+
+        private async Task<bool> ProcessNewUserAsync(ApplicationUser user)
+        {
+            _logger.LogInformation("User created a new account with password.");
+
+            var userId = await _userManager.GetUserIdAsync(user);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            if (_userManager.Options.SignIn.RequireConfirmedAccount)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, code);
+                if (result.Succeeded)
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                return result.Succeeded ? true : false;
+            }
+            else
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return true;
+
             }
         }
     }
-    public class RegisterUserVM
-    {
-        public string FullName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string StoreId { get; set; }
-    }
-    public class LoginVM
-    {
-        public string StoreId { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public bool RememberMe { get; set; }
-
-    }
+    
 }
 
