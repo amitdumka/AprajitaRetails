@@ -1,10 +1,21 @@
-﻿@page "/"
+﻿@page "/home"
 @inject IJSRuntime JS
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject NavigationManager Navigation
+@using Microsoft.AspNetCore.Authorization
+ 
+@attribute [Authorize]
 
+<AuthorizeView>
+    <Authorized>
         <h2>Aprajita Retails </h2>
         <p class="h3">Welcome to our new SRP app.</p>
+        <p class="h4">Current UserName: @context.User.Identity?.Name</p>
+    </Authorized>
+    
+</AuthorizeView>
+@code {
 
- 
+}
+

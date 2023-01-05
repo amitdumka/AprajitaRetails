@@ -8,107 +8,110 @@
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
 @inject NotificationService NotificationService
+@inject IHttpClientFactory ClientFactory
 
-<!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
-<Overlay>
-    <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
-        <div class="login-box">
-            <div class="login-logo">
-                <a href="#"><b>@CompanyName</b></a>
-            </div>
-            <div class="card">
-                <div class="card-body login-card-body">
-                    <p class="login-box-msg">Sign in </p>
-                    @*                    <form action="../../index3.html" method="post">
-                    *@
-                    <Input @bind-Value="email" />
-                    <Input @bind-Value="password" />
-                    @code {
-                        CustomCheckboxState rememberMe = new CustomCheckboxState()
-                        {
-                            Identifier = "customCheckbox1",
-                            Value = "option1",
-                            Label = "Custom Checkbox"
-                            , IsChecked=true
-                        };
-                    }
-                    <div class="row">
-                        <div class="col-8">
-                            <CustomCheckbox @bind-Value="rememberMe" />
-                        </div>
-                        <div class="col-4">
-                            <Button Color="Color.Primary" @onclick="DoLogin">Sign In</Button>
-                        </div>
+    <!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
+    <Overlay>
+        <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
+            <div class="login-box">
+                <div class="login-logo">
+                    <a href="#"><b>@CompanyName</b></a>
+                </div>
+                <div class="card">
+                    <div class="card-body login-card-body">
+                        <p class="login-box-msg">Sign in </p>
+                        @*                    <form action="../../index3.html" method="post">
+                        *@
+                        <Input @bind-Value="email" />
+                        <Input @bind-Value="password" />
+                        @code {
+                            CustomCheckboxState rememberMe = new CustomCheckboxState()
+                            {
+                                Identifier = "customCheckbox1",
+                                Value = "option1",
+                                Label = "Custom Checkbox"
+                                ,
+                                IsChecked = true
+                            };
+                        }
+                        <div class="row">
+                            <div class="col-8">
+                                <CustomCheckbox @bind-Value="rememberMe" />
+                            </div>
+                            <div class="col-4">
+                                <Button Color="Color.Primary" @onclick="DoLogin">Sign In</Button>
+                            </div>
 
+                        </div>
+                        @*                    </form>*@
+                        <div class="social-auth-links text-center mb-3">
+                            <p>- OR -</p>
+                            <a href="#" class="btn btn-block btn-primary">
+                                <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                            </a>
+                            <a href="#" class="btn btn-block btn-danger">
+                                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                            </a>
+                        </div>
+                        <p class="mb-1">
+                            <a href="forgot-password">I forgot my password</a>
+                        </p>
+                        <p class="mb-0">
+                            <a href="register" class="text-center">Register a new membership</a>
+                        </p>
                     </div>
-                    @*                    </form>*@
-                    <div class="social-auth-links text-center mb-3">
-                        <p>- OR -</p>
-                        <a href="#" class="btn btn-block btn-primary">
-                            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                        </a>
-                        <a href="#" class="btn btn-block btn-danger">
-                            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                        </a>
-                    </div>
-                    <p class="mb-1">
-                        <a href="forgot-password">I forgot my password</a>
-                    </p>
-                    <p class="mb-0">
-                        <a href="register" class="text-center">Register a new membership</a>
-                    </p>
                 </div>
             </div>
         </div>
-    </div>
-</Overlay>
-@code {
-    string CompanyName = "Aprajita Retails";
+    </Overlay>
+    @code {
+        string CompanyName = "Aprajita Retails";
 
-    string userName = "", Password = "";
-    bool remme;
-    InputState email = new InputState() { Value = "amit.dumka@gmail.com", Identifier = "email", Placeholder = "Enter email", Type = "email" };
-    @*Icon = "fas fa-envelope" };*@
-    InputState password = new InputState() { Value = "Dumka@1234", Identifier = "password", Placeholder = "Enter password", Type = "password" };
-    //Icon = "fas fa-lock" };
+        string userName = "", Password = "";
+        bool remme;
+        InputState email = new InputState() { Value = "amit.dumka@gmail.com", Identifier = "email", Placeholder = "Enter email", Type = "email" };
+        @*Icon = "fas fa-envelope" };*@
+        InputState password = new InputState() { Value = "Dumka@1234", Identifier = "password", Placeholder = "Enter password", Type = "password" };
+        //Icon = "fas fa-lock" };
 
-    async void DoLogin()
-    {
-        LoginVM vm = new LoginVM { UserName = email.Value, Password = password.Value, RememberMe = rememberMe.IsChecked.HasValue ? rememberMe.IsChecked.Value : false , StoreId="ARD"};
-        try
+        async void DoLogin()
         {
-            var login = await Http.PostAsJsonAsync<LoginVM>("auths", vm);
-            if (login.IsSuccessStatusCode)
+            LoginVM vm = new LoginVM { UserName = email.Value, Password = password.Value, RememberMe = rememberMe.IsChecked.HasValue ? rememberMe.IsChecked.Value : false, StoreId = "ARD" };
+            try
             {
-                //Redirect to page or home
-                NavigationManager.NavigateTo("/");
+                var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
+                var login = await client.PostAsJsonAsync<LoginVM>("auths", vm);
+                if (login.IsSuccessStatusCode)
+                {
+                    //Redirect to page or home
+                    NavigationManager.NavigateTo("/home");
+                }
+                else
+                {
+                    // Display error message
+                    var msg = new Radzen.NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Info,
+                        Summary = "Error",
+                        Detail = "err" + login.Content,
+                        Duration = 14000
+                    };
+                    NotificationService.Notify(msg);
+
+                }
             }
-            else
+            catch (Exception ex)
             {
+                // Dispaly error message
                 // Display error message
                 var msg = new Radzen.NotificationMessage
                 {
                     Severity = NotificationSeverity.Info,
                     Summary = "Error",
-                    Detail = "err"+login.Content,
+                    Detail = "err" + ex.Message,
                     Duration = 14000
                 };
                 NotificationService.Notify(msg);
-
             }
         }
-        catch (Exception ex)
-        {
-            // Dispaly error message
-            // Display error message
-            var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Error",
-                Detail = "err" + ex.Message,
-                Duration = 14000
-            };
-            NotificationService.Notify(msg);
-        }
     }
-}
