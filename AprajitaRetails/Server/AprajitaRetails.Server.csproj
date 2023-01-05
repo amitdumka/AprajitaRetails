@@ -45,6 +45,7 @@
     <None Remove="Controllers\Helpers\" />
     <None Remove="ESDB\" />
     <None Remove="ESDB\Tables\" />
+    <None Remove="Controllers\Auths\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
@@ -57,6 +58,7 @@
     <Folder Include="ESDB\" />
     <Folder Include="ESDB\Tables\" />
     <Folder Include="wwwroot\Tables\" />
+    <Folder Include="Controllers\Auths\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\__EFMigrationsHistory" />
