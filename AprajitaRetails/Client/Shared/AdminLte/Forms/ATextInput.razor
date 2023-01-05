@@ -1,8 +1,17 @@
 ﻿@namespace AprajitaRetails.AdminLte.Forms
 <div class="mb-3 row">
     <label for="@Name" class="col-sm-4 col-form-label">@Label</label>
-    <div class="col-sm-6">
-        <input type="text" class="form-control" value="@Value"  id="@Name" placeholder="@Placeholder"  @oninput="OnValueChanged">
+    <div class="col-sm-6 input-group">
+        <input type="text" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <div class="input-group-append">
+                <div class="@iconBgColor input-group-text">
+                    <span class="@Icon"></span>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
@@ -10,12 +19,13 @@
     [Parameter]
     public string Label { get; set; } = " ";
     [Parameter]
-    public string Name{ get; set; }
+    public string Name { get; set; }
     [Parameter]
     public string Placeholder { get; set; }
     [Parameter]
-    public string Value {get;set;}
-    
+    public string Value { get; set; }
+    [Parameter] public string Icon { get; set; }
+
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
     private async Task OnValueChanged(ChangeEventArgs e)
@@ -23,6 +33,20 @@
         Value = e?.Value?.ToString();
         await ValueChanged.InvokeAsync(Value);
     }
+    private Color _borderColor;
+    private Color _iconBgColor;
+    private Color? _originalBorderColor;
+    private Color? _originalIconBgColor;
 
-
+    private string iconBgColor => $"bg-{@IconBgColor.GetDescription<StyleAttribute>()}";
+    //private string borderColor => $"border-{@BorderColor.GetDescription<StyleAttribute>()}";
+    public Color IconBgColor
+    {
+        get { return _iconBgColor; }
+        set
+        {
+            _iconBgColor = value;
+            if (_originalIconBgColor == null) _originalIconBgColor = value;
+        }
+    }
 }

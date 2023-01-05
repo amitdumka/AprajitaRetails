@@ -5,13 +5,13 @@
 <!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
 <Overlay>
     <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
-        <div class="register-box">
+        <div class="register-box bg-primary bg-gradient">
             <div class="register-logo">
                 <a href="#"><b>@CompanyName</b></a>
             </div>
             <div class="card">
                 <div class="card-body register-card-body">
-                    <p class="login-box-msg">Register a new membership</p>
+                    <p class="login-box-msg">Register a new user</p>
                     @*                    <form action="../../index.html" method="post">
                     *@
                     <Input @bind-Value="fullName" />
@@ -28,7 +28,7 @@
                                 <Input @bind-Value="captchaKey" />
                             }*@
                         <div class="col-4">
-                            <Button OnClick="OnRegister">Register</Button>
+                            <Button Color="Color.Warning" OnClick="OnRegister">Register</Button>
                         </div>
 
                     </div>
@@ -51,7 +51,7 @@
                                  Sign up using Google+
                              </a>
                          </div>*@
-                    <a href="login" class="text-center">I already register</a>
+                    <a href="login" class="text-center">Login</a>
                 </div>
 
             </div>
