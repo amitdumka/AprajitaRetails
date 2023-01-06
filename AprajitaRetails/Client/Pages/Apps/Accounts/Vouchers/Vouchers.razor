@@ -5,6 +5,7 @@
 @using AprajitaRetails.Shared
 @attribute [Authorize]
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
 
 <ContentHeader>
     <Header>
@@ -27,10 +28,10 @@
                 <Header>
                     <CardTools>
                         <CustomTools>
-                           <a class="btn btn-primary btn-xs btn" href="/vouchers/edit">Add</a>
-                           @* <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary" >
-                                Add
-                            </Button>*@
+                            <a class="btn btn-primary btn-xs btn" href="/vouchers/edit">Add</a>
+                            @* <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary" >
+                                    Add
+                                </Button>*@
                         </CustomTools>
                     </CardTools>
                 </Header>
@@ -85,5 +86,12 @@
         {
             exception.Redirect();
         }
+    }
+
+    void GetVoucherDetails(string voucherNo)
+    {
+        var vch = vchlist.First(c => c.VoucherNumber == voucherNo);
+        NavigationManager.NavigateTo("vouchers/details");
+        
     }
 }

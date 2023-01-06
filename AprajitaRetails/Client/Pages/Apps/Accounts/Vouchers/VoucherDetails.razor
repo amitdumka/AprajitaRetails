@@ -1,0 +1,66 @@
+﻿@page "/vouchers/details"
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@attribute [Authorize]
+@inject HttpClient Http
+
+@if (Voucher == null)
+{
+
+
+<p><em>Loading......</em></p>
+}
+else
+{
+<table>
+    <tr>
+        <td>Voucher Type</td>
+        <td>@Voucher.VoucherType </td>
+    </tr>
+    <tr>
+        <td>Voucher No</td>
+        <td>@Voucher.VoucherNumber</td>
+    </tr>
+    <tr>
+        <td>Party</td>
+        <td>@Voucher.Party</td>
+    </tr>
+    <tr>
+        <td>Particulars</td>
+        <td>@Voucher.Particulars</td>
+    </tr>
+    <tr>
+        <td>Amount</td>
+        <td>@Voucher.Amount</td>
+    </tr>
+    <tr>
+        <td>Paymnet Mode</td>
+        <td>@Voucher.PaymentMode</td>
+    </tr>
+</table>
+}
+
+
+
+@code{
+    [Parameter] public string VouvherId { get; set; }
+    [Parameter] public Voucher? Voucher { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Voucher == null)
+        {
+            try {
+
+                Voucher = await Http.GetFromJsonAsync<Voucher>($"Vouchers/{VouvherId}");
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+        }
+    }
+}
