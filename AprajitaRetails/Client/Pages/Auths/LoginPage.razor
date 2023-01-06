@@ -4,114 +4,143 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
+@*@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+    @inject ProtectedLocalStorage BrowserStorage*@
 @*//@attribute [Authorize]*@
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
 @inject NotificationService NotificationService
 @inject IHttpClientFactory ClientFactory
-
-    <!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
-    <Overlay>
-        <div  style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
-            <div class="login-box bg-success">
-                <div class="login-logo">
-                    <a href="#"><b>@CompanyName</b></a>
-                </div>
-                <div class="card">
-                    <div class="card-body login-card-body">
-                        <p class="login-box-msg">Sign in </p>
-                        @*                    <form action="../../index3.html" method="post">
-                        *@
-                        <Input @bind-Value="email" />
-                        <Input @bind-Value="password" />
-                        @code {
-                            CustomCheckboxState rememberMe = new CustomCheckboxState()
-                            {
-                                Identifier = "customCheckbox1",
-                                Value = "option1",
-                                Label = "Remember Me?"
-                                ,
-                                IsChecked = true
-                            };
-                        }
-                        <div class="row">
-                            <div class="col-8">
-                                <CustomCheckbox @bind-Value="rememberMe" />
-                            </div>
-                            <div class="col-4">
-                                <Button Color="Color.Primary" @onclick="DoLogin">Sign In</Button>
-                            </div>
-
+@inject IJSRuntime JSRuntime
+<!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
+<Overlay>
+    <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
+        <div class="login-box bg-success">
+            <div class="login-logo">
+                <a href="#"><b>@CompanyName</b></a>
+            </div>
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Sign in </p>
+                    @*                    <form action="../../index3.html" method="post">
+                    *@
+                    <Input @bind-Value="email" />
+                    <Input @bind-Value="password" />
+                    @code {
+                        CustomCheckboxState rememberMe = new CustomCheckboxState()
+                        {
+                            Identifier = "customCheckbox1",
+                            Value = "option1",
+                            Label = "Remember Me?"
+                            ,
+                            IsChecked = true
+                        };
+                    }
+                    <div class="row">
+                        <div class="col-8">
+                            <CustomCheckbox @bind-Value="rememberMe" />
                         </div>
-                        @*                    </form>*@
-                        <div class="social-auth-links text-center mb-3">
-                            <p>- OR -</p>
-                            <a href="#" class="btn btn-block btn-primary">
-                                <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                            </a>
-                            <a href="#" class="btn btn-block btn-danger">
-                                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                            </a>
+                        <div class="col-4">
+                            <Button Color="Color.Primary" @onclick="DoLogin">Sign In</Button>
                         </div>
-                        <p class="mb-1">
-                            <a href="forgot-password">I forgot my password</a>
-                        </p>
-                        <p class="mb-0">
-                            <a href="register" class="text-center">Register a new user</a>
-                        </p>
+
                     </div>
+                    @*                    </form>*@
+                    <div class="social-auth-links text-center mb-3">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                        </a>
+                    </div>
+                    <p class="mb-1">
+                        <a href="forgot-password">I forgot my password</a>
+                    </p>
+                    <p class="mb-0">
+                        <a href="register" class="text-center">Register a new user</a>
+                    </p>
                 </div>
             </div>
         </div>
-    </Overlay>
-    @code {
-        string CompanyName = "Aprajita Retails";
-
-        string userName = "", Password = "";
-        bool remme;
-        InputState email = new InputState() { Value = "amit.dumka@gmail.com", Identifier = "email", Placeholder = "Enter email", Type = "email" };
-        @*Icon = "fas fa-envelope" };*@
-        InputState password = new InputState() { Value = "Dumka@1234", Identifier = "password", Placeholder = "Enter password", Type = "password" };
-        //Icon = "fas fa-lock" };
-
-        async void DoLogin()
+    </div>
+</Overlay>
+@code {
+    string CompanyName = "Aprajita Retails";
+    string userName = "", Password = "";
+    bool remme;
+    InputState email = new InputState() { Value = "AmitKumar", Identifier = "email", Placeholder = "Enter email", Type = "email" };
+    @*Icon = "fas fa-envelope" };*@
+    InputState password = new InputState() { Value = "Dumka@1234", Identifier = "password", Placeholder = "Enter password", Type = "password" };
+    //Icon = "fas fa-lock" };
+    async void DoLogin()
+    {
+        LoginVM vm = new LoginVM { UserName = email.Value, Password = password.Value, RememberMe = rememberMe.IsChecked.HasValue ? rememberMe.IsChecked.Value : false, StoreId = "ARD" };
+        try
         {
-            LoginVM vm = new LoginVM { UserName = email.Value, Password = password.Value, RememberMe = rememberMe.IsChecked.HasValue ? rememberMe.IsChecked.Value : false, StoreId = "ARD" };
-            try
+            var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
+            var login = await client.PostAsJsonAsync<LoginVM>("auths", vm);
+            if (login.IsSuccessStatusCode)
             {
-                var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
-                var login = await client.PostAsJsonAsync<LoginVM>("auths", vm);
-                if (login.IsSuccessStatusCode)
-                {
-                    //Redirect to page or home
-                    NavigationManager.NavigateTo("/home");
-                }
-                else
-                {
-                    // Display error message
-                    var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Info,
-                        Summary = "Error",
-                        Detail = "err" + login.Content,
-                        Duration = 14000
-                    };
-                    NotificationService.Notify(msg);
+                //Redirect to page or home
 
-                }
+                var xName = login.Content.ReadAsStringAsync().Result;
+                await JSRuntime.InvokeVoidAsync("localStorage.setItem", "UserFullName", xName);
+
+                var msg = new Radzen.NotificationMessage
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Success",
+                    Detail = $"User Loged In: {xName}",
+                    Duration = 14000
+                };
+                NotificationService.Notify(msg);
+                NavigationManager.NavigateTo("/home");
             }
-            catch (Exception ex)
+            else
             {
-                // Dispaly error message
                 // Display error message
                 var msg = new Radzen.NotificationMessage
                 {
                     Severity = NotificationSeverity.Info,
                     Summary = "Error",
-                    Detail = "err" + ex.Message,
+                    Detail = "err" + login.Content,
                     Duration = 14000
                 };
                 NotificationService.Notify(msg);
+
             }
         }
+        catch (Exception ex)
+        {
+            // Dispaly error message
+            // Display error message
+            var msg = new Radzen.NotificationMessage
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Error",
+                Detail = "err" + ex.Message,
+                Duration = 14000
+            };
+            NotificationService.Notify(msg);
+        }
     }
+}
+
+@*public async Task Save()
+    {
+      await JSRuntime.InvokeVoidAsync("localStorage.setItem", "name", currentInputValue);
+    }
+
+    public async Task Read()
+    {
+      currentInputValue = await JSRuntime.InvokeAsync<string>
+      ("localStorage.getItem", "name");
+      }
+
+      public async Task Delete()
+      {
+      await JSRuntime.InvokeAsync<string>
+          ("localStorage.removeItem", "name");
+          }*@

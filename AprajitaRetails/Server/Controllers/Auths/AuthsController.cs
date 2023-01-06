@@ -8,15 +8,11 @@ using AprajitaRetails.Server.Areas.Identity.Pages.Account;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Models;
 using AprajitaRetails.Shared.Models.Auth;
-using AprajitaRetails.Shared.Models.Vouchers;
-using Blazor.AdminLte;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AprajitaRetails.Server.Controllers.Auths
 {
@@ -47,6 +43,11 @@ namespace AprajitaRetails.Server.Controllers.Auths
             _emailSender = emailSender;
         }
 
+        //[HttpGet]
+        //public async Task<ActionResult<bool>> GetUser(){
+        //    _
+        //}
+
         [HttpPost("customlogout")]
         public async Task<ActionResult<bool>> PostLogout()
         {
@@ -55,7 +56,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             return Ok(true);
         }
         [HttpPost]
-        public async Task<ActionResult<bool>> PostLogin(LoginVM login)
+        public async Task<ActionResult<string>> PostLogin(LoginVM login)
         {
             if (ModelState.IsValid)
             {
@@ -63,8 +64,9 @@ namespace AprajitaRetails.Server.Controllers.Auths
 
                 if (result.Succeeded)
                 {
+                    var xName = _userManager.Users.First(c => c.UserName == login.UserName).FullName;
                     _logger.LogInformation("User logged in.");
-                    return Ok(true);
+                    return Ok(xName);
                 }
 
                 if (result.IsLockedOut)
@@ -83,7 +85,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             else return Problem("parameter is not valid!");
         }
 
-        [HttpPost("customregister")]
+        [HttpPost("register")]
         public async Task<ActionResult<bool>> PostRegisterNewUser(RegisterUserVM newUser)
         {
             if (ModelState.IsValid)
@@ -92,6 +94,11 @@ namespace AprajitaRetails.Server.Controllers.Auths
 
                 await _userStore.SetUserNameAsync(user, newUser.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, newUser.Email, CancellationToken.None);
+
+                if (!string.IsNullOrEmpty(newUser.FullName)) user.FullName = newUser.FullName;
+                if (!string.IsNullOrEmpty(newUser.StoreId)) user.StoreId = newUser.StoreId;
+                if (!string.IsNullOrEmpty(newUser.EmployeeId)) user.EmployeeId = newUser.EmployeeId;
+
                 var result = await _userManager.CreateAsync(user, newUser.Password);
 
                 if (result.Succeeded)

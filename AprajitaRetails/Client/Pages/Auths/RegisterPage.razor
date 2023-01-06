@@ -1,6 +1,17 @@
 ﻿@page "/register"
 @*@using Security.Abstractions.Models.Accounts;*@
 @inject NavigationManager NavigationManager
+@using AprajitaRetails.Shared.Models.Auth
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@*//@attribute [Authorize]*@
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@inject NotificationService NotificationService
+@inject IHttpClientFactory ClientFactory
+
 @*//@inject IUserApiClient UserApiClient*@
 <!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
 <Overlay>
@@ -15,9 +26,12 @@
                     @*                    <form action="../../index.html" method="post">
                     *@
                     <Input @bind-Value="fullName" />
+                    <Input @bind-Value="userName" />
                     <Input @bind-Value="email" />
                     <Input @bind-Value="password" />
                     <Input @bind-Value="passwordVerify" />
+                    <Input @bind-Value="storeid" />
+                    <Input @bind-Value="employeeid" />
                     <div class="row">
                         <div class="col-8">
                             <CustomCheckbox @bind-Value="isAgreeTos" />
@@ -28,7 +42,7 @@
                                 <Input @bind-Value="captchaKey" />
                             }*@
                         <div class="col-4">
-                            <Button Color="Color.Warning" OnClick="OnRegister">Register</Button>
+                            <Button Color="Color.Warning" OnClick="OnAddNewUser">Register</Button>
                         </div>
 
                     </div>
@@ -68,6 +82,9 @@
 
 
     InputState fullName = new InputState() { Identifier = "fullName", Placeholder = "Enter Full Name", Type = "text" };
+    InputState userName = new InputState() { Identifier = "userName", Placeholder = "Enter Full UserName", Type = "text" };
+    InputState storeid = new InputState() { Identifier = "storeid", Placeholder = "Enter Store Code", Type = "text" };
+    InputState employeeid = new InputState() { Identifier = "employeeid", Placeholder = "Enter Employee id", Type = "text" };
     @*//Icon = "fas fa-user" };
         //IconBgColor = Color.Info };*@
     InputState email = new InputState() { Identifier = "email", Placeholder = "Enter email", Type = "email" };
@@ -78,6 +95,7 @@
     @*Icon = "fas fa-lock" };*@
     InputState captchaKey = new InputState() { Identifier = "captchaKey", Placeholder = "Enter Captcha", Type = "text" };
     //Icon = "fas fa-sync", IconBgColor = Color.Warning };
+
     CustomCheckboxState isAgreeTos = new CustomCheckboxState()
     {
         Identifier = "isAgreeTos",
@@ -92,6 +110,69 @@
         //captchaGenerateResponse = await UserApiClient.CaptchaAsync();
         StateHasChanged();
     }
+
+    async void OnAddNewUser()
+    {
+        try
+        {
+            if (password.Value == passwordVerify.Value)
+            {
+                RegisterUserVM vm = new RegisterUserVM
+                {
+                    Email = email.Value,
+                    EmployeeId = employeeid.Value,
+                    FullName = fullName.Value,
+                    UserName = userName.Value,
+                    Password = password.Value,
+                    StoreId = storeid.Value
+                };
+                var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
+                var login = await client.PostAsJsonAsync<RegisterUserVM>("auths/register", vm);
+
+                if (login.IsSuccessStatusCode)
+                {
+                    //Redirect to page or home
+                    NavigationManager.NavigateTo("/home");
+                    var msg = new Radzen.NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Success,
+                        Summary = "Success",
+                        Detail = "New User is added and logged in!",
+                        Duration = 14000
+                    };
+                    NotificationService.Notify(msg);
+                }
+                else
+                {
+                    // Display error message
+                    var msg = new Radzen.NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Error,
+                        Summary = "Error",
+                        Detail = "err" + login.Content,
+                        Duration = 14000
+                    };
+                    NotificationService.Notify(msg);
+
+                }
+            }
+            else
+            {
+                //Alert password mismatch
+                var msg = new Radzen.NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Error",
+                    Detail = "Password not matched!",
+                    Duration = 14000
+                };
+                NotificationService.Notify(msg);
+            }
+        }
+        catch (Exception e) {
+        }
+    }
+
 
     async void OnRegister()
     {
