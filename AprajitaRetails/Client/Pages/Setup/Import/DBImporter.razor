@@ -20,16 +20,18 @@
     else
     {
         <H3>List of File</H3>
-        <p> Selected Path: @sPath</p>
-        <ol>
+        <p>Class List</p>
+        <select @onselect="(option)=>LoadJsonData(option.ToString())">
             @foreach (var item in fileList)
             {
-                <li>
+                @*<li>
                     <Button @onclick="() => LoadJsonData(item.Path)">@item.FileName </Button>
-                </li>
+                </li>*@
+                    <option value="@item.Path">@item.FileName</option>
 
             }
-        </ol>
+        </select>
+
     }
 </ContentMain>
 
@@ -39,9 +41,27 @@
     List<FileModel>? fileList;
     string sPath = "";
 
-    void LoadJsonData(string path)
+    async void LoadJsonData(string path)
     {
+        //string path = m.Path;
         sPath = path;
+        try
+        {
+            var result = await Http.GetFromJsonAsync<bool>($"ImportHelper/Add?path={path}");
+            if (result)
+            {
+                sPath = "";
+                sPath = "Added";
+            }else
+            {
+                sPath = "";
+                sPath = "error occured";
+            }
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
     }
 
     protected override async Task OnInitializedAsync()

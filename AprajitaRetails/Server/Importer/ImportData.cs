@@ -2,6 +2,15 @@
 using System.IO;
 using System.Reflection;
 using AprajitaRetails.Shared.ViewModels;
+using AprajitaRetails.Shared.Models;
+using AprajitaRetails.Shared.Models.Auth;
+using AprajitaRetails.Shared.Models.Banking;
+using AprajitaRetails.Shared.Models.Bases;
+using AprajitaRetails.Shared.Models.Payroll;
+using AprajitaRetails.Shared.Models.Stores;
+using AprajitaRetails.Shared.Models.Vouchers;
+
+
 using System.Text.Json;
 using AprajitaRetails.Server.Data;
 using PluralizeService.Core;
@@ -27,26 +36,78 @@ namespace AprajitaRetails.Server.Importer
             {
                 files.Add(new FileModel { Path = filePath, FileName = Path.GetFileName(filePath) });
             }
+            files = files.OrderBy(c => c.FileName).ToList(); ;
             return files;
         }
 
-        public void ImportTable(string path)
+        public bool ImportTable(string path)
         {
+            try
+            {
+                var tableName = path.Replace(Path.Combine(this.hostingEnv.WebRootPath, "Tables/"), "");
+                if (tableName.StartsWith("V1"))
+                {
+                    tableName = tableName.Replace("V1_", "");
+                }
+                var className = PluralizationProvider.Singularize(tableName);
+                //var t = Type.GetType(className.ToString());
 
-            var tableName = path.Replace(Path.Combine(this.hostingEnv.WebRootPath, "Tables/"), "");
-            if (tableName.StartsWith("V1")) { tableName.Replace("V1_", ""); }
-            var className = PluralizationProvider.Singularize(path);
-            var jsonData = ReadJsonFile(path);
+                //var val = Type.GetType(className);
+                //var listdata = JsonToObject(path, val);
+
+                //if (listdata != null)
+                //    aRDB.AddRange(listdata);
+                //return aRDB.SaveChanges() > 0;
+                return AddData(path, className);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
-        public string ReadJsonFile(string path)
+
+        public static List<T>? JsonToObject<T>(string filename, T v)
         {
-            //var buildDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //var filePath = Path.Combine(buildDir, filepath);
-            return System.IO.File.ReadAllText(path);
+            try
+            {
+                using StreamReader reader = new StreamReader(filename);
+                var json = reader.ReadToEnd();
+                reader.Close();
+                return JsonSerializer.Deserialize<List<T>>(json);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
 
+        public static List<T>? JsonToObject<T>(string filename)
+        {
+            using StreamReader reader = new StreamReader(filename);
+            var json = reader.ReadToEnd();
+            reader.Close();
+            return JsonSerializer.Deserialize<List<T>>(json);
+        }
 
+        private bool AddData(string path, string className)
+        {
+            switch (className)
+            {
+                case "Store": return false; break;
+                case "Bank":
+                    var list = JsonToObject<Bank>(path);
+                    if (list != null)
+                        aRDB.AddRange(list);
+                    int a = aRDB.SaveChanges();
+                    return a > 0;
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+        }
 
 
     }
