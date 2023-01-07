@@ -1,0 +1,59 @@
+﻿@page "/importdata"
+@inject HttpClient Http
+@using System.IO;
+@using AprajitaRetails.Shared.Models.Stores
+@using AprajitaRetails.Client.AdminLte
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared.ViewModels
+
+
+<ContentHeader>
+    <Header> <Blazor.AdminLte.PageTitle Title="Db Import" /></Header>
+</ContentHeader>
+<ContentMain>
+    @if (fileList == null)
+    {
+        <p><em>Loading ....</em></p>
+    }
+    else
+    {
+        <H3>List of File</H3>
+        <p> Selected Path: @sPath</p>
+        <ol>
+            @foreach (var item in fileList)
+            {
+                <li>
+                    <Button @onclick="() => LoadJsonData(item.Path)">@item.FileName </Button>
+                </li>
+
+            }
+        </ol>
+    }
+</ContentMain>
+
+
+@code {
+
+    List<FileModel>? fileList;
+    string sPath = "";
+
+    void LoadJsonData(string path)
+    {
+        sPath = path;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            fileList = await Http.GetFromJsonAsync<List<FileModel>>("ImportHelper");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

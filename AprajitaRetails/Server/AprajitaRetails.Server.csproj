@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
+    <PackageReference Include="PluralizeService.Core" Version="1.2.21147.2" />
     <PackageReference Include="Radzen.Blazor" Version="4.4.7" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.41" />
 <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.41" />
@@ -46,6 +47,7 @@
     <None Remove="ESDB\" />
     <None Remove="ESDB\Tables\" />
     <None Remove="Controllers\Auths\" />
+    <None Remove="Import\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
@@ -59,6 +61,7 @@
     <Folder Include="ESDB\Tables\" />
     <Folder Include="wwwroot\Tables\" />
     <Folder Include="Controllers\Auths\" />
+    <Folder Include="Importer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\__EFMigrationsHistory" />
