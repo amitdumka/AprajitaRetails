@@ -29,7 +29,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
 
         }
         [HttpGet("Add")]
-        public async Task<ActionResult<bool>> GetFiles(string path)
+        public async Task<ActionResult<bool>> GetAddTable(string path)
         {
             var im = new ImportData(hostingEnv, aRDB);
             return im.ImportTable(path);
