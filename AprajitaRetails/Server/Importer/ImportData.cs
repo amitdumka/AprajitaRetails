@@ -91,14 +91,16 @@ namespace AprajitaRetails.Server.Importer
 
         }
 
-        private async Task<bool> Save<T>(List<T> listData)
+        public async Task<bool> JSonToDBAsync<T>(string filename)
         {
             try
             {
-                if (listData != null)
-                   await aRDB.AddRangeAsync(listData);
-                int a = await aRDB.SaveChangesAsync();
-                return (a > 0);
+                using StreamReader reader = new StreamReader(filename);
+                var json = reader.ReadToEnd();
+                reader.Close();
+                var listdata= JsonSerializer.Deserialize<List<T>>(json);
+                await aRDB.AddRangeAsync(listdata);
+                return  await aRDB.SaveChangesAsync()>0;
             }
             catch (Exception ex)
             {
@@ -106,6 +108,7 @@ namespace AprajitaRetails.Server.Importer
             }
 
         }
+
         private async Task<bool> AddDataAsync(string path, string className)
         {
             switch (className)
@@ -113,53 +116,61 @@ namespace AprajitaRetails.Server.Importer
                 case "Store": return false; break;
                 case "Bank":
                     var list = JsonToObject<Bank>(path);
-                    return await Save<Bank>(list);
+                    if (list != null)
+                        await aRDB.AddRangeAsync(list);
+                    int a = await aRDB.SaveChangesAsync();
+                    return (a > 0);
                 case "Employee":
-                    return await Save(JsonToObject<Employee>(path));
+                    var list2 = JsonToObject<Employee>(path);
+                    if (list2 != null)
+                        await aRDB.AddRangeAsync(list2);
+                    int a2 = await aRDB.SaveChangesAsync();
+                    return (a2 > 0);
+                //return await JSonToDBAsync<Employee>(path);
                 case "EmployeeDetails":
-                    return await Save(JsonToObject<EmployeeDetails>(path));
+                   return await JSonToDBAsync<EmployeeDetails>(path);
                 case "BankAccount":
-                    return await Save(JsonToObject<BankAccount>(path));
+                   return await JSonToDBAsync<BankAccount>(path);
                 case "VendorBankAccount":
-                    return await Save(JsonToObject<VendorBankAccount>(path));
+                   return await JSonToDBAsync<VendorBankAccount>(path);
                 case "Party":
-                    return await Save(JsonToObject<Party>(path));
+                   return await JSonToDBAsync<Party>(path);
                 case "LedgerGroup":
-                    return await Save(JsonToObject<LedgerGroup>(path));
+                   return await JSonToDBAsync<LedgerGroup>(path);
                 case "LedgerMaster":
-                    return await Save(JsonToObject<LedgerMaster>(path));
+                   return await JSonToDBAsync<LedgerMaster>(path);
                 case "TranscationMode":
-                    return await Save(JsonToObject<TransactionMode>(path));
+                   return await JSonToDBAsync<TransactionMode>(path);
                 case "Attendance":
-                    return await Save(JsonToObject<Attendance>(path));
+                   return await JSonToDBAsync<Attendance>(path);
                 case "MonthlyAttendance":
-                    return await Save(JsonToObject<MonthlyAttendance>(path));
+                   return await JSonToDBAsync<MonthlyAttendance>(path);
                 case "Salesman":
-                    return await Save(JsonToObject<Salesman>(path));
+                   return await JSonToDBAsync<Salesman>(path);
                 case "Customer":
-                    return await Save(JsonToObject<Customer>(path));
+                   return await JSonToDBAsync<Customer>(path);
                 case "Contact":
-                    return await Save(JsonToObject<Contact>(path));
+                   return await JSonToDBAsync<Contact>(path);
                 case "PettyCashSheet":
-                    return await Save(JsonToObject<PettyCashSheet>(path));
+                   return await JSonToDBAsync<PettyCashSheet>(path);
                 case "Voucher":
-                    return await Save(JsonToObject<Voucher>(path));
+                   return await JSonToDBAsync<Voucher>(path);
                 case "CashVoucher":
-                    return await Save(JsonToObject<CashVoucher>(path));
+                   return await JSonToDBAsync<CashVoucher>(path);
                 case "CashDetail":
-                    return await Save(JsonToObject<CashDetail>(path));
+                   return await JSonToDBAsync<CashDetail>(path);
                 case "TimeSheet":
-                    return await Save(JsonToObject<TimeSheet>(path));
+                   return await JSonToDBAsync<TimeSheet>(path);
                 case "Salary":
-                    return await Save(JsonToObject<Salary>(path));
+                   return await JSonToDBAsync<Salary>(path);
                 case "PaySlip":
-                    return await Save(JsonToObject<PaySlip>(path));
+                   return await JSonToDBAsync<PaySlip>(path);
                 case "SalaryPayment":
-                    return await Save(JsonToObject<SalaryPayment>(path));
+                   return await JSonToDBAsync<SalaryPayment>(path);
                 case "StaffAdvanceReceipt":
-                    return await Save(JsonToObject<StaffAdvanceReceipt>(path));
+                   return await JSonToDBAsync<StaffAdvanceReceipt>(path);
                 case "BankAccountList":
-                    return await Save(JsonToObject<BankAccountList>(path));
+                   return await JSonToDBAsync<BankAccountList>(path);
                 default:
                     return false;
                     break;
