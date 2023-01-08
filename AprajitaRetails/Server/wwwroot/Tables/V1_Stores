@@ -4,7 +4,7 @@
     "StoreCode": "JHC0006",
     "StoreName": "Aprajita Retails",
     "BeginDate": "2016-02-17T00:00:00",
-    "EndDate": "",
+    "EndDate": null,
     "IsActive": false,
     "StoreManager": "Alok Kumar",
     "StoreManagerContactNo": " ",

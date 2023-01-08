@@ -3,19 +3,16 @@ using System;
 using AprajitaRetails.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AprajitaRetails.Server.Migrations.ARDB
+namespace AprajitaRetails.Server.Migrations
 {
     [DbContext(typeof(ARDBContext))]
-    [Migration("20230107101339_testme")]
-    partial class testme
+    partial class ARDBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
