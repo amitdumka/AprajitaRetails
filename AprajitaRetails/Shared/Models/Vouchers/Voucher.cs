@@ -48,8 +48,9 @@ namespace AprajitaRetails.Shared.Models.Vouchers
 
 
         public string TransactionId { get; set; }
-
+                      
         [ForeignKey("TransactionId")]
+                     
         public virtual TransactionMode TransactionMode { get; set; }
 
         public string SlipNumber { get; set; }
