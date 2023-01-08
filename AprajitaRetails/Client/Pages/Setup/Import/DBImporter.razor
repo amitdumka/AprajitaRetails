@@ -7,6 +7,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared.ViewModels
+@inject NotificationService NotificationService
 
 
 <ContentHeader>
@@ -21,16 +22,9 @@
     {
         <H3>List of File</H3>
         <p>Class List</p>
-        <select @onselect="(option)=>LoadJsonData(option.ToString())">
-            @foreach (var item in fileList)
-            {
-                @*<li>
-                    <Button @onclick="() => LoadJsonData(item.Path)">@item.FileName </Button>
-                </li>*@
-                    <option value="@item.Path">@item.FileName</option>
+        <AprajitaRetails.AdminLte.Forms.ASelect Label="Table Name" Name="TableName" TItem="FileModel" Selector="(x => x.FileName)" Items="fileList" ValueChanged="@LoadJsonData">
 
-            }
-        </select>
+        </AprajitaRetails.AdminLte.Forms.ASelect>
 
     }
 </ContentMain>
@@ -41,21 +35,20 @@
     List<FileModel>? fileList;
     string sPath = "";
 
-    async void LoadJsonData(string path)
+    async void LoadJsonData(FileModel fm)
     {
-        //string path = m.Path;
+        string path = fm.Path;
         sPath = path;
         try
         {
             var result = await Http.GetFromJsonAsync<bool>($"ImportHelper/Add?path={path}");
             if (result)
             {
-                sPath = "";
-                sPath = "Added";
-            }else
+                Msg("Saved", $"Table : ${fm.FileName} is saved");
+            }
+            else
             {
-                sPath = "";
-                sPath = "error occured";
+                Msg("Error", $"Table : ${fm.FileName}  is not saved!, Some error occured!",true);
             }
         }
         catch (AccessTokenNotAvailableException exception)
@@ -75,5 +68,17 @@
         {
             exception.Redirect();
         }
+    }
+
+    void Msg(string title, string msg , bool error=false)
+    {
+        var nft = new Radzen.NotificationMessage
+        {
+            Severity = error?NotificationSeverity.Error: NotificationSeverity.Info,
+            Summary = title,
+            Detail = msg,
+            Duration = 24000
+        };
+        NotificationService.Notify(nft);
     }
 }

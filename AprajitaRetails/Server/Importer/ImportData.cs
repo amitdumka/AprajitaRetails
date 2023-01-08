@@ -10,7 +10,6 @@ using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
 
-
 using System.Text.Json;
 using AprajitaRetails.Server.Data;
 using PluralizeService.Core;
@@ -78,17 +77,34 @@ namespace AprajitaRetails.Server.Importer
 
         public static List<T>? JsonToObject<T>(string filename)
         {
-            using StreamReader reader = new StreamReader(filename);
-            var json = reader.ReadToEnd();
-            reader.Close();
-            return JsonSerializer.Deserialize<List<T>>(json);
+            try
+            {
+                using StreamReader reader = new StreamReader(filename);
+                var json = reader.ReadToEnd();
+                reader.Close();
+                return JsonSerializer.Deserialize<List<T>>(json);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         private bool Save<T>(List<T>? listData)
         {
-            if (listData != null)
-                aRDB.AddRange(listData);
-            return aRDB.SaveChanges() > 0;
+            try
+            {
+                if (listData != null)
+                    aRDB.AddRange(listData);
+                int a = aRDB.SaveChanges();
+                return (a > 0);
+            }
+            catch (Exception ex)
+            {
+                return false; 
+            }
+           
         }
         private bool AddData(string path, string className)
         {
