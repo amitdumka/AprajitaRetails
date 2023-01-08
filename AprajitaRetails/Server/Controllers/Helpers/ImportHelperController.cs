@@ -32,7 +32,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         public async Task<ActionResult<bool>> GetAddTable(string path)
         {
             var im = new ImportData(hostingEnv, aRDB);
-            return im.ImportTable(path);
+            return await im.ImportTableAsync(path);
 
         }
     }
