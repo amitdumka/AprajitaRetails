@@ -26,6 +26,7 @@
     <None Remove="Pages\Setup\Import\" />
     <None Remove="Pages\Auths\" />
     <None Remove="Helpers\" />
+    <None Remove="Pages\Apps\Payroll\Attendances\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,5 +70,6 @@
     <Folder Include="Pages\Setup\Import\" />
     <Folder Include="Pages\Auths\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Pages\Apps\Payroll\Attendances\" />
   </ItemGroup>
 </Project>

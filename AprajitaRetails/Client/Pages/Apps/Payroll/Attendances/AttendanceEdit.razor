@@ -1,0 +1,35 @@
+﻿@page "/vouchers/edit"
+@using AprajitaRetails.Shared.Models.Payroll
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
+@attribute [Authorize]
+@inject HttpClient Http
+@inject NotificationService NotificationService
+
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+
+@code {
+
+    [Parameter] public string Id { get; set; }
+    [Parameter] public Attendance? Attendance { get; set; }
+
+    private IList<SelectOption>? Stores;
+    private IList<SelectOption>? Employees;
+
+    private string Title = "Add Attendance";
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+}
+

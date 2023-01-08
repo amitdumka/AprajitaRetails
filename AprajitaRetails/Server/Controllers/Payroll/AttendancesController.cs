@@ -29,7 +29,9 @@ namespace AprajitaRetails.Server.Controllers.Payroll
           {
               return NotFound();
           }
-            return await _context.Attendances.ToListAsync();
+            return await _context.Attendances.Where(c=>c.OnDate.Year==DateTime.Today.Year)
+                .OrderByDescending(c=>c.OnDate)
+                .ToListAsync();
         }
 
         // GET: api/Attendances/5

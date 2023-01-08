@@ -12,13 +12,23 @@
 </div>
 @code {
 
-    [Parameter]
-    public string Title { get; set; } = "Action";
-    [Parameter]
-    public string Edit { get; set; } = "#";
-    [Parameter]
-    public string Detail { get; set; } = "#";
-    [Parameter]
-    public string Delete { get; set; } = "#";
+    [Parameter] public string Title { get; set; } = "Action";
+    [EditorRequired]
+    [Parameter] public string Id { get; set; } = "#";
+    [EditorRequired]
+    [Parameter] public string Link { get; set; } = "";
+
+    public string Edit;
+    public string Detail;
+    public string Delete;
+    protected override async Task OnInitializedAsync()
+    {
+
+        Edit = $"{Link}/Edit?ID={Id}";
+        Detail = $"{Link}/Detail?ID={Id}";
+        Delete = $"{Link}/Delete?ID={Id}";
+
+    }
+
 
 }
