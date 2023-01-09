@@ -48,7 +48,6 @@
                             <TableHeadCell>Dept</TableHeadCell>
                             <TableHeadCell>Joined</TableHeadCell>
                             <TableHeadCell>Left</TableHeadCell>
-                            <TableHeadCell>Store</TableHeadCell>
                             <TableHeadCell>     </TableHeadCell>
                         </TableHead>
                         <TableBody>
@@ -64,11 +63,8 @@
                                     <TableCell>@ent.Category.</TableCell>
                                     <TableCell>@ent.JoiningDate.ToShortDateString()</TableCell>
                                     <TableCell>@ent.LeavingDate.GetValueOrDefault().ToShortDateString()</TableCell>
-                                    <TableCell>@ent.StoreId.</TableCell>
                                     <TableCell>
-                                        <div>
-                                            <Button>I</Button><Button>E</Button><Button>D</Button>
-                                        </div>
+                                        <AprajitaRetails.AdminLte.ActionMenu Link="/payroll/employees" Id="@ent.EmployeeId" />
                                     </TableCell>
                                 </TableRow>
                             }
@@ -84,7 +80,7 @@
 
 
 
-@code{
+@code {
 
     private const string Title = "Employees";
     private Employee[]? entities;

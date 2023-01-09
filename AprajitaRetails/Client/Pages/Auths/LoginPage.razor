@@ -6,7 +6,7 @@
 @using AprajitaRetails.Helpers
 @inject LocalStorageAccessor LocalStorage
 
-<Overlay>
+<AprajitaRetails.AdminLte.AOverlay>
     <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
         <div class="login-box bg-success">
             <div class="login-logo">
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-</Overlay>
+</AprajitaRetails.AdminLte.AOverlay>
 @code {
     string CompanyName = "Aprajita Retails";
     string userName = "", Password = "";
@@ -83,10 +83,10 @@
                 var user = login.Content.ReadFromJsonAsync<LoggedUser>().Result;
                 if (user != null)
                 {
-                    await LocalStorage.SetValueAsync("UserFullName", user.FullName);
-                    await LocalStorage.SetValueAsync("StoreCode", user.StoreId);
-                    await LocalStorage.SetValueAsync("Employee", user.EmployeeId);
-                    await LocalStorage.SetValueAsync("UserName", user.Id);
+                      LocalStorage.SetValueAsync("UserFullName", user.FullName);
+                      LocalStorage.SetValueAsync("StoreCode", user.StoreId);
+                      LocalStorage.SetValueAsync("Employee", user.EmployeeId);
+                      LocalStorage.SetValueAsync("UserName", user.Id);
                     
                 }
 

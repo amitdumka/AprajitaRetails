@@ -46,6 +46,7 @@
                             <TableHeadCell>Remarks</TableHeadCell>
                             <TableHeadCell>Issued By</TableHeadCell>
                             <TableHeadCell>Slip No</TableHeadCell>
+                            <TableHeadCell> </TableHeadCell>
                         </TableHead>
                         <TableBody>
 
@@ -62,6 +63,9 @@
                                     <TableCell>@vch.TaxAmount</TableCell>
                                     <TableCell>@vch.NetAmount.</TableCell>
                                     <TableCell>@vch.Remarks.</TableCell>
+                                    <TableCell>
+                                        <AprajitaRetails.AdminLte.ActionMenu Link="/vouchers/notes" Id="@vch.NoteNumber" />
+                                    </TableCell>
                                 </TableRow>
                             }
                         </TableBody>

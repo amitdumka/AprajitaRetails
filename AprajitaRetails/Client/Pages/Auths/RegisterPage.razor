@@ -14,7 +14,7 @@
 
 @*//@inject IUserApiClient UserApiClient*@
 <!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
-<Overlay>
+<AprajitaRetails.AdminLte.AOverlay>
     <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
         <div class="register-box bg-primary bg-gradient">
             <div class="register-logo">
@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-</Overlay>
+</AprajitaRetails.AdminLte.AOverlay>
 @code {
 
     string CompanyName = "Aprajita Retails";
@@ -82,7 +82,7 @@
 
 
     InputState fullName = new InputState() { Identifier = "fullName", Placeholder = "Enter Full Name", Type = "text" };
-    InputState userName = new InputState() { Identifier = "userName", Placeholder = "Enter Full UserName", Type = "text" };
+    InputState userName = new InputState() { Identifier = "userName", Placeholder = "Enter  UserName", Type = "text" };
     InputState storeid = new InputState() { Identifier = "storeid", Placeholder = "Enter Store Code", Type = "text" };
     InputState employeeid = new InputState() { Identifier = "employeeid", Placeholder = "Enter Employee id", Type = "text" };
     @*//Icon = "fas fa-user" };

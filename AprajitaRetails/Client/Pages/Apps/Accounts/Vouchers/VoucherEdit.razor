@@ -108,7 +108,7 @@
     private string Title = "Voucher";
 
     [Parameter] public VoucherType VoucherType { get; set; } = VoucherType.Payment;
-    [Parameter] public string VoucherNumber { get; set; } = "";
+    [Parameter] public string ID { get; set; } = "";
     [Parameter] public bool IsEdit { get; set; } = false;
     [Parameter] public Voucher? EditVoucher { get; set; }
     private Voucher voucher = new Voucher { VoucherType = VoucherType.Payment, OnDate = DateTime.Now, Amount = 0 };
@@ -124,9 +124,13 @@
     protected override async Task OnInitializedAsync()
     {
         await FetchSelectData();
+        if (!string.IsNullOrEmpty(ID))
+        {
+            Title = Title + " #VCHNo: " + ID;
+        }
         if (IsEdit)
         {
-            Title = "Edit Voucher #" + VoucherNumber;
+            Title = "Edit Voucher #" + ID;
             voucher = EditVoucher;
         }
         else

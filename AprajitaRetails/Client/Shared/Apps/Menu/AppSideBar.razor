@@ -1,12 +1,12 @@
 ﻿<SideBar>
     <!-- Sidebar user panel (optional) -->
-    <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="starter-pages/user-page" Elevation="Elevation.Three" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
+    <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Three" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
     @*<SideBarSearch></SideBarSearch>*@
     <SideBarMenu>
         <SideBarMenuItem Link="widgets" Icon="fas fa-th">
             Dashboard
         </SideBarMenuItem>
-        <SideBarTreeView Icon="fas fa-copy">
+        <SideBarTreeView Icon="fa-sharp fa-solid fa-receipt">
             <Title>Vouchers</Title>
             <Items>
                 <SideBarMenuItem Icon="far fa-circle" Link="vouchers">
@@ -16,11 +16,11 @@
                     Cash Voucher
                 </SideBarMenuItem>
                 <SideBarMenuItem Icon="far fa-circle" Link="vouchers/notes">
-                   Notes Voucher
+                    Notes Voucher
                 </SideBarMenuItem>
             </Items>
         </SideBarTreeView>
-        <SideBarTreeView Icon="fas fa-tachometer-alt">
+        <SideBarTreeView Icon="fa-solid fa-people-roof">
             <Title>Payroll</Title>
             <Items>
                 <SideBarMenuItem Icon="far fa-circle" Link="payroll/employees">
@@ -60,7 +60,7 @@
                 </SideBarMenuItem>
             </Items>
         </SideBarTreeView>
-        <SideBarTreeView Icon="fas fa-tree">
+        <SideBarTreeView Icon="fa-solid fa-warehouse">
             <Title>Inventory</Title>
             <Items>
                 <SideBarMenuItem Icon="far fa-circle" Link="ui/general">
@@ -74,7 +74,7 @@
                 </SideBarMenuItem>
             </Items>
         </SideBarTreeView>
-        <SideBarTreeView Icon="fas fa-edit">
+        <SideBarTreeView Icon="fa-solid fa-cart-arrow-down">
             <Title>Sale</Title>
             <Items>
                 <SideBarMenuItem Icon="far fa-circle" Link="forms/general">
@@ -92,7 +92,7 @@
 
             </Items>
         </SideBarTreeView>
-        <SideBarTreeView Icon="fas fa-table">
+        <SideBarTreeView Icon="fa-sharp fa-solid fa-store">
             <Title>Stores</Title>
             <Items>
                 <SideBarMenuItem Icon="far fa-circle" Link="stores">
@@ -109,34 +109,40 @@
                 </SideBarMenuItem>
             </Items>
         </SideBarTreeView>
-        <SideBarTreeView Icon="far fa-user">
+        <SideBarTreeView Icon=" fa-solid fa-users-line ">
             <Title>User</Title>
             <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="login">
-                    Login
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="register">
-                    Register
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="forgot-password">
-                    Forgot Password
-                </SideBarMenuItem>
+                <AuthorizeView>
+                    <Authorized>
+                        <SideBarMenuItem Icon="far fa-circle" Link="forgot-password">
+                            Forgot Password
+                        </SideBarMenuItem>
+                    </Authorized>
+                    <NotAuthorized>
+                        <SideBarMenuItem Icon="far fa-circle" Link="login">
+                            Login
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="register">
+                            Register
+                        </SideBarMenuItem>
+                    </NotAuthorized>
+                </AuthorizeView>
             </Items>
         </SideBarTreeView>
         @*<SideBarTreeView Icon="far fa-plus-square">
-                <Title>Extras</Title>
-                <Items>
-                    <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
-                        Lockscreen
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="404">
-                        Error 404
-                    </SideBarMenuItem>
-                    <SideBarMenuItem Icon="far fa-circle" Link="500">
-                        Error 500
-                    </SideBarMenuItem>
-                </Items>
-            </SideBarTreeView>*@
+        <Title>Extras</Title>
+        <Items>
+        <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
+        Lockscreen
+        </SideBarMenuItem>
+        <SideBarMenuItem Icon="far fa-circle" Link="404">
+        Error 404
+        </SideBarMenuItem>
+        <SideBarMenuItem Icon="far fa-circle" Link="500">
+        Error 500
+        </SideBarMenuItem>
+        </Items>
+        </SideBarTreeView>*@
         <SideBarMenuItem Link="autologin" Icon="fas fa-user">
             AutoLogin
         </SideBarMenuItem>
