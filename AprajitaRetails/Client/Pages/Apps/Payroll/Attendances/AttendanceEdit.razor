@@ -78,9 +78,9 @@
 
 @code {
 
-    [Parameter] public string Id { get; set; }
-    [Parameter] public Attendance? EditAttendance { get; set; }
-    [Parameter] public bool IsEdit { get; set; } = false;
+        [Parameter] public string Id { get; set; }
+        [Parameter] public Attendance? EditAttendance { get; set; }
+        [Parameter] public bool IsEdit { get; set; } = false;
 
     private Attendance attendance = new Attendance { OnDate = DateTime.Now };
 
@@ -105,6 +105,7 @@
             attendance = new Attendance
             {
                 OnDate = DateTime.Now,
+                AttendanceId="",
                 EmployeeId = "",
                 EntryStatus = EntryStatus.Added,
                 IsReadOnly = false,
@@ -195,6 +196,7 @@
     {
         try
         {
+            attendance.AttendanceId = $"{attendance.OnDate.Year}/{attendance.OnDate.Month}/{attendance.OnDate.Day}/{attendance.EmployeeId}";
             var result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
 
 
