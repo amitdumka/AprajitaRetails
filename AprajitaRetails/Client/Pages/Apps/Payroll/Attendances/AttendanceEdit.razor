@@ -1,4 +1,4 @@
-﻿@page "/vouchers/edit"
+﻿@page "/payroll/attendances/edit"
 @using AprajitaRetails.Shared.Models.Payroll
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
@@ -166,6 +166,52 @@
     void OnStoreSelected(SelectOption value) => attendance.StoreId = value.ID;
     void OnEmployeeSelected(SelectOption value) => attendance.EmployeeId = value.ID;
     void OnTailorChecked(bool value) => attendance.IsTailoring = value;
+
+
+    private async void Save()
+    {
+        try
+        {
+            var result = await Http.PostAsJsonAsync<Attendance>("Attendance", attendance);
+
+
+            if (result.IsSuccessStatusCode)
+            {
+                var msg = new Radzen.NotificationMessage
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Info",
+                    Detail = $"{Employees.First(c=>c.ID==attendance.EmployeeId).Value}'s Attendance is added!",
+                    Duration = 10000
+                };
+                NotificationService.Notify(msg);
+
+            }
+            else
+            {
+                var msg = new Radzen.NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Error",
+                    Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
+                    Duration = 10000
+                };
+                NotificationService.Notify(msg);
+            }
+        }
+        catch (Exception ex)
+        {
+            var msg = new Radzen.NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error",
+                Detail = "Error Msg \n" + ex.Message,
+                Duration = 14000
+            };
+            NotificationService.Notify(msg);
+        }
+
+    }
 
 }
 
