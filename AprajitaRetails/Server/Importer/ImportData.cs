@@ -15,6 +15,7 @@ using AprajitaRetails.Server.Data;
 using PluralizeService.Core;
 using System.Collections.Generic;
 using System.Collections;
+using AprajitaRetails.Server.Extensions;
 
 namespace AprajitaRetails.Server.Importer
 {
@@ -67,6 +68,7 @@ namespace AprajitaRetails.Server.Importer
                 using StreamReader reader = new StreamReader(filename);
                 var json = reader.ReadToEnd();
                 reader.Close();
+               // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
                 return JsonSerializer.Deserialize<List<T>>(json);
             }
             catch (Exception ex)

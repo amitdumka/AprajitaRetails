@@ -16,20 +16,156 @@
     </Header>
 </ContentHeader>
 
+
+<ContentMain>
+    <Row>
+        <Column Classes="col.lg.auto">
+
+            <EditForm Model=@attendance OnValidSubmit=@SaveButton OnInvalidSubmit=@ErrorMsg>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
+                    <Title><CardTitle>Add Voucher</CardTitle></Title>
+                    <Header><CardTools /></Header>
+                    <Body>
+                        <Row>
+                            <Column Classes="col.md">
+                                <ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
+                            </Column>
+                            <Column Classes="col.md">
+                                <div class="mb-3 row">
+                                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                                    <div class="col-sm-6">
+                                        <RadzenDatePicker @bind-Value=@attendance.OnDate id="ondate" Change=@OnDateChange />
+                                    </div>
+                                </div>
+                            </Column>
+
+                        </Row>
+
+                        <Row>
+                            <Column Classes="col.md">
+                                <ASelect ValueChanged="@OnEmployeeSelected" Label="Employee" Name="Employees" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" />
+                            </Column>
+                            <Column Classes="col.md">
+                                <ASelect ValueChanged="@onStatusChange" Label="Status" Name="Status" TItem="string" Items="AttUnits" Selector="(x => x)" />
+                            </Column>
+
+                        </Row>
+                        <Row>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.EntryTime Name="EntryTime" Label="Entry Time" /></Column>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.Remarks Name="Remarks" Label="Remarks" /></Column>
+                            <Column Classes="col.md">
+                                <ACheckBox Title="Tailors" Name="isTailor" @bind-Checked="@attendance.IsTailoring" />
+                            </Column>
+                        </Row>
+
+
+                    </Body>
+                    <Footer>
+                        <Column Classes="col.md._3">
+                            <ASubmitButton Title="Save" />
+                        </Column>
+                    </Footer>
+                </Card>
+            </EditForm>
+        </Column>
+    </Row>
+</ContentMain>
+
+
 @code {
 
     [Parameter] public string Id { get; set; }
-    [Parameter] public Attendance? Attendance { get; set; }
+    [Parameter] public Attendance? EditAttendance { get; set; }
+    [Parameter] public bool IsEdit { get; set; } = false;
+
+    private Attendance attendance = new Attendance { OnDate = DateTime.Now };
 
     private IList<SelectOption>? Stores;
     private IList<SelectOption>? Employees;
+    IList<string> AttUnits = Enum.GetNames(typeof(AttUnit));
+    bool isTailor = false;
 
     private string Title = "Add Attendance";
 
     protected override async Task OnInitializedAsync()
     {
+        await FetchSelectData();
+        if (IsEdit)
+        {
+            Title = "Edit Attendance  #" + EditAttendance.AttendanceId + $" Of {EditAttendance.OnDate}";
+            attendance = EditAttendance;
+        }
+        else
+        {
+            Title = "Add " + Title;
+            attendance = new Attendance
+            {
+                OnDate = DateTime.Now,
+                EmployeeId = "",
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                Remarks = "",
+                StoreId = "",
+                IsTailoring = false,
+                Status = AttUnit.Present,
+                UserId = "",
+                EntryTime = $"{DateTime.Now.ToShortTimeString()}"
+
+            };
+        }
 
     }
+
+    void ErrorMsg()
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = NotificationSeverity.Info,
+            Summary = "Error",
+            Detail = "Invalid Sate",
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+    void SaveButton()
+    {
+        //Save();
+
+    }
+
+    private bool ValidEntry()
+    {
+        //bool flag = true;
+        if (string.IsNullOrEmpty(attendance.EmployeeId) || string.IsNullOrEmpty(attendance.EntryTime)
+            || attendance.OnDate == null || attendance.Status == null) return false;
+        return true;
+    }
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+
+            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees");
+            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        return true;
+
+    }
+    //Value Change Handler
+    void OnDateChange(DateTime? value) => attendance.OnDate = value.Value;
+    void onStatusChange(string value) => attendance.Status = (AttUnit)AttUnits.IndexOf(value);
+    void OnStoreSelected(SelectOption value) => attendance.StoreId = value.ID;
+    void OnEmployeeSelected(SelectOption value) => attendance.EmployeeId = value.ID;
+    void OnTailorChecked(bool value) => attendance.IsTailoring = value;
 
 }
 

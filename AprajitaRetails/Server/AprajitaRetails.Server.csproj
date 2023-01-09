@@ -48,6 +48,7 @@
     <None Remove="ESDB\Tables\" />
     <None Remove="Controllers\Auths\" />
     <None Remove="Import\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
@@ -62,6 +63,7 @@
     <Folder Include="wwwroot\Tables\" />
     <Folder Include="Controllers\Auths\" />
     <Folder Include="Importer\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\Attendances" />
