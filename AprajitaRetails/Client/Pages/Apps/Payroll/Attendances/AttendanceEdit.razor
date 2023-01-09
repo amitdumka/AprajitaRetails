@@ -78,9 +78,9 @@
 
 @code {
 
-        [Parameter] public string Id { get; set; }
-        [Parameter] public Attendance? EditAttendance { get; set; }
-        [Parameter] public bool IsEdit { get; set; } = false;
+    [Parameter] public string Id { get; set; }
+    [Parameter] public Attendance? EditAttendance { get; set; }
+    [Parameter] public bool IsEdit { get; set; } = false;
 
     private Attendance attendance = new Attendance { OnDate = DateTime.Now };
 
@@ -105,13 +105,13 @@
             attendance = new Attendance
             {
                 OnDate = DateTime.Now,
-                AttendanceId="",
+                AttendanceId = "",
                 EmployeeId = "",
                 EntryStatus = EntryStatus.Added,
                 IsReadOnly = false,
                 MarkedDeleted = false,
                 Remarks = " ",
-                StoreId = Stores!=null? Stores[0].ID :"ARD",
+                StoreId = Stores != null ? Stores[0].ID : "ARD",
                 IsTailoring = false,
                 Status = AttUnit.Present,
                 UserId = "BlazorUI",
@@ -181,11 +181,11 @@
         attendance.EmployeeId = value.ID;
         Msg(value.ID, value.Value);
     }
-    void Msg(string title, string text, bool isError=false)
+    void Msg(string title, string text, bool isError = false)
     {
         var msg = new Radzen.NotificationMessage
         {
-            Severity =isError?NotificationSeverity.Error: NotificationSeverity.Info,
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
             Summary = title,
             Detail = text,
             Duration = 14000
@@ -197,6 +197,7 @@
         try
         {
             attendance.AttendanceId = $"{attendance.OnDate.Year}/{attendance.OnDate.Month}/{attendance.OnDate.Day}/{attendance.EmployeeId}";
+            
             var result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
 
 

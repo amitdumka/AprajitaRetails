@@ -9,8 +9,6 @@
 @inject HttpClient Http
 @inject NotificationService NotificationService
 
-
-
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title=@Title />
@@ -20,30 +18,27 @@
 <ContentMain>
     <Row>
         <Column Classes="col.lg.auto">
-
             <EditForm Model=@voucher OnValidSubmit=@SaveButton OnInvalidSubmit=@ErrorMsg>
+
                 <DataAnnotationsValidator />
                 <ValidationSummary />
+
                 <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
-                    <Title><CardTitle>Add Voucher</CardTitle></Title>
+                    <Title><CardTitle>@Title</CardTitle></Title>
                     <Header><CardTools /></Header>
                     <Body>
+
                         <Row>
                             <Column Classes="col.lg">
-
                                 <RadzenRadioButtonList Orientation="Orientation.Horizontal" TValue="int" @bind-Value=@SelectedVCHType Change=@((args) => OnVoucherTypeChange(args, "VoucherType"))>
-
                                     <Items>
                                         <RadzenRadioButtonListItem Text="Payment" Value="0" />
                                         <RadzenRadioButtonListItem Text="Receipts" Value="1" />
                                         <RadzenRadioButtonListItem Text="Expenses" Value="6" />
                                     </Items>
-
                                 </RadzenRadioButtonList>
                             </Column>
-
                             <Column Classes="col.md">
-
                                 <ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
                             </Column>
                         </Row>
@@ -55,10 +50,8 @@
                                         <RadzenDatePicker @bind-Value=@voucher.OnDate id="ondate" Change=@OnDateChange />
                                     </div>
                                 </div>
-
-
                             </Column>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.SlipNumber Name="SlipNo" Label="Slip No"  /></Column>
+                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
                             <Column Classes="col.md">
                                 <ATextInput @bind-Value=@voucher.PartyName Name="PartyName" Label="Party Name" />
                             </Column>
@@ -67,18 +60,30 @@
                             <Column Classes="col.md"><ATextInput @bind-Value=@voucher.Particulars Name="Particulars" Label="Particulars" /></Column>
                             <Column Classes="col.md"><AInputNumber @bind-Value=@voucher.Amount Name="Amount" Label="Amount" /></Column>
                             <Column Classes="col.md">
-                                <ASelect Label="Payment Mode" Name="PayMode" TItem="string" Items="payModes" Selector="(x => x)" />
+                                <ASelect Label="Payment Mode" Name="PayMode" TItem="string" Items="payModes" Selector="(x => x)" ValueChanged="@onPayModeChange" />
                             </Column>
 
                         </Row>
                         <Row>
-                            <Column Classes="col.md"> <ASelect ValueChanged="@onPayModeChange" Label="Account No" Name="AccountNo" TItem="string" Items="payModes" Selector="(x => x)" /></Column>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.PaymentDetails Name="Details" Label="Payment Details" /></Column>
-                            <Column Classes="col.md"> <ASelect Label="Ledger" Name="Party" TItem="string" Items="payModes" Selector="(x => x)" /></Column>
+                            <Column Classes="col.md">
+                                <ASelect ValueChanged="@OnAccountSelected" Label="Account No" Name="AccountNo" TItem="SelectOption" Items="Accounts" Selector="(x => x.Value)" />
+                            </Column>
+
+                            <Column Classes="col.md">
+                                <ATextInput @bind-Value=@voucher.PaymentDetails Name="Details" Label="Payment Details" />
+                            </Column>
+
+                            <Column Classes="col.md">
+                                <ASelect Label="Ledger" Name="Party" TItem="SelectOption" Items="Parties" Selector="(x => x.Value)" ValueChanged="@OnPartySelected" />
+                            </Column>
                         </Row>
                         <Row>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.Remarks Name="Remarls" Label="Remarks" /></Column>
-                            <Column Classes="col.md"> <ASelect Label="Issued By" Name="Employee" TItem="string" Items="payModes" Selector="(x => x)" /></Column>
+                            <Column Classes="col.md">
+                                <ATextInput @bind-Value=@voucher.Remarks Name="Remarls" Label="Remarks" />
+                            </Column>
+                            <Column Classes="col.md">
+                                <ASelect Label="Issued By" Name="Employee" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" ValueChanged="@OnEmployeeSelected" />
+                            </Column>
                             <Column Classes="col.sm"></Column>
                         </Row>
 
@@ -106,19 +111,14 @@
     [Parameter] public string VoucherNumber { get; set; } = "";
     [Parameter] public bool IsEdit { get; set; } = false;
     [Parameter] public Voucher? EditVoucher { get; set; }
-    private Voucher voucher = new Voucher { VoucherType=VoucherType.Payment, OnDate= DateTime.Now, Amount=0};
+    private Voucher voucher = new Voucher { VoucherType = VoucherType.Payment, OnDate = DateTime.Now, Amount = 0 };
 
     int SelectedVCHType = 0;
     IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
     private IList<SelectOption>? Stores;
-
-    private SelectOption[]? Employees = { new SelectOption { ID = "0", Value = "Select Employee" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
-
-    private SelectOption[]? Parties = { new SelectOption { ID = "0", Value = "Select Parties" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
-
-    private SelectOption[]? Accounts = { new SelectOption { ID = "0", Value = "Select Acccount" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
-
-
+    private IList<SelectOption>? Employees;
+    private IList<SelectOption>? Parties;
+    private IList<SelectOption>? Accounts;
 
     // On Init and Fetch Data
     protected override async Task OnInitializedAsync()
@@ -160,11 +160,10 @@
     {
         try
         {
-
-            //Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees");
-            //Parties = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Parties");
             Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
-            //Accounts = await Http.GetFromJsonAsync<SelectOption[]>("Helper/BankAccounts");
+            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees?storeid=all");
+            Parties = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Parties?storeid=ARD");
+            Accounts = await Http.GetFromJsonAsync<SelectOption[]>("Helper/BankAccounts?storeid=ARD");
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -175,11 +174,15 @@
     }
     //Swal.fire('Any fool can use a computer')
 
+
     //Value Change Handler
     void OnDateChange(DateTime? value) => voucher.OnDate = value.Value;
     void OnVoucherTypeChange(int? value, string name) => voucher.VoucherType = (VoucherType)value;
     void onPayModeChange(string value) => voucher.PaymentMode = (PaymentMode)payModes.IndexOf(value);
     void OnStoreSelected(SelectOption value) => voucher.StoreId = value.ID;
+    void OnEmployeeSelected(SelectOption value) => voucher.EmployeeId = value.ID;
+    void OnPartySelected(SelectOption value) => voucher.PartyId = value.ID;
+    void OnAccountSelected(SelectOption value) => voucher.AccountId = value.ID;
 
     //Save Operations
     void ErrorMsg()
@@ -202,7 +205,7 @@
     //private void Save(){}
     private async void Save()
     {
-        var result = await Http.PostAsJsonAsync<Voucher>("TransactionModes", voucher);
+        var result = await Http.PostAsJsonAsync<Voucher>("Vouchers", voucher);
 
 
         if (result.IsSuccessStatusCode)
@@ -221,7 +224,7 @@
         {
             var msg = new Radzen.NotificationMessage
             {
-                Severity = NotificationSeverity.Info,
+                Severity = NotificationSeverity.Error,
                 Summary = "Error",
                 Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
                 Duration = 4000
