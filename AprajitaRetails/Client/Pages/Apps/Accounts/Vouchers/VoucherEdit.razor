@@ -108,12 +108,14 @@
     [Parameter] public Voucher? EditVoucher { get; set; }
     private Voucher voucher = new Voucher { VoucherType=VoucherType.Payment, OnDate= DateTime.Now, Amount=0};
 
-    IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
     int SelectedVCHType = 0;
-    private SelectOption[]? Employees = { new SelectOption { ID = "0", Value = "Select Employee" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
-    private SelectOption[]? Parties = { new SelectOption { ID = "0", Value = "Select Parties" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
+    IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
     private IList<SelectOption>? Stores;
-    //= { new SelectOption { ID = "0", Value = "Select Stoes" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
+
+    private SelectOption[]? Employees = { new SelectOption { ID = "0", Value = "Select Employee" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
+
+    private SelectOption[]? Parties = { new SelectOption { ID = "0", Value = "Select Parties" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
+
     private SelectOption[]? Accounts = { new SelectOption { ID = "0", Value = "Select Acccount" }, new SelectOption { ID = "0", Value = "Select Acccount" } };
 
 

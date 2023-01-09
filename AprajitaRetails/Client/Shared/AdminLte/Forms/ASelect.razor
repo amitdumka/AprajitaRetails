@@ -35,6 +35,7 @@
     protected override void OnInitialized()
     {
         idDictionary = new Dictionary<Guid, TItem>();
+        if(Items!=null && Items.Count()>0)
         Items.ToList().ForEach(x => idDictionary.Add(Guid.NewGuid(), x));
     }
 

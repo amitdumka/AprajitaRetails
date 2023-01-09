@@ -55,11 +55,13 @@
                         <Row>
                             <Column Classes="col.md"><ATextInput @bind-Value=@attendance.EntryTime Name="EntryTime" Label="Entry Time" /></Column>
                             <Column Classes="col.md"><ATextInput @bind-Value=@attendance.Remarks Name="Remarks" Label="Remarks" /></Column>
+
+                        </Row>
+                        <Row>
                             <Column Classes="col.md">
-                                <ACheckBox Title="Tailors" Name="isTailor" @bind-Checked="@attendance.IsTailoring" />
+                                <ACheckBox Title="Tailor" Name="isTailor" @bind-Checked="@attendance.IsTailoring" />
                             </Column>
                         </Row>
-
 
                     </Body>
                     <Footer>
@@ -149,15 +151,16 @@
         try
         {
 
-            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees");
+            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees?storeid=all");
             Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
-
+            return true;
         }
         catch (AccessTokenNotAvailableException exception)
         {
             exception.Redirect();
+            return false;
         }
-        return true;
+
 
     }
     //Value Change Handler
@@ -181,7 +184,7 @@
                 {
                     Severity = NotificationSeverity.Info,
                     Summary = "Info",
-                    Detail = $"{Employees.First(c=>c.ID==attendance.EmployeeId).Value}'s Attendance is added!",
+                    Detail = $"{Employees.First(c => c.ID == attendance.EmployeeId).Value}'s Attendance is added!",
                     Duration = 10000
                 };
                 NotificationService.Notify(msg);

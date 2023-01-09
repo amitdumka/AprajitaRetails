@@ -42,6 +42,10 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             {
                 return NotFound();
             }
+            if (storeid == "all" || storeid == "ALL")
+            {
+                return await _context.Employees.Where(c => c.IsWorking && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.EmployeeId, Value = c.StaffName }).ToListAsync();
+            }
             return await _context.Employees.Where(c => c.StoreId == storeid && c.IsWorking && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.EmployeeId, Value = c.StaffName }).ToListAsync();
         }
 
