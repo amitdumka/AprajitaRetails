@@ -1,9 +1,3 @@
-using System;
-using System.IO;
-using System.Reflection;
-using AprajitaRetails.Shared.ViewModels;
-using AprajitaRetails.Shared.Models;
-using AprajitaRetails.Shared.Models.Auth;
 using AprajitaRetails.Shared.Models.Banking;
 using AprajitaRetails.Shared.Models.Bases;
 using AprajitaRetails.Shared.Models.Payroll;
@@ -13,9 +7,6 @@ using AprajitaRetails.Shared.Models.Vouchers;
 using System.Text.Json;
 using AprajitaRetails.Server.Data;
 using PluralizeService.Core;
-using System.Collections.Generic;
-using System.Collections;
-using AprajitaRetails.Server.Extensions;
 
 namespace AprajitaRetails.Server.Importer
 {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Identity.Client;
 
 namespace AprajitaRetails.Server.Models
 {
@@ -8,4 +9,6 @@ namespace AprajitaRetails.Server.Models
         public string? StoreId { get; set; }
         public string? EmployeeId { get; set; }
     }
+
+    
 }

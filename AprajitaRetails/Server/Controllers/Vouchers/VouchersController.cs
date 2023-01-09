@@ -27,7 +27,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             {
                 return NotFound();
             }
-            return await _context.Vouchers.ToListAsync();
+            return await _context.Vouchers.OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/Vouchers/5

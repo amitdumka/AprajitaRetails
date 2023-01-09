@@ -68,7 +68,6 @@
     <Folder Include="wwwroot\js\bootstrap\" />
     <Folder Include="Pages\Setup\" />
     <Folder Include="Pages\Setup\Import\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Pages\Apps\Payroll\Employees\" />
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
 
         public string EmployeeId { get; set; }
         public DateTime OnDate { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
 
         //Postive
         public int Present { get; set; }
@@ -53,7 +53,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public string AttendanceId { get; set; }
 
         public string EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
         public DateTime OnDate { get; set; }
         public AttUnit Status { get; set; }
         public string EntryTime { get; set; }
@@ -69,7 +69,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public string EmployeeId { get; set; }
 
         [ForeignKey("EmployeeId")]
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Of Birth")]
@@ -124,7 +124,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         [Required]
         public string StoreId { get; set; }
 
-        public virtual Store Store { get; set; }
+        public virtual Store? Store { get; set; }
         public bool MarkedDeleted { get; set; }
     }
 
@@ -135,7 +135,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public string SalaryId { get; set; }
 
         public string EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
 
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal BasicSalary { get; set; }
@@ -166,7 +166,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         [Display(Name = "Staff Name")]
         public string EmployeeId { get; set; }
 
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
 
         [Display(Name = "Salary/Year(021992)")]
         public int SalaryMonth { get; set; }
@@ -196,7 +196,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         [Display(Name = "Staff Name")]
         public string EmployeeId { get; set; }
 
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Receipt Date")]
@@ -224,10 +224,10 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public int Year { get; set; }
 
         public string EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
 
         public string? SalaryId { get; set; }
-        public virtual Salary CurrentSalary { get; set; }
+        public virtual Salary? CurrentSalary { get; set; }
 
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal BasicSalaryRate { get; set; }
@@ -303,7 +303,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public DateTime OutTime { get; set; }
         public DateTime? InTime { get; set; }
         public string Reason { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
         public double Duration { get { return ((InTime.HasValue ? InTime.Value : DateTime.Now) - OutTime).TotalMinutes; } }
 
     }

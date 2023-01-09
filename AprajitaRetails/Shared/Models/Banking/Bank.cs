@@ -23,7 +23,7 @@ namespace AprajitaRetails.Shared.Models.Banking
         public string AccountHolderName { get; set; }
 
         public string BankId { get; set; }
-        public virtual Bank Bank { get; set; }
+        public virtual Bank? Bank { get; set; }
 
         public string IFSCCode { get; set; }
         public string BranchName { get; set; }
@@ -71,7 +71,7 @@ namespace AprajitaRetails.Shared.Models.Banking
     {
         public string ChequeBookId { get; set; }
         public string AccountId { get; set; }
-        public virtual BankAccount BankAccount { get; set; }
+        public virtual BankAccount? BankAccount { get; set; }
         public DateTime IssuedDate { get; set; }
         public long StartingNumber { get; set; }
         public long EndingNumber { get; set; }
@@ -88,9 +88,9 @@ namespace AprajitaRetails.Shared.Models.Banking
         public string InFavorOf { get; set; }
         public decimal Amount { get; set; }
         public string AccountId { get; set; }
-        public virtual BankAccount BankAccount { get; set; }
+        public virtual BankAccount? BankAccount { get; set; }
         public string ChequeBookId { get; set; }
-        public virtual ChequeBook ChequeBook { get; set; }
+        public virtual ChequeBook? ChequeBook { get; set; }
         public long ChequeNumber { get; set; }
     }
     //[Table("V1_ChequeeLogs")]

@@ -1,8 +1,10 @@
 ﻿@page "/autologin"
+@using AprajitaRetails.Shared.Models.Auth;
 @inject NavigationManager NavigationManager
 @inject IHttpClientFactory ClientFactory
-@inject IJSRuntime JSRuntime
-
+@*@inject IJSRuntime JSRuntime*@
+@using AprajitaRetails.Helpers
+@inject LocalStorageAccessor LocalStorage
 @if (!isLoggedIn)
 {
     <p> Loggin.....</p>
@@ -21,22 +23,30 @@
             {
                 //Redirect to page or home
 
-                var xName = login.Content.ReadAsStringAsync().Result;
-                await JSRuntime.InvokeVoidAsync("localStorage.setItem", "UserFullName", xName);
+                //var xName = login.Content.ReadAsStringAsync().Result;
+                // await JSRuntime.InvokeVoidAsync("localStorage.setItem", "UserFullName", xName);
+                var user = login.Content.ReadFromJsonAsync<LoggedUser>().Result;
+                if (user != null)
+                {
+                    LocalStorage.SetValueAsync("UserFullName", user.FullName);
+                    LocalStorage.SetValueAsync("StoreCode", user.StoreId);
+                    LocalStorage.SetValueAsync("Employee", user.EmployeeId);
+                    LocalStorage.SetValueAsync("UserName", user.Id);
 
-                
+                }
+
                 NavigationManager.NavigateTo("/home");
             }
             else
             {
                 // Display error message
-                 
+                Console.WriteLine("error");
 
             }
         }
         catch (Exception exception)
         {
-            
+            Console.WriteLine("error+\n"+exception.Message);
         }
     }
 }

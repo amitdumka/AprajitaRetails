@@ -29,7 +29,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
           {
               return NotFound();
           }
-            return await _context.Notes.ToListAsync();
+            return await _context.Notes.OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/Notes/5

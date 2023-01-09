@@ -16,7 +16,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
-        //private readonly ILogger<RegisterModel> _logger;
+
         private readonly IEmailSender _emailSender;
 
         public AuthsController(UserManager<ApplicationUser> userManager,
@@ -25,7 +25,6 @@ namespace AprajitaRetails.Server.Controllers.Auths
             ILogger<LoginModel> logger,
             IEmailSender emailSender)
         {
-
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
@@ -46,6 +45,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             _logger.LogInformation("User logged out.");
             return Ok(true);
         }
+
         [HttpPost("autoLogin")]
         public async Task<ActionResult<string>> PostAutoLogin()
         {
@@ -55,10 +55,15 @@ namespace AprajitaRetails.Server.Controllers.Auths
             {
                 //var xName = _userManager.Users.First(c => c.UserName == login.UserName).FullName;
                 _logger.LogInformation("User logged in.");
-                return Ok("Amit Kumar");
+                var user = _userManager.Users.First(c => c.UserName == "AmitKumar");
+                var logged = new LoggedUser { EmployeeId = user.EmployeeId, FullName = "Amit Kumar", StoreId = user.StoreId, Id = "AmitKumar" };
+                _logger.LogInformation("User logged in.");
+                return Ok(logged);
+
             }
             return Problem("Not able login");
         }
+
         [HttpPost]
         public async Task<ActionResult<string>> PostLogin(LoginVM login)
         {
@@ -68,22 +73,21 @@ namespace AprajitaRetails.Server.Controllers.Auths
 
                 if (result.Succeeded)
                 {
-                    var xName = _userManager.Users.First(c => c.UserName == login.UserName).FullName;
+                    var user = _userManager.Users.First(c => c.UserName == login.UserName);
+                    var logged = new LoggedUser { EmployeeId = user.EmployeeId, FullName = login.UserName, StoreId = user.StoreId, Id = user.UserName };
                     _logger.LogInformation("User logged in.");
-                    return Ok(xName);
+                    return Ok(logged);
                 }
 
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
                     return Problem("User account locked out");
-
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Problem("Invalid login attempt.");
-
                 }
             }
             else return Problem("parameter is not valid!");
@@ -118,11 +122,11 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
             return Problem("Model is not valid!");
         }
+
         private ApplicationUser CreateUser()
         {
             try
             {
-
                 return Activator.CreateInstance<ApplicationUser>();
             }
             catch
@@ -141,6 +145,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
             return (IUserEmailStore<ApplicationUser>)_userStore;
         }
+
         private async Task<bool> ConfirmEmailAsync(ApplicationUser user, string code)
         {
             //code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
@@ -166,10 +171,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return true;
-
             }
         }
     }
-
 }
-

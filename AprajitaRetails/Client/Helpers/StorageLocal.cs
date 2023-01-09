@@ -1,48 +1,121 @@
-﻿//using System;
-//using Microsoft.JSInterop;
-//using System.Threading.Tasks;
-//namespace AprajitaRetails.Client.Helpers
-//{
-//    public static class Browser
-//    {
-//        /// <summary>
-//        /// Trigger a browser alert('messsage') with your text.
-//        /// </summary>
-//        /// <param name="message">The message to display</param>
-//        public async static Task AlertAsync(string message)
-//        {
-//            var test = await JSRuntime.Current.InvokeAsync<object>("blazorExtensions.Alert", message);
-//        }
+﻿using Microsoft.JSInterop;
+using System.Net.NetworkInformation;
 
-//        /// <summary>
-//        /// Read a value from the browers localStorage.
-//        /// </summary>
-//        /// <param name="key">Key to read</param>
-//        public async static Task<string> ReadStorageAsync(string key)
-//        {
-//            return await JSRuntime.Current.InvokeAsync<string>("blazorExtensions.ReadStorage", key);
-//        }
+namespace AprajitaRetails.Helpers;
 
-//        /// <summary>
-//        /// Write a value to the browers localStorage.
-//        /// </summary>
-//        /// <param name="key">Key to write</param>
-//        /// <param name="value">Value to store</param>
-//        public async static Task WriteStorageAsync(string key, string value)
-//        {
-//            var test = await JSRuntime.Current.InvokeAsync<object>("blazorExtensions.WriteStorage", key, value);
-//        }
+public class LocalStorageAccessor : IAsyncDisposable
+{
+    private Lazy<IJSObjectReference> _accessorJsRef = new();
+    private readonly IJSRuntime _jsRuntime;
 
-//        /// <summary>
-//        /// Write a cookie.
-//        /// </summary>
-//        /// <param name="name">name of cookie</param>
-//        /// <param name="value">Value to store</param>
-//        /// <param name="days">Number of days to be valid</param>
-//        public async static Task WriteCookieAsync(string name, string value, int days)
-//        {
-//            var test = await JSRuntime.Current.InvokeAsync<object>("blazorExtensions.WriteCookie", name, value, days);
-//        }
-//    }
-//}
+    public LocalStorageAccessor(IJSRuntime jsRuntime)
+    {
+        _jsRuntime = jsRuntime;
+    }
 
+    public async Task<T> GetValueAsync<T>(string key)
+    {
+        await WaitForReference();
+        var result = await _accessorJsRef.Value.InvokeAsync<T>("get", key);
+
+        return result;
+    }
+
+    public async Task SetValueAsync<T>(string key, T value)
+    {
+        await WaitForReference();
+        await _accessorJsRef.Value.InvokeVoidAsync("set", key, value);
+    }
+
+    public async Task Clear()
+    {
+        await WaitForReference();
+        await _accessorJsRef.Value.InvokeVoidAsync("clear");
+    }
+
+    public async Task RemoveAsync(string key)
+    {
+        await WaitForReference();
+        await _accessorJsRef.Value.InvokeVoidAsync("remove", key);
+    }
+
+    private async Task WaitForReference()
+    {
+        if (_accessorJsRef.IsValueCreated is false)
+        {
+            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/LocalStorageAccessor.js"));
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_accessorJsRef.IsValueCreated)
+        {
+            await _accessorJsRef.Value.DisposeAsync();
+        }
+    }
+}
+
+//Usage
+//@using AprajitaRetails.Helpers
+//@inject LocalStorageAccessor LocalStorageAccessor
+
+//StoredValue = await LocalStorageAccessor.GetValueAsync<string>(Key);
+// await LocalStorageAccessor.SetValueAsync(Key, Value);
+
+//Add in program or startup 
+//builder.Services.AddScoped<LocalStorageAccessor>();
+
+
+public class SessionStorageAccessor : IAsyncDisposable
+{
+    private Lazy<IJSObjectReference> _accessorJsRef = new();
+    private readonly IJSRuntime _jsRuntime;
+
+    public SessionStorageAccessor(IJSRuntime jsRuntime)
+    {
+        _jsRuntime = jsRuntime;
+    }
+
+    public async Task<T> GetValueAsync<T>(string key)
+    {
+        await WaitForReference();
+        var result = await _accessorJsRef.Value.InvokeAsync<T>("get", key);
+
+        return result;
+    }
+
+    public async Task SetValueAsync<T>(string key, T value)
+    {
+        await WaitForReference();
+        await _accessorJsRef.Value.InvokeVoidAsync("set", key, value);
+    }
+
+    public async Task Clear()
+    {
+        await WaitForReference();
+        await _accessorJsRef.Value.InvokeVoidAsync("clear");
+    }
+
+    public async Task RemoveAsync(string key)
+    {
+        await WaitForReference();
+        await _accessorJsRef.Value.InvokeVoidAsync("remove", key);
+    }
+
+    private async Task WaitForReference()
+    {
+        if (_accessorJsRef.IsValueCreated is false)
+        {
+            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/SessionStorageAccessor.js"));
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_accessorJsRef.IsValueCreated)
+        {
+            await _accessorJsRef.Value.DisposeAsync();
+        }
+    }
+}

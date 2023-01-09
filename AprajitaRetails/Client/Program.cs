@@ -1,4 +1,5 @@
 using AprajitaRetails.Client;
+using AprajitaRetails.Helpers;
 using Blazor.AdminLte;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -18,9 +19,10 @@ builder.Services.AddHttpClient("AprajitaRetails.ServerAPI.Auth", client => clien
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AprajitaRetails.ServerAPI"));
 builder.Services.AddAdminLte();
 builder.Services.AddScoped<IFilesManager, WasmFilesManager>();
-
+builder.Services.AddScoped<LocalStorageAccessor>();
 
 builder.Services.AddApiAuthorization();
+//builder.Services.AddScoped<SessionStorageAccessor>();
 
 // Radzen Addition
 builder.Services.AddScoped<DialogService>();

@@ -1,18 +1,11 @@
 ﻿@page "/login"
 @using AprajitaRetails.Shared.Models.Auth
-@using AprajitaRetails.Shared.Models.Vouchers;
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@using AprajitaRetails.Shared
-@*@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
-    @inject ProtectedLocalStorage BrowserStorage*@
-@*//@attribute [Authorize]*@
 @inject NavigationManager NavigationManager
-@inject HttpClient Http
 @inject NotificationService NotificationService
 @inject IHttpClientFactory ClientFactory
-@inject IJSRuntime JSRuntime
-<!-- note: using styles, not css, we will target Isolated CSS for this component when we upgrade to .NET5 -->
+@using AprajitaRetails.Helpers
+@inject LocalStorageAccessor LocalStorage
+
 <Overlay>
     <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
         <div class="login-box bg-success">
@@ -27,14 +20,14 @@
                     <Input @bind-Value="email" />
                     <Input @bind-Value="password" />
                     @code {
-                        CustomCheckboxState rememberMe = new CustomCheckboxState()
-                        {
-                            Identifier = "customCheckbox1",
-                            Value = "option1",
-                            Label = "Remember Me?"
-                            ,
-                            IsChecked = true
-                        };
+        CustomCheckboxState rememberMe = new CustomCheckboxState()
+        {
+            Identifier = "customCheckbox1",
+            Value = "option1",
+            Label = "Remember Me?"
+        ,
+            IsChecked = true
+        };
                     }
                     <div class="row">
                         <div class="col-8">
@@ -85,16 +78,25 @@
             {
                 //Redirect to page or home
 
-                var xName = login.Content.ReadAsStringAsync().Result;
-                await JSRuntime.InvokeVoidAsync("localStorage.setItem", "UserFullName", xName);
+                // var xName = login.Content.ReadAsStringAsync().Result;
+                //await JSRuntime.InvokeVoidAsync("localStorage.setItem", "UserFullName", xName);
+                var user = login.Content.ReadFromJsonAsync<LoggedUser>().Result;
+                if (user != null)
+                {
+                    await LocalStorage.SetValueAsync("UserFullName", user.FullName);
+                    await LocalStorage.SetValueAsync("StoreCode", user.StoreId);
+                    await LocalStorage.SetValueAsync("Employee", user.EmployeeId);
+                    await LocalStorage.SetValueAsync("UserName", user.Id);
+                    
+                }
 
                 var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Success",
-                    Detail = $"User Loged In: {xName}",
-                    Duration = 14000
-                };
+                    {
+                        Severity = NotificationSeverity.Info,
+                        Summary = "Success",
+                        Detail = $"User Loged In: {user.FullName}",
+                        Duration = 14000
+                    };
                 NotificationService.Notify(msg);
                 NavigationManager.NavigateTo("/home");
             }
@@ -102,12 +104,12 @@
             {
                 // Display error message
                 var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Error",
-                    Detail = "err" + login.Content,
-                    Duration = 14000
-                };
+                    {
+                        Severity = NotificationSeverity.Info,
+                        Summary = "Error",
+                        Detail = "err" + login.Content,
+                        Duration = 14000
+                    };
                 NotificationService.Notify(msg);
 
             }
@@ -117,12 +119,12 @@
             // Dispaly error message
             // Display error message
             var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Error",
-                Detail = "err" + ex.Message,
-                Duration = 14000
-            };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Error",
+                    Detail = "err" + ex.Message,
+                    Duration = 14000
+                };
             NotificationService.Notify(msg);
         }
     }
