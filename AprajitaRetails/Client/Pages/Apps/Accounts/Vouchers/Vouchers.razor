@@ -78,7 +78,7 @@
     {
         try
         {
-            vchlist = await Http.GetFromJsonAsync<Voucher[]>("Vouchers");
+            vchlist = await Http.GetFromJsonAsync<Voucher[]>("api/Vouchers");
         }
         catch (AccessTokenNotAvailableException exception)
         {

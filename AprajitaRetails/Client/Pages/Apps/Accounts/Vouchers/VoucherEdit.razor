@@ -133,25 +133,27 @@
         {
             Title = "Add " + Title;
             voucher = new Voucher
-            {
-                OnDate = DateTime.Now,
-                VoucherType = VoucherType.Payment,
-                AccountId = "",
-                Amount = 0,
-                EmployeeId = "",
-                EntryStatus = EntryStatus.Added,
-                IsReadOnly = false,
-                MarkedDeleted = false,
-                PartyId = "",
-                PartyName = "",
-                PaymentDetails = "",
-                Remarks = "",
-                SlipNumber = "",
-                PaymentMode = PaymentMode.Cash,
-                StoreId = "",
-                UserId = "",
-                VoucherNumber = ""
-            };
+                {
+                    OnDate = DateTime.Now,
+                    VoucherType = VoucherType.Payment,
+                    AccountId = Accounts[0].ID,
+                    Amount = 0,
+                    EmployeeId = Employees[0].ID,
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    PartyId = Parties[0].ID,
+                    PartyName = "",
+                    PaymentDetails = "",
+                    Remarks = "",
+                    SlipNumber = "",
+                    PaymentMode = PaymentMode.Cash,
+                    StoreId = Stores[0].ID,
+                    UserId = "BlazorUI",
+                    VoucherNumber = " ",
+                    Particulars = ""
+
+                };
         }
         voucher.VoucherType = VoucherType;
         SelectedVCHType = (int)VoucherType;
@@ -188,12 +190,12 @@
     void ErrorMsg()
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = NotificationSeverity.Info,
-            Summary = "Error",
-            Detail = "Invalid Sate",
-            Duration = 14000
-        };
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Error",
+                Detail = "Invalid Sate",
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
     void SaveButton()
@@ -205,30 +207,30 @@
     //private void Save(){}
     private async void Save()
     {
-        var result = await Http.PostAsJsonAsync<Voucher>("Vouchers", voucher);
+        var result = await Http.PostAsJsonAsync<Voucher>("api/Vouchers", voucher);
 
 
         if (result.IsSuccessStatusCode)
         {
             var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Info",
-                Detail = "Voucher is added",
-                Duration = 4000
-            };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Info",
+                    Detail = "Voucher is added",
+                    Duration = 4000
+                };
             NotificationService.Notify(msg);
 
         }
         else
         {
             var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Error,
-                Summary = "Error",
-                Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
-                Duration = 4000
-            };
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Error",
+                    Detail = "An error occured while saving and error is " + result.StatusCode.ToString() + "\n" + result.ReasonPhrase,
+                    Duration = 4000
+                };
             NotificationService.Notify(msg);
         }
     }

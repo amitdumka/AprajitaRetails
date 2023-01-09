@@ -65,7 +65,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             {
                 return NotFound();
             }
-            return await _context.BankAccounts.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.BankId, Value = c.AccountHolderName + ", Acc: " + c.AccountNumber }).ToListAsync();
+            return await _context.BankAccounts.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.AccountNumber, Value = c.AccountNumber + ", #: " + c.BranchName }).ToListAsync();
         }
         [HttpGet("Stores")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetStores()

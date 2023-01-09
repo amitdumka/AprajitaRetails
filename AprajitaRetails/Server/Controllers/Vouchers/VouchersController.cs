@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
-using Microsoft.AspNetCore.Authorization;
 using AprajitaRetails.Server.BL.Accounts;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
     //[Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     // [Route("[controller]")]
     public class VouchersController : ControllerBase
     {

@@ -1,0 +1,42 @@
+﻿@page "/autologin"
+@inject NavigationManager NavigationManager
+@inject IHttpClientFactory ClientFactory
+@inject IJSRuntime JSRuntime
+
+@if (!isLoggedIn)
+{
+    <p> Loggin.....</p>
+}
+
+@code {
+    bool isLoggedIn = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
+            var login = await client.PostAsync("auths/autoLogin",null);
+            if (login.IsSuccessStatusCode)
+            {
+                //Redirect to page or home
+
+                var xName = login.Content.ReadAsStringAsync().Result;
+                await JSRuntime.InvokeVoidAsync("localStorage.setItem", "UserFullName", xName);
+
+                
+                NavigationManager.NavigateTo("/home");
+            }
+            else
+            {
+                // Display error message
+                 
+
+            }
+        }
+        catch (Exception exception)
+        {
+            
+        }
+    }
+}

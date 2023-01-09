@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using AprajitaRetails.Server.Areas.Identity.Pages.Account;
-using AprajitaRetails.Server.Data;
+﻿using AprajitaRetails.Server.Areas.Identity.Pages.Account;
 using AprajitaRetails.Server.Models;
 using AprajitaRetails.Shared.Models.Auth;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace AprajitaRetails.Server.Controllers.Auths
 {
@@ -54,6 +45,19 @@ namespace AprajitaRetails.Server.Controllers.Auths
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             return Ok(true);
+        }
+        [HttpPost("autoLogin")]
+        public async Task<ActionResult<string>> PostAutoLogin()
+        {
+            var result = await _signInManager.PasswordSignInAsync("AmitKumar", "Dumka@1234", true, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                //var xName = _userManager.Users.First(c => c.UserName == login.UserName).FullName;
+                _logger.LogInformation("User logged in.");
+                return Ok("Amit Kumar");
+            }
+            return Problem("Not able login");
         }
         [HttpPost]
         public async Task<ActionResult<string>> PostLogin(LoginVM login)
@@ -166,6 +170,6 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
         }
     }
-    
+
 }
 

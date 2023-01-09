@@ -19,7 +19,7 @@ namespace AprajitaRetails.Shared. Models.Bases
         [DefaultValue("ARD")]
         [Display(Name = "Store")]
         public string StoreId { get; set; }
-        public virtual Store Store { get; set; }
+        public virtual Store? Store { get; set; }
         public EntryStatus EntryStatus { get; set; }
     }
 
