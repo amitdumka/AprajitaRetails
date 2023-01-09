@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using AprajitaRetails.Server.BL.Payrolls;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -92,6 +93,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
           {
               return Problem("Entity set 'ARDBContext.Attendance'  is null.");
           }
+            attendance.AttendanceId = PayrollHelper.AttendaceIdGenerator(attendance.StoreId, attendance.EmployeeId, attendance.OnDate);
             _context.Attendances.Add(attendance);
             try
             {

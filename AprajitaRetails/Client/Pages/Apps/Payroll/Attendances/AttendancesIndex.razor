@@ -37,7 +37,7 @@
                 <Body>
                     <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
                         <TableHead>
-                            @*<TableHeadCell>ID</TableHeadCell>*@
+                            <TableHeadCell>ID</TableHeadCell>
                             <TableHeadCell>Name</TableHeadCell>
                             <TableHeadCell>Date</TableHeadCell>
                             <TableHeadCell>Time</TableHeadCell>
@@ -51,7 +51,7 @@
                             @foreach (var ent in entities)
                             {
                                 <TableRow>
-                                    @*<TableCell>@ent.EmployeeId</TableCell>*@
+                                    <TableCell>@ent.AttendanceId</TableCell>
                                     <TableCell>@StaffName(ent.EmployeeId)</TableCell>
                                     <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
                                     <TableCell>@ent.EntryTime</TableCell>

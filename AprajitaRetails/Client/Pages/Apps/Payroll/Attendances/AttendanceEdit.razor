@@ -25,7 +25,7 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
-                    <Title><CardTitle>Add Voucher</CardTitle></Title>
+                    <Title><CardTitle>Add Attendance</CardTitle></Title>
                     <Header><CardTools /></Header>
                     <Body>
                         <Row>
@@ -109,11 +109,11 @@
                 EntryStatus = EntryStatus.Added,
                 IsReadOnly = false,
                 MarkedDeleted = false,
-                Remarks = "",
-                StoreId = "",
+                Remarks = " ",
+                StoreId = Stores!=null? Stores[0].ID :"ARD",
                 IsTailoring = false,
                 Status = AttUnit.Present,
-                UserId = "",
+                UserId = "BlazorUI",
                 EntryTime = $"{DateTime.Now.ToShortTimeString()}"
 
             };
@@ -134,7 +134,7 @@
     }
     void SaveButton()
     {
-        //Save();
+        Save();
 
     }
 
@@ -166,16 +166,36 @@
     //Value Change Handler
     void OnDateChange(DateTime? value) => attendance.OnDate = value.Value;
     void onStatusChange(string value) => attendance.Status = (AttUnit)AttUnits.IndexOf(value);
-    void OnStoreSelected(SelectOption value) => attendance.StoreId = value.ID;
-    void OnEmployeeSelected(SelectOption value) => attendance.EmployeeId = value.ID;
+    //void OnStoreSelected(SelectOption value) => attendance.StoreId = value.ID;
+    //void OnEmployeeSelected(SelectOption value) => attendance.EmployeeId = value.ID;
     void OnTailorChecked(bool value) => attendance.IsTailoring = value;
 
-
+    void OnStoreSelected(SelectOption value)
+    {
+        attendance.StoreId = value.ID;
+        Msg(value.ID, value.Value);
+    }
+    void OnEmployeeSelected(SelectOption value)
+    {
+        attendance.EmployeeId = value.ID;
+        Msg(value.ID, value.Value);
+    }
+    void Msg(string title, string text, bool isError=false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity =isError?NotificationSeverity.Error: NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
     private async void Save()
     {
         try
         {
-            var result = await Http.PostAsJsonAsync<Attendance>("Attendance", attendance);
+            var result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
 
 
             if (result.IsSuccessStatusCode)

@@ -49,6 +49,7 @@
     <None Remove="Controllers\Auths\" />
     <None Remove="Import\" />
     <None Remove="Extensions\" />
+    <None Remove="BL\Payrolls\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
@@ -64,6 +65,7 @@
     <Folder Include="Controllers\Auths\" />
     <Folder Include="Importer\" />
     <Folder Include="Extensions\" />
+    <Folder Include="BL\Payrolls\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\Attendances" />
