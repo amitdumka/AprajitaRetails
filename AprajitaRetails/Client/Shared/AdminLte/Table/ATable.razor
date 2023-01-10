@@ -1,6 +1,6 @@
 ﻿@namespace AprajitaRetails.AdminLte.Table
 
-<table @ref="TableReference" class="table @borderd @striped @hover">
+<table @ref="TableReference" class="table @borderd @striped @hover @small">
     @ChildContent
 </table>
 
@@ -8,6 +8,7 @@
     private string borderd = "table-bordered";
     private string striped = "table-striped";
     private string hover = "table-hover";
+    private string small = "table-sm";
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
@@ -20,11 +21,14 @@
     public bool Striped { get; set; } = false;
     [Parameter]
     public bool Hover { get; set; } = false;
+    [Parameter]
+    public bool Small { get; set; } = false;
     protected override void OnInitialized()
     {
-        borderd = Bordered ? "table-bordered" : "";
+        borderd = Bordered ? "table-bordered" : "table-borderless";
         striped = Striped ? "table-striped" : "";
         hover = Striped ? "table-hover" : "";
+        small = Small ? "table-sm table-responsive-sm" : "";
 
     }
 }

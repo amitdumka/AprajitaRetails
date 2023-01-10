@@ -24,6 +24,41 @@
     else
     {
         <Row>
+            <Column Classes="col._4">
+                <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                    <Title>
+                        <CardTitle>@Title</CardTitle>
+                    </Title>
+                    <Header>
+                        <CardTools>
+                            <CustomTools>
+                                <a class="btn btn-primary btn-xs btn" href="/payroll/attendances/edit">Add</a>
+                            </CustomTools>
+                        </CardTools>
+                    </Header>
+                    <Body>
+                        <AprajitaRetails.AdminLte.Table.ATable Bordered=false Hover=false Small=true>
+                            <TableBody>
+                                <EntityRow Lable="ID" Value="@entity.AttendanceId" />
+                                <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+                                <EntityRow Lable="Name" Value="@entity.Employee.StaffName" />
+                                <EntityRow Lable="Status" Value="@entity.Status.ToString()" />
+                                <EntityRow Lable="Time" Value="@entity.EntryTime" />
+                                <EntityRow Lable="Remarks" Value="@entity.Remarks" />
+                                <EntityRow Lable="Tailor" Value="@entity.IsTailoring.ToString()" />
+                                <EntityRow Lable="Store" Value="@entity.StoreId.ToString()" />
+                                <TableRow><TableCell></TableCell> </TableRow>
+                                <TableRow><TableCell></TableCell> </TableRow>
+                                <TableRow>
+                                    <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
+                                    <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </AprajitaRetails.AdminLte.Table.ATable>
+                    </Body>
+                </Card>
+            </Column>
+           @* <Column Classes="col._3">
             <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
                 <Title>
                     <CardTitle>@Title</CardTitle>
@@ -36,7 +71,7 @@
                     </CardTools>
                 </Header>
                 <Body>
-                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=false Hover=false Small=true>
                         <TableBody>
                             <EntityRow Lable="ID" Value="@entity.AttendanceId" />
                             <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
@@ -46,13 +81,15 @@
                             <EntityRow Lable="Remarks" Value="@entity.Remarks" />
                             <EntityRow Lable="Tailor" Value="@entity.IsTailoring.ToString()" />
                             <EntityRow Lable="Store" Value="@entity.StoreId.ToString()" />
-                            <TableRow><TableCell></TableCell><TableCell></TableCell></TableRow>
-                            <TableRow><TableCell></TableCell><TableCell></TableCell></TableRow>
-                            <TableRow><TableCell><Button @onclick="@BackButton">Back</Button></TableCell><TableCell><Button @onclick="@DeleteButton">Delete</Button></TableCell></TableRow>
+                            <TableRow><TableCell ></TableCell> </TableRow>
+                            <TableRow><TableCell></TableCell> </TableRow>
+                            <TableRow><TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
+                                <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell></TableRow>
                         </TableBody>
                     </AprajitaRetails.AdminLte.Table.ATable>
                 </Body>
             </Card>
+            </Column>*@
         </Row>
     }
 </ContentMain>

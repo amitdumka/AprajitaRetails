@@ -1,158 +1,158 @@
 [
   {
-    "TransactionId": "TM/1",
+    "TransactionId": "TM-1",
     "TransactionName": "Home Expenses"
   },
   {
-    "TransactionId": "TM/10",
+    "TransactionId": "TM-10",
     "TransactionName": "OnLinePurchase"
   },
   {
-    "TransactionId": "TM/11",
+    "TransactionId": "TM-11",
     "TransactionName": "Petty Cash Expenses"
   },
   {
-    "TransactionId": "TM/12",
+    "TransactionId": "TM-12",
     "TransactionName": "Dan"
   },
   {
-    "TransactionId": "TM/13",
+    "TransactionId": "TM-13",
     "TransactionName": "Breakfast"
   },
   {
-    "TransactionId": "TM/14",
+    "TransactionId": "TM-14",
     "TransactionName": "Lunch"
   },
   {
-    "TransactionId": "TM/15",
+    "TransactionId": "TM-15",
     "TransactionName": "Coffee"
   },
   {
-    "TransactionId": "TM/16",
+    "TransactionId": "TM-16",
     "TransactionName": "Cup Glass"
   },
   {
-    "TransactionId": "TM/17",
+    "TransactionId": "TM-17",
     "TransactionName": "Battery"
   },
   {
-    "TransactionId": "TM/19",
+    "TransactionId": "TM-19",
     "TransactionName": "Fuel Expences"
   },
   {
-    "TransactionId": "TM/2",
+    "TransactionId": "TM-2",
     "TransactionName": "Other Home Expenses"
   },
   {
-    "TransactionId": "TM/20",
+    "TransactionId": "TM-20",
     "TransactionName": "Social \u0026 Staff Welfare"
   },
   {
-    "TransactionId": "TM/21",
+    "TransactionId": "TM-21",
     "TransactionName": "Postage \u0026 Courier"
   },
   {
-    "TransactionId": "TM/22",
+    "TransactionId": "TM-22",
     "TransactionName": "Snacks \u0026 Refreshment"
   },
   {
-    "TransactionId": "TM/23",
+    "TransactionId": "TM-23",
     "TransactionName": "Miscellaneous Expenses"
   },
   {
-    "TransactionId": "TM/24",
+    "TransactionId": "TM-24",
     "TransactionName": "Baksheesh \u0026 Others"
   },
   {
-    "TransactionId": "TM/25",
+    "TransactionId": "TM-25",
     "TransactionName": "Medicine Expenses"
   },
   {
-    "TransactionId": "TM/26",
+    "TransactionId": "TM-26",
     "TransactionName": "Painter"
   },
   {
-    "TransactionId": "TM/27",
+    "TransactionId": "TM-27",
     "TransactionName": "Stationary"
   },
   {
-    "TransactionId": "TM/28",
+    "TransactionId": "TM-28",
     "TransactionName": "Shop Electricity Bill"
   },
   {
-    "TransactionId": "TM/29",
+    "TransactionId": "TM-29",
     "TransactionName": "Mobile bill \u0026 Recharge"
   },
   {
-    "TransactionId": "TM/3",
+    "TransactionId": "TM-3",
     "TransactionName": "Mukesh(Home Staff)"
   },
   {
-    "TransactionId": "TM/30",
+    "TransactionId": "TM-30",
     "TransactionName": "Labour "
   },
   {
-    "TransactionId": "TM/31",
+    "TransactionId": "TM-31",
     "TransactionName": "Short in Cash"
   },
   {
-    "TransactionId": "TM/32",
+    "TransactionId": "TM-32",
     "TransactionName": "Repair \u0026 Maintenance"
   },
   {
-    "TransactionId": "TM/33",
+    "TransactionId": "TM-33",
     "TransactionName": "Puja Expenses"
   },
   {
-    "TransactionId": "TM/34",
+    "TransactionId": "TM-34",
     "TransactionName": "Travelling \u0026 Trip Expenses"
   },
   {
-    "TransactionId": "TM/35",
+    "TransactionId": "TM-35",
     "TransactionName": "SINGHANIA SENITRIES"
   },
   {
-    "TransactionId": "TM/36",
+    "TransactionId": "TM-36",
     "TransactionName": "Net Communication"
   },
   {
-    "TransactionId": "TM/38",
+    "TransactionId": "TM-38",
     "TransactionName": "Freight charges"
   },
   {
-    "TransactionId": "TM/39",
+    "TransactionId": "TM-39",
     "TransactionName": "R.S Furniture"
   },
   {
-    "TransactionId": "TM/4",
+    "TransactionId": "TM-4",
     "TransactionName": "Amit Kumar"
   },
   {
-    "TransactionId": "TM/40",
+    "TransactionId": "TM-40",
     "TransactionName": "Tea"
   },
   {
-    "TransactionId": "TM/41",
+    "TransactionId": "TM-41",
     "TransactionName": "Staff Shoes"
   },
   {
-    "TransactionId": "TM/5",
+    "TransactionId": "TM-5",
     "TransactionName": "Amit Kumar Expenses"
   },
   {
-    "TransactionId": "TM/6",
+    "TransactionId": "TM-6",
     "TransactionName": "CashIn"
   },
   {
-    "TransactionId": "TM/7",
+    "TransactionId": "TM-7",
     "TransactionName": "CashOut"
   },
   {
-    "TransactionId": "TM/8",
+    "TransactionId": "TM-8",
     "TransactionName": "Regular"
   },
   {
-    "TransactionId": "TM/9",
+    "TransactionId": "TM-9",
     "TransactionName": "Suspence"
   }
 ]
