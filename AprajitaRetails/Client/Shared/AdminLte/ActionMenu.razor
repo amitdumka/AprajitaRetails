@@ -25,9 +25,9 @@
     protected override async Task OnInitializedAsync()
     {
 
-        Edit = $"{Link}/Edit?ID={Id}";
-        Detail = $"{Link}/Detail?ID={Id}";
-        Delete = $"{Link}/Delete?ID={Id}";
+        Edit = $"{Link}/Edit?/{Id}";
+        Detail = $"{Link}/Detail/{Id}";
+        Delete = $"{Link}/Delete/{Id}";
 
     }
 

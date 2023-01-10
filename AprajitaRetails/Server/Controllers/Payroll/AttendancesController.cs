@@ -44,6 +44,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
               return NotFound();
           }
             var attendance = await _context.Attendances.FindAsync(id);
+            //attendance.Employee = await _context.Employees.FindAsync(attendance.EmployeeId);
 
             if (attendance == null)
             {

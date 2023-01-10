@@ -1,0 +1,94 @@
+﻿@*@page "/payroll/attendances/detail/{ID:string?}"*@
+
+@page "/payroll/attendances/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager NavigationManager
+
+@attribute [Authorize]
+@inject HttpClient Http
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+
+<ContentMain>
+    @if (entity == null)
+    {
+        <p><em>Loading.....</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                <Title>
+                    <CardTitle>@Title</CardTitle>
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <a class="btn btn-primary btn-xs btn" href="/payroll/attendances/edit">Add</a>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                        <TableBody>
+                            <EntityRow Lable="ID" Value="@entity.AttendanceId" />
+                            <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+                            <EntityRow Lable="Name" Value="@entity.Employee.StaffName" />
+                            <EntityRow Lable="Status" Value="@entity.Status.ToString()" />
+                            <EntityRow Lable="Time" Value="@entity.EntryTime" />
+                            <EntityRow Lable="Remarks" Value="@entity.Remarks" />
+                            <EntityRow Lable="Tailor" Value="@entity.IsTailoring.ToString()" />
+                            <EntityRow Lable="Store" Value="@entity.StoreId.ToString()" />
+                            <TableRow><TableCell></TableCell><TableCell></TableCell></TableRow>
+                            <TableRow><TableCell></TableCell><TableCell></TableCell></TableRow>
+                            <TableRow><TableCell><Button @onclick="@BackButton">Back</Button></TableCell><TableCell><Button @onclick="@DeleteButton">Delete</Button></TableCell></TableRow>
+                        </TableBody>
+                    </AprajitaRetails.AdminLte.Table.ATable>
+                </Body>
+            </Card>
+        </Row>
+    }
+</ContentMain>
+
+
+
+@code {
+
+    [Parameter] public string? ID { get; set; }
+    [Parameter] public Attendance? entity { get; set; }
+
+    string Title = "Detail";
+
+    void DeleteButton()
+    {
+
+    }
+    void BackButton()
+    {
+        NavigationManager.NavigateTo("/payroll/attendances");
+    }
+    protected override async void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(ID) && entity == null)
+        {
+            //Alert for No Entity
+        }
+        else if (!string.IsNullOrEmpty(ID))
+        {
+            // Do Fetch Data from DB and Populate.
+            //ID = ID ?? "NO ID Found";
+
+            entity = await Http.GetFromJsonAsync<Attendance>($"Attendances/{ID}");
+            var emp = await Http.GetFromJsonAsync<Attendance>($"Employees/{entity.EmployeeId}");
+        }
+
+    }
+}
+

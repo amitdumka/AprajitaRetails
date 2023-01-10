@@ -3,7 +3,11 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
 @using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.AdminLte
+
 @attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
 
 @inject HttpClient Http
 
@@ -60,7 +64,7 @@
                                     <TableCell>@ent.Remarks</TableCell>
                                     @*<TableCell>@ent.StoreId</TableCell>*@
                                     <TableCell>
-                                        <AprajitaRetails.AdminLte.ActionMenu Link="/payroll/attendance" Id="@ent.AttendanceId" />
+                                        <ActionMenu Link="/payroll/attendances" Id="@ent.AttendanceId" />
                                     </TableCell>
                                 </TableRow>
                             }
@@ -98,6 +102,28 @@
         {
             exception.Redirect();
         }
+    }
+
+    void OnEdit(string id)
+    {
+        Msg(id, "OnEdit");
+        var att = entities.First(c => c.AttendanceId == id);
+        att.Employee = employees.First(c => c.EmployeeId == att.EmployeeId);
+        NavigationManager.NavigateTo("/payroll/attendances/details/@att");
+
+    }
+    void OnDetail(string id) { Msg(id, "OnDetails"); }
+    void OnDelete(string id) { Msg(id, "OnDelete"); }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
     }
 
 }
