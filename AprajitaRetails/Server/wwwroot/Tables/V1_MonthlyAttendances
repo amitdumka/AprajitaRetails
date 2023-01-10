@@ -1,7 +1,7 @@
 [
   {
-    "MonthlyAttendanceId": "2016/10/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-10-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-10-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -20,8 +20,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/10/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-10-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-10-01T00:00:00",
     "Present": 23,
     "HalfDay": 1,
@@ -40,8 +40,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/10/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-10-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-10-01T00:00:00",
     "Present": 26,
     "HalfDay": 1,
@@ -60,8 +60,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/10/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-10-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-10-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -80,8 +80,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/11/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-11-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-11-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -100,8 +100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/11/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-11-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-11-01T00:00:00",
     "Present": 22,
     "HalfDay": 3,
@@ -120,8 +120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/11/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-11-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-11-01T00:00:00",
     "Present": 28,
     "HalfDay": 1,
@@ -140,8 +140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/11/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-11-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-11-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -160,8 +160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/12/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-12-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-12-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -180,8 +180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/12/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-12-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-12-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -200,8 +200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/12/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-12-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-12-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -220,8 +220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/12/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-12-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-12-01T00:00:00",
     "Present": 27,
     "HalfDay": 2,
@@ -240,8 +240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/2/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-2-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-02-01T00:00:00",
     "Present": 13,
     "HalfDay": 0,
@@ -260,8 +260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/2/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-2-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-02-01T00:00:00",
     "Present": 11,
     "HalfDay": 0,
@@ -280,8 +280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/2/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-2-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-02-01T00:00:00",
     "Present": 13,
     "HalfDay": 0,
@@ -300,8 +300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/2/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-2-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-02-01T00:00:00",
     "Present": 8,
     "HalfDay": 0,
@@ -320,8 +320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/3/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-3-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-03-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -340,8 +340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/3/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-3-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-03-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -360,8 +360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/3/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-3-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-03-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -380,8 +380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/3/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-3-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-03-01T00:00:00",
     "Present": 27,
     "HalfDay": 1,
@@ -400,8 +400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/4/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-4-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -420,8 +420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/4/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-4-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-04-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -440,8 +440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/4/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-4-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-04-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -460,8 +460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/4/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-4-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -480,8 +480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/5/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-5-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-05-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -500,8 +500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/5/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-5-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-05-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -520,8 +520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/5/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-5-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-05-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -540,8 +540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/5/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-5-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-05-01T00:00:00",
     "Present": 14,
     "HalfDay": 0,
@@ -560,8 +560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/6/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-6-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-06-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -580,8 +580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/6/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-6-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-06-01T00:00:00",
     "Present": 26,
     "HalfDay": 2,
@@ -600,8 +600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/6/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-6-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-06-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -620,8 +620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/6/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-6-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-06-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -640,8 +640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/7/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-7-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-07-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -660,8 +660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/7/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-7-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-07-01T00:00:00",
     "Present": 21,
     "HalfDay": 5,
@@ -680,8 +680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/7/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-7-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -700,8 +700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/7/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-7-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-07-01T00:00:00",
     "Present": 29,
     "HalfDay": 2,
@@ -720,8 +720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/8/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-8-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-08-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -740,8 +740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/8/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-8-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-08-01T00:00:00",
     "Present": 19,
     "HalfDay": 1,
@@ -760,8 +760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/8/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-8-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-08-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -780,8 +780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/8/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-8-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-08-01T00:00:00",
     "Present": 29,
     "HalfDay": 1,
@@ -800,8 +800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/9/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2016-9-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2016-09-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -820,8 +820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/9/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2016-9-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2016-09-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -840,8 +840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/9/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2016-9-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2016-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -860,8 +860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2016/9/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2016-9-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2016-09-01T00:00:00",
     "Present": 28,
     "HalfDay": 1,
@@ -880,8 +880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/1/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-1-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-01-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -900,8 +900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/1/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-1-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-01-01T00:00:00",
     "Present": 25,
     "HalfDay": 1,
@@ -920,8 +920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/1/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-1-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-01-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -940,8 +940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/1/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-1-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-01-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -960,8 +960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/10/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-10-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-10-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -980,8 +980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/10/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-10-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-10-01T00:00:00",
     "Present": 22,
     "HalfDay": 2,
@@ -1000,8 +1000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/10/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-10-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-10-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -1020,8 +1020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/10/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-10-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-10-01T00:00:00",
     "Present": 26,
     "HalfDay": 2,
@@ -1040,8 +1040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/11/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-11-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-11-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -1060,8 +1060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/11/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-11-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-11-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -1080,8 +1080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/11/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-11-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-11-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -1100,8 +1100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/11/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-11-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-11-01T00:00:00",
     "Present": 24,
     "HalfDay": 1,
@@ -1120,8 +1120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/12/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-12-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-12-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -1140,8 +1140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/12/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-12-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-12-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -1160,8 +1160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/12/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-12-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-12-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -1180,8 +1180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/12/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-12-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-12-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -1200,8 +1200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/2/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-2-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -1220,8 +1220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/2/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-2-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-02-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -1240,8 +1240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/2/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-2-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-02-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -1260,8 +1260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/2/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-2-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-02-01T00:00:00",
     "Present": 23,
     "HalfDay": 2,
@@ -1280,8 +1280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/3/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-3-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-03-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -1300,8 +1300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/3/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-3-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-03-01T00:00:00",
     "Present": 25,
     "HalfDay": 4,
@@ -1320,8 +1320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/3/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-3-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-03-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -1340,8 +1340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/3/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-3-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-03-01T00:00:00",
     "Present": 24,
     "HalfDay": 1,
@@ -1360,8 +1360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/4/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-4-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -1380,8 +1380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/4/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-4-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-04-01T00:00:00",
     "Present": 23,
     "HalfDay": 3,
@@ -1400,8 +1400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/4/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-4-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-04-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -1420,8 +1420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/4/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-4-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-04-01T00:00:00",
     "Present": 22,
     "HalfDay": 2,
@@ -1440,8 +1440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/5/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-5-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-05-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -1460,8 +1460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/5/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-5-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-05-01T00:00:00",
     "Present": 12,
     "HalfDay": 0,
@@ -1480,8 +1480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/5/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-5-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-05-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -1500,8 +1500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/5/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-5-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-05-01T00:00:00",
     "Present": 23,
     "HalfDay": 2,
@@ -1520,8 +1520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/6/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-6-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-06-01T00:00:00",
     "Present": 29,
     "HalfDay": 1,
@@ -1540,8 +1540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/6/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-6-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-06-01T00:00:00",
     "Present": 26,
     "HalfDay": 2,
@@ -1560,8 +1560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/6/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-6-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-06-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -1580,8 +1580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/6/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-6-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-06-01T00:00:00",
     "Present": 22,
     "HalfDay": 3,
@@ -1600,8 +1600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/7/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-7-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -1620,8 +1620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/7/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-7-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-07-01T00:00:00",
     "Present": 22,
     "HalfDay": 2,
@@ -1640,8 +1640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/7/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-7-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -1660,8 +1660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/7/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-7-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-07-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -1680,8 +1680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/8/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-8-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-08-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -1700,8 +1700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/8/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-8-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-08-01T00:00:00",
     "Present": 26,
     "HalfDay": 2,
@@ -1720,8 +1720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/8/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-8-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-08-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -1740,8 +1740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/8/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-8-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-08-01T00:00:00",
     "Present": 29,
     "HalfDay": 1,
@@ -1760,8 +1760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/9/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2017-9-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2017-09-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -1780,8 +1780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/9/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2017-9-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2017-09-01T00:00:00",
     "Present": 29,
     "HalfDay": 1,
@@ -1800,8 +1800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/9/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2017-9-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2017-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -1820,8 +1820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2017/9/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2017-9-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2017-09-01T00:00:00",
     "Present": 29,
     "HalfDay": 1,
@@ -1840,8 +1840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/1/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-1-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-01-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -1860,8 +1860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/1/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-1-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-01-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -1880,8 +1880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/1/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-1-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-01-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -1900,8 +1900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/1/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-1-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-01-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -1920,8 +1920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/10/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-10-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-10-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -1940,8 +1940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/10/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-10-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-10-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -1960,8 +1960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/10/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-10-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-10-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -1980,8 +1980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/10/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-10-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-10-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -2000,8 +2000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/11/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-11-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-11-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -2020,8 +2020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/11/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-11-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-11-01T00:00:00",
     "Present": 12,
     "HalfDay": 0,
@@ -2040,8 +2040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/11/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-11-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-11-01T00:00:00",
     "Present": 29,
     "HalfDay": 1,
@@ -2060,8 +2060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/11/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-11-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-11-01T00:00:00",
     "Present": 13,
     "HalfDay": 0,
@@ -2080,8 +2080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/12/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-12-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-12-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -2100,8 +2100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/12/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-12-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-12-01T00:00:00",
     "Present": 28,
     "HalfDay": 2,
@@ -2120,8 +2120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/12/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-12-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-12-01T00:00:00",
     "Present": 30,
     "HalfDay": 1,
@@ -2140,8 +2140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/12/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-12-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-12-01T00:00:00",
     "Present": 20,
     "HalfDay": 6,
@@ -2160,8 +2160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/2/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-2-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2180,8 +2180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/2/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-2-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-02-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -2200,8 +2200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/2/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-2-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2220,8 +2220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/2/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-2-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-02-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -2240,8 +2240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/3/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-3-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-03-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -2260,8 +2260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/3/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-3-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-03-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -2280,8 +2280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/3/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-3-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-03-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -2300,8 +2300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/3/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-3-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-03-01T00:00:00",
     "Present": 5,
     "HalfDay": 0,
@@ -2320,8 +2320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/4/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-4-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-04-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -2340,8 +2340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/4/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-4-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-04-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -2360,8 +2360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/4/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-4-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-04-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -2380,8 +2380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/4/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-4-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -2400,8 +2400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/5/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-5-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-05-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -2420,8 +2420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/5/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-5-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-05-01T00:00:00",
     "Present": 10,
     "HalfDay": 0,
@@ -2440,8 +2440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/5/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-5-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-05-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -2460,8 +2460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/5/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-5-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-05-01T00:00:00",
     "Present": 8,
     "HalfDay": 0,
@@ -2480,8 +2480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/6/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-6-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-06-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -2500,8 +2500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/6/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-6-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-06-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -2520,8 +2520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/6/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-6-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-06-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -2540,8 +2540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/6/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-6-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-06-01T00:00:00",
     "Present": 20,
     "HalfDay": 1,
@@ -2560,8 +2560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/7/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-7-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-07-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -2580,8 +2580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/7/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-7-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-07-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2600,8 +2600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/7/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-7-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-07-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -2620,8 +2620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/7/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-7-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-07-01T00:00:00",
     "Present": 16,
     "HalfDay": 4,
@@ -2640,8 +2640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/8/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-8-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-08-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2660,8 +2660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/8/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-8-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-08-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2680,8 +2680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/8/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-8-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-08-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -2700,8 +2700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/8/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-8-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-08-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -2720,8 +2720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/9/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2018-9-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2018-09-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -2740,8 +2740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/9/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2018-9-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2018-09-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -2760,8 +2760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/9/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2018-9-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2018-09-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2780,8 +2780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2018/9/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2018-9-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2018-09-01T00:00:00",
     "Present": 21,
     "HalfDay": 2,
@@ -2800,8 +2800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/1/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-1-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-01-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -2820,8 +2820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/1/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-1-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-01-01T00:00:00",
     "Present": 27,
     "HalfDay": 2,
@@ -2840,8 +2840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/1/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-1-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-01-01T00:00:00",
     "Present": 27,
     "HalfDay": 1,
@@ -2860,8 +2860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/1/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-1-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-01-01T00:00:00",
     "Present": 23,
     "HalfDay": 2,
@@ -2880,8 +2880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/10/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-10-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-10-01T00:00:00",
     "Present": 18,
     "HalfDay": 0,
@@ -2900,8 +2900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/10/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-10-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-10-01T00:00:00",
     "Present": 19,
     "HalfDay": 1,
@@ -2920,8 +2920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/10/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-10-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-10-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2940,8 +2940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/10/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-10-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-10-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -2960,8 +2960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/11/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-11-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-11-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -2980,8 +2980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/11/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-11-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-11-01T00:00:00",
     "Present": 22,
     "HalfDay": 1,
@@ -3000,8 +3000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/11/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-11-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-11-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3020,8 +3020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/11/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-11-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-11-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3040,8 +3040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/12/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-12-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-12-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -3060,8 +3060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/12/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-12-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-12-01T00:00:00",
     "Present": 22,
     "HalfDay": 1,
@@ -3080,8 +3080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/12/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-12-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-12-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -3100,8 +3100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/12/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2019-12-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2019-12-01T00:00:00",
     "Present": 24,
     "HalfDay": 1,
@@ -3120,8 +3120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/12/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2019-12-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2019-12-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -3140,8 +3140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/12/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2019-12-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2019-12-01T00:00:00",
     "Present": 27,
     "HalfDay": 1,
@@ -3160,8 +3160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/2/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-2-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -3180,8 +3180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/2/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-2-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -3200,8 +3200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/2/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-2-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -3220,8 +3220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/2/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-2-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -3240,8 +3240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/3/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-3-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-03-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3260,8 +3260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/3/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-3-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-03-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3280,8 +3280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/3/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-3-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-03-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3300,8 +3300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/3/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-3-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-03-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3320,8 +3320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/4/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-4-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3340,8 +3340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/4/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-4-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3360,8 +3360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/4/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-4-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3380,8 +3380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/4/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-4-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-04-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3400,8 +3400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/5/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-5-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-05-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3420,8 +3420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/5/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-5-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-05-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3440,8 +3440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/5/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-5-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-05-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3460,8 +3460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/5/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-5-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-05-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3480,8 +3480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/6/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-6-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-06-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3500,8 +3500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/6/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-6-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-06-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3520,8 +3520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/6/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-6-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-06-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3540,8 +3540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/6/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-6-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-06-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3560,8 +3560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/7/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-7-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3580,8 +3580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/7/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-7-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3600,8 +3600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/7/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-7-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3620,8 +3620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/7/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-7-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3640,8 +3640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/8/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-8-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-08-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -3660,8 +3660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/8/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-8-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-08-01T00:00:00",
     "Present": 26,
     "HalfDay": 4,
@@ -3680,8 +3680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/8/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-8-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-08-01T00:00:00",
     "Present": 30,
     "HalfDay": 1,
@@ -3700,8 +3700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/8/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-8-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-08-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -3720,8 +3720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/9/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2019-9-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2019-09-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -3740,8 +3740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/9/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2019-9-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2019-09-01T00:00:00",
     "Present": 20,
     "HalfDay": 2,
@@ -3760,8 +3760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/9/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2019-9-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2019-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3780,8 +3780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2019/9/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2019-9-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2019-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3800,8 +3800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/1/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-1-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-01-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -3820,8 +3820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/1/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-1-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-01-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -3840,8 +3840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/1/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-1-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-01-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -3860,8 +3860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/1/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-1-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-01-01T00:00:00",
     "Present": 16,
     "HalfDay": 1,
@@ -3880,8 +3880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/1/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-1-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-01-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -3900,8 +3900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/1/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-1-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-01-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -3920,8 +3920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/1/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-1-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-01-01T00:00:00",
     "Present": 11,
     "HalfDay": 0,
@@ -3940,8 +3940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-10-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 25,
     "HalfDay": 1,
@@ -3960,8 +3960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2020-10-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -3980,8 +3980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2020-10-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 16,
     "HalfDay": 0,
@@ -4000,8 +4000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-10-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -4020,8 +4020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-10-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 25,
     "HalfDay": 1,
@@ -4040,8 +4040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-10-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 21,
     "HalfDay": 3,
@@ -4060,8 +4060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-10-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -4080,8 +4080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-10-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -4100,8 +4100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-10-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -4120,8 +4120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/10/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-10-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-10-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -4140,8 +4140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-11-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -4160,8 +4160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2020-11-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 20,
     "HalfDay": 2,
@@ -4180,8 +4180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2020-11-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -4200,8 +4200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-11-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 25,
     "HalfDay": 2,
@@ -4220,8 +4220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-11-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -4240,8 +4240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-11-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 20,
     "HalfDay": 1,
@@ -4260,8 +4260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-11-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -4280,8 +4280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-11-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 9,
     "HalfDay": 0,
@@ -4300,8 +4300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-11-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -4320,8 +4320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/11/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-11-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-11-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -4340,8 +4340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-12-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -4360,8 +4360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2020-12-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 24,
     "HalfDay": 1,
@@ -4380,8 +4380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2020-12-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -4400,8 +4400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/13",
-    "EmployeeId": "ARD/2020/HK/13",
+    "MonthlyAttendanceId": "2020-12-13",
+    "EmployeeId": "ARD-2020-HK-13",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 10,
     "HalfDay": 0,
@@ -4420,8 +4420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-12-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 24,
     "HalfDay": 3,
@@ -4440,8 +4440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-12-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -4460,8 +4460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-12-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 4,
     "HalfDay": 0,
@@ -4480,8 +4480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-12-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 4,
     "HalfDay": 0,
@@ -4500,8 +4500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-12-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -4520,8 +4520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-12-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -4540,8 +4540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/12/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-12-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-12-01T00:00:00",
     "Present": 8,
     "HalfDay": 0,
@@ -4560,8 +4560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-2-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 13,
     "HalfDay": 0,
@@ -4580,8 +4580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2020-2-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 2,
     "HalfDay": 0,
@@ -4600,8 +4600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-2-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -4620,8 +4620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-2-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -4640,8 +4640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-2-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 6,
     "HalfDay": 0,
@@ -4660,8 +4660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-2-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -4680,8 +4680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-2-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 16,
     "HalfDay": 1,
@@ -4700,8 +4700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-2-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -4720,8 +4720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/2/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-2-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-02-01T00:00:00",
     "Present": 23,
     "HalfDay": 1,
@@ -4740,8 +4740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-3-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -4760,8 +4760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-3-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 17,
     "HalfDay": 0,
@@ -4780,8 +4780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-3-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -4800,8 +4800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-3-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -4820,8 +4820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-3-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 12,
     "HalfDay": 1,
@@ -4840,8 +4840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-3-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -4860,8 +4860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-3-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -4880,8 +4880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/3/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-3-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-03-01T00:00:00",
     "Present": 18,
     "HalfDay": 0,
@@ -4900,8 +4900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/5/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-5-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-05-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -4920,8 +4920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-6-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 13,
     "HalfDay": 0,
@@ -4940,8 +4940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-6-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 11,
     "HalfDay": 0,
@@ -4960,8 +4960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-6-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 12,
     "HalfDay": 0,
@@ -4980,8 +4980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-6-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 8,
     "HalfDay": 1,
@@ -5000,8 +5000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-6-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -5020,8 +5020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-6-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -5040,8 +5040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-6-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -5060,8 +5060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/6/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-6-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-06-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -5080,8 +5080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-7-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5100,8 +5100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-7-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -5120,8 +5120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-7-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -5140,8 +5140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-7-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 22,
     "HalfDay": 1,
@@ -5160,8 +5160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-7-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -5180,8 +5180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-7-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -5200,8 +5200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-7-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -5220,8 +5220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/7/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-7-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-07-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -5240,8 +5240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-8-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -5260,8 +5260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-8-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 16,
     "HalfDay": 0,
@@ -5280,8 +5280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-8-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -5300,8 +5300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-8-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 17,
     "HalfDay": 2,
@@ -5320,8 +5320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-8-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -5340,8 +5340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-8-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -5360,8 +5360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-8-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -5380,8 +5380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/8/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-8-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-08-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -5400,8 +5400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2020-9-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5420,8 +5420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2020-9-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 18,
     "HalfDay": 0,
@@ -5440,8 +5440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2020-9-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 26,
     "HalfDay": 1,
@@ -5460,8 +5460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2020-9-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5480,8 +5480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/5",
-    "EmployeeId": "ARD/2020/HK/5",
+    "MonthlyAttendanceId": "2020-9-5",
+    "EmployeeId": "ARD-2020-HK-5",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 23,
     "HalfDay": 2,
@@ -5500,8 +5500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2020-9-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 8,
     "HalfDay": 1,
@@ -5520,8 +5520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2020-9-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5540,8 +5540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2020-9-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5560,8 +5560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2020/9/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2020-9-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2020-09-01T00:00:00",
     "Present": 8,
     "HalfDay": 1,
@@ -5580,8 +5580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-1-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -5600,8 +5600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-1-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 20,
     "HalfDay": 1,
@@ -5620,8 +5620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-1-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 29,
     "HalfDay": 1,
@@ -5640,8 +5640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/13",
-    "EmployeeId": "ARD/2020/HK/13",
+    "MonthlyAttendanceId": "2021-1-13",
+    "EmployeeId": "ARD-2020-HK-13",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 12,
     "HalfDay": 1,
@@ -5660,8 +5660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-1-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -5680,8 +5680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/15",
-    "EmployeeId": "ARD/2021/HK/15",
+    "MonthlyAttendanceId": "2021-1-15",
+    "EmployeeId": "ARD-2021-HK-15",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 6,
     "HalfDay": 0,
@@ -5700,8 +5700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-1-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -5720,8 +5720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-1-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -5740,8 +5740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-1-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -5760,8 +5760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-1-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5780,8 +5780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-1-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5800,8 +5800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/1/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-1-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-01-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -5820,8 +5820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-10-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -5840,8 +5840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-10-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -5860,8 +5860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-10-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -5880,8 +5880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-10-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 17,
     "HalfDay": 5,
@@ -5900,8 +5900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-10-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 18,
     "HalfDay": 1,
@@ -5920,8 +5920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2021-10-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 21,
     "HalfDay": 2,
@@ -5940,8 +5940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-10-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -5960,8 +5960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/4",
-    "EmployeeId": "ARD/2015/OWN/4",
+    "MonthlyAttendanceId": "2021-10-4",
+    "EmployeeId": "ARD-2015-OWN-4",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -5980,8 +5980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-10-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -6000,8 +6000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-10-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -6020,8 +6020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-10-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -6040,8 +6040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/10/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-10-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-10-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -6060,8 +6060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/11/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-11-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-11-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -6080,8 +6080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/11/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-11-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-11-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -6100,8 +6100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/11/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-11-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-11-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -6120,8 +6120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/11/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-11-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-11-01T00:00:00",
     "Present": 6,
     "HalfDay": 2,
@@ -6140,8 +6140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/11/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2021-11-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2021-11-01T00:00:00",
     "Present": 21,
     "HalfDay": 1,
@@ -6160,8 +6160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/11/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-11-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-11-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -6180,8 +6180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/12/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-12-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-12-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -6200,8 +6200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/12/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-12-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-12-01T00:00:00",
     "Present": 26,
     "HalfDay": 1,
@@ -6220,8 +6220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/12/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-12-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-12-01T00:00:00",
     "Present": 19,
     "HalfDay": 4,
@@ -6240,8 +6240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/12/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2021-12-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2021-12-01T00:00:00",
     "Present": 26,
     "HalfDay": 1,
@@ -6260,8 +6260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/12/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-12-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-12-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -6280,8 +6280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-2-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -6300,8 +6300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-2-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -6320,8 +6320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-2-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -6340,8 +6340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-2-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 20,
     "HalfDay": 4,
@@ -6360,8 +6360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/15",
-    "EmployeeId": "ARD/2021/HK/15",
+    "MonthlyAttendanceId": "2021-2-15",
+    "EmployeeId": "ARD-2021-HK-15",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 20,
     "HalfDay": 1,
@@ -6380,8 +6380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-2-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -6400,8 +6400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-2-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -6420,8 +6420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-2-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -6440,8 +6440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-2-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -6460,8 +6460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-2-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -6480,8 +6480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/2/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-2-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-02-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -6500,8 +6500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-3-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -6520,8 +6520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-3-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -6540,8 +6540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-3-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 21,
     "HalfDay": 1,
@@ -6560,8 +6560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-3-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 21,
     "HalfDay": 2,
@@ -6580,8 +6580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/15",
-    "EmployeeId": "ARD/2021/HK/15",
+    "MonthlyAttendanceId": "2021-3-15",
+    "EmployeeId": "ARD-2021-HK-15",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 19,
     "HalfDay": 4,
@@ -6600,8 +6600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-3-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 22,
     "HalfDay": 3,
@@ -6620,8 +6620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-3-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -6640,8 +6640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-3-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -6660,8 +6660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-3-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -6680,8 +6680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-3-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 29,
     "HalfDay": 0,
@@ -6700,8 +6700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/3/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-3-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-03-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -6720,8 +6720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-4-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 10,
     "HalfDay": 0,
@@ -6740,8 +6740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-4-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 11,
     "HalfDay": 0,
@@ -6760,8 +6760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-4-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 15,
     "HalfDay": 0,
@@ -6780,8 +6780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-4-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 1,
     "HalfDay": 1,
@@ -6800,8 +6800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-4-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 10,
     "HalfDay": 2,
@@ -6820,8 +6820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/20",
-    "EmployeeId": "ARD/2021/HK/20",
+    "MonthlyAttendanceId": "2021-4-20",
+    "EmployeeId": "ARD-2021-HK-20",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 16,
     "HalfDay": 0,
@@ -6840,8 +6840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-4-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 18,
     "HalfDay": 0,
@@ -6860,8 +6860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-4-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 11,
     "HalfDay": 0,
@@ -6880,8 +6880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-4-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 11,
     "HalfDay": 0,
@@ -6900,8 +6900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-4-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -6920,8 +6920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/4/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-4-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-04-01T00:00:00",
     "Present": 11,
     "HalfDay": 0,
@@ -6940,8 +6940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-5-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -6960,8 +6960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-5-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -6980,8 +6980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-5-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7000,8 +7000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-5-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7020,8 +7020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-5-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7040,8 +7040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/20",
-    "EmployeeId": "ARD/2021/HK/20",
+    "MonthlyAttendanceId": "2021-5-20",
+    "EmployeeId": "ARD-2021-HK-20",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7060,8 +7060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-5-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7080,8 +7080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-5-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7100,8 +7100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-5-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7120,8 +7120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-5-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7140,8 +7140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/5/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-5-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-05-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7160,8 +7160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-6-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -7180,8 +7180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-6-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -7200,8 +7200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-6-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -7220,8 +7220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-6-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 18,
     "HalfDay": 0,
@@ -7240,8 +7240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-6-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -7260,8 +7260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/20",
-    "EmployeeId": "ARD/2021/HK/20",
+    "MonthlyAttendanceId": "2021-6-20",
+    "EmployeeId": "ARD-2021-HK-20",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 16,
     "HalfDay": 0,
@@ -7280,8 +7280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-6-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -7300,8 +7300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-6-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 13,
     "HalfDay": 1,
@@ -7320,8 +7320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-6-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -7340,8 +7340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-6-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -7360,8 +7360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/6/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-6-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-06-01T00:00:00",
     "Present": 13,
     "HalfDay": 1,
@@ -7380,8 +7380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-7-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -7400,8 +7400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-7-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 20,
     "HalfDay": 1,
@@ -7420,8 +7420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-7-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -7440,8 +7440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-7-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 22,
     "HalfDay": 3,
@@ -7460,8 +7460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-7-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 23,
     "HalfDay": 1,
@@ -7480,8 +7480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/20",
-    "EmployeeId": "ARD/2021/HK/20",
+    "MonthlyAttendanceId": "2021-7-20",
+    "EmployeeId": "ARD-2021-HK-20",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 16,
     "HalfDay": 1,
@@ -7500,8 +7500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-7-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -7520,8 +7520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-7-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 21,
     "HalfDay": 0,
@@ -7540,8 +7540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-7-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -7560,8 +7560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-7-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 31,
     "HalfDay": 0,
@@ -7580,8 +7580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/7/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-7-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-07-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -7600,8 +7600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-8-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -7620,8 +7620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-8-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -7640,8 +7640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-8-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -7660,8 +7660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-8-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 22,
     "HalfDay": 1,
@@ -7680,8 +7680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-8-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 20,
     "HalfDay": 3,
@@ -7700,8 +7700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/20",
-    "EmployeeId": "ARD/2021/HK/20",
+    "MonthlyAttendanceId": "2021-8-20",
+    "EmployeeId": "ARD-2021-HK-20",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 0,
     "HalfDay": 0,
@@ -7720,8 +7720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/21",
-    "EmployeeId": "ARD/2021/OWN/21",
+    "MonthlyAttendanceId": "2021-8-21",
+    "EmployeeId": "ARD-2021-OWN-21",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -7740,8 +7740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-8-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -7760,8 +7760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-8-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -7780,8 +7780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-8-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -7800,8 +7800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-8-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -7820,8 +7820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/8/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-8-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-08-01T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -7840,8 +7840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2021-9-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -7860,8 +7860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2021-9-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -7880,8 +7880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/12",
-    "EmployeeId": "ARD/2020/TLS/12",
+    "MonthlyAttendanceId": "2021-9-12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 20,
     "HalfDay": 0,
@@ -7900,8 +7900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2021-9-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 22,
     "HalfDay": 3,
@@ -7920,8 +7920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/2",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "MonthlyAttendanceId": "2021-9-2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 11,
     "HalfDay": 3,
@@ -7940,8 +7940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/21",
-    "EmployeeId": "ARD/2021/OWN/21",
+    "MonthlyAttendanceId": "2021-9-21",
+    "EmployeeId": "ARD-2021-OWN-21",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 8,
     "HalfDay": 0,
@@ -7960,8 +7960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2021-9-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -7980,8 +7980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2021-9-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8000,8 +8000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/6",
-    "EmployeeId": "ARD/2016/TLS/6",
+    "MonthlyAttendanceId": "2021-9-6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 30,
     "HalfDay": 0,
@@ -8020,8 +8020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/7",
-    "EmployeeId": "ARD/2019/TLS/7",
+    "MonthlyAttendanceId": "2021-9-7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8040,8 +8040,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/8",
-    "EmployeeId": "ARD/2016/TLS/8",
+    "MonthlyAttendanceId": "2021-9-8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8060,8 +8060,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2021/9/9",
-    "EmployeeId": "ARD/2020/TLS/9",
+    "MonthlyAttendanceId": "2021-9-9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "OnDate": "2021-09-01T00:00:00",
     "Present": 13,
     "HalfDay": 0,
@@ -8080,8 +8080,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/1/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-1-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-01-01T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8100,8 +8100,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/1/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-1-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-01-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -8120,8 +8120,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/1/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-1-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-01-01T00:00:00",
     "Present": 9,
     "HalfDay": 1,
@@ -8140,8 +8140,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/1/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-1-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-01-01T00:00:00",
     "Present": 25,
     "HalfDay": 1,
@@ -8160,8 +8160,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/1/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-1-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-01-01T00:00:00",
     "Present": 27,
     "HalfDay": 0,
@@ -8180,8 +8180,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/2/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-2-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-02-01T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -8200,8 +8200,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/2/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-2-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-02-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -8220,8 +8220,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/2/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-2-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-02-01T00:00:00",
     "Present": 13,
     "HalfDay": 5,
@@ -8240,8 +8240,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/2/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-2-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-02-01T00:00:00",
     "Present": 22,
     "HalfDay": 3,
@@ -8260,8 +8260,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/2/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-2-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-02-01T00:00:00",
     "Present": 23,
     "HalfDay": 0,
@@ -8280,8 +8280,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/3/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-3-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-03-27T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -8300,8 +8300,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/3/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-3-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-03-27T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -8320,8 +8320,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/3/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-3-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-03-27T00:00:00",
     "Present": 16,
     "HalfDay": 3,
@@ -8340,8 +8340,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/3/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-3-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-03-27T00:00:00",
     "Present": 23,
     "HalfDay": 3,
@@ -8360,8 +8360,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/3/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-3-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-03-27T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -8380,8 +8380,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/4/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-4-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-04-07T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8400,8 +8400,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/4/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-4-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-04-07T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8420,8 +8420,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/4/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-4-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-04-07T00:00:00",
     "Present": 22,
     "HalfDay": 4,
@@ -8440,8 +8440,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/4/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-4-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-04-07T00:00:00",
     "Present": 21,
     "HalfDay": 3,
@@ -8460,8 +8460,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/4/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-4-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-04-07T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8480,8 +8480,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/5/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-5-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-05-18T00:00:00",
     "Present": 24,
     "HalfDay": 1,
@@ -8491,7 +8491,7 @@
     "Absent": 3,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 6/18/2022 11:10:55 AM",
+    "Remarks": "AutoGenerated on 6-18-2022 11:10:55 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8500,8 +8500,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/5/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-5-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-05-18T00:00:00",
     "Present": 25,
     "HalfDay": 1,
@@ -8511,7 +8511,7 @@
     "Absent": 0,
     "WeeklyLeave": 5,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 6/18/2022 11:10:55 AM",
+    "Remarks": "AutoGenerated on 6-18-2022 11:10:55 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8520,8 +8520,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/5/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-5-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-05-18T00:00:00",
     "Present": 24,
     "HalfDay": 3,
@@ -8531,7 +8531,7 @@
     "Absent": 1,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 6/18/2022 11:10:55 AM",
+    "Remarks": "AutoGenerated on 6-18-2022 11:10:55 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8540,8 +8540,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/5/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-5-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-05-18T00:00:00",
     "Present": 19,
     "HalfDay": 0,
@@ -8551,7 +8551,7 @@
     "Absent": 10,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 6/18/2022 11:10:56 AM",
+    "Remarks": "AutoGenerated on 6-18-2022 11:10:56 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8560,8 +8560,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/5/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-5-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-05-18T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -8571,7 +8571,7 @@
     "Absent": 0,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 6/18/2022 11:10:56 AM",
+    "Remarks": "AutoGenerated on 6-18-2022 11:10:56 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8580,8 +8580,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/6/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-6-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-06-09T00:00:00",
     "Present": 25,
     "HalfDay": 0,
@@ -8591,7 +8591,7 @@
     "Absent": 1,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 7/9/2022 10:28:11 AM",
+    "Remarks": "AutoGenerated on 7-9-2022 10:28:11 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8600,8 +8600,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/6/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-6-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-06-09T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8611,7 +8611,7 @@
     "Absent": 0,
     "WeeklyLeave": 4,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 7/9/2022 10:28:12 AM",
+    "Remarks": "AutoGenerated on 7-9-2022 10:28:12 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8620,8 +8620,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/6/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-6-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-06-09T00:00:00",
     "Present": 19,
     "HalfDay": 4,
@@ -8631,7 +8631,7 @@
     "Absent": 3,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 7/9/2022 10:28:12 AM",
+    "Remarks": "AutoGenerated on 7-9-2022 10:28:12 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8640,8 +8640,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/6/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-6-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-06-09T00:00:00",
     "Present": 20,
     "HalfDay": 3,
@@ -8651,7 +8651,7 @@
     "Absent": 4,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 7/9/2022 10:28:12 AM",
+    "Remarks": "AutoGenerated on 7-9-2022 10:28:12 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8660,8 +8660,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/6/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-6-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-06-09T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8671,7 +8671,7 @@
     "Absent": 0,
     "WeeklyLeave": 0,
     "Holidays": 0,
-    "Remarks": "AutoGenerated on 7/9/2022 10:28:12 AM",
+    "Remarks": "AutoGenerated on 7-9-2022 10:28:12 AM",
     "NoOfWorkingDays": 26,
     "UserId": "AutoAdmin",
     "IsReadOnly": true,
@@ -8680,8 +8680,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/7/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-7-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-07-02T00:00:00",
     "Present": 24,
     "HalfDay": 0,
@@ -8700,8 +8700,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/7/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-7-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-07-02T00:00:00",
     "Present": 26,
     "HalfDay": 0,
@@ -8720,8 +8720,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/7/12",
-    "EmployeeId": "ARD/2022/ACC/12",
+    "MonthlyAttendanceId": "2022-7-12",
+    "EmployeeId": "ARD-2022-ACC-12",
     "OnDate": "2022-07-02T00:00:00",
     "Present": 22,
     "HalfDay": 0,
@@ -8740,8 +8740,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/7/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-7-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-07-02T00:00:00",
     "Present": 19,
     "HalfDay": 2,
@@ -8760,8 +8760,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/7/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-7-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-07-02T00:00:00",
     "Present": 20,
     "HalfDay": 1,
@@ -8780,8 +8780,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/7/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-7-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-07-02T00:00:00",
     "Present": 28,
     "HalfDay": 0,
@@ -8800,8 +8800,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/8/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-8-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-08-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8820,8 +8820,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/8/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-8-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-08-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8840,8 +8840,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/8/12",
-    "EmployeeId": "ARD/2022/ACC/12",
+    "MonthlyAttendanceId": "2022-8-12",
+    "EmployeeId": "ARD-2022-ACC-12",
     "OnDate": "2022-08-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8860,8 +8860,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/8/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-8-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-08-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8880,8 +8880,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/8/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-8-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-08-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8900,8 +8900,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/8/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-8-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-08-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8920,8 +8920,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/9/1",
-    "EmployeeId": "ARD/2016/SM/1",
+    "MonthlyAttendanceId": "2022-9-1",
+    "EmployeeId": "ARD-2016-SM-1",
     "OnDate": "2022-09-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8940,8 +8940,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/9/11",
-    "EmployeeId": "ARD/2020/ACC/11",
+    "MonthlyAttendanceId": "2022-9-11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "OnDate": "2022-09-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8960,8 +8960,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/9/12",
-    "EmployeeId": "ARD/2022/ACC/12",
+    "MonthlyAttendanceId": "2022-9-12",
+    "EmployeeId": "ARD-2022-ACC-12",
     "OnDate": "2022-09-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -8980,8 +8980,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/9/14",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "MonthlyAttendanceId": "2022-9-14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "OnDate": "2022-09-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -9000,8 +9000,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/9/22",
-    "EmployeeId": "ARD/2021/OWN/22",
+    "MonthlyAttendanceId": "2022-9-22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "OnDate": "2022-09-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,
@@ -9020,8 +9020,8 @@
     "EntryStatus": 0
   },
   {
-    "MonthlyAttendanceId": "2022/9/3",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "MonthlyAttendanceId": "2022-9-3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "OnDate": "2022-09-01T00:00:00",
     "Present": 1,
     "HalfDay": 0,

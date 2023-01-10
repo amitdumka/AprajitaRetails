@@ -1,6 +1,6 @@
 [
   {
-    "Id": "ARD/2021/4/12",
+    "Id": "ARD-2021-4-12",
     "OnDate": "2021-04-12T13:54:17",
     "OpeningBalance": 10058.00,
     "ClosingBalance": 3109.00,
@@ -22,7 +22,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/10/10",
+    "Id": "ARD-2022-10-10",
     "OnDate": "2022-10-10T20:05:32.9538648",
     "OpeningBalance": 4621.00,
     "ClosingBalance": 1760.00,
@@ -44,7 +44,7 @@
     "PaymentTotal": 14374.00
   },
   {
-    "Id": "ARD/2022/10/11",
+    "Id": "ARD-2022-10-11",
     "OnDate": "2022-10-11T20:12:51.1676783",
     "OpeningBalance": 1760.00,
     "ClosingBalance": 1655.00,
@@ -66,7 +66,7 @@
     "PaymentTotal": 3605.00
   },
   {
-    "Id": "ARD/2022/10/12",
+    "Id": "ARD-2022-10-12",
     "OnDate": "2022-10-12T20:08:11.1203675",
     "OpeningBalance": 1655.00,
     "ClosingBalance": 3115.00,
@@ -88,7 +88,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/10/13",
+    "Id": "ARD-2022-10-13",
     "OnDate": "2022-10-13T20:12:11.3327578",
     "OpeningBalance": 3115.00,
     "ClosingBalance": 884.00,
@@ -110,7 +110,7 @@
     "PaymentTotal": 2231.00
   },
   {
-    "Id": "ARD/2022/10/14",
+    "Id": "ARD-2022-10-14",
     "OnDate": "2022-10-14T20:13:37.2492168",
     "OpeningBalance": 884.00,
     "ClosingBalance": 1484.00,
@@ -132,7 +132,7 @@
     "PaymentTotal": 300.00
   },
   {
-    "Id": "ARD/2022/10/15",
+    "Id": "ARD-2022-10-15",
     "OnDate": "2022-10-15T20:16:40.0828391",
     "OpeningBalance": 1484.00,
     "ClosingBalance": 1474.00,
@@ -154,7 +154,7 @@
     "PaymentTotal": 10.00
   },
   {
-    "Id": "ARD/2022/10/16",
+    "Id": "ARD-2022-10-16",
     "OnDate": "2022-10-16T19:48:28.2005049",
     "OpeningBalance": 1474.00,
     "ClosingBalance": 1474.00,
@@ -176,7 +176,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/10/17",
+    "Id": "ARD-2022-10-17",
     "OnDate": "2022-10-17T20:13:01.9959638",
     "OpeningBalance": 1474.00,
     "ClosingBalance": 6680.00,
@@ -198,7 +198,7 @@
     "PaymentTotal": 9402.00
   },
   {
-    "Id": "ARD/2022/10/18",
+    "Id": "ARD-2022-10-18",
     "OnDate": "2022-10-18T20:20:06.8245318",
     "OpeningBalance": 6680.00,
     "ClosingBalance": 6721.00,
@@ -220,7 +220,7 @@
     "PaymentTotal": 29848.00
   },
   {
-    "Id": "ARD/2022/10/19",
+    "Id": "ARD-2022-10-19",
     "OnDate": "2022-10-19T20:12:25.1424672",
     "OpeningBalance": 6721.00,
     "ClosingBalance": 38996.00,
@@ -242,7 +242,7 @@
     "PaymentTotal": 2085.00
   },
   {
-    "Id": "ARD/2022/10/2",
+    "Id": "ARD-2022-10-2",
     "OnDate": "2022-10-02T20:19:07.7112945",
     "OpeningBalance": 12710.00,
     "ClosingBalance": 10962.00,
@@ -264,7 +264,7 @@
     "PaymentTotal": 6648.00
   },
   {
-    "Id": "ARD/2022/10/20",
+    "Id": "ARD-2022-10-20",
     "OnDate": "2022-10-20T20:08:42.1151815",
     "OpeningBalance": 38996.00,
     "ClosingBalance": 16691.00,
@@ -286,7 +286,7 @@
     "PaymentTotal": 305.00
   },
   {
-    "Id": "ARD/2022/10/21",
+    "Id": "ARD-2022-10-21",
     "OnDate": "2022-10-21T20:08:16.6532705",
     "OpeningBalance": 16691.00,
     "ClosingBalance": 14435.00,
@@ -308,7 +308,7 @@
     "PaymentTotal": 7161.00
   },
   {
-    "Id": "ARD/2022/10/22",
+    "Id": "ARD-2022-10-22",
     "OnDate": "2022-10-22T20:13:11.7419337",
     "OpeningBalance": 14435.00,
     "ClosingBalance": 10140.00,
@@ -330,7 +330,7 @@
     "PaymentTotal": 4295.00
   },
   {
-    "Id": "ARD/2022/10/23",
+    "Id": "ARD-2022-10-23",
     "OnDate": "2022-10-23T19:59:19.3266743",
     "OpeningBalance": 10140.00,
     "ClosingBalance": 8085.00,
@@ -352,7 +352,7 @@
     "PaymentTotal": 2055.00
   },
   {
-    "Id": "ARD/2022/10/24",
+    "Id": "ARD-2022-10-24",
     "OnDate": "2022-10-24T21:57:01.4035624",
     "OpeningBalance": 8085.00,
     "ClosingBalance": 14484.00,
@@ -370,11 +370,11 @@
     "RecoveryList": "#ARDI 847 : 2016",
     "ReceiptsNaration": "#ARDI 848 : 1620#ARDI 849 : 7618",
     "ReceiptsTotal": 9238.00,
-    "PaymentNaration": "#LOTUS\u002BFLOWER\u002BBANANA TREE : 435#MAT\u002BBULB\u002BHOLDER\u002BWIRE : 885#CUP\u002BPLATE : 80#LADDU(1/2 KG) : 150#STICKER\u002BMOMBATTI : 47#AMIT JEE(HOME EXP) : 2000#PATHAKA : 300#BREAKFAST : 106#DINNER : 1100#PUJA\u002BLOCKER\u002BPOTLI : 752",
+    "PaymentNaration": "#LOTUS\u002BFLOWER\u002BBANANA TREE : 435#MAT\u002BBULB\u002BHOLDER\u002BWIRE : 885#CUP\u002BPLATE : 80#LADDU(1-2 KG) : 150#STICKER\u002BMOMBATTI : 47#AMIT JEE(HOME EXP) : 2000#PATHAKA : 300#BREAKFAST : 106#DINNER : 1100#PUJA\u002BLOCKER\u002BPOTLI : 752",
     "PaymentTotal": 5855.00
   },
   {
-    "Id": "ARD/2022/10/26",
+    "Id": "ARD-2022-10-26",
     "OnDate": "2022-10-26T20:09:10.5302744",
     "OpeningBalance": 14484.00,
     "ClosingBalance": 2778.00,
@@ -396,7 +396,7 @@
     "PaymentTotal": 1100.00
   },
   {
-    "Id": "ARD/2022/10/27",
+    "Id": "ARD-2022-10-27",
     "OnDate": "2022-10-27T09:46:52",
     "OpeningBalance": 2778.00,
     "ClosingBalance": 7826.00,
@@ -418,7 +418,7 @@
     "PaymentTotal": 110.00
   },
   {
-    "Id": "ARD/2022/10/28",
+    "Id": "ARD-2022-10-28",
     "OnDate": "2022-10-28T20:12:41.611927",
     "OpeningBalance": 7826.00,
     "ClosingBalance": 13196.00,
@@ -440,7 +440,7 @@
     "PaymentTotal": 10000.00
   },
   {
-    "Id": "ARD/2022/10/29",
+    "Id": "ARD-2022-10-29",
     "OnDate": "2022-10-29T10:42:40",
     "OpeningBalance": 13196.00,
     "ClosingBalance": 886.00,
@@ -462,7 +462,7 @@
     "PaymentTotal": 5439.00
   },
   {
-    "Id": "ARD/2022/10/3",
+    "Id": "ARD-2022-10-3",
     "OnDate": "2022-10-03T09:38:56",
     "OpeningBalance": 10962.00,
     "ClosingBalance": 1047.00,
@@ -484,7 +484,7 @@
     "PaymentTotal": 12505.00
   },
   {
-    "Id": "ARD/2022/10/30",
+    "Id": "ARD-2022-10-30",
     "OnDate": "2022-10-30T13:33:45.9124087",
     "OpeningBalance": 886.00,
     "ClosingBalance": 886.00,
@@ -506,7 +506,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/10/31",
+    "Id": "ARD-2022-10-31",
     "OnDate": "2022-10-31T20:06:38.9399568",
     "OpeningBalance": 886.00,
     "ClosingBalance": 4386.00,
@@ -528,7 +528,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/10/7",
+    "Id": "ARD-2022-10-7",
     "OnDate": "2022-10-07T19:52:12.9486761",
     "OpeningBalance": 1047.00,
     "ClosingBalance": 2388.00,
@@ -550,7 +550,7 @@
     "PaymentTotal": 324.00
   },
   {
-    "Id": "ARD/2022/10/8",
+    "Id": "ARD-2022-10-8",
     "OnDate": "2022-10-08T19:59:11.6450788",
     "OpeningBalance": 2388.00,
     "ClosingBalance": 6194.00,
@@ -572,7 +572,7 @@
     "PaymentTotal": 1559.00
   },
   {
-    "Id": "ARD/2022/10/9",
+    "Id": "ARD-2022-10-9",
     "OnDate": "2022-10-09T19:46:14.6969226",
     "OpeningBalance": 6194.00,
     "ClosingBalance": 4621.00,
@@ -594,7 +594,7 @@
     "PaymentTotal": 1573.00
   },
   {
-    "Id": "ARD/2022/11/10",
+    "Id": "ARD-2022-11-10",
     "OnDate": "2022-11-10T20:13:04.0180894",
     "OpeningBalance": 1842.00,
     "ClosingBalance": 1837.00,
@@ -616,7 +616,7 @@
     "PaymentTotal": 5.00
   },
   {
-    "Id": "ARD/2022/11/11",
+    "Id": "ARD-2022-11-11",
     "OnDate": "2022-11-11T20:27:17.3758257",
     "OpeningBalance": 1837.00,
     "ClosingBalance": 5081.00,
@@ -638,7 +638,7 @@
     "PaymentTotal": 25205.00
   },
   {
-    "Id": "ARD/2022/11/12",
+    "Id": "ARD-2022-11-12",
     "OnDate": "2022-11-12T20:06:55.5022628",
     "OpeningBalance": 5081.00,
     "ClosingBalance": 1961.00,
@@ -660,7 +660,7 @@
     "PaymentTotal": 3120.00
   },
   {
-    "Id": "ARD/2022/11/13",
+    "Id": "ARD-2022-11-13",
     "OnDate": "2022-11-13T19:45:48.2743504",
     "OpeningBalance": 1961.00,
     "ClosingBalance": 11217.00,
@@ -682,7 +682,7 @@
     "PaymentTotal": 305.00
   },
   {
-    "Id": "ARD/2022/11/14",
+    "Id": "ARD-2022-11-14",
     "OnDate": "2022-11-14T20:13:55.0919812",
     "OpeningBalance": 2406.00,
     "ClosingBalance": 1491.00,
@@ -704,7 +704,7 @@
     "PaymentTotal": 34491.00
   },
   {
-    "Id": "ARD/2022/11/15",
+    "Id": "ARD-2022-11-15",
     "OnDate": "2022-11-15T20:12:45.6116492",
     "OpeningBalance": 1491.00,
     "ClosingBalance": 13486.00,
@@ -726,7 +726,7 @@
     "PaymentTotal": 5.00
   },
   {
-    "Id": "ARD/2022/11/16",
+    "Id": "ARD-2022-11-16",
     "OnDate": "2022-11-16T20:16:29.772144",
     "OpeningBalance": 13486.00,
     "ClosingBalance": 30016.00,
@@ -748,7 +748,7 @@
     "PaymentTotal": 5006.00
   },
   {
-    "Id": "ARD/2022/11/17",
+    "Id": "ARD-2022-11-17",
     "OnDate": "2022-11-17T20:12:19.8497393",
     "OpeningBalance": 30016.00,
     "ClosingBalance": 5332.00,
@@ -770,7 +770,7 @@
     "PaymentTotal": 2.00
   },
   {
-    "Id": "ARD/2022/11/18",
+    "Id": "ARD-2022-11-18",
     "OnDate": "2022-11-18T19:39:02",
     "OpeningBalance": 5332.00,
     "ClosingBalance": 3327.00,
@@ -792,7 +792,7 @@
     "PaymentTotal": 5.00
   },
   {
-    "Id": "ARD/2022/11/19",
+    "Id": "ARD-2022-11-19",
     "OnDate": "2022-11-19T19:53:21.0103654",
     "OpeningBalance": 3327.00,
     "ClosingBalance": 8686.00,
@@ -814,7 +814,7 @@
     "PaymentTotal": 2015.00
   },
   {
-    "Id": "ARD/2022/11/2",
+    "Id": "ARD-2022-11-2",
     "OnDate": "2022-11-02T20:13:53.0045456",
     "OpeningBalance": 4655.00,
     "ClosingBalance": 7180.00,
@@ -836,7 +836,7 @@
     "PaymentTotal": 1780.00
   },
   {
-    "Id": "ARD/2022/11/20",
+    "Id": "ARD-2022-11-20",
     "OnDate": "2022-11-20T19:38:11.8959116",
     "OpeningBalance": 8686.00,
     "ClosingBalance": 8686.00,
@@ -858,7 +858,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/11/21",
+    "Id": "ARD-2022-11-21",
     "OnDate": "2022-11-21T20:04:24.8119776",
     "OpeningBalance": 8686.00,
     "ClosingBalance": 2186.00,
@@ -880,7 +880,7 @@
     "PaymentTotal": 500.00
   },
   {
-    "Id": "ARD/2022/11/22",
+    "Id": "ARD-2022-11-22",
     "OnDate": "2022-11-22T20:07:16.2365807",
     "OpeningBalance": 2186.00,
     "ClosingBalance": 2086.00,
@@ -902,7 +902,7 @@
     "PaymentTotal": 100.00
   },
   {
-    "Id": "ARD/2022/11/23",
+    "Id": "ARD-2022-11-23",
     "OnDate": "2022-11-23T19:58:29.3653602",
     "OpeningBalance": 2086.00,
     "ClosingBalance": 2556.00,
@@ -924,7 +924,7 @@
     "PaymentTotal": 30.00
   },
   {
-    "Id": "ARD/2022/11/24",
+    "Id": "ARD-2022-11-24",
     "OnDate": "2022-11-24T20:09:06.6615682",
     "OpeningBalance": 2556.00,
     "ClosingBalance": 2451.00,
@@ -946,7 +946,7 @@
     "PaymentTotal": 8105.00
   },
   {
-    "Id": "ARD/2022/11/25",
+    "Id": "ARD-2022-11-25",
     "OnDate": "2022-11-25T20:26:37.3235391",
     "OpeningBalance": 2451.00,
     "ClosingBalance": 2451.00,
@@ -968,7 +968,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/11/26",
+    "Id": "ARD-2022-11-26",
     "OnDate": "2022-11-26T19:37:04.2278456",
     "OpeningBalance": 2451.00,
     "ClosingBalance": 2441.00,
@@ -990,7 +990,7 @@
     "PaymentTotal": 10.00
   },
   {
-    "Id": "ARD/2022/11/27",
+    "Id": "ARD-2022-11-27",
     "OnDate": "2022-11-27T19:53:01.9012295",
     "OpeningBalance": 2441.00,
     "ClosingBalance": 2441.00,
@@ -1012,7 +1012,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/11/28",
+    "Id": "ARD-2022-11-28",
     "OnDate": "2022-11-28T20:07:03.4840338",
     "OpeningBalance": 2441.00,
     "ClosingBalance": 1971.00,
@@ -1034,7 +1034,7 @@
     "PaymentTotal": 5470.00
   },
   {
-    "Id": "ARD/2022/11/29",
+    "Id": "ARD-2022-11-29",
     "OnDate": "2022-11-29T20:06:15.4944662",
     "OpeningBalance": 1971.00,
     "ClosingBalance": 2112.00,
@@ -1056,7 +1056,7 @@
     "PaymentTotal": 1859.00
   },
   {
-    "Id": "ARD/2022/11/3",
+    "Id": "ARD-2022-11-3",
     "OnDate": "2022-11-03T20:11:28.1465043",
     "OpeningBalance": 7180.00,
     "ClosingBalance": 7524.00,
@@ -1078,7 +1078,7 @@
     "PaymentTotal": 1777.00
   },
   {
-    "Id": "ARD/2022/11/30",
+    "Id": "ARD-2022-11-30",
     "OnDate": "2022-11-30T20:16:51.5471194",
     "OpeningBalance": 2112.00,
     "ClosingBalance": 2112.00,
@@ -1100,7 +1100,7 @@
     "PaymentTotal": 30000.00
   },
   {
-    "Id": "ARD/2022/11/4",
+    "Id": "ARD-2022-11-4",
     "OnDate": "2022-11-04T20:13:30.431467",
     "OpeningBalance": 7524.00,
     "ClosingBalance": 7449.00,
@@ -1122,7 +1122,7 @@
     "PaymentTotal": 1077.00
   },
   {
-    "Id": "ARD/2022/11/5",
+    "Id": "ARD-2022-11-5",
     "OnDate": "2022-11-05T20:16:48.4428406",
     "OpeningBalance": 7449.00,
     "ClosingBalance": 5725.00,
@@ -1144,7 +1144,7 @@
     "PaymentTotal": 1724.00
   },
   {
-    "Id": "ARD/2022/11/6",
+    "Id": "ARD-2022-11-6",
     "OnDate": "2022-11-06T13:17:42",
     "OpeningBalance": 5725.00,
     "ClosingBalance": 3516.00,
@@ -1166,7 +1166,7 @@
     "PaymentTotal": 2209.00
   },
   {
-    "Id": "ARD/2022/11/7",
+    "Id": "ARD-2022-11-7",
     "OnDate": "2022-11-07T20:14:15.1806792",
     "OpeningBalance": 3516.00,
     "ClosingBalance": 14933.00,
@@ -1188,7 +1188,7 @@
     "PaymentTotal": 60.00
   },
   {
-    "Id": "ARD/2022/11/8",
+    "Id": "ARD-2022-11-8",
     "OnDate": "2022-11-08T19:28:41.2090843",
     "OpeningBalance": 14933.00,
     "ClosingBalance": 13627.00,
@@ -1210,7 +1210,7 @@
     "PaymentTotal": 1306.00
   },
   {
-    "Id": "ARD/2022/11/9",
+    "Id": "ARD-2022-11-9",
     "OnDate": "2022-11-09T20:15:18.5581383",
     "OpeningBalance": 13627.00,
     "ClosingBalance": 1842.00,
@@ -1232,7 +1232,7 @@
     "PaymentTotal": 7967.00
   },
   {
-    "Id": "ARD/2022/12/1",
+    "Id": "ARD-2022-12-1",
     "OnDate": "2022-12-01T20:05:51.4707244",
     "OpeningBalance": 2112.00,
     "ClosingBalance": 2112.00,
@@ -1254,7 +1254,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/12/10",
+    "Id": "ARD-2022-12-10",
     "OnDate": "2022-12-10T11:35:28",
     "OpeningBalance": 4443.00,
     "ClosingBalance": 6533.00,
@@ -1276,7 +1276,7 @@
     "PaymentTotal": 310.00
   },
   {
-    "Id": "ARD/2022/12/11",
+    "Id": "ARD-2022-12-11",
     "OnDate": "2022-12-11T19:59:13.5168418",
     "OpeningBalance": 6533.00,
     "ClosingBalance": 1983.00,
@@ -1298,7 +1298,7 @@
     "PaymentTotal": 4550.00
   },
   {
-    "Id": "ARD/2022/12/12",
+    "Id": "ARD-2022-12-12",
     "OnDate": "2022-12-12T20:09:25.4731056",
     "OpeningBalance": 1983.00,
     "ClosingBalance": 1848.00,
@@ -1320,7 +1320,7 @@
     "PaymentTotal": 6738.00
   },
   {
-    "Id": "ARD/2022/12/13",
+    "Id": "ARD-2022-12-13",
     "OnDate": "2022-12-13T20:13:44.8897777",
     "OpeningBalance": 1848.00,
     "ClosingBalance": 999.00,
@@ -1342,7 +1342,7 @@
     "PaymentTotal": 849.00
   },
   {
-    "Id": "ARD/2022/12/14",
+    "Id": "ARD-2022-12-14",
     "OnDate": "2022-12-14T20:06:46.1436495",
     "OpeningBalance": 999.00,
     "ClosingBalance": 4367.00,
@@ -1364,7 +1364,7 @@
     "PaymentTotal": 16180.00
   },
   {
-    "Id": "ARD/2022/12/15",
+    "Id": "ARD-2022-12-15",
     "OnDate": "2022-12-15T20:22:55.0083746",
     "OpeningBalance": 4367.00,
     "ClosingBalance": 2752.00,
@@ -1386,7 +1386,7 @@
     "PaymentTotal": 1615.00
   },
   {
-    "Id": "ARD/2022/12/16",
+    "Id": "ARD-2022-12-16",
     "OnDate": "2022-12-16T20:02:08.7035366",
     "OpeningBalance": 2752.00,
     "ClosingBalance": 752.00,
@@ -1408,7 +1408,7 @@
     "PaymentTotal": 2000.00
   },
   {
-    "Id": "ARD/2022/12/17",
+    "Id": "ARD-2022-12-17",
     "OnDate": "2022-12-17T20:06:46.520045",
     "OpeningBalance": 752.00,
     "ClosingBalance": 5737.00,
@@ -1430,7 +1430,7 @@
     "PaymentTotal": 15.00
   },
   {
-    "Id": "ARD/2022/12/18",
+    "Id": "ARD-2022-12-18",
     "OnDate": "2022-12-18T17:12:53.1096028",
     "OpeningBalance": 5737.00,
     "ClosingBalance": 4737.00,
@@ -1452,7 +1452,7 @@
     "PaymentTotal": 1000.00
   },
   {
-    "Id": "ARD/2022/12/19",
+    "Id": "ARD-2022-12-19",
     "OnDate": "2022-12-19T20:02:51.1673712",
     "OpeningBalance": 4737.00,
     "ClosingBalance": 1042.00,
@@ -1474,7 +1474,7 @@
     "PaymentTotal": 3695.00
   },
   {
-    "Id": "ARD/2022/12/2",
+    "Id": "ARD-2022-12-2",
     "OnDate": "2022-12-02T19:39:44.2688942",
     "OpeningBalance": 2112.00,
     "ClosingBalance": 2961.00,
@@ -1496,7 +1496,7 @@
     "PaymentTotal": 690.00
   },
   {
-    "Id": "ARD/2022/12/20",
+    "Id": "ARD-2022-12-20",
     "OnDate": "2022-12-20T09:56:17",
     "OpeningBalance": 1042.00,
     "ClosingBalance": 2360.00,
@@ -1518,7 +1518,7 @@
     "PaymentTotal": 45.00
   },
   {
-    "Id": "ARD/2022/12/21",
+    "Id": "ARD-2022-12-21",
     "OnDate": "2022-12-21T20:30:44.5195043",
     "OpeningBalance": 2360.00,
     "ClosingBalance": 996.00,
@@ -1540,7 +1540,7 @@
     "PaymentTotal": 1364.00
   },
   {
-    "Id": "ARD/2022/12/22",
+    "Id": "ARD-2022-12-22",
     "OnDate": "2022-12-22T20:12:01.392462",
     "OpeningBalance": 996.00,
     "ClosingBalance": 3520.00,
@@ -1562,7 +1562,7 @@
     "PaymentTotal": 55.00
   },
   {
-    "Id": "ARD/2022/12/23",
+    "Id": "ARD-2022-12-23",
     "OnDate": "2022-12-23T20:04:29.4078759",
     "OpeningBalance": 3520.00,
     "ClosingBalance": 1533.00,
@@ -1584,7 +1584,7 @@
     "PaymentTotal": 35865.00
   },
   {
-    "Id": "ARD/2022/12/24",
+    "Id": "ARD-2022-12-24",
     "OnDate": "2022-12-24T20:10:45.9698605",
     "OpeningBalance": 1533.00,
     "ClosingBalance": 1223.00,
@@ -1606,7 +1606,7 @@
     "PaymentTotal": 310.00
   },
   {
-    "Id": "ARD/2022/12/26",
+    "Id": "ARD-2022-12-26",
     "OnDate": "2022-12-26T20:09:47.2258988",
     "OpeningBalance": 1223.00,
     "ClosingBalance": 1148.00,
@@ -1628,7 +1628,7 @@
     "PaymentTotal": 75.00
   },
   {
-    "Id": "ARD/2022/12/27",
+    "Id": "ARD-2022-12-27",
     "OnDate": "2022-12-27T20:08:31.9862393",
     "OpeningBalance": 1148.00,
     "ClosingBalance": 7025.00,
@@ -1650,7 +1650,7 @@
     "PaymentTotal": 1500.00
   },
   {
-    "Id": "ARD/2022/12/28",
+    "Id": "ARD-2022-12-28",
     "OnDate": "2022-12-28T20:16:35.4893541",
     "OpeningBalance": 7025.00,
     "ClosingBalance": 11084.00,
@@ -1672,7 +1672,7 @@
     "PaymentTotal": 60221.00
   },
   {
-    "Id": "ARD/2022/12/29",
+    "Id": "ARD-2022-12-29",
     "OnDate": "2022-12-29T20:07:03.2119252",
     "OpeningBalance": 11084.00,
     "ClosingBalance": 3034.00,
@@ -1694,7 +1694,7 @@
     "PaymentTotal": 680.00
   },
   {
-    "Id": "ARD/2022/12/3",
+    "Id": "ARD-2022-12-3",
     "OnDate": "2022-12-03T20:05:16.1008231",
     "OpeningBalance": 2961.00,
     "ClosingBalance": 4932.00,
@@ -1716,7 +1716,7 @@
     "PaymentTotal": 65.00
   },
   {
-    "Id": "ARD/2022/12/30",
+    "Id": "ARD-2022-12-30",
     "OnDate": "2022-12-30T20:03:26.3306984",
     "OpeningBalance": 3034.00,
     "ClosingBalance": 1936.00,
@@ -1738,7 +1738,7 @@
     "PaymentTotal": 1098.00
   },
   {
-    "Id": "ARD/2022/12/31",
+    "Id": "ARD-2022-12-31",
     "OnDate": "2022-12-31T19:58:26.142936",
     "OpeningBalance": 1936.00,
     "ClosingBalance": 2764.00,
@@ -1760,7 +1760,7 @@
     "PaymentTotal": 1354.00
   },
   {
-    "Id": "ARD/2022/12/4",
+    "Id": "ARD-2022-12-4",
     "OnDate": "2022-12-04T19:43:58.8243327",
     "OpeningBalance": 4932.00,
     "ClosingBalance": 4932.00,
@@ -1782,7 +1782,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/12/5",
+    "Id": "ARD-2022-12-5",
     "OnDate": "2022-12-05T20:11:02.3256717",
     "OpeningBalance": 4932.00,
     "ClosingBalance": 16966.00,
@@ -1804,7 +1804,7 @@
     "PaymentTotal": 1500.00
   },
   {
-    "Id": "ARD/2022/12/6",
+    "Id": "ARD-2022-12-6",
     "OnDate": "2022-12-06T20:10:27.0079624",
     "OpeningBalance": 16966.00,
     "ClosingBalance": 2778.00,
@@ -1826,7 +1826,7 @@
     "PaymentTotal": 188.00
   },
   {
-    "Id": "ARD/2022/12/7",
+    "Id": "ARD-2022-12-7",
     "OnDate": "2022-12-07T11:27:58",
     "OpeningBalance": 2778.00,
     "ClosingBalance": 4812.00,
@@ -1848,7 +1848,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/12/8",
+    "Id": "ARD-2022-12-8",
     "OnDate": "2022-12-08T11:29:58",
     "OpeningBalance": 4812.00,
     "ClosingBalance": 4713.00,
@@ -1870,7 +1870,7 @@
     "PaymentTotal": 100.00
   },
   {
-    "Id": "ARD/2022/12/9",
+    "Id": "ARD-2022-12-9",
     "OnDate": "2022-12-09T11:33:27",
     "OpeningBalance": 4713.00,
     "ClosingBalance": 4443.00,
@@ -1892,7 +1892,7 @@
     "PaymentTotal": 270.00
   },
   {
-    "Id": "ARD/2022/6/18",
+    "Id": "ARD-2022-6-18",
     "OnDate": "2022-06-18T12:08:06",
     "OpeningBalance": 9892.00,
     "ClosingBalance": 6997.00,
@@ -1910,11 +1910,11 @@
     "RecoveryList": "#",
     "ReceiptsNaration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#lemon\u002Bchille\u002Bglass : 60#dry fruit\u002Bapple : 850#mukesh mandal(diff.sal. may-22) : 35#telephone mistry : 50#mob. rec.(9431348122) : 400#a/c mistry(home fitting) : 1500",
+    "PaymentNaration": "#lemon\u002Bchille\u002Bglass : 60#dry fruit\u002Bapple : 850#mukesh mandal(diff.sal. may-22) : 35#telephone mistry : 50#mob. rec.(9431348122) : 400#a-c mistry(home fitting) : 1500",
     "PaymentTotal": 2895.00
   },
   {
-    "Id": "ARD/2022/6/19",
+    "Id": "ARD-2022-6-19",
     "OnDate": "2022-06-19T20:34:17.7916865",
     "OpeningBalance": 6997.00,
     "ClosingBalance": 6997.00,
@@ -1936,7 +1936,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/6/20",
+    "Id": "ARD-2022-6-20",
     "OnDate": "2022-06-20T20:24:26.7659231",
     "OpeningBalance": 6997.00,
     "ClosingBalance": 6927.00,
@@ -1958,7 +1958,7 @@
     "PaymentTotal": 70.00
   },
   {
-    "Id": "ARD/2022/6/21",
+    "Id": "ARD-2022-6-21",
     "OnDate": "2022-06-21T20:24:23.1320815",
     "OpeningBalance": 6927.00,
     "ClosingBalance": 3967.00,
@@ -1980,7 +1980,7 @@
     "PaymentTotal": 2960.00
   },
   {
-    "Id": "ARD/2022/6/22",
+    "Id": "ARD-2022-6-22",
     "OnDate": "2022-06-22T20:27:14.5927129",
     "OpeningBalance": 3967.00,
     "ClosingBalance": 4433.00,
@@ -2002,7 +2002,7 @@
     "PaymentTotal": 1534.00
   },
   {
-    "Id": "ARD/2022/6/23",
+    "Id": "ARD-2022-6-23",
     "OnDate": "2022-06-23T20:27:19.4943337",
     "OpeningBalance": 4433.00,
     "ClosingBalance": 10703.00,
@@ -2024,7 +2024,7 @@
     "PaymentTotal": 1010.00
   },
   {
-    "Id": "ARD/2022/6/24",
+    "Id": "ARD-2022-6-24",
     "OnDate": "2022-06-24T09:44:35",
     "OpeningBalance": 10703.00,
     "ClosingBalance": 6850.00,
@@ -2046,7 +2046,7 @@
     "PaymentTotal": 6492.00
   },
   {
-    "Id": "ARD/2022/6/25",
+    "Id": "ARD-2022-6-25",
     "OnDate": "2022-06-25T20:23:25.2507237",
     "OpeningBalance": 6850.00,
     "ClosingBalance": 7369.00,
@@ -2068,7 +2068,7 @@
     "PaymentTotal": 500.00
   },
   {
-    "Id": "ARD/2022/6/26",
+    "Id": "ARD-2022-6-26",
     "OnDate": "2022-06-26T20:09:18.7794947",
     "OpeningBalance": 7369.00,
     "ClosingBalance": 7419.00,
@@ -2090,7 +2090,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/6/27",
+    "Id": "ARD-2022-6-27",
     "OnDate": "2022-06-27T11:38:15",
     "OpeningBalance": 7419.00,
     "ClosingBalance": 10754.00,
@@ -2112,7 +2112,7 @@
     "PaymentTotal": 620.00
   },
   {
-    "Id": "ARD/2022/6/28",
+    "Id": "ARD-2022-6-28",
     "OnDate": "2022-06-28T11:50:43",
     "OpeningBalance": 10475.00,
     "ClosingBalance": 14656.00,
@@ -2134,7 +2134,7 @@
     "PaymentTotal": 165.00
   },
   {
-    "Id": "ARD/2022/6/29",
+    "Id": "ARD-2022-6-29",
     "OnDate": "2022-06-29T13:14:46",
     "OpeningBalance": 14656.00,
     "ClosingBalance": 4969.00,
@@ -2152,11 +2152,11 @@
     "RecoveryList": "#",
     "ReceiptsNaration": "#GOPI : 30000",
     "ReceiptsTotal": 30000.00,
-    "PaymentNaration": "#JUICE : 120#AMIT JEE(HOME EXP) : 30000#A/C INSTALMENT : 313",
+    "PaymentNaration": "#JUICE : 120#AMIT JEE(HOME EXP) : 30000#A-C INSTALMENT : 313",
     "PaymentTotal": 30433.00
   },
   {
-    "Id": "ARD/2022/6/30",
+    "Id": "ARD-2022-6-30",
     "OnDate": "2022-06-30T20:24:34.1317462",
     "OpeningBalance": 4969.00,
     "ClosingBalance": 4889.00,
@@ -2178,7 +2178,7 @@
     "PaymentTotal": 80.00
   },
   {
-    "Id": "ARD/2022/7/10",
+    "Id": "ARD-2022-7-10",
     "OnDate": "2022-07-10T13:53:46",
     "OpeningBalance": 11263.00,
     "ClosingBalance": 11163.00,
@@ -2200,7 +2200,7 @@
     "PaymentTotal": 100.00
   },
   {
-    "Id": "ARD/2022/7/11",
+    "Id": "ARD-2022-7-11",
     "OnDate": "2022-07-11T14:00:57",
     "OpeningBalance": 11163.00,
     "ClosingBalance": 3307.00,
@@ -2222,7 +2222,7 @@
     "PaymentTotal": 105.00
   },
   {
-    "Id": "ARD/2022/7/12",
+    "Id": "ARD-2022-7-12",
     "OnDate": "2022-07-12T14:04:20",
     "OpeningBalance": 3307.00,
     "ClosingBalance": 6242.00,
@@ -2244,7 +2244,7 @@
     "PaymentTotal": 65.00
   },
   {
-    "Id": "ARD/2022/7/13",
+    "Id": "ARD-2022-7-13",
     "OnDate": "2022-07-13T20:08:21.5669879",
     "OpeningBalance": 6242.00,
     "ClosingBalance": 2152.00,
@@ -2266,7 +2266,7 @@
     "PaymentTotal": 8765.00
   },
   {
-    "Id": "ARD/2022/7/14",
+    "Id": "ARD-2022-7-14",
     "OnDate": "2022-07-14T20:20:39.5298907",
     "OpeningBalance": 2152.00,
     "ClosingBalance": 1012.00,
@@ -2288,7 +2288,7 @@
     "PaymentTotal": 1140.00
   },
   {
-    "Id": "ARD/2022/7/15",
+    "Id": "ARD-2022-7-15",
     "OnDate": "2022-07-15T10:39:25",
     "OpeningBalance": 1012.00,
     "ClosingBalance": 4014.00,
@@ -2310,7 +2310,7 @@
     "PaymentTotal": 1998.00
   },
   {
-    "Id": "ARD/2022/7/16",
+    "Id": "ARD-2022-7-16",
     "OnDate": "2022-07-16T20:20:22.5813212",
     "OpeningBalance": 4014.00,
     "ClosingBalance": 6568.00,
@@ -2332,7 +2332,7 @@
     "PaymentTotal": 565.00
   },
   {
-    "Id": "ARD/2022/7/17",
+    "Id": "ARD-2022-7-17",
     "OnDate": "2022-07-17T20:00:23.9287106",
     "OpeningBalance": 6568.00,
     "ClosingBalance": 8988.00,
@@ -2354,7 +2354,7 @@
     "PaymentTotal": 60.00
   },
   {
-    "Id": "ARD/2022/7/18",
+    "Id": "ARD-2022-7-18",
     "OnDate": "2022-07-18T20:34:09.1568844",
     "OpeningBalance": 8988.00,
     "ClosingBalance": 7523.00,
@@ -2376,7 +2376,7 @@
     "PaymentTotal": 3465.00
   },
   {
-    "Id": "ARD/2022/7/19",
+    "Id": "ARD-2022-7-19",
     "OnDate": "2022-07-19T20:19:07.8181834",
     "OpeningBalance": 7523.00,
     "ClosingBalance": 4715.00,
@@ -2398,7 +2398,7 @@
     "PaymentTotal": 10005.00
   },
   {
-    "Id": "ARD/2022/7/2",
+    "Id": "ARD-2022-7-2",
     "OnDate": "2022-07-02T20:26:25.2175589",
     "OpeningBalance": 4719.00,
     "ClosingBalance": 4167.00,
@@ -2420,7 +2420,7 @@
     "PaymentTotal": 552.00
   },
   {
-    "Id": "ARD/2022/7/20",
+    "Id": "ARD-2022-7-20",
     "OnDate": "2022-07-20T09:47:52",
     "OpeningBalance": 4715.00,
     "ClosingBalance": 17789.00,
@@ -2442,7 +2442,7 @@
     "PaymentTotal": 345.00
   },
   {
-    "Id": "ARD/2022/7/21",
+    "Id": "ARD-2022-7-21",
     "OnDate": "2022-07-21T20:18:37.8404949",
     "OpeningBalance": 17789.00,
     "ClosingBalance": 26903.00,
@@ -2464,7 +2464,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/7/22",
+    "Id": "ARD-2022-7-22",
     "OnDate": "2022-07-22T20:23:16.0744548",
     "OpeningBalance": 26903.00,
     "ClosingBalance": 5494.00,
@@ -2482,11 +2482,11 @@
     "RecoveryList": "#",
     "ReceiptsNaration": "##ARDI693 : 839#ARDI694 : 3852",
     "ReceiptsTotal": 4691.00,
-    "PaymentNaration": "##PAPAYA\u002BJUICE : 100#AMIT THAKUR(SALARY ADV) : 1000#SACHIN MIHRA(BOB A/C) : 500",
+    "PaymentNaration": "##PAPAYA\u002BJUICE : 100#AMIT THAKUR(SALARY ADV) : 1000#SACHIN MIHRA(BOB A-C) : 500",
     "PaymentTotal": 1600.00
   },
   {
-    "Id": "ARD/2022/7/23",
+    "Id": "ARD-2022-7-23",
     "OnDate": "2022-07-23T20:16:49.0900253",
     "OpeningBalance": 5494.00,
     "ClosingBalance": 5284.00,
@@ -2508,7 +2508,7 @@
     "PaymentTotal": 210.00
   },
   {
-    "Id": "ARD/2022/7/24",
+    "Id": "ARD-2022-7-24",
     "OnDate": "2022-07-24T19:31:15.7783337",
     "OpeningBalance": 5284.00,
     "ClosingBalance": 972.00,
@@ -2530,7 +2530,7 @@
     "PaymentTotal": 12705.00
   },
   {
-    "Id": "ARD/2022/7/25",
+    "Id": "ARD-2022-7-25",
     "OnDate": "2022-07-25T20:17:39.4288835",
     "OpeningBalance": 972.00,
     "ClosingBalance": 4541.00,
@@ -2552,7 +2552,7 @@
     "PaymentTotal": 5585.00
   },
   {
-    "Id": "ARD/2022/7/26",
+    "Id": "ARD-2022-7-26",
     "OnDate": "2022-07-26T20:19:33.4266785",
     "OpeningBalance": 4541.00,
     "ClosingBalance": 9661.00,
@@ -2570,11 +2570,11 @@
     "RecoveryList": "#ARDI580 : 5500",
     "ReceiptsNaration": "#ARDI701 : 3900",
     "ReceiptsTotal": 3900.00,
-    "PaymentNaration": "#JUICE\u002BPAPAYA : 100#EAR RING REPAIR(M/S SANDEEP) : 50#WATER(KITES AQUA) : 105#LEMON : 50#TISSUE PAPER : 70#DAN : 5",
+    "PaymentNaration": "#JUICE\u002BPAPAYA : 100#EAR RING REPAIR(M-S SANDEEP) : 50#WATER(KITES AQUA) : 105#LEMON : 50#TISSUE PAPER : 70#DAN : 5",
     "PaymentTotal": 380.00
   },
   {
-    "Id": "ARD/2022/7/27",
+    "Id": "ARD-2022-7-27",
     "OnDate": "2022-07-27T20:24:58.1232215",
     "OpeningBalance": 9661.00,
     "ClosingBalance": 10159.00,
@@ -2596,7 +2596,7 @@
     "PaymentTotal": 215.00
   },
   {
-    "Id": "ARD/2022/7/28",
+    "Id": "ARD-2022-7-28",
     "OnDate": "2022-07-28T20:24:19.3619115",
     "OpeningBalance": 10159.00,
     "ClosingBalance": 10094.00,
@@ -2618,7 +2618,7 @@
     "PaymentTotal": 65.00
   },
   {
-    "Id": "ARD/2022/7/29",
+    "Id": "ARD-2022-7-29",
     "OnDate": "2022-07-29T20:19:18.1140101",
     "OpeningBalance": 10094.00,
     "ClosingBalance": 12565.00,
@@ -2640,7 +2640,7 @@
     "PaymentTotal": 158.00
   },
   {
-    "Id": "ARD/2022/7/3",
+    "Id": "ARD-2022-7-3",
     "OnDate": "2022-07-03T20:09:52.0033049",
     "OpeningBalance": 4167.00,
     "ClosingBalance": 3886.00,
@@ -2662,7 +2662,7 @@
     "PaymentTotal": 281.00
   },
   {
-    "Id": "ARD/2022/7/30",
+    "Id": "ARD-2022-7-30",
     "OnDate": "2022-07-30T10:42:06",
     "OpeningBalance": 12565.00,
     "ClosingBalance": 5045.00,
@@ -2684,7 +2684,7 @@
     "PaymentTotal": 520.00
   },
   {
-    "Id": "ARD/2022/7/31",
+    "Id": "ARD-2022-7-31",
     "OnDate": "2022-07-31T19:55:02.2629316",
     "OpeningBalance": 5045.00,
     "ClosingBalance": 24559.00,
@@ -2706,7 +2706,7 @@
     "PaymentTotal": 50.00
   },
   {
-    "Id": "ARD/2022/7/4",
+    "Id": "ARD-2022-7-4",
     "OnDate": "2022-07-04T20:25:08.8966542",
     "OpeningBalance": 3886.00,
     "ClosingBalance": 2178.00,
@@ -2728,7 +2728,7 @@
     "PaymentTotal": 1708.00
   },
   {
-    "Id": "ARD/2022/7/5",
+    "Id": "ARD-2022-7-5",
     "OnDate": "2022-07-05T09:42:47",
     "OpeningBalance": 2178.00,
     "ClosingBalance": 3847.00,
@@ -2750,7 +2750,7 @@
     "PaymentTotal": 1000.00
   },
   {
-    "Id": "ARD/2022/7/6",
+    "Id": "ARD-2022-7-6",
     "OnDate": "2022-07-06T20:25:23.1163352",
     "OpeningBalance": 3847.00,
     "ClosingBalance": 7583.00,
@@ -2772,7 +2772,7 @@
     "PaymentTotal": 500.00
   },
   {
-    "Id": "ARD/2022/7/7",
+    "Id": "ARD-2022-7-7",
     "OnDate": "2022-07-07T20:07:15.3404671",
     "OpeningBalance": 7583.00,
     "ClosingBalance": 7478.00,
@@ -2794,7 +2794,7 @@
     "PaymentTotal": 105.00
   },
   {
-    "Id": "ARD/2022/7/8",
+    "Id": "ARD-2022-7-8",
     "OnDate": "2022-07-08T09:50:10",
     "OpeningBalance": 7478.00,
     "ClosingBalance": 32828.00,
@@ -2816,7 +2816,7 @@
     "PaymentTotal": 4600.00
   },
   {
-    "Id": "ARD/2022/7/9",
+    "Id": "ARD-2022-7-9",
     "OnDate": "2022-07-09T20:23:02.207424",
     "OpeningBalance": 32828.00,
     "ClosingBalance": 11263.00,
@@ -2838,7 +2838,7 @@
     "PaymentTotal": 21565.00
   },
   {
-    "Id": "ARD/2022/8/11",
+    "Id": "ARD-2022-8-11",
     "OnDate": "2022-08-11T20:13:11.8074485",
     "OpeningBalance": 5448.00,
     "ClosingBalance": 3973.00,
@@ -2860,7 +2860,7 @@
     "PaymentTotal": 1475.00
   },
   {
-    "Id": "ARD/2022/8/12",
+    "Id": "ARD-2022-8-12",
     "OnDate": "2022-08-12T20:12:30.676778",
     "OpeningBalance": 3973.00,
     "ClosingBalance": 3363.00,
@@ -2876,13 +2876,13 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ICICI(A/C-2791)ATM : 14000",
+    "ReceiptsNaration": "#ICICI(A-C-2791)ATM : 14000",
     "ReceiptsTotal": 14000.00,
     "PaymentNaration": "#ALOK(SALARY) : 14010#AMAZONE : 595#DAN : 5",
     "PaymentTotal": 14610.00
   },
   {
-    "Id": "ARD/2022/8/13",
+    "Id": "ARD-2022-8-13",
     "OnDate": "2022-08-13T20:21:06.48577",
     "OpeningBalance": 3363.00,
     "ClosingBalance": 3343.00,
@@ -2904,7 +2904,7 @@
     "PaymentTotal": 20.00
   },
   {
-    "Id": "ARD/2022/8/14",
+    "Id": "ARD-2022-8-14",
     "OnDate": "2022-08-14T20:04:27.7585535",
     "OpeningBalance": 3343.00,
     "ClosingBalance": 2193.00,
@@ -2926,7 +2926,7 @@
     "PaymentTotal": 1150.00
   },
   {
-    "Id": "ARD/2022/8/15",
+    "Id": "ARD-2022-8-15",
     "OnDate": "2022-08-15T15:09:53.4847529",
     "OpeningBalance": 2193.00,
     "ClosingBalance": 1693.00,
@@ -2948,7 +2948,7 @@
     "PaymentTotal": 500.00
   },
   {
-    "Id": "ARD/2022/8/16",
+    "Id": "ARD-2022-8-16",
     "OnDate": "2022-08-16T20:24:18.5934063",
     "OpeningBalance": 1693.00,
     "ClosingBalance": 2283.00,
@@ -2970,7 +2970,7 @@
     "PaymentTotal": 4410.00
   },
   {
-    "Id": "ARD/2022/8/17",
+    "Id": "ARD-2022-8-17",
     "OnDate": "2022-08-17T20:20:50.1844092",
     "OpeningBalance": 2283.00,
     "ClosingBalance": 1923.00,
@@ -2992,7 +2992,7 @@
     "PaymentTotal": 360.00
   },
   {
-    "Id": "ARD/2022/8/18",
+    "Id": "ARD-2022-8-18",
     "OnDate": "2022-08-18T20:17:48.0719393",
     "OpeningBalance": 1923.00,
     "ClosingBalance": 1923.00,
@@ -3014,7 +3014,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/8/19",
+    "Id": "ARD-2022-8-19",
     "OnDate": "2022-08-19T20:10:53.1507752",
     "OpeningBalance": 1923.00,
     "ClosingBalance": 3025.00,
@@ -3036,7 +3036,7 @@
     "PaymentTotal": 310.00
   },
   {
-    "Id": "ARD/2022/8/2",
+    "Id": "ARD-2022-8-2",
     "OnDate": "2022-08-02T20:13:59.5771554",
     "OpeningBalance": 23244.00,
     "ClosingBalance": 15495.00,
@@ -3058,7 +3058,7 @@
     "PaymentTotal": 7749.00
   },
   {
-    "Id": "ARD/2022/8/20",
+    "Id": "ARD-2022-8-20",
     "OnDate": "2022-08-20T20:18:59.8218135",
     "OpeningBalance": 3025.00,
     "ClosingBalance": 1927.00,
@@ -3080,7 +3080,7 @@
     "PaymentTotal": 998.00
   },
   {
-    "Id": "ARD/2022/8/21",
+    "Id": "ARD-2022-8-21",
     "OnDate": "2022-08-21T20:06:17.9439387",
     "OpeningBalance": 1927.00,
     "ClosingBalance": 1927.00,
@@ -3102,7 +3102,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/8/22",
+    "Id": "ARD-2022-8-22",
     "OnDate": "2022-08-22T20:13:41.4555355",
     "OpeningBalance": 1927.00,
     "ClosingBalance": 2807.00,
@@ -3124,7 +3124,7 @@
     "PaymentTotal": 120.00
   },
   {
-    "Id": "ARD/2022/8/23",
+    "Id": "ARD-2022-8-23",
     "OnDate": "2022-08-23T20:12:16.7350827",
     "OpeningBalance": 2807.00,
     "ClosingBalance": 2831.00,
@@ -3146,7 +3146,7 @@
     "PaymentTotal": 862.00
   },
   {
-    "Id": "ARD/2022/8/24",
+    "Id": "ARD-2022-8-24",
     "OnDate": "2022-08-24T20:14:14.8065338",
     "OpeningBalance": 2831.00,
     "ClosingBalance": 1866.00,
@@ -3168,7 +3168,7 @@
     "PaymentTotal": 3151.00
   },
   {
-    "Id": "ARD/2022/8/25",
+    "Id": "ARD-2022-8-25",
     "OnDate": "2022-08-25T20:18:54.2864252",
     "OpeningBalance": 1866.00,
     "ClosingBalance": 1664.00,
@@ -3190,7 +3190,7 @@
     "PaymentTotal": 202.00
   },
   {
-    "Id": "ARD/2022/8/26",
+    "Id": "ARD-2022-8-26",
     "OnDate": "2022-08-26T20:20:20.8228641",
     "OpeningBalance": 1664.00,
     "ClosingBalance": 2911.00,
@@ -3212,7 +3212,7 @@
     "PaymentTotal": 2610.00
   },
   {
-    "Id": "ARD/2022/8/27",
+    "Id": "ARD-2022-8-27",
     "OnDate": "2022-08-27T20:09:15.8226887",
     "OpeningBalance": 2911.00,
     "ClosingBalance": 3306.00,
@@ -3234,7 +3234,7 @@
     "PaymentTotal": 265.00
   },
   {
-    "Id": "ARD/2022/8/28",
+    "Id": "ARD-2022-8-28",
     "OnDate": "2022-08-28T10:34:36",
     "OpeningBalance": 3306.00,
     "ClosingBalance": 2456.00,
@@ -3256,7 +3256,7 @@
     "PaymentTotal": 850.00
   },
   {
-    "Id": "ARD/2022/8/29",
+    "Id": "ARD-2022-8-29",
     "OnDate": "2022-08-29T17:46:16",
     "OpeningBalance": 2456.00,
     "ClosingBalance": 2256.00,
@@ -3278,7 +3278,7 @@
     "PaymentTotal": 200.00
   },
   {
-    "Id": "ARD/2022/8/3",
+    "Id": "ARD-2022-8-3",
     "OnDate": "2022-08-03T20:21:28.9040238",
     "OpeningBalance": 15495.00,
     "ClosingBalance": 19395.00,
@@ -3300,7 +3300,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/8/30",
+    "Id": "ARD-2022-8-30",
     "OnDate": "2022-08-30T20:17:07.9160853",
     "OpeningBalance": 2256.00,
     "ClosingBalance": 3012.00,
@@ -3322,7 +3322,7 @@
     "PaymentTotal": 282.00
   },
   {
-    "Id": "ARD/2022/8/31",
+    "Id": "ARD-2022-8-31",
     "OnDate": "2022-08-31T20:10:18.363924",
     "OpeningBalance": 3012.00,
     "ClosingBalance": 4277.00,
@@ -3344,7 +3344,7 @@
     "PaymentTotal": 1235.00
   },
   {
-    "Id": "ARD/2022/8/4",
+    "Id": "ARD-2022-8-4",
     "OnDate": "2022-08-04T20:22:12.0191146",
     "OpeningBalance": 19395.00,
     "ClosingBalance": 19280.00,
@@ -3366,7 +3366,7 @@
     "PaymentTotal": 115.00
   },
   {
-    "Id": "ARD/2022/8/5",
+    "Id": "ARD-2022-8-5",
     "OnDate": "2022-08-05T20:11:33.1373695",
     "OpeningBalance": 19280.00,
     "ClosingBalance": 21523.00,
@@ -3388,7 +3388,7 @@
     "PaymentTotal": 780.00
   },
   {
-    "Id": "ARD/2022/8/6",
+    "Id": "ARD-2022-8-6",
     "OnDate": "2022-08-06T20:04:38.8149153",
     "OpeningBalance": 21523.00,
     "ClosingBalance": 4161.00,
@@ -3410,7 +3410,7 @@
     "PaymentTotal": 40650.00
   },
   {
-    "Id": "ARD/2022/8/7",
+    "Id": "ARD-2022-8-7",
     "OnDate": "2022-08-07T20:01:30.7458568",
     "OpeningBalance": 4161.00,
     "ClosingBalance": 2661.00,
@@ -3432,7 +3432,7 @@
     "PaymentTotal": 1500.00
   },
   {
-    "Id": "ARD/2022/8/8",
+    "Id": "ARD-2022-8-8",
     "OnDate": "2022-08-08T20:34:54.5240441",
     "OpeningBalance": 2661.00,
     "ClosingBalance": 1694.00,
@@ -3454,7 +3454,7 @@
     "PaymentTotal": 18623.00
   },
   {
-    "Id": "ARD/2022/8/9",
+    "Id": "ARD-2022-8-9",
     "OnDate": "2022-08-09T20:09:47.6320422",
     "OpeningBalance": 1694.00,
     "ClosingBalance": 5399.00,
@@ -3476,7 +3476,7 @@
     "PaymentTotal": 55.00
   },
   {
-    "Id": "ARD/2022/9/1",
+    "Id": "ARD-2022-9-1",
     "OnDate": "2022-09-01T20:08:30.9027221",
     "OpeningBalance": 4277.00,
     "ClosingBalance": 4127.00,
@@ -3498,7 +3498,7 @@
     "PaymentTotal": 150.00
   },
   {
-    "Id": "ARD/2022/9/10",
+    "Id": "ARD-2022-9-10",
     "OnDate": "2022-09-10T20:13:29.3140832",
     "OpeningBalance": 2274.00,
     "ClosingBalance": 4217.00,
@@ -3514,13 +3514,13 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#2022/9/IN/0013 : 1057#ARDI 757 : 2953",
+    "ReceiptsNaration": "#2022-9-IN-0013 : 1057#ARDI 757 : 2953",
     "ReceiptsTotal": 4010.00,
     "PaymentNaration": "#LEMON\u002BCHILLE : 10#AMIT THAKUR(SALARY ADV. SEP-22) : 1000",
     "PaymentTotal": 1010.00
   },
   {
-    "Id": "ARD/2022/9/11",
+    "Id": "ARD-2022-9-11",
     "OnDate": "2022-09-11T20:07:49.2634855",
     "OpeningBalance": 4217.00,
     "ClosingBalance": 16245.00,
@@ -3542,7 +3542,7 @@
     "PaymentTotal": 3002.00
   },
   {
-    "Id": "ARD/2022/9/12",
+    "Id": "ARD-2022-9-12",
     "OnDate": "2022-09-12T20:36:54.0501432",
     "OpeningBalance": 16245.00,
     "ClosingBalance": 19945.00,
@@ -3564,7 +3564,7 @@
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/9/13",
+    "Id": "ARD-2022-9-13",
     "OnDate": "2022-09-13T20:12:44.3130879",
     "OpeningBalance": 19945.00,
     "ClosingBalance": 6710.00,
@@ -3586,7 +3586,7 @@
     "PaymentTotal": 135.00
   },
   {
-    "Id": "ARD/2022/9/14",
+    "Id": "ARD-2022-9-14",
     "OnDate": "2022-09-14T19:54:45.3395209",
     "OpeningBalance": 6710.00,
     "ClosingBalance": 6210.00,
@@ -3608,7 +3608,7 @@
     "PaymentTotal": 500.00
   },
   {
-    "Id": "ARD/2022/9/15",
+    "Id": "ARD-2022-9-15",
     "OnDate": "2022-09-15T20:08:20.5049626",
     "OpeningBalance": 6210.00,
     "ClosingBalance": 5620.00,
@@ -3630,7 +3630,7 @@
     "PaymentTotal": 590.00
   },
   {
-    "Id": "ARD/2022/9/16",
+    "Id": "ARD-2022-9-16",
     "OnDate": "2022-09-16T20:08:52.0620264",
     "OpeningBalance": 5620.00,
     "ClosingBalance": 10971.00,
@@ -3652,7 +3652,7 @@
     "PaymentTotal": 1595.00
   },
   {
-    "Id": "ARD/2022/9/17",
+    "Id": "ARD-2022-9-17",
     "OnDate": "2022-09-17T10:34:13",
     "OpeningBalance": 10971.00,
     "ClosingBalance": 7899.00,
@@ -3674,7 +3674,7 @@
     "PaymentTotal": 13716.00
   },
   {
-    "Id": "ARD/2022/9/18",
+    "Id": "ARD-2022-9-18",
     "OnDate": "2022-09-18T10:39:59",
     "OpeningBalance": 7899.00,
     "ClosingBalance": 8655.00,
@@ -3696,7 +3696,7 @@
     "PaymentTotal": 330.00
   },
   {
-    "Id": "ARD/2022/9/19",
+    "Id": "ARD-2022-9-19",
     "OnDate": "2022-09-19T20:09:54.8588761",
     "OpeningBalance": 8655.00,
     "ClosingBalance": 8180.00,
@@ -3718,7 +3718,7 @@
     "PaymentTotal": 475.00
   },
   {
-    "Id": "ARD/2022/9/2",
+    "Id": "ARD-2022-9-2",
     "OnDate": "2022-09-02T20:14:07.7143401",
     "OpeningBalance": 4127.00,
     "ClosingBalance": 11013.00,
@@ -3740,7 +3740,7 @@
     "PaymentTotal": 1505.00
   },
   {
-    "Id": "ARD/2022/9/20",
+    "Id": "ARD-2022-9-20",
     "OnDate": "2022-09-20T20:25:58.830397",
     "OpeningBalance": 8180.00,
     "ClosingBalance": 9090.00,
@@ -3762,7 +3762,7 @@
     "PaymentTotal": 2556.00
   },
   {
-    "Id": "ARD/2022/9/21",
+    "Id": "ARD-2022-9-21",
     "OnDate": "2022-09-21T20:36:05.6669894",
     "OpeningBalance": 9090.00,
     "ClosingBalance": 12801.00,
@@ -3784,7 +3784,7 @@
     "PaymentTotal": 1240.00
   },
   {
-    "Id": "ARD/2022/9/22",
+    "Id": "ARD-2022-9-22",
     "OnDate": "2022-09-22T20:17:58.3826025",
     "OpeningBalance": 12801.00,
     "ClosingBalance": 3754.00,
@@ -3806,7 +3806,7 @@
     "PaymentTotal": 15285.00
   },
   {
-    "Id": "ARD/2022/9/23",
+    "Id": "ARD-2022-9-23",
     "OnDate": "2022-09-23T09:59:21",
     "OpeningBalance": 3754.00,
     "ClosingBalance": 2205.00,
@@ -3828,7 +3828,7 @@
     "PaymentTotal": 2346.00
   },
   {
-    "Id": "ARD/2022/9/24",
+    "Id": "ARD-2022-9-24",
     "OnDate": "2022-09-24T20:12:51.5285585",
     "OpeningBalance": 2205.00,
     "ClosingBalance": 5983.00,
@@ -3850,7 +3850,7 @@
     "PaymentTotal": 1136.00
   },
   {
-    "Id": "ARD/2022/9/25",
+    "Id": "ARD-2022-9-25",
     "OnDate": "2022-09-25T20:09:00.5473743",
     "OpeningBalance": 5983.00,
     "ClosingBalance": 7145.00,
@@ -3872,7 +3872,7 @@
     "PaymentTotal": 2005.00
   },
   {
-    "Id": "ARD/2022/9/26",
+    "Id": "ARD-2022-9-26",
     "OnDate": "2022-09-26T20:39:03.9350079",
     "OpeningBalance": 7145.00,
     "ClosingBalance": 1879.00,
@@ -3894,7 +3894,7 @@
     "PaymentTotal": 5466.00
   },
   {
-    "Id": "ARD/2022/9/27",
+    "Id": "ARD-2022-9-27",
     "OnDate": "2022-09-27T20:13:57.0249352",
     "OpeningBalance": 1879.00,
     "ClosingBalance": 6643.00,
@@ -3916,7 +3916,7 @@
     "PaymentTotal": 56.00
   },
   {
-    "Id": "ARD/2022/9/28",
+    "Id": "ARD-2022-9-28",
     "OnDate": "2022-09-28T20:22:21.8719542",
     "OpeningBalance": 6643.00,
     "ClosingBalance": 6351.00,
@@ -3938,7 +3938,7 @@
     "PaymentTotal": 2265.00
   },
   {
-    "Id": "ARD/2022/9/29",
+    "Id": "ARD-2022-9-29",
     "OnDate": "2022-09-29T20:19:04.791238",
     "OpeningBalance": 6351.00,
     "ClosingBalance": 15735.00,
@@ -3960,7 +3960,7 @@
     "PaymentTotal": 26.00
   },
   {
-    "Id": "ARD/2022/9/3",
+    "Id": "ARD-2022-9-3",
     "OnDate": "2022-09-03T20:04:19.6888273",
     "OpeningBalance": 11013.00,
     "ClosingBalance": 4576.00,
@@ -3976,13 +3976,13 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 750(2022/9/IN/0004) : 994#2022/9/IN/0005 : 1260",
+    "ReceiptsNaration": "#ARDI 750(2022-9-IN-0004) : 994#2022-9-IN-0005 : 1260",
     "ReceiptsTotal": 2254.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#MEDICINE : 521#A/C INSTALMENT\u002BFINE : 5700#MOB. REPAIR(SCREEN GAURD) : 500#AMIT THAKUR(SALARY ADV. AUG-22) : 1500#MOB. REC(BACK OFF.) : 455#DAN : 5",
+    "PaymentNaration": "#LEMON\u002BCHILLE : 10#MEDICINE : 521#A-C INSTALMENT\u002BFINE : 5700#MOB. REPAIR(SCREEN GAURD) : 500#AMIT THAKUR(SALARY ADV. AUG-22) : 1500#MOB. REC(BACK OFF.) : 455#DAN : 5",
     "PaymentTotal": 8691.00
   },
   {
-    "Id": "ARD/2022/9/30",
+    "Id": "ARD-2022-9-30",
     "OnDate": "2022-09-30T20:12:42.318596",
     "OpeningBalance": 15735.00,
     "ClosingBalance": 10997.00,
@@ -4004,7 +4004,7 @@
     "PaymentTotal": 37020.00
   },
   {
-    "Id": "ARD/2022/9/4",
+    "Id": "ARD-2022-9-4",
     "OnDate": "2022-09-04T20:02:54.3788564",
     "OpeningBalance": 4576.00,
     "ClosingBalance": 7212.00,
@@ -4020,13 +4020,13 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 751 : 13565#2022/9/IN/0006 : 1039#2022/9/IN/0007 : 900#2022/9/IN/0008 : 697",
+    "ReceiptsNaration": "#ARDI 751 : 13565#2022-9-IN-0006 : 1039#2022-9-IN-0007 : 900#2022-9-IN-0008 : 697",
     "ReceiptsTotal": 16201.00,
     "PaymentNaration": "#",
     "PaymentTotal": 0.00
   },
   {
-    "Id": "ARD/2022/9/6",
+    "Id": "ARD-2022-9-6",
     "OnDate": "2022-09-06T20:07:54.0292786",
     "OpeningBalance": 7212.00,
     "ClosingBalance": 4591.00,
@@ -4042,13 +4042,13 @@
     "DueList": "#ARDI 752 : 3380",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 752 : 6380#ARDI 753 : 1728#2022/9/IN/0009 : 1313",
+    "ReceiptsNaration": "#ARDI 752 : 6380#ARDI 753 : 1728#2022-9-IN-0009 : 1313",
     "ReceiptsTotal": 9421.00,
     "PaymentNaration": "#AMAZONE : 1846#ISWAR RAM(SALARY ADV) : 1000#MEGHA KUMARI(SALARY AUG) : 5654#NEWSPAPER : 162",
     "PaymentTotal": 8662.00
   },
   {
-    "Id": "ARD/2022/9/7",
+    "Id": "ARD-2022-9-7",
     "OnDate": "2022-09-07T20:05:02.3713915",
     "OpeningBalance": 4591.00,
     "ClosingBalance": 5085.00,
@@ -4070,7 +4070,7 @@
     "PaymentTotal": 105.00
   },
   {
-    "Id": "ARD/2022/9/8",
+    "Id": "ARD-2022-9-8",
     "OnDate": "2022-09-08T20:03:59.0467892",
     "OpeningBalance": 5085.00,
     "ClosingBalance": 2588.00,
@@ -4086,13 +4086,13 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#2022/9/IN/0010 : 1817#2022/9/IN/0011 : 2063#ARDI 756 : 1667",
+    "ReceiptsNaration": "#2022-9-IN-0010 : 1817#2022-9-IN-0011 : 2063#ARDI 756 : 1667",
     "ReceiptsTotal": 5547.00,
     "PaymentNaration": "#ANUBHA SCHOOL FEE : 4314",
     "PaymentTotal": 4314.00
   },
   {
-    "Id": "ARD/2022/9/9",
+    "Id": "ARD-2022-9-9",
     "OnDate": "2022-09-09T18:46:17.9341541",
     "OpeningBalance": 2588.00,
     "ClosingBalance": 2274.00,
@@ -4108,13 +4108,13 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#2022/9/IN/0012 : 1086#GOPI CHOURASIA(CARD SWAP) : 50000",
+    "ReceiptsNaration": "#2022-9-IN-0012 : 1086#GOPI CHOURASIA(CARD SWAP) : 50000",
     "ReceiptsTotal": 51086.00,
     "PaymentNaration": "#CISCO(AUG-22) : 1300#LUNCH(ALOK) : 100",
     "PaymentTotal": 1400.00
   },
   {
-    "Id": "ARD/2023/1/2",
+    "Id": "ARD-2023-1-2",
     "OnDate": "2023-01-02T19:46:20.3204436",
     "OpeningBalance": 2764.00,
     "ClosingBalance": 2539.00,

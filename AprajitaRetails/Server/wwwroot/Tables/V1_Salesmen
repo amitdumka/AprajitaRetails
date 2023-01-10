@@ -1,9 +1,9 @@
 [
   {
-    "SalesmanId": "SMN/2016/001",
+    "SalesmanId": "SMN-2016-001",
     "Name": "Manager",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/SM/1",
+    "EmployeeId": "ARD-2016-SM-1",
     "IsActive": true,
     "UserId": "MANCOPY",
     "IsReadOnly": false,
@@ -11,10 +11,10 @@
     "EntryStatus": 0
   },
   {
-    "SalesmanId": "SMN/2016/002",
+    "SalesmanId": "SMN-2016-002",
     "Name": "Sanjeev Kumar Mishra",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/SLM/2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "IsActive": true,
     "UserId": "MANCOPY",
     "IsReadOnly": false,
@@ -22,10 +22,10 @@
     "EntryStatus": 3
   },
   {
-    "SalesmanId": "SMN/2016/003",
+    "SalesmanId": "SMN-2016-003",
     "Name": "Mukesh Kumar Mandal",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/SLM/3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "IsActive": true,
     "UserId": "MANCOPY",
     "IsReadOnly": false,
@@ -33,10 +33,10 @@
     "EntryStatus": 3
   },
   {
-    "SalesmanId": "SMN/2016/004",
+    "SalesmanId": "SMN-2016-004",
     "Name": "Bikash Kumar Sah",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/HK/16",
+    "EmployeeId": "ARD-2016-HK-16",
     "IsActive": true,
     "UserId": "MANCOPY",
     "IsReadOnly": false,
@@ -44,10 +44,10 @@
     "EntryStatus": 3
   },
   {
-    "SalesmanId": "SMN/2016/009",
+    "SalesmanId": "SMN-2016-009",
     "Name": "Sourav Turi",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/SM/1",
+    "EmployeeId": "ARD-2016-SM-1",
     "IsActive": false,
     "UserId": "MANADD",
     "IsReadOnly": false,
@@ -55,10 +55,10 @@
     "EntryStatus": 0
   },
   {
-    "SalesmanId": "SMN/2017/005",
+    "SalesmanId": "SMN-2017-005",
     "Name": "Santosh Kumar",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/SM/1",
+    "EmployeeId": "ARD-2016-SM-1",
     "IsActive": false,
     "UserId": "MANADD",
     "IsReadOnly": false,
@@ -66,10 +66,10 @@
     "EntryStatus": 0
   },
   {
-    "SalesmanId": "SMN/2017/007",
+    "SalesmanId": "SMN-2017-007",
     "Name": "Jafar",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/SM/1",
+    "EmployeeId": "ARD-2016-SM-1",
     "IsActive": false,
     "UserId": "MANADD",
     "IsReadOnly": false,
@@ -77,10 +77,10 @@
     "EntryStatus": 0
   },
   {
-    "SalesmanId": "SMN/2017/008",
+    "SalesmanId": "SMN-2017-008",
     "Name": "Shaukin Ajam",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2016/SM/1",
+    "EmployeeId": "ARD-2016-SM-1",
     "IsActive": false,
     "UserId": "MANADD",
     "IsReadOnly": false,
@@ -88,10 +88,10 @@
     "EntryStatus": 0
   },
   {
-    "SalesmanId": "SMN/2021/006",
+    "SalesmanId": "SMN-2021-006",
     "Name": "Amit Thakur ",
     "StoreId": "ARD",
-    "EmployeeId": "ARD/2021/SLM/14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "IsActive": true,
     "UserId": "MANCOPY",
     "IsReadOnly": false,

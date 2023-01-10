@@ -1,6 +1,6 @@
 [
   {
-    "PartyId": "ARD/PTY/1",
+    "PartyId": "ARD-PTY-1",
     "PartyName": "EMP# Alok Kumar ",
     "OpeningDate": "2016-02-17T00:00:00",
     "ClosingDate": null,
@@ -11,7 +11,7 @@
     "PANNo": "",
     "Address": "Dangalpara Dumka",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -19,7 +19,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/10",
+    "PartyId": "ARD-PTY-10",
     "PartyName": "EMP# Md. Jafar ",
     "OpeningDate": "2016-05-01T00:00:00",
     "ClosingDate": null,
@@ -30,7 +30,7 @@
     "PANNo": "",
     "Address": "",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -38,7 +38,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/11",
+    "PartyId": "ARD-PTY-11",
     "PartyName": "EMP# Geetanjali Kumari Verma ",
     "OpeningDate": "2020-09-11T00:00:00",
     "ClosingDate": null,
@@ -49,7 +49,7 @@
     "PANNo": "",
     "Address": "Rasikpur Kurwa Dumka.",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -57,7 +57,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/12",
+    "PartyId": "ARD-PTY-12",
     "PartyName": "EMP# MD. ABBAS ",
     "OpeningDate": "2020-10-12T00:00:00",
     "ClosingDate": null,
@@ -68,7 +68,7 @@
     "PANNo": "",
     "Address": "MASJID GALI,KARBALA ROAD,DUDHANI,DUMKA",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -76,7 +76,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/13",
+    "PartyId": "ARD-PTY-13",
     "PartyName": "EMP# Sanjay Rana ",
     "OpeningDate": "2020-12-18T00:00:00",
     "ClosingDate": null,
@@ -87,7 +87,7 @@
     "PANNo": "",
     "Address": "Haroraydih PS-Masaliya Dumka.",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -95,7 +95,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/14",
+    "PartyId": "ARD-PTY-14",
     "PartyName": "EMP# Amit Thakur ",
     "OpeningDate": "2021-01-04T00:00:00",
     "ClosingDate": null,
@@ -106,7 +106,7 @@
     "PANNo": "",
     "Address": "Purabsarai Munger",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -114,7 +114,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/15",
+    "PartyId": "ARD-PTY-15",
     "PartyName": "EMP# Timoti Marandi ",
     "OpeningDate": "2021-01-25T00:00:00",
     "ClosingDate": null,
@@ -125,7 +125,7 @@
     "PANNo": "",
     "Address": "Shreepur Bazar,Sahebganj",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -133,7 +133,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/16",
+    "PartyId": "ARD-PTY-16",
     "PartyName": "CityNet",
     "OpeningDate": "2021-02-16T00:00:00",
     "ClosingDate": null,
@@ -144,7 +144,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "Telephone bill",
-    "LedgerGroupId": "ARD/LG/2",
+    "LedgerGroupId": "ARD-LG-2",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -152,7 +152,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/17",
+    "PartyId": "ARD-PTY-17",
     "PartyName": "Maa Bhawani Art",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -163,7 +163,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/5",
+    "LedgerGroupId": "ARD-LG-5",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -171,7 +171,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/18",
+    "PartyId": "ARD-PTY-18",
     "PartyName": "Raj Mistry",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -182,7 +182,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -190,7 +190,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/19",
+    "PartyId": "ARD-PTY-19",
     "PartyName": "Painter",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -201,7 +201,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -209,7 +209,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/2",
+    "PartyId": "ARD-PTY-2",
     "PartyName": "EMP# Sanjeev Mishra ",
     "OpeningDate": "2016-02-17T00:00:00",
     "ClosingDate": null,
@@ -220,7 +220,7 @@
     "PANNo": "",
     "Address": "Shivpahar Road Shantinagar Dumka.",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -228,7 +228,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/20",
+    "PartyId": "ARD-PTY-20",
     "PartyName": "Electrician",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -239,7 +239,7 @@
     "PANNo": "",
     "Address": "",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -247,7 +247,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/21",
+    "PartyId": "ARD-PTY-21",
     "PartyName": "Workshop",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -258,7 +258,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "Workshop expenses",
-    "LedgerGroupId": "ARD/LG/16",
+    "LedgerGroupId": "ARD-LG-16",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -266,7 +266,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/22",
+    "PartyId": "ARD-PTY-22",
     "PartyName": "Telephone Bill",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -277,7 +277,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "Telephone bill",
-    "LedgerGroupId": "ARD/LG/2",
+    "LedgerGroupId": "ARD-LG-2",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -285,7 +285,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/23",
+    "PartyId": "ARD-PTY-23",
     "PartyName": "Tailoring trims expenses",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -296,7 +296,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "Tailoring Trims Purchase",
-    "LedgerGroupId": "ARD/LG/17",
+    "LedgerGroupId": "ARD-LG-17",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -304,7 +304,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/24",
+    "PartyId": "ARD-PTY-24",
     "PartyName": "Freight charge",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -315,7 +315,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Freight",
-    "LedgerGroupId": "ARD/LG/13",
+    "LedgerGroupId": "ARD-LG-13",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -323,7 +323,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/25",
+    "PartyId": "ARD-PTY-25",
     "PartyName": "R.S Enterprises",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -334,7 +334,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Secure Creditor",
-    "LedgerGroupId": "ARD/LG/54",
+    "LedgerGroupId": "ARD-LG-54",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -342,7 +342,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/26",
+    "PartyId": "ARD-PTY-26",
     "PartyName": "Prince Tailoring Materials",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -353,7 +353,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "Tailoring Trims Purchase",
-    "LedgerGroupId": "ARD/LG/17",
+    "LedgerGroupId": "ARD-LG-17",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -361,7 +361,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/27",
+    "PartyId": "ARD-PTY-27",
     "PartyName": "Shop Electricity Bill",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -372,7 +372,7 @@
     "PANNo": "AJHPA7396P",
     "Address": "Dumka",
     "Remarks": "Electricity",
-    "LedgerGroupId": "ARD/LG/8",
+    "LedgerGroupId": "ARD-LG-8",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -380,7 +380,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/28",
+    "PartyId": "ARD-PTY-28",
     "PartyName": "Anup Sharma(grill shop)",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -391,7 +391,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -399,7 +399,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/29",
+    "PartyId": "ARD-PTY-29",
     "PartyName": "Scientific emporium",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -410,7 +410,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/7",
+    "LedgerGroupId": "ARD-LG-7",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -418,7 +418,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/3",
+    "PartyId": "ARD-PTY-3",
     "PartyName": "EMP# Mukesh Mandal ",
     "OpeningDate": "2016-02-17T00:00:00",
     "ClosingDate": null,
@@ -429,7 +429,7 @@
     "PANNo": "",
     "Address": "New Bandh Para Dumka",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -437,7 +437,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/30",
+    "PartyId": "ARD-PTY-30",
     "PartyName": "Bhutu Mistry",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -448,7 +448,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -456,7 +456,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/31",
+    "PartyId": "ARD-PTY-31",
     "PartyName": "Singhania Senitries",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -467,7 +467,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Secure Creditor",
-    "LedgerGroupId": "ARD/LG/54",
+    "LedgerGroupId": "ARD-LG-54",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -475,7 +475,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/32",
+    "PartyId": "ARD-PTY-32",
     "PartyName": "Bikash Patwari",
     "OpeningDate": "2015-04-30T18:30:00",
     "ClosingDate": null,
@@ -486,7 +486,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Accountant, CA, fees and taxes",
-    "LedgerGroupId": "ARD/LG/50",
+    "LedgerGroupId": "ARD-LG-50",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -494,7 +494,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/33",
+    "PartyId": "ARD-PTY-33",
     "PartyName": "Maa Bhawani Art",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -505,7 +505,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/5",
+    "LedgerGroupId": "ARD-LG-5",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -513,7 +513,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/34",
+    "PartyId": "ARD-PTY-34",
     "PartyName": "Store Renovation",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -524,7 +524,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -532,7 +532,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/35",
+    "PartyId": "ARD-PTY-35",
     "PartyName": "Layman\u0027s Net",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -543,7 +543,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "Telephone bill",
-    "LedgerGroupId": "ARD/LG/2",
+    "LedgerGroupId": "ARD-LG-2",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -551,7 +551,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/36",
+    "PartyId": "ARD-PTY-36",
     "PartyName": "General Electrical Item",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -562,7 +562,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Electronics Goods",
-    "LedgerGroupId": "ARD/LG/41",
+    "LedgerGroupId": "ARD-LG-41",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -570,7 +570,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/37",
+    "PartyId": "ARD-PTY-37",
     "PartyName": "Painting Materials",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -581,7 +581,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -589,7 +589,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/38",
+    "PartyId": "ARD-PTY-38",
     "PartyName": "Construction Materials",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -600,7 +600,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -608,7 +608,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/39",
+    "PartyId": "ARD-PTY-39",
     "PartyName": "Kites",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -619,7 +619,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "puja expenses",
-    "LedgerGroupId": "ARD/LG/20",
+    "LedgerGroupId": "ARD-LG-20",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -627,7 +627,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/4",
+    "PartyId": "ARD-PTY-4",
     "PartyName": "EMP# Amit Kumar ",
     "OpeningDate": "2015-10-01T00:00:00",
     "ClosingDate": null,
@@ -638,7 +638,7 @@
     "PANNo": "",
     "Address": "Next to SBI ATM , Police Line Road, Dumk",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -646,7 +646,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/40",
+    "PartyId": "ARD-PTY-40",
     "PartyName": "Ajay Electricals",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -657,7 +657,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Secure Creditor",
-    "LedgerGroupId": "ARD/LG/54",
+    "LedgerGroupId": "ARD-LG-54",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -665,7 +665,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/41",
+    "PartyId": "ARD-PTY-41",
     "PartyName": "Glass House",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -676,7 +676,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Secure Creditor",
-    "LedgerGroupId": "ARD/LG/54",
+    "LedgerGroupId": "ARD-LG-54",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -684,7 +684,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/42",
+    "PartyId": "ARD-PTY-42",
     "PartyName": "Repair \u0026 Maintenance",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -695,7 +695,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -703,7 +703,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/43",
+    "PartyId": "ARD-PTY-43",
     "PartyName": "No Party",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -714,7 +714,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "No Party",
-    "LedgerGroupId": "ARD/LG/18",
+    "LedgerGroupId": "ARD-LG-18",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -722,7 +722,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/44",
+    "PartyId": "ARD-PTY-44",
     "PartyName": "TIWARI AUTOMOBILES PVT.LTD.",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -733,7 +733,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/19",
+    "LedgerGroupId": "ARD-LG-19",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -741,7 +741,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/45",
+    "PartyId": "ARD-PTY-45",
     "PartyName": "Fuels",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -752,7 +752,7 @@
     "PANNo": "NA",
     "Address": "Dumka",
     "Remarks": "Verna(Fuel Expenses)",
-    "LedgerGroupId": "ARD/LG/47",
+    "LedgerGroupId": "ARD-LG-47",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -760,7 +760,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/46",
+    "PartyId": "ARD-PTY-46",
     "PartyName": "Car Maintenance ",
     "OpeningDate": "2021-02-17T00:00:00",
     "ClosingDate": null,
@@ -771,7 +771,7 @@
     "PANNo": "",
     "Address": "Dumka",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/19",
+    "LedgerGroupId": "ARD-LG-19",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -779,7 +779,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/47",
+    "PartyId": "ARD-PTY-47",
     "PartyName": "Puja Expenses",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -790,7 +790,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "puja expenses",
-    "LedgerGroupId": "ARD/LG/20",
+    "LedgerGroupId": "ARD-LG-20",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -798,7 +798,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/48",
+    "PartyId": "ARD-PTY-48",
     "PartyName": "Decoration Expences",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -809,7 +809,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "puja expenses",
-    "LedgerGroupId": "ARD/LG/20",
+    "LedgerGroupId": "ARD-LG-20",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -817,7 +817,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/49",
+    "PartyId": "ARD-PTY-49",
     "PartyName": "Computer \u0026 IT",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -828,7 +828,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Computer \u0026 IT",
-    "LedgerGroupId": "ARD/LG/22",
+    "LedgerGroupId": "ARD-LG-22",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -836,7 +836,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/5",
+    "PartyId": "ARD-PTY-5",
     "PartyName": "EMP# Saurabh Turi ",
     "OpeningDate": "2020-02-24T00:00:00",
     "ClosingDate": null,
@@ -847,7 +847,7 @@
     "PANNo": "",
     "Address": "Rasikpur Kurwa Dumka.",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -855,7 +855,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/50",
+    "PartyId": "ARD-PTY-50",
     "PartyName": "Painting Goods",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -866,7 +866,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Painting goods",
-    "LedgerGroupId": "ARD/LG/23",
+    "LedgerGroupId": "ARD-LG-23",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -874,7 +874,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/51",
+    "PartyId": "ARD-PTY-51",
     "PartyName": "Printing Goods",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -885,7 +885,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Stationary",
-    "LedgerGroupId": "ARD/LG/32",
+    "LedgerGroupId": "ARD-LG-32",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -893,7 +893,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/52",
+    "PartyId": "ARD-PTY-52",
     "PartyName": "Wallpaper Mistry",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -904,7 +904,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -912,7 +912,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/53",
+    "PartyId": "ARD-PTY-53",
     "PartyName": "Municipal Tax \u0026 Rent ",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -923,7 +923,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Tax \u0026 others",
-    "LedgerGroupId": "ARD/LG/26",
+    "LedgerGroupId": "ARD-LG-26",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -931,7 +931,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/54",
+    "PartyId": "ARD-PTY-54",
     "PartyName": "M.S Benaguria",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -942,7 +942,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "Secure Creditor",
-    "LedgerGroupId": "ARD/LG/54",
+    "LedgerGroupId": "ARD-LG-54",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -950,7 +950,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/55",
+    "PartyId": "ARD-PTY-55",
     "PartyName": "Veena Press",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -961,7 +961,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "Stationary",
-    "LedgerGroupId": "ARD/LG/32",
+    "LedgerGroupId": "ARD-LG-32",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -969,7 +969,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/56",
+    "PartyId": "ARD-PTY-56",
     "PartyName": "Home Electricity Bill",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -980,7 +980,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Electricity",
-    "LedgerGroupId": "ARD/LG/8",
+    "LedgerGroupId": "ARD-LG-8",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -988,7 +988,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/57",
+    "PartyId": "ARD-PTY-57",
     "PartyName": "Shop Electricity Bill",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -999,7 +999,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Electricity",
-    "LedgerGroupId": "ARD/LG/8",
+    "LedgerGroupId": "ARD-LG-8",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1007,7 +1007,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/58",
+    "PartyId": "ARD-PTY-58",
     "PartyName": "Workshop Electricity Bill",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1018,7 +1018,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Electricity",
-    "LedgerGroupId": "ARD/LG/8",
+    "LedgerGroupId": "ARD-LG-8",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1026,7 +1026,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/59",
+    "PartyId": "ARD-PTY-59",
     "PartyName": "Stationary",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1037,7 +1037,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Stationary",
-    "LedgerGroupId": "ARD/LG/32",
+    "LedgerGroupId": "ARD-LG-32",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1045,7 +1045,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/6",
+    "PartyId": "ARD-PTY-6",
     "PartyName": "EMP# MD. SHAUKIN AJAM ",
     "OpeningDate": "2016-08-01T00:00:00",
     "ClosingDate": null,
@@ -1056,7 +1056,7 @@
     "PANNo": "",
     "Address": "Sahokhar masjid,Sahokhar,saraia.",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1064,7 +1064,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/60",
+    "PartyId": "ARD-PTY-60",
     "PartyName": "Furniture of Aprajita Retails",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1075,7 +1075,7 @@
     "PANNo": "AJHPA7396P",
     "Address": "DUMKA",
     "Remarks": "Assests",
-    "LedgerGroupId": "ARD/LG/12",
+    "LedgerGroupId": "ARD-LG-12",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1083,7 +1083,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/61",
+    "PartyId": "ARD-PTY-61",
     "PartyName": "Electricity Account",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1094,7 +1094,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "Electricity",
-    "LedgerGroupId": "ARD/LG/8",
+    "LedgerGroupId": "ARD-LG-8",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1102,7 +1102,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/62",
+    "PartyId": "ARD-PTY-62",
     "PartyName": "Point Redenative",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1113,7 +1113,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Point Redenative",
-    "LedgerGroupId": "ARD/LG/35",
+    "LedgerGroupId": "ARD-LG-35",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1121,7 +1121,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/63",
+    "PartyId": "ARD-PTY-63",
     "PartyName": "Lunch \u0026 Snacks",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1132,7 +1132,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Lunch \u0026 Snacks",
-    "LedgerGroupId": "ARD/LG/3",
+    "LedgerGroupId": "ARD-LG-3",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1140,7 +1140,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/64",
+    "PartyId": "ARD-PTY-64",
     "PartyName": "Net Communication",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1151,7 +1151,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Net Communication",
-    "LedgerGroupId": "ARD/LG/36",
+    "LedgerGroupId": "ARD-LG-36",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1159,7 +1159,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/65",
+    "PartyId": "ARD-PTY-65",
     "PartyName": "Travelling \u0026 Trip Expenses ",
     "OpeningDate": "2021-02-18T00:00:00",
     "ClosingDate": null,
@@ -1170,7 +1170,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Travelling \u0026 Trip Expenses ",
-    "LedgerGroupId": "ARD/LG/37",
+    "LedgerGroupId": "ARD-LG-37",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1178,7 +1178,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/66",
+    "PartyId": "ARD-PTY-66",
     "PartyName": "Dan",
     "OpeningDate": "2021-02-20T00:00:00",
     "ClosingDate": null,
@@ -1189,7 +1189,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "puja expenses",
-    "LedgerGroupId": "ARD/LG/20",
+    "LedgerGroupId": "ARD-LG-20",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1197,7 +1197,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/67",
+    "PartyId": "ARD-PTY-67",
     "PartyName": "Anubha Kumari",
     "OpeningDate": "2021-02-19T00:00:00",
     "ClosingDate": null,
@@ -1208,7 +1208,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "HomeExpenses",
-    "LedgerGroupId": "ARD/LG/10",
+    "LedgerGroupId": "ARD-LG-10",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1216,7 +1216,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/68",
+    "PartyId": "ARD-PTY-68",
     "PartyName": "Iron Elements",
     "OpeningDate": "2021-02-26T00:00:00",
     "ClosingDate": null,
@@ -1227,7 +1227,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "Electronics Goods",
-    "LedgerGroupId": "ARD/LG/41",
+    "LedgerGroupId": "ARD-LG-41",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1235,7 +1235,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/69",
+    "PartyId": "ARD-PTY-69",
     "PartyName": "Telephone Mistry",
     "OpeningDate": "2021-03-08T00:00:00",
     "ClosingDate": null,
@@ -1246,7 +1246,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "puja expenses",
-    "LedgerGroupId": "ARD/LG/20",
+    "LedgerGroupId": "ARD-LG-20",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1254,7 +1254,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/7",
+    "PartyId": "ARD-PTY-7",
     "PartyName": "EMP# MD. HASSAN ",
     "OpeningDate": "2019-10-04T00:00:00",
     "ClosingDate": null,
@@ -1265,7 +1265,7 @@
     "PANNo": "",
     "Address": "PARASAUNIA NEAR MAHHUA POLICE STATION .",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1273,7 +1273,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/70",
+    "PartyId": "ARD-PTY-70",
     "PartyName": "Bhakat Brothers Electronic Shop",
     "OpeningDate": "2021-03-13T00:00:00",
     "ClosingDate": null,
@@ -1284,7 +1284,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Electronics Goods",
-    "LedgerGroupId": "ARD/LG/41",
+    "LedgerGroupId": "ARD-LG-41",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1292,7 +1292,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/71",
+    "PartyId": "ARD-PTY-71",
     "PartyName": "Sindri  Fertilizers",
     "OpeningDate": "2021-03-16T00:00:00",
     "ClosingDate": null,
@@ -1303,7 +1303,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/6",
+    "LedgerGroupId": "ARD-LG-6",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1311,7 +1311,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/72",
+    "PartyId": "ARD-PTY-72",
     "PartyName": "R.S Furniture",
     "OpeningDate": "2021-03-18T00:00:00",
     "ClosingDate": null,
@@ -1322,7 +1322,7 @@
     "PANNo": "NA",
     "Address": "Thana Road, Dumka",
     "Remarks": "Assests",
-    "LedgerGroupId": "ARD/LG/12",
+    "LedgerGroupId": "ARD-LG-12",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1330,7 +1330,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/74",
+    "PartyId": "ARD-PTY-74",
     "PartyName": "Courier",
     "OpeningDate": "2021-03-20T00:00:00",
     "ClosingDate": null,
@@ -1341,7 +1341,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Postage",
-    "LedgerGroupId": "ARD/LG/9",
+    "LedgerGroupId": "ARD-LG-9",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1349,7 +1349,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/75",
+    "PartyId": "ARD-PTY-75",
     "PartyName": "Staff Shoes",
     "OpeningDate": "2021-03-23T00:00:00",
     "ClosingDate": null,
@@ -1360,7 +1360,7 @@
     "PANNo": "",
     "Address": "DUMKA",
     "Remarks": "Staff Shoes",
-    "LedgerGroupId": "ARD/LG/44",
+    "LedgerGroupId": "ARD-LG-44",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1368,7 +1368,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/76",
+    "PartyId": "ARD-PTY-76",
     "PartyName": "Battery",
     "OpeningDate": "2021-04-12T00:00:00",
     "ClosingDate": null,
@@ -1379,7 +1379,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "puja expenses",
-    "LedgerGroupId": "ARD/LG/20",
+    "LedgerGroupId": "ARD-LG-20",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1387,7 +1387,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/77",
+    "PartyId": "ARD-PTY-77",
     "PartyName": "Advertisement Expenses",
     "OpeningDate": "2021-04-12T00:00:00",
     "ClosingDate": null,
@@ -1398,7 +1398,7 @@
     "PANNo": "NA",
     "Address": "DUMKA",
     "Remarks": "",
-    "LedgerGroupId": "ARD/LG/5",
+    "LedgerGroupId": "ARD-LG-5",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1406,7 +1406,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/78",
+    "PartyId": "ARD-PTY-78",
     "PartyName": "Arvind Limited",
     "OpeningDate": "2015-10-01T00:00:00",
     "ClosingDate": null,
@@ -1417,7 +1417,7 @@
     "PANNo": "Pending",
     "Address": "Gurjat",
     "Remarks": "Arvind Limited Groups",
-    "LedgerGroupId": "ARD/LG/45",
+    "LedgerGroupId": "ARD-LG-45",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1425,7 +1425,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/79",
+    "PartyId": "ARD-PTY-79",
     "PartyName": "Pine Labs",
     "OpeningDate": "2021-04-01T00:00:00",
     "ClosingDate": null,
@@ -1436,7 +1436,7 @@
     "PANNo": "Pen",
     "Address": "Delhi",
     "Remarks": "Bank Charges Expenses",
-    "LedgerGroupId": "ARD/LG/46",
+    "LedgerGroupId": "ARD-LG-46",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1444,7 +1444,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/8",
+    "PartyId": "ARD-PTY-8",
     "PartyName": "EMP# IMTIYAZ ",
     "OpeningDate": "2016-08-01T00:00:00",
     "ClosingDate": null,
@@ -1455,7 +1455,7 @@
     "PANNo": "",
     "Address": "",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1463,7 +1463,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/80",
+    "PartyId": "ARD-PTY-80",
     "PartyName": "Prakash Sah",
     "OpeningDate": "2021-08-14T05:16:43.556",
     "ClosingDate": null,
@@ -1474,7 +1474,7 @@
     "PANNo": "NA",
     "Address": "Bhaglpur Road Dumka",
     "Remarks": "Secure Debitor",
-    "LedgerGroupId": "ARD/LG/53",
+    "LedgerGroupId": "ARD-LG-53",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1482,7 +1482,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/81",
+    "PartyId": "ARD-PTY-81",
     "PartyName": "Prakash Sah",
     "OpeningDate": "2021-08-14T05:21:11.036",
     "ClosingDate": null,
@@ -1493,7 +1493,7 @@
     "PANNo": "NA",
     "Address": "Bhaglpur Road Dumka",
     "Remarks": "Secure Debitor",
-    "LedgerGroupId": "ARD/LG/53",
+    "LedgerGroupId": "ARD-LG-53",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1501,7 +1501,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/82",
+    "PartyId": "ARD-PTY-82",
     "PartyName": "Shastri Kumar Associate",
     "OpeningDate": "2013-04-01T17:08:12",
     "ClosingDate": null,
@@ -1512,7 +1512,7 @@
     "PANNo": "NA",
     "Address": "Duragapur",
     "Remarks": "Accountant, CA, fees and taxes",
-    "LedgerGroupId": "ARD/LG/50",
+    "LedgerGroupId": "ARD-LG-50",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1520,7 +1520,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/83",
+    "PartyId": "ARD-PTY-83",
     "PartyName": "Adjustment Bill",
     "OpeningDate": "2021-08-19T05:15:47.247",
     "ClosingDate": null,
@@ -1531,7 +1531,7 @@
     "PANNo": "NA",
     "Address": "Bhaglpur Road Dumka",
     "Remarks": "Adjustment Bill",
-    "LedgerGroupId": "ARD/LG/51",
+    "LedgerGroupId": "ARD-LG-51",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1539,7 +1539,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/84",
+    "PartyId": "ARD-PTY-84",
     "PartyName": "Discount Bill",
     "OpeningDate": "2021-08-21T05:05:50.84",
     "ClosingDate": null,
@@ -1550,7 +1550,7 @@
     "PANNo": "AJHPA7396P",
     "Address": "Bhaglpur Road Dumka",
     "Remarks": "Discount Bill",
-    "LedgerGroupId": "ARD/LG/52",
+    "LedgerGroupId": "ARD-LG-52",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1558,7 +1558,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/87",
+    "PartyId": "ARD-PTY-87",
     "PartyName": "Legal Expenses",
     "OpeningDate": "2022-01-09T05:15:03",
     "ClosingDate": null,
@@ -1569,7 +1569,7 @@
     "PANNo": "AJHPA7396P",
     "Address": "Bhaglpur Road Dumka",
     "Remarks": "Legal Expenses",
-    "LedgerGroupId": "ARD/LG/58",
+    "LedgerGroupId": "ARD-LG-58",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1577,7 +1577,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/88",
+    "PartyId": "ARD-PTY-88",
     "PartyName": "Gopi Chourasia",
     "OpeningDate": "2022-01-09T05:28:42",
     "ClosingDate": null,
@@ -1588,7 +1588,7 @@
     "PANNo": "AJHPA7396P",
     "Address": "Bhaglpur Road Dumka",
     "Remarks": "Gopi Chourasia",
-    "LedgerGroupId": "ARD/LG/59",
+    "LedgerGroupId": "ARD-LG-59",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1596,7 +1596,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/89",
+    "PartyId": "ARD-PTY-89",
     "PartyName": "Rajendra Prasad Gupta",
     "OpeningDate": "2022-01-11T05:31:48.874",
     "ClosingDate": null,
@@ -1607,7 +1607,7 @@
     "PANNo": "AJHPA7396P",
     "Address": "Bhaglpur Road Dumka",
     "Remarks": "Rajendra Prasad Gupta",
-    "LedgerGroupId": "ARD/LG/60",
+    "LedgerGroupId": "ARD-LG-60",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -1615,7 +1615,7 @@
     "EntryStatus": 1
   },
   {
-    "PartyId": "ARD/PTY/9",
+    "PartyId": "ARD-PTY-9",
     "PartyName": "EMP# IMTIYAZ(A) ",
     "OpeningDate": "2020-01-17T00:00:00",
     "ClosingDate": null,
@@ -1626,7 +1626,7 @@
     "PANNo": "",
     "Address": "",
     "Remarks": "For Employees",
-    "LedgerGroupId": "ARD/LG/1",
+    "LedgerGroupId": "ARD-LG-1",
     "UserId": "AUTOADMIN",
     "IsReadOnly": true,
     "MarkedDeleted": false,

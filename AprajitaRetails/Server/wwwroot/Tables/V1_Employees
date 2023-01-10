@@ -1,6 +1,6 @@
 [
   {
-    "EmployeeId": "ARD/2015/OWN/4",
+    "EmployeeId": "ARD-2015-OWN-4",
     "EmpId": 4,
     "JoiningDate": "2015-10-01T00:00:00",
     "LeavingDate": null,
@@ -22,7 +22,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2016/HK/16",
+    "EmployeeId": "ARD-2016-HK-16",
     "EmpId": 16,
     "JoiningDate": "2016-02-17T00:00:00",
     "LeavingDate": "2016-12-31T00:00:00",
@@ -44,7 +44,7 @@
     "DOB": "2021-02-16T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2016/SLM/2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "EmpId": 2,
     "JoiningDate": "2016-02-17T00:00:00",
     "LeavingDate": "2021-11-21T18:30:00",
@@ -66,7 +66,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2016/SLM/3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "EmpId": 3,
     "JoiningDate": "2016-02-17T00:00:00",
     "LeavingDate": null,
@@ -88,7 +88,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2016/SM/1",
+    "EmployeeId": "ARD-2016-SM-1",
     "EmpId": 1,
     "JoiningDate": "2016-02-17T00:00:00",
     "LeavingDate": null,
@@ -110,7 +110,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2016/TLS/10",
+    "EmployeeId": "ARD-2016-TLS-10",
     "EmpId": 10,
     "JoiningDate": "2016-05-01T00:00:00",
     "LeavingDate": "2019-10-25T00:00:00",
@@ -132,7 +132,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2016/TLS/6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "EmpId": 6,
     "JoiningDate": "2016-08-01T00:00:00",
     "LeavingDate": "2021-10-30T18:30:00",
@@ -154,7 +154,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2016/TLS/8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "EmpId": 8,
     "JoiningDate": "2016-08-01T00:00:00",
     "LeavingDate": null,
@@ -176,7 +176,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2019/TLS/7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "EmpId": 7,
     "JoiningDate": "2019-10-04T00:00:00",
     "LeavingDate": "2021-10-30T18:30:00",
@@ -198,7 +198,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2020/ACC/11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "EmpId": 11,
     "JoiningDate": "2020-09-11T00:00:00",
     "LeavingDate": null,
@@ -220,7 +220,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2020/HK/13",
+    "EmployeeId": "ARD-2020-HK-13",
     "EmpId": 13,
     "JoiningDate": "2020-12-18T00:00:00",
     "LeavingDate": null,
@@ -242,7 +242,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2020/HK/5",
+    "EmployeeId": "ARD-2020-HK-5",
     "EmpId": 5,
     "JoiningDate": "2020-02-24T00:00:00",
     "LeavingDate": null,
@@ -264,7 +264,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2020/TLS/12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "EmpId": 12,
     "JoiningDate": "2020-10-12T00:00:00",
     "LeavingDate": null,
@@ -286,7 +286,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2020/TLS/9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "EmpId": 9,
     "JoiningDate": "2020-01-17T00:00:00",
     "LeavingDate": null,
@@ -308,7 +308,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2021/HK/15",
+    "EmployeeId": "ARD-2021-HK-15",
     "EmpId": 15,
     "JoiningDate": "2021-01-25T00:00:00",
     "LeavingDate": "2021-03-31T18:30:00",
@@ -330,7 +330,7 @@
     "DOB": "1999-12-31T18:30:00"
   },
   {
-    "EmployeeId": "ARD/2021/HK/20",
+    "EmployeeId": "ARD-2021-HK-20",
     "EmpId": 20,
     "JoiningDate": "2021-04-02T00:00:00",
     "LeavingDate": "2021-07-31T18:30:00",
@@ -352,7 +352,7 @@
     "DOB": "2000-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2021/OWN/21",
+    "EmployeeId": "ARD-2021-OWN-21",
     "EmpId": 21,
     "JoiningDate": "2021-08-02T05:09:36",
     "LeavingDate": null,
@@ -374,7 +374,7 @@
     "DOB": "2001-01-16T05:09:36"
   },
   {
-    "EmployeeId": "ARD/2021/OWN/22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "EmpId": 22,
     "JoiningDate": "2021-09-06T04:37:17",
     "LeavingDate": null,
@@ -396,7 +396,7 @@
     "DOB": "1992-02-29T04:37:17"
   },
   {
-    "EmployeeId": "ARD/2021/SLM/14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "EmpId": 14,
     "JoiningDate": "2021-01-04T00:00:00",
     "LeavingDate": null,
@@ -418,7 +418,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2022/ACC/12",
+    "EmployeeId": "ARD-2022-ACC-12",
     "EmpId": 17,
     "JoiningDate": "2022-07-01T00:00:00",
     "LeavingDate": "0001-01-01T00:00:00",
@@ -440,7 +440,7 @@
     "DOB": "0001-01-01T00:00:00"
   },
   {
-    "EmployeeId": "ARD/2022/HK/23",
+    "EmployeeId": "ARD-2022-HK-23",
     "EmpId": 23,
     "JoiningDate": "2022-09-01T15:08:16",
     "LeavingDate": null,

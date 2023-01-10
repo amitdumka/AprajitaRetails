@@ -1,6 +1,6 @@
 [
   {
-    "EDCTerminalId": "EDC/2016/999",
+    "EDCTerminalId": "EDC-2016-999",
     "Name": "OLDMachine",
     "OnDate": "2016-01-01T00:00:00",
     "TID": "NA",
@@ -16,7 +16,7 @@
     "EntryStatus": 0
   },
   {
-    "EDCTerminalId": "EDC/2022/001",
+    "EDCTerminalId": "EDC-2022-001",
     "Name": "SBI",
     "OnDate": "2022-05-12T10:37:07.0942393",
     "TID": "NA",
@@ -32,7 +32,7 @@
     "EntryStatus": 0
   },
   {
-    "EDCTerminalId": "EDC/2022/002",
+    "EDCTerminalId": "EDC-2022-002",
     "Name": "EasyTab ICICI",
     "OnDate": "2022-05-12T10:37:07.0942389",
     "TID": "NA",
@@ -48,7 +48,7 @@
     "EntryStatus": 0
   },
   {
-    "EDCTerminalId": "EDC/2022/003",
+    "EDCTerminalId": "EDC-2022-003",
     "Name": "PineLab BOM",
     "OnDate": "2022-05-12T10:37:07.0940906",
     "TID": "NA",

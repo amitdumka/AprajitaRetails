@@ -5,7 +5,7 @@
     "StoreName": "Aprajita Retails",
     "BeginDate": "2016-02-17T00:00:00",
     "EndDate": null,
-    "IsActive": false,
+    "IsActive": true,
     "StoreManager": "Alok Kumar",
     "StoreManagerContactNo": " ",
     "StorePhoneNumber": "0643422461",
@@ -17,6 +17,26 @@
     "PanNo": "AJHPA7396P",
     "GSTIN": "20AJHPA739P1zv",
     "VatNo": "NA",
-    "MarkedDeleted": true
+    "MarkedDeleted": false
+  },
+  {
+    "StoreId": "ARJ",
+    "StoreCode": "JHC0014",
+    "StoreName": "Aprajita Retails, Jamshedpur",
+    "BeginDate": "2017-09-01T00:00:00",
+    "EndDate": "2019-01-31T00:00:00",
+    "IsActive": false,
+    "StoreManager": "Alok Kumar",
+    "StoreManagerContactNo": " ",
+    "StorePhoneNumber": " ",
+    "StoreEmailId": "thearvindstoredumka@gmail.com",
+    "City": "Jamshedpur",
+    "State": "Jharkhand",
+    "Country": "India",
+    "ZipCode": " ",
+    "PanNo": "AJHPA7396P",
+    "GSTIN": "20AJHPA739P1zv",
+    "VatNo": "NA",
+    "MarkedDeleted": false
   }
 ]

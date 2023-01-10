@@ -1,10 +1,10 @@
 [
   {
-    "EmployeeId": "ARD/2015/OWN/4",
+    "EmployeeId": "ARD-2015-OWN-4",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "498622083832",
     "PanNo": "AJHPA7396P",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "Udit Narayan Sah",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
@@ -19,7 +19,7 @@
     "IFSCode": "ICIC00000630"
   },
   {
-    "EmployeeId": "ARD/2016/HK/16",
+    "EmployeeId": "ARD-2016-HK-16",
     "DateOfBirth": "2021-02-16T00:00:00",
     "AdharNumber": "NA",
     "PanNo": "NA",
@@ -38,11 +38,11 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2016/SLM/2",
+    "EmployeeId": "ARD-2016-SLM-2",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "724472219858",
     "PanNo": "FLLPM9271C.",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "Ramesh Prasad Mishra",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
@@ -57,15 +57,15 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2016/SLM/3",
+    "EmployeeId": "ARD-2016-SLM-3",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "725703718377",
     "PanNo": "BHGPM4424A",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "Madno Sodnan Mandal",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
-    "HighestQualification": "N/A",
+    "HighestQualification": "N-A",
     "UserId": "AmitKumar",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -76,15 +76,15 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2016/SM/1",
+    "EmployeeId": "ARD-2016-SM-1",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "483173455467",
     "PanNo": "FDVPK0626P",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "Rabindra Chandra Das",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
-    "HighestQualification": "N/A",
+    "HighestQualification": "N-A",
     "UserId": "AmitKumar",
     "IsReadOnly": true,
     "MarkedDeleted": false,
@@ -95,7 +95,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2016/TLS/10",
+    "EmployeeId": "ARD-2016-TLS-10",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "",
     "PanNo": "",
@@ -114,11 +114,11 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2016/TLS/6",
+    "EmployeeId": "ARD-2016-TLS-6",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "848299388226",
     "PanNo": "BPNA4167B",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "Md.Shakil Ahmad",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
@@ -133,7 +133,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2016/TLS/8",
+    "EmployeeId": "ARD-2016-TLS-8",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "",
     "PanNo": "",
@@ -152,7 +152,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2019/TLS/7",
+    "EmployeeId": "ARD-2019-TLS-7",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "349355348805",
     "PanNo": "ARRPH5898P",
@@ -171,11 +171,11 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2020/ACC/11",
+    "EmployeeId": "ARD-2020-ACC-11",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "538766592132",
     "PanNo": "",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "Rajesh Kumar Verma",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
@@ -190,7 +190,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2020/HK/13",
+    "EmployeeId": "ARD-2020-HK-13",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "783399167839",
     "PanNo": "",
@@ -209,11 +209,11 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2020/HK/5",
+    "EmployeeId": "ARD-2020-HK-5",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "577167214813",
     "PanNo": "",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "Durga Turi",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
@@ -228,7 +228,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2020/TLS/12",
+    "EmployeeId": "ARD-2020-TLS-12",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "813108934984",
     "PanNo": "DBLPA3291L",
@@ -247,7 +247,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2020/TLS/9",
+    "EmployeeId": "ARD-2020-TLS-9",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "",
     "PanNo": "",
@@ -266,7 +266,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2021/HK/15",
+    "EmployeeId": "ARD-2021-HK-15",
     "DateOfBirth": "1999-12-31T18:30:00",
     "AdharNumber": "NA",
     "PanNo": "NA",
@@ -285,11 +285,11 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2021/HK/20",
+    "EmployeeId": "ARD-2021-HK-20",
     "DateOfBirth": "2000-01-01T00:00:00",
     "AdharNumber": "NA",
     "PanNo": "NA",
-    "OtherIdDetails": "N/A",
+    "OtherIdDetails": "N-A",
     "FatherName": "NA",
     "MaritalStatus": "Married",
     "SpouseName": "NA",
@@ -304,7 +304,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2021/OWN/21",
+    "EmployeeId": "ARD-2021-OWN-21",
     "DateOfBirth": "2001-01-16T05:09:36",
     "AdharNumber": "678464783573",
     "PanNo": "NA",
@@ -323,7 +323,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2021/OWN/22",
+    "EmployeeId": "ARD-2021-OWN-22",
     "DateOfBirth": "1992-02-29T04:37:17",
     "AdharNumber": "491197361016",
     "PanNo": "NA",
@@ -342,7 +342,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2021/SLM/14",
+    "EmployeeId": "ARD-2021-SLM-14",
     "DateOfBirth": "0001-01-01T00:00:00",
     "AdharNumber": "293709835450",
     "PanNo": "AOQPT4061E",
@@ -361,7 +361,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2022/ACC/12",
+    "EmployeeId": "ARD-2022-ACC-12",
     "DateOfBirth": "2004-01-01T00:00:00",
     "AdharNumber": "AADhar",
     "PanNo": "PAN",
@@ -380,7 +380,7 @@
     "IFSCode": ""
   },
   {
-    "EmployeeId": "ARD/2022/HK/23",
+    "EmployeeId": "ARD-2022-HK-23",
     "DateOfBirth": "2002-03-02T15:08:16",
     "AdharNumber": "458652277094",
     "PanNo": "NA",
