@@ -59,15 +59,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Shared\Apps\" />
     <Folder Include="Shared\Apps\Menu\" />
     <Folder Include="Pages\Apps\Accounts\Vouchers\Cash\" />
     <Folder Include="Pages\Apps\Accounts\Vouchers\Notes\" />
     <Folder Include="Pages\Apps\Accounts\Vouchers\Transcations\" />
-    <Folder Include="Pages\Apps\Payroll\" />
     <Folder Include="wwwroot\js\bootstrap\" />
     <Folder Include="Pages\Setup\" />
     <Folder Include="Pages\Setup\Import\" />
-    <Folder Include="Pages\Apps\Payroll\Employees\" />
   </ItemGroup>
 </Project>
