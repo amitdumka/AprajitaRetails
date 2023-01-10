@@ -44,7 +44,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
               return NotFound();
           }
             var attendance = await _context.Attendances.FindAsync(id);
-            //attendance.Employee = await _context.Employees.FindAsync(attendance.EmployeeId);
+            attendance.Employee = await _context.Employees.FindAsync(attendance.EmployeeId);
 
             if (attendance == null)
             {
@@ -94,7 +94,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
           {
               return Problem("Entity set 'ARDBContext.Attendance'  is null.");
           }
-            attendance.AttendanceId = PayrollHelper.AttendaceIdGenerator(attendance.StoreId, attendance.EmployeeId, attendance.OnDate);
+            //attendance.AttendanceId = PayrollHelper.AttendaceIdGenerator(attendance.StoreId, attendance.EmployeeId, attendance.OnDate);
             _context.Attendances.Add(attendance);
             try
             {

@@ -196,7 +196,7 @@
     {
         try
         {
-            attendance.AttendanceId = $"{attendance.OnDate.Year}/{attendance.OnDate.Month}/{attendance.OnDate.Day}/{attendance.EmployeeId}";
+            attendance.AttendanceId = $"{attendance.OnDate.Year}-{attendance.OnDate.Month}-{attendance.OnDate.Day}-{DateTime.Now.Hour}";
             
             var result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
 

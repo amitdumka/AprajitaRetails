@@ -1,0 +1,28 @@
+﻿
+@page "/idchange"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+@inject HttpClient Http
+<h3>ID Changer</h3>
+
+<p> ID Change: @changed</p>
+<p> Msg: @msg</p>
+
+@code {
+
+    bool changed = false;
+    string msg = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var c = await Http.GetFromJsonAsync<bool>("ImportHelper/ChangeID");
+        if (c == false) msg = "failed";
+        else msg = "success";
+        changed = c;
+        StateHasChanged();
+    }
+
+}
+

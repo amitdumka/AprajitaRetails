@@ -25,7 +25,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         [HttpGet]
         public async Task<ActionResult<List<FileModel>>> GetFiles()
         {
-            return new ImportData(hostingEnv,aRDB).ListFiles();
+            return new ImportData(hostingEnv, aRDB).ListFiles();
 
         }
         [HttpGet("Add")]
@@ -33,6 +33,14 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         {
             var im = new ImportData(hostingEnv, aRDB);
             return await im.ImportTableAsync(path);
+
+        }
+
+        [HttpGet("ChangeID")]
+        public async Task<ActionResult<bool>> GetChangeID()
+        {
+            IDChanger iD = new IDChanger(aRDB);
+            return await iD.ChangeID();
 
         }
     }

@@ -62,7 +62,7 @@
 @code {
 
     [Parameter] public string? ID { get; set; }
-    [Parameter] public Attendance? entity { get; set; }
+     Attendance? entity;
 
     string Title = "Detail";
 
@@ -76,19 +76,20 @@
     }
     protected override async void OnInitialized()
     {
-        if (string.IsNullOrEmpty(ID) && entity == null)
-        {
-            //Alert for No Entity
-        }
-        else if (!string.IsNullOrEmpty(ID))
+        if (!string.IsNullOrEmpty(ID))
         {
             // Do Fetch Data from DB and Populate.
             //ID = ID ?? "NO ID Found";
 
             entity = await Http.GetFromJsonAsync<Attendance>($"Attendances/{ID}");
-            var emp = await Http.GetFromJsonAsync<Attendance>($"Employees/{entity.EmployeeId}");
+            //var emp = await Http.GetFromJsonAsync<Attendance>($"Employees/{entity.EmployeeId}");
+            Title = "Detail Attendance of " + entity.Employee.StaffName;
+            StateHasChanged();
         }
-
+        else
+        {
+            //alert
+        }
     }
 }
 
