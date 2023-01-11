@@ -1,10 +1,12 @@
-﻿@page "/payroll/attendances/edit"
+﻿@page "/payroll/attendances/edit/{IsEdit:bool}/{*Id}"
 @using AprajitaRetails.Shared.Models.Payroll
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.AdminLte.Forms
 @using Radzen.Blazor
 @using AprajitaRetails.Shared.ViewModels
+@using Syncfusion.Blazor.DropDowns
+
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NotificationService NotificationService
@@ -25,12 +27,20 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
-                    <Title><CardTitle>Add Attendance</CardTitle></Title>
+                    <Title><CardTitle>@Title</CardTitle></Title>
                     <Header><CardTools /></Header>
                     <Body>
                         <Row>
                             <Column Classes="col.md">
-                                <ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
+
+                                @*<ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />*@
+                                <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                            Autofill="true"
+                                            @bind-Value="@attendance.StoreId" PopupHeight="230px"
+                                            DataSource="@Stores">
+                                    <ComboBoxFieldSettings Text="Value" Value="ID" />
+                                </SfComboBox>
+
                             </Column>
                             <Column Classes="col.md">
                                 <div class="mb-3 row">
@@ -66,6 +76,9 @@
                     </Body>
                     <Footer>
                         <Column Classes="col.md._3">
+                            <Button @onclick="BackButton"> Back</Button>
+                        </Column>
+                        <Column Classes="col.md._3">
                             <ASubmitButton Title="Save" />
                         </Column>
                     </Footer>
@@ -79,9 +92,8 @@
 @code {
 
     [Parameter] public string Id { get; set; }
-    [Parameter] public Attendance? EditAttendance { get; set; }
     [Parameter] public bool IsEdit { get; set; } = false;
-
+    // [Parameter] public Attendance? EditAttendance { get; set; }
     private Attendance attendance = new Attendance { OnDate = DateTime.Now };
 
     private IList<SelectOption>? Stores;
@@ -96,8 +108,18 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            Title = "Edit Attendance  #" + EditAttendance.AttendanceId + $" Of {EditAttendance.OnDate}";
-            attendance = EditAttendance;
+            attendance = await Http.GetFromJsonAsync<Attendance>($"Attendances/{Id}");
+            if (attendance != null)
+                Title = "Edit Attendance  #" + attendance.AttendanceId;
+
+            else
+            {
+                Title = $"Attendance ID{Id} not Found!";
+            }
+
+            //TODO: Change Employee id, date, status mode and store id
+
+            StateHasChanged();
         }
         else
         {
@@ -122,6 +144,7 @@
 
     }
 
+    void BackButton() { }
     void ErrorMsg()
     {
         var msg = new Radzen.NotificationMessage
@@ -197,7 +220,7 @@
         try
         {
             attendance.AttendanceId = $"{attendance.OnDate.Year}-{attendance.OnDate.Month}-{attendance.OnDate.Day}-{DateTime.Now.Hour}";
-            
+
             var result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
 
 

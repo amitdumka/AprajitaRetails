@@ -1,0 +1,64 @@
+﻿@page "/Vouchers/Notes/Detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager NavigationManager
+
+@attribute [Authorize]
+@inject HttpClient Http
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
+
+    <EntityRow Lable="ID" Value="@entity.NoteNumber" />
+
+    <EntityRow Lable="Note Type" Value="@entity.NotesType.ToString()" />
+
+    <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+    @if (party != null)
+    {
+        <EntityRow Lable="Ledger" Value="@party.PartyName" />
+    }
+    <EntityRow Lable="PartyName" Value="@entity.PartyName" />
+    <EntityRow Lable="Reason" Value="@entity.Reason" />
+    <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
+    <EntityRow Lable="Gst" Value="@entity.WithGST.ToString()" />
+    <EntityRow Lable="Tax Rate" Value="@entity.TaxRate.ToString()" />
+    <EntityRow Lable="Tax Amount" Value="@entity.TaxAmount.ToString()" />
+    <EntityRow Lable="Net Amount" Value="@entity.NetAmount.ToString()" />
+    <EntityRow Lable="Remarks" Value="@entity.Remarks.ToString()" />
+
+
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    Note? entity;
+    Employee? employee;
+    Party? party;
+
+    string Title = "Details";
+    bool Loading = true;
+    void BackButton() { NavigationManager.NavigateTo("/vouchers/notes"); }
+    void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+            entity = await Http.GetFromJsonAsync<Note>($"api/Notes/{ID}");
+            Title = "Details of Note: " + entity.NoteNumber;
+            if (string.IsNullOrEmpty(entity.PartyId) == false)
+                party = await Http.GetFromJsonAsync<Party>($"Parties/{entity.PartyId}");
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+}

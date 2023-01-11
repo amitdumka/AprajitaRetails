@@ -1,66 +1,64 @@
-﻿@page "/vouchers/details"
-@using AprajitaRetails.Shared.Models.Vouchers;
+﻿@page "/Vouchers/Detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@using AprajitaRetails.Shared
+@inject NavigationManager NavigationManager
+
 @attribute [Authorize]
 @inject HttpClient Http
 
-@if (Voucher == null)
-{
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
 
+    <EntityRow Lable="Voucher" Value="@entity.VoucherType.ToString()" />
+    <EntityRow Lable="ID" Value="@entity.VoucherNumber" />
+    @if (string.IsNullOrEmpty(entity.SlipNumber) == false)
+    {<EntityRow Lable="Slip No" Value="@entity.SlipNumber" />}
+    <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+    <EntityRow Lable="PartyName" Value="@entity.PartyName" />
+    <EntityRow Lable="Particulars" Value="@entity.Particulars" />
+    <EntityRow Lable="Mode" Value="@entity.PaymentMode.ToString()" />
+    <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
+    <EntityRow Lable="Remarks" Value="@entity.Remarks" />
+    <EntityRow Lable="Acc No" Value="@entity.AccountId.ToString()" />
+    <EntityRow Lable="Payment Details" Value="@entity.PaymentDetails" />
+    @if (party != null)
+    {<EntityRow Lable="Ledger" Value="@party.PartyName" />}
+    @if (employee != null)
+    {<EntityRow Lable="Issued By" Value="@employee.StaffName" />}
 
-<p><em>Loading......</em></p>
-}
-else
-{
-<table>
-    <tr>
-        <td>Voucher Type</td>
-        <td>@Voucher.VoucherType </td>
-    </tr>
-    <tr>
-        <td>Voucher No</td>
-        <td>@Voucher.VoucherNumber</td>
-    </tr>
-    <tr>
-        <td>Party</td>
-        <td>@Voucher.Party</td>
-    </tr>
-    <tr>
-        <td>Particulars</td>
-        <td>@Voucher.Particulars</td>
-    </tr>
-    <tr>
-        <td>Amount</td>
-        <td>@Voucher.Amount</td>
-    </tr>
-    <tr>
-        <td>Paymnet Mode</td>
-        <td>@Voucher.PaymentMode</td>
-    </tr>
-</table>
-}
+</EntityDetails>
 
+@code {
+    [Parameter] public string? ID { get; set; }
+    Voucher? entity;
+    Employee? employee;
+    Party? party;
 
+    string Title = "Details";
+    bool Loading = true;
+    void BackButton() { NavigationManager.NavigateTo("/vouchers"); }
+    void DeleteButton() { }
 
-@code{
-    [Parameter] public string VouvherId { get; set; }
-    [Parameter] public Voucher? Voucher { get; set; }
-
-
-    protected override async Task OnInitializedAsync()
+    protected override async void OnInitialized()
     {
-        if (Voucher == null)
+        if (!string.IsNullOrEmpty(ID))
         {
-            try {
+            //ID = ID ?? "NO ID Found";
+            entity = await Http.GetFromJsonAsync<Voucher>($"api/Vouchers/{ID}");
+            Title = "Details of VCH: " + entity.VoucherNumber;
+            employee = await Http.GetFromJsonAsync<Employee>($"Employees/{entity.EmployeeId}");
+            if (string.IsNullOrEmpty(entity.PartyId) == false)
+                party = await Http.GetFromJsonAsync<Party>($"Parties/{entity.PartyId}");
 
-                Voucher = await Http.GetFromJsonAsync<Voucher>($"Vouchers/{VouvherId}");
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-            }
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
         }
     }
 }

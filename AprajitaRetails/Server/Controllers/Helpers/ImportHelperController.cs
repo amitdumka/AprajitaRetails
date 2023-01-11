@@ -36,13 +36,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
 
         }
 
-        [HttpGet("ChangeID")]
-        public async Task<ActionResult<bool>> GetChangeID()
-        {
-            IDChanger iD = new IDChanger(aRDB);
-            return await iD.ChangeID();
-
-        }
+        
     }
 }
 
