@@ -6,7 +6,8 @@
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href=@Edit>Edit</a></li>
         <li><a class="dropdown-item" href=@Detail>Details</a></li>
-        <li><a class="dropdown-item" href=@Delete>Delete</a></li>
+      @*  <li><a class="dropdown-item" href=@Delete>Delete</a></li>*@
+        <li><button class="dropdown-item" @onclick=@Delete>Delete</button></li>
         @*<li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Separated link</a></li>*@
     </ul>
@@ -18,17 +19,24 @@
     [Parameter] public string Id { get; set; } = "#";
     [EditorRequired]
     [Parameter] public string Link { get; set; } = "";
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickDelete { get; set; }
 
     public string Edit;
     public string Detail;
-    public string Delete;
+   // public string Delete;
     protected override async Task OnInitializedAsync()
     {
 
         Edit = $"{Link}/Edit/true/{Id}";
         Detail = $"{Link}/Detail/{Id}";
-        Delete = $"{Link}/Delete/{Id}";
+        //Delete = $"{Link}/Delete/{Id}";
 
+    }
+    private async void Delete(MouseEventArgs e)
+    {
+        if (OnClickDelete.HasDelegate)
+            await OnClickDelete.InvokeAsync(e);
     }
 
 

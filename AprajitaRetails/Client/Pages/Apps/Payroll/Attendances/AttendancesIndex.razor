@@ -41,7 +41,7 @@
                 <Body>
                     <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
                         <TableHead>
-                           @* <TableHeadCell>ID</TableHeadCell>*@
+                            @* <TableHeadCell>ID</TableHeadCell>*@
                             <TableHeadCell>Date</TableHeadCell>
                             <TableHeadCell>Name</TableHeadCell>
                             <TableHeadCell>Time</TableHeadCell>
@@ -55,17 +55,17 @@
                             @foreach (var ent in entities)
                             {
                                 <TableRow>
-                                   @* <TableCell>@ent.AttendanceId</TableCell>*@
+                                    @* <TableCell>@ent.AttendanceId</TableCell>*@
                                     <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
                                     <TableCell>@StaffName(ent.EmployeeId)</TableCell>
-                                   
+
                                     <TableCell>@ent.EntryTime</TableCell>
 
                                     <TableCell>@ent.Status</TableCell>
                                     <TableCell>@ent.Remarks</TableCell>
                                     @*<TableCell>@ent.StoreId</TableCell>*@
                                     <TableCell>
-                                        <ActionMenu Link="/payroll/attendances" Id="@ent.AttendanceId" />
+                                        <ActionMenu Link="/payroll/attendances" Id="@ent.AttendanceId" OnClickDelete="()=>ConfirmDelete(ent.AttendanceId)" />
                                     </TableCell>
                                 </TableRow>
                             }
@@ -78,13 +78,10 @@
 
 </ContentMain>
 
-
-
-
 @code {
 
     private const string Title = "Attendances";
-    private Attendance[]? entities;
+    private List<Attendance>? entities;
     private Employee[]? employees;
 
     private string StaffName(string id)
@@ -97,7 +94,7 @@
         try
         {
             employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
-            entities = await Http.GetFromJsonAsync<Attendance[]>("Attendances");
+            entities = await Http.GetFromJsonAsync<List<Attendance>>("Attendances");
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -105,15 +102,6 @@
         }
     }
 
-    void OnEdit(string id)
-    {
-        Msg(id, "OnEdit");
-        var att = entities.First(c => c.AttendanceId == id);
-        att.Employee = employees.First(c => c.EmployeeId == att.EmployeeId);
-        NavigationManager.NavigateTo("/payroll/attendances/details/@att");
-
-    }
-    void OnDetail(string id) { Msg(id, "OnDetails"); }
     void OnDelete(string id)
     {
         Msg(id, "OnDelete");
@@ -121,16 +109,16 @@
     }
     async void ConfirmDelete(string id)
     {
-        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete these items?", "Delete Multiple Items");
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Attendance");
         //string confirmMessage = isConfirm ? "" : "canceled";
         if (isConfirm)
         {
-            var result =await Http.DeleteAsync($"Attendance/{id}");
+            var result = await Http.DeleteAsync($"Attendances/{id}");
             if (result.IsSuccessStatusCode)
             {
-
+                entities.Remove(entities.First(c => c.AttendanceId == id));
+                StateHasChanged();
                 Msg("Attendane Delete", $"Attendance {id} is deleted");
-
             }
             else
             {
