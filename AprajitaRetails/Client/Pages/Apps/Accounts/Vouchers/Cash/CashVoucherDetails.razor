@@ -12,10 +12,11 @@
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
 
+    <EntityRow Lable="Voucher" Value="@entity.VoucherType.ToString()" />
     <EntityRow Lable="ID" Value="@entity.VoucherNumber" />
     <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
     @if (string.IsNullOrEmpty(entity.SlipNumber) == false)
-        {<EntityRow Lable="Slip No" Value="@entity.SlipNumber" />}
+    {<EntityRow Lable="Slip No" Value="@entity.SlipNumber" />}
     <EntityRow Lable="Mode" Value="@modes.TransactionName" />
     <EntityRow Lable="PartyName" Value="@entity.PartyName" />
     <EntityRow Lable="Particulars" Value="@entity.Particulars" />
@@ -23,9 +24,9 @@
     <EntityRow Lable="Remarks" Value="@entity.Remarks" />
 
     @if (party != null)
-        {<EntityRow Lable="Ledger" Value="@party.PartyName" />}
+    {<EntityRow Lable="Ledger" Value="@party.PartyName" />}
     @if (employee != null)
-        { <EntityRow Lable="Issued By" Value="@employee.StaffName" />}
+    {<EntityRow Lable="Issued By" Value="@employee.StaffName" />}
 
 </EntityDetails>
 
