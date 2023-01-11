@@ -1,133 +1,93 @@
 ﻿@page "/payroll/attendances/edit/{IsEdit:bool}/{*Id}"
+@using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.Models.Payroll
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared.ViewModels;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 @using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
 @using Radzen.Blazor
-@using AprajitaRetails.Shared.ViewModels
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Calendars
 @attribute [Authorize]
 @inject HttpClient Http
-@inject NotificationService NotificationService
-@inject NavigationManager NavigationManager
-@inject SfDialogService DialogService
-
-<ContentHeader>
-    <Header>
-        <Blazor.AdminLte.PageTitle Title=@Title />
-    </Header>
-</ContentHeader>
-
 
 <ContentMain>
-    <Row>
-        <Column Classes="col.lg.auto">
+    <EntityEdit @bind-EntityModel=@attendance TItem="@Attendance" Title="Attendance" ApiUrl="Attendances" ReturnUrl="/payroll/attendances" Id="@Id" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
 
-            <EditForm Model=@attendance OnValidSubmit=@SaveButton OnInvalidSubmit=@ErrorMsg>
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-                <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
-                    <Title><CardTitle>@Title</CardTitle></Title>
-                    <Header><CardTools /></Header>
-                    <Body>
-                        <Row>
-                            <Column Classes="col.md">
+                @*<ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />*@
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@attendance.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@attendance.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        @*<RadzenDatePicker @bind-Value=@attendance.OnDate id="ondate" Change=@OnDateChange />*@
+                    </div>
+                </div>
+            </Column>
 
-                                @*<ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />*@
-                                <div class="mb-3 row">
-                                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
-                                    <div class="col-sm-6">
-                                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
-                                                    Autofill="true"
-                                                    @bind-Value="@attendance.StoreId" PopupHeight="230px"
-                                                    DataSource="@Stores">
-                                            <ComboBoxFieldSettings Text="Value" Value="ID" />
-                                        </SfComboBox>
-                                    </div>
-                                </div>
-                            </Column>
-                            <Column Classes="col.md">
-                                <div class="mb-3 row">
-                                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
-                                    <div class="col-sm-6">
-                                        <SfDatePicker Value="@attendance.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
-                                        @*<RadzenDatePicker @bind-Value=@attendance.OnDate id="ondate" Change=@OnDateChange />*@
-                                    </div>
-                                </div>
-                            </Column>
+        </Row>
 
-                        </Row>
+        <Row>
+            <Column Classes="col.md">
+                @* <ASelect ValueChanged="@OnEmployeeSelected" Label="Employee" Name="Employees" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" />*@
+                <div class="mb-3 row">
+                    <label for="Employee" class="col-sm-4 col-form-label">Employee</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
+                                    Autofill="true"
+                                    @bind-Value="@attendance.EmployeeId" PopupHeight="230px"
+                                    DataSource="@Employees">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                @*<ASelect ValueChanged="@onStatusChange" Label="Status" Name="Status" TItem="string" Items="AttUnits" Selector="(x => x)" />*@
+                <div class="mb-3 row">
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="AttUnit" TItem="string" Placeholder="Status"
+                                    Autofill="true"
+                                    @bind-Value="@attendance.Status" PopupHeight="230px"
+                                    DataSource="@AttUnits">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
 
-                        <Row>
-                            <Column Classes="col.md">
-                                @* <ASelect ValueChanged="@OnEmployeeSelected" Label="Employee" Name="Employees" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" />*@
-                                <div class="mb-3 row">
-                                    <label for="Employee" class="col-sm-4 col-form-label">Employee</label>
-                                    <div class="col-sm-6">
-                                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
-                                                    Autofill="true"
-                                                    @bind-Value="@attendance.EmployeeId" PopupHeight="230px"
-                                                    DataSource="@Employees">
-                                            <ComboBoxFieldSettings Text="Value" Value="ID" />
-                                        </SfComboBox>
-                                    </div>
-                                </div>
-                            </Column>
-                            <Column Classes="col.md">
-                                @*<ASelect ValueChanged="@onStatusChange" Label="Status" Name="Status" TItem="string" Items="AttUnits" Selector="(x => x)" />*@
-                                <div class="mb-3 row">
-                                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
-                                    <div class="col-sm-6">
-                                        <SfComboBox TValue="AttUnit" TItem="string" Placeholder="Status"
-                                                    Autofill="true"
-                                                    @bind-Value="@attendance.Status" PopupHeight="230px"
-                                                    DataSource="@AttUnits">
-                                            <ComboBoxFieldSettings Text="Value" Value="ID" />
-                                        </SfComboBox>
-                                    </div>
-                                </div>
+            </Column>
 
-                            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.EntryTime Name="EntryTime" Label="Entry Time" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.Remarks Name="Remarks" Label="Remarks" /></Column>
 
-                        </Row>
-                        <Row>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.EntryTime Name="EntryTime" Label="Entry Time" /></Column>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.Remarks Name="Remarks" Label="Remarks" /></Column>
-
-                        </Row>
-                        <Row>
-                            <Column Classes="col.md">
-                                <ACheckBox Title="Tailor" Name="isTailor" @bind-Checked="@attendance.IsTailoring" />
-                            </Column>
-                        </Row>
-
-                    </Body>
-                    <Footer>
-                        <Row>
-                            <Column Classes="col.sm._2">
-                                <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
-                                        @onclick="BackButton">
-                                    Back
-                                </Button>
-                            </Column>
-                            <Column Classes="col.md._3">
-                                <ASubmitButton Title="Save" />
-                            </Column>
-                        </Row>
-                    </Footer>
-                </Card>
-            </EditForm>
-        </Column>
-    </Row>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ACheckBox Title="Tailor" Name="isTailor" @bind-Checked="@attendance.IsTailoring" />
+            </Column>
+        </Row>
+    </EntityEdit>
 </ContentMain>
-
-
 @code {
-
-    [Parameter] public string Id { get; set; }
-    [Parameter] public bool IsEdit { get; set; } = false;
-    // [Parameter] public Attendance? EditAttendance { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
     private Attendance attendance = new Attendance { OnDate = DateTime.Now };
 
     private IList<SelectOption>? Stores;
@@ -135,7 +95,21 @@
     IList<string> AttUnits = Enum.GetNames(typeof(AttUnit));
     bool isTailor = false;
 
-    private string Title = "Attendance";
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees?storeid=all");
+            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
+            return true;
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+            return false;
+        }
+
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -143,21 +117,10 @@
         if (IsEdit)
         {
             attendance = await Http.GetFromJsonAsync<Attendance>($"Attendances/{Id}");
-            if (attendance != null)
-                Title = "Edit Attendance  #" + attendance.AttendanceId;
-
-            else
-            {
-                Title = $"Attendance ID{Id} not Found!";
-            }
-
-            //TODO: Change Employee id, date, status mode and store id
-
             StateHasChanged();
         }
         else
         {
-            Title = "Add Attendance";
             attendance = new Attendance
                 {
                     OnDate = DateTime.Now,
@@ -172,152 +135,8 @@
                     Status = AttUnit.Present,
                     UserId = "BlazorUI",
                     EntryTime = $"{DateTime.Now.ToShortTimeString()}"
-
                 };
         }
 
-    }
-
-    void BackButton() { NavigationManager.NavigateTo("/payroll/attendances"); }
-    void ErrorMsg()
-    {
-        var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Error",
-                Detail = "Invalid Sate",
-                Duration = 14000
-            };
-        NotificationService.Notify(msg);
-    }
-    void SaveButton()
-    {
-        Save();
-
-    }
-
-    private bool ValidEntry()
-    {
-        //bool flag = true;
-        if (string.IsNullOrEmpty(attendance.EmployeeId) || string.IsNullOrEmpty(attendance.EntryTime)
-            || attendance.OnDate == null || attendance.Status == null) return false;
-        return true;
-    }
-
-    private async Task<bool> FetchSelectData()
-    {
-        try
-        {
-
-            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees?storeid=all");
-            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
-            return true;
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-            return false;
-        }
-
-
-    }
-    //Value Change Handler
-    void OnDateChange(DateTime? value) => attendance.OnDate = value.Value;
-    void onStatusChange(string value) => attendance.Status = (AttUnit)AttUnits.IndexOf(value);
-    //void OnStoreSelected(SelectOption value) => attendance.StoreId = value.ID;
-    //void OnEmployeeSelected(SelectOption value) => attendance.EmployeeId = value.ID;
-    void OnTailorChecked(bool value) => attendance.IsTailoring = value;
-
-    void OnStoreSelected(SelectOption value)
-    {
-        attendance.StoreId = value.ID;
-        Msg(value.ID, value.Value);
-    }
-    void OnEmployeeSelected(SelectOption value)
-    {
-        attendance.EmployeeId = value.ID;
-        Msg(value.ID, value.Value);
-    }
-    void Msg(string title, string text, bool isError = false)
-    {
-        var msg = new Radzen.NotificationMessage
-            {
-                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
-        NotificationService.Notify(msg);
-    }
-    private async void Save()
-    {
-        try
-        {
-            //attendance.AttendanceId = $"{attendance.OnDate.Year}-{attendance.OnDate.Month}-{attendance.OnDate.Day}-{DateTime.Now.Hour}";
-            HttpResponseMessage? result;
-
-            if (!IsEdit)
-                result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
-            else
-                result = await Http.PutAsJsonAsync<Attendance>($"Attendances/{attendance.AttendanceId}", attendance);
-
-
-            if (result.IsSuccessStatusCode)
-            {
-                var ext = IsEdit ? " edited!" : "added!";
-                var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Info,
-                        Summary = "Info",
-                        Detail = $"{Employees.First(c => c.ID == attendance.EmployeeId).Value}'s Attendance is {ext}",
-                        Duration = 10000
-                    };
-                NotificationService.Notify(msg);
-
-            }
-            else
-            {
-                var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Error,
-                        Summary = "Error",
-                        Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
-                        Duration = 10000
-                    };
-                NotificationService.Notify(msg);
-            }
-        }
-        catch (Exception ex)
-        {
-            var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Error",
-                    Detail = "Error Msg \n" + ex.Message,
-                    Duration = 14000
-                };
-            NotificationService.Notify(msg);
-        }
-
-    }
-    async void ConfirmDelete(string id)
-    {
-        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete these items?", "Delete Multiple Items");
-        //string confirmMessage = isConfirm ? "" : "canceled";
-        if (isConfirm)
-        {
-            var result = await Http.DeleteAsync($"Attendance/{id}");
-            if (result.IsSuccessStatusCode)
-            {
-
-                Msg("Attendane Delete", $"Attendance {id} is deleted");
-
-            }
-            else
-            {
-                Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
-            }
-        }
     }
 }
-

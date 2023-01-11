@@ -4,8 +4,10 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
 @attribute [Authorize]
-@inject HttpClient Http
+@inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
 
 <ContentHeader>
     <Header>
@@ -23,13 +25,11 @@
             <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
                 <Title>
                     <CardTitle>Vouchers</CardTitle>
-
                 </Title>
                 <Header>
                     <CardTools>
                         <CustomTools>
                             <a class="btn btn-primary btn-xs btn" href="/vouchers/edit">Add</a>
-                            
                         </CustomTools>
                     </CardTools>
                 </Header>
@@ -64,7 +64,7 @@
                                     <TableCell>@vch.EmployeeId</TableCell>
                                     <TableCell>@vch.SlipNumber</TableCell>
                                     <TableCell>
-                                        <AprajitaRetails.AdminLte.ActionMenu Link="/vouchers" Id="@vch.VoucherNumber" />
+                                        <AprajitaRetails.AdminLte.ActionMenu Link="/vouchers" Id="@vch.VoucherNumber" OnClickDelete="()=>ConfirmDelete(vch.VoucherNumber)" />
                                     </TableCell>
                                 </TableRow>
                             }
@@ -76,13 +76,13 @@
     }
 </ContentMain>
 @code {
-    private Voucher[]? vchlist;
+    private List<Voucher>? vchlist;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            vchlist = await Http.GetFromJsonAsync<Voucher[]>("api/Vouchers");
+            vchlist = await Http.GetFromJsonAsync<List<Voucher>>("api/Vouchers");
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -90,10 +90,34 @@
         }
     }
 
-    void GetVoucherDetails(string voucherNo)
+    async void ConfirmDelete(string id)
     {
-        var vch = vchlist.First(c => c.VoucherNumber == voucherNo);
-        NavigationManager.NavigateTo("vouchers/details");
-        
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Voucher");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"Attendances/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                vchlist.Remove(vchlist.First(c => c.VoucherNumber == id));
+                StateHasChanged();
+                Msg("Voucher Delete", $"Voucher No {id} is deleted");
+            }
+            else
+            {
+                Msg("Voucher Delete", $" Error : Voucher No {id} is not deleted", true);
+            }
+        }
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
     }
 }

@@ -1,0 +1,112 @@
+﻿@namespace AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Forms
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+@typeparam TItem
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <Row>
+        <Column Classes="col.lg.auto">
+            <EditForm Model=@EntityModel OnValidSubmit=@Save OnInvalidSubmit=@ErrorMsg>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
+                    <Title><CardTitle>@Title</CardTitle></Title>
+                    <Header><CardTools /></Header>
+                    <Body>
+                        @ChildContent
+                    </Body>
+                    <Footer>
+                        <Row>
+                            <Column Classes="col.sm._2">
+                                <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
+                                        @onclick="BackButton">
+                                    Back
+                                </Button>
+                            </Column>
+                            <Column Classes="col.md._3">
+                                <ASubmitButton Title="Save" />
+                            </Column>
+                        </Row>
+                    </Footer>
+                </Card>
+            </EditForm>
+        </Column>
+    </Row>
+
+</ContentMain>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public bool IsEdit { get; set; } = true;
+    [Parameter] public string ReturnUrl { get; set; } = "/";
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string ApiUrl { get; set; } = "";
+    private string className = "";
+    [Parameter] public TItem? EntityModel { get; set; }
+
+    private void ErrorMsg() { Msg("Error", "Invalid State, Kindly check all fields and try again!", true); }
+    private void SaveButton() { Save(); }
+    private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
+    [Parameter]
+    public EventCallback<TItem> EntityModelChanged { get; set; }
+    private async Task OnEntityModelChanged(ChangeEventArgs e)
+    {
+        EntityModel = (TItem)e.Value;
+        await EntityModelChanged.InvokeAsync(EntityModel);
+    }
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
+    }
+    private async void Save()
+    {
+        try
+        {
+            HttpResponseMessage? result;
+
+            if (!IsEdit)
+                result = await Http.PostAsJsonAsync<TItem>(ApiUrl, EntityModel);
+            else
+                result = await Http.PutAsJsonAsync<TItem>($"{ApiUrl}/{Id}", EntityModel);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var ext = $"{className} is" + (IsEdit ? " edited!" : "added!");
+                Msg(IsEdit?"Edited ":" Saved ", ext);
+
+            }
+            else
+            {
+                Msg("Error", $"An error occured while saving {className} and error is {result.StatusCode.ToString()}", true);
+            }
+        }
+        catch (Exception e)
+        {
+            Msg("Error", $"An error occured while saving {className} and error is \n {e.Message}", true);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        className = Title;
+        if (IsEdit) Title = $"Edit {className} Id: {Id} ";
+        else Title = "Add " + Title;
+    }
+
+}

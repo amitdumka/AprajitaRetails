@@ -1,10 +1,15 @@
 ﻿@page "/temp"
+
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
 @using AprajitaRetails.Shared.Models.Payroll
-@attribute [Authorize]
+@using AprajitaRetails.AdminLte
 
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
 @inject HttpClient Http
 
 <ContentHeader>
@@ -16,7 +21,6 @@
 
     @if (entities == null)
     {
-
 
         <p><em>Loading...</em></p>
     }
@@ -31,9 +35,9 @@
                 <Header>
                     <CardTools>
                         <CustomTools>
-                            <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary">
-                                Add
-                            </Button>
+                            <CustomTools>
+                                <a class="btn btn-primary btn-xs btn" href="/payroll/attendances/edit/false">Add</a>
+                            </CustomTools>
                         </CustomTools>
                     </CardTools>
                 </Header>
@@ -65,9 +69,9 @@
                                     <TableCell>@ent.JoiningDate.ToShortDateString()</TableCell>
                                     <TableCell>@ent.LeavingDate.GetValueOrDefault().ToShortDateString()</TableCell>
                                     <TableCell>@ent.StoreId.</TableCell>
-                                    <TableCell><div>
-                                        <Button>I</Button><Button>E</Button><Button>D</Button>
-                                        </div> </TableCell>
+                                    <TableCell>
+                                        <ActionMenu Link="/payroll/attendances" Id="@ent.EmployeeId" OnClickDelete="()=>ConfirmDelete(ent.EmployeeId)" />
+                                    </TableCell>
                                 </TableRow>
                             }
                         </TableBody>
@@ -79,23 +83,51 @@
 
 </ContentMain>
 
+@code {
 
+    private string Title = "Title";
+    private List<Employee>? entities;
 
-
-@code{
-
-    private const string Title = "T";
-    private Employee[]? entities;
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            entities = await Http.GetFromJsonAsync<Employee[]>("Employees");
+            entities = await Http.GetFromJsonAsync<List<Employee>>("Employees");
         }
         catch (AccessTokenNotAvailableException exception)
         {
             exception.Redirect();
         }
+    }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Attendance");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"Attendances/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.EmployeeId == id));
+                StateHasChanged();
+                Msg("Attendane Delete", $"Attendance {id} is deleted");
+            }
+            else
+            {
+                Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
+            }
+        }
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
     }
 
 }

@@ -1,10 +1,12 @@
 ﻿@page "/vouchers/edit"
+
 @using AprajitaRetails.Shared.Models.Vouchers
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.AdminLte.Forms
 @using Radzen.Blazor
 @using AprajitaRetails.Shared.ViewModels
+
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NotificationService NotificationService
@@ -87,7 +89,6 @@
                             <Column Classes="col.sm"></Column>
                         </Row>
 
-
                     </Body>
                     <Footer>
                         <Column Classes="col.md._3">
@@ -99,9 +100,6 @@
         </Column>
     </Row>
 </ContentMain>
-
-
-
 
 @code {
     //TODO: Use bind value in place change in ASelect and See what happen
@@ -180,7 +178,6 @@
     }
     //Swal.fire('Any fool can use a computer')
 
-
     //Value Change Handler
     void OnDateChange(DateTime? value) => voucher.OnDate = value.Value;
     void OnVoucherTypeChange(int? value, string name) => voucher.VoucherType = (VoucherType)value;
@@ -213,7 +210,6 @@
     {
         var result = await Http.PostAsJsonAsync<Voucher>("api/Vouchers", voucher);
 
-
         if (result.IsSuccessStatusCode)
         {
             var msg = new Radzen.NotificationMessage
@@ -239,8 +235,4 @@
         }
     }
 
-
-
-
 }
-

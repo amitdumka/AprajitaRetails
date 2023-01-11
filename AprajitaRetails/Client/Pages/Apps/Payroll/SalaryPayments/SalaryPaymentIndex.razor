@@ -1,0 +1,101 @@
+﻿@page "/payroll/SalaryPayments"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Payroll
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+    <ContentMain>
+        <EntityList Title="@Title" BaseUrl="/payroll/SalaryPayments" Loading=@Loading>
+            <TableHead>
+                <TableHeadCell>ID</TableHeadCell>
+                <TableHeadCell>Employee </TableHeadCell>
+                <TableHeadCell> Componet</TableHeadCell>
+                <TableHeadCell>  Month</TableHeadCell>
+                <TableHeadCell> Date</TableHeadCell>
+                <TableHeadCell>Amount </TableHeadCell>
+                <TableHeadCell> Mode</TableHeadCell>
+                <TableHeadCell>Details </TableHeadCell>
+                <TableHeadCell> </TableHeadCell>
+            </TableHead>
+            <TableBody>
+                @foreach (var ent in entities)
+                {
+                    <TableRow>
+                        <TableCell>@ent.SalaryPaymentId</TableCell>
+                        <TableCell>@StaffName(ent.EmployeeId)</TableCell>
+                        <TableCell>@ent.SalaryComponet.ToString()</TableCell>
+                        <TableCell>@ent.SalaryMonth</TableCell>
+                        <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                        <TableCell>@ent.Amount.ToString()</TableCell>
+                        <TableCell>@ent.PayMode.ToString()</TableCell>
+                        <TableCell>@ent.Details</TableCell>
+
+                        <TableCell>  <ActionMenu Link="/payroll/SalaryPayments" Id="@ent.SalaryPaymentId" OnClickDelete="()=>ConfirmDelete(ent.SalaryPaymentId)" /></TableCell>
+                    </TableRow>
+                }
+            </TableBody>
+        </EntityList>
+    </ContentMain>
+
+@code {
+    private const string Title = "Salary Payment";
+    private List<SalaryPayment>? entities;
+    private Employee[]? employees;
+    private bool Loading = true;
+    private string StaffName(string id)
+    {
+        return employees != null ? employees.First(c => c.EmployeeId == id).StaffName : "";
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
+    }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Attendance");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"Attendances/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.SalaryPaymentId == id));
+                StateHasChanged();
+                Msg("Attendane Delete", $"Attendance {id} is deleted");
+            }
+            else
+            {
+                Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
+            entities = await Http.GetFromJsonAsync<List<SalaryPayment>>("SalaryPayments");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

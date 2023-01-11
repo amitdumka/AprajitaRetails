@@ -41,13 +41,12 @@
                 <Body>
                     <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
                         <TableHead>
-                            @* <TableHeadCell>ID</TableHeadCell>*@
+
                             <TableHeadCell>Date</TableHeadCell>
                             <TableHeadCell>Name</TableHeadCell>
                             <TableHeadCell>Time</TableHeadCell>
                             <TableHeadCell>Status</TableHeadCell>
                             <TableHeadCell>Remarks</TableHeadCell>
-                            @*<TableHeadCell>Store</TableHeadCell>*@
                             <TableHeadCell>     </TableHeadCell>
                         </TableHead>
                         <TableBody>
@@ -102,11 +101,6 @@
         }
     }
 
-    void OnDelete(string id)
-    {
-        Msg(id, "OnDelete");
-
-    }
     async void ConfirmDelete(string id)
     {
         bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Attendance");
