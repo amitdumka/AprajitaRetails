@@ -94,7 +94,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
           {
               return Problem("Entity set 'ARDBContext.Attendance'  is null.");
           }
-            //attendance.AttendanceId = PayrollHelper.AttendaceIdGenerator(attendance.StoreId, attendance.EmployeeId, attendance.OnDate);
+            attendance.AttendanceId = PayrollHelper.AttendanceIdGenerator(attendance.EmployeeId, attendance.OnDate);
             _context.Attendances.Add(attendance);
             try
             {

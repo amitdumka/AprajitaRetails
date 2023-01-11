@@ -6,10 +6,11 @@
 @using Radzen.Blazor
 @using AprajitaRetails.Shared.ViewModels
 @using Syncfusion.Blazor.DropDowns
-
+@using Syncfusion.Blazor.Calendars
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
 
 
 <ContentHeader>
@@ -34,19 +35,24 @@
                             <Column Classes="col.md">
 
                                 @*<ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />*@
-                                <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
-                                            Autofill="true"
-                                            @bind-Value="@attendance.StoreId" PopupHeight="230px"
-                                            DataSource="@Stores">
-                                    <ComboBoxFieldSettings Text="Value" Value="ID" />
-                                </SfComboBox>
-
+                                <div class="mb-3 row">
+                                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                                    <div class="col-sm-6">
+                                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                                    Autofill="true"
+                                                    @bind-Value="@attendance.StoreId" PopupHeight="230px"
+                                                    DataSource="@Stores">
+                                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                                        </SfComboBox>
+                                    </div>
+                                </div>
                             </Column>
                             <Column Classes="col.md">
                                 <div class="mb-3 row">
                                     <label for="ondate" class="col-sm-4 col-form-label">Date</label>
                                     <div class="col-sm-6">
-                                        <RadzenDatePicker @bind-Value=@attendance.OnDate id="ondate" Change=@OnDateChange />
+                                        <SfDatePicker Value="@attendance.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                                        @*<RadzenDatePicker @bind-Value=@attendance.OnDate id="ondate" Change=@OnDateChange />*@
                                     </div>
                                 </div>
                             </Column>
@@ -55,10 +61,33 @@
 
                         <Row>
                             <Column Classes="col.md">
-                                <ASelect ValueChanged="@OnEmployeeSelected" Label="Employee" Name="Employees" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" />
+                                @* <ASelect ValueChanged="@OnEmployeeSelected" Label="Employee" Name="Employees" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" />*@
+                                <div class="mb-3 row">
+                                    <label for="Employee" class="col-sm-4 col-form-label">Employee</label>
+                                    <div class="col-sm-6">
+                                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
+                                                    Autofill="true"
+                                                    @bind-Value="@attendance.EmployeeId" PopupHeight="230px"
+                                                    DataSource="@Employees">
+                                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                                        </SfComboBox>
+                                    </div>
+                                </div>
                             </Column>
                             <Column Classes="col.md">
-                                <ASelect ValueChanged="@onStatusChange" Label="Status" Name="Status" TItem="string" Items="AttUnits" Selector="(x => x)" />
+                                @*<ASelect ValueChanged="@onStatusChange" Label="Status" Name="Status" TItem="string" Items="AttUnits" Selector="(x => x)" />*@
+                                <div class="mb-3 row">
+                                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                                    <div class="col-sm-6">
+                                        <SfComboBox TValue="AttUnit" TItem="string" Placeholder="Status"
+                                                    Autofill="true"
+                                                    @bind-Value="@attendance.Status" PopupHeight="230px"
+                                                    DataSource="@AttUnits">
+                                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                                        </SfComboBox>
+                                    </div>
+                                </div>
+
                             </Column>
 
                         </Row>
@@ -75,12 +104,17 @@
 
                     </Body>
                     <Footer>
-                        <Column Classes="col.md._3">
-                            <Button @onclick="BackButton"> Back</Button>
-                        </Column>
-                        <Column Classes="col.md._3">
-                            <ASubmitButton Title="Save" />
-                        </Column>
+                        <Row>
+                            <Column Classes="col.sm._2">
+                                <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
+                                        @onclick="BackButton">
+                                    Back
+                                </Button>
+                            </Column>
+                            <Column Classes="col.md._3">
+                                <ASubmitButton Title="Save" />
+                            </Column>
+                        </Row>
                     </Footer>
                 </Card>
             </EditForm>
@@ -101,7 +135,7 @@
     IList<string> AttUnits = Enum.GetNames(typeof(AttUnit));
     bool isTailor = false;
 
-    private string Title = "Add Attendance";
+    private string Title = "Attendance";
 
     protected override async Task OnInitializedAsync()
     {
@@ -123,37 +157,37 @@
         }
         else
         {
-            Title = "Add " + Title;
+            Title = "Add Attendance";
             attendance = new Attendance
-            {
-                OnDate = DateTime.Now,
-                AttendanceId = "",
-                EmployeeId = "",
-                EntryStatus = EntryStatus.Added,
-                IsReadOnly = false,
-                MarkedDeleted = false,
-                Remarks = " ",
-                StoreId = Stores != null ? Stores[0].ID : "ARD",
-                IsTailoring = false,
-                Status = AttUnit.Present,
-                UserId = "BlazorUI",
-                EntryTime = $"{DateTime.Now.ToShortTimeString()}"
+                {
+                    OnDate = DateTime.Now,
+                    AttendanceId = "",
+                    EmployeeId = "",
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    Remarks = " ",
+                    StoreId = Stores != null ? Stores[0].ID : "ARD",
+                    IsTailoring = false,
+                    Status = AttUnit.Present,
+                    UserId = "BlazorUI",
+                    EntryTime = $"{DateTime.Now.ToShortTimeString()}"
 
-            };
+                };
         }
 
     }
 
-    void BackButton() { }
+    void BackButton() { NavigationManager.NavigateTo("/payroll/attendances"); }
     void ErrorMsg()
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = NotificationSeverity.Info,
-            Summary = "Error",
-            Detail = "Invalid Sate",
-            Duration = 14000
-        };
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Error",
+                Detail = "Invalid Sate",
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
     void SaveButton()
@@ -207,56 +241,61 @@
     void Msg(string title, string text, bool isError = false)
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
+            {
+                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
     private async void Save()
     {
         try
         {
-            attendance.AttendanceId = $"{attendance.OnDate.Year}-{attendance.OnDate.Month}-{attendance.OnDate.Day}-{DateTime.Now.Hour}";
+            //attendance.AttendanceId = $"{attendance.OnDate.Year}-{attendance.OnDate.Month}-{attendance.OnDate.Day}-{DateTime.Now.Hour}";
+            HttpResponseMessage? result;
 
-            var result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
+            if (!IsEdit)
+                result = await Http.PostAsJsonAsync<Attendance>("Attendances", attendance);
+            else
+                result = await Http.PutAsJsonAsync<Attendance>($"Attendances/{attendance.AttendanceId}", attendance);
 
 
             if (result.IsSuccessStatusCode)
             {
+                var ext = IsEdit ? " edited!" : "added!";
                 var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Info",
-                    Detail = $"{Employees.First(c => c.ID == attendance.EmployeeId).Value}'s Attendance is added!",
-                    Duration = 10000
-                };
+                    {
+                        Severity = NotificationSeverity.Info,
+                        Summary = "Info",
+                        Detail = $"{Employees.First(c => c.ID == attendance.EmployeeId).Value}'s Attendance is {ext}",
+                        Duration = 10000
+                    };
                 NotificationService.Notify(msg);
 
             }
             else
             {
                 var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Error",
-                    Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
-                    Duration = 10000
-                };
+                    {
+                        Severity = NotificationSeverity.Error,
+                        Summary = "Error",
+                        Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
+                        Duration = 10000
+                    };
                 NotificationService.Notify(msg);
             }
         }
         catch (Exception ex)
         {
             var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Error,
-                Summary = "Error",
-                Detail = "Error Msg \n" + ex.Message,
-                Duration = 14000
-            };
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Error",
+                    Detail = "Error Msg \n" + ex.Message,
+                    Duration = 14000
+                };
             NotificationService.Notify(msg);
         }
 

@@ -6,9 +6,9 @@ namespace AprajitaRetails.Server.BL.Payrolls
 {
 	public class PayrollHelper
 	{
-        public static string AttendaceIdGenerator(string storeid, string empId, DateTime ondate)
+        public static string AttendanceIdGenerator(string empId, DateTime ondate)
         {
-            return $"{ondate.Year}/{ondate.Month}/{ondate.Day}/{empId}";
+            return $"{ondate.Year}-{ondate.Month}-{ondate.Day}-{empId}";
 
         }
     }
