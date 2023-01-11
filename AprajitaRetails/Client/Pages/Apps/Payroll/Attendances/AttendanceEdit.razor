@@ -5,6 +5,8 @@
 @using AprajitaRetails.AdminLte.Forms
 @using Radzen.Blazor
 @using AprajitaRetails.Shared.ViewModels
+@using Syncfusion.Blazor.DropDowns
+
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NotificationService NotificationService
@@ -30,7 +32,15 @@
                     <Body>
                         <Row>
                             <Column Classes="col.md">
-                                <ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
+
+                                @*<ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />*@
+                                <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                            Autofill="true"
+                                            @bind-Value="@attendance.StoreId" PopupHeight="230px"
+                                            DataSource="@Stores">
+                                    <ComboBoxFieldSettings Text="Value" Value="ID" />
+                                </SfComboBox>
+
                             </Column>
                             <Column Classes="col.md">
                                 <div class="mb-3 row">
@@ -66,10 +76,10 @@
                     </Body>
                     <Footer>
                         <Column Classes="col.md._3">
-                            <Button @onclick="BackButton"> Back</Button>  
+                            <Button @onclick="BackButton"> Back</Button>
                         </Column>
                         <Column Classes="col.md._3">
-                             <ASubmitButton Title="Save" />
+                            <ASubmitButton Title="Save" />
                         </Column>
                     </Footer>
                 </Card>
@@ -83,7 +93,7 @@
 
     [Parameter] public string Id { get; set; }
     [Parameter] public bool IsEdit { get; set; } = false;
-    [Parameter] public Attendance? EditAttendance { get; set; }
+    // [Parameter] public Attendance? EditAttendance { get; set; }
     private Attendance attendance = new Attendance { OnDate = DateTime.Now };
 
     private IList<SelectOption>? Stores;
