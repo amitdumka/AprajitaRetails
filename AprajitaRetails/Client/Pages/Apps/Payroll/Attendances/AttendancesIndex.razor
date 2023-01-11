@@ -8,7 +8,7 @@
 @attribute [Authorize]
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
-
+@inject SfDialogService DialogService
 @inject HttpClient Http
 
 <ContentHeader>
@@ -41,9 +41,9 @@
                 <Body>
                     <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
                         <TableHead>
-                            <TableHeadCell>ID</TableHeadCell>
-                            <TableHeadCell>Name</TableHeadCell>
+                           @* <TableHeadCell>ID</TableHeadCell>*@
                             <TableHeadCell>Date</TableHeadCell>
+                            <TableHeadCell>Name</TableHeadCell>
                             <TableHeadCell>Time</TableHeadCell>
                             <TableHeadCell>Status</TableHeadCell>
                             <TableHeadCell>Remarks</TableHeadCell>
@@ -55,9 +55,10 @@
                             @foreach (var ent in entities)
                             {
                                 <TableRow>
-                                    <TableCell>@ent.AttendanceId</TableCell>
-                                    <TableCell>@StaffName(ent.EmployeeId)</TableCell>
+                                   @* <TableCell>@ent.AttendanceId</TableCell>*@
                                     <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                                    <TableCell>@StaffName(ent.EmployeeId)</TableCell>
+                                   
                                     <TableCell>@ent.EntryTime</TableCell>
 
                                     <TableCell>@ent.Status</TableCell>
@@ -80,7 +81,7 @@
 
 
 
-@code{
+@code {
 
     private const string Title = "Attendances";
     private Attendance[]? entities;
@@ -113,16 +114,39 @@
 
     }
     void OnDetail(string id) { Msg(id, "OnDetails"); }
-    void OnDelete(string id) { Msg(id, "OnDelete"); }
+    void OnDelete(string id)
+    {
+        Msg(id, "OnDelete");
+
+    }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete these items?", "Delete Multiple Items");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result =await Http.DeleteAsync($"Attendance/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+
+                Msg("Attendane Delete", $"Attendance {id} is deleted");
+
+            }
+            else
+            {
+                Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
+            }
+        }
+    }
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
 

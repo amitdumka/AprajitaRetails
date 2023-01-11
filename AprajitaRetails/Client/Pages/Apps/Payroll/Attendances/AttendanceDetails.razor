@@ -5,8 +5,11 @@
 @using AprajitaRetails.Shared.Models.Payroll
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
-
+@inject SfDialogService DialogService
 @attribute [Authorize]
 @inject HttpClient Http
 
@@ -47,7 +50,10 @@
                                 <TableRow><TableCell></TableCell> </TableRow>
                                 <TableRow>
                                     <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
-                                    <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    @if (!isDeleted)
+                                    {
+                                        <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    }
                                 </TableRow>
                             </TableBody>
                         </AprajitaRetails.AdminLte.Table.ATable>
@@ -64,17 +70,59 @@
 
     [Parameter] public string? ID { get; set; }
     Attendance? entity;
-
+    bool isDeleted = false;
     string Title = "Detail";
 
     void DeleteButton()
     {
+        ConfirmDelete(ID);
+    }
+
+    async void ConfirmDelete(string id)
+    {
+        try
+        {
+
+            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete Attendance");
+            if (isConfirm)
+            {
+                var result = await Http.DeleteAsync($"Attendances/{id}");
+                if (result.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                    StateHasChanged();
+                    Msg("Attendane Delete", $"Attendance {id} is deleted");
+                    
+                }
+                else
+                {
+                    Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Msg("Error", ex.Message, true);
+        }
 
     }
     void BackButton()
     {
         NavigationManager.NavigateTo("/payroll/attendances");
     }
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
+    }
+
     protected override async void OnInitialized()
     {
         if (!string.IsNullOrEmpty(ID))

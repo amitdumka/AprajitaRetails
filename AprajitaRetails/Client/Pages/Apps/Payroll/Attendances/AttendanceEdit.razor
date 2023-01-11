@@ -11,7 +11,7 @@
 @inject HttpClient Http
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
-
+@inject SfDialogService DialogService
 
 <ContentHeader>
     <Header>
@@ -300,6 +300,24 @@
         }
 
     }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete these items?", "Delete Multiple Items");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"Attendance/{id}");
+            if (result.IsSuccessStatusCode)
+            {
 
+                Msg("Attendane Delete", $"Attendance {id} is deleted");
+
+            }
+            else
+            {
+                Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
+            }
+        }
+    }
 }
 
