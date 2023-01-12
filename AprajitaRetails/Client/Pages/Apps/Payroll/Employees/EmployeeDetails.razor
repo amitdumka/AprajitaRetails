@@ -9,14 +9,14 @@
 @attribute [Authorize]
 @inject HttpClient Http
 
-<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
     <EntityRow Lable="ID" Value="@entity.EmployeeId" />
     <EntityRow Lable="Name" Value="@entity.StaffName" />
     <EntityRow Lable="Birth Date" Value="@entity.DOB.ToString()" />
     <EntityRow Lable="City" Value="@entity.City" />
     <EntityRow Lable="Category" Value="@entity.Category.ToString()" />
-     <EntityRow Lable="Geneder" Value="@entity.Gender.ToString()" />
-     <EntityRow Lable="Joining Date" Value="@entity.JoiningDate.ToString()" />
+    <EntityRow Lable="Geneder" Value="@entity.Gender.ToString()" />
+    <EntityRow Lable="Joining Date" Value="@entity.JoiningDate.ToString()" />
 </EntityDetails>
 
 @code {
@@ -26,8 +26,8 @@
     string Title = "Details";
     bool Loading = true;
     void BackButton() { NavigationManager.NavigateTo("/payroll/employees"); }
-    void DeleteButton(){}
-
+    void DeleteButton() { }
+    bool isDeleted = false;
     protected override async void OnInitialized()
     {
         if (!string.IsNullOrEmpty(ID))

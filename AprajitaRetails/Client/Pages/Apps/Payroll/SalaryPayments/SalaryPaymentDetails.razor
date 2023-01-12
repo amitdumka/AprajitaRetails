@@ -1,0 +1,96 @@
+﻿@page "/payroll/salarypayments/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@attribute [Authorize]
+@inject HttpClient Http
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="ID" Value="@entity.SalaryPaymentId" />
+    <EntityRow Lable="Name" Value="@employee.StaffName" />
+    <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+    <EntityRow Lable="Salary Component" Value="@entity.SalaryComponet.ToString()" />
+    <EntityRow Lable="Month" Value="@entity.SalaryMonth.ToString()" />
+    <EntityRow Lable="Payment " Value="@entity.PayMode.ToString()" />
+    <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
+    <EntityRow Lable="Details" Value="@entity.Details" />
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    SalaryPayment? entity;
+    Employee? employee;
+    string Title = "Details";
+    bool Loading = true;
+    bool isDeleted = false;
+    void BackButton() { NavigationManager.NavigateTo("/payroll/salarypayments"); }
+    //void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+
+            entity = await Http.GetFromJsonAsync<SalaryPayment>($"SalaryPayments/{ID}");
+            employee = await Http.GetFromJsonAsync<Employee>($"Employees/{entity.EmployeeId}");
+            Title = "Payment Details of " + employee.StaffName;
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+    async void DeleteButton()
+    {
+        try
+        {
+
+            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete Salary Payment");
+            if (isConfirm)
+            {
+                var result = await Http.DeleteAsync($"SalaryPayments/{ID}");
+                if (result.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                    StateHasChanged();
+                    Msg("Salary Payment Delete", $"SalaryPayment {ID} is deleted");
+
+                }
+                else
+                {
+                    Msg("Salary Payment Delete", $" Error : SalaryPayment {ID} is not deleted", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Msg("Error", ex.Message, true);
+        }
+
+    }
+
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+
+
+
+}

@@ -29,7 +29,9 @@
                                 <TableRow><TableCell></TableCell> </TableRow>
                                 <TableRow>
                                     <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
-                                    <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    @if (!Deleted)
+                                    {<TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    }
                                 </TableRow>
                             </TableBody>
                         </AprajitaRetails.AdminLte.Table.ATable>
@@ -49,6 +51,7 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public EventCallback<MouseEventArgs> OnBack { get; set; }
     [Parameter] public EventCallback<MouseEventArgs> OnDelete { get; set; }
+    [Parameter] public bool Deleted { get; set; } = false;
 
     private async void DeleteButton(MouseEventArgs e)
     {
