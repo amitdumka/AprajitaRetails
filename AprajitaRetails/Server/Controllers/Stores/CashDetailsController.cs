@@ -90,6 +90,8 @@ namespace AprajitaRetails.Server.Controllers.Stores
           {
               return Problem("Entity set 'ARDBContext.CashDetail'  is null.");
           }
+
+          //TODO:Cash Detail ID generation
             _context.CashDetails.Add(cashDetail);
             try
             {

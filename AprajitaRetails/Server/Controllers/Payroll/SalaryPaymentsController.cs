@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using AprajitaRetails.Server.BL.Payrolls;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -25,10 +26,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SalaryPayment>>> GetSalaryPayment()
         {
-          if (_context.SalaryPayments == null)
-          {
-              return NotFound();
-          }
+            if (_context.SalaryPayments == null)
+            {
+                return NotFound();
+            }
             return await _context.SalaryPayments.ToListAsync();
         }
 
@@ -36,10 +37,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet("{id}")]
         public async Task<ActionResult<SalaryPayment>> GetSalaryPayment(string id)
         {
-          if (_context.SalaryPayments == null)
-          {
-              return NotFound();
-          }
+            if (_context.SalaryPayments == null)
+            {
+                return NotFound();
+            }
             var salaryPayment = await _context.SalaryPayments.FindAsync(id);
 
             if (salaryPayment == null)
@@ -86,11 +87,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<SalaryPayment>> PostSalaryPayment(SalaryPayment salaryPayment)
         {
-          if (_context.SalaryPayments == null)
-          {
-              return Problem("Entity set 'ARDBContext.SalaryPayment'  is null.");
-          }
+            if (_context.SalaryPayments == null)
+            {
+                return Problem("Entity set 'ARDBContext.SalaryPayment'  is null.");
+            }
+
+            int count = _context.SalaryPayments.Where(c => c.OnDate.Year == salaryPayment.OnDate.Year && c.OnDate.Month == salaryPayment.OnDate.Month).Count() + 1;
+
+            salaryPayment.SalaryPaymentId = PayrollHelper.GenerateSalaryPayment(salaryPayment.OnDate, salaryPayment.StoreId, count);
+
             _context.SalaryPayments.Add(salaryPayment);
+
             try
             {
                 await _context.SaveChangesAsync();

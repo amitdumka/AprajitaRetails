@@ -97,7 +97,9 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             }
             // Adding VoucherNumber
             cashVoucher.VoucherNumber = AccountHelper.VoucherNumberGenerator(_context, cashVoucher.VoucherType, cashVoucher.StoreId, cashVoucher.OnDate);
+
             _context.CashVouchers.Add(cashVoucher);
+
             try
             {
                 await _context.SaveChangesAsync();

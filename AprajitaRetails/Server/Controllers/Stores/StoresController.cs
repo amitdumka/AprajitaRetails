@@ -90,6 +90,7 @@ namespace AprajitaRetails.Server.Controllers.Stores
           {
               return Problem("Entity set 'ARDBContext.Stores'  is null.");
           }
+          //TODO: store ID genration
             _context.Stores.Add(store);
             try
             {

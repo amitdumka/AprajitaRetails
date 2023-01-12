@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using AprajitaRetails.Server.BL.Payrolls;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -90,7 +91,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
           {
               return Problem("Entity set 'ARDBContext.Employees'  is null.");
           }
+             employee.EmployeeId=PayrollHelper.EmployeeIdGenerator(employee.StoreId, employee.JoiningDate.Year, employee.Category);
+            employee.EmpId = _context.Employees.Count() + 1;
             _context.Employees.Add(employee);
+
             try
             {
                 await _context.SaveChangesAsync();

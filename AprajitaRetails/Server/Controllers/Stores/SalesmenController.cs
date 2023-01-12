@@ -90,6 +90,8 @@ namespace AprajitaRetails.Server.Controllers.Stores
           {
               return Problem("Entity set 'ARDBContext.Salesman'  is null.");
           }
+
+          //TODO: Salemen id generation
             _context.Salesmen.Add(salesman);
             try
             {
