@@ -27,6 +27,13 @@
     <None Remove="Pages\Auths\" />
     <None Remove="Helpers\" />
     <None Remove="Pages\Apps\Payroll\Employees\" />
+    <None Remove="Pages\Apps\Accounts\DailyCash\" />
+    <None Remove="Pages\Apps\Accounts\DailyCash\CashDetails\" />
+    <None Remove="Pages\Apps\Accounts\DailyCash\PettyCashDetails\" />
+    <None Remove="Pages\Apps\Accounts\Banking\" />
+    <None Remove="Pages\Apps\Accounts\Banking\Banks\" />
+    <None Remove="Pages\Apps\Accounts\Banking\Banks %28copy%29\" />
+    <None Remove="Pages\Apps\Stores\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,5 +72,12 @@
     <Folder Include="wwwroot\js\bootstrap\" />
     <Folder Include="Pages\Setup\" />
     <Folder Include="Pages\Setup\Import\" />
+    <Folder Include="Pages\Apps\Accounts\DailyCash\" />
+    <Folder Include="Pages\Apps\Accounts\DailyCash\CashDetails\" />
+    <Folder Include="Pages\Apps\Accounts\DailyCash\PettyCashDetails\" />
+    <Folder Include="Pages\Apps\Accounts\Banking\" />
+    <Folder Include="Pages\Apps\Accounts\Banking\Banks\" />
+    <Folder Include="Pages\Apps\Accounts\Banking\BankAccounts\" />
+    <Folder Include="Pages\Apps\Stores\" />
   </ItemGroup>
 </Project>
