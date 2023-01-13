@@ -4,6 +4,8 @@ using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Bases;
 using AprajitaRetails.Shared.Models.Banking;
+using AprajitaRetails.Shared.Models.Inventory;
+using Microsoft.Identity.Client;
 
 namespace AprajitaRetails.Server.Data
 {
@@ -63,5 +65,29 @@ namespace AprajitaRetails.Server.Data
         public DbSet<EDCTerminal> EDCTerminals { get; set; }
 
         //Inventory
+        public DbSet<ProductItem> ProductItems { get; set; }
+
+        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<ProductSubCategory> ProductSubCategories { get; set; }
+
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+
+        //Purchase
+        public DbSet<Vendor> Vendors { get; set; }
+
+        public DbSet<PurchaseItem> PurchaseItems { get; set; }
+        public DbSet<ProductPurchase> ProductPurchases { get; set; }
+
+        //Sale
+        public DbSet<CustomerSale> CustomerSales { get; set; }
+
+        public DbSet<ProductSale> ProductSales { get; set; }
+        public DbSet<SaleItem> SaleItems { get; set; }
+        public DbSet<SalePaymentDetail> SalePaymentDetails { get; set; }
+        public DbSet<CardPaymentDetail> CardPaymentDetails { get; set; }
+
+        //Stock
+        public DbSet<Stock> Stocks { get; set; }
     }
 }
