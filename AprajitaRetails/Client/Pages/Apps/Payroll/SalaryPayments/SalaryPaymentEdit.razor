@@ -57,7 +57,7 @@
                 <div class="mb-3 row">
                     <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
                     <div class="col-sm-6">
-                        <SfComboBox TValue="SalaryComponet" TItem="string" Placeholder="Salary Component"
+                        <SfComboBox TValue="SalaryComponent" TItem="string" Placeholder="Salary Component"
                                     Autofill="true"
                                     @bind-Value="@entity.SalaryComponet" PopupHeight="230px"
                                     DataSource="@Components">
@@ -102,7 +102,7 @@
 
     private IList<SelectOption>? Stores;
     private IList<SelectOption>? Employees;
-    IList<string> Components = Enum.GetNames(typeof(SalaryComponet));
+    IList<string> Components = Enum.GetNames(typeof(SalaryComponent));
     IList<string> PayModes = Enum.GetNames(typeof(PayMode));
     bool isTailor = false;
 
@@ -144,7 +144,7 @@
                 Amount = 0,
                 Details = "",
                 PayMode = PayMode.Cash,
-                SalaryComponet = SalaryComponet.Advance,
+                SalaryComponet = SalaryComponent.Advance,
                 SalaryPaymentId = "",
 
             };

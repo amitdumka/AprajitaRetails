@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace AprajitaRetails.Shared.Models.Banking
 {
-    //[Table("V1_Banks")]
     public class Bank
     {
         public string BankId { get; set; }
@@ -20,6 +19,7 @@ namespace AprajitaRetails.Shared.Models.Banking
     {
         [Key]
         public string AccountNumber { get; set; }
+
         public string AccountHolderName { get; set; }
 
         public string BankId { get; set; }
@@ -32,7 +32,6 @@ namespace AprajitaRetails.Shared.Models.Banking
         public bool IsActive { get; set; }
     }
 
-    //[Table("V1_BankAccounts")]
     public class BankAccount : BankAccountBase
     {
         public bool DefaultBank { get; set; }
@@ -44,10 +43,8 @@ namespace AprajitaRetails.Shared.Models.Banking
 
         public string StoreId { get; set; }
         public bool MarkedDeleted { get; set; }
-
-
     }
-    //[Table("V1_VendorBankAccounts")]
+
     public class VendorBankAccount : BankAccountBase
     {
         public string VendorId { get; set; }
@@ -59,14 +56,14 @@ namespace AprajitaRetails.Shared.Models.Banking
         public string StoreId { get; set; }
         public bool MarkedDeleted { get; set; }
     }
-    //[Table("V1_BankAccountList")]
+
     public class BankAccountList : BankAccountBase
     {
         public bool SharedAccount { set; get; }
         public string StoreId { get; set; }
         public bool MarkedDeleted { get; set; }
     }
-    //[Table("V1_ChequeeBooks")]
+
     public class ChequeBook : BaseST
     {
         public string ChequeBookId { get; set; }
@@ -80,7 +77,7 @@ namespace AprajitaRetails.Shared.Models.Banking
         public int NoOfPDC { get; set; }
         public int NoOfClearedCheques { get; set; }
     }
-    //[Table("V1_ChequeeIssued")]
+
     public class ChequeIssued : BaseST
     {
         public string ChequeIssuedId { get; set; }
@@ -93,7 +90,7 @@ namespace AprajitaRetails.Shared.Models.Banking
         public virtual ChequeBook? ChequeBook { get; set; }
         public long ChequeNumber { get; set; }
     }
-    //[Table("V1_ChequeeLogs")]
+
     public class ChequeLog : BaseST
     {
         public string ChequeLogId { get; set; }
@@ -105,5 +102,24 @@ namespace AprajitaRetails.Shared.Models.Banking
         public string BankId { get; set; }
         public long ChequeNumber { get; set; }
         public string Status { get; set; }
+    }
+
+    public class BankTransaction : BaseST
+    {
+        [Key]
+        public int BankTransactionId { get; set; }
+
+        public string AccountNumber { get; set; }
+        public DateTime OnDate { get; set; }
+        public string Narration { get; set; }
+        public string RefNumber { get; set; }
+        public decimal Amount { get; set; }//In is positive and Out is Negative.
+        public decimal Balance { get; set; }
+        public DebitCredit DebitCredit { get; set; }
+        public DateTime? BankDate { get; set; }
+        public bool Verified { get; set; }
+
+        [ForeignKey("AccountNumber")]
+        public virtual BankAccount BankAccount { get; set; }
     }
 }

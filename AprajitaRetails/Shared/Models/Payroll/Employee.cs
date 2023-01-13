@@ -172,7 +172,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public int SalaryMonth { get; set; }
 
         [Display(Name = "Payment Reason")]
-        public SalaryComponet SalaryComponet { get; set; }
+        public SalaryComponent SalaryComponet { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Payment Date")]

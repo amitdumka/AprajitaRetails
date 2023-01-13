@@ -36,8 +36,8 @@
                 <TableRow>
                     <TableCell>@ent.CashDetailId</TableCell>
                     <TableCell>@ent.OnDate.ToShortDateString</TableCell>
-                    <TableCell>@ent.Count.ToShortDateString</TableCell>
-                    <TableCell>@ent.TotalAmount.ToShortDateString</TableCell>
+                    <TableCell>@ent.Count.ToString()</TableCell>
+                    <TableCell>@ent.TotalAmount.ToString()</TableCell>
                     <TableCell> [2000  x  @ent.N2000.ToString()]:@ent.N2000*2000</TableCell>
                     <TableCell>[1000  x  @ent.N1000.ToString()]:@ent.N1000*1000</TableCell>
                     <TableCell>[500  x  @ent.N500.ToString()]:@ent.N500*500</TableCell>
@@ -46,7 +46,6 @@
                     <TableCell>[50  x  @ent.N50.ToString()]:@ent.N50*50</TableCell>
                     <TableCell>[20  x  @ent.N20.ToString()]:@ent.N20*20</TableCell>
                     <TableCell>[10  x  @ent.N10.ToString()]:@ent.N10*10</TableCell>
-                    <TableCell>[5  x  @ent.N5.ToString()]:@ent.N50*20</TableCell>
                     <TableCell>Coin:[@ent.C10*10,@ent.C5*5, @ent.C2*2,@ent.C1]</TableCell>
 
                     <TableCell>  <ActionMenu Link="/accounts/CashDetails" Id="@ent.CashDetailId" OnClickDelete="()=>ConfirmDelete(ent.CashDetailId)" /></TableCell>
@@ -59,12 +58,9 @@
 @code {
     private const string Title = "Cash Details";
     private List<CashDetail>? entities;
-    private Employee[]? employees;
+
     private bool Loading = true;
-    private string StaffName(string id)
-    {
-        return employees != null ? employees.First(c => c.EmployeeId == id).StaffName : "";
-    }
+
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage

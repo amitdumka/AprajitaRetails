@@ -49,9 +49,18 @@ namespace AprajitaRetails.Server.Data
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<BankAccountList> AccountLists { get; set; }
 
+        public DbSet<BankTransaction> BankTransactions { get; set; }
+
         public DbSet<ChequeBook> ChequeBooks { get; set; }
         public DbSet<ChequeIssued> ChequeIssued { get; set; }
         public DbSet<ChequeLog> ChequeLogs { get; set; }
+        //Daily Sale
+
+        public DbSet<DailySale> DailySales { get; set; }
+        public DbSet<CustomerDue> CustomerDues { get; set; }
+        public DbSet<DueRecovery> DuesRecovery { get; set; }
+
+        public DbSet<EDCTerminal> EDCTerminals { get; set; }
 
         //Inventory
     }
