@@ -58,12 +58,9 @@
 @code {
     private const string Title = "Salary Payment";
     private List<PettyCashSheet>? entities;
-    private Employee[]? employees;
+   // private Employee[]? employees;
     private bool Loading = true;
-    private string StaffName(string id)
-    {
-        return employees != null ? employees.First(c => c.EmployeeId == id).StaffName : "";
-    }
+
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
@@ -84,7 +81,7 @@
             var result = await Http.DeleteAsync($"PettyCashSheets/{id}");
             if (result.IsSuccessStatusCode)
             {
-                entities.Remove(entities.First(c => c.SalaryPaymentId == id));
+                entities.Remove(entities.First(c => c.Id == id));
                 StateHasChanged();
                 Msg("Petty Cash Delete", $"Petty Cash {id} is deleted");
             }
@@ -98,7 +95,6 @@
     {
         try
         {
-            employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
             entities = await Http.GetFromJsonAsync<List<PettyCashSheet>>("PettyCashSheets");
             Loading = false;
             StateHasChanged();

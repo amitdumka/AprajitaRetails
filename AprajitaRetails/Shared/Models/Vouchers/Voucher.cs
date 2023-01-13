@@ -75,10 +75,13 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public bool WithGST { get; set; }
         public decimal Amount { get; set; }
         public decimal TaxRate { get; set; }
+
         public decimal TaxAmount
         { get { return (Amount * (TaxRate / 100)); } }
+
         public decimal NetAmount
         { get { return Amount + TaxAmount; } }
+
         public string Reason { get; set; }
         public string Remarks { get; set; }
 
@@ -121,7 +124,7 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public DateTime OpeningDate { get; set; }
     }
 
-    public class PettyCashSheet
+    public class PettyCashSheet : BaseST
     {
         public string Id { get; set; }
         public DateTime OnDate { get; set; }
@@ -153,10 +156,10 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public decimal CustomerRecovery { get; set; }
         public string RecoveryList { get; set; }
 
-        public string ReceiptsNaration { get; set; }
+        public string ReceiptsNarration { get; set; }
         public decimal ReceiptsTotal { get; set; }
 
-        public string PaymentNaration { get; set; }
+        public string PaymentNarration { get; set; }
         public decimal PaymentTotal { get; set; }
     }
 }

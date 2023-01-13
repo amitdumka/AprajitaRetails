@@ -1,8 +1,154 @@
 ﻿@page "/accounts/PettyCashSheets/Edit/{IsEdit:bool}/{*params}"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.ViewModels;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
+@using Radzen.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
 
-<h3>Component1</h3>
+@attribute [Authorize]
+@inject HttpClient Http
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel=@entity TItem="@PettyCashSheet" Title="Petty Cash Sheet" ApiUrl="PettyCashSheets" ReturnUrl="/accounts/PettyCashSheets" Id="@Id" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+
+        <Row>
+            <Column Classes="col.md">
+                <AInputNumber @bind-Value="@entity.OpeningBalance" Name="opn" Label="Opening Bal" />
+            </Column>
+            <Column Classes="col.md">
+                <AInputNumber @bind-Value="@entity.ClosingBalance" Name="close" Label="Closing Bal" />
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.DailySale Name="Sale" Label="Sale" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.ManualSale Name="ManualSale" Label="Manual Sale" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TailoringSale Name="TailoringSale" Label="Tailoring Sale" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.BankWithdrawal Name="BankWithdrawal" Label="Bank Withdrawal" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.RecoveryList Name="Recovery" Label="Recovery List" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.CustomerRecovery Name="CustomerRecovery" Label="Customer Recovery" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.ReceiptsNarration Name="Rect" Label="Reciepts" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.ReceiptsTotal Name="rectt" Label="Receiepts Amount" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.CardSale Name="CardSale" Label="Card Sale" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.NonCashSale Name="Non" Label="Non Cash Sale" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.BankDeposit Name="de" Label="Bank Deposit" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TailoringPayment Name="tpay" Label="Tailoring Payment" /></Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.DueList Name="duel" Label="Due List" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.CustomerDue Name="duet" Label="Customer Dues" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.PaymentNarration Name="pay" Label="Payments" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.PaymentTotal Name="payt" Label="Payments Amount" /></Column>
+        </Row>
+
+    </EntityEdit>
+</ContentMain>
 
 @code {
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
+    private PettyCashSheet entity = new PettyCashSheet { OnDate = DateTime.Now };
 
+    private IList<SelectOption>? Stores;
+    // private IList<SelectOption>? Employees;
+    IList<string> Components = Enum.GetNames(typeof(SalaryComponet));
+    IList<string> PayModes = Enum.GetNames(typeof(PayMode));
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+
+            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
+            return true;
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+            return false;
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+        if (IsEdit)
+        {
+            entity = await Http.GetFromJsonAsync<PettyCashSheet>($"SalaryPayments/{Id}");
+            StateHasChanged();
+        }
+        else
+        {
+            entity = new PettyCashSheet
+                {
+                    OnDate = DateTime.Now,
+                    BankDeposit = 0,
+                    BankWithdrawal = 0,
+                    CardSale = 0,
+                    ClosingBalance = 0,
+                    CustomerDue = 0,
+                    CustomerRecovery = 0,
+                    DailySale = 0,
+                    DueList = "",
+                    ManualSale = 0,
+                    NonCashSale = 0,
+                    OpeningBalance = 0,
+                    PaymentNarration = "",
+                    PaymentTotal = 0,
+                    ReceiptsNarration = "",
+                    ReceiptsTotal = 0,
+                    RecoveryList = "",
+                    TailoringPayment = 0,
+                    TailoringSale = 0,
+                    Id = "",
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    StoreId = Stores != null ? Stores[0].ID : "",
+                    UserId = "BlazorUI"
+
+                };
+        }
+
+    }
 }
-
