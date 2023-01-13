@@ -8,14 +8,14 @@ namespace AprajitaRetails.Shared.Models.Inventory
     public class CustomerSale
     {
         [Key]
-        public string InvoiceCode { get; set; }
+        public string InvoiceNumber { get; set; }
 
         public string MobileNo { get; set; }
 
         [ForeignKey("MobileNo")]
         public virtual Customer Customer { get; set; }
 
-        [ForeignKey("InvoiceCode")]
+        [ForeignKey("InvoiceNumber")]
         public virtual ProductSale Sale { get; set; }
     }
 
