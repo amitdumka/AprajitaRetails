@@ -13,7 +13,7 @@
 
 <ContentMain>
 
-    <EntityEdit @bind-EntityModel=@entity TItem="@BankAccount" Title="Bank Account" ApiUrl="BankAccounts" ReturnUrl="/banking/bankaccounts" Id="@Id" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel=@entity TItem="@BankAccountList" Title="Bank Account[List]" ApiUrl="BankAccounts" ReturnUrl="/banking/accountlists" Id="@Id" IsEdit=@IsEdit>
 
         <Row>
             <Column Classes="col.md">
@@ -60,17 +60,7 @@
                 <ATextInput @bind-Value=@entity.IFSCCode Name="IFSC" Label="IFSC Code" />
             </Column>
         </Row>
-        <Row>
-            <Column Classes="col.md">
-                <div class="mb-3 row">
-                    <label for="ondate" class="col-sm-4 col-form-label">Opening Date</label>
-                    <div class="col-sm-6">
-                        <SfDatePicker Value="@entity.OpeningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
-                    </div>
-                </div>
-            </Column>
-            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.OpeningBalance Name="OpeningBal" Label="Opening Bal" /></Column>
-        </Row>
+
 
         <Row>
 
@@ -86,20 +76,6 @@
                         </SfComboBox>
                     </div>
                 </div>
-
-            </Column>
-            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.CurrentBalance Name="Balance" Label="Balance" /></Column>
-
-        </Row>
-
-        <Row>
-            <Column Classes="col.md">
-                <div class="mb-3 row">
-                    <label for="close" class="col-sm-4 col-form-label">Closing Date</label>
-                    <div class="col-sm-6">
-                        <SfDatePicker Value="@entity.ClosingDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
-                    </div>
-                </div>
             </Column>
             <Column Classes="col.md">
                 <ACheckBox Title="Active" Name="Active" @bind-Checked="@entity.IsActive" />
@@ -109,9 +85,7 @@
             <Column Classes="col.md">
                 <ACheckBox Title="Shared Account" Name="Shared" @bind-Checked="@entity.SharedAccount" />
             </Column>
-            <Column Classes="col.md">
-                <ACheckBox Title="Default Bank" Name="default" @bind-Checked="@entity.DefaultBank" />
-            </Column>
+
         </Row>
 
     </EntityEdit>
@@ -119,7 +93,7 @@
 @code {
     [Parameter] public bool IsEdit { get; set; }
     [Parameter] public string? Id { get; set; }
-    private BankAccount entity = new BankAccount { OpeningDate = DateTime.Now };
+    private BankAccountList entity = new BankAccountList { IsActive = true };
 
     private IList<SelectOption>? Banks;
     private IList<SelectOption>? Stores;
@@ -148,14 +122,13 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            entity = await Http.GetFromJsonAsync<BankAccount>($"BankAccounts/{Id}");
+            entity = await Http.GetFromJsonAsync<BankAccountList>($"BankAccountLists/{Id}");
             StateHasChanged();
         }
         else
         {
-            entity = new BankAccount
+            entity = new BankAccountList
             {
-                OpeningDate = DateTime.Now,
                 MarkedDeleted = false,
                 StoreId = Stores != null ? Stores[0].ID : "ARD",
                 AccountHolderName = "",
@@ -163,12 +136,8 @@
                 AccountNumber = "",
                 AccountType = AccountType.Current,
                 BranchName = "",
-                ClosingDate = null,
-                CurrentBalance = 0,
-                DefaultBank = false,
                 IFSCCode = "",
                 IsActive = true,
-                OpeningBalance = 0,
                 SharedAccount = false
 
             };

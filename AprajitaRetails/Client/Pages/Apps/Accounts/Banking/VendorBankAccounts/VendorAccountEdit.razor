@@ -13,7 +13,7 @@
 
 <ContentMain>
 
-    <EntityEdit @bind-EntityModel=@entity TItem="@BankAccount" Title="Bank Account" ApiUrl="BankAccounts" ReturnUrl="/banking/bankaccounts" Id="@Id" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel=@entity TItem="@VendorBankAccount" Title="Vendor Account" ApiUrl="VendorBankAccounts" ReturnUrl="/banking/vendoraccounts" Id="@Id" IsEdit=@IsEdit>
 
         <Row>
             <Column Classes="col.md">
@@ -88,7 +88,7 @@
                 </div>
 
             </Column>
-            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.CurrentBalance Name="Balance" Label="Balance" /></Column>
+           
 
         </Row>
 
@@ -105,25 +105,17 @@
                 <ACheckBox Title="Active" Name="Active" @bind-Checked="@entity.IsActive" />
             </Column>
         </Row>
-        <Row>
-            <Column Classes="col.md">
-                <ACheckBox Title="Shared Account" Name="Shared" @bind-Checked="@entity.SharedAccount" />
-            </Column>
-            <Column Classes="col.md">
-                <ACheckBox Title="Default Bank" Name="default" @bind-Checked="@entity.DefaultBank" />
-            </Column>
-        </Row>
+        
 
     </EntityEdit>
 </ContentMain>
 @code {
     [Parameter] public bool IsEdit { get; set; }
     [Parameter] public string? Id { get; set; }
-    private BankAccount entity = new BankAccount { OpeningDate = DateTime.Now };
+    private VendorBankAccount entity = new VendorBankAccount { OpeningDate = DateTime.Now };
 
     private IList<SelectOption>? Banks;
     private IList<SelectOption>? Stores;
-    //IList<string> Components = Enum.GetNames(typeof(SalaryComponet));
     IList<string> AccountTypes = Enum.GetNames(typeof(AccountType));
 
     private async Task<bool> FetchSelectData()
@@ -148,12 +140,12 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            entity = await Http.GetFromJsonAsync<BankAccount>($"BankAccounts/{Id}");
+            entity = await Http.GetFromJsonAsync<VendorBankAccount>($"VendorBankAccounts/{Id}");
             StateHasChanged();
         }
         else
         {
-            entity = new BankAccount
+            entity = new VendorBankAccount
             {
                 OpeningDate = DateTime.Now,
                 MarkedDeleted = false,
@@ -164,13 +156,10 @@
                 AccountType = AccountType.Current,
                 BranchName = "",
                 ClosingDate = null,
-                CurrentBalance = 0,
-                DefaultBank = false,
                 IFSCCode = "",
                 IsActive = true,
                 OpeningBalance = 0,
-                SharedAccount = false
-
+         
             };
         }
 
