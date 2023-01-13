@@ -49,6 +49,20 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return await _context.Employees.Where(c => c.StoreId == storeid && c.IsWorking && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.EmployeeId, Value = c.StaffName }).ToListAsync();
         }
 
+        [HttpGet("Salesman")]
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetSalesman(string storeid)
+        {
+            if (_context.Salesmen == null)
+            {
+                return NotFound();
+            }
+            if (storeid == "all" || storeid == "ALL")
+            {
+                return await _context.Salesmen.Where(c => c.IsActive && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.SalesmanId, Value = c.Name }).ToListAsync();
+            }
+            return await _context.Salesmen.Where(c => c.StoreId == storeid && c.IsActive && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.SalesmanId, Value = c.Name }).ToListAsync();
+        }
+
         [HttpGet("Parties")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetParties(string storeid)
         {
@@ -58,6 +72,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             }
             return await _context.Parties.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.PartyId, Value = c.PartyName }).ToListAsync();
         }
+
         [HttpGet("BankAccounts")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetBankAccounts(string storeid)
         {
@@ -67,6 +82,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             }
             return await _context.BankAccounts.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.AccountNumber, Value = c.AccountNumber + ", #: " + c.BranchName }).ToListAsync();
         }
+
         [HttpGet("Stores")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetStores()
         {
@@ -78,4 +94,3 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         }
     }
 }
-

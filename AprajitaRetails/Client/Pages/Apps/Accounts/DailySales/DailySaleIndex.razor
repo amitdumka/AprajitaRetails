@@ -1,5 +1,120 @@
-﻿<h3>DailySaleIndex</h3>
+﻿@page "/accounts/DailySales"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Stores
+@using AprajitaRetails.Shared.ViewModels;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/accounts/DailySales" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>Date</TableHeadCell>
+            <TableHeadCell>Inv No </TableHeadCell>
+            <TableHeadCell>Amount</TableHeadCell>
+            <TableHeadCell>Cash</TableHeadCell>
+            <TableHeadCell>Mode</TableHeadCell>
+            <TableHeadCell>Non Cash </TableHeadCell>
+            <TableHeadCell>Invoice Tag </TableHeadCell>
+            <TableHeadCell>Salesman </TableHeadCell>
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                    <TableCell>@ent.InvoiceNumber</TableCell>
+                    <TableCell>@ent.Amount.ToString()</TableCell>
+                    <TableCell>@ent.CashAmount.ToString()</TableCell>
+                    <TableCell>@ent.PayMode.ToString()</TableCell>
+                    <TableCell>@ent.NonCashAmount.ToString()</TableCell>
+                    <TableCell>
+                        @if (ent.IsDue)
+                        {
+                            <ABadge ClassName="bg-danger" Title="Due" />
+                        }
+                        @if (ent.TailoringBill)
+                        {
+                            <ABadge ClassName="bg-success" Title="Due" />
+                        }
+                        @if (ent.SalesReturn)
+                        {
+                            <ABadge ClassName="bg-warning text-dark" Title="Due" />
+                        }
+                        @if (ent.ManualBill)
+                        {
+                            <ABadge ClassName=" bg-info text-dark" Title="Due" />
+                        }
+                    </TableCell>
+                    <TableCell>@Salesman(ent.SalesmanId)</TableCell>
+                    <TableCell>  <ActionMenu Link="/accounts/DailySales" Id="@ent.InvoiceNumber" OnClickDelete="()=>ConfirmDelete(ent.InvoiceNumber)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
 
 @code {
+    private const string Title = "Salary Payment";
+    private List<DailySale>? entities;
+    private List<SelectOption>? salesmans;
+    private bool Loading = true;
+    private string Salesman(string id)
+    {
+        return salesmans != null ? salesmans.First(c => c.ID == id).Value : "";
+    }
+
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
+    }
+
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete");
+
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"DailySales/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.InvoiceNumber == id));
+                StateHasChanged();
+                Msg("Delete", $"Daily Sale {id} is deleted");
+            }
+            else
+            {
+                Msg("Delete", $" Error : Daily Sale  {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            salesmans = await Http.GetFromJsonAsync<List<SelectOption>>("Helper/Salesman?storeid=ARD");
+            entities = await Http.GetFromJsonAsync<List<DailySale>>("DailySales");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
 
 }

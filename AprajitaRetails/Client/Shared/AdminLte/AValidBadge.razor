@@ -1,0 +1,15 @@
+﻿@namespace AprajitaRetails.AdminLte
+@if (IsTrue)
+{
+    <span class="badge @ClassName ">
+        @Title
+        @ChildContent
+    </span>
+}
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string ClassName { get; set; } = "bg-primary";
+    [Parameter] public string Title { get; set; } = " ";
+    [Parameter] public bool IsTrue { get; set; } = false;
+
+}

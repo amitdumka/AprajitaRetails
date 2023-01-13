@@ -1,5 +1,102 @@
-﻿<h3>DailySaleDetails</h3>
+﻿@page "/accounts/DailySales/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Shared.Models.Stores
+
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@attribute [Authorize]
+@inject HttpClient Http
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="ID" Value="@entity.InvoiceNumber" />
+    <EntityRow Lable="Date" Value="@entity.OnDate.ToShortDateString()" />
+    <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
+    <EntityRow Lable="Cash" Value="@entity.CashAmount.ToString()" />
+    <EntityRow Lable="Non Cash" Value="@entity.NonCashAmount.ToString()" />
+    <EntityRow Lable="Payment " Value="@entity.PayMode.ToString()" />
+    <EntityRow Lable="Due" Value="@entity.IsDue.ToString()" />
+    <EntityRow Lable="Manual" Value="@entity.ManualBill.ToString()" />
+    <EntityRow Lable="Tailoring" Value="@entity.TailoringBill.ToString()" />
+    <EntityRow Lable="Sale's Return" Value="@entity.SalesReturn.ToString()" />
+    <EntityRow Lable="Saleman" Value="@employee.Name" />
+    <EntityRow Lable="Remarks" Value="@entity.Remarks" />
+    <EntityRow Lable="EDC" Value="@edc.Name" />
+</EntityDetails>
 
 @code {
+    [Parameter] public string? ID { get; set; }
+    DailySale? entity;
+    Salesman? employee;
+    EDCTerminal? edc;
+    string Title = "Details";
+    bool Loading = true;
+    bool isDeleted = false;
+    void BackButton() { NavigationManager.NavigateTo("/accounts/DailySales"); }
+    //void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+
+            entity = await Http.GetFromJsonAsync<DailySale>($"DailySales/{ID}");
+            employee = await Http.GetFromJsonAsync<Salesman>($"Salesmen/{entity.SalesmanId}");
+            edc = await Http.GetFromJsonAsync<EDCTerminal>($"EDCTerminals/{entity.EDCTerminalId}");
+            Title = "Sale Details of " + entity.InvoiceNumber;
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+    async void DeleteButton()
+    {
+        try
+        {
+
+            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
+            if (isConfirm)
+            {
+                var result = await Http.DeleteAsync($"DailySales/{ID}");
+                if (result.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                    StateHasChanged();
+                    Msg("Delete", $"Sale {ID} is deleted");
+
+                }
+                else
+                {
+                    Msg(" Delete", $" Error : Sale {ID} is not deleted", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Msg("Error", ex.Message, true);
+        }
+
+    }
+
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
+    }
 
 }

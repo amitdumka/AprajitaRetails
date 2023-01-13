@@ -5,24 +5,21 @@ using Blazor.AdminLte;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 
 //Detemining which os
-bool isWindows = System.Runtime.InteropServices.RuntimeInformation
-                                              .IsOSPlatform(OSPlatform.Windows);
-bool isMac = System.Runtime.InteropServices.RuntimeInformation
-                                               .IsOSPlatform(OSPlatform.OSX);
-bool isLinux = System.Runtime.InteropServices.RuntimeInformation
-                                              .IsOSPlatform(OSPlatform.Linux);
+//bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+//bool isMac = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+//bool isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 string connectionString = "";
 
-if (isWindows)
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 {
     // Add services to the container.
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -32,34 +29,27 @@ if (isWindows)
     builder.Services.AddDbContext<ARDBContext>(options =>
         options.UseSqlServer(connectionString));
 }
-else if (isMac)
+else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 {
-
     connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 
-    //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    //options.UseSqlite(connectionString));
-
     builder.Services.AddDbContext<ARDBContext>(options =>
         options.UseSqlite(connectionString));
 }
-else if (isLinux) { }
+else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+{
+}
 else
 {
-     connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
+    connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 
-    //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    //options.UseSqlite(connectionString));
-
     builder.Services.AddDbContext<ARDBContext>(options =>
         options.UseSqlite(connectionString));
 }
-
-
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -74,8 +64,9 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddAdminLte();
-builder.Services.AddScoped<IFilesManager, WasmFilesManager>();
+
+//builder.Services.AddAdminLte();
+//builder.Services.AddScoped<IFilesManager, WasmFilesManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -100,7 +91,6 @@ app.UseRouting();
 
 app.UseIdentityServer();
 app.UseAuthorization();
-
 
 app.MapRazorPages();
 app.MapControllers();
