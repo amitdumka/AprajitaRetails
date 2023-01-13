@@ -1,0 +1,103 @@
+﻿@page "/banking/bankaccounts/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Banking
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@attribute [Authorize]
+@inject HttpClient Http
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="Acc/No" Value="@entity.AccountNumber" />
+    <EntityRow Lable="Holder Name" Value="@entity.AccountHolderName" />
+    <EntityRow Lable="Bank" Value="@bank.Name" />
+    <EntityRow Lable="Branch" Value="@entity.BranchName" />
+    <EntityRow Lable="Type" Value="@entity.AccountType.ToString()" />
+    <EntityRow Lable="Date" Value="@entity.OpeningDate.ToShortDateString()" />
+    <EntityRow Lable="Open Bal" Value="@entity.OpeningBalance.ToString()" />
+    <EntityRow Lable="Active" Value="@entity.IsActive.ToString()" />
+    @if (entity.ClosingDate.HasValue)
+    {
+        <EntityRow Lable="Closing Date " Value="@entity.ClosingDate.ToString()" />}
+    <EntityRow Lable="Balance" Value="@entity.CurrentBalance.ToString()" />
+    <EntityRow Lable="IFSC" Value="@entity.IFSCCode.ToString()" />
+    <EntityRow Lable="Shared" Value="@entity.SharedAccount.ToString()" />
+    <EntityRow Lable="Store" Value="@entity.StoreId.ToString()" />
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    BankAccount? entity;
+    Bank? bank;
+    string Title = "Details";
+    bool Loading = true;
+    bool isDeleted = false;
+    void BackButton() { NavigationManager.NavigateTo("/banking/bankaccounts"); }
+    //void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+
+            entity = await Http.GetFromJsonAsync<BankAccount>($"bankaccounts/{ID}");
+            bank = await Http.GetFromJsonAsync<Bank>($"Banks/{entity.BankId}");
+            Title = "Account Details of " + entity.AccountNumber;
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+    async void DeleteButton()
+    {
+        try
+        {
+
+            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
+            if (isConfirm)
+            {
+                var result = await Http.DeleteAsync($"BankAccounts/{ID}");
+                if (result.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                    StateHasChanged();
+                    Msg(" Delete", $"Account Number {ID} is deleted");
+
+                }
+                else
+                {
+                    Msg(" Delete", $" Error : Account Number {ID} is not deleted", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Msg("Error", ex.Message, true);
+        }
+
+    }
+
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+
+
+
+}
