@@ -34,6 +34,7 @@
     <None Remove="Pages\Apps\Accounts\Banking\Banks\" />
     <None Remove="Pages\Apps\Accounts\Banking\Banks %28copy%29\" />
     <None Remove="Pages\Apps\Stores\" />
+    <None Remove="Pages\Apps\Accounts\Banking\AccountLists\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,5 +80,6 @@
     <Folder Include="Pages\Apps\Accounts\Banking\Banks\" />
     <Folder Include="Pages\Apps\Accounts\Banking\BankAccounts\" />
     <Folder Include="Pages\Apps\Stores\" />
+    <Folder Include="Pages\Apps\Accounts\Banking\AccountLists\" />
   </ItemGroup>
 </Project>

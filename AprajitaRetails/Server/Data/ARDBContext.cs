@@ -26,7 +26,7 @@ namespace AprajitaRetails.Server.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Store> Stores { get; set; }
-        public DbSet< Attendance> Attendances { get; set; } 
+        public DbSet<Attendance> Attendances { get; set; } 
         public DbSet<SalaryPayment> SalaryPayments { get; set; } 
         public DbSet<Salesman> Salesmen { get; set; } 
         public DbSet<MonthlyAttendance> MonthlyAttendances { get; set; } 

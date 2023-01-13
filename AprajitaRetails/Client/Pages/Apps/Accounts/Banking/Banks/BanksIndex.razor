@@ -1,6 +1,85 @@
-﻿<h3>Component1</h3>
+﻿@page "/banking/banks"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Banking
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/banking/Banks" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>ID</TableHeadCell>
+            <TableHeadCell>Name </TableHeadCell>
+            
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.BankId</TableCell>
+                    <TableCell>@ent.Name</TableCell>
+                    <TableCell>  <ActionMenu Link="/banking/banks" Id="@ent.BankId" OnClickDelete="()=>ConfirmDelete(ent.BankId)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
 
 @code {
+    private const string Title = "Banks";
+    private List<Bank>? entities;
+    private bool Loading = true;
+     
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete ");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"banks/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.BankId == id));
+                StateHasChanged();
+                Msg("Bank Delete", $"Bank {id} is deleted");
+            }
+            else
+            {
+                Msg("Bank Delete", $" Error : Bank {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // employees = await Http.GetFromJsonAsync<Employee[]>("Cas");
+            entities = await Http.GetFromJsonAsync<List<Bank>>("Banks");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
 
 }
-
