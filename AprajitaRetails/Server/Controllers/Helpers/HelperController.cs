@@ -60,7 +60,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             {
                 return await _context.Salesmen.Where(c => c.IsActive && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.SalesmanId, Value = c.Name }).ToListAsync();
             }
-            return await _context.Salesmen.Where(c => c.StoreId == storeid && c.IsActive && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.SalesmanId, Value = c.Name }).ToListAsync();
+            return await _context.Salesmen.Where(c => c.StoreId == storeid && c.IsActive).Select(c => new SelectOption { ID = c.SalesmanId, Value = c.Name }).ToListAsync();
         }
 
         [HttpGet("Parties")]

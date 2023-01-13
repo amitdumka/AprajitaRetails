@@ -26,7 +26,10 @@
     <EntityRow Lable="Sale's Return" Value="@entity.SalesReturn.ToString()" />
     <EntityRow Lable="Saleman" Value="@employee.Name" />
     <EntityRow Lable="Remarks" Value="@entity.Remarks" />
-    <EntityRow Lable="EDC" Value="@edc.Name" />
+    @if (edc != null)
+    {
+        <EntityRow Lable="EDC" Value="@edc.Name" />
+    }
 </EntityDetails>
 
 @code {
@@ -47,7 +50,9 @@
 
             entity = await Http.GetFromJsonAsync<DailySale>($"DailySales/{ID}");
             employee = await Http.GetFromJsonAsync<Salesman>($"Salesmen/{entity.SalesmanId}");
-            edc = await Http.GetFromJsonAsync<EDCTerminal>($"EDCTerminals/{entity.EDCTerminalId}");
+            if (string.IsNullOrEmpty(entity.EDCTerminalId) == false)
+                edc = await Http.GetFromJsonAsync<EDCTerminal>($"EDCTerminals/{entity.EDCTerminalId}");
+            else edc = null;
             Title = "Sale Details of " + entity.InvoiceNumber;
             Loading = false;
             StateHasChanged();
