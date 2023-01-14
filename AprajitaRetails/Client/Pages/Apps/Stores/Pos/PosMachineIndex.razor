@@ -1,0 +1,103 @@
+﻿@page "/stores/posMachines"
+
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Stores
+@using AprajitaRetails.Shared.Models.Banking
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/stores/PosMachines" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>ID</TableHeadCell>
+            <TableHeadCell>Employee </TableHeadCell>
+            <TableHeadCell> Componet</TableHeadCell>
+            <TableHeadCell>  Month</TableHeadCell>
+            <TableHeadCell> Date</TableHeadCell>
+            <TableHeadCell>Amount </TableHeadCell>
+            <TableHeadCell> Mode</TableHeadCell>
+            <TableHeadCell>Details </TableHeadCell>
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.EDCTerminalId</TableCell>
+                    <TableCell>@ent.Name.ToString()</TableCell>
+                    <TableCell>@ent.ProviderName.ToString()</TableCell>
+                    <TableCell>@ent.MID.ToString()</TableCell>
+                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                    <TableCell>@ent.TID.ToString()</TableCell>
+                    <TableCell>@ent.Active..ToString()</TableCell>
+                    <TableCell>@ent.CloseDate.ToString()</TableCell>
+                    <TableCell>@banks.First(c=>c.BankId==ent.BankId).Name</TableCell>
+                    <TableCell>@ent.StoreId.ToString()</TableCell>
+                    <TableCell>  <ActionMenu Link="/stores/Posmachines" Id="@ent.EDCTerminalId" OnClickDelete="()=>ConfirmDelete(ent.EDCTerminalId)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
+
+@code {
+    private const string Title = "POS Machines";
+    private List<EDCTerminal>? entities;
+    private Bank[]? banks;
+    private bool Loading = true;
+
+
+
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete ");
+
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"EDCTerminals/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.EDCTerminalId == id));
+                StateHasChanged();
+                Msg("  Delete", $"  {id} is deleted");
+            }
+            else
+            {
+                Msg("  Delete", $" Error :   {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            banks = await Http.GetFromJsonAsync<Bank[]>("Banks");
+            entities = await Http.GetFromJsonAsync<List<EDCTerminal>>("EDCTerminals");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+
+}
