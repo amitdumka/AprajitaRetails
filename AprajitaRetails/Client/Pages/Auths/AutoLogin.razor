@@ -1,9 +1,11 @@
 ﻿@page "/autologin"
+@using AprajitaRetails.Client.Helpers;
 @using AprajitaRetails.Shared.Models.Auth;
 @inject NavigationManager NavigationManager
 @inject IHttpClientFactory ClientFactory
 @*@inject IJSRuntime JSRuntime*@
 @using AprajitaRetails.Helpers
+@inject ClientSetting ClientSetting
 @inject LocalStorageAccessor LocalStorage
 @if (!isLoggedIn)
 {
@@ -18,7 +20,7 @@
         try
         {
             var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
-            var login = await client.PostAsync("auths/autoLogin",null);
+            var login = await client.PostAsync("auths/autoLogin", null);
             if (login.IsSuccessStatusCode)
             {
                 //Redirect to page or home
@@ -30,8 +32,9 @@
                 {
                     LocalStorage.SetValueAsync("UserFullName", user.FullName);
                     LocalStorage.SetValueAsync("StoreCode", user.StoreId);
-                    LocalStorage.SetValueAsync("Employee", user.EmployeeId);
-                    LocalStorage.SetValueAsync("UserName", user.Id);
+                    // LocalStorage.SetValueAsync("Employee", user.EmployeeId);
+                    // LocalStorage.SetValueAsync("UserName", user.Id);
+                    ClientSetting.SetLogin(user.StoreId, "", user.FullName, user.Id, user.EmployeeId);
 
                 }
 
@@ -46,7 +49,7 @@
         }
         catch (Exception exception)
         {
-            Console.WriteLine("error+\n"+exception.Message);
+            Console.WriteLine("error+\n" + exception.Message);
         }
     }
 }

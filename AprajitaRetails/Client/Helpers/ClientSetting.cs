@@ -1,6 +1,4 @@
-﻿
-
-namespace AprajitaRetails.Client.Helpers
+﻿namespace AprajitaRetails.Client.Helpers
 {
     public class ClientSetting
     {
@@ -10,14 +8,29 @@ namespace AprajitaRetails.Client.Helpers
         public string UserName { get; set; }
         public string UserId { get; set; }
         public string UserType { get; set; }
+        public string Role { get; set; }
+        public string EmployeeId { get; set; }
 
-        //public static async Task SetSettingAsync()
-        //{
-           
-        //}
-        //public static void ClearSetting()
-        //{
+        public event EventHandler UserChangedEvent;
 
-        //}
+        public void SetLogin(string code, string sName, string uName, string userid, string eid)
+        {
+            EmployeeId = eid; StoreCode = code; StoreName = sName; UserId = userid; UserName = uName;
+        }
+
+        public void Clear()
+        {
+            StoreName = EmployeeId = StoreCode = UserName = UserId = Role = "";
+        }
     }
+
+    //public class ClientSettingService : IDisposable
+    //{
+    //    private ClientSetting setting;
+
+    //    public void Dispose()
+    //    {
+    //        setting.UserChangedEvent -= UserChanged;
+    //    }
+    //}
 }

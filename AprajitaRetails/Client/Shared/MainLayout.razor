@@ -9,13 +9,14 @@
 <RadzenContextMenu />
 <RadzenTooltip />
 <Syncfusion.Blazor.Popups.SfDialogProvider />
-<ANavBar DarkMode=true >
-   <AprajitaRetails.Client.Shared.Apps.Menu.AppTopBar/>
+<ANavBar DarkMode=true>
+    <AprajitaRetails.Client.Shared.Apps.Menu.AppTopBar />
 </ANavBar>
-<SideBarContainer>
-    <BrandLogo Link="https://adminlte.io/" Logo="../dist/img/AdminLTELogo.png">Aprajita Retails</BrandLogo>
-   <AprajitaRetails.Client.Shared.Apps.Menu.AppSideBar/>
-</SideBarContainer>
+<ASideBarContainer>
+    <BrandLogo Link="/" Logo="../dist/img/AdminLTELogo.png">Aprajita Retails</BrandLogo>
+    <AprajitaRetails.Client.Shared.Apps.Menu.AppSideBar />
+    <ASideBarCustom Link1="#" Link2="/" />
+</ASideBarContainer>
 <ContentWrapper>
     @Body
 </ContentWrapper>
@@ -38,8 +39,6 @@
         // no override; reset default to show parent menu content items.
         navBarLeftInjectableMenu.SetContent(null, false);
     }
-
-    
 
     private void SeeAllMessages(Tuple<IDropdownFooter, MouseEventArgs> args)
     {

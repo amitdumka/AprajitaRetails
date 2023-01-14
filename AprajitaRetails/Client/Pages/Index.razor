@@ -6,7 +6,6 @@
 @inject LocalStorageAccessor LocalStorage
 @inject NavigationManager Navigation
 
-
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title="Home" />
@@ -19,27 +18,10 @@
     </Row>
     <Row>
         <Column Classes="col.lg">
-            <p>@StoreCode</p>
+
         </Column>
         <Column Classes="col.lg">
             <SfCalendar TValue="DateTime" />
         </Column>
     </Row>
 </ContentMain>
-
-@code{
-    string StoreCode = "Store Code: Not Selected";
-
-    protected override async Task OnInitializedAsync()
-    {
-        var x=await LocalStorage.GetValueAsync<string>("StoreCode");
-        var y= await LocalStorage.GetValueAsync<string>("UserFullName");
-        StoreCode = "Store Code: " + x+" & User : "+y;
-        //return base.OnInitializedAsync();
-        StateHasChanged();
-       // return base.OnInitializedAsync().IsCompleted;
-
-    }
-
-}
-

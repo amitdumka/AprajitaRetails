@@ -49,6 +49,7 @@
     private List<SalaryPayment>? entities;
     private Employee[]? employees;
     private bool Loading = true;
+    private string StoreCode;
     private string StaffName(string id)
     {
         return employees != null ? employees.First(c => c.EmployeeId == id).StaffName : "";
@@ -56,12 +57,12 @@
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
     async void ConfirmDelete(string id)
@@ -87,10 +88,15 @@
     {
         try
         {
-            employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
-            entities = await Http.GetFromJsonAsync<List<SalaryPayment>>("SalaryPayments");
-            Loading = false;
-            StateHasChanged();
+            StoreCode = await LocalStorage.GetValueAsync<string>("StoreCode");
+            if (!string.IsNullOrEmpty(StoreCode))
+            {
+                employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
+                entities = await Http.GetFromJsonAsync<List<SalaryPayment>>("SalaryPayments");
+                Loading = false;
+                StateHasChanged();
+            }
+            else { Msg("Error", "Store Code is not selected! Kindly re-login!", true); }
         }
         catch (AccessTokenNotAvailableException exception)
         {

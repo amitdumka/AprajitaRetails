@@ -82,7 +82,7 @@
     private const string Title = "Attendances";
     private List<Attendance>? entities;
     private Employee[]? employees;
-
+    private string StoreCode;
     private string StaffName(string id)
     {
         return employees != null ? employees.First(c => c.EmployeeId == id).StaffName : "";
@@ -92,8 +92,13 @@
     {
         try
         {
-            employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
-            entities = await Http.GetFromJsonAsync<List<Attendance>>("Attendances");
+            StoreCode = await LocalStorage.GetValueAsync<string>("StoreCode");
+            if (!string.IsNullOrEmpty(StoreCode))
+            {
+                employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
+                entities = await Http.GetFromJsonAsync<List<Attendance>>("Attendances");
+            }
+            else { Msg("Error", "Store is not selected!, Kindly re-login!", true); }
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -123,12 +128,12 @@
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
 

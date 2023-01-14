@@ -1,8 +1,18 @@
-﻿<SideBar>
+﻿@inject LocalStorageAccessor LocalStorage
+
+<SideBar>
     <!-- Sidebar user panel (optional) -->
-    <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Three" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
+    <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Five" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
     @*<SideBarSearch></SideBarSearch>*@
+
     <SideBarMenu>
+        @if (string.IsNullOrEmpty(SelectedStore) == false)
+        {
+            <SideBarMenuItem Icon="fas fa-solid fa-store" Link="/stores/details/SelectedStore">
+                Store Code: @SelectedStore
+            </SideBarMenuItem>
+
+        }
         <SideBarMenuItem Link="widgets" Icon="fas fa-th">
             Dashboard
         </SideBarMenuItem>
@@ -139,19 +149,19 @@
             </NotAuthorized>
         </AuthorizeView>
         @*<SideBarTreeView Icon="far fa-plus-square">
-            <Title>Extras</Title>
-            <Items>
-            <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
-            Lockscreen
-            </SideBarMenuItem>
-            <SideBarMenuItem Icon="far fa-circle" Link="404">
-            Error 404
-            </SideBarMenuItem>
-            <SideBarMenuItem Icon="far fa-circle" Link="500">
-            Error 500
-            </SideBarMenuItem>
-            </Items>
-            </SideBarTreeView>*@
+        <Title>Extras</Title>
+        <Items>
+        <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
+        Lockscreen
+        </SideBarMenuItem>
+        <SideBarMenuItem Icon="far fa-circle" Link="404">
+        Error 404
+        </SideBarMenuItem>
+        <SideBarMenuItem Icon="far fa-circle" Link="500">
+        Error 500
+        </SideBarMenuItem>
+        </Items>
+        </SideBarTreeView>*@
         <SideBarMenuItem Link="autologin" Icon="fas fa-user">
             AutoLogin
         </SideBarMenuItem>
@@ -163,5 +173,13 @@
 </SideBar>
 
 @code {
+    string SelectedStore;
+    string LoggedUser;
+    protected override async Task OnInitializedAsync()
+    {
+        LoggedUser = await LocalStorage.GetValueAsync<string>("UserFullName");
+        SelectedStore = await LocalStorage.GetValueAsync<string>("StoreCode");
+        StateHasChanged();
 
+    }
 }

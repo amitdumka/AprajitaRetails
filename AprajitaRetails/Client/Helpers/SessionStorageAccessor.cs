@@ -1,7 +1,7 @@
 ﻿using Microsoft.JSInterop;
-using System.Net.NetworkInformation;
 
 namespace AprajitaRetails.Helpers;
+
 //Usage
 //@using AprajitaRetails.Helpers
 //@inject LocalStorageAccessor LocalStorageAccessor
@@ -9,14 +9,16 @@ namespace AprajitaRetails.Helpers;
 //StoredValue = await LocalStorageAccessor.GetValueAsync<string>(Key);
 // await LocalStorageAccessor.SetValueAsync(Key, Value);
 
-//Add in program or startup
+//Add in program or startup 
 //builder.Services.AddScoped<LocalStorageAccessor>();
-public class LocalStorageAccessor : IAsyncDisposable
+
+
+public class SessionStorageAccessor : IAsyncDisposable
 {
     private Lazy<IJSObjectReference> _accessorJsRef = new();
     private readonly IJSRuntime _jsRuntime;
 
-    public LocalStorageAccessor(IJSRuntime jsRuntime)
+    public SessionStorageAccessor(IJSRuntime jsRuntime)
     {
         _jsRuntime = jsRuntime;
     }
@@ -51,7 +53,7 @@ public class LocalStorageAccessor : IAsyncDisposable
     {
         if (_accessorJsRef.IsValueCreated is false)
         {
-            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/LocalStorageAccessor.js"));
+            _accessorJsRef = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "/js/SessionStorageAccessor.js"));
         }
     }
 

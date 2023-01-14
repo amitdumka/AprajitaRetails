@@ -1,55 +1,58 @@
 ﻿using Blazor.AdminLte;
 
 namespace AprajitaRetails.Client.AdminLte
-//{
-//	public class Class
-//	{
-//	}
-//}
-//namespace Blazor.AdminLte.Enumerations
 {
     public class Test
     {
         public string Name { get; set; }
         public string Email { get; set; }
     }
-	public enum NavBarColor
-	{
-		Primary,
-		Secondary,
-		Info,
-		Success,
-		Danger,
-		Indigo,
-		Purple,
-		Pink,
-		Navy,
-		Lightblue,
-		Teal,
-		Cyan,
-		GrayDark,
-		Gray,
-		Warning,
-		White,
-		Orange
-	}
+
+    public enum NavBarColor
+    {
+        Primary,
+        Secondary,
+        Info,
+        Success,
+        Danger,
+        Indigo,
+        Purple,
+        Pink,
+        Navy,
+        Lightblue,
+        Teal,
+        Cyan,
+        GrayDark,
+        Gray,
+        Warning,
+        White,
+        Orange
+    }
+
     public enum ButtonSize
     {
         [Style("")]
         Normal,
+
         [Style("xs")]
         ExtraSmall,
+
         [Style("sm")]
         Small,
+
         [Style("md")]
         Medium,
+
         [Style("lg")]
         Large,
+
         [Style("xl")]
         ExtraLarge,
+
         [Style("flat")]
         Flat
     }
+
     //public enum Color
     //{
     //    [Style("")]
