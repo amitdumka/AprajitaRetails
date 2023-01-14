@@ -11,13 +11,13 @@ namespace AprajitaRetails.Client.Helpers
         public string UserId { get; set; }
         public string UserType { get; set; }
 
-        public static async Task SetSettingAsync()
-        {
+        //public static async Task SetSettingAsync()
+        //{
            
-        }
-        public static void ClearSetting()
-        {
+        //}
+        //public static void ClearSetting()
+        //{
 
-        }
+        //}
     }
 }

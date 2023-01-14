@@ -4,45 +4,45 @@
 @using AprajitaRetails.Shared.Models.Payroll
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-
+@using AprajitaRetails.Helpers
 @attribute [Authorize]
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
 @inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/payroll/SalaryPayments" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>ID</TableHeadCell>
+            <TableHeadCell>Employee </TableHeadCell>
+            <TableHeadCell> Componet</TableHeadCell>
+            <TableHeadCell>  Month</TableHeadCell>
+            <TableHeadCell> Date</TableHeadCell>
+            <TableHeadCell>Amount </TableHeadCell>
+            <TableHeadCell> Mode</TableHeadCell>
+            <TableHeadCell>Details </TableHeadCell>
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.SalaryPaymentId</TableCell>
+                    <TableCell>@StaffName(ent.EmployeeId)</TableCell>
+                    <TableCell>@ent.SalaryComponet.ToString()</TableCell>
+                    <TableCell>@ent.SalaryMonth</TableCell>
+                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                    <TableCell>@ent.Amount.ToString()</TableCell>
+                    <TableCell>@ent.PayMode.ToString()</TableCell>
+                    <TableCell>@ent.Details</TableCell>
 
-    <ContentMain>
-        <EntityList Title="@Title" BaseUrl="/payroll/SalaryPayments" Loading=@Loading>
-            <TableHead>
-                <TableHeadCell>ID</TableHeadCell>
-                <TableHeadCell>Employee </TableHeadCell>
-                <TableHeadCell> Componet</TableHeadCell>
-                <TableHeadCell>  Month</TableHeadCell>
-                <TableHeadCell> Date</TableHeadCell>
-                <TableHeadCell>Amount </TableHeadCell>
-                <TableHeadCell> Mode</TableHeadCell>
-                <TableHeadCell>Details </TableHeadCell>
-                <TableHeadCell> </TableHeadCell>
-            </TableHead>
-            <TableBody>
-                @foreach (var ent in entities)
-                {
-                    <TableRow>
-                        <TableCell>@ent.SalaryPaymentId</TableCell>
-                        <TableCell>@StaffName(ent.EmployeeId)</TableCell>
-                        <TableCell>@ent.SalaryComponet.ToString()</TableCell>
-                        <TableCell>@ent.SalaryMonth</TableCell>
-                        <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
-                        <TableCell>@ent.Amount.ToString()</TableCell>
-                        <TableCell>@ent.PayMode.ToString()</TableCell>
-                        <TableCell>@ent.Details</TableCell>
-
-                        <TableCell>  <ActionMenu Link="/payroll/SalaryPayments" Id="@ent.SalaryPaymentId" OnClickDelete="()=>ConfirmDelete(ent.SalaryPaymentId)" /></TableCell>
-                    </TableRow>
-                }
-            </TableBody>
-        </EntityList>
-    </ContentMain>
+                    <TableCell>  <ActionMenu Link="/payroll/SalaryPayments" Id="@ent.SalaryPaymentId" OnClickDelete="()=>ConfirmDelete(ent.SalaryPaymentId)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
 
 @code {
     private const string Title = "Salary Payment";
@@ -56,12 +56,12 @@
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
         NotificationService.Notify(msg);
     }
     async void ConfirmDelete(string id)

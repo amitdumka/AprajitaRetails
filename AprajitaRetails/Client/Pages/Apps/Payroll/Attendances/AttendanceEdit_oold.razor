@@ -7,12 +7,13 @@
 @using AprajitaRetails.Shared.ViewModels
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
-
+@inject LocalStorageAccessor LocalStorage
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title=@Title />
@@ -157,21 +158,21 @@
         {
             Title = "Add Attendance";
             attendance = new Attendance
-                {
-                    OnDate = DateTime.Now,
-                    AttendanceId = "",
-                    EmployeeId = "",
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    MarkedDeleted = false,
-                    Remarks = " ",
-                    StoreId = Stores != null ? Stores[0].ID : "ARD",
-                    IsTailoring = false,
-                    Status = AttUnit.Present,
-                    UserId = "BlazorUI",
-                    EntryTime = $"{DateTime.Now.ToShortTimeString()}"
+            {
+                OnDate = DateTime.Now,
+                AttendanceId = "",
+                EmployeeId = "",
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                Remarks = " ",
+                StoreId = Stores != null ? Stores[0].ID : "ARD",
+                IsTailoring = false,
+                Status = AttUnit.Present,
+                UserId = "BlazorUI",
+                EntryTime = $"{DateTime.Now.ToShortTimeString()}"
 
-                };
+            };
         }
 
     }
@@ -191,7 +192,7 @@
     {
         //bool flag = true;
         if (string.IsNullOrEmpty(attendance.EmployeeId) || string.IsNullOrEmpty(attendance.EntryTime)
-            || attendance.OnDate == null || attendance.Status == null) return false;
+            ) return false;
         return true;
     }
 
@@ -228,12 +229,12 @@
     void Msg(string title, string text, bool isError = false)
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
         NotificationService.Notify(msg);
     }
     private async void Save()
@@ -252,36 +253,36 @@
             {
                 var ext = IsEdit ? " edited!" : "added!";
                 var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Info,
-                        Summary = "Info",
-                        Detail = $"{Employees.First(c => c.ID == attendance.EmployeeId).Value}'s Attendance is {ext}",
-                        Duration = 10000
-                    };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Info",
+                    Detail = $"{Employees.First(c => c.ID == attendance.EmployeeId).Value}'s Attendance is {ext}",
+                    Duration = 10000
+                };
                 NotificationService.Notify(msg);
 
             }
             else
             {
                 var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Error,
-                        Summary = "Error",
-                        Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
-                        Duration = 10000
-                    };
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Error",
+                    Detail = "An error occured while saving and error is " + result.StatusCode.ToString(),
+                    Duration = 10000
+                };
                 NotificationService.Notify(msg);
             }
         }
         catch (Exception ex)
         {
             var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Error",
-                    Detail = "Error Msg \n" + ex.Message,
-                    Duration = 14000
-                };
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error",
+                Detail = "Error Msg \n" + ex.Message,
+                Duration = 14000
+            };
             NotificationService.Notify(msg);
         }
 

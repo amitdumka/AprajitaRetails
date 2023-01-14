@@ -1,10 +1,45 @@
 ﻿@page "/"
-@inject IJSRuntime JS
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject NavigationManager Navigation
 @using Syncfusion.Blazor.Calendars
+@inject IJSRuntime JS
+@inject LocalStorageAccessor LocalStorage
+@inject NavigationManager Navigation
+
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Home" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <Row>
         <h2>Aprajita Retails </h2>
-        <p class="h3">Welcome to our new SRP app.</p>
-<SfCalendar TValue="DateTime" />
- 
+        <p class="h3">NExtGen SRP App</p>
+    </Row>
+    <Row>
+        <Column Classes="col.lg">
+            <p>@StoreCode</p>
+        </Column>
+        <Column Classes="col.lg">
+            <SfCalendar TValue="DateTime" />
+        </Column>
+    </Row>
+</ContentMain>
+
+@code{
+    string StoreCode = "Store Code: Not Selected";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var x=await LocalStorage.GetValueAsync<string>("StoreCode");
+        var y= await LocalStorage.GetValueAsync<string>("UserFullName");
+        StoreCode = "Store Code: " + x+" & User : "+y;
+        //return base.OnInitializedAsync();
+        StateHasChanged();
+       // return base.OnInitializedAsync().IsCompleted;
+
+    }
+
+}
+

@@ -8,6 +8,7 @@
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
 @inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
 
 <ContentHeader>
     <Header>
@@ -112,12 +113,12 @@
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
         NotificationService.Notify(msg);
     }
 }

@@ -8,9 +8,10 @@
 @using Radzen.Blazor
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
 @attribute [Authorize]
 @inject HttpClient Http
-
+@inject LocalStorageAccessor LocalStorage
 <ContentMain>
     <EntityEdit @bind-EntityModel=@attendance TItem="@Attendance" Title="Attendance" ApiUrl="Attendances" ReturnUrl="/payroll/attendances" Id="@Id" IsEdit=@IsEdit>
         <Row>
@@ -122,20 +123,20 @@
         else
         {
             attendance = new Attendance
-                {
-                    OnDate = DateTime.Now,
-                    AttendanceId = "",
-                    EmployeeId = "",
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    MarkedDeleted = false,
-                    Remarks = " ",
-                    StoreId = Stores != null ? Stores[0].ID : "ARD",
-                    IsTailoring = false,
-                    Status = AttUnit.Present,
-                    UserId = "BlazorUI",
-                    EntryTime = $"{DateTime.Now.ToShortTimeString()}"
-                };
+            {
+                OnDate = DateTime.Now,
+                AttendanceId = "",
+                EmployeeId = "",
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                Remarks = " ",
+                StoreId = Stores != null ? Stores[0].ID : "ARD",
+                IsTailoring = false,
+                Status = AttUnit.Present,
+                UserId = "BlazorUI",
+                EntryTime = $"{DateTime.Now.ToShortTimeString()}"
+            };
         }
 
     }

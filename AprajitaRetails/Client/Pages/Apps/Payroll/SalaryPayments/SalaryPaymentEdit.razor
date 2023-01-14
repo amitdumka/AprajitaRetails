@@ -8,9 +8,10 @@
 @using Radzen.Blazor
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
 @attribute [Authorize]
 @inject HttpClient Http
-
+@inject LocalStorageAccessor LocalStorage
 <ContentMain>
     <EntityEdit @bind-EntityModel=@entity TItem="@SalaryPayment" Title="Salary Payment" ApiUrl="SalaryPayments" ReturnUrl="/payroll/salarypayments" Id="@Id" IsEdit=@IsEdit>
         <Row>
@@ -71,7 +72,8 @@
         </Row>
         <Row>
             <Column Classes="col.md">
-            <ANumInput @bind-Value=@entity.SalaryMonth Name="SalaryMonth" Label="Salary Month"/></Column>
+                <ANumInput @bind-Value=@entity.SalaryMonth Name="SalaryMonth" Label="Salary Month" />
+            </Column>
             <Column Classes="col.md">
                 <div class="mb-3 row">
                     <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
@@ -104,8 +106,7 @@
     private IList<SelectOption>? Employees;
     IList<string> Components = Enum.GetNames(typeof(SalaryComponent));
     IList<string> PayModes = Enum.GetNames(typeof(PayMode));
-    bool isTailor = false;
-
+   
     private async Task<bool> FetchSelectData()
     {
         try

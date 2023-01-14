@@ -113,7 +113,7 @@ namespace AprajitaRetails.Shared. Models.Stores
         public string SalesmanId { get; set; }
         public string Name { get; set; }
 
-        public string StoreId { get; set; }
+        //public string StoreId { get; set; }
         public string EmployeeId { get; set; }
         public bool IsActive { get; set; }
     }

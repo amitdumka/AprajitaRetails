@@ -11,6 +11,7 @@
 
 @attribute [Authorize]
 @inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
 
 <ContentMain>
     <EntityEdit @bind-EntityModel=@entity TItem="@PettyCashSheet" Title="Petty Cash Sheet" ApiUrl="PettyCashSheets" ReturnUrl="/accounts/PettyCashSheets" Id="@Id" IsEdit=@IsEdit>
@@ -120,34 +121,34 @@
         else
         {
             entity = new PettyCashSheet
-                {
-                    OnDate = DateTime.Now,
-                    BankDeposit = 0,
-                    BankWithdrawal = 0,
-                    CardSale = 0,
-                    ClosingBalance = 0,
-                    CustomerDue = 0,
-                    CustomerRecovery = 0,
-                    DailySale = 0,
-                    DueList = "",
-                    ManualSale = 0,
-                    NonCashSale = 0,
-                    OpeningBalance = 0,
-                    PaymentNarration = "",
-                    PaymentTotal = 0,
-                    ReceiptsNarration = "",
-                    ReceiptsTotal = 0,
-                    RecoveryList = "",
-                    TailoringPayment = 0,
-                    TailoringSale = 0,
-                    Id = "",
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    MarkedDeleted = false,
-                    StoreId = Stores != null ? Stores[0].ID : "",
-                    UserId = "BlazorUI"
+            {
+                OnDate = DateTime.Now,
+                BankDeposit = 0,
+                BankWithdrawal = 0,
+                CardSale = 0,
+                ClosingBalance = 0,
+                CustomerDue = 0,
+                CustomerRecovery = 0,
+                DailySale = 0,
+                DueList = "",
+                ManualSale = 0,
+                NonCashSale = 0,
+                OpeningBalance = 0,
+                PaymentNarration = "",
+                PaymentTotal = 0,
+                ReceiptsNarration = "",
+                ReceiptsTotal = 0,
+                RecoveryList = "",
+                TailoringPayment = 0,
+                TailoringSale = 0,
+                Id = "",
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                StoreId = Stores != null ? Stores[0].ID : "",
+                UserId = "BlazorUI"
 
-                };
+            };
         }
 
     }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
+//using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Text.Json;
 
@@ -39,7 +39,7 @@ namespace AprajitaRetails.Client
                 string responseBody = await result.Content.ReadAsStringAsync();
                 return Convert.ToBoolean(responseBody);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }
@@ -55,7 +55,7 @@ namespace AprajitaRetails.Client
                 string responseBody = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<List<string>>(responseBody);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return null;
             }

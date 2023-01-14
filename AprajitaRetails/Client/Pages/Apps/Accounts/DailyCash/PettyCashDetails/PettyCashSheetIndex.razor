@@ -10,6 +10,7 @@
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
 @inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
 
 <ContentMain>
     <EntityList Title="@Title" BaseUrl="/accounts/PettyCashSheet" Loading=@Loading>
@@ -58,18 +59,18 @@
 @code {
     private const string Title = "Salary Payment";
     private List<PettyCashSheet>? entities;
-   // private Employee[]? employees;
+    // private Employee[]? employees;
     private bool Loading = true;
 
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
         NotificationService.Notify(msg);
     }
     async void ConfirmDelete(string id)

@@ -5,10 +5,10 @@
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
 @inject NavigationManager NavigationManager
-
+@inject LocalStorageAccessor LocalStorage
 @attribute [Authorize]
 @inject HttpClient Http
-
+@using AprajitaRetails.Helpers
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
     <EntityRow Lable="ID" Value="@entity.EmployeeId" />
     <EntityRow Lable="Name" Value="@entity.StaffName" />

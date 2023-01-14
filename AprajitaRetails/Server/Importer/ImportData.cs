@@ -106,7 +106,7 @@ namespace AprajitaRetails.Server.Importer
                     case "BankAccountList": aRDB.AccountLists.RemoveRange(aRDB.AccountLists.ToList()); break;
                     default:
                         return false;
-                        break;
+                        
                 }
                 return await aRDB.SaveChangesAsync() > 0;
             }
@@ -193,7 +193,7 @@ namespace AprajitaRetails.Server.Importer
                         await aRDB.AddRangeAsync(JsonToObject<DueRecovery>(path)); break;
                     default:
                         return false;
-                        break;
+                        
                 }
                 return await aRDB.SaveChangesAsync() > 0;
             }

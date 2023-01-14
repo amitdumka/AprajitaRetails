@@ -6,7 +6,7 @@
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
 @inject NavigationManager NavigationManager
-
+@inject LocalStorageAccessor LocalStorage
 @attribute [Authorize]
 @inject HttpClient Http
 
@@ -36,7 +36,7 @@
 @code {
     [Parameter] public string? ID { get; set; }
     Note? entity;
-    Employee? employee;
+    //Employee? employee;
     Party? party;
 
     string Title = "Details";

@@ -4,13 +4,13 @@
 @using AprajitaRetails.Commons
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
-
+@using AprajitaRetails.Helpers
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
 @attribute [Authorize]
 @inject HttpClient Http
-
+@inject LocalStorageAccessor LocalStorage
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
     <EntityRow Lable="ID" Value="@entity.SalaryPaymentId" />
     <EntityRow Lable="Name" Value="@employee.StaffName" />

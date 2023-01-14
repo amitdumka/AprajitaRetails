@@ -4,9 +4,9 @@
 @using AprajitaRetails.Shared
 @using AprajitaRetails.Shared.Models.Payroll
 @attribute [Authorize]
-
+@inject LocalStorageAccessor LocalStorage
 @inject HttpClient Http
-
+@using AprajitaRetails.Helpers
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title=@Title />

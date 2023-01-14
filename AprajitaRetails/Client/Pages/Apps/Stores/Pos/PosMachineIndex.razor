@@ -6,13 +6,13 @@
 @using AprajitaRetails.Shared.Models.Banking
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-
+@using AprajitaRetails.Helpers
 @attribute [Authorize]
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
 @inject HttpClient Http
-
+@inject LocalStorageAccessor LocalStorage
 <ContentMain>
     <EntityList Title="@Title" BaseUrl="/stores/PosMachines" Loading=@Loading>
         <TableHead>
@@ -38,7 +38,7 @@
                     <TableCell>@ent.TID.ToString()</TableCell>
                     <TableCell>@ent.Active..ToString()</TableCell>
                     <TableCell>@ent.CloseDate.ToString()</TableCell>
-                    <TableCell>@banks.First(c=>c.BankId==ent.BankId).Name</TableCell>
+                    <TableCell>@banks.First(c => c.BankId == ent.BankId).Name</TableCell>
                     <TableCell>@ent.StoreId.ToString()</TableCell>
                     <TableCell>  <ActionMenu Link="/stores/Posmachines" Id="@ent.EDCTerminalId" OnClickDelete="()=>ConfirmDelete(ent.EDCTerminalId)" /></TableCell>
                 </TableRow>

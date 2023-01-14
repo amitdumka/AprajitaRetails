@@ -12,6 +12,7 @@
 
 @attribute [Authorize]
 @inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
 
 <ContentMain>
     <EntityEdit @bind-EntityModel=@entity TItem="@CashDetail" Title="Cash Tally" ApiUrl="CashDetails" ReturnUrl="/accounts/CashDetails" Id="@Id" IsEdit=@IsEdit>
@@ -72,14 +73,14 @@
 
     <Row>
         <Column Classes="col.md">
-        <div class="bg-warning text-danger-emphasis">
-            <label>Click Calulate Button before Saving</label>
-        </div>
+            <div class="bg-warning text-danger-emphasis">
+                <label>Click Calulate Button before Saving</label>
+            </div>
         </Column>
 
         <Column Classes="col.md">
             <div class="bg-info-subtle text-warning-emphasis">
-                <Button Color="Blazor.AdminLte.Color.Warning" @onclick="@Caluclate" >Calculate</Button>
+                <Button Color="Blazor.AdminLte.Color.Warning" @onclick="@Caluclate">Calculate</Button>
             </div>
         </Column>
     </Row>
@@ -129,29 +130,29 @@
         else
         {
             entity = new CashDetail
-                {
-                    OnDate = DateTime.Now,
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    MarkedDeleted = false,
-                    StoreId = Stores != null ? Stores[0].ID : "",
-                    UserId = "BlazorUI",
-                    C1 = 0,
-                    C10 = 0,
-                    C2 = 0,
-                    C5 = 0,
-                    CashDetailId = "",
-                    Count = 0,
-                    N10 = 0,
-                    N100 = 0,
-                    N1000 = 0,
-                    N20 = 0,
-                    N200 = 0,
-                    N2000 = 0,
-                    N50 = 0,
-                    N500 = 0,
-                    TotalAmount = 0,
-                };
+            {
+                OnDate = DateTime.Now,
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                StoreId = Stores != null ? Stores[0].ID : "",
+                UserId = "BlazorUI",
+                C1 = 0,
+                C10 = 0,
+                C2 = 0,
+                C5 = 0,
+                CashDetailId = "",
+                Count = 0,
+                N10 = 0,
+                N100 = 0,
+                N1000 = 0,
+                N20 = 0,
+                N200 = 0,
+                N2000 = 0,
+                N50 = 0,
+                N500 = 0,
+                TotalAmount = 0,
+            };
         }
 
     }

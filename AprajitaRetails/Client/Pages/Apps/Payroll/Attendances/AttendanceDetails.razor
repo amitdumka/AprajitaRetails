@@ -1,7 +1,7 @@
 ﻿@*@page "/payroll/attendances/detail/{ID:string?}"*@
 
 @page "/payroll/attendances/detail/{*ID}"
-
+@using AprajitaRetails.Helpers
 @using AprajitaRetails.Shared.Models.Payroll
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
@@ -12,7 +12,7 @@
 @inject SfDialogService DialogService
 @attribute [Authorize]
 @inject HttpClient Http
-
+@inject LocalStorageAccessor LocalStorage
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title=@Title />
@@ -92,7 +92,7 @@
                     isDeleted = true;
                     StateHasChanged();
                     Msg("Attendane Delete", $"Attendance {id} is deleted");
-                    
+
                 }
                 else
                 {
@@ -114,12 +114,12 @@
     void Msg(string title, string text, bool isError = false)
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
         NotificationService.Notify(msg);
     }
 

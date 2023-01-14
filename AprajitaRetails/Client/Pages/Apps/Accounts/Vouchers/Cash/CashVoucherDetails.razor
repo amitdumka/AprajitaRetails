@@ -6,7 +6,7 @@
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
 @inject NavigationManager NavigationManager
-
+@inject LocalStorageAccessor LocalStorage
 @attribute [Authorize]
 @inject HttpClient Http
 
@@ -49,7 +49,7 @@
             //ID = ID ?? "NO ID Found";
             entity = await Http.GetFromJsonAsync<CashVoucher>($"cashvouchers/{ID}");
             Title = "Details of CVH: " + entity.VoucherNumber;
-            
+
             modes = await Http.GetFromJsonAsync<TransactionMode>($"TransactionModes/{entity.TransactionId}");
             employee = await Http.GetFromJsonAsync<Employee>($"Employees/{entity.EmployeeId}");
             if (string.IsNullOrEmpty(entity.PartyId) == false)

@@ -12,6 +12,7 @@
 @inject SfDialogService DialogService
 @attribute [Authorize]
 @inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
     <EntityRow Lable="ID" Value="@entity.InvoiceNumber" />
@@ -95,12 +96,12 @@
     void Msg(string title, string text, bool isError = false)
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
         NotificationService.Notify(msg);
     }
 
