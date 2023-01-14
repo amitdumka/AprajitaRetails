@@ -46,14 +46,17 @@
         <SideBarTreeView Icon="fas fa-tachometer-alt">
             <Title>Accounts</Title>
             <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking">
+                <SideBarMenuItem Icon="far fa-circle" Link="banking/banks">
                     Banking
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="accounts/dailysale">
+                <SideBarMenuItem Icon="far fa-circle" Link="accounts/DailySales">
                     Daily Sale
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="accounts/dues">
+                <SideBarMenuItem Icon="far fa-circle" Link="accounts/CustomerDues">
                     Dues
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="accounts/DueRecoveries">
+                    Recovery
                 </SideBarMenuItem>
                 <SideBarMenuItem Icon="far fa-circle" Link="TransactionMode">
                     Transaction Mode
@@ -63,33 +66,38 @@
         <SideBarTreeView Icon="fa-solid fa-warehouse">
             <Title>Inventory</Title>
             <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="ui/general">
+                <SideBarMenuItem Icon="far fa-circle" Link="inventory/purchases">
                     Purchase
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="ui/buttons">
+                <SideBarMenuItem Icon="far fa-circle" Link="inventory/stocks">
                     Stock
                 </SideBarMenuItem>
-                <SideBarMenuItem Link="ui/navbar" Icon="far fa-circle">
+                <SideBarMenuItem Link="inventory/products" Icon="far fa-circle">
                     Products
+                </SideBarMenuItem>
+                <SideBarMenuItem Link="inventory/productcategories" Icon="far fa-circle">
+                    Product Category
+                </SideBarMenuItem>
+                <SideBarMenuItem Link="inventory/subproductcategories" Icon="far fa-circle">
+                    Sub Product Category
                 </SideBarMenuItem>
             </Items>
         </SideBarTreeView>
         <SideBarTreeView Icon="fa-solid fa-cart-arrow-down">
             <Title>Sale</Title>
             <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="forms/general">
+                <SideBarMenuItem Icon="far fa-circle" Link="inventory/sales">
                     Regular Invoice
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="forms/advanced">
+                <SideBarMenuItem Icon="far fa-circle" Link="inventory/manualsales">
                     Manual Invoice
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="forms/file-management">
+                <SideBarMenuItem Icon="far fa-circle" Link="inventory/printInvoices">
                     Invoice Printing
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="forms/file-management">
+                <SideBarMenuItem Icon="far fa-circle" Link="inventory/salereports">
                     Sale Report
                 </SideBarMenuItem>
-
             </Items>
         </SideBarTreeView>
         <SideBarTreeView Icon="fa-sharp fa-solid fa-store">
@@ -98,51 +106,52 @@
                 <SideBarMenuItem Icon="far fa-circle" Link="stores">
                     Store
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="customers">
+                <SideBarMenuItem Icon="far fa-circle" Link="stores/customers">
                     Customers
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="contacts">
+                <SideBarMenuItem Icon="far fa-circle" Link="stores/contacts">
                     Contacts
                 </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="salesmen">
+                <SideBarMenuItem Icon="far fa-circle" Link="stores/salesmen">
                     Salesmen
+                </SideBarMenuItem>
+                <SideBarMenuItem Icon="far fa-circle" Link="stores/posMachines">
+                    POS Machine
                 </SideBarMenuItem>
             </Items>
         </SideBarTreeView>
-        <SideBarTreeView Icon=" fa-solid fa-users-line ">
-            <Title>User</Title>
-            <Items>
-                <AuthorizeView>
-                    <Authorized>
-                        <SideBarMenuItem Icon="far fa-circle" Link="forgot-password">
-                            Forgot Password
-                        </SideBarMenuItem>
-                    </Authorized>
-                    <NotAuthorized>
+        <AuthorizeView>
+            <NotAuthorized>
+                <SideBarTreeView Icon=" fa-solid fa-users-line ">
+                    <Title>User</Title>
+                    <Items>
                         <SideBarMenuItem Icon="far fa-circle" Link="login">
                             Login
                         </SideBarMenuItem>
                         <SideBarMenuItem Icon="far fa-circle" Link="register">
                             Register
                         </SideBarMenuItem>
-                    </NotAuthorized>
-                </AuthorizeView>
-            </Items>
-        </SideBarTreeView>
+                        <SideBarMenuItem Icon="far fa-circle" Link="forgot-password">
+                            Forgot Password
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+            </NotAuthorized>
+        </AuthorizeView>
         @*<SideBarTreeView Icon="far fa-plus-square">
-        <Title>Extras</Title>
-        <Items>
-        <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
-        Lockscreen
-        </SideBarMenuItem>
-        <SideBarMenuItem Icon="far fa-circle" Link="404">
-        Error 404
-        </SideBarMenuItem>
-        <SideBarMenuItem Icon="far fa-circle" Link="500">
-        Error 500
-        </SideBarMenuItem>
-        </Items>
-        </SideBarTreeView>*@
+            <Title>Extras</Title>
+            <Items>
+            <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
+            Lockscreen
+            </SideBarMenuItem>
+            <SideBarMenuItem Icon="far fa-circle" Link="404">
+            Error 404
+            </SideBarMenuItem>
+            <SideBarMenuItem Icon="far fa-circle" Link="500">
+            Error 500
+            </SideBarMenuItem>
+            </Items>
+            </SideBarTreeView>*@
         <SideBarMenuItem Link="autologin" Icon="fas fa-user">
             AutoLogin
         </SideBarMenuItem>
