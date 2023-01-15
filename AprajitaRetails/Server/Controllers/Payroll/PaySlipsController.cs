@@ -31,6 +31,15 @@ namespace AprajitaRetails.Server.Controllers.Payroll
           }
             return await _context.PaySlips.ToListAsync();
         }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<PaySlip>>> GetPaySlipByStore(string storeid)
+        {
+            if (_context.PaySlips == null)
+            {
+                return NotFound();
+            }
+            return await _context.PaySlips.Where(c=>c.StoreId==storeid && c.OnDate.Year==DateTime.Today.Year).OrderByDescending(c=>c.OnDate).ToListAsync();
+        }
 
         // GET: api/PaySlips/5
         [HttpGet("{id}")]

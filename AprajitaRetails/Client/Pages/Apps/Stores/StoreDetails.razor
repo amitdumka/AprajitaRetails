@@ -1,0 +1,112 @@
+﻿@page "/stores/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Stores
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@using AprajitaRetails.Helpers
+
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@attribute [Authorize]
+@inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="ID" Value="@entity.StoreId" />
+    <EntityRow Lable="Name" Value="@entity.StoreName" />
+    <EntityRow Lable="Date" Value="@entity.BeginDate.ToString()" />
+
+    <EntityRow Lable="Salary Component" Value="@entity.City.ToString()" />
+    <EntityRow Lable="Month" Value="@entity.State" />
+    <EntityRow Lable="Payment " Value="@entity.ZipCode.ToString()" />
+    <EntityRow Lable="Amount" Value="@entity.Country.ToString()" />
+    <EntityRow Lable="Details" Value="@entity.StorePhoneNumber" />
+    <EntityRow Lable="Details" Value="@entity.PanNo" />
+    <EntityRow Lable="Details" Value="@entity.GSTIN" />
+    <EntityRow Lable="Details" Value="@entity.StoreManager" />
+    <EntityRow Lable="Details" Value="@entity.StoreManagerContactNo" />
+    <EntityRow Lable="Details" Value="@entity.StoreEmailId" />
+    <EntityRow Lable="Details" Value="@entity.VatNo" />
+    @if (!entity.IsActive || !entity.EndDate.HasValue)
+    {
+        <EntityRow Lable="Details" Value="@entity.EndDate.ToString()" />}
+    else
+    {
+        <EntityRow Lable="Status" Value="Active Store" />
+    }
+
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    Store? entity;
+
+    string Title = "Details";
+    bool Loading = true;
+    bool isDeleted = false;
+    void BackButton() { NavigationManager.NavigateTo("/stores"); }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+
+            entity = await Http.GetFromJsonAsync<Store>($"Stores/{ID}");
+
+            Title = "Details of " + entity.StoreName;
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+    async void DeleteButton()
+    {
+        try
+        {
+
+            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
+            if (isConfirm)
+            {
+                var result = await Http.DeleteAsync($"Stores/{ID}");
+                if (result.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                    StateHasChanged();
+                    Msg(" Delete", $"Store {ID} is deleted");
+
+                }
+                else
+                {
+                    Msg(" Delete", $" Error : Store {ID} is not deleted", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Msg("Error", ex.Message, true);
+        }
+
+    }
+
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+
+
+
+}

@@ -31,6 +31,15 @@ namespace AprajitaRetails.Server.Controllers.Payroll
           }
             return await _context.TimeSheets.ToListAsync();
         }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<TimeSheet>>> GetTimeSheetByStore(string id)
+        {
+            if (_context.TimeSheets == null)
+            {
+                return NotFound();
+            }
+            return await _context.TimeSheets.Where(c=>c.OutTime.Year==DateTime.Today.Year).ToListAsync();
+        }
 
         // GET: api/TimeSheets/5
         [HttpGet("{id}")]

@@ -35,6 +35,18 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 .ToListAsync();
         }
 
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendanceByStore(string storeid)
+        {
+            if (_context.Attendances == null)
+            {
+                return NotFound();
+            }
+            return await _context.Attendances.Where(c => c.OnDate.Year == DateTime.Today.Year && c.StoreId==storeid)
+                .OrderByDescending(c => c.OnDate)
+                .ToListAsync();
+        }
+
         // GET: api/Attendances/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Attendance>> GetAttendance(string id)

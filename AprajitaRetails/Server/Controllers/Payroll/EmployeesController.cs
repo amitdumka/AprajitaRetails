@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Server.BL.Payrolls;
+using Syncfusion.Blazor.PivotView;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -26,21 +27,33 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-          if (_context.Employees == null)
-          {
-              return NotFound();
-          }
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
             return await _context.Employees.ToListAsync();
+        }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByStore(string storeid, bool all = false)
+        {
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
+            if (all)
+                return await _context.Employees.Where(c => c.StoreId == storeid).ToListAsync();
+            else
+                return await _context.Employees.Where(c => c.StoreId == storeid && c.IsWorking).ToListAsync();
         }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(string id)
         {
-          if (_context.Employees == null)
-          {
-              return NotFound();
-          }
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
             var employee = await _context.Employees.FindAsync(id);
 
             if (employee == null)
@@ -87,11 +100,11 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-          if (_context.Employees == null)
-          {
-              return Problem("Entity set 'ARDBContext.Employees'  is null.");
-          }
-             employee.EmployeeId=PayrollHelper.EmployeeIdGenerator(employee.StoreId, employee.JoiningDate.Year, employee.Category);
+            if (_context.Employees == null)
+            {
+                return Problem("Entity set 'ARDBContext.Employees'  is null.");
+            }
+            employee.EmployeeId = PayrollHelper.EmployeeIdGenerator(employee.StoreId, employee.JoiningDate.Year, employee.Category);
             employee.EmpId = _context.Employees.Count() + 1;
             _context.Employees.Add(employee);
 

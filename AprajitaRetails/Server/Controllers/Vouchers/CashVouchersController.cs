@@ -36,6 +36,16 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             }
             return await _context.CashVouchers.OrderByDescending(c=>c.OnDate).ToListAsync();
         }
+        // GET: api/Vouchers
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<CashVoucher>>> GetCashVoucherByStore(string storeid)
+        {
+            if (_context.CashVouchers == null)
+            {
+                return NotFound();
+            }
+            return await _context.CashVouchers.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
+        }
 
         // GET: api/CashVouchers/5
         [HttpGet("{id}")]

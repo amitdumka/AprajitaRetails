@@ -1,10 +1,12 @@
 ﻿@page "/login"
 @using AprajitaRetails.Shared.Models.Auth
+@using AprajitaRetails.Client.Helpers;
 @inject NavigationManager NavigationManager
 @inject NotificationService NotificationService
 @inject IHttpClientFactory ClientFactory
 @using AprajitaRetails.Helpers
 @inject LocalStorageAccessor LocalStorage
+@inject ClientSetting ClientSetting
 
 <AprajitaRetails.AdminLte.AOverlay>
     <div style=" margin: 0 auto; margin-top: 10%; max-width: 400px;">
@@ -20,14 +22,14 @@
                     <Input @bind-Value="email" />
                     <Input @bind-Value="password" />
                     @code {
-        CustomCheckboxState rememberMe = new CustomCheckboxState()
-        {
-            Identifier = "customCheckbox1",
-            Value = "option1",
-            Label = "Remember Me?"
-        ,
-            IsChecked = true
-        };
+                        CustomCheckboxState rememberMe = new CustomCheckboxState()
+                        {
+                            Identifier = "customCheckbox1",
+                            Value = "option1",
+                            Label = "Remember Me?"
+                        ,
+                            IsChecked = true
+                        };
                     }
                     <div class="row">
                         <div class="col-8">
@@ -80,20 +82,21 @@
                 var user = login.Content.ReadFromJsonAsync<LoggedUser>().Result;
                 if (user != null)
                 {
-                      LocalStorage.SetValueAsync("UserFullName", user.FullName);
-                      LocalStorage.SetValueAsync("StoreCode", user.StoreId);
-                      LocalStorage.SetValueAsync("Employee", user.EmployeeId);
-                      LocalStorage.SetValueAsync("UserName", user.Id);
-                    
+                    LocalStorage.SetValueAsync("UserFullName", user.FullName);
+                    LocalStorage.SetValueAsync("StoreCode", user.StoreId);
+                    // LocalStorage.SetValueAsync("Employee", user.EmployeeId);
+                    // LocalStorage.SetValueAsync("UserName", user.Id);
+                    ClientSetting.SetLogin(user.StoreId, "", user.FullName, user.Id, user.EmployeeId);
+
                 }
 
                 var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Info,
-                        Summary = "Success",
-                        Detail = $"User Loged In: {user.FullName}",
-                        Duration = 14000
-                    };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Success",
+                    Detail = $"User Loged In: {user.FullName}",
+                    Duration = 14000
+                };
                 NotificationService.Notify(msg);
                 NavigationManager.NavigateTo("/home");
             }
@@ -101,12 +104,12 @@
             {
                 // Display error message
                 var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Info,
-                        Summary = "Error",
-                        Detail = "err" + login.Content,
-                        Duration = 14000
-                    };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Error",
+                    Detail = "err" + login.Content,
+                    Duration = 14000
+                };
                 NotificationService.Notify(msg);
 
             }
@@ -116,12 +119,12 @@
             // Dispaly error message
             // Display error message
             var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Error",
-                    Detail = "err" + ex.Message,
-                    Duration = 14000
-                };
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = "Error",
+                Detail = "err" + ex.Message,
+                Duration = 14000
+            };
             NotificationService.Notify(msg);
         }
     }

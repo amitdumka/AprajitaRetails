@@ -1,20 +1,5 @@
 ﻿@page "/home"
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject NavigationManager Navigation
 @using Microsoft.AspNetCore.Authorization
-@using AprajitaRetails.Shared.Models.Auth
-@using AprajitaRetails.Shared.Models.Vouchers;
-@*@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication*@
-@using AprajitaRetails.Shared
-@*@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
-    @inject ProtectedLocalStorage BrowserStorage*@
-@*//@attribute [Authorize]*@
-@inject NavigationManager NavigationManager
-@inject HttpClient Http
-@inject NotificationService NotificationService
-@inject IHttpClientFactory ClientFactory
 @inject IJSRuntime JSRuntime
 
 @attribute [Authorize]
@@ -22,12 +7,12 @@
 <AuthorizeView>
     <Authorized>
         <h2>Aprajita Retails </h2>
-        <p class="h3">Welcome to our new SRP app.</p>
-        <p class="h4">Current UserName: @context.User.Identity?.Name</p>
 
+        <p class="h3">NxtGen SRP app</p>
+        
         @if (!string.IsNullOrEmpty(currentUserName))
         {
-            <p>Current User FullName: @currentUserName</p>
+            <p margin="20" class="h4">Current User FullName: @currentUserName</p>
         }
     </Authorized>
 

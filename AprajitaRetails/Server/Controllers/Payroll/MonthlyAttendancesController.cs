@@ -25,21 +25,31 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MonthlyAttendance>>> GetMonthlyAttendance()
         {
-          if (_context.MonthlyAttendances== null)
-          {
-              return NotFound();
-          }
+            if (_context.MonthlyAttendances == null)
+            {
+                return NotFound();
+            }
             return await _context.MonthlyAttendances.ToListAsync();
+        }
+        // GET: api/MonthlyAttendances
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<MonthlyAttendance>>> GetMonthlyAttendanceByStore(string storeid)
+        {
+            if (_context.MonthlyAttendances == null)
+            {
+                return NotFound();
+            }
+            return await _context.MonthlyAttendances.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/MonthlyAttendances/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MonthlyAttendance>> GetMonthlyAttendance(string id)
         {
-          if (_context.MonthlyAttendances== null)
-          {
-              return NotFound();
-          }
+            if (_context.MonthlyAttendances == null)
+            {
+                return NotFound();
+            }
             var monthlyAttendance = await _context.MonthlyAttendances.FindAsync(id);
 
             if (monthlyAttendance == null)
@@ -86,10 +96,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<MonthlyAttendance>> PostMonthlyAttendance(MonthlyAttendance monthlyAttendance)
         {
-          if (_context.MonthlyAttendances== null)
-          {
-              return Problem("Entity set 'ARDBContext.MonthlyAttendance'  is null.");
-          }
+            if (_context.MonthlyAttendances == null)
+            {
+                return Problem("Entity set 'ARDBContext.MonthlyAttendance'  is null.");
+            }
             _context.MonthlyAttendances.Add(monthlyAttendance);
             try
             {
@@ -114,7 +124,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMonthlyAttendance(string id)
         {
-            if (_context.MonthlyAttendances== null)
+            if (_context.MonthlyAttendances == null)
             {
                 return NotFound();
             }
