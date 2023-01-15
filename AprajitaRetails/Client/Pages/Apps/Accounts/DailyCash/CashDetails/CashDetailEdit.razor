@@ -11,8 +11,7 @@
 @using Syncfusion.Blazor.Calendars
 
 @attribute [Authorize]
-@inject HttpClient Http
-@inject LocalStorageAccessor LocalStorage
+@inject HttpClient Http 
 
 <ContentMain>
     <EntityEdit @bind-EntityModel=@entity TItem="@CashDetail" Title="Cash Tally" ApiUrl="CashDetails" ReturnUrl="/accounts/CashDetails" Id="@Id" IsEdit=@IsEdit>

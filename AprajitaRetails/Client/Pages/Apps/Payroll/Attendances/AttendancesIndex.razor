@@ -99,8 +99,8 @@
             StoreCode = Settings.StoreCode;
             if (!string.IsNullOrEmpty(Settings.StoreCode))
             {
-                employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
-                entities = await Http.GetFromJsonAsync<List<Attendance>>("Attendances");
+                employees = await Http.GetFromJsonAsync<Employee[]>($"Employees/ByStore?storeid={StoreCode}");
+                entities = await Http.GetFromJsonAsync<List<Attendance>>($"Attendances/ByStore?storeid={StoreCode}");
             }
             else { Msg("Error", "Store is not selected!, Kindly re-login!", true); }
         }

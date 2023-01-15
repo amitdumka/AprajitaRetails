@@ -9,8 +9,7 @@
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
 @attribute [Authorize]
-@inject HttpClient Http
-@inject LocalStorageAccessor LocalStorage
+@inject HttpClient Http 
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
     <EntityRow Lable="ID" Value="@entity.Id" />

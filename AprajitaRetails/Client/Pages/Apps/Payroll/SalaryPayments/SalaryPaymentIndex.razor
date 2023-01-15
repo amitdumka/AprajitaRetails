@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 @using AprajitaRetails.Helpers
+@using AprajitaRetails.Client.Helpers
 @attribute [Authorize]
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
@@ -57,12 +58,12 @@
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-            {
-                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
         NotificationService.Notify(msg);
     }
     async void ConfirmDelete(string id)
