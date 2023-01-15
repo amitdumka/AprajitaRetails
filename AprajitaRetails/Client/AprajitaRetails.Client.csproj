@@ -11,11 +11,6 @@
     <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="DD\MainLayout.txt" />
-    <None Remove="DD\VoucherCreate.razor.txt" />
-    <None Remove="DD\Vouchers.razor.txt" />
-    <None Remove="DD\Widgets.razor.txt" />
-    <None Remove="DD\_Host.txt" />
     <None Remove="Shared\Apps\" />
     <None Remove="Shared\Apps\Menu\" />
     <None Remove="Pages\Apps\Accounts\Vouchers\Cash\" />
@@ -37,14 +32,6 @@
     <None Remove="Pages\Apps\Accounts\Banking\AccountLists\" />
     <None Remove="Pages\Apps\Accounts\DailySales\Dues\" />
     <None Remove="Pages\Apps\Stores\Pos\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="DD\MainLayout.txt" />
-    <Content Include="DD\VoucherCreate.razor.txt" />
-    <Content Include="DD\Vouchers.razor.txt" />
-    <Content Include="DD\Widgets.razor.txt" />
-    <Content Include="DD\_Host.txt" />
   </ItemGroup>
 
   <ItemGroup>

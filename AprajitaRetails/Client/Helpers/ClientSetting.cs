@@ -24,13 +24,5 @@
         }
     }
 
-    //public class ClientSettingService : IDisposable
-    //{
-    //    private ClientSetting setting;
-
-    //    public void Dispose()
-    //    {
-    //        setting.UserChangedEvent -= UserChanged;
-    //    }
-    //}
+    
 }
