@@ -121,11 +121,12 @@
             {
                 entities.Remove(entities.First(c => c.AttendanceId == id));
                 StateHasChanged();
-                Msg("Attendane Delete", $"Attendance {id} is deleted");
+                Msg("  Delete", $"Attendance {id} is deleted");
+                StateHasChanged();
             }
             else
             {
-                Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
+                Msg("  Delete", $" Error : Attendance {id} is not deleted", true);
             }
         }
     }

@@ -128,15 +128,23 @@
         {
             // Do Fetch Data from DB and Populate.
             //ID = ID ?? "NO ID Found";
-
-            entity = await Http.GetFromJsonAsync<Attendance>($"Attendances/{ID}");
-            //var emp = await Http.GetFromJsonAsync<Attendance>($"Employees/{entity.EmployeeId}");
-            Title = "Detail Attendance of " + entity.Employee.StaffName;
-            StateHasChanged();
+            try
+            {
+                entity = await Http.GetFromJsonAsync<Attendance>($"Attendances/{ID}");
+                //var emp = await Http.GetFromJsonAsync<Attendance>($"Employees/{entity.EmployeeId}");
+                Title = "Detail Attendance of " + entity.Employee.StaffName;
+                StateHasChanged();
+            }catch(HttpRequestException e)
+            {
+                NavigationManager.NavigateTo("/payroll/attendances");
+                Msg("Error", $"Attendance ID# {ID} not found!! and error is {e.Message}");
+            }
         }
         else
         {
             //alert
+            NavigationManager.NavigateTo("/payroll/attendances");
+            Msg("Error", $"Attendance ID# {ID} not found!!");
         }
     }
 
