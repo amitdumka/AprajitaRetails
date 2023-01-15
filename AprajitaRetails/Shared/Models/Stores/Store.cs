@@ -111,7 +111,9 @@ namespace AprajitaRetails.Shared.Models.Stores
         public string SalesmanId { get; set; }
         public string Name { get; set; }
 
+#pragma warning disable CS0108 // 'Salesman.StoreId' hides inherited member 'BaseST.StoreId'. Use the new keyword if hiding was intended.
         public string StoreId { get; set; }
+#pragma warning restore CS0108 // 'Salesman.StoreId' hides inherited member 'BaseST.StoreId'. Use the new keyword if hiding was intended.
         public string EmployeeId { get; set; }
         public bool IsActive { get; set; }
     }
