@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AprajitaRetails.Server.Data;
-using AprajitaRetails.Shared.Models.Banking;
-using AprajitaRetails.Shared.Models.Payroll;
-using AprajitaRetails.Shared.Models.Vouchers;
+﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Stores;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CashDetail>>> GetCashDetail()
         {
-          if (_context.CashDetails == null)
-          {
-              return NotFound();
-          }
+            if (_context.CashDetails == null)
+            {
+                return NotFound();
+            }
             return await _context.CashDetails.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet("{id}")]
         public async Task<ActionResult<CashDetail>> GetCashDetail(string id)
         {
-          if (_context.CashDetails == null)
-          {
-              return NotFound();
-          }
+            if (_context.CashDetails == null)
+            {
+                return NotFound();
+            }
             var cashDetail = await _context.CashDetails.FindAsync(id);
 
             if (cashDetail == null)
@@ -86,12 +81,12 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<CashDetail>> PostCashDetail(CashDetail cashDetail)
         {
-          if (_context.CashDetails == null)
-          {
-              return Problem("Entity set 'ARDBContext.CashDetail'  is null.");
-          }
+            if (_context.CashDetails == null)
+            {
+                return Problem("Entity set 'ARDBContext.CashDetail'  is null.");
+            }
 
-          //TODO:Cash Detail ID generation
+            //TODO:Cash Detail ID generation
             _context.CashDetails.Add(cashDetail);
             try
             {

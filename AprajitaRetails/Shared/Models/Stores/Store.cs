@@ -1,11 +1,9 @@
-﻿using System;
+﻿using AprajitaRetails.Shared.Models.Bases;
+using AprajitaRetails.Shared.Models.Stores;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using AprajitaRetails.Shared.Models. Bases;
-using AprajitaRetails.Shared.Models. Stores;
 
-namespace AprajitaRetails.Shared. Models.Bases
+namespace AprajitaRetails.Shared.Models.Bases
 {
     public class Base
     {
@@ -77,7 +75,7 @@ namespace AprajitaRetails.Shared. Models.Bases
         public string CountryName { get; set; }
     }
 }
-namespace AprajitaRetails.Shared. Models.Stores
+namespace AprajitaRetails.Shared.Models.Stores
 {
     public class Store
     {
@@ -106,19 +104,19 @@ namespace AprajitaRetails.Shared. Models.Stores
         public bool MarkedDeleted { get; set; }
     }
 
-  
+
     public class Salesman : BaseST
     {
         [Key]
         public string SalesmanId { get; set; }
         public string Name { get; set; }
 
-        //public string StoreId { get; set; }
+        public string StoreId { get; set; }
         public string EmployeeId { get; set; }
         public bool IsActive { get; set; }
     }
 
-     
+
     public class Customer
     {
         [Key]
@@ -134,7 +132,7 @@ namespace AprajitaRetails.Shared. Models.Stores
         public decimal TotalAmount { get; set; }
         public DateTime OnDate { get; set; }
     }
-     
+
     public class CashDetail : BaseST
     {
         [Key]

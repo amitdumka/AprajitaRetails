@@ -14,8 +14,6 @@
     <Row>
         <Column Classes="col.lg.auto">
             <EditForm Model=@EntityModel OnValidSubmit=@Save OnInvalidSubmit=@ErrorMsg>
-                <DataAnnotationsValidator />
-                <ValidationSummary />
 
                 <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
                     <Title><CardTitle>@Title</CardTitle></Title>
@@ -34,6 +32,11 @@
                             <Column Classes="col.md._3">
                                 <ASubmitButton Title="Save" />
                             </Column>
+                        </Row>
+                        <Row>
+                            <DataAnnotationsValidator />
+                            </Row><Row>
+                            <ValidationSummary />
                         </Row>
                     </Footer>
                 </Card>
@@ -56,13 +59,17 @@
     private void ErrorMsg() { Msg("Error", "Invalid State, Kindly check all fields and try again!", true); }
     private void SaveButton() { Save(); }
     private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
-    [Parameter]
-    public EventCallback<TItem> EntityModelChanged { get; set; }
+    [Parameter] public EventCallback<TItem> EntityModelChanged { get; set; }
+
+   // private bool EntityChanged = true;
+
     private async Task OnEntityModelChanged(ChangeEventArgs e)
     {
         EntityModel = (TItem)e.Value;
         await EntityModelChanged.InvokeAsync(EntityModel);
+       // EntityChanged = true;
     }
+
     void Msg(string title, string text, bool isError = false)
     {
         var msg = new Radzen.NotificationMessage
@@ -76,6 +83,7 @@
     }
     private async void Save()
     {
+
         try
         {
             HttpResponseMessage? result;
@@ -87,9 +95,9 @@
 
             if (result.IsSuccessStatusCode)
             {
-                var ext = $"{className} is" + (IsEdit ? " edited!" : "added!");
-                Msg(IsEdit?"Edited ":" Saved ", ext);
-
+                var ext = $"{className} is " + (IsEdit ? " edited!" : "added!");
+                Msg(IsEdit ? "Edited " : " Saved ", ext);
+                //EntityChanged = false;
             }
             else
             {

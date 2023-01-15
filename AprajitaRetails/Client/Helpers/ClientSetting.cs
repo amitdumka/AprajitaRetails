@@ -11,7 +11,7 @@
         public string Role { get; set; }
         public string EmployeeId { get; set; }
 
-        public event EventHandler UserChangedEvent;
+        //public event EventHandler UserChangedEvent;
 
         public void SetLogin(string code, string sName, string uName, string userid, string eid)
         {
@@ -23,6 +23,4 @@
             StoreName = EmployeeId = StoreCode = UserName = UserId = Role = "";
         }
     }
-
-    
 }

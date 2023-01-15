@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TransactionMode>>> GetTransactionModes()
         {
-          if (_context.TransactionModes == null)
-          {
-              return NotFound();
-          }
+            if (_context.TransactionModes == null)
+            {
+                return NotFound();
+            }
             return await _context.TransactionModes.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet("{id}")]
         public async Task<ActionResult<TransactionMode>> GetTransactionMode(string id)
         {
-          if (_context.TransactionModes == null)
-          {
-              return NotFound();
-          }
+            if (_context.TransactionModes == null)
+            {
+                return NotFound();
+            }
             var transactionMode = await _context.TransactionModes.FindAsync(id);
 
             if (transactionMode == null)
@@ -87,10 +82,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpPost]
         public async Task<ActionResult<TransactionMode>> PostTransactionMode(TransactionMode transactionMode)
         {
-          if (_context.TransactionModes == null)
-          {
-              return Problem("Entity set 'ARDBContext.TransactionModes'  is null.");
-          }
+            if (_context.TransactionModes == null)
+            {
+                return Problem("Entity set 'ARDBContext.TransactionModes'  is null.");
+            }
             _context.TransactionModes.Add(transactionMode);
             try
             {

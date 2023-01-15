@@ -1,5 +1,4 @@
-﻿using System;
-using AprajitaRetails.BL.Vouchers;
+﻿using AprajitaRetails.BL.Vouchers;
 using AprajitaRetails.Server.Data;
 
 namespace AprajitaRetails.Server.BL.Accounts

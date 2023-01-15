@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Stores;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Store>>> GetStores()
         {
-          if (_context.Stores == null)
-          {
-              return NotFound();
-          }
+            if (_context.Stores == null)
+            {
+                return NotFound();
+            }
             return await _context.Stores.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet("{id}")]
         public async Task<ActionResult<Store>> GetStore(string id)
         {
-          if (_context.Stores == null)
-          {
-              return NotFound();
-          }
+            if (_context.Stores == null)
+            {
+                return NotFound();
+            }
             var store = await _context.Stores.FindAsync(id);
 
             if (store == null)
@@ -86,11 +81,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<Store>> PostStore(Store store)
         {
-          if (_context.Stores == null)
-          {
-              return Problem("Entity set 'ARDBContext.Stores'  is null.");
-          }
-          //TODO: store ID genration
+            if (_context.Stores == null)
+            {
+                return Problem("Entity set 'ARDBContext.Stores'  is null.");
+            }
+            //TODO: store ID genration
             _context.Stores.Add(store);
             try
             {

@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using AprajitaRetails.Server.BL.Payrolls;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
-using AprajitaRetails.Server.BL.Payrolls;
-using Syncfusion.Blazor.PivotView;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -32,18 +26,6 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             return await _context.Employees.ToListAsync();
-        }
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByStore(string storeid, bool all = false)
-        {
-            if (_context.Employees == null)
-            {
-                return NotFound();
-            }
-            if (all)
-                return await _context.Employees.Where(c => c.StoreId == storeid).ToListAsync();
-            else
-                return await _context.Employees.Where(c => c.StoreId == storeid && c.IsWorking).ToListAsync();
         }
 
         // GET: api/Employees/5

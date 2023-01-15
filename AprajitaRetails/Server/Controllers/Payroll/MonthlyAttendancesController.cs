@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -30,16 +25,6 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             return await _context.MonthlyAttendances.ToListAsync();
-        }
-        // GET: api/MonthlyAttendances
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<MonthlyAttendance>>> GetMonthlyAttendanceByStore(string storeid)
-        {
-            if (_context.MonthlyAttendances == null)
-            {
-                return NotFound();
-            }
-            return await _context.MonthlyAttendances.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/MonthlyAttendances/5

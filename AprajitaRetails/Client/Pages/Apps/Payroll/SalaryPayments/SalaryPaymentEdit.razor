@@ -11,7 +11,7 @@
 @using AprajitaRetails.Helpers
 @attribute [Authorize]
 @inject HttpClient Http
-@inject LocalStorageAccessor LocalStorage
+@inject ClientSetting Setting
 <ContentMain>
     <EntityEdit @bind-EntityModel=@entity TItem="@SalaryPayment" Title="Salary Payment" ApiUrl="SalaryPayments" ReturnUrl="/payroll/salarypayments" Id="@Id" IsEdit=@IsEdit>
         <Row>
@@ -94,7 +94,6 @@
             <Column Classes="col.md"><ATextInput @bind-Value=@entity.Details Name="Details" Label="Details" /></Column>
         </Row>
 
-
     </EntityEdit>
 </ContentMain>
 @code {
@@ -106,7 +105,7 @@
     private IList<SelectOption>? Employees;
     IList<string> Components = Enum.GetNames(typeof(SalaryComponent));
     IList<string> PayModes = Enum.GetNames(typeof(PayMode));
-   
+
     private async Task<bool> FetchSelectData()
     {
         try
@@ -140,8 +139,8 @@
                 EntryStatus = EntryStatus.Added,
                 IsReadOnly = false,
                 MarkedDeleted = false,
-                StoreId = Stores != null ? Stores[0].ID : "ARD",
-                UserId = "BlazorUI",
+                StoreId = Setting.StoreCode,
+                UserId = Setting.UserName,
                 Amount = 0,
                 Details = "",
                 PayMode = PayMode.Cash,

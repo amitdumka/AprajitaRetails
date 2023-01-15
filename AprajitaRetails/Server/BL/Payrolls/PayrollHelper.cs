@@ -1,9 +1,4 @@
-﻿using System;
-using AprajitaRetails.BL.Vouchers;
-using AprajitaRetails.Server.Data;
-using AprajitaRetails.Shared.Models.Payroll;
-
-namespace AprajitaRetails.Server.BL.Payrolls
+﻿namespace AprajitaRetails.Server.BL.Payrolls
 {
     public class PayrollHelper
     {

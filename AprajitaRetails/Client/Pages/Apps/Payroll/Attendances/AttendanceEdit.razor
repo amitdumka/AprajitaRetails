@@ -1,8 +1,8 @@
 ﻿@page "/payroll/attendances/edit/{IsEdit:bool}/{*Id}"
 @using AprajitaRetails.Commons
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 @using AprajitaRetails.Shared.Models.Payroll
 @using AprajitaRetails.Shared.ViewModels;
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 @using AprajitaRetails.AdminLte.Forms
 @using Microsoft.AspNetCore.Authorization
 @using Radzen.Blazor
@@ -11,7 +11,7 @@
 @using AprajitaRetails.Helpers
 @attribute [Authorize]
 @inject HttpClient Http
-@inject LocalStorageAccessor LocalStorage
+@inject ClientSetting Setting
 <ContentMain>
     <EntityEdit @bind-EntityModel=@attendance TItem="@Attendance" Title="Attendance" ApiUrl="Attendances" ReturnUrl="/payroll/attendances" Id="@Id" IsEdit=@IsEdit>
         <Row>
@@ -94,7 +94,6 @@
     private IList<SelectOption>? Stores;
     private IList<SelectOption>? Employees;
     IList<string> AttUnits = Enum.GetNames(typeof(AttUnit));
-    bool isTailor = false;
 
     private async Task<bool> FetchSelectData()
     {
@@ -123,20 +122,20 @@
         else
         {
             attendance = new Attendance
-            {
-                OnDate = DateTime.Now,
-                AttendanceId = "",
-                EmployeeId = "",
-                EntryStatus = EntryStatus.Added,
-                IsReadOnly = false,
-                MarkedDeleted = false,
-                Remarks = " ",
-                StoreId = Stores != null ? Stores[0].ID : "ARD",
-                IsTailoring = false,
-                Status = AttUnit.Present,
-                UserId = "BlazorUI",
-                EntryTime = $"{DateTime.Now.ToShortTimeString()}"
-            };
+                {
+                    OnDate = DateTime.Now,
+                    AttendanceId = "",
+                    EmployeeId = "",
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    Remarks = " ",
+                    StoreId = Setting.StoreCode,
+                    IsTailoring = false,
+                    Status = AttUnit.Present,
+                    UserId = Setting.UserName,
+                    EntryTime = $"{DateTime.Now.ToShortTimeString()}"
+                };
         }
 
     }

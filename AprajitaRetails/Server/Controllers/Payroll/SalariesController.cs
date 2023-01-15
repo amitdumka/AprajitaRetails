@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -25,30 +20,21 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Salary>>> GetSalary()
         {
-          if (_context.Salaries == null)
-          {
-              return NotFound();
-          }
-            return await _context.Salaries.ToListAsync();
-        }
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<Salary>>> GetSalaryByStore(string storeid)
-        {
             if (_context.Salaries == null)
             {
                 return NotFound();
             }
-            return await _context.Salaries.Where(c=>c.StoreId==storeid).ToListAsync();
+            return await _context.Salaries.ToListAsync();
         }
 
         // GET: api/Salaries/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Salary>> GetSalary(string id)
         {
-          if (_context.Salaries == null)
-          {
-              return NotFound();
-          }
+            if (_context.Salaries == null)
+            {
+                return NotFound();
+            }
             var salary = await _context.Salaries.FindAsync(id);
 
             if (salary == null)
@@ -95,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<Salary>> PostSalary(Salary salary)
         {
-          if (_context.Salaries == null)
-          {
-              return Problem("Entity set 'ARDBContext.Salary'  is null.");
-          }
+            if (_context.Salaries == null)
+            {
+                return Problem("Entity set 'ARDBContext.Salary'  is null.");
+            }
             _context.Salaries.Add(salary);
             try
             {

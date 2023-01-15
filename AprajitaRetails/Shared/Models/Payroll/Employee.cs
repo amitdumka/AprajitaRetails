@@ -46,7 +46,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         { get { return (Count == DayInMonths); } }
     }
 
-     
+
     public class Attendance : BaseST
     {
         [Key]//TODO: need to mention min length and max length
@@ -56,7 +56,10 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public virtual Employee? Employee { get; set; }
         public DateTime OnDate { get; set; }
         public AttUnit Status { get; set; }
+        [Required]
         public string EntryTime { get; set; }
+        [Required]
+        [StringLength(20, ErrorMessage = "Remarks is too long.")]
         public string Remarks { get; set; }
 
         [Display(Name = "Tailor")]
@@ -90,7 +93,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
 
     }
 
-     
+
     public class Employee : Person
     {
         [Key]
@@ -128,7 +131,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public bool MarkedDeleted { get; set; }
     }
 
-     
+
     public class Salary : BaseST
     {
         [Key]
@@ -158,7 +161,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public bool IsTailoring { get; set; }
     }
 
-     
+
     public class SalaryPayment : BaseST
     {
         public string SalaryPaymentId { get; set; }
@@ -187,7 +190,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public string Details { get; set; }
     }
 
-     
+
     public class StaffAdvanceReceipt : BaseST
     {
         [Key]
@@ -212,7 +215,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
     }
 
     //TODO: use from pay slip report one. for better use
-     
+
     public class PaySlip : BaseST
     {
         public string PaySlipId { get; set; }

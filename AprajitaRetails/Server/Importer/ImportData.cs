@@ -1,21 +1,21 @@
+using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Banking;
 using AprajitaRetails.Shared.Models.Bases;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
 using AprajitaRetails.Shared.ViewModels;
-using System.Text.Json;
-using AprajitaRetails.Server.Data;
 using PluralizeService.Core;
+using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
 {
     public class ImportData
     {
-        private Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv;
+        private IWebHostEnvironment hostingEnv;
         private ARDBContext aRDB;
 
-        public ImportData(Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ARDBContext db)
+        public ImportData(IWebHostEnvironment env, ARDBContext db)
         {
             this.hostingEnv = env; aRDB = db;
         }
@@ -50,6 +50,7 @@ namespace AprajitaRetails.Server.Importer
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -66,6 +67,7 @@ namespace AprajitaRetails.Server.Importer
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -106,12 +108,12 @@ namespace AprajitaRetails.Server.Importer
                     case "BankAccountList": aRDB.AccountLists.RemoveRange(aRDB.AccountLists.ToList()); break;
                     default:
                         return false;
-                        
                 }
                 return await aRDB.SaveChangesAsync() > 0;
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -193,12 +195,12 @@ namespace AprajitaRetails.Server.Importer
                         await aRDB.AddRangeAsync(JsonToObject<DueRecovery>(path)); break;
                     default:
                         return false;
-                        
                 }
                 return await aRDB.SaveChangesAsync() > 0;
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }

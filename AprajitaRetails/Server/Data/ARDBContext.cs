@@ -1,11 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using AprajitaRetails.Shared.Models.Vouchers;
+using AprajitaRetails.Shared.Models.Banking;
+using AprajitaRetails.Shared.Models.Bases;
+using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
-using AprajitaRetails.Shared.Models.Bases;
-using AprajitaRetails.Shared.Models.Banking;
-using AprajitaRetails.Shared.Models.Inventory;
-using Microsoft.Identity.Client;
+using AprajitaRetails.Shared.Models.Vouchers;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Data
 {

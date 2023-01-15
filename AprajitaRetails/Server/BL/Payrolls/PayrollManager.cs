@@ -1,8 +1,6 @@
-﻿using System;
-using AprajitaRetails.Server.Data;
+﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.ViewModels;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Identity;
 
 namespace AprajitaRetails.Server.BL.Payrolls
 {
@@ -13,7 +11,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
             var sl = db.SalaryLedgers.Where(c => c.EmployeeId == empId).OrderBy(c => c.OnDate)
                 .Select(c => new SalaryLedgerDetailVM { OnDate = c.OnDate, Particulars = c.Particulars, InAmount = c.InAmount, OutAmount = c.OutAmount })
                 .ToList();
-            SalaryLedgerVM vm = new SalaryLedgerVM { EmployeeId = empId, StaffName = "", Details = sl };
+            SalaryLedgerVM vm = new() { EmployeeId = empId, StaffName = "", Details = sl };
             return vm;
         }
 
@@ -22,11 +20,11 @@ namespace AprajitaRetails.Server.BL.Payrolls
         {
             return UpdateSalaryLedger(db, empId, onDate, amount, salaryMonth, false);
         }
+
         public bool UpdateSalaryLedgerForPayment(ARDBContext db, string empId, DateTime onDate, decimal amount, string salaryMonth)
         {
             return UpdateSalaryLedger(db, empId, onDate, amount, salaryMonth, true);
         }
-
 
         public bool UpdateSalaryLedger(ARDBContext db, string empId, DateTime onDate, decimal amount, string reson, bool isOut)
         {
@@ -40,7 +38,6 @@ namespace AprajitaRetails.Server.BL.Payrolls
                 UserId = "AutoAdded",
                 InAmount = 0,
                 OutAmount = 0
-
             };
             if (isOut) salary.OutAmount = amount; else salary.InAmount = amount;
             db.SalaryLedgers.Add(salary);
@@ -61,7 +58,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
         /// <param name="onDate"></param>
         public bool CalculateMonthlyAttendance(ARDBContext db, string empId, DateTime onDate)
         {
-           // if (db == null) db = new ARDBContext();
+            // if (db == null) db = new ARDBContext();
 
             var attdList = db.Attendances.Where(x => x.EmployeeId == empId && x.OnDate.Year == onDate.Year && x.OnDate.Month == onDate.Month).ToList();
 
@@ -69,7 +66,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
             {
                 NoOfWorkingDays = 26,
                 MonthlyAttendanceId = PayrollHelper.GenerateMonthlyAttendance(onDate, empId.Split("-")[3]),
-                StoreId = attdList.FirstOrDefault().StoreId,
+                StoreId = attdList.First().StoreId,
                 EmployeeId = empId,
                 OnDate = onDate,
                 EntryStatus = EntryStatus.Added,
@@ -113,7 +110,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
 
                 for (int i = 1; i <= 12; i++)
                 {
-                    DateTime onDate = new DateTime(year, i, 1);
+                    DateTime onDate = new(year, i, 1);
 
                     var attdList = attnds.Where(x => x.EmployeeId == empId && x.OnDate.Year == year
                     && x.OnDate.Month == i).ToList();
@@ -123,7 +120,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
                         {
                             NoOfWorkingDays = 26,
                             MonthlyAttendanceId = PayrollHelper.GenerateMonthlyAttendance(onDate, empId.Split("-")[3]),
-                            StoreId = attdList.FirstOrDefault().StoreId,
+                            StoreId = attdList.First().StoreId,
                             EmployeeId = empId,
                             OnDate = onDate,
                             EntryStatus = EntryStatus.Added,
@@ -159,7 +156,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
         /// <param name="onDate"></param>
         public bool CalculateMonthlyAttendance(ARDBContext db, DateTime onDate)
         {
-           // if (db == null) db = new ARDBContext();
+            // if (db == null) db = new ARDBContext();
             var attL = db.Attendances.Where(c => c.OnDate.Year == onDate.Year && c.OnDate.Month == onDate.Month).ToList();
 
             if (attL.Count > 0)
@@ -173,7 +170,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
                     {
                         NoOfWorkingDays = 26,
                         MonthlyAttendanceId = PayrollHelper.GenerateMonthlyAttendance(onDate, empId.Split("-")[3]),
-                        StoreId = attdList.FirstOrDefault().StoreId,
+                        StoreId = attdList.First().StoreId,
                         EmployeeId = empId,
                         OnDate = onDate,
                         EntryStatus = EntryStatus.Added,
@@ -194,7 +191,7 @@ namespace AprajitaRetails.Server.BL.Payrolls
 
                     if (!ma.Valid)
                         ma.Remarks += $"#Error#";
-                    if (db.MonthlyAttendances.Where(c => c.MonthlyAttendanceId == ma.MonthlyAttendanceId).Count() > 0)
+                    if (db.MonthlyAttendances.Where(c => c.MonthlyAttendanceId == ma.MonthlyAttendanceId).Any())
 
                         db.MonthlyAttendances.Update(ma);
                     else
@@ -222,11 +219,9 @@ namespace AprajitaRetails.Server.BL.Payrolls
 
         public List<Attendance> GetMonthlyAttendance(ARDBContext db, string empId, DateTime onDate)
         {
-           // if (db == null) db = new ARDBContext();
+            // if (db == null) db = new ARDBContext();
             var list = db.Attendances.Where(c => c.EmployeeId == empId && c.OnDate.Month == onDate.Month && c.OnDate.Year == onDate.Year).OrderBy(c => c.OnDate).ToList();
             return list;
-
         }
     }
 }
-

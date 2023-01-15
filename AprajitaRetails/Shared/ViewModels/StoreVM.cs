@@ -1,10 +1,5 @@
 ﻿using AprajitaRetails.Shared.Models.Bases;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AprajitaRetails.Shared.ViewModels
 {
@@ -28,8 +23,8 @@ namespace AprajitaRetails.Shared.ViewModels
         public string TerminalName { get; set; }
         public string StoreName { get; set; }
 
-        //public EntryStatus EntryStatus { get; set; }
-        //public string StoreId { get; set; }
+        public EntryStatus EntryStatus { get; set; }
+        public string StoreId { get; set; }
         public string SalesmanId { get; set; }
         public string? EDCTerminalId { get; set; }
     }

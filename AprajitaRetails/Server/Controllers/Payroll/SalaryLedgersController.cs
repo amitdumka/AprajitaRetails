@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SalaryLedger>>> GetSalaryLedger()
         {
-          if (_context.SalaryLedgers == null)
-          {
-              return NotFound();
-          }
+            if (_context.SalaryLedgers == null)
+            {
+                return NotFound();
+            }
             return await _context.SalaryLedgers.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet("{id}")]
         public async Task<ActionResult<SalaryLedger>> GetSalaryLedger(int id)
         {
-          if (_context.SalaryLedgers == null)
-          {
-              return NotFound();
-          }
+            if (_context.SalaryLedgers == null)
+            {
+                return NotFound();
+            }
             var salaryLedger = await _context.SalaryLedgers.FindAsync(id);
 
             if (salaryLedger == null)
@@ -86,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<SalaryLedger>> PostSalaryLedger(SalaryLedger salaryLedger)
         {
-          if (_context.SalaryLedgers == null)
-          {
-              return Problem("Entity set 'ARDBContext.SalaryLedger'  is null.");
-          }
+            if (_context.SalaryLedgers == null)
+            {
+                return Problem("Entity set 'ARDBContext.SalaryLedger'  is null.");
+            }
             _context.SalaryLedgers.Add(salaryLedger);
             await _context.SaveChangesAsync();
 

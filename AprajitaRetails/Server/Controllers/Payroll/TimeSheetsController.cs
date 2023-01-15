@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -25,30 +20,21 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TimeSheet>>> GetTimeSheet()
         {
-          if (_context.TimeSheets == null)
-          {
-              return NotFound();
-          }
-            return await _context.TimeSheets.ToListAsync();
-        }
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<TimeSheet>>> GetTimeSheetByStore(string id)
-        {
             if (_context.TimeSheets == null)
             {
                 return NotFound();
             }
-            return await _context.TimeSheets.Where(c=>c.OutTime.Year==DateTime.Today.Year).ToListAsync();
+            return await _context.TimeSheets.ToListAsync();
         }
 
         // GET: api/TimeSheets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TimeSheet>> GetTimeSheet(string id)
         {
-          if (_context.TimeSheets == null)
-          {
-              return NotFound();
-          }
+            if (_context.TimeSheets == null)
+            {
+                return NotFound();
+            }
             var timeSheet = await _context.TimeSheets.FindAsync(id);
 
             if (timeSheet == null)
@@ -95,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<TimeSheet>> PostTimeSheet(TimeSheet timeSheet)
         {
-          if (_context.TimeSheets == null)
-          {
-              return Problem("Entity set 'ARDBContext.TimeSheet'  is null.");
-          }
+            if (_context.TimeSheets == null)
+            {
+                return Problem("Entity set 'ARDBContext.TimeSheet'  is null.");
+            }
             _context.TimeSheets.Add(timeSheet);
             try
             {

@@ -56,10 +56,15 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 //var xName = _userManager.Users.First(c => c.UserName == login.UserName).FullName;
                 _logger.LogInformation("User logged in.");
                 var user = _userManager.Users.First(c => c.UserName == "AmitKumar");
-                var logged = new LoggedUser { EmployeeId = user.EmployeeId, FullName = "Amit Kumar", StoreId = user.StoreId, Id = "AmitKumar" };
+                var logged = new LoggedUser
+                {
+                    EmployeeId = user.EmployeeId,
+                    FullName = "Amit Kumar",
+                    StoreId = user.StoreId,
+                    Id = "AmitKumar"
+                };
                 _logger.LogInformation("User logged in.");
                 return Ok(logged);
-
             }
             return Problem("Not able login");
         }

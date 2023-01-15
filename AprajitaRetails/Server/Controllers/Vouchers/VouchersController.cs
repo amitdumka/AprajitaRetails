@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using AprajitaRetails.Server.BL.Accounts;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
-using AprajitaRetails.Server.BL.Accounts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -37,7 +37,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             {
                 return NotFound();
             }
-            return await _context.Vouchers.Where(c=>c.StoreId==storeid && c.OnDate.Year==DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
+            return await _context.Vouchers.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/Vouchers/5

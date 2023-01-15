@@ -1,5 +1,4 @@
-﻿using System;
-namespace AprajitaRetails.Shared.Models.Auth
+﻿namespace AprajitaRetails.Shared.Models.Auth
 {
     public class RegisterUserVM
     {

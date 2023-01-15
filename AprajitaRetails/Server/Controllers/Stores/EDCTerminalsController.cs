@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.Models.Stores;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AprajitaRetails.Server.Data;
-using AprajitaRetails.Shared.Models.Stores;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {

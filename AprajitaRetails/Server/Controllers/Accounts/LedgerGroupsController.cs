@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Accounts
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LedgerGroup>>> GetLedgerGroups()
         {
-          if (_context.LedgerGroups == null)
-          {
-              return NotFound();
-          }
+            if (_context.LedgerGroups == null)
+            {
+                return NotFound();
+            }
             return await _context.LedgerGroups.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpGet("{id}")]
         public async Task<ActionResult<LedgerGroup>> GetLedgerGroup(string id)
         {
-          if (_context.LedgerGroups == null)
-          {
-              return NotFound();
-          }
+            if (_context.LedgerGroups == null)
+            {
+                return NotFound();
+            }
             var ledgerGroup = await _context.LedgerGroups.FindAsync(id);
 
             if (ledgerGroup == null)
@@ -86,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpPost]
         public async Task<ActionResult<LedgerGroup>> PostLedgerGroup(LedgerGroup ledgerGroup)
         {
-          if (_context.LedgerGroups == null)
-          {
-              return Problem("Entity set 'ARDBContext.LedgerGroups'  is null.");
-          }
+            if (_context.LedgerGroups == null)
+            {
+                return Problem("Entity set 'ARDBContext.LedgerGroups'  is null.");
+            }
             _context.LedgerGroups.Add(ledgerGroup);
             try
             {

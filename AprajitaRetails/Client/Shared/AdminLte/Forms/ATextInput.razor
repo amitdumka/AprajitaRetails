@@ -33,9 +33,9 @@
         Value = e?.Value?.ToString();
         await ValueChanged.InvokeAsync(Value);
     }
-    private Color _borderColor;
+   // private Color _borderColor;
     private Color _iconBgColor;
-    private Color? _originalBorderColor;
+    //private Color? _originalBorderColor;
     private Color? _originalIconBgColor;
 
     private string iconBgColor => $"bg-{@IconBgColor.GetDescription<StyleAttribute>()}";

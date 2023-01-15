@@ -172,6 +172,7 @@
     <Content Remove="wwwroot\V1_Stores" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\Tables\Attendances" />
     <None Include="wwwroot\Tables\BankAccounts" />
     <None Include="wwwroot\Tables\BankDeposits" />

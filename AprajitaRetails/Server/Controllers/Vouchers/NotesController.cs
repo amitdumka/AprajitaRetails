@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -25,30 +20,21 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
         {
-          if (_context.Notes == null)
-          {
-              return NotFound();
-          }
+            if (_context.Notes == null)
+            {
+                return NotFound();
+            }
             return await _context.Notes.OrderByDescending(c => c.OnDate).ToListAsync();
         }
-        // GET: api/Vouchers
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<Note>>> GetNotesByStore(string storeid)
+
+        // GET: api/Notes/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Note>> GetNote(string id)
         {
             if (_context.Notes == null)
             {
                 return NotFound();
             }
-            return await _context.Notes.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
-        }
-        // GET: api/Notes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Note>> GetNote(string id)
-        {
-          if (_context.Notes == null)
-          {
-              return NotFound();
-          }
             var note = await _context.Notes.FindAsync(id);
 
             if (note == null)
@@ -95,12 +81,12 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpPost]
         public async Task<ActionResult<Note>> PostNote(Note note)
         {
-          if (_context.Notes == null)
-          {
-              return Problem("Entity set 'ARDBContext.Notes'  is null.");
-          }
+            if (_context.Notes == null)
+            {
+                return Problem("Entity set 'ARDBContext.Notes'  is null.");
+            }
 
-          //TODO: Note ID Generantion
+            //TODO: Note ID Generantion
             _context.Notes.Add(note);
             try
             {

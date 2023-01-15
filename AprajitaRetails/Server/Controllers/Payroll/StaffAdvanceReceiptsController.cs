@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StaffAdvanceReceipt>>> GetStaffAdvanceReceipt()
         {
-          if (_context.StaffAdvanceReceipts == null)
-          {
-              return NotFound();
-          }
+            if (_context.StaffAdvanceReceipts == null)
+            {
+                return NotFound();
+            }
             return await _context.StaffAdvanceReceipts.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet("{id}")]
         public async Task<ActionResult<StaffAdvanceReceipt>> GetStaffAdvanceReceipt(string id)
         {
-          if (_context.StaffAdvanceReceipts == null)
-          {
-              return NotFound();
-          }
+            if (_context.StaffAdvanceReceipts == null)
+            {
+                return NotFound();
+            }
             var staffAdvanceReceipt = await _context.StaffAdvanceReceipts.FindAsync(id);
 
             if (staffAdvanceReceipt == null)
@@ -86,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<StaffAdvanceReceipt>> PostStaffAdvanceReceipt(StaffAdvanceReceipt staffAdvanceReceipt)
         {
-          if (_context.StaffAdvanceReceipts == null)
-          {
-              return Problem("Entity set 'ARDBContext.StaffAdvanceReceipt'  is null.");
-          }
+            if (_context.StaffAdvanceReceipts == null)
+            {
+                return Problem("Entity set 'ARDBContext.StaffAdvanceReceipt'  is null.");
+            }
             _context.StaffAdvanceReceipts.Add(staffAdvanceReceipt);
             try
             {

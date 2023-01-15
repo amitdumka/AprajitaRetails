@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Bases;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Contact>>> GetContact()
         {
-          if (_context.Contacts == null)
-          {
-              return NotFound();
-          }
+            if (_context.Contacts == null)
+            {
+                return NotFound();
+            }
             return await _context.Contacts.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(int id)
         {
-          if (_context.Contacts == null)
-          {
-              return NotFound();
-          }
+            if (_context.Contacts == null)
+            {
+                return NotFound();
+            }
             var contact = await _context.Contacts.FindAsync(id);
 
             if (contact == null)
@@ -86,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<Contact>> PostContact(Contact contact)
         {
-          if (_context.Contacts == null)
-          {
-              return Problem("Entity set 'ARDBContext.Contact'  is null.");
-          }
+            if (_context.Contacts == null)
+            {
+                return Problem("Entity set 'ARDBContext.Contact'  is null.");
+            }
             _context.Contacts.Add(contact);
             await _context.SaveChangesAsync();
 

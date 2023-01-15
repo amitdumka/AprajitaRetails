@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -25,30 +20,21 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PaySlip>>> GetPaySlip()
         {
-          if (_context.PaySlips == null)
-          {
-              return NotFound();
-          }
-            return await _context.PaySlips.ToListAsync();
-        }
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<PaySlip>>> GetPaySlipByStore(string storeid)
-        {
             if (_context.PaySlips == null)
             {
                 return NotFound();
             }
-            return await _context.PaySlips.Where(c=>c.StoreId==storeid && c.OnDate.Year==DateTime.Today.Year).OrderByDescending(c=>c.OnDate).ToListAsync();
+            return await _context.PaySlips.ToListAsync();
         }
 
         // GET: api/PaySlips/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PaySlip>> GetPaySlip(string id)
         {
-          if (_context.PaySlips == null)
-          {
-              return NotFound();
-          }
+            if (_context.PaySlips == null)
+            {
+                return NotFound();
+            }
             var paySlip = await _context.PaySlips.FindAsync(id);
 
             if (paySlip == null)
@@ -95,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<PaySlip>> PostPaySlip(PaySlip paySlip)
         {
-          if (_context.PaySlips == null)
-          {
-              return Problem("Entity set 'ARDBContext.PaySlip'  is null.");
-          }
+            if (_context.PaySlips == null)
+            {
+                return Problem("Entity set 'ARDBContext.PaySlip'  is null.");
+            }
             _context.PaySlips.Add(paySlip);
             try
             {

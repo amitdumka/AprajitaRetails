@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using AprajitaRetails.Server.BL.Payrolls;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
-using AprajitaRetails.Server.BL.Payrolls;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -26,12 +21,12 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendance()
         {
-          if (_context.Attendances == null)
-          {
-              return NotFound();
-          }
-            return await _context.Attendances.Where(c=>c.OnDate.Year==DateTime.Today.Year)
-                .OrderByDescending(c=>c.OnDate)
+            if (_context.Attendances == null)
+            {
+                return NotFound();
+            }
+            return await _context.Attendances.Where(c => c.OnDate.Year == DateTime.Today.Year)
+                .OrderByDescending(c => c.OnDate)
                 .ToListAsync();
         }
 
@@ -42,7 +37,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return NotFound();
             }
-            return await _context.Attendances.Where(c => c.OnDate.Year == DateTime.Today.Year && c.StoreId==storeid)
+            return await _context.Attendances.Where(c => c.OnDate.Year == DateTime.Today.Year && c.StoreId == storeid)
                 .OrderByDescending(c => c.OnDate)
                 .ToListAsync();
         }
@@ -51,12 +46,12 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet("{id}")]
         public async Task<ActionResult<Attendance>> GetAttendance(string id)
         {
-          if (_context.Attendances == null)
-          {
-              return NotFound();
-          }
+            if (_context.Attendances == null)
+            {
+                return NotFound();
+            }
             var attendance = await _context.Attendances.FindAsync(id);
-           
+
 
             if (attendance == null)
             {
@@ -102,10 +97,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<Attendance>> PostAttendance(Attendance attendance)
         {
-          if (_context.Attendances == null)
-          {
-              return Problem("Entity set 'ARDBContext.Attendance'  is null.");
-          }
+            if (_context.Attendances == null)
+            {
+                return Problem("Entity set 'ARDBContext.Attendance'  is null.");
+            }
             attendance.AttendanceId = PayrollHelper.AttendanceIdGenerator(attendance.EmployeeId, attendance.OnDate);
             _context.Attendances.Add(attendance);
             try

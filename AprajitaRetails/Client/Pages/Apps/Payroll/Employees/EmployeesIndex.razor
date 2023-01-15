@@ -87,13 +87,12 @@
 
     private string Title = "Employees";
     private Employee[]? entities;
-    private static string StoreCode;
+   // private static string StoreCode;
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            // ClientSetting.StoreCode = "";
-            //StoreCode = await LocalStorage.GetValueAsync<string>("StoreCode");
+
             if (!string.IsNullOrEmpty(ClientSetting.StoreCode))
             {
                 entities = await Http.GetFromJsonAsync<Employee[]>("Employees");

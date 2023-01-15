@@ -1,5 +1,4 @@
 ﻿using Microsoft.JSInterop;
-using System.Net.NetworkInformation;
 
 namespace AprajitaRetails.Helpers;
 //Usage

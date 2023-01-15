@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmployeeDetails>>> GetEmployeeDetails()
         {
-          if (_context.EmployeeDetails == null)
-          {
-              return NotFound();
-          }
+            if (_context.EmployeeDetails == null)
+            {
+                return NotFound();
+            }
             return await _context.EmployeeDetails.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeDetails>> GetEmployeeDetails(string id)
         {
-          if (_context.EmployeeDetails == null)
-          {
-              return NotFound();
-          }
+            if (_context.EmployeeDetails == null)
+            {
+                return NotFound();
+            }
             var employeeDetails = await _context.EmployeeDetails.FindAsync(id);
 
             if (employeeDetails == null)
@@ -86,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         [HttpPost]
         public async Task<ActionResult<EmployeeDetails>> PostEmployeeDetails(EmployeeDetails employeeDetails)
         {
-          if (_context.EmployeeDetails == null)
-          {
-              return Problem("Entity set 'ARDBContext.EmployeeDetails'  is null.");
-          }
+            if (_context.EmployeeDetails == null)
+            {
+                return Problem("Entity set 'ARDBContext.EmployeeDetails'  is null.");
+            }
             _context.EmployeeDetails.Add(employeeDetails);
             try
             {

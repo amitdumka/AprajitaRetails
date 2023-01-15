@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Stores;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Salesman>>> GetSalesman()
         {
-          if (_context.Salesmen == null)
-          {
-              return NotFound();
-          }
+            if (_context.Salesmen == null)
+            {
+                return NotFound();
+            }
             return await _context.Salesmen.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpGet("{id}")]
         public async Task<ActionResult<Salesman>> GetSalesman(string id)
         {
-          if (_context.Salesmen == null)
-          {
-              return NotFound();
-          }
+            if (_context.Salesmen == null)
+            {
+                return NotFound();
+            }
             var salesman = await _context.Salesmen.FindAsync(id);
 
             if (salesman == null)
@@ -86,12 +81,12 @@ namespace AprajitaRetails.Server.Controllers.Stores
         [HttpPost]
         public async Task<ActionResult<Salesman>> PostSalesman(Salesman salesman)
         {
-          if (_context.Salesmen == null)
-          {
-              return Problem("Entity set 'ARDBContext.Salesman'  is null.");
-          }
+            if (_context.Salesmen == null)
+            {
+                return Problem("Entity set 'ARDBContext.Salesman'  is null.");
+            }
 
-          //TODO: Salemen id generation
+            //TODO: Salemen id generation
             _context.Salesmen.Add(salesman);
             try
             {

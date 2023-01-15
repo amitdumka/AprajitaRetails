@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using AprajitaRetails.Server.BL.Accounts;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
-using Microsoft.AspNetCore.Authorization;
-using AprajitaRetails.Server.BL.Accounts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -34,17 +28,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             {
                 return NotFound();
             }
-            return await _context.CashVouchers.OrderByDescending(c=>c.OnDate).ToListAsync();
-        }
-        // GET: api/Vouchers
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<CashVoucher>>> GetCashVoucherByStore(string storeid)
-        {
-            if (_context.CashVouchers == null)
-            {
-                return NotFound();
-            }
-            return await _context.CashVouchers.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
+            return await _context.CashVouchers.OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/CashVouchers/5

@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 
 namespace AprajitaRetails.Shared.ViewModels
 {
@@ -12,10 +10,8 @@ namespace AprajitaRetails.Shared.ViewModels
         public string Particulars { get; set; }
         public decimal InAmount { get; set; }
         public decimal OutAmount { get; set; }
-
-
-
     }
+
     public class SalaryLedgerVM
     {
         public string EmployeeId { get; set; }
@@ -28,6 +24,7 @@ namespace AprajitaRetails.Shared.ViewModels
     {
         [Key]
         public string EmployeeId { get; set; }
+
         public string StaffName { get; set; }
         public DateTime JoiningDate { get; set; }
         public bool Working { get; set; }
@@ -45,7 +42,6 @@ namespace AprajitaRetails.Shared.ViewModels
         public string IFSCode { get; set; }
 
         public string StoreId { get; set; }
-
     }
 
     public class AttendanceVM
@@ -68,8 +64,6 @@ namespace AprajitaRetails.Shared.ViewModels
 
     public class EmployeeDetailVM : EmployeeVM
     {
-        public string EmployeeId { get; set; }
-
         public string AdharNumber { get; set; }
 
         public string BankAccountNumber { get; set; }
@@ -87,7 +81,6 @@ namespace AprajitaRetails.Shared.ViewModels
         public string OtherIdDetails { get; set; }
         public string PanNo { get; set; }
         public string SpouseName { get; set; }
-
     }
 
     public class PersonVM : AddressVM
@@ -314,4 +307,3 @@ namespace AprajitaRetails.Shared.ViewModels
         public string StoreId { get; set; }
     }
 }
-

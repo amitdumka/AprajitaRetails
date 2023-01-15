@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Accounts
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LedgerMaster>>> GetLedgerMasters()
         {
-          if (_context.LedgerMasters == null)
-          {
-              return NotFound();
-          }
+            if (_context.LedgerMasters == null)
+            {
+                return NotFound();
+            }
             return await _context.LedgerMasters.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpGet("{id}")]
         public async Task<ActionResult<LedgerMaster>> GetLedgerMaster(string id)
         {
-          if (_context.LedgerMasters == null)
-          {
-              return NotFound();
-          }
+            if (_context.LedgerMasters == null)
+            {
+                return NotFound();
+            }
             var ledgerMaster = await _context.LedgerMasters.FindAsync(id);
 
             if (ledgerMaster == null)
@@ -86,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpPost]
         public async Task<ActionResult<LedgerMaster>> PostLedgerMaster(LedgerMaster ledgerMaster)
         {
-          if (_context.LedgerMasters == null)
-          {
-              return Problem("Entity set 'ARDBContext.LedgerMasters'  is null.");
-          }
+            if (_context.LedgerMasters == null)
+            {
+                return Problem("Entity set 'ARDBContext.LedgerMasters'  is null.");
+            }
             _context.LedgerMasters.Add(ledgerMaster);
             try
             {

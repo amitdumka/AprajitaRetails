@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Accounts
 {
@@ -25,10 +20,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Party>>> GetParties()
         {
-          if (_context.Parties == null)
-          {
-              return NotFound();
-          }
+            if (_context.Parties == null)
+            {
+                return NotFound();
+            }
             return await _context.Parties.ToListAsync();
         }
 
@@ -36,10 +31,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpGet("{id}")]
         public async Task<ActionResult<Party>> GetParty(string id)
         {
-          if (_context.Parties == null)
-          {
-              return NotFound();
-          }
+            if (_context.Parties == null)
+            {
+                return NotFound();
+            }
             var party = await _context.Parties.FindAsync(id);
 
             if (party == null)
@@ -86,10 +81,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         [HttpPost]
         public async Task<ActionResult<Party>> PostParty(Party party)
         {
-          if (_context.Parties == null)
-          {
-              return Problem("Entity set 'ARDBContext.Parties'  is null.");
-          }
+            if (_context.Parties == null)
+            {
+                return Problem("Entity set 'ARDBContext.Parties'  is null.");
+            }
             _context.Parties.Add(party);
             try
             {

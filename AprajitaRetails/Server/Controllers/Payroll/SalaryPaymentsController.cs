@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using AprajitaRetails.Server.BL.Payrolls;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
-using AprajitaRetails.Server.BL.Payrolls;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -31,15 +26,6 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             return await _context.SalaryPayments.ToListAsync();
-        }
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<SalaryPayment>>> GetSalaryPaymentByStore(string storeid)
-        {
-            if (_context.SalaryPayments == null)
-            {
-                return NotFound();
-            }
-            return await _context.SalaryPayments.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/SalaryPayments/5
