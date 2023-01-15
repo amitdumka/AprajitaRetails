@@ -1,5 +1,6 @@
 ﻿@using AprajitaRetails.Helpers
-
+@using AprajitaRetails.Client.Helpers
+@inject ClientSetting Setting
 @inject LocalStorageAccessor LocalStorage
 
 <SideBar>
@@ -179,8 +180,9 @@
     string LoggedUser;
     protected override async Task OnInitializedAsync()
     {
-        LoggedUser = await LocalStorage.GetValueAsync<string>("UserFullName");
-        SelectedStore = await LocalStorage.GetValueAsync<string>("StoreCode");
+        Setting.UserName= LoggedUser = await LocalStorage.GetValueAsync<string>("UserFullName");
+        Setting.StoreCode = SelectedStore = await LocalStorage.GetValueAsync<string>("StoreCode");
+
         StateHasChanged();
 
     }

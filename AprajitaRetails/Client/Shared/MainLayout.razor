@@ -4,6 +4,11 @@
 @inject ILayoutManager layoutManager
 @inject NavBarLeftInjectableMenu navBarLeftInjectableMenu
 @using AprajitaRetails.AdminLte
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Helpers
+@inject ClientSetting ClientSetting
+@inject LocalStorageAccessor LocalStorage
+
 <RadzenDialog />
 <RadzenNotification />
 <RadzenContextMenu />
@@ -61,5 +66,10 @@
         layoutManager.IsNavBarFixed = true;
         layoutManager.IsSideBarFixed = true;
         base.OnAfterRender(isFirstRender);
+        //ClientSetting.UserName = await LocalStorage.GetValueAsync<string>("UserFullName");
+        //ClientSetting.StoreCode = await LocalStorage.GetValueAsync<string>("StoreCode");
+        //ClientSetting.EmployeeId = await LocalStorage.GetValueAsync<string>("EmployeeId");
+        //ClientSetting.UserId = await LocalStorage.GetValueAsync<string>("UserId");
+        //StateHasChanged();
     }
 }
