@@ -26,7 +26,8 @@
                     </CardTools>
                 </Header>
                 <Body>
-                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
+                        <caption>Record Count: @Count .</caption>
                         @ChildContent
                     </AprajitaRetails.AdminLte.Table.ATable>
                 </Body>
@@ -40,6 +41,7 @@
     [Parameter] public bool Loading { get; set; } = true;
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string? BaseUrl { get; set; } = "/";
+    [Parameter] public int Count { get; set; } = 0;
 
     private string url = "/edit/false";
 

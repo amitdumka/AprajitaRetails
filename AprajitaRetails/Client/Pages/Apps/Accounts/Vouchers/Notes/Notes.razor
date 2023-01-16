@@ -1,10 +1,16 @@
 ﻿@page "/vouchers/notes"
+
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+
 @attribute [Authorize]
-@inject HttpClient Http 
+@inject HttpClient Http
+@inject NotificationService NotificationService
+@inject ClientSetting Setting
+
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title="Notes" />
@@ -33,7 +39,8 @@
                     </CardTools>
                 </Header>
                 <Body>
-                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
+                        <caption>Record Count: @vchlist.Count() .</caption>
                         <TableHead>
                             <TableHeadCell>Type</TableHeadCell>
                             <TableHeadCell>Date</TableHeadCell>
@@ -79,13 +86,29 @@
 
     protected override async Task OnInitializedAsync()
     {
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
         try
         {
-            vchlist = await Http.GetFromJsonAsync<Note[]>("Notes");
+            vchlist = await Http.GetFromJsonAsync<Note[]>($"Notes/ByStore?storeid={Setting.StoreCode}");
         }
         catch (AccessTokenNotAvailableException exception)
         {
             exception.Redirect();
         }
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
     }
 }

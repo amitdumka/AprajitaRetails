@@ -27,6 +27,16 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             return await _context.Notes.OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetNotesByStore(string storeid)
+        {
+            if (_context.Notes == null)
+            {
+                return NotFound();
+            }
+            return await _context.Notes.Where(c => c.StoreId == storeid && c.OnDate.Year > (DateTime.Today.Year - 2)).OrderByDescending(c => c.OnDate).ToListAsync();
+        }
+
         // GET: api/Notes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Note>> GetNote(string id)

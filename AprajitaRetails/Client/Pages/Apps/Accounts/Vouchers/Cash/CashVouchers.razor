@@ -1,10 +1,16 @@
 ﻿@page "/vouchers/cash"
+
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+
+@inject ClientSetting Setting
 @attribute [Authorize]
-@inject HttpClient Http 
+@inject HttpClient Http
+@inject NotificationService NotificationService
+
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title="Cash Vouchers" />
@@ -26,14 +32,13 @@
                 <Header>
                     <CardTools>
                         <CustomTools>
-                            <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary">
-                                Add
-                            </Button>
+                            <a class="btn btn-primary btn-xs btn" href="/vouchers/cash/edit">Add</a>
                         </CustomTools>
                     </CardTools>
                 </Header>
                 <Body>
-                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
+                        <caption >Record Count: @vchlist.Count() .</caption>
                         <TableHead>
                             <TableHeadCell>Type</TableHeadCell>
                             <TableHeadCell>Date</TableHeadCell>
@@ -85,9 +90,14 @@
 
     protected override async Task OnInitializedAsync()
     {
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
         try
         {
-            vchlist = await Http.GetFromJsonAsync<CashVoucher[]>("CashVouchers");
+            vchlist = await Http.GetFromJsonAsync<CashVoucher[]>($"CashVouchers/bystore?storeid={Setting.StoreCode}");
             modeList = await Http.GetFromJsonAsync<TransactionMode[]>("TransactionModes");
         }
         catch (AccessTokenNotAvailableException exception)
@@ -95,5 +105,16 @@
             exception.Redirect();
         }
 
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
     }
 }

@@ -37,10 +37,10 @@
                             <CustomCheckbox @bind-Value="isAgreeTos" />
                         </div>
                         @*@if (captchaGenerateResponse != null)
-                            {   Need to update
-                                <img src="@captchaGenerateResponse.Image" />
-                                <Input @bind-Value="captchaKey" />
-                            }*@
+                        {   Need to update
+                        <img src="@captchaGenerateResponse.Image" />
+                        <Input @bind-Value="captchaKey" />
+                        }*@
                         <div class="col-4">
                             <Button Color="Color.Warning" OnClick="OnAddNewUser">Register</Button>
                         </div>
@@ -54,17 +54,17 @@
                         </Blazor.AdminLte.Alert>
                     }
                     @*
-                        <div class="social-auth-links text-center">
-                             <p>- OR -</p>
-                             <a href="#" class="btn btn-block btn-primary">
-                                 <i class="fab fa-facebook mr-2"></i>
-                                 Sign up using Facebook
-                             </a>
-                             <a href="#" class="btn btn-block btn-danger">
-                                 <i class="fab fa-google-plus mr-2"></i>
-                                 Sign up using Google+
-                             </a>
-                         </div>*@
+                    <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i>
+                    Sign up using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i>
+                    Sign up using Google+
+                    </a>
+                    </div>*@
                     <a href="login" class="text-center">Login</a>
                 </div>
 
@@ -75,8 +75,8 @@
 @code {
 
     string CompanyName = "Aprajita Retails";
-    //string alertBody;
-    //string alertTitle;
+    string alertBody;
+    string alertTitle;
 
     // CaptchaGenerateResponse captchaGenerateResponse;
 
@@ -85,7 +85,7 @@
     InputState storeid = new InputState() { Identifier = "storeid", Placeholder = "Enter Store Code", Type = "text" };
     InputState employeeid = new InputState() { Identifier = "employeeid", Placeholder = "Enter Employee id", Type = "text" };
     @*//Icon = "fas fa-user" };
-        //IconBgColor = Color.Info };*@
+     //IconBgColor = Color.Info };*@
     InputState email = new InputState() { Identifier = "email", Placeholder = "Enter email", Type = "email" };
     //Icon = "fas fa-envelope" };
     InputState password = new InputState() { Identifier = "password", Placeholder = "Enter password", Type = "password" };
@@ -96,11 +96,11 @@
     //Icon = "fas fa-sync", IconBgColor = Color.Warning };
 
     CustomCheckboxState isAgreeTos = new CustomCheckboxState()
-    {
-        Identifier = "isAgreeTos",
-        Value = "true",
-        Label = "I agree to the <a href='#'>terms</a>"
-    };
+        {
+            Identifier = "isAgreeTos",
+            Value = "true",
+            Label = "I agree to the <a href='#'>terms</a>"
+        };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -117,14 +117,14 @@
             if (password.Value == passwordVerify.Value)
             {
                 RegisterUserVM vm = new RegisterUserVM
-                {
-                    Email = email.Value,
-                    EmployeeId = employeeid.Value,
-                    FullName = fullName.Value,
-                    UserName = userName.Value,
-                    Password = password.Value,
-                    StoreId = storeid.Value
-                };
+                    {
+                        Email = email.Value,
+                        EmployeeId = employeeid.Value,
+                        FullName = fullName.Value,
+                        UserName = userName.Value,
+                        Password = password.Value,
+                        StoreId = storeid.Value
+                    };
                 var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
                 var login = await client.PostAsJsonAsync<RegisterUserVM>("auths/register", vm);
 
@@ -133,24 +133,24 @@
                     //Redirect to page or home
                     NavigationManager.NavigateTo("/home");
                     var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Success,
-                        Summary = "Success",
-                        Detail = "New User is added and logged in!",
-                        Duration = 14000
-                    };
+                        {
+                            Severity = NotificationSeverity.Success,
+                            Summary = "Success",
+                            Detail = "New User is added and logged in!",
+                            Duration = 14000
+                        };
                     NotificationService.Notify(msg);
                 }
                 else
                 {
                     // Display error message
                     var msg = new Radzen.NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Error,
-                        Summary = "Error",
-                        Detail = "err" + login.Content,
-                        Duration = 14000
-                    };
+                        {
+                            Severity = NotificationSeverity.Error,
+                            Summary = "Error",
+                            Detail = "err" + login.Content,
+                            Duration = 14000
+                        };
                     NotificationService.Notify(msg);
 
                 }
@@ -159,16 +159,17 @@
             {
                 //Alert password mismatch
                 var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Error",
-                    Detail = "Password not matched!",
-                    Duration = 14000
-                };
+                    {
+                        Severity = NotificationSeverity.Error,
+                        Summary = "Error",
+                        Detail = "Password not matched!",
+                        Duration = 14000
+                    };
                 NotificationService.Notify(msg);
             }
         }
-        catch (Exception ) {
+        catch (Exception)
+        {
         }
     }
 

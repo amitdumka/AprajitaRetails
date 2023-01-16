@@ -3,13 +3,13 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
     //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    // [Route("[controller]")]
     public class VouchersController : ControllerBase
     {
         private readonly ARDBContext _context;
@@ -29,6 +29,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             }
             return await _context.Vouchers.OrderByDescending(c => c.OnDate).ToListAsync();
         }
+
         // GET: api/Vouchers
         [HttpGet("ByStore")]
         public async Task<ActionResult<IEnumerable<Voucher>>> GetVoucherByStore(string storeid)
@@ -37,7 +38,9 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             {
                 return NotFound();
             }
-            return await _context.Vouchers.Where(c => c.StoreId == storeid && c.OnDate.Year == DateTime.Today.Year).OrderByDescending(c => c.OnDate).ToListAsync();
+           // int year = DateTime.Now.Year - 2;
+            return await _context.Vouchers.Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate).ToListAsync();
+            //return x;
         }
 
         // GET: api/Vouchers/5

@@ -1,9 +1,10 @@
 ﻿@namespace AprajitaRetails.AdminLte.Table
 
-<table @ref="TableReference" class="table @borderd @striped @hover @small">
-    @ChildContent
-</table>
-
+<div class="d-flex flex-row align-items-center table-responsive border border-5 shadow-lg p-3 mb-5 bg-dark rounded rounded-3 border-success-subtle p-1 align-middle">
+    <table @ref="TableReference" class="table text-wrap  overflow-scroll  rounded rounded-3 @borderd @striped @hover @small align-middle caption-top ">
+        @ChildContent
+    </table>
+</div>
 @code {
     private string borderd = "table-bordered";
     private string striped = "table-striped";
@@ -22,13 +23,13 @@
     [Parameter]
     public bool Hover { get; set; } = false;
     [Parameter]
-    public bool Small { get; set; } = false;
+    public bool Small { get; set; } = true;
     protected override void OnInitialized()
     {
         borderd = Bordered ? "table-bordered" : "table-borderless";
         striped = Striped ? "table-striped" : "";
-        hover = Striped ? "table-hover" : "";
-        small = Small ? "table-sm table-responsive-sm" : "";
+        hover = Hover ? "table-hover" : "";
+        small = Small ? "table-sm " : "";
 
     }
 }

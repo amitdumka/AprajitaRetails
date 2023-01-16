@@ -3,11 +3,15 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
+
 @attribute [Authorize]
+
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
-@inject HttpClient Http 
+@inject HttpClient Http
+@inject ClientSetting Setting
+
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title="Vouchers" />
@@ -33,7 +37,8 @@
                     </CardTools>
                 </Header>
                 <Body>
-                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
+                        <caption>Record Count: @vchlist.Count() .</caption>
                         <TableHead>
                             <TableHeadCell>Type</TableHeadCell>
                             <TableHeadCell>Date</TableHeadCell>
@@ -74,14 +79,20 @@
         </Row>
     }
 </ContentMain>
+
 @code {
     private List<Voucher>? vchlist;
 
     protected override async Task OnInitializedAsync()
     {
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
         try
         {
-            vchlist = await Http.GetFromJsonAsync<List<Voucher>>("api/Vouchers");
+            vchlist = await Http.GetFromJsonAsync<List<Voucher>>($"api/Vouchers/bystore?storeid={Setting.StoreCode}");
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -111,12 +122,12 @@
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
 }

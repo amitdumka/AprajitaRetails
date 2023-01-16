@@ -9,8 +9,6 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
     //[Authorize]
     [ApiController]
     [Route("[controller]")]
-    //[Route("[controller]")]
-    //[ApiController]
     public class CashVouchersController : ControllerBase
     {
         private readonly ARDBContext _context;
@@ -29,6 +27,18 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
                 return NotFound();
             }
             return await _context.CashVouchers.OrderByDescending(c => c.OnDate).ToListAsync();
+        }
+
+        // GET: api/CashVouchers
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<CashVoucher>>> GetCashVouchersByStore(string storeid)
+        {
+            if (_context.CashVouchers == null)
+            {
+                return NotFound();
+            }
+            return await _context.CashVouchers.Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1))
+                .OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/CashVouchers/5
