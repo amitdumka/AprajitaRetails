@@ -1,17 +1,19 @@
-﻿@*@page "/payroll/attendances/detail/{ID:string?}"*@
-@page "/payroll/attendances/detail/{*ID}"
+﻿@page "/payroll/attendances/detail/{*ID}"
+
 @using AprajitaRetails.Helpers
 @using AprajitaRetails.Shared.Models.Payroll
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Buttons
+
 @inject NotificationService NotificationService
 @inject NavigationManager NavigationManager
 @inject SfDialogService DialogService
 @attribute [Authorize]
 @inject HttpClient Http
 @inject LocalStorageAccessor LocalStorage
+
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title=@Title />
@@ -39,14 +41,21 @@
                             <TableBody>
                                 <EntityRow Lable="ID" Value="@entity.AttendanceId" />
                                 <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
-                                <EntityRow Lable="Name" Value="@entity.Employee.StaffName" />
+                                @if (entity.Employee != null)
+                                {
+                                    <EntityRow Lable="Name" Value="@entity.Employee.StaffName" />
+                                }
+                                else
+                                {
+                                    <EntityRow Lable="Emp Id" Value="@entity.EmployeeId" />
+                                }
                                 <EntityRow Lable="Status" Value="@entity.Status.ToString()" />
                                 <EntityRow Lable="Time" Value="@entity.EntryTime" />
                                 <EntityRow Lable="Remarks" Value="@entity.Remarks" />
                                 <EntityRow Lable="Tailor" Value="@entity.IsTailoring.ToString()" />
                                 <EntityRow Lable="Store" Value="@entity.StoreId.ToString()" />
-                                <TableRow><TableCell></TableCell> </TableRow>
-                                <TableRow><TableCell></TableCell> </TableRow>
+                                <EmptyRow/>
+                                <EmptyRow/>
                                 <TableRow>
                                     <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
                                     @if (!isDeleted)

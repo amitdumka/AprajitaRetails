@@ -1,0 +1,15 @@
+﻿@namespace AprajitaRetails.AdminLte.Table
+
+<TableRow>
+    <TableHeadCell>
+        @Lable
+    </TableHeadCell>
+    <TableCell>@Value</TableCell>
+</TableRow>
+
+@code {
+    [Parameter] public string Lable { get; set; }
+    [Parameter] public string Value { get; set; }
+
+}
+
