@@ -1,12 +1,8 @@
 ﻿@namespace AprajitaRetails.Commons
 
 @using AprajitaRetails.AdminLte.Forms
+
 @inject NavigationManager NavigationManager
-@*@inject NotificationService NotificationService
-
-    @inject SfDialogService DialogService
-    @inject HttpClient Http*@
-
 @inject DataHelper DataHelper
 @typeparam TItem
 
@@ -58,14 +54,12 @@
     [Parameter] public string ReturnUrl { get; set; } = "/";
     [Parameter] public string? Id { get; set; }
     [Parameter] public string ApiUrl { get; set; } = "";
-    private string className = "";
     [Parameter] public TItem? EntityModel { get; set; }
-
-    private void SaveButton() { Save(); }
-    private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
 
     [Parameter] public EventCallback<TItem> EntityModelChanged { get; set; }
 
+    private string className = "";
+    private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
 
     private async Task OnEntityModelChanged(ChangeEventArgs e)
     {
@@ -81,8 +75,12 @@
     protected override async Task OnInitializedAsync()
     {
         className = Title;
-        if (IsEdit) Title = $"Edit {className} Id: {Id} ";
-        else Title = "Add " + Title;
+
+        if (IsEdit)
+            Title = $"Edit {className} Id: {Id} ";
+        else
+            Title = "Add " + Title;
+        StateHasChanged();
     }
 
 }

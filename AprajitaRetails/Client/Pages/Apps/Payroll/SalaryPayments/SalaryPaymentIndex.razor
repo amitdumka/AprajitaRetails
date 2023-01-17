@@ -1,4 +1,5 @@
 ﻿@page "/payroll/SalaryPayments"
+
 @using AprajitaRetails.Commons
 @using AprajitaRetails.AdminLte
 @using AprajitaRetails.Shared.Models.Payroll
@@ -6,14 +7,15 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 @using AprajitaRetails.Helpers
 @using AprajitaRetails.Client.Helpers
+
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
 @attribute [Authorize]
-@inject NotificationService NotificationService
-@inject NavigationManager NavigationManager
-@inject SfDialogService DialogService
-@inject HttpClient Http
-@inject LocalStorageAccessor LocalStorage
+
+
 <ContentMain>
-    <EntityList Title="@Title" BaseUrl="/payroll/SalaryPayments" Loading=@Loading>
+    <EntityList Title="@Title" BaseUrl=@PageUrl Loading=@Loading>
         <TableHead>
             <TableHeadCell>ID</TableHeadCell>
             <TableHeadCell>Employee </TableHeadCell>
@@ -38,7 +40,7 @@
                     <TableCell>@ent.PayMode.ToString()</TableCell>
                     <TableCell>@ent.Details</TableCell>
 
-                    <TableCell>  <ActionMenu Link="/payroll/SalaryPayments" Id="@ent.SalaryPaymentId" OnClickDelete="()=>ConfirmDelete(ent.SalaryPaymentId)" /></TableCell>
+                    <TableCell>  <ActionMenu Link=@PageUrl Id="@ent.SalaryPaymentId" OnClickDelete="()=>ConfirmDelete(ent.SalaryPaymentId)" /></TableCell>
                 </TableRow>
             }
         </TableBody>
@@ -46,62 +48,55 @@
 </ContentMain>
 
 @code {
+
+    private const string PageUrl = "/payroll/SalaryPayments";
+
     private const string Title = "Salary Payment";
     private List<SalaryPayment>? entities;
-    private Employee[]? employees;
+
+    private List<Employee>? employees;
+
     private bool Loading = true;
-    private string StoreCode;
+    
     private string StaffName(string id)
     {
         return employees != null ? employees.First(c => c.EmployeeId == id).StaffName : "";
     }
-    void Msg(string title, string text, bool error = false)
-    {
-        var msg = new Radzen.NotificationMessage
-        {
-            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
-        NotificationService.Notify(msg);
-    }
+
     async void ConfirmDelete(string id)
     {
-        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Attendance");
-        //string confirmMessage = isConfirm ? "" : "canceled";
-        if (isConfirm)
+
+        var flag = await Helper.DeleteAsync("SalaryPayments", "Salary Payment", id);
+
+        if (flag)
         {
-            var result = await Http.DeleteAsync($"Attendances/{id}");
-            if (result.IsSuccessStatusCode)
-            {
-                entities.Remove(entities.First(c => c.SalaryPaymentId == id));
-                StateHasChanged();
-                Msg("Attendane Delete", $"Attendance {id} is deleted");
-            }
-            else
-            {
-                Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
-            }
+            entities.Remove(entities.First(c => c.SalaryPaymentId == id));
+            StateHasChanged();
+            Helper.Msg("Delete", $"{Title} {id} is deleted");
+            StateHasChanged();
         }
+
     }
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            StoreCode = await LocalStorage.GetValueAsync<string>("StoreCode");
-            if (!string.IsNullOrEmpty(StoreCode))
+            if (!string.IsNullOrEmpty(Setting.StoreCode))
             {
-                employees = await Http.GetFromJsonAsync<Employee[]>("Employees");
-                entities = await Http.GetFromJsonAsync<List<SalaryPayment>>("SalaryPayments");
+                employees = await Helper.FetchAsync<Employee>("Employees/ByStore", $"?storeid={Setting.StoreCode}&isWorking=true");
+
+                entities = await Helper.FetchAsync<SalaryPayment>("SalaryPayments/ByStore", $"?storeid={Setting.StoreCode}");
                 Loading = false;
                 StateHasChanged();
             }
-            else { Msg("Error", "Store Code is not selected! Kindly re-login!", true); }
+            else
+            {
+                Helper.Msg("Error", "Store Code is not selected! Kindly re-login!", true);
+            }
         }
-        catch (AccessTokenNotAvailableException exception)
+        catch (Exception exception)
         {
-            exception.Redirect();
+            Helper.Msg("Error", exception.Message, true);
         }
     }
 

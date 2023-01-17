@@ -1,4 +1,5 @@
 ﻿@page "/payroll/SalaryPayments/edit/{IsEdit:bool}/{*Id}"
+
 @using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.Models.Payroll
 @using AprajitaRetails.Shared.ViewModels;
@@ -9,9 +10,14 @@
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Calendars
 @using AprajitaRetails.Helpers
+
+
 @attribute [Authorize]
+
 @inject HttpClient Http
 @inject ClientSetting Setting
+@inject DataHelper Helper
+
 <ContentMain>
     <EntityEdit @bind-EntityModel=@entity TItem="@SalaryPayment" Title="Salary Payment" ApiUrl="SalaryPayments" ReturnUrl="/payroll/salarypayments" Id="@Id" IsEdit=@IsEdit>
         <Row>
@@ -97,12 +103,15 @@
     </EntityEdit>
 </ContentMain>
 @code {
+
     [Parameter] public bool IsEdit { get; set; }
     [Parameter] public string? Id { get; set; }
+
     private SalaryPayment entity = new SalaryPayment { OnDate = DateTime.Now };
 
     private IList<SelectOption>? Stores;
     private IList<SelectOption>? Employees;
+
     IList<string> Components = Enum.GetNames(typeof(SalaryComponent));
     IList<string> PayModes = Enum.GetNames(typeof(PayMode));
 
@@ -110,24 +119,24 @@
     {
         try
         {
-            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees?storeid=all");
-            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
+            Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("Stores", null);
             return true;
         }
-        catch (AccessTokenNotAvailableException exception)
+        catch (Exception)
         {
-            exception.Redirect();
             return false;
-        }
 
+        }
     }
 
     protected override async Task OnInitializedAsync()
     {
         await FetchSelectData();
+
         if (IsEdit)
         {
-            entity = await Http.GetFromJsonAsync<SalaryPayment>($"SalaryPayments/{Id}");
+            entity = await Helper.GetRecordAsync<SalaryPayment>("SalaryPayments", Id);
             StateHasChanged();
         }
         else

@@ -25,9 +25,18 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return NotFound();
             }
-            return await _context.SalaryPayments.ToListAsync();
+            return await _context.SalaryPayments.OrderByDescending(c => c.OnDate).ToListAsync();
         }
-
+        // GET: api/SalaryPayments/ByStore
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<SalaryPayment>>> GetSalaryPaymentByStore(string storeid)
+        {
+            if (_context.SalaryPayments == null)
+            {
+                return NotFound();
+            }
+            return await _context.SalaryPayments.Where(c=>c.StoreId==storeid && c.OnDate.Year>= DateTime.Today.Year-1).OrderByDescending(c=>c.OnDate).ToListAsync();
+        }
         // GET: api/SalaryPayments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SalaryPayment>> GetSalaryPayment(string id)

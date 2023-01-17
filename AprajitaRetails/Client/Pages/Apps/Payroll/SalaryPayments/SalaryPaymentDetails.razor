@@ -5,12 +5,13 @@
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
 @using AprajitaRetails.Helpers
-@inject NotificationService NotificationService
+
+@inject ClientSetting Setting
+@inject DataHelper Helper
 @inject NavigationManager NavigationManager
-@inject SfDialogService DialogService
+
 @attribute [Authorize]
-@inject HttpClient Http
-@inject LocalStorageAccessor LocalStorage
+
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
     <EntityRow Lable="ID" Value="@entity.SalaryPaymentId" />
     <EntityRow Lable="Name" Value="@employee.StaffName" />
@@ -23,74 +24,58 @@
 </EntityDetails>
 
 @code {
+
     [Parameter] public string? ID { get; set; }
+
     SalaryPayment? entity;
     Employee? employee;
+
     string Title = "Details";
     bool Loading = true;
     bool isDeleted = false;
+
+    //TODO: Move to EntityDetail 
     void BackButton() { NavigationManager.NavigateTo("/payroll/salarypayments"); }
-    //void DeleteButton() { }
+
 
     protected override async void OnInitialized()
     {
         if (!string.IsNullOrEmpty(ID))
         {
-            //ID = ID ?? "NO ID Found";
+            entity = await Helper.GetRecordAsync<SalaryPayment>("SalaryPayments", ID);
+            if (entity != null)
+            {
+                employee = await Helper.GetRecordAsync<Employee>("Employees", entity.EmployeeId);
+                Title = "Payment Details of " + employee.StaffName;
+                Loading = false;
+                StateHasChanged();
+            }
+            else
+            {
+                BackButton();
+                Helper.Msg("Error", "Record not found", true);
 
-            entity = await Http.GetFromJsonAsync<SalaryPayment>($"SalaryPayments/{ID}");
-            employee = await Http.GetFromJsonAsync<Employee>($"Employees/{entity.EmployeeId}");
-            Title = "Payment Details of " + employee.StaffName;
-            Loading = false;
-            StateHasChanged();
+            }
         }
         else
         {
-            //alert
+            Helper.Msg("Error", "Send ID to get data details", true);
         }
     }
     async void DeleteButton()
     {
+        //TODO: move to EntityDetail Page
         try
         {
-
-            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete Salary Payment");
-            if (isConfirm)
-            {
-                var result = await Http.DeleteAsync($"SalaryPayments/{ID}");
-                if (result.IsSuccessStatusCode)
-                {
-                    isDeleted = true;
-                    StateHasChanged();
-                    Msg("Salary Payment Delete", $"SalaryPayment {ID} is deleted");
-
-                }
-                else
-                {
-                    Msg("Salary Payment Delete", $" Error : SalaryPayment {ID} is not deleted", true);
-                }
-            }
+            isDeleted = await Helper.DeleteAsync("SalaryPayments", "Salary Payment", ID);
+            StateHasChanged();
         }
         catch (Exception ex)
         {
 
-            Msg("Error", ex.Message, true);
+            Helper.Msg("Error", ex.Message, true);
         }
 
     }
-
-    void Msg(string title, string text, bool isError = false)
-    {
-        var msg = new Radzen.NotificationMessage
-        {
-            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
-        NotificationService.Notify(msg);
-    }
-
-
 
 }

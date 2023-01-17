@@ -100,18 +100,15 @@
         {
             if (!string.IsNullOrEmpty(Settings.StoreCode))
             {
-
-                //employees = await Http.GetFromJsonAsync<Employee[]>($"Employees/ByStore?storeid={Settings.StoreCode}&isworking=true");
-                //entities = await Http.GetFromJsonAsync<List<Attendance>>($"Attendances/ByStore?storeid={Settings.StoreCode}");
-                employees = await Helper.FetchAsync<Employee>($"Employees/ByStore?storeid={Settings.StoreCode}&isWorking=true","");
+                employees = await Helper.FetchAsync<Employee>($"Employees/ByStore?storeid={Settings.StoreCode}&isWorking=true", "");
                 entities = await Helper.FetchAsync<Attendance>($"Attendances/ByStore?storeid={Settings.StoreCode}", "");
 
             }
             else { Helper.Msg("Error", "Store is not selected!, Kindly re-login!", true); }
         }
-        catch (AccessTokenNotAvailableException exception)
+        catch (Exception exception)
         {
-            exception.Redirect();
+            Helper.Msg("Error", exception.Message, true);
         }
     }
 
@@ -127,33 +124,8 @@
             StateHasChanged();
         }
 
-        //bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete");
-        //if (isConfirm)
-        //{
-        //    var result = await Http.DeleteAsync($"Attendances/{id}");
-        //    if (result.IsSuccessStatusCode)
-        //    {
-        //        entities.Remove(entities.First(c => c.AttendanceId == id));
-        //        StateHasChanged();
-        //        Msg("Delete", $"Attendance {id} is deleted");
-        //        StateHasChanged();
-        //    }
-        //    else
-        //    {
-        //        Msg("Delete", $" Error : Attendance {id} is not deleted", true);
-        //    }
-        //}
+
     }
-    //void Msg(string title, string text, bool error = false)
-    //{
-    //    var msg = new Radzen.NotificationMessage
-    //    {
-    //        Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-    //        Summary = title,
-    //        Detail = text,
-    //        Duration = 14000
-    //    };
-    //    NotificationService.Notify(msg);
-    //}
+
 
 }
