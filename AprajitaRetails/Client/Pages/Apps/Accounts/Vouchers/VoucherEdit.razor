@@ -1,4 +1,4 @@
-﻿@page "/vouchers/edit"
+﻿@page "/vouchers/edit/{IsEdit:bool}/{*Id}"
 
 @using AprajitaRetails.Shared.Models.Vouchers
 @using Microsoft.AspNetCore.Authorization
@@ -6,135 +6,118 @@
 @using AprajitaRetails.AdminLte.Forms
 @using Radzen.Blazor
 @using AprajitaRetails.Shared.ViewModels
-@inject LocalStorageAccessor LocalStorage
-@attribute [Authorize]
-@inject HttpClient Http
-@inject NotificationService NotificationService
 
-<ContentHeader>
-    <Header>
-        <Blazor.AdminLte.PageTitle Title=@Title />
-    </Header>
-</ContentHeader>
+@attribute [Authorize]
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
 
 <ContentMain>
-    <Row>
-        <Column Classes="col.lg.auto">
-            <EditForm Model=@voucher OnValidSubmit=@SaveButton OnInvalidSubmit=@ErrorMsg>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@Voucher" Title="Vouchers" ApiUrl="api/vouchers" ReturnUrl="/vouchers" Id="@ID" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.lg">
+                <RadzenRadioButtonList Orientation="Orientation.Horizontal" TValue="int" @bind-Value=@SelectedVCHType Change=@((args) => OnVoucherTypeChange(args, "VoucherType"))>
+                    <Items>
+                        <RadzenRadioButtonListItem Text="Payment" Value="0" />
+                        <RadzenRadioButtonListItem Text="Receipts" Value="1" />
+                        <RadzenRadioButtonListItem Text="Expenses" Value="6" />
+                    </Items>
+                </RadzenRadioButtonList>
+            </Column>
+            <Column Classes="col.md">
+                <ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <RadzenDatePicker @bind-Value=@entity.OnDate id="ondate" Change=@OnDateChange />
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.PartyName Name="PartyName" Label="Party Name" />
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Particulars Name="Particulars" Label="Particulars" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
+            <Column Classes="col.md">
+                <ASelect Label="Payment Mode" Name="PayMode" TItem="string" Items="payModes" Selector="(x => x)" ValueChanged="@onPayModeChange" />
+            </Column>
 
-                <DataAnnotationsValidator />
-                <ValidationSummary />
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ASelect ValueChanged="@OnAccountSelected" Label="Account No" Name="AccountNo" TItem="SelectOption" Items="Accounts" Selector="(x => x.Value)" />
+            </Column>
 
-                <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
-                    <Title><CardTitle>@Title</CardTitle></Title>
-                    <Header><CardTools /></Header>
-                    <Body>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.PaymentDetails Name="Details" Label="Payment Details" />
+            </Column>
 
-                        <Row>
-                            <Column Classes="col.lg">
-                                <RadzenRadioButtonList Orientation="Orientation.Horizontal" TValue="int" @bind-Value=@SelectedVCHType Change=@((args) => OnVoucherTypeChange(args, "VoucherType"))>
-                                    <Items>
-                                        <RadzenRadioButtonListItem Text="Payment" Value="0" />
-                                        <RadzenRadioButtonListItem Text="Receipts" Value="1" />
-                                        <RadzenRadioButtonListItem Text="Expenses" Value="6" />
-                                    </Items>
-                                </RadzenRadioButtonList>
-                            </Column>
-                            <Column Classes="col.md">
-                                <ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
-                            </Column>
-                        </Row>
-                        <Row>
-                            <Column Classes="col.md">
-                                <div class="mb-3 row">
-                                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
-                                    <div class="col-sm-6">
-                                        <RadzenDatePicker @bind-Value=@voucher.OnDate id="ondate" Change=@OnDateChange />
-                                    </div>
-                                </div>
-                            </Column>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
-                            <Column Classes="col.md">
-                                <ATextInput @bind-Value=@voucher.PartyName Name="PartyName" Label="Party Name" />
-                            </Column>
-                        </Row>
-                        <Row>
-                            <Column Classes="col.md"><ATextInput @bind-Value=@voucher.Particulars Name="Particulars" Label="Particulars" /></Column>
-                            <Column Classes="col.md"><AInputNumber @bind-Value=@voucher.Amount Name="Amount" Label="Amount" /></Column>
-                            <Column Classes="col.md">
-                                <ASelect Label="Payment Mode" Name="PayMode" TItem="string" Items="payModes" Selector="(x => x)" ValueChanged="@onPayModeChange" />
-                            </Column>
+            <Column Classes="col.md">
+                <ASelect Label="Ledger" Name="Party" TItem="SelectOption" Items="Parties" Selector="(x => x.Value)" ValueChanged="@OnPartySelected" />
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.Remarks Name="Remarls" Label="Remarks" />
+            </Column>
+            <Column Classes="col.md">
+                <ASelect Label="Issued By" Name="Employee" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" ValueChanged="@OnEmployeeSelected" />
+            </Column>
+            <Column Classes="col.sm"></Column>
+        </Row>
 
-                        </Row>
-                        <Row>
-                            <Column Classes="col.md">
-                                <ASelect ValueChanged="@OnAccountSelected" Label="Account No" Name="AccountNo" TItem="SelectOption" Items="Accounts" Selector="(x => x.Value)" />
-                            </Column>
-
-                            <Column Classes="col.md">
-                                <ATextInput @bind-Value=@voucher.PaymentDetails Name="Details" Label="Payment Details" />
-                            </Column>
-
-                            <Column Classes="col.md">
-                                <ASelect Label="Ledger" Name="Party" TItem="SelectOption" Items="Parties" Selector="(x => x.Value)" ValueChanged="@OnPartySelected" />
-                            </Column>
-                        </Row>
-                        <Row>
-                            <Column Classes="col.md">
-                                <ATextInput @bind-Value=@voucher.Remarks Name="Remarls" Label="Remarks" />
-                            </Column>
-                            <Column Classes="col.md">
-                                <ASelect Label="Issued By" Name="Employee" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" ValueChanged="@OnEmployeeSelected" />
-                            </Column>
-                            <Column Classes="col.sm"></Column>
-                        </Row>
-
-                    </Body>
-                    <Footer>
-                        <Column Classes="col.md._3">
-                            <ASubmitButton Title="Save" />
-                        </Column>
-                    </Footer>
-                </Card>
-            </EditForm>
-        </Column>
-    </Row>
+    </EntityEdit>
 </ContentMain>
 
+
+
 @code {
-    //TODO: Use bind value in place change in ASelect and See what happen
+
     private string Title = "Voucher";
 
+    [Parameter] public string ID { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+
     [Parameter] public VoucherType VoucherType { get; set; } = VoucherType.Payment;
-    [Parameter] public string ID { get; set; } = "";
-    [Parameter] public bool IsEdit { get; set; } = false;
-    [Parameter] public Voucher? EditVoucher { get; set; }
-    private Voucher voucher = new Voucher { VoucherType = VoucherType.Payment, OnDate = DateTime.Now, Amount = 0 };
+
+    private Voucher entity = new Voucher { VoucherType = VoucherType.Payment, OnDate = DateTime.Now, Amount = 0 };
 
     int SelectedVCHType = 0;
+
     IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
+
     private IList<SelectOption>? Stores;
     private IList<SelectOption>? Employees;
     private IList<SelectOption>? Parties;
     private IList<SelectOption>? Accounts;
 
-    // On Init and Fetch Data
+    
     protected override async Task OnInitializedAsync()
     {
         await FetchSelectData();
+
         if (!string.IsNullOrEmpty(ID))
         {
             Title = Title + " #VCHNo: " + ID;
         }
+
         if (IsEdit)
         {
             Title = "Edit Voucher #" + ID;
-            voucher = EditVoucher;
+             
         }
         else
         {
             Title = "Add " + Title;
-            voucher = new Voucher
+
+            entity = new Voucher
             {
                 OnDate = DateTime.Now,
                 VoucherType = VoucherType.Payment,
@@ -150,14 +133,14 @@
                 Remarks = "",
                 SlipNumber = "",
                 PaymentMode = PaymentMode.Cash,
-                StoreId = Stores[0].ID,
-                UserId = "BlazorUI",
+                StoreId = Setting.StoreCode,
+                UserId = Setting.UserName,
                 VoucherNumber = " ",
                 Particulars = ""
 
             };
         }
-        voucher.VoucherType = VoucherType;
+        entity.VoucherType = VoucherType;
         SelectedVCHType = (int)VoucherType;
     }
     private async Task<bool> FetchSelectData()
