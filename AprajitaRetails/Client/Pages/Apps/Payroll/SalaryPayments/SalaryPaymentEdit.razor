@@ -11,7 +11,6 @@
 @using Syncfusion.Blazor.Calendars
 @using AprajitaRetails.Helpers
 
-
 @attribute [Authorize]
 
 @inject HttpClient Http
@@ -22,7 +21,6 @@
     <EntityEdit @bind-EntityModel=@entity TItem="@SalaryPayment" Title="Salary Payment" ApiUrl="SalaryPayments" ReturnUrl="/payroll/salarypayments" Id="@Id" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.md">
-
                 <div class="mb-3 row">
                     <label for="Store" class="col-sm-4 col-form-label">Store</label>
                     <div class="col-sm-6">
@@ -45,7 +43,6 @@
             </Column>
 
         </Row>
-
         <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
@@ -82,7 +79,7 @@
             </Column>
             <Column Classes="col.md">
                 <div class="mb-3 row">
-                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <label for="PayMode" class="col-sm-4 col-form-label">Status</label>
                     <div class="col-sm-6">
                         <SfComboBox TValue="PayMode" TItem="string" Placeholder="Payment"
                                     Autofill="true"
@@ -99,7 +96,6 @@
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
             <Column Classes="col.md"><ATextInput @bind-Value=@entity.Details Name="Details" Label="Details" /></Column>
         </Row>
-
     </EntityEdit>
 </ContentMain>
 @code {
@@ -126,7 +122,6 @@
         catch (Exception)
         {
             return false;
-
         }
     }
 
@@ -142,21 +137,21 @@
         else
         {
             entity = new SalaryPayment
-            {
-                OnDate = DateTime.Now,
-                EmployeeId = "",
-                EntryStatus = EntryStatus.Added,
-                IsReadOnly = false,
-                MarkedDeleted = false,
-                StoreId = Setting.StoreCode,
-                UserId = Setting.UserName,
-                Amount = 0,
-                Details = "",
-                PayMode = PayMode.Cash,
-                SalaryComponet = SalaryComponent.Advance,
-                SalaryPaymentId = "",
+                {
+                    OnDate = DateTime.Now,
+                    EmployeeId = "",
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    StoreId = Setting.StoreCode,
+                    UserId = Setting.UserName,
+                    Amount = 0,
+                    Details = "",
+                    PayMode = PayMode.Cash,
+                    SalaryComponet = SalaryComponent.Advance,
+                    SalaryPaymentId = "",
 
-            };
+                };
         }
 
     }

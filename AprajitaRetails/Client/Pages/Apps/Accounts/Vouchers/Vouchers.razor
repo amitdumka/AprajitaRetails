@@ -1,11 +1,10 @@
-﻿@page "/vouchers"
+﻿@page "/vouchers/pld"
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
 @using AprajitaRetails.AdminLte
 @using AprajitaRetails.Commons
-
 
 @attribute [Authorize]
 @inject DataHelper Helper
@@ -15,14 +14,16 @@
 <ContentMain>
     <EntityList Title="@Title" BaseUrl=@PageUrl Loading=@Loading>
         <TableHead>
-            <TableHeadCell>ID</TableHeadCell>
-            <TableHeadCell>Employee </TableHeadCell>
-            <TableHeadCell> Componet</TableHeadCell>
-            <TableHeadCell>  Month</TableHeadCell>
-            <TableHeadCell> Date</TableHeadCell>
-            <TableHeadCell>Amount </TableHeadCell>
-            <TableHeadCell> Mode</TableHeadCell>
-            <TableHeadCell>Details </TableHeadCell>
+            <TableHeadCell>Type</TableHeadCell>
+            <TableHeadCell>Date</TableHeadCell>
+            <TableHeadCell>VoucherNo</TableHeadCell>
+            <TableHeadCell>Party Name</TableHeadCell>
+            <TableHeadCell>Particulars</TableHeadCell>
+            <TableHeadCell>Amount</TableHeadCell>
+            <TableHeadCell>PayMode</TableHeadCell>
+            <TableHeadCell>Remarks</TableHeadCell>
+            <TableHeadCell>Issued By</TableHeadCell>
+            <TableHeadCell>Slip No</TableHeadCell>
             <TableHeadCell> </TableHeadCell>
         </TableHead>
         <TableBody>
@@ -48,71 +49,6 @@
         </TableBody>
     </EntityList>
 </ContentMain>
-
-
-@*<ContentMain>
-        @if (vchlist == null)
-        {
-            <p><em>Loading...</em></p>
-        }
-        else
-        {
-            <Row>
-                <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
-                    <Title>
-                        <CardTitle>Vouchers</CardTitle>
-                    </Title>
-                    <Header>
-                        <CardTools>
-                            <CustomTools>
-                                <a class="btn btn-primary btn-xs btn" href="/vouchers/edit">Add</a>
-                            </CustomTools>
-                        </CardTools>
-                    </Header>
-                    <Body>
-                        <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
-                            <caption>Record Count: @vchlist.Count() .</caption>
-                            <TableHead>
-                                <TableHeadCell>Type</TableHeadCell>
-                                <TableHeadCell>Date</TableHeadCell>
-                                <TableHeadCell>VoucherNo</TableHeadCell>
-                                <TableHeadCell>Party Name</TableHeadCell>
-                                <TableHeadCell>Particulars</TableHeadCell>
-                                <TableHeadCell>Amount</TableHeadCell>
-                                <TableHeadCell>PayMode</TableHeadCell>
-                                <TableHeadCell>Remarks</TableHeadCell>
-                                <TableHeadCell>Issued By</TableHeadCell>
-                                <TableHeadCell>Slip No</TableHeadCell>
-                                <TableHeadCell> </TableHeadCell>
-                            </TableHead>
-                            <TableBody>
-
-                                @foreach (var vch in vchlist)
-                                {
-                                    <TableRow>
-                                        <TableCell>@vch.VoucherType</TableCell>
-                                        <TableCell>@vch.OnDate.ToShortDateString()</TableCell>
-                                        <TableCell>@vch.VoucherNumber</TableCell>
-                                        <TableCell>@vch.PartyName</TableCell>
-                                        <TableCell>@vch.Particulars</TableCell>
-                                        <TableCell>@vch.Amount</TableCell>
-                                        <TableCell>@vch.PaymentMode</TableCell>
-                                        <TableCell>@vch.Remarks</TableCell>
-                                        <TableCell>@vch.EmployeeId</TableCell>
-                                        <TableCell>@vch.SlipNumber</TableCell>
-                                        <TableCell>
-                                            <AprajitaRetails.AdminLte.ActionMenu Link="/vouchers" Id="@vch.VoucherNumber" OnClickDelete="()=>ConfirmDelete(vch.VoucherNumber)" />
-                                        </TableCell>
-                                    </TableRow>
-                                }
-                            </TableBody>
-                        </AprajitaRetails.AdminLte.Table.ATable>
-                    </Body>
-                </Card>
-            </Row>
-        }
-    </ContentMain>
-*@
 
 @code {
     private List<Voucher>? vchlist;

@@ -28,6 +28,16 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return await _context.LedgerGroups.Select(c => new SelectOption { ID = c.LedgerGroupId, Value = c.GroupName }).ToListAsync();
         }
 
+        [HttpGet("Transactions")]
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetTransactionModes(string storeid)
+        {
+            if (_context.TransactionModes == null)
+            {
+                return NotFound();
+            }
+            return await _context.TransactionModes.Select(c => new SelectOption { ID = c.TransactionId, Value = c.TransactionName }).ToListAsync();
+        }
+
         [HttpGet("Employees")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetEmployees(string storeid)
         {

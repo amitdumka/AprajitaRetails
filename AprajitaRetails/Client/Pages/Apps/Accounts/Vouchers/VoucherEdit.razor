@@ -6,53 +6,85 @@
 @using AprajitaRetails.AdminLte.Forms
 @using Radzen.Blazor
 @using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Payroll
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
 
 @attribute [Authorize]
 @inject ClientSetting Setting
 @inject DataHelper Helper
 
-
 <ContentMain>
     <EntityEdit @bind-EntityModel="@entity" TItem="@Voucher" Title="Vouchers" ApiUrl="api/vouchers" ReturnUrl="/vouchers" Id="@ID" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.lg">
-                <RadzenRadioButtonList Orientation="Orientation.Horizontal" TValue="int" @bind-Value=@SelectedVCHType Change=@((args) => OnVoucherTypeChange(args, "VoucherType"))>
-                    <Items>
-                        <RadzenRadioButtonListItem Text="Payment" Value="0" />
-                        <RadzenRadioButtonListItem Text="Receipts" Value="1" />
-                        <RadzenRadioButtonListItem Text="Expenses" Value="6" />
-                    </Items>
-                </RadzenRadioButtonList>
+                <SfRadioButton Label="Payment" CssClass="e-small" Name="voucherType" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.Payment.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
+                <SfRadioButton Label="Receipts" CssClass="e-small" Name="voucherType" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.Receipt.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
+                <SfRadioButton Label="Expenses" CssClass="e-small" Name="voucherType" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.Expense.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
             </Column>
-            <Column Classes="col.md">
-                <ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />
-            </Column>
-        </Row>
-        <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
-                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
                     <div class="col-sm-6">
-                        <RadzenDatePicker @bind-Value=@entity.OnDate id="ondate" Change=@OnDateChange />
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
                     </div>
                 </div>
-            </Column>
-            <Column Classes="col.md"><ATextInput @bind-Value=@entity.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
-            <Column Classes="col.md">
-                <ATextInput @bind-Value=@entity.PartyName Name="PartyName" Label="Party Name" />
-            </Column>
-        </Row>
-        <Row>
-            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Particulars Name="Particulars" Label="Particulars" /></Column>
-            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
-            <Column Classes="col.md">
-                <ASelect Label="Payment Mode" Name="PayMode" TItem="string" Items="payModes" Selector="(x => x)" ValueChanged="@onPayModeChange" />
             </Column>
 
         </Row>
         <Row>
+
             <Column Classes="col.md">
-                <ASelect ValueChanged="@OnAccountSelected" Label="Account No" Name="AccountNo" TItem="SelectOption" Items="Accounts" Selector="(x => x.Value)" />
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.PartyName Name="PartyName" Label="Party Name" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Particulars Name="Particulars" Label="Particulars" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="PayMode" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="PaymentMode" TItem="string" Placeholder="Payment"
+                                    Autofill="true"
+                                    @bind-Value="@entity.PaymentMode" PopupHeight="230px"
+                                    DataSource="@payModes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+        <Row>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="BankAccount" class="col-sm-4 col-form-label">Account No</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Account No"
+                                    Autofill="true"
+                                    @bind-Value="@entity.AccountId" PopupHeight="230px"
+                                    DataSource="@Accounts">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
             </Column>
 
             <Column Classes="col.md">
@@ -60,15 +92,36 @@
             </Column>
 
             <Column Classes="col.md">
-                <ASelect Label="Ledger" Name="Party" TItem="SelectOption" Items="Parties" Selector="(x => x.Value)" ValueChanged="@OnPartySelected" />
+                <div class="mb-3 row">
+                    <label for="party" class="col-sm-4 col-form-label">Ledger</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Ledger"
+                                    Autofill="true"
+                                    @bind-Value="@entity.PartyId" PopupHeight="230px"
+                                    DataSource="@Parties">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
             </Column>
         </Row>
         <Row>
             <Column Classes="col.md">
                 <ATextInput @bind-Value=@entity.Remarks Name="Remarls" Label="Remarks" />
             </Column>
+
             <Column Classes="col.md">
-                <ASelect Label="Issued By" Name="Employee" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" ValueChanged="@OnEmployeeSelected" />
+                <div class="mb-3 row">
+                    <label for="Employee" class="col-sm-4 col-form-label">Issued By</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
+                                    Autofill="true"
+                                    @bind-Value="@entity.EmployeeId" PopupHeight="230px"
+                                    DataSource="@Employees">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
             </Column>
             <Column Classes="col.sm"></Column>
         </Row>
@@ -76,11 +129,10 @@
     </EntityEdit>
 </ContentMain>
 
-
-
 @code {
 
     private string Title = "Voucher";
+
 
     [Parameter] public string ID { get; set; }
     [Parameter] public bool IsEdit { get; set; }
@@ -89,7 +141,7 @@
 
     private Voucher entity = new Voucher { VoucherType = VoucherType.Payment, OnDate = DateTime.Now, Amount = 0 };
 
-    int SelectedVCHType = 0;
+
 
     IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
 
@@ -98,124 +150,68 @@
     private IList<SelectOption>? Parties;
     private IList<SelectOption>? Accounts;
 
-    
     protected override async Task OnInitializedAsync()
     {
         await FetchSelectData();
 
-        if (!string.IsNullOrEmpty(ID))
-        {
-            Title = Title + " #VCHNo: " + ID;
-        }
 
         if (IsEdit)
         {
             Title = "Edit Voucher #" + ID;
-             
+            if (!string.IsNullOrEmpty(ID))
+            {
+                Title = Title + " #VCHNo: " + ID;
+                entity = await Helper.GetRecordAsync<Voucher>("api/Vouchers", ID);
+                StateHasChanged();
+            }
+
         }
         else
         {
             Title = "Add " + Title;
 
             entity = new Voucher
-            {
-                OnDate = DateTime.Now,
-                VoucherType = VoucherType.Payment,
-                AccountId = Accounts[0].ID,
-                Amount = 0,
-                EmployeeId = Employees[0].ID,
-                EntryStatus = EntryStatus.Added,
-                IsReadOnly = false,
-                MarkedDeleted = false,
-                PartyId = Parties[0].ID,
-                PartyName = "",
-                PaymentDetails = "",
-                Remarks = "",
-                SlipNumber = "",
-                PaymentMode = PaymentMode.Cash,
-                StoreId = Setting.StoreCode,
-                UserId = Setting.UserName,
-                VoucherNumber = " ",
-                Particulars = ""
+                {
+                    OnDate = DateTime.Now,
+                    VoucherType = VoucherType.Payment,
+                    AccountId = Accounts[0].ID,
+                    Amount = 0,
+                    EmployeeId = Employees[0].ID,
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    PartyId = Parties.First(c => c.Value == "No Party").ID,// Parties[0].ID,//TODO: need to set For no Party
+                    PartyName = "",
+                    PaymentDetails = "",
+                    Remarks = "",
+                    SlipNumber = "",
+                    PaymentMode = PaymentMode.Cash,
+                    StoreId = Setting.StoreCode,
+                    UserId = Setting.UserName,
+                    VoucherNumber = " ",
+                    Particulars = ""
 
-            };
+                };
         }
         entity.VoucherType = VoucherType;
-        SelectedVCHType = (int)VoucherType;
+
     }
+
     private async Task<bool> FetchSelectData()
     {
         try
         {
-            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
-            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees?storeid=all");
-            Parties = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Parties?storeid=ARD");
-            Accounts = await Http.GetFromJsonAsync<SelectOption[]>("Helper/BankAccounts?storeid=ARD");
+            Accounts = await Helper.FetchOptionsAsync("Accounts", Setting.StoreCode);
+            Parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
+            Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("Stores", "");
+
         }
-        catch (AccessTokenNotAvailableException exception)
+        catch (Exception e)
         {
-            exception.Redirect();
+            Helper.Msg("Error", e.Message, true);
         }
         return true;
 
     }
-    //Swal.fire('Any fool can use a computer')
-
-    //Value Change Handler
-    void OnDateChange(DateTime? value) => voucher.OnDate = value.Value;
-    void OnVoucherTypeChange(int? value, string name) => voucher.VoucherType = (VoucherType)value;
-    void onPayModeChange(string value) => voucher.PaymentMode = (PaymentMode)payModes.IndexOf(value);
-    void OnStoreSelected(SelectOption value) => voucher.StoreId = value.ID;
-    void OnEmployeeSelected(SelectOption value) => voucher.EmployeeId = value.ID;
-    void OnPartySelected(SelectOption value) => voucher.PartyId = value.ID;
-    void OnAccountSelected(SelectOption value) => voucher.AccountId = value.ID;
-
-    //Save Operations
-    void ErrorMsg()
-    {
-        var msg = new Radzen.NotificationMessage
-        {
-            Severity = NotificationSeverity.Info,
-            Summary = "Error",
-            Detail = "Invalid Sate",
-            Duration = 14000
-        };
-        NotificationService.Notify(msg);
-    }
-    void SaveButton()
-    {
-        Save();
-
-    }
-
-    //private void Save(){}
-    private async void Save()
-    {
-        var result = await Http.PostAsJsonAsync<Voucher>("api/Vouchers", voucher);
-
-        if (result.IsSuccessStatusCode)
-        {
-            var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Info",
-                Detail = "Voucher is added",
-                Duration = 4000
-            };
-            NotificationService.Notify(msg);
-
-        }
-        else
-        {
-            var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Error,
-                Summary = "Error",
-                Detail = "An error occured while saving and error is " + result.StatusCode.ToString() + "\n" + result.ReasonPhrase,
-                Duration = 4000
-            };
-            NotificationService.Notify(msg);
-        }
-    }
-
 }

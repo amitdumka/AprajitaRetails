@@ -1,0 +1,72 @@
+﻿@page "/vouchers"
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+
+@attribute [Authorize]
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Vouchers" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <SfGrid ID="Grid" @ref="Grid" AllowExcelExport="true" AllowPdfExport="true" DataSource="@entities" Toolbar="@(new List<string>() { "ExcelExport", "CsvExport", "PdfExport","Print","Search" })" AllowTextWrap="true" AllowSorting="true" AllowFiltering="true" EnableAdaptiveUI="true" Height="100%" Width="100%" AllowPaging="true">
+        <GridEvents OnToolbarClick="ToolbarClick" TValue="Voucher"></GridEvents>
+        <GridColumns>
+            <GridColumn Field=@nameof(Voucher.VoucherType) HeaderText="Type" Width="120"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.OnDate) HeaderText="Date" Width="120"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.VoucherNumber) HeaderText="ID" Width="120"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.PartyName) HeaderText="Party" Width="150" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.Particulars) HeaderText="Particulars" Width="150" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.Amount) HeaderText="Amount" Width="120" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.PaymentMode) HeaderText="Mode" Width="120" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.Remarks) HeaderText="Remarks" Width="150" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.EmployeeId) HeaderText="Issued By" Width="120" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
+            <GridColumn Field=@nameof(Voucher.SlipNumber) HeaderText="Slip No" Width="120" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
+
+        </GridColumns>
+    </SfGrid>
+</ContentMain>
+
+@code {
+    private List<Voucher>? entities;
+    SfGrid<Voucher> Grid;
+    private bool Loading = true;
+    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "Grid_pdfexport")
+        {
+            this.Grid.ExportToPdfAsync();
+        }
+        else if (args.Item.Id == "Grid_excelexport")
+        {
+            this.Grid.ExportToExcelAsync();
+        }
+        else
+        {
+            this.Grid.ExportToCsvAsync();
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Helper.Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
+        try
+        {
+            entities = await Helper.FetchAsync<Voucher>($"api/Vouchers/bystore", $"?storeid={Setting.StoreCode}");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (Exception exception)
+        {
+            Helper.Msg("Error", exception.Message, true);
+        }
+    }
+}

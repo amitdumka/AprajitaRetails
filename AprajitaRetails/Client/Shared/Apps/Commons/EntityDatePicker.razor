@@ -1,0 +1,28 @@
+﻿<Column Classes="@classes">
+    <div class="mb-3 row">
+        <label for="ondate" class="col-sm-4 col-form-label">@Lable</label>
+        <div class="col-sm-6">
+            <SfDatePicker Value="@Value" Format="@Format" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+        </div>
+    </div>
+</Column>
+
+@code {
+    [Parameter] public string Lable { get; set; } = " ";
+    [Parameter] public DateTime Value { get; set; } = DateTime.Now;
+    [Parameter] public string Format { get; set; } = "dd-MM-yyyy";
+    [Parameter]
+    public object Classes
+    {
+        get
+        {
+            return classes;
+        }
+        set
+        {
+            classes = value.ToString();
+        }
+    }
+
+    public string classes { get; set; } = col.md.ToString();
+}

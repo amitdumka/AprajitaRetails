@@ -6,16 +6,19 @@
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
 @inject NavigationManager NavigationManager
-@inject LocalStorageAccessor LocalStorage
 @attribute [Authorize]
-@inject HttpClient Http
+
+@inject ClientSetting Setting
+@inject DataHelper Helper
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
 
     <EntityRow Lable="Voucher" Value="@entity.VoucherType.ToString()" />
     <EntityRow Lable="ID" Value="@entity.VoucherNumber" />
     @if (string.IsNullOrEmpty(entity.SlipNumber) == false)
-    {<EntityRow Lable="Slip No" Value="@entity.SlipNumber" />}
+    {
+        <EntityRow Lable="Slip No" Value="@entity.SlipNumber" />
+    }
     <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
     <EntityRow Lable="PartyName" Value="@entity.PartyName" />
     <EntityRow Lable="Particulars" Value="@entity.Particulars" />
@@ -25,9 +28,13 @@
     <EntityRow Lable="Acc No" Value="@entity.AccountId.ToString()" />
     <EntityRow Lable="Payment Details" Value="@entity.PaymentDetails" />
     @if (party != null)
-    {<EntityRow Lable="Ledger" Value="@party.PartyName" />}
+    {
+        <EntityRow Lable="Ledger" Value="@party.PartyName" />
+    }
     @if (employee != null)
-    {<EntityRow Lable="Issued By" Value="@employee.StaffName" />}
+    {
+        <EntityRow Lable="Issued By" Value="@employee.StaffName" />
+    }
 
 </EntityDetails>
 
@@ -46,19 +53,20 @@
     {
         if (!string.IsNullOrEmpty(ID))
         {
-            //ID = ID ?? "NO ID Found";
-            entity = await Http.GetFromJsonAsync<Voucher>($"api/Vouchers/{ID}");
-            Title = "Details of VCH: " + entity.VoucherNumber;
-            employee = await Http.GetFromJsonAsync<Employee>($"Employees/{entity.EmployeeId}");
+            entity = await Helper.GetRecordAsync<Voucher>($"api/Vouchers", ID);
+            Title = "Voucher: " + entity.VoucherNumber;
+            employee = await Helper.GetRecordAsync<Employee>($"Employees", entity.EmployeeId);
+
             if (string.IsNullOrEmpty(entity.PartyId) == false)
-                party = await Http.GetFromJsonAsync<Party>($"Parties/{entity.PartyId}");
+                party = await Helper.GetRecordAsync<Party>($"Parties", entity.PartyId);
 
             Loading = false;
             StateHasChanged();
         }
         else
         {
-            //alert
+            BackButton();
+            Helper.Msg("Error", "Please Select Voucher for details", true);
         }
     }
 }

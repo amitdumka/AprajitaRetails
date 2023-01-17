@@ -1,120 +1,100 @@
 ﻿@page "/vouchers/cash"
 
+@using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
 @using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels;
 
-@inject ClientSetting Setting
 @attribute [Authorize]
-@inject HttpClient Http
-@inject NotificationService NotificationService
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
 
-<ContentHeader>
-    <Header>
-        <Blazor.AdminLte.PageTitle Title="Cash Vouchers" />
-    </Header>
-</ContentHeader>
 <ContentMain>
-    @if (vchlist == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <Row>
-            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
-                <Title>
-                    <CardTitle>Cash Vouchers</CardTitle>
+    <EntityList Title="@Title" BaseUrl=@PageUrl Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>Type</TableHeadCell>
+            <TableHeadCell>Date</TableHeadCell>
+            <TableHeadCell>VoucherNo</TableHeadCell>
+            <TableHeadCell>Party Name</TableHeadCell>
+            <TableHeadCell>Particulars</TableHeadCell>
+            <TableHeadCell>Amount</TableHeadCell>
+            <TableHeadCell>Category</TableHeadCell>
+            <TableHeadCell>Remarks</TableHeadCell>
+            <TableHeadCell>Issued By</TableHeadCell>
+            <TableHeadCell>Slip No</TableHeadCell>
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
 
-                </Title>
-                <Header>
-                    <CardTools>
-                        <CustomTools>
-                            <a class="btn btn-primary btn-xs btn" href="/vouchers/cash/edit">Add</a>
-                        </CustomTools>
-                    </CardTools>
-                </Header>
-                <Body>
-                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
-                        <caption >Record Count: @vchlist.Count() .</caption>
-                        <TableHead>
-                            <TableHeadCell>Type</TableHeadCell>
-                            <TableHeadCell>Date</TableHeadCell>
-                            <TableHeadCell>VoucherNo</TableHeadCell>
-                            <TableHeadCell>Party Name</TableHeadCell>
-                            <TableHeadCell>Particulars</TableHeadCell>
-                            <TableHeadCell>Amount</TableHeadCell>
-                            <TableHeadCell>Category</TableHeadCell>
-                            <TableHeadCell>Remarks</TableHeadCell>
-                            <TableHeadCell>Issued By</TableHeadCell>
-                            <TableHeadCell>Slip No</TableHeadCell>
-                            <TableHeadCell> </TableHeadCell>
-                        </TableHead>
-                        <TableBody>
+            @foreach (var vch in vchlist)
+            {
+                <TableRow>
+                    <TableCell>@vch.VoucherType</TableCell>
+                    <TableCell>@vch.OnDate.ToShortDateString()</TableCell>
+                    <TableCell>@vch.VoucherNumber</TableCell>
+                    <TableCell>@vch.PartyName</TableCell>
+                    <TableCell>@vch.Particulars</TableCell>
+                    <TableCell>@vch.Amount</TableCell>
+                    <TableCell>@ModeName(vch.TransactionId)</TableCell>
+                    <TableCell>@vch.Remarks</TableCell>
+                    <TableCell>@vch.EmployeeId</TableCell>
+                    <TableCell>@vch.SlipNumber</TableCell>
+                    <TableCell>
+                        <AprajitaRetails.AdminLte.ActionMenu Link="/vouchers/cash" Id="@vch.VoucherNumber" />
+                    </TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
 
-                            @foreach (var vch in vchlist)
-                            {
-                                <TableRow>
-                                    <TableCell>@vch.VoucherType</TableCell>
-                                    <TableCell>@vch.OnDate.ToShortDateString()</TableCell>
-                                    <TableCell>@vch.VoucherNumber</TableCell>
-                                    <TableCell>@vch.PartyName</TableCell>
-                                    <TableCell>@vch.Particulars</TableCell>
-                                    <TableCell>@vch.Amount</TableCell>
-                                    <TableCell>@ModeName(vch.TransactionId)</TableCell>
-                                    <TableCell>@vch.Remarks</TableCell>
-                                    <TableCell>@vch.EmployeeId</TableCell>
-                                    <TableCell>@vch.SlipNumber</TableCell>
-                                    <TableCell>
-                                        <AprajitaRetails.AdminLte.ActionMenu Link="/vouchers/cash" Id="@vch.VoucherNumber" />
-                                    </TableCell>
-                                </TableRow>
-                            }
-                        </TableBody>
-                    </AprajitaRetails.AdminLte.Table.ATable>
-                </Body>
-            </Card>
-        </Row>
-    }
 </ContentMain>
+
 @code {
-    private CashVoucher[]? vchlist;
-    private TransactionMode[]? modeList;
+    string Title = "Cash Vouchers";
+    string PageUrl = "/vouchers/cash";
+    bool Loading = true;
+
+    private List<CashVoucher>? vchlist;
+    private SelectOption[]? modeList;
 
     private string ModeName(string id)
     {
-        return modeList.First(c => c.TransactionId == id).TransactionName;
+        return modeList.First(c => c.ID == id).Value;
     }
 
+    async void ConfirmDelete(string id)
+    {
+        var flag = await Helper.DeleteAsync("CashVouchers", $"Cash Voucher:{vchlist.First(c => c.VoucherNumber == id).VoucherType.ToString()} ", id);
+
+        if (flag)
+        {
+            vchlist.Remove(vchlist.First(c => c.VoucherNumber == id));
+            StateHasChanged();
+        }
+
+    }
     protected override async Task OnInitializedAsync()
     {
         if (string.IsNullOrEmpty(Setting.StoreCode))
         {
-            Msg("Error", "Select store!, Kindly re-login", true);
+            Helper.Msg("Error", "Select store!, Kindly re-login", true);
             return;
         }
         try
         {
-            vchlist = await Http.GetFromJsonAsync<CashVoucher[]>($"CashVouchers/bystore?storeid={Setting.StoreCode}");
-            modeList = await Http.GetFromJsonAsync<TransactionMode[]>("TransactionModes");
+            vchlist = await Helper.FetchAsync<CashVoucher>($"CashVouchers/bystore", $"?storeid={Setting.StoreCode}");
+            modeList = await Helper.FetchOptionsAsync("TransactionModes", "");
         }
-        catch (AccessTokenNotAvailableException exception)
+        catch (Exception exception)
         {
-            exception.Redirect();
+            // exception.Redirect();
+            Helper.Msg("Error", exception.Message, true);
         }
 
     }
-    void Msg(string title, string text, bool error = false)
-    {
-        var msg = new Radzen.NotificationMessage
-            {
-                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
-        NotificationService.Notify(msg);
-    }
+
 }

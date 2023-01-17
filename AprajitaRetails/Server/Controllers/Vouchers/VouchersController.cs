@@ -3,7 +3,6 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -19,6 +18,26 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             _context = context;
         }
 
+        // DELETE: api/Vouchers/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVoucher(string id)
+        {
+            if (_context.Vouchers == null)
+            {
+                return NotFound();
+            }
+            var voucher = await _context.Vouchers.FindAsync(id);
+            if (voucher == null)
+            {
+                return NotFound();
+            }
+
+            _context.Vouchers.Remove(voucher);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         // GET: api/Vouchers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Voucher>>> GetVoucher()
@@ -28,19 +47,6 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
                 return NotFound();
             }
             return await _context.Vouchers.OrderByDescending(c => c.OnDate).ToListAsync();
-        }
-
-        // GET: api/Vouchers
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<Voucher>>> GetVoucherByStore(string storeid)
-        {
-            if (_context.Vouchers == null)
-            {
-                return NotFound();
-            }
-           // int year = DateTime.Now.Year - 2;
-            return await _context.Vouchers.Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate).ToListAsync();
-            //return x;
         }
 
         // GET: api/Vouchers/5
@@ -59,6 +65,52 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             }
 
             return voucher;
+        }
+
+        // GET: api/Vouchers
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<Voucher>>> GetVoucherByStore(string storeid)
+        {
+            if (_context.Vouchers == null)
+            {
+                return NotFound();
+            }
+            // int year = DateTime.Now.Year - 2;
+            return await _context.Vouchers.Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate).ToListAsync();
+            //return x;
+        }
+
+        // POST: api/Vouchers
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Voucher>> PostVoucher(Voucher voucher)
+        {
+            if (_context.Vouchers == null)
+            {
+                return Problem("Entity set 'ARDBContext.Voucher'  is null.");
+            }
+            // Adding VoucherNumber
+            voucher.VoucherNumber = AccountHelper.VoucherNumberGenerator(_context, voucher.VoucherType, voucher.StoreId, voucher.OnDate);
+            if (voucher.PaymentMode == PaymentMode.Cash) voucher.AccountId = string.Empty;
+            _context.Vouchers.Add(voucher);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (VoucherExists(voucher.VoucherNumber))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetVoucher", new { id = voucher.VoucherNumber }, voucher);
         }
 
         // PUT: api/Vouchers/5
@@ -88,59 +140,6 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
                     throw;
                 }
             }
-
-            return NoContent();
-        }
-
-        // POST: api/Vouchers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Voucher>> PostVoucher(Voucher voucher)
-        {
-            if (_context.Vouchers == null)
-            {
-                return Problem("Entity set 'ARDBContext.Voucher'  is null.");
-            }
-            // Adding VoucherNumber
-            voucher.VoucherNumber = AccountHelper.VoucherNumberGenerator(_context, voucher.VoucherType, voucher.StoreId, voucher.OnDate);
-
-            _context.Vouchers.Add(voucher);
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (VoucherExists(voucher.VoucherNumber))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetVoucher", new { id = voucher.VoucherNumber }, voucher);
-        }
-
-        // DELETE: api/Vouchers/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVoucher(string id)
-        {
-            if (_context.Vouchers == null)
-            {
-                return NotFound();
-            }
-            var voucher = await _context.Vouchers.FindAsync(id);
-            if (voucher == null)
-            {
-                return NotFound();
-            }
-
-            _context.Vouchers.Remove(voucher);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
