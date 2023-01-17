@@ -1,4 +1,5 @@
 ﻿@page "/payroll/attendances/edit/{IsEdit:bool}/{*Id}"
+
 @using AprajitaRetails.Commons
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 @using AprajitaRetails.Shared.Models.Payroll
@@ -10,8 +11,10 @@
 @using Syncfusion.Blazor.Calendars
 @using AprajitaRetails.Helpers
 @attribute [Authorize]
-@inject HttpClient Http
+@*@inject HttpClient Http*@
 @inject ClientSetting Setting
+@inject DataHelper DataHelper
+
 <ContentMain>
     <EntityEdit @bind-EntityModel=@attendance TItem="@Attendance" Title="Attendance" ApiUrl="Attendances" ReturnUrl="/payroll/attendances" Id="@Id" IsEdit=@IsEdit>
         <Row>
@@ -99,13 +102,13 @@
     {
         try
         {
-            Employees = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Employees?storeid=all");
-            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
+            Employees = await DataHelper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
             return true;
         }
-        catch (AccessTokenNotAvailableException exception)
+        catch (Exception exception)
         {
-            exception.Redirect();
+            //exception.Redirect();
             return false;
         }
 
@@ -116,26 +119,27 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            attendance = await Http.GetFromJsonAsync<Attendance>($"Attendances/{Id}");
+            attendance = await DataHelper.GetRecordAsync<Attendance>("Attendances", Id);
             StateHasChanged();
+
         }
         else
         {
             attendance = new Attendance
-                {
-                    OnDate = DateTime.Now,
-                    AttendanceId = "",
-                    EmployeeId = "",
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    MarkedDeleted = false,
-                    Remarks = " ",
-                    StoreId = Setting.StoreCode,
-                    IsTailoring = false,
-                    Status = AttUnit.Present,
-                    UserId = Setting.UserName,
-                    EntryTime = $"{DateTime.Now.ToShortTimeString()}"
-                };
+            {
+                OnDate = DateTime.Now,
+                AttendanceId = "",
+                EmployeeId = "",
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                Remarks = " ",
+                StoreId = Setting.StoreCode,
+                IsTailoring = false,
+                Status = AttUnit.Present,
+                UserId = Setting.UserName,
+                EntryTime = $"{DateTime.Now.ToShortTimeString()}"
+            };
         }
 
     }
