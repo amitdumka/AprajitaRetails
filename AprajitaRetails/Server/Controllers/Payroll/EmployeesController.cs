@@ -27,6 +27,18 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             }
             return await _context.Employees.ToListAsync();
         }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByStore(string storeid,bool isWorking=true)
+        {
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
+            if(isWorking)
+            return await _context.Employees.Where(c=>c.StoreId==storeid && c.IsWorking).ToListAsync();
+            else
+                return await _context.Employees.Where(c => c.StoreId == storeid) .ToListAsync();
+        }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]

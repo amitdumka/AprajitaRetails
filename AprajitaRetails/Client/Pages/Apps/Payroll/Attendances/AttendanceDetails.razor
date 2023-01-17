@@ -13,6 +13,7 @@
 @attribute [Authorize]
 @inject HttpClient Http
 @inject LocalStorageAccessor LocalStorage
+@inject DataHelper DataHelper
 
 <ContentHeader>
     <Header>
@@ -80,37 +81,31 @@
     bool isDeleted = false;
     string Title = "Detail";
 
-    void DeleteButton()
+  async  void DeleteButton()
     {
-        ConfirmDelete(ID);
+        //ConfirmDelete(ID);
+        try
+        {
+            isDeleted = await DataHelper.DeleteAsync("Attendances", "Attendance", ID);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            DataHelper.Msg("Error", ex.Message, true);
+        }
+
     }
 
     async void ConfirmDelete(string id)
     {
         try
         {
-
-            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete Attendance");
-            if (isConfirm)
-            {
-                var result = await Http.DeleteAsync($"Attendances/{id}");
-                if (result.IsSuccessStatusCode)
-                {
-                    isDeleted = true;
-                    StateHasChanged();
-                    Msg("Attendane Delete", $"Attendance {id} is deleted");
-
-                }
-                else
-                {
-                    Msg("Attendane Delete", $" Error : Attendance {id} is not deleted", true);
-                }
-            }
+            isDeleted = await DataHelper.DeleteAsync("Attendances", "Attendance", id);
+            StateHasChanged();
         }
         catch (Exception ex)
         {
-
-            Msg("Error", ex.Message, true);
+            DataHelper.Msg("Error", ex.Message, true);
         }
 
     }
@@ -118,41 +113,27 @@
     {
         NavigationManager.NavigateTo("/payroll/attendances");
     }
-    void Msg(string title, string text, bool isError = false)
-    {
-        var msg = new Radzen.NotificationMessage
-        {
-            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
-        NotificationService.Notify(msg);
-    }
 
     protected override async void OnInitialized()
     {
         if (!string.IsNullOrEmpty(ID))
         {
-            // Do Fetch Data from DB and Populate.
-            //ID = ID ?? "NO ID Found";
+
             try
             {
                 entity = await Http.GetFromJsonAsync<Attendance>($"Attendances/{ID}");
-                //var emp = await Http.GetFromJsonAsync<Attendance>($"Employees/{entity.EmployeeId}");
-                Title = "Detail Attendance of " + entity.Employee.StaffName;
+                Title = "Attendance of " + entity.Employee.StaffName;
                 StateHasChanged();
             }catch(HttpRequestException e)
             {
                 NavigationManager.NavigateTo("/payroll/attendances");
-                Msg("Error", $"Attendance ID# {ID} not found!! and error is {e.Message}");
+                DataHelper.Msg("Error", $"Attendance ID# {ID} not found!! and error is {e.Message}");
             }
         }
         else
         {
-            //alert
             NavigationManager.NavigateTo("/payroll/attendances");
-            Msg("Error", $"Attendance ID# {ID} not found!!");
+            DataHelper.Msg("Error", $"Attendance ID# {ID} not found!!");
         }
     }
 

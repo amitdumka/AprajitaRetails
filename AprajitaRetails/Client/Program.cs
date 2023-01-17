@@ -27,6 +27,7 @@ builder.Services.AddScoped<SfDialogService>();
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped<IFilesManager, WasmFilesManager>();
 builder.Services.AddScoped<LocalStorageAccessor>();
+builder.Services.AddScoped<DataHelper>();
 builder.Services.AddSingleton<ClientSetting>();
 builder.Services.AddApiAuthorization();
 //builder.Services.AddScoped<SessionStorageAccessor>();

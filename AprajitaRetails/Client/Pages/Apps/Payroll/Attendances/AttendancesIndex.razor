@@ -98,7 +98,7 @@
         {
             if (!string.IsNullOrEmpty(Settings.StoreCode))
             {
-                employees = await Http.GetFromJsonAsync<Employee[]>($"Employees/ByStore?storeid={Settings.StoreCode}");
+                employees = await Http.GetFromJsonAsync<Employee[]>($"Employees/ByStore?storeid={Settings.StoreCode}&isworking=true");
                 entities = await Http.GetFromJsonAsync<List<Attendance>>($"Attendances/ByStore?storeid={Settings.StoreCode}");
             }
             else { Msg("Error", "Store is not selected!, Kindly re-login!", true); }
