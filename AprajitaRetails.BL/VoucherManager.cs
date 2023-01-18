@@ -44,6 +44,6 @@ public class VoucherManager
                 typ = "PYM";
                 break;
         }
-        return $"{storeId}-${typ}-{onDate.Year}-{onDate.Month}-{onDate.Day}-{count}";
+        return $"{storeId}-{typ}-{onDate.Year}-{onDate.Month}-{onDate.Day}-{count}";
     }
 }
