@@ -1,0 +1,37 @@
+﻿@namespace AprajitaRetails.Aks
+@using Syncfusion.Blazor.Grids
+@typeparam TItem
+
+<ContentHeader>
+    <Header> <Blazor.AdminLte.PageTitle Title="@Title" /></Header>
+</ContentHeader>
+<ContentMain>
+
+    <SfGrid TValue="TItem" DataSource="@Entities" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=false AllowGrouping=true
+            AllowPaging="true" ID="Grid" @ref="Grid" AllowPdfExport="true" ShowColumnChooser="true"
+            Toolbar="@(new List<string>() {"Print", "ExcelExport", "PdfExport", "ColumnChooser","Search"})"
+            ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending","Copy", "Edit", "Delete", "Save", "Cancel",  "FirstPage", "PrevPage","LastPage", "NextPage"})"
+            AllowResizing="true">
+        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+        <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="true"></GridGroupSettings>
+        <GridPageSettings PageCount="5"></GridPageSettings>
+
+    </SfGrid>
+</ContentMain>
+
+@code {
+    SfGrid<TItem>? Grid;
+
+    [Parameter] public string Title { get; set; } = " ";
+    [Parameter] public RenderFragment ChildFragment { get; set; }
+    [Parameter] public List<TItem> Entities { get; set; }
+    [Parameter] public string[] GroupedColumn { get; set; }
+    [Parameter]
+    public EventCallback<List<TItem>> EntitiesChanged { get; set; }
+    private async Task OnValueChanged(ChangeEventArgs e)
+    {
+        Entities = (List<TItem>)e?.Value;
+        await EntitiesChanged.InvokeAsync(Entities);
+    }
+
+}

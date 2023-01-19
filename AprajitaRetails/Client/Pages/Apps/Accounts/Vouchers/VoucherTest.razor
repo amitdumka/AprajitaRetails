@@ -1,0 +1,60 @@
+﻿@page "/vochers/test"
+
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Aks
+
+@attribute [Authorize]
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="CashVoucher" Title="Vouchers[Cash]" GroupedColumn="@GroupedColumn" @bind-Entities=@entities>
+
+</EntityGridIndex>
+
+@code {
+    private string[] GroupedColumn = new string[] { "VoucherType" };
+    private List<CashVoucher>? entities;
+    private SelectOption[]? modeList;
+    private SelectOption[]? employees;
+    private SelectOption[]? parties;
+    protected override async Task OnInitializedAsync()
+    {
+        // CustomCol();
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Helper.Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
+        try
+        {
+            //CultureInfo myCIintl =
+            CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+            CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+            entities = await Helper.FetchAsync<CashVoucher>($"CashVouchers/bystore", $"?storeid={Setting.StoreCode}");
+            modeList = await Helper.FetchOptionsAsync("Transactions", "");
+            employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
+            // Loading = false;
+            //CustomCol();
+            StateHasChanged();
+            //await Grid.AutoFitColumnsAsync();
+
+            StateHasChanged();
+        }
+        catch (Exception exception)
+        {
+            // exception.Redirect();
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+}
