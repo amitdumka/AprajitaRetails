@@ -15,7 +15,7 @@
     </Header>
 </ContentHeader>
 @*Toolbar="@(new List<string>() { "Print", "Add", "Edit", "Delete", "Cancel", "Update", "ColumnChooser", "ExcelExport", "PdfExport", "Search" })" AllowTextWrap="true"
-            ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending", "Copy", "Edit", "Delete", "Save", "Cancel", "PdfExport", "ExcelExport", "CsvExport", "FirstPage", "PrevPage", "LastPage", "NextPage" })"
+    ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending", "Copy", "Edit", "Delete", "Save", "Cancel", "PdfExport", "ExcelExport", "CsvExport", "FirstPage", "PrevPage", "LastPage", "NextPage" })"
 *@
 <ContentMain>
     <SfGrid ID="Grid" @ref="Grid" AllowExcelExport="true" AllowPdfExport="true" DataSource="@entities" AllowResizing="true"
@@ -23,8 +23,12 @@
             Toolbar="@(new List<string>() { "Print","ColumnChooser", "ExcelExport", "PdfExport","Search","Add" })" AllowTextWrap="true"
             ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending","Copy", "Edit", "Delete", "Save", "Cancel",  "FirstPage", "PrevPage","LastPage", "NextPage"})"
             AllowSorting="true" AllowFiltering="true" EnableAdaptiveUI="true" Height="100%" Width="100%" AllowPaging="true">
-        <GridEvents OnToolbarClick="ToolbarClick" TValue="Voucher"></GridEvents>
+        <GridEvents RowSelected="RowSelectHandler" OnToolbarClick="ToolbarClick"
+                    CommandClicked="OnCommandClicked" ColumnMenuItemClicked="ColumnMenuItemClickedHandler"
+                    ContextMenuItemClicked="ContextMenuItemClickedHandler"
+                    TValue="Voucher"></GridEvents>
         @*<GridEvents RowSelected="RowSelectHandler" RowDeselected="RowDeSelectHandler" TValue="OrderDetails"></GridEvents>*@
+        @*<GridEvents OnActionBegin="ActionBeginHandler" TValue="Order"></GridEvents>*@
         <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
         <GridPageSettings PageCount="5"></GridPageSettings>
@@ -32,22 +36,22 @@
         @*<GridGroupSettings Columns=@GroupedColumn></GridGroupSettings>*@
         <GridAggregates>
             @*<GridAggregate>
-            <GridAggregateColumns>
-            <GridAggregateColumn Field="@nameof(Voucher.Amount)" Type="AggregateType.Sum" Format="C2">
-            <FooterTemplate>
-            @{ var SumValue = (context as AggregateTemplateContext);
+                <GridAggregateColumns>
+                <GridAggregateColumn Field="@nameof(Voucher.Amount)" Type="AggregateType.Sum" Format="C2">
+                <FooterTemplate>
+                @{ var SumValue = (context as AggregateTemplateContext);
 
-            <div>
-            Total Payment Amoumt: @SumValue.Sum
-            </div>
-            }
-            </FooterTemplate>
-            </GridAggregateColumn>
-            </GridAggregateColumns>
-            </GridAggregate>*@
+                <div>
+                Total Payment Amoumt: @SumValue.Sum
+                </div>
+                }
+                </FooterTemplate>
+                </GridAggregateColumn>
+                </GridAggregateColumns>
+                </GridAggregate>*@
             <GridAggregate>
                 <GridAggregateColumns>
-                    <GridAggregateColumn Field="@nameof(Voucher.Amount)" Type="AggregateType.Sum" Format="C2" >
+                    <GridAggregateColumn Field="@nameof(Voucher.Amount)" Type="AggregateType.Sum" Format="C2">
                         @* <GroupFooterTemplate>*@
                         <GroupCaptionTemplate>
                             @*<FooterTemplate>*@
@@ -78,81 +82,81 @@
             <GridColumn Field=@nameof(Voucher.EmployeeId) HeaderText="Issued By" Width="100" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
             <GridColumn Field=@nameof(Voucher.SlipNumber) HeaderText="Slip No" Width="100" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
             @*<GridForeignColumn Field=@nameof(Voucher.EmployeeId) HeaderText="Issued Bu" ForeignKeyValue="StaffName"
-            ValidationRules="@(new ValidationRules{ Required=true})" ForeignDataSource="@Employees" Width="150"></GridForeignColumn>*@
+                ValidationRules="@(new ValidationRules{ Required=true})" ForeignDataSource="@Employees" Width="150"></GridForeignColumn>*@
             @*<GridForeignColumn TValue="EmployeeData" Field=@nameof(OrdersDetails.EmployeeID) HeaderText="First Name" ForeignKeyValue="FirstName" Width="150" ValidationRules="@(new ValidationRules{ Required=true})">
-            <Syncfusion.Blazor.Data.SfDataManager Url="https://js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Employees" CrossDomain="true" Adaptor="Adaptors.ODataAdaptor">
-            </Syncfusion.Blazor.Data.SfDataManager>
-            </GridForeignColumn>*@
+                <Syncfusion.Blazor.Data.SfDataManager Url="https://js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Employees" CrossDomain="true" Adaptor="Adaptors.ODataAdaptor">
+                </Syncfusion.Blazor.Data.SfDataManager>
+                </GridForeignColumn>*@
             @* <GridColumn HeaderText="View Details" TextAlign="TextAlign.Center" Width="150">
-            <GridCommandColumns>
-            <GridCommandColumn ButtonOption="@(new CommandButtonOptions() { CssClass="e-icons e-view-details"})" Title="View"></GridCommandColumn>
-            </GridCommandColumns>
-            </GridColumn>*@
+                <GridCommandColumns>
+                <GridCommandColumn ButtonOption="@(new CommandButtonOptions() { CssClass="e-icons e-view-details"})" Title="View"></GridCommandColumn>
+                </GridCommandColumns>
+                </GridColumn>*@
             @*<GridColumn Field=@nameof(OrdersDetails.CustomerID) HeaderText="Customer ID" ValidationRules="@(new ValidationRules{ Required=true})" Width="150">
-            <EditTemplate>
-            <SfAutoComplete TItem="OrdersDetails" TValue="string" ID="CustomerID" @bind-Value="@((context as OrdersDetails).CustomerID)" DataSource="@GridData">
-            <AutoCompleteFieldSettings Value="CustomerID"></AutoCompleteFieldSettings>
-            </SfAutoComplete>
-            </EditTemplate>
-            </GridColumn>*@
-            @* <GridColumn HeaderText="Manage Records" Width="150">
-            <GridCommandColumns>
-            <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-edit", CssClass="e-flat" })"></GridCommandColumn>
-            <GridCommandColumn Type="CommandButtonType.Delete" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-delete", CssClass="e-flat" })"></GridCommandColumn>
-            <GridCommandColumn Type="CommandButtonType.Save" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-save", CssClass="e-flat" })"></GridCommandColumn>
-            <GridCommandColumn Type="CommandButtonType.Cancel" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-cancel-icon", CssClass="e-flat" })"></GridCommandColumn>
-            </GridCommandColumns>
-            </GridColumn>*@
+                <EditTemplate>
+                <SfAutoComplete TItem="OrdersDetails" TValue="string" ID="CustomerID" @bind-Value="@((context as OrdersDetails).CustomerID)" DataSource="@GridData">
+                <AutoCompleteFieldSettings Value="CustomerID"></AutoCompleteFieldSettings>
+                </SfAutoComplete>
+                </EditTemplate>
+                </GridColumn>*@
+            <GridColumn HeaderText="Manage Records" Width="150">
+                <GridCommandColumns>
+                    <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-edit", CssClass="e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Type="CommandButtonType.Delete" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-delete", CssClass="e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Type="CommandButtonType.Save" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-save", CssClass="e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Type="CommandButtonType.Cancel" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-cancel-icon", CssClass="e-flat" })"></GridCommandColumn>
+                </GridCommandColumns>
+            </GridColumn>
         </GridColumns>
         @* <GridColumns>
-        <GridColumn Field=@nameof(OrdersDetails.OrderID) HeaderText="Order ID" IsPrimaryKey="true" ValidationRules="@(new ValidationRules{ Required=true, Number=true})" TextAlign="TextAlign.Right" Width="140"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.CustomerID) HeaderText="Customer ID" ValidationRules="@(new ValidationRules{ Required=true})" Width="150"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.Freight) ValidationRules="@(new ValidationRules{ Required=true, Range = new object[]{1, 1000}})" EditType="EditType.NumericEdit" Format="C2" TextAlign="TextAlign.Right" Width="140"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.OrderDate) HeaderText="Order Date" EditType="EditType.DatePickerEdit" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="160"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.ShipCountry) HeaderText="Ship Country" EditType="EditType.DropDownEdit" Width="150"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.Verified) EditType="EditType.BooleanEdit" DisplayAsCheckBox="true" Width="150" TextAlign="TextAlign.Center"></GridColumn>
-        </GridColumns>*@
+            <GridColumn Field=@nameof(OrdersDetails.OrderID) HeaderText="Order ID" IsPrimaryKey="true" ValidationRules="@(new ValidationRules{ Required=true, Number=true})" TextAlign="TextAlign.Right" Width="140"></GridColumn>
+            <GridColumn Field=@nameof(OrdersDetails.CustomerID) HeaderText="Customer ID" ValidationRules="@(new ValidationRules{ Required=true})" Width="150"></GridColumn>
+            <GridColumn Field=@nameof(OrdersDetails.Freight) ValidationRules="@(new ValidationRules{ Required=true, Range = new object[]{1, 1000}})" EditType="EditType.NumericEdit" Format="C2" TextAlign="TextAlign.Right" Width="140"></GridColumn>
+            <GridColumn Field=@nameof(OrdersDetails.OrderDate) HeaderText="Order Date" EditType="EditType.DatePickerEdit" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="160"></GridColumn>
+            <GridColumn Field=@nameof(OrdersDetails.ShipCountry) HeaderText="Ship Country" EditType="EditType.DropDownEdit" Width="150"></GridColumn>
+            <GridColumn Field=@nameof(OrdersDetails.Verified) EditType="EditType.BooleanEdit" DisplayAsCheckBox="true" Width="150" TextAlign="TextAlign.Center"></GridColumn>
+            </GridColumns>*@
     </SfGrid>
     @* <SfDialog Width="470" @bind-Visible="@IsVisible" ShowCloseIcon="true" IsModal="false" Target="#MyGrid">
-    <DialogTemplates>
-    <Header>Employee Information</Header>
-    <Content>
-    @{
-    <div style="display:inline-flex;padding-bottom:15px">
-    @if (RowDetails != null)
-    {
-    <div style="float:left;padding:45px;padding-top:48px"><img class="photo" src="@UriHelper.ToAbsoluteUri($"{SampleService.WebAssetsPath}images/data-grid/{RowDetails?.EmployeeId}.png")" alt="@RowDetails?.EmployeeId" /></div>
-    }
-    <div style="padding-top:20px">
-    <div style="padding-bottom:10px;padding-left:10px;">
-    <span style="font-size:large;font-weight: bold">@RowDetails?.FirstName @RowDetails?.LastName</span>
-    </div>
-    <div>
-    <span class="position">@RowDetails?.Title</span>
-    </div>
-    <div style="padding-top:10px;">
-    <table class="table">
-    <tr>
-    <th>Birth Date </th>
-    <td>@RowDetails?.BirthDate?.ToString("dd/MM/yyyy")</td>
-    </tr>
-    <tr>
-    <th>City </th>
-    <td>@RowDetails?.City</td>
-    </tr>
-    <tr>
-    <th>Postal Code </th>
-    <td>@RowDetails?.Code</td>
-    </tr>
-    </table>
-    </div>
-    </div>
-    </div>
-    }
-    </Content>
-    </DialogTemplates>
-    <DialogPositionData X="@Xvalue" Y="@Yvalue"></DialogPositionData>
-    </SfDialog>*@
+        <DialogTemplates>
+        <Header>Employee Information</Header>
+        <Content>
+        @{
+        <div style="display:inline-flex;padding-bottom:15px">
+        @if (RowDetails != null)
+        {
+        <div style="float:left;padding:45px;padding-top:48px"><img class="photo" src="@UriHelper.ToAbsoluteUri($"{SampleService.WebAssetsPath}images/data-grid/{RowDetails?.EmployeeId}.png")" alt="@RowDetails?.EmployeeId" /></div>
+        }
+        <div style="padding-top:20px">
+        <div style="padding-bottom:10px;padding-left:10px;">
+        <span style="font-size:large;font-weight: bold">@RowDetails?.FirstName @RowDetails?.LastName</span>
+        </div>
+        <div>
+        <span class="position">@RowDetails?.Title</span>
+        </div>
+        <div style="padding-top:10px;">
+        <table class="table">
+        <tr>
+        <th>Birth Date </th>
+        <td>@RowDetails?.BirthDate?.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+        <th>City </th>
+        <td>@RowDetails?.City</td>
+        </tr>
+        <tr>
+        <th>Postal Code </th>
+        <td>@RowDetails?.Code</td>
+        </tr>
+        </table>
+        </div>
+        </div>
+        </div>
+        }
+        </Content>
+        </DialogTemplates>
+        <DialogPositionData X="@Xvalue" Y="@Yvalue"></DialogPositionData>
+        </SfDialog>*@
 </ContentMain>
 
 @code {
@@ -168,7 +172,7 @@
             Props.PageSize = PdfPageSize.A4;
             Props.PageOrientation = PageOrientation.Landscape;
             List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
-            {
+    {
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Vouchers", Position = new PdfPosition() { X = 280, Y = 0 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 20} },
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Report Date", Position = new PdfPosition() { X = 500, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050"} },
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value= DateTime.Now.ToString("d"), Position = new PdfPosition() { X = 501, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#000000"} },
@@ -177,26 +181,26 @@
 
             };
             List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
-            {
+    {
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="AKS Labs(India)",  Position = new PdfPosition() { X = 250, Y = 20 }, Style = new PdfContentStyle() { TextBrushColor = "#C77878", FontSize = 12 } },
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="thearvindstoredumka@gmail.com",  Position = new PdfPosition() { X = 200, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#C67878", FontSize = 12 } }
                 };
             PdfHeader Header = new PdfHeader()
-                {
-                    FromTop = 0,
-                    Height = 130,
-                    Contents = HeaderContent
-                };
+            {
+                FromTop = 0,
+                Height = 130,
+                Contents = HeaderContent
+            };
             PdfFooter Footer = new PdfFooter()
-                {
-                    FromBottom = 160,
-                    Height = 150,
-                    Contents = FooterContent
-                };
+            {
+                FromBottom = 160,
+                Height = 150,
+                Contents = FooterContent
+            };
             Props.Header = Header;
             Props.Footer = Footer;
             Props.FileName = $"Vouchers_{DateTime.Now.ToShortDateString()}_1.pdf";
-            
+
             this.Grid.ExportToPdfAsync(Props);
         }
         else if (args.Item.Id == "Grid_excelexport")
@@ -233,12 +237,16 @@
     //    RowDetails = args.RowData;
     //    IsVisible = true;
     //}
-    //public void RowSelectHandler(RowSelectEventArgs<OrderDetails> args)
-    //{
-    //    SelectedData = new OrderDetails() { OrderID = args.Data.OrderID, CustomerID = args.Data.CustomerID, Freight = args.Data.Freight, OrderDate = args.Data.OrderDate, ShipName = args.Data.ShipName, ShipCountry = args.Data.ShipCountry };
-    //    this.Disabled = false;
-    //    this.Enabled = true;
-    //}
+    public void RowSelectHandler(RowSelectEventArgs<Voucher> args)
+    {
+
+
+        var SelectedData = args.Data;
+        Helper.Msg($"Selected Row #{args.RowIndex}", SelectedData.VoucherNumber);
+
+        //this.Disabled = false;
+        //this.Enabled = true;
+    }
     //public void RowDeSelectHandler(RowDeselectEventArgs<OrderDetails> args)
     //{
     //    SelectedData = new OrderDetails();
@@ -258,4 +266,25 @@
     //    SelectedData = new OrderDetails() { };
     //    await this.Grid.ClearSelectionAsync();
     //}
+
+    public void ContextMenuItemClickedHandler(ContextMenuClickEventArgs<Voucher> args)
+    {
+        // Here you can customize your code
+        Helper.Msg("Context", args.Name);
+    }
+    public void ColumnMenuItemClickedHandler(ColumnMenuClickEventArgs args)
+    {
+        // Here, you can customize your code.
+        Helper.Msg("ColMenu", args.Name, true);
+    }
+    public void OnCommandClicked(CommandClickEventArgs<Voucher> args)
+    {
+        // Perform required operations here.
+        Helper.Msg("CommandMenu", args.CommandColumn.Type.ToString());
+
+        if (args.CommandColumn.Type == CommandButtonType.Edit)
+        {
+            Helper.Msg("CommandMenu Edit", args.CommandColumn.Title);
+        }
+    }
 }
