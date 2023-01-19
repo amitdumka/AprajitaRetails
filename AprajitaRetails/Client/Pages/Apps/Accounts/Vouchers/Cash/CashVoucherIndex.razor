@@ -1,0 +1,78 @@
+﻿@page "/vouchers/Cash"
+
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+
+@attribute [Authorize]
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+
+<ContentMain>
+    <SfGrid AllowPaging="true" ID="Grid" @ref="Grid" DataSource="@entities" ShowColumnChooser="true" Toolbar="@(new List<string>() {"Print",  "ColumnChooser"})" AllowResizing="true">
+
+    </SfGrid>
+</ContentMain>
+
+@code {
+    private string[] GroupedColumn = new string[] { "VoucherType" };
+    private List<CashVoucher>? entities;
+    private SelectOption[]? modeList;
+    SfGrid<CashVoucher> Grid;
+
+    bool Loading = true;
+
+    private void CustomCol()
+    {
+        List<GridColumn> columns = new List<GridColumn>();
+        GridColumn c1 = new GridColumn();
+        GridColumn c2 = new GridColumn();
+        c1.HeaderText = "VoucherNumber";
+        c1.Width = "100";
+        c1.Field = nameof(CashVoucher.VoucherNumber);
+
+        c2.HeaderText = "Date";
+        c2.Width = "120";
+        c2.Field = nameof(CashVoucher.OnDate);
+        columns.Add(c1);
+        columns.Add(c2);
+
+       // Grid.Columns = columns;
+        StateHasChanged();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        CustomCol();
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Helper.Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
+        try
+        {
+            entities = await Helper.FetchAsync<CashVoucher>($"CashVouchers/bystore", $"?storeid={Setting.StoreCode}");
+            modeList = await Helper.FetchOptionsAsync("Transactions", "");
+            Loading = false;
+            //CustomCol();
+            StateHasChanged();
+            await Grid.AutoFitColumnsAsync();
+
+            StateHasChanged();
+        }
+        catch (Exception exception)
+        {
+            // exception.Redirect();
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+}
+

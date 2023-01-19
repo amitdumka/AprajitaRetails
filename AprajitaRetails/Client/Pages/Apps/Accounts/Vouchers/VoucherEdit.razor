@@ -21,7 +21,7 @@
     <EntityEdit @bind-EntityModel="@entity" TItem="@Voucher" Title="Vouchers" ApiUrl="api/vouchers" ReturnUrl="/vouchers" Id="@ID" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.lg">
-                <SfRadioButton Label="Payment" CssClass="e-small" Name="voucherType" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.Payment.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
+                <SfRadioButton Label="Payment" CssClass="e-small" Name="voucherType"  EnablePersistence="true" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.Payment.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
                 <SfRadioButton Label="Receipts" CssClass="e-small" Name="voucherType" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.Receipt.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
                 <SfRadioButton Label="Expenses" CssClass="e-small" Name="voucherType" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.Expense.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
             </Column>
@@ -162,6 +162,8 @@
             {
                 Title = Title + " #VCHNo: " + ID;
                 entity = await Helper.GetRecordAsync<Voucher>("api/Vouchers", ID);
+                this.VoucherType = entity.VoucherType;
+
                 StateHasChanged();
             }
 
@@ -171,27 +173,27 @@
             Title = "Add " + Title;
 
             entity = new Voucher
-                {
-                    OnDate = DateTime.Now,
-                    VoucherType = VoucherType.Payment,
-                    AccountId = Accounts[0].ID,
-                    Amount = 0,
-                    EmployeeId = Employees[0].ID,
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    MarkedDeleted = false,
-                    PartyId = Parties.First(c => c.Value == "No Party").ID,// Parties[0].ID,//TODO: need to set For no Party
-                    PartyName = "",
-                    PaymentDetails = "",
-                    Remarks = "",
-                    SlipNumber = "",
-                    PaymentMode = PaymentMode.Cash,
-                    StoreId = Setting.StoreCode,
-                    UserId = Setting.UserName,
-                    VoucherNumber = " ",
-                    Particulars = ""
+            {
+                OnDate = DateTime.Now,
+                VoucherType = VoucherType.Payment,
+                AccountId = Accounts[0].ID,
+                Amount = 0,
+                EmployeeId = Employees[0].ID,
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                PartyId = Parties.First(c => c.Value == "No Party").ID,// Parties[0].ID,//TODO: need to set For no Party
+                PartyName = "",
+                PaymentDetails = "",
+                Remarks = "",
+                SlipNumber = "",
+                PaymentMode = PaymentMode.Cash,
+                StoreId = Setting.StoreCode,
+                UserId = Setting.UserName,
+                VoucherNumber = " ",
+                Particulars = ""
 
-                };
+            };
         }
         entity.VoucherType = VoucherType;
 

@@ -1,4 +1,4 @@
-﻿@page "/vouchers/cash"
+﻿@page "/vouchers/cash/old"
 
 @using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.Models.Vouchers;
@@ -87,12 +87,14 @@
         try
         {
             vchlist = await Helper.FetchAsync<CashVoucher>($"CashVouchers/bystore", $"?storeid={Setting.StoreCode}");
-            modeList = await Helper.FetchOptionsAsync("TransactionModes", "");
+            modeList = await Helper.FetchOptionsAsync("Transactions", "");
+            Loading = false;
+            StateHasChanged();
         }
         catch (Exception exception)
         {
             // exception.Redirect();
-            Helper.Msg("Error", exception.Message, true);
+            Helper.Msg("Error On Init", exception.Message, true);
         }
 
     }

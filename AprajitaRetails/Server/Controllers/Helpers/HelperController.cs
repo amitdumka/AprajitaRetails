@@ -29,7 +29,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         }
 
         [HttpGet("Transactions")]
-        public async Task<ActionResult<IEnumerable<SelectOption>>> GetTransactionModes(string storeid)
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetTransactionModes()
         {
             if (_context.TransactionModes == null)
             {

@@ -20,19 +20,22 @@
 <ContentMain>
     <SfGrid ID="Grid" @ref="Grid" AllowExcelExport="true" AllowPdfExport="true" DataSource="@entities" AllowResizing="true"
             AllowReordering="true" AllowGrouping=true ShowColumnChooser="true" EnableStickyHeader=true PrintMode=PrintMode.AllPages
-            Toolbar="@(new List<string>() { "Print","ColumnChooser", "ExcelExport", "PdfExport","Search","Add" })" AllowTextWrap="true"
+            EnableAutoFill="true" 
+            Toolbar="@(new List<string>() { "Print","ColumnChooser", "ExcelExport", "PdfExport","Search" })" AllowTextWrap="true"
             ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending","Copy", "Edit", "Delete", "Save", "Cancel",  "FirstPage", "PrevPage","LastPage", "NextPage"})"
             AllowSorting="true" AllowFiltering="true" EnableAdaptiveUI="true" Height="100%" Width="100%" AllowPaging="true">
         <GridEvents RowSelected="RowSelectHandler" OnToolbarClick="ToolbarClick"
                     CommandClicked="OnCommandClicked" ColumnMenuItemClicked="ColumnMenuItemClickedHandler"
                     ContextMenuItemClicked="ContextMenuItemClickedHandler"
                     TValue="Voucher"></GridEvents>
+
         @*<GridEvents RowSelected="RowSelectHandler" RowDeselected="RowDeSelectHandler" TValue="OrderDetails"></GridEvents>*@
         @*<GridEvents OnActionBegin="ActionBeginHandler" TValue="Order"></GridEvents>*@
-        <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+        @*<GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>*@
+
         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
         <GridPageSettings PageCount="5"></GridPageSettings>
-        <GridGroupSettings ShowDropArea="true" Columns=@GroupedColumn></GridGroupSettings>
+        <GridGroupSettings ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="true"></GridGroupSettings>
         @*<GridGroupSettings Columns=@GroupedColumn></GridGroupSettings>*@
         <GridAggregates>
             @*<GridAggregate>
@@ -101,10 +104,10 @@
                 </GridColumn>*@
             <GridColumn HeaderText="Manage Records" Width="150">
                 <GridCommandColumns>
-                    <GridCommandColumn Type="CommandButtonType.Edit" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-edit", CssClass="e-flat" })"></GridCommandColumn>
-                    <GridCommandColumn Type="CommandButtonType.Delete" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-delete", CssClass="e-flat" })"></GridCommandColumn>
-                    <GridCommandColumn Type="CommandButtonType.Save" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-save", CssClass="e-flat" })"></GridCommandColumn>
-                    <GridCommandColumn Type="CommandButtonType.Cancel" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-cancel-icon", CssClass="e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Title="Edit" Type="CommandButtonType.None" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-edit", CssClass="e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Title="Delete" Type="CommandButtonType.None" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-delete", CssClass="e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Title="Detail" Type="CommandButtonType.None" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-save", CssClass="e-flat" })"></GridCommandColumn>
+                    <GridCommandColumn Title="Cancle" Type="CommandButtonType.Cancel" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-cancel-icon", CssClass="e-flat" })"></GridCommandColumn>
                 </GridCommandColumns>
             </GridColumn>
         </GridColumns>
@@ -172,7 +175,7 @@
             Props.PageSize = PdfPageSize.A4;
             Props.PageOrientation = PageOrientation.Landscape;
             List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
-    {
+{
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Vouchers", Position = new PdfPosition() { X = 280, Y = 0 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 20} },
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Report Date", Position = new PdfPosition() { X = 500, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050"} },
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value= DateTime.Now.ToString("d"), Position = new PdfPosition() { X = 501, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#000000"} },
@@ -181,7 +184,7 @@
 
             };
             List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
-    {
+{
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="AKS Labs(India)",  Position = new PdfPosition() { X = 250, Y = 20 }, Style = new PdfContentStyle() { TextBrushColor = "#C77878", FontSize = 12 } },
                 new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="thearvindstoredumka@gmail.com",  Position = new PdfPosition() { X = 200, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#C67878", FontSize = 12 } }
                 };
@@ -212,6 +215,21 @@
             this.Grid.ExportToCsvAsync();
         }
     }
+
+    //protected override   Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    //await Grid.AutoFitColumnsAsync();
+    //    //StateHasChanged();
+    //   return base.OnAfterRenderAsync(firstRender);
+    //}
+
+    //protected override  Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    await Grid.AutoFitColumnsAsync();
+    //    StateHasChanged();
+    //    return base.OnAfterRenderAsync(firstRender);
+    //}
+
     protected override async Task OnInitializedAsync()
     {
         CultureInfo myCIintl = new CultureInfo("es-IN", false);
@@ -226,17 +244,16 @@
             entities = await Helper.FetchAsync<Voucher>($"api/Vouchers/bystore", $"?storeid={Setting.StoreCode}");
             Loading = false;
             StateHasChanged();
+            await Grid.AutoFitColumnsAsync();
+            StateHasChanged();
+
         }
         catch (Exception exception)
         {
             Helper.Msg("Error", exception.Message, true);
         }
     }
-    //public void OnCommandClicked(CommandClickEventArgs<EmployeeData> args)
-    //{
-    //    RowDetails = args.RowData;
-    //    IsVisible = true;
-    //}
+     
     public void RowSelectHandler(RowSelectEventArgs<Voucher> args)
     {
 
@@ -282,9 +299,39 @@
         // Perform required operations here.
         Helper.Msg("CommandMenu", args.CommandColumn.Type.ToString());
 
-        if (args.CommandColumn.Type == CommandButtonType.Edit)
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
         {
-            Helper.Msg("CommandMenu Edit", args.CommandColumn.Title);
+
+            NavigationManager.NavigateTo($"/vouchers/Edit/true/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+            Helper.Msg("Delete Selected", args.RowData.VoucherNumber);
+
+            //NavigationManager.NavigateTo($"/vouchers/Edit/true/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"/Vouchers/Detail/{args.RowData.VoucherNumber}");
+        }
+        else
+        {
+            Helper.Msg("Error", "Wrong Selection!", true);
         }
     }
 }
+
+
+@*<div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="col-form-label">Email ID :</label>
+            <SfTextBox @bind-Value="@employeeDetails.Email"></SfTextBox>
+            <ValidationMessage For="@(() => employeeDetails.Email)"></ValidationMessage>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label">Phone Number :</label>
+            <SfTextBox @bind-Value="@employeeDetails.PhoneNumber"></SfTextBox>
+            <ValidationMessage For="@(() => employeeDetails.PhoneNumber)"></ValidationMessage>
+        </div>
+    </div>*@
