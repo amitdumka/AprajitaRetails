@@ -1,7 +1,7 @@
 ﻿@namespace AprajitaRetails.Aks
+@using AprajitaRetails.Shared.ViewModels;
 @using Syncfusion.Blazor.Grids
 @using AprajitaRetails.Shared.Models.Vouchers
-
 
 @typeparam TItem
 
@@ -10,23 +10,9 @@
 </ContentHeader>
 <ContentMain>
 
-    <SfGrid TValue="TItem" DataSource="@Entities" ShowColumnChooser="true" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=false AllowResizing="true" AllowPaging="true" ID="Grid" @ref="Grid" AllowPdfExport="true" Columns="@Columns"
-            Toolbar="@(new List<string>() {"Print", "ExcelExport", "PdfExport", "ColumnChooser","Search"})"
-            ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending","Copy", "Edit", "Delete", "Save", "Cancel",  "FirstPage", "PrevPage","LastPage", "NextPage"})">
-
-        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-        @*<GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="true"></GridGroupSettings>*@
-        <GridPageSettings PageCount="5"></GridPageSettings>
-        @*@if (EnableAggregator)
-            {
-                <EntityAggregator>
-                    <EntityAggSum Title="@AgrTitle" Field="@AgrFieldName" />
-                </EntityAggregator>
-            }*@
-
-        @ChildContent
-
-
+    <SfGrid TValue="TItem" DataSource="@Entities" ShowColumnChooser="true"
+            AllowResizing="true" AllowPaging="true" ID="Grid" @ref="Grid"
+            Columns="@Columns" EnableAltRow="true">
     </SfGrid>
 </ContentMain>
 
@@ -36,15 +22,17 @@
     [Parameter] public string Title { get; set; } = " ";
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public List<TItem> Entities { get; set; }
-    [Parameter] public string[] GroupedColumn { get; set; }
-    [Parameter] public bool EnableAggregator { get; set; } = false;
-    [Parameter] public string AgrFieldName { get; set; }
-    [Parameter] public string AgrTitle { get; set; }
     [Parameter] public List<GridColumn> Columns { get; set; }
+    [Parameter] public SelectOption[]? employees { get; set; } = null;
 
+    [Parameter] public EventCallback<SelectOption[]?> employeesChanged { get; set; }
+    private async Task OnemployeesChanged(ChangeEventArgs e)
+    {
+        employees = (SelectOption[]?)e?.Value;
+        await employeesChanged.InvokeAsync(employees);
+
+    }
     [Parameter] public EventCallback<List<TItem>> EntitiesChanged { get; set; }
-    //[Parameter] public EventCallback<List<GridColumn>> ColumnsChanged { get; set; }
-
     private async Task OnEntityChanged(ChangeEventArgs e)
     {
         Entities = (List<TItem>)e?.Value;
@@ -55,33 +43,13 @@
             StateHasChanged();
         }
     }
-    //private async Task OnColumnsChanged(ChangeEventArgs e)
-    //{
-
-    //    Columns = (List<GridColumn>)e?.Value;
-    //    await ColumnsChanged.InvokeAsync(Columns);
-    //   // if(Grid!=null)
-    //        //Grid.Columns.AddRange(Columns);
-    //        if (Grid != null)
-    //        {
-    //            await Grid.AutoFitColumnsAsync();
-    //            StateHasChanged();
-    //        }
-    //}
 
     protected override async Task OnInitializedAsync()
     {
-        if (Grid != null)
-        {
-            //if(Columns!=null && Columns.Any())
-            //  Grid.Columns.AddRange(Columns);
-            await Grid.AutoFitColumnsAsync();
-            StateHasChanged();
-        }
+
     }
 
 }
-
 
 @*//https://blazor.syncfusion.com/documentation/datagrid/columns
 //https://www.syncfusion.com/forums/164922/dynamic-data-binding-in-grid-without-defining-column-in-design-time
