@@ -1,0 +1,22 @@
+﻿@namespace AprajitaRetails.Aks
+@using Syncfusion.Blazor.Grids
+
+<GridAggregateColumn ColumnName="TotalAMT" Field="@Field" Type="AggregateType.Sum" Format="C2">
+    <GroupCaptionTemplate>
+        @{
+            var SumValue = (context as AggregateTemplateContext);
+            <div class="text-danger">
+                @Title: @SumValue.Sum
+            </div>
+        }
+    </GroupCaptionTemplate>
+
+</GridAggregateColumn>
+
+@code {
+
+    [Parameter] public string Field { get; set; }
+    [Parameter] public string Title { get; set; }
+
+}
+

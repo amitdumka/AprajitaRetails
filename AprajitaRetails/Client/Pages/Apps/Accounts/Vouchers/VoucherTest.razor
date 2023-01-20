@@ -16,8 +16,31 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="CashVoucher" Title="Vouchers[Cash]" GroupedColumn="@GroupedColumn" @bind-Entities=@entities>
+<EntityGridIndex TItem="CashVoucher" Title="Vouchers[Cash]" GroupedColumn="@GroupedColumn"
+                 Columns="@GridCols"
+                 @bind-Entities=@entities EnableAggregator="false" AgrTitle="Total Sum" AgrFieldName="@nameof(CashVoucher.Amount)">
+    <!--<GridColumns>
+        @foreach (var prop in typeof(CashVoucher).GetProperties())
+        {
+            @if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "Employee" && prop.Name != "Partys" && prop.Name != "PartyId" && prop.Name != "Store" && prop.Name != "StoreId" && prop.Name != "UserId" && prop.Name != "EntryStatus" && prop.Name != "IsReadOnly" && prop.Name != "MarkedDeleted")
+            {
+                <GridColumn Field="@prop.Name" IsPrimaryKey="@(prop.Name == "VoucherNumber")" AllowEditing="@prop.CanWrite"></GridColumn>
+            }-->
+            @*else if (prop.Name == "TransactionId")
+                {
+                    <GridForeignColumn Field=@nameof(CashVoucher.TransactionId) HeaderText="Transaction" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@modeList"></GridForeignColumn>
+                }
+                else if (prop.Name == "EmployeeId")
+                {
+                    <GridForeignColumn Field=@nameof(CashVoucher.EmployeeId) HeaderText="Issued By" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@employees"></GridForeignColumn>
+                }
+                else if (prop.Name == "PartyId")
+                {
+                    <GridForeignColumn Field=@nameof(CashVoucher.PartyId) HeaderText="Ledger" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@parties"></GridForeignColumn>
+                }*@
 
+        <!--}
+    </GridColumns>-->
 </EntityGridIndex>
 
 @code {
@@ -26,6 +49,8 @@
     private SelectOption[]? modeList;
     private SelectOption[]? employees;
     private SelectOption[]? parties;
+    private List<GridColumn> GridCols;
+
     protected override async Task OnInitializedAsync()
     {
         // CustomCol();
@@ -36,6 +61,8 @@
         }
         try
         {
+            GenerateColName();
+            StateHasChanged();
             //CultureInfo myCIintl =
             CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
             CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
@@ -43,10 +70,7 @@
             modeList = await Helper.FetchOptionsAsync("Transactions", "");
             employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
             parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
-            // Loading = false;
-            //CustomCol();
             StateHasChanged();
-            //await Grid.AutoFitColumnsAsync();
 
             StateHasChanged();
         }
@@ -56,5 +80,57 @@
             Helper.Msg("Error On Init", exception.Message, true);
         }
 
+    }
+
+    private void GenerateColName()
+    {
+        GridCols = new List<GridColumn>();
+        // GridCols.Columns = new List<GridColumn>();
+        foreach (var prop in typeof(CashVoucher).GetProperties())
+        {
+            if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "Employee" && prop.Name != "Partys" && prop.Name != "PartyId" && prop.Name != "Store" && prop.Name != "StoreId" && prop.Name != "UserId" && prop.Name != "EntryStatus" && prop.Name != "IsReadOnly" && prop.Name != "MarkedDeleted")
+            {
+
+                var v = new GridColumn()
+                {
+                    AutoFit = true,
+                    Field = prop.Name,
+                    AllowSorting = true,
+                    IsPrimaryKey = prop.Name == "VoucherNumber" ? true : false,
+                    AllowEditing = prop.CanWrite
+                };
+                // cols.Add(v);
+                GridCols.Add(v);
+
+
+            }
+            else if (prop.Name == "TransactionId")
+            {
+
+                var v = new GridForeignColumn<SelectOption>() { AllowEditing = prop.CanWrite, Field = nameof(CashVoucher.TransactionId), HeaderText = "Transaction", ForeignKeyField = "ID", ForeignKeyValue = "Value", ForeignDataSource = modeList };
+                // cols.Add(v);
+                GridCols.Add(v);
+
+
+            }
+            else if (prop.Name == "EmployeeId")
+            {
+                var v = new GridForeignColumn<SelectOption>() { AllowEditing = prop.CanWrite, Field = nameof(CashVoucher.EmployeeId), HeaderText = "Issued By", ForeignKeyField = "ID", ForeignKeyValue = "Value", ForeignDataSource = employees };
+                //cols.Add(v);
+                GridCols.Add(v);
+
+
+            }
+            else if (prop.Name == "PartyId")
+            {
+                var v = new GridForeignColumn<SelectOption>() { AllowEditing = prop.CanWrite, Field = nameof(CashVoucher.PartyId), HeaderText = "Ledger", ForeignKeyField = "ID", ForeignKeyValue = "Value", ForeignDataSource = parties };
+                //cols.Add(v);
+                GridCols.Add(v);
+
+            }
+        }
+
+
+        StateHasChanged();
     }
 }
