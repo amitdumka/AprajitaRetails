@@ -12,8 +12,15 @@
   <ItemGroup>
     <None Remove="ViewModels\" />
     <None Remove="Models\Auths\" />
+    <None Remove="AutoMapper\" />
+    <None Remove="AutoMapper\DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Auths\" />
+    <Folder Include="AutoMapper\" />
+    <Folder Include="AutoMapper\DTO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 </Project>

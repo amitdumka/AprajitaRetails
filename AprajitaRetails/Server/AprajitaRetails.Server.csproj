@@ -14,6 +14,7 @@
     <Content Remove="Migrations_Mac\**" />
     <EmbeddedResource Remove="Migrations_Mac\**" />
     <None Remove="Migrations_Mac\**" />
+    <None Remove="DTO\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.1" />
@@ -24,6 +25,8 @@
 <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.41" />
 <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.2" />
+<PackageReference Include="AutoMapper" Version="12.0.1" />
+<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,6 +77,7 @@
     <Folder Include="Importer\" />
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
+    <Folder Include="DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\Attendances" />
