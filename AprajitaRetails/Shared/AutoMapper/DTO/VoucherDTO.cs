@@ -23,10 +23,11 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public PaymentMode PaymentMode { get; set; }
         public string PaymentDetails { get; set; }
         public string Remarks { get; set; }
-        public string AccountId { get; set; }
+        public string AccountNumber { get; set; }
         public string EmployeeId { get; set; }
-        [Display(Name ="Issued By")]
-        public string StaffName{ get; set; }
+
+        [Display(Name = "Issued By")]
+        public string StaffName { get; set; }
 
         public string PartyId { get; set; }
         public string LedgerName { get; set; }
@@ -34,8 +35,6 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string StoreId { get; set; }
         public string StoreName { get; set; }
     }
-
-     
 
     public class CashVoucherDTO
     {
@@ -47,8 +46,8 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
 
         public string TransactionId { get; set; }
 
-        [Display(Name ="Transaction")]
-        public string TransactionName{ get; set; }
+        [Display(Name = "Transaction")]
+        public string TransactionName { get; set; }
 
         public string SlipNumber { get; set; }
         public string PartyName { get; set; }
@@ -56,7 +55,8 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public decimal Amount { get; set; }
         public string Remarks { get; set; }
         public string EmployeeId { get; set; }
-        [Display(Name ="Issued By")]
+
+        [Display(Name = "Issued By")]
         public string StaffName { get; set; }
 
         public string PartyId { get; set; }
@@ -89,7 +89,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string Remarks { get; set; }
 
         public string PartyId { get; set; }
-        public string LedgerName{ get; set; }
+        public string LedgerName { get; set; }
 
         public string StoreId { get; set; }
         public string StoreName { get; set; }
@@ -113,9 +113,4 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string StoreId { get; set; }
         public string StoreName { get; set; }
     }
-
-     
-
-     
 }
-

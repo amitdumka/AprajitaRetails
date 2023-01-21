@@ -1,8 +1,13 @@
 using AprajitaRetails.Server.BL.Accounts;
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Vouchers;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor.Diagrams;
+using System.Collections.Generic;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -12,10 +17,11 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
     public class CashVouchersController : ControllerBase
     {
         private readonly ARDBContext _context;
+        private readonly IMapper _mapper;
 
-        public CashVouchersController(ARDBContext context)
+        public CashVouchersController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/CashVouchers
@@ -39,6 +45,19 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             }
             return await _context.CashVouchers.Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1))
                 .OrderByDescending(c => c.OnDate).ToListAsync();
+        }
+
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<CashVoucherDTO>>> GetCashVouchersByStoreDTO(string storeid)
+        {
+            if (_context.CashVouchers == null)
+            {
+                return NotFound();
+            }
+            return await _context.CashVouchers.Include(c => c.Store).Include(c => c.TransactionMode).Include(c => c.Partys)
+                .Include(c => c.Employee)
+                .Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1))
+                .OrderByDescending(c => c.OnDate).ProjectTo<CashVoucherDTO>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         // GET: api/CashVouchers/5

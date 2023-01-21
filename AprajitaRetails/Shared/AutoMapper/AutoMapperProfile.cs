@@ -10,16 +10,12 @@ using AprajitaRetails.Shared.AutoMapper.DTO;
 
 using AutoMapper;
 
-
 namespace AprajitaRetails.Shared.AutoMapper
 {
-
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-
-
             CreateMap<Attendance, AttendanceDTO>();
             CreateMap<Employee, EmployeeDTO>();
 
@@ -29,8 +25,6 @@ namespace AprajitaRetails.Shared.AutoMapper
             CreateMap<PaySlip, PaySlipDTO>();
             CreateMap<StaffAdvanceReceipt, StaffAdvanceReceiptDTO>();
             CreateMap<SalaryPayment, SalaryPaymentDTO>();
-           
-
 
             CreateMap<EmployeeDTO, Employee>();
             CreateMap<AttendanceDTO, Attendance>();
@@ -39,35 +33,25 @@ namespace AprajitaRetails.Shared.AutoMapper
 
             CreateMap<StaffAdvanceReceiptDTO, StaffAdvanceReceipt>();
             CreateMap<SalaryPaymentDTO, SalaryPayment>();
-           
 
             CreateMap<Employee, EmployeeDTO>();
-
 
             CreateMap<Party, PartyDTO>();
             CreateMap<PartyDTO, Party>();
 
-            CreateMap<Voucher, VoucherDTO>();
-            CreateMap<CashVoucher, CashVoucherDTO>();
+            //CreateMap<Voucher, VoucherDTO>().ForMember(d => d.LedgerName, opt => opt.MapFrom(s => s.Party.PartyName));
+            CreateMap<CashVoucher, CashVoucherDTO>();//.ForMember(dest => dest.LedgerName, opt => opt.MapFrom(src => src.Partys.PartyName));
 
             CreateMap<VoucherDTO, Voucher>();
-            CreateMap<CashVoucherDTO, CashVoucher>();
+            // CreateMap<CashVoucherDTO, CashVoucher>();
 
-             
-
-
-            
-           
-
-            
-            
-
-             
-            
-
-
+            //    CreateMap<User, UserViewModel>()
+            //.ForMember(dest =>
+            //    dest.FName,
+            //    opt => opt.MapFrom(src => src.FirstName))
+            //.ForMember(dest =>
+            //    dest.LName,
+            //    opt => opt.MapFrom(src => src.LastName))
         }
     }
-
 }
-

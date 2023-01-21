@@ -38,6 +38,12 @@ else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 }
 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 {
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+    builder.Services.AddDbContext<ARDBContext>(options =>
+        options.UseSqlServer(connectionString));
 }
 else
 {
@@ -59,12 +65,10 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
-
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-//builder.Services.AddAdminLte();
-//builder.Services.AddScoped<IFilesManager, WasmFilesManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

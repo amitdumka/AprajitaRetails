@@ -23,6 +23,7 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public string PaymentDetails { get; set; }
         public string Remarks { get; set; }
         public string AccountId { get; set; }
+
         public string EmployeeId { get; set; }
         public virtual Employee? Employee { get; set; }
 
@@ -113,6 +114,7 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public string Address { get; set; }
         public string Remarks { get; set; }
         public string LedgerGroupId { get; set; }
+        public virtual LedgerGroup LedgerGroup { get; set; }
     }
 
     public class LedgerMaster
