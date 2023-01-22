@@ -1,5 +1,7 @@
 ﻿@page "/vochers/test"
 
+@inherits AprajitaRetails.Client.Shared.Test.IndexView
+
 @using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.AutoMapper.DTO;
 @using AprajitaRetails.Shared.Models.Vouchers;
@@ -12,38 +14,24 @@
 @using System.Globalization;
 @using AprajitaRetails.Aks
 
-@attribute [Authorize]
+ 
 @inject DataHelper Helper
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="CashVoucherDTO" @bind-employees="@employees" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities />
+<EntityGridIndex TItem="CashVoucherDTO"   Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities />
 
 @code {
-    private string[] GroupedColumn = new string[] { "VoucherType" };
     private List<CashVoucherDTO>? entities;
-    private SelectOption[]? modeList;
-    private SelectOption[]? employees;
-    private SelectOption[]? parties;
-    private List<GridColumn> GridCols;
+    
 
     protected override async Task OnInitializedAsync()
     {
+        
         try
         {
-
-            if (string.IsNullOrEmpty(Setting.StoreCode))
-            {
-                Helper.Msg("Error", "Select store!, Kindly re-login", true);
-                return;
-            }
-            CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
-            CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
-            entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
-            modeList = await Helper.FetchOptionsAsync("Transactions", "");
-            employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
-            parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
-            GenerateColName();
+            InitView();
+            GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
             StateHasChanged();
 
         }
@@ -55,72 +43,10 @@
 
     }
 
-    private void GenerateColName()
+    async void FetchData()
     {
-        GridCols = new List<GridColumn>();
-        foreach (var prop in typeof(CashVoucherDTO).GetProperties())
-        {
-            if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "Employee" && prop.Name != "Partys" && prop.Name != "PartyId" && prop.Name != "Store" && prop.Name != "StoreId" && prop.Name != "UserId" && prop.Name != "EntryStatus" && prop.Name != "IsReadOnly" && prop.Name != "MarkedDeleted")
-            {
-
-                var v = new GridColumn()
-                    {
-                        AutoFit = true,
-                        Field = prop.Name,
-                        AllowSorting = true,
-                        IsPrimaryKey = prop.Name == "VoucherNumber" ? true : false,
-                        AllowEditing = prop.CanWrite
-                    };
-
-                GridCols.Add(v);
-
-            }
-            //else if (prop.Name == "TransactionId")
-            //{
-
-            //    var v = new GridForeignColumn<SelectOption>() { AllowEditing = prop.CanWrite, Field = nameof(CashVoucher.TransactionId), HeaderText = "Transaction", ForeignKeyField = "ID", ForeignKeyValue = "Value", ForeignDataSource = modeList };
-
-            //    //GridCols.Add(v); ;
-
-            //}
-            //else if (prop.Name == "EmployeeId")
-            //{
-            //    var v = new GridForeignColumn<SelectOption>() { AllowEditing = false, Field = nameof(CashVoucher.EmployeeId), HeaderText = "Issued By", ForeignKeyField = "ID", ForeignKeyValue = "Value", DataManager = new DataManager() { Url = "Helper/Employees?storeid=ARD", Adaptor = Adaptors.JsonAdaptor } };
-
-            //    GridCols.Add(v);
-
-            //}
-            //else if (prop.Name == "PartyId")
-            //{
-            //    var v = new GridForeignColumn<SelectOption>() { AllowEditing = prop.CanWrite, Field = nameof(CashVoucher.PartyId), HeaderText = "Ledger", ForeignKeyField = "ID", ForeignKeyValue = "Value", ForeignDataSource = parties };
-
-            //    GridCols.Add(v);
-
-            //}
-        }
-
+        entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
     }
+
+     
 }
-
-//<!--<GridColumns>
-//    @foreach (var prop in typeof(CashVoucher).GetProperties())
-//    {
-//        @if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "Employee" && prop.Name != "Partys" && prop.Name != "PartyId" && prop.Name != "Store" && prop.Name != "StoreId" && prop.Name != "UserId" && prop.Name != "EntryStatus" && prop.Name != "IsReadOnly" && prop.Name != "MarkedDeleted")
-//        {
-//            <GridColumn Field="@prop.Name" IsPrimaryKey="@(prop.Name == "VoucherNumber")" AllowEditing="@prop.CanWrite"></GridColumn>
-//        }-->
-//        @*else if (prop.Name == "TransactionId")
-//            {
-//                <GridForeignColumn Field=@nameof(CashVoucher.TransactionId) HeaderText="Transaction" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@modeList"></GridForeignColumn>
-//            }
-//            else if (prop.Name == "EmployeeId")
-//            {
-//                <GridForeignColumn Field=@nameof(CashVoucher.EmployeeId) HeaderText="Issued By" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@employees"></GridForeignColumn>
-//            }
-//            else if (prop.Name == "PartyId")
-//            {
-//                <GridForeignColumn Field=@nameof(CashVoucher.PartyId) HeaderText="Ledger" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@parties"></GridForeignColumn>
-//            }*@
-
-//    <!--}
-//</GridColumns>-->
