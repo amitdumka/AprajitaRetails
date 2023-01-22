@@ -1,4 +1,5 @@
 ﻿@namespace AprajitaRetails.Client.Shared.Test
+
 @using AprajitaRetails.Helpers
 @using AprajitaRetails.Client.Helpers
 @using AprajitaRetails.Commons
@@ -6,13 +7,9 @@
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@using AprajitaRetails.Commons
-@using AprajitaRetails.Shared.AutoMapper.DTO;
-@using AprajitaRetails.Shared.Models.Vouchers;
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
 @using AprajitaRetails.Shared
-@using AprajitaRetails.Client.Helpers
+
 @using AprajitaRetails.Shared.ViewModels;
 @using Syncfusion.Blazor.Grids
 @using System.Globalization;
@@ -21,17 +18,9 @@
 @inject DataHelper Helper
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
-/
-
-<EntityGridIndex @ref="@gridIndex"  Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities />
-
-
 @attribute [Authorize]
-
-
 
 @code {
 
-    protected EntityGridIndex<CashDetailDTO> gridIndex;
+    //protected EntityGridIndex<TITem> gridIndex;
 }
-

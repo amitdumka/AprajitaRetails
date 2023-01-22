@@ -14,23 +14,26 @@
 @using System.Globalization;
 @using AprajitaRetails.Aks
 
- 
 @inject DataHelper Helper
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="CashVoucherDTO"   Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities />
+<EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities />
 
 @code {
     private List<CashVoucherDTO>? entities;
-    
+
+    public VoucherTest()
+    {
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        
+
         try
         {
             InitView();
+            FetchDataAsync();
             GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
             StateHasChanged();
 
@@ -43,10 +46,10 @@
 
     }
 
-    async void FetchData()
+    async void FetchDataAsync()
     {
         entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
+        StateHasChanged();
     }
 
-     
 }

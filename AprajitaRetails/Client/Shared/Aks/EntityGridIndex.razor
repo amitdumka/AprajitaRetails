@@ -23,15 +23,7 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public List<TItem> Entities { get; set; }
     [Parameter] public List<GridColumn> Columns { get; set; }
-    [Parameter] public SelectOption[]? employees { get; set; } = null;
 
-    [Parameter] public EventCallback<SelectOption[]?> employeesChanged { get; set; }
-    private async Task OnemployeesChanged(ChangeEventArgs e)
-    {
-        employees = (SelectOption[]?)e?.Value;
-        await employeesChanged.InvokeAsync(employees);
-
-    }
     [Parameter] public EventCallback<List<TItem>> EntitiesChanged { get; set; }
     private async Task OnEntityChanged(ChangeEventArgs e)
     {
@@ -42,6 +34,7 @@
             await Grid.AutoFitColumnsAsync();
             StateHasChanged();
         }
+
     }
 
     protected override async Task OnInitializedAsync()
