@@ -18,7 +18,7 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities />
+<EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn"  Grouping=true/>
 
 @code {
     private List<CashVoucherDTO>? entities;
@@ -29,13 +29,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         try
         {
+            GroupedColumn = new string[] { "VoucherType" };
             InitView();
             FetchDataAsync();
             GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
             StateHasChanged();
+            base.OnInitialized();
 
         }
         catch (Exception exception)

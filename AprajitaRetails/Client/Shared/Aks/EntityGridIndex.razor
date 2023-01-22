@@ -10,9 +10,18 @@
 </ContentHeader>
 <ContentMain>
 
-    <SfGrid TValue="TItem" DataSource="@Entities" ShowColumnChooser="true"
-            AllowResizing="true" AllowPaging="true" ID="Grid" @ref="Grid"
-            Columns="@Columns" EnableAltRow="true">
+    <SfGrid TValue="TItem" DataSource="@Entities"
+            Toolbar="@toolbar" ContextMenuItems="@contextMenuItem"
+            AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping=@Grouping
+            AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true"
+            ID="Grid" @ref="Grid" Columns="@Columns" EnableAltRow="false">
+
+        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+        @if (Grouping)
+        {
+            <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="false"></GridGroupSettings>
+        }
+        <GridPageSettings PageCount="5"></GridPageSettings>
     </SfGrid>
 </ContentMain>
 
@@ -22,9 +31,28 @@
     [Parameter] public string Title { get; set; } = " ";
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public List<TItem> Entities { get; set; }
-    [Parameter] public List<GridColumn> Columns { get; set; }
+    [Parameter] public bool EnableAggretor { get; set; } = false;
+    [Parameter] public string AggTitle { get; set; } = "";
+    [Parameter] public string AggSumField { get; set; } = "";
 
+    [Parameter] public List<GridColumn> Columns { get; set; }
     [Parameter] public EventCallback<List<TItem>> EntitiesChanged { get; set; }
+    [Parameter] public bool Grouping { get; set; } = true;
+    [Parameter] public string[] GroupedColumn { get; set; }
+    [Parameter] public EventCallback<string[]> GroupedColumnChanged { get; set; }
+
+    //Toolbar
+    List<string> toolbar = new List<string>() { "Print", "ExcelExport", "PdfExport", "ColumnChooser", "Search" };
+    List<object> contextMenuItem = new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending", "Delete", "Cancel", "FirstPage", "PrevPage", "LastPage", "NextPage" };
+
+    private async Task OnGroupedColumnChanged(ChangeEventArgs e)
+    {
+        if (Grouping)
+        {
+            GroupedColumn = (string[])e?.Value;
+            await GroupedColumnChanged.InvokeAsync(GroupedColumn);
+        }
+    }
     private async Task OnEntityChanged(ChangeEventArgs e)
     {
         Entities = (List<TItem>)e?.Value;
@@ -39,7 +67,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        StateHasChanged();
     }
 
 }

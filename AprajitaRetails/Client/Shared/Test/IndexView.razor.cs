@@ -9,7 +9,7 @@ namespace AprajitaRetails.Client.Shared.Test
     public partial class IndexView
     {
         protected List<GridColumn> GridCols;
-        protected string[] GroupedColumn = new string[] { "Store" };
+        protected string[] GroupedColumn;// = new string[] { "Store" };
 
         protected void InitView()
         {
