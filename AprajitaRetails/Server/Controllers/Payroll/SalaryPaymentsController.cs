@@ -3,7 +3,8 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
     [Route("[controller]")]
@@ -11,10 +12,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     public class SalaryPaymentsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public SalaryPaymentsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public SalaryPaymentsController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/SalaryPayments

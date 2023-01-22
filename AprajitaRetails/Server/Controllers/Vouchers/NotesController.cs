@@ -2,6 +2,9 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -10,10 +13,10 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
     public class NotesController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public NotesController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public NotesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context;_mapper = mapper;
         }
 
         // GET: api/Notes
@@ -35,6 +38,18 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
                 return NotFound();
             }
             return await _context.Notes.Where(c => c.StoreId == storeid && c.OnDate.Year > (DateTime.Today.Year - 2)).OrderByDescending(c => c.OnDate).ToListAsync();
+        }
+
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<NoteDTO>>> GetNotesByStoreDTO(string storeid)
+        {
+            if (_context.Notes == null)
+            {
+                return NotFound();
+            }
+            return await _context.Notes.Include(c=>c.Store).Include(c=>c.Party).Where(c => c.StoreId == storeid && c.OnDate.Year > (DateTime.Today.Year - 2)).OrderByDescending(c => c.OnDate)
+                .ProjectTo<NoteDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/Notes/5

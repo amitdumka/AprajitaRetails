@@ -2,7 +2,8 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
     [Route("[controller]")]
@@ -10,10 +11,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     public class PaySlipsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public PaySlipsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public PaySlipsController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/PaySlips

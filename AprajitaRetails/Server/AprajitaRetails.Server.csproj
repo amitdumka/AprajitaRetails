@@ -14,7 +14,6 @@
     <Content Remove="Migrations_Mac\**" />
     <EmbeddedResource Remove="Migrations_Mac\**" />
     <None Remove="Migrations_Mac\**" />
-    <None Remove="DTO\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.1" />
@@ -77,7 +76,6 @@
     <Folder Include="Importer\" />
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
-    <Folder Include="DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\Attendances" />

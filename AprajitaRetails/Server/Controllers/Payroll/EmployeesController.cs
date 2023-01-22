@@ -3,6 +3,9 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -11,10 +14,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     public class EmployeesController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public EmployeesController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public EmployeesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/Employees
@@ -26,6 +29,22 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             return await _context.Employees.ToListAsync();
+        }
+
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployeesByStoreDTO(string storeid, bool isWorking = true)
+        {
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
+            if (isWorking)
+                return await _context.Employees.Include(c=>c.Store).Where(c => c.StoreId == storeid && c.IsWorking)
+                    .ProjectTo<EmployeeDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            else
+                return await _context.Employees.Include(c=>c.Store).Where(c => c.StoreId == storeid)
+                    .ProjectTo<EmployeeDTO>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
         }
         [HttpGet("ByStore")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByStore(string storeid,bool isWorking=true)

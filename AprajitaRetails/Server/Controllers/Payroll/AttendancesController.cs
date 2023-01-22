@@ -3,6 +3,9 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -11,10 +14,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     public class AttendancesController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public AttendancesController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public AttendancesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/Attendances
@@ -27,6 +30,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             }
             return await _context.Attendances.Where(c => c.OnDate.Year == DateTime.Today.Year)
                 .OrderByDescending(c => c.OnDate)
+                .ToListAsync();
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<AttendanceDTO>>> GetAttendanceByStoreDTO(string storeid)
+        {
+            if (_context.Attendances == null)
+            {
+                return NotFound();
+            }
+            return await _context.Attendances.Include(c => c.Employee).Include(c => c.Store).Where(c => c.OnDate.Year == DateTime.Today.Year && c.StoreId == storeid)
+                .OrderByDescending(c => c.OnDate).ProjectTo<AttendanceDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 

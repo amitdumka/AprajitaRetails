@@ -309,7 +309,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string StoreName { get; set; }
     }
 
-    public class SalaryLedger : Base
+    public class SalaryLedgerDTO
     {
         public int Id { get; set; }
         public string EmployeeId { get; set; }
@@ -320,7 +320,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public decimal OutAmount { get; set; }
 
     }
-    public class TimeSheet : Base
+    public class TimeSheetDTO
     {
         public string Id { get; set; }
         public string EmployeeId { get; set; }

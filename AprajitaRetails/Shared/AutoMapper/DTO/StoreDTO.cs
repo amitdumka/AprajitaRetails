@@ -33,9 +33,6 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string StoreName { get; set; }
     }
 
-
-     
-
     public class CashDetailDTO
     {
         [Key]

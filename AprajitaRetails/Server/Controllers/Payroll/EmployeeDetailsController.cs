@@ -2,6 +2,9 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -10,10 +13,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     public class EmployeeDetailsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public EmployeeDetailsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public EmployeeDetailsController(ARDBContext context,IMapper mapper)
         {
-            _context = context;
+            _context = context;_mapper = mapper;
         }
 
         // GET: api/EmployeeDetails
@@ -26,7 +29,26 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             }
             return await _context.EmployeeDetails.ToListAsync();
         }
-
+        // GET: api/EmployeeDetails
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<EmployeeDetailsDTO>>> GetEmployeeDetailsByStoreDTO(string storeid)
+        {
+            if (_context.EmployeeDetails == null)
+            {
+                return NotFound();
+            }
+            return await _context.EmployeeDetails.Include(c => c.Employee).Include(c=>c.Store).Where(c => c.StoreId == storeid).ProjectTo<EmployeeDetailsDTO>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+        // GET: api/EmployeeDetails
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<EmployeeDetails>>> GetEmployeeDetailsByStore(string storeid)
+        {
+            if (_context.EmployeeDetails == null)
+            {
+                return NotFound();
+            }
+            return await _context.EmployeeDetails.Include(c=>c.Employee).Where(c=>c.StoreId==storeid).ToListAsync();
+        }
         // GET: api/EmployeeDetails/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeDetails>> GetEmployeeDetails(string id)

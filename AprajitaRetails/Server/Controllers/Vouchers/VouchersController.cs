@@ -1,6 +1,9 @@
 ﻿using AprajitaRetails.Server.BL.Accounts;
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Vouchers;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +15,11 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
     public class VouchersController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public VouchersController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public VouchersController(ARDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // DELETE: api/Vouchers/5
@@ -77,6 +81,19 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             }
             // int year = DateTime.Now.Year - 2;
             return await _context.Vouchers.Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate).ToListAsync();
+            //return x;
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<VoucherDTO>>> GetVoucherByStoreDTO(string storeid)
+        {
+            if (_context.Vouchers == null)
+            {
+                return NotFound();
+            }
+            // int year = DateTime.Now.Year - 2;
+            return await _context.Vouchers .Include(c=>c.Store).Include(c=>c.Party).Include(c=>c.Employee).Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate)
+                .ProjectTo<VoucherDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
             //return x;
         }
 

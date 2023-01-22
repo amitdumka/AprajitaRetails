@@ -2,6 +2,9 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Radzen.Blazor.Rendering;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -10,10 +13,10 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     public class StaffAdvanceReceiptsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public StaffAdvanceReceiptsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public StaffAdvanceReceiptsController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/StaffAdvanceReceipts
