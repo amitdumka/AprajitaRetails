@@ -1,31 +1,30 @@
 ﻿@page "/vochers/test"
 
-@inherits AprajitaRetails.Client.Shared.Test.IndexView
+@*@inherits AprajitaRetails.Client.Shared.Test.IndexView*@
 
 @using AprajitaRetails.Commons
-@using AprajitaRetails.Shared.AutoMapper.DTO;
-@using AprajitaRetails.Shared.Models.Vouchers;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Shared.Models.Vouchers
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
 @using AprajitaRetails.Client.Helpers
-@using AprajitaRetails.Shared.ViewModels;
+@using AprajitaRetails.Shared.ViewModels
 @using Syncfusion.Blazor.Grids
-@using System.Globalization;
+@using System.Globalization
 @using AprajitaRetails.Aks
+@using System.Reflection 
 
 @inject DataHelper Helper
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn"  Grouping=true/>
+<EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn"  Grouping=true></EntityGridIndex>
 
 @code {
+    protected List<GridColumn> GridCols;
+    protected string[] GroupedColumn;
     private List<CashVoucherDTO>? entities;
-
-    public VoucherTest()
-    {
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -33,10 +32,11 @@
         {
             GroupedColumn = new string[] { "VoucherType" };
             InitView();
-            FetchDataAsync();
+            await FetchDataAsync();
             GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
             StateHasChanged();
             base.OnInitialized();
+            StateHasChanged();
 
         }
         catch (Exception exception)
@@ -47,10 +47,45 @@
 
     }
 
-    async void FetchDataAsync()
+    async Task<List<CashVoucherDTO>?> FetchDataAsync()
     {
         entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
         StateHasChanged();
+        return entities;
+
+    }
+    protected void InitView()
+    {
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Helper.Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
+        CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+        CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+        StateHasChanged();
+
+    }
+
+    protected void GenerateColums(PropertyInfo[] infos, string idName)
+    {
+        GridCols = new List<GridColumn>();
+        foreach (var prop in infos)
+        {
+            if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
+            {
+                var v = new GridColumn()
+                {
+                    AutoFit = true,
+                    Field = prop.Name,
+                    AllowSorting = true,
+                    IsPrimaryKey = prop.Name == idName ? true : false,
+                    AllowEditing = prop.CanWrite
+                };
+
+                GridCols.Add(v);
+            }
+        }
     }
 
 }
