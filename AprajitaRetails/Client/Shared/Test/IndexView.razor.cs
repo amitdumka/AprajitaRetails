@@ -28,12 +28,12 @@ namespace AprajitaRetails.Client.Shared.Test
             GridCols = new List<GridColumn>();
             foreach (var prop in infos)
             {
-                if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "Employee" && prop.Name != "Partys" && prop.Name != "PartyId" && prop.Name != "Store" && prop.Name != "StoreId" && prop.Name != "UserId" && prop.Name != "EntryStatus" && prop.Name != "IsReadOnly" && prop.Name != "MarkedDeleted")
+                if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" &&    prop.Name != "PartyId" &&    prop.Name != "StoreId" )
                 {
                     var v = new GridColumn()
                     {
                         AutoFit = true,
-                        Field = prop.Name,
+                        Field = prop.Name,  
                         AllowSorting = true,
                         IsPrimaryKey = prop.Name == idName ? true : false,
                         AllowEditing = prop.CanWrite

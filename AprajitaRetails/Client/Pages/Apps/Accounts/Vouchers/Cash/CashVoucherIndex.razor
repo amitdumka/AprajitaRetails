@@ -22,6 +22,7 @@
         Toolbar="@(new List<string>() {"Print", "ExcelExport", "PdfExport", "ColumnChooser","Search"})"
             ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending","Copy", "Edit", "Delete", "Save", "Cancel",  "FirstPage", "PrevPage","LastPage", "NextPage"})"
             AllowResizing="true">
+
         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
        
         <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="true"></GridGroupSettings>
@@ -93,18 +94,15 @@
         }
         try
         {
-            //CultureInfo myCIintl =
-            CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+             CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
             CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+
             entities = await Helper.FetchAsync<CashVoucher>($"CashVouchers/bystore", $"?storeid={Setting.StoreCode}");
             modeList = await Helper.FetchOptionsAsync("Transactions", "");
             employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
             parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
             Loading = false;
-            //CustomCol();
-            //StateHasChanged();
             await Grid.AutoFitColumnsAsync();
-
             StateHasChanged();
         }
         catch (Exception exception)

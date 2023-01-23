@@ -9,9 +9,9 @@
     <Header> <Blazor.AdminLte.PageTitle Title="@Title" /></Header>
 </ContentHeader>
 <ContentMain>
+    @*ContextMenuItems="@contextMenuItem"*@
 
-    <SfGrid TValue="TItem" DataSource="@Entities"
-            Toolbar="@toolbar" ContextMenuItems="@contextMenuItem"
+    <SfGrid TValue="TItem" DataSource="@Entities" Toolbar="@toolbar"
             AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping=@Grouping
             AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true"
             ID="Grid" @ref="Grid" Columns="@Columns" EnableAltRow="false">
