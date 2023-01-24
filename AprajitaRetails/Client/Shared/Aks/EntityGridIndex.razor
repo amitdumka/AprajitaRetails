@@ -23,6 +23,9 @@
             <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="false"></GridGroupSettings>
         }
         <GridPageSettings PageCount="5"></GridPageSettings>
+        <EntityAggregator>
+            <EntityAggCol Title="Total Sum" Field="Amount" ></EntityAggCol>
+        </EntityAggregator>
         @ChildContent
     </SfGrid>
 </ContentMain>

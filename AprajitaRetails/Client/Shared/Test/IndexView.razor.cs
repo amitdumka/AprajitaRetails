@@ -9,17 +9,18 @@ namespace AprajitaRetails.Client.Shared.Test
     public partial class IndexView
     {
         protected List<GridColumn> GridCols;
-        protected string[] GroupedColumn;// = new string[] { "Store" };
+        protected string[] GroupedColumn;
 
         protected void InitView()
         {
+            CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+            CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
             if (string.IsNullOrEmpty(Setting.StoreCode))
             {
                 Helper.Msg("Error", "Select store!, Kindly re-login", true);
                 return;
             }
-            CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
-            CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+           
 
         }
 
@@ -33,17 +34,18 @@ namespace AprajitaRetails.Client.Shared.Test
                     var v = new GridColumn()
                     {
                         AutoFit = true,
-                        Field = prop.Name,  
+                       
+                        Field = prop.Name,
                         AllowSorting = true,
                         IsPrimaryKey = prop.Name == idName ? true : false,
-                        AllowEditing = prop.CanWrite, HeaderText=prop.Name,
-                        HeaderTextAlign= Syncfusion.Blazor.Grids.TextAlign.Center
+                        AllowEditing = prop.CanWrite,
+                        HeaderText = prop.Name,
+                        HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center
                     };
                     if (prop.GetType() == typeof(decimal))
                     {
-                        if (prop.Name.Contains("Amount"))
-                            v.Format = "C2";
-                        else v.Format = "D2";
+                        if (prop.Name.Contains("Amount") )
+                           v.Format = "C2";
                     }
 
                     GridCols.Add(v);

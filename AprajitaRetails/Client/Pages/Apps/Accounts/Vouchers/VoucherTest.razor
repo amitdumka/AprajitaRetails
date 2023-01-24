@@ -1,6 +1,6 @@
 ﻿@page "/vochers/test"
 
-@*@inherits AprajitaRetails.Client.Shared.Test.IndexView*@
+@inherits AprajitaRetails.Client.Shared.Test.IndexView
 
 @using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.AutoMapper.DTO
@@ -22,15 +22,13 @@
 <EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn"  Grouping=true></EntityGridIndex>
 
 @code {
-    protected List<GridColumn> GridCols;
-    protected string[] GroupedColumn;
+   
     private List<CashVoucherDTO>? entities;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-
             GroupedColumn = new string[] { "VoucherType" };
             InitView();
             await FetchDataAsync();
@@ -52,45 +50,6 @@
         return entities;
 
     }
-    protected void InitView()
-    {
-        if (string.IsNullOrEmpty(Setting.StoreCode))
-        {
-            Helper.Msg("Error", "Select store!, Kindly re-login", true);
-            return;
-        }
-        CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
-        CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
-      
-    }
-
-    protected void GenerateColums(PropertyInfo[] infos, string idName)
-    {
-        GridCols = new List<GridColumn>();
-        foreach (var prop in infos)
-        {
-            if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
-            {
-                var v = new GridColumn()
-                {
-                    AutoFit = true,
-                    Field = prop.Name,
-                    AllowSorting = true,
-                    IsPrimaryKey = prop.Name == idName ? true : false,
-                    AllowEditing = prop.CanWrite,
-                    HeaderText = prop.Name,
-                    HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center
-                };
-                if (prop.GetType() == typeof(decimal))
-                {
-                    if (prop.Name.Contains("Amount"))
-                        v.Format = "C2";
-                    else v.Format = "D2";
-                }
-
-                GridCols.Add(v);
-            }
-        }
-    }
+    
 
 }
