@@ -36,8 +36,15 @@ namespace AprajitaRetails.Client.Shared.Test
                         Field = prop.Name,  
                         AllowSorting = true,
                         IsPrimaryKey = prop.Name == idName ? true : false,
-                        AllowEditing = prop.CanWrite
+                        AllowEditing = prop.CanWrite, HeaderText=prop.Name,
+                        HeaderTextAlign= Syncfusion.Blazor.Grids.TextAlign.Center
                     };
+                    if (prop.GetType() == typeof(decimal))
+                    {
+                        if (prop.Name.Contains("Amount"))
+                            v.Format = "C2";
+                        else v.Format = "D2";
+                    }
 
                     GridCols.Add(v);
                 }

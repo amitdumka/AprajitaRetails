@@ -1,0 +1,104 @@
+﻿@page "/TestView"
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+@using Syncfusion.Blazor.Grids
+@using System.Globalization
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Shared.Models.Vouchers
+@using System.Reflection;
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<ContentHeader>
+    <Header><Blazor.AdminLte.PageTitle Title="TestView" /></Header>
+</ContentHeader>
+<ContentMain>
+    <SfGrid AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=false AllowGrouping=true
+            AllowPaging="true" ID="Grid" @ref="Grid" DataSource="@entities" AllowExcelExport="true"
+            Toolbar="@toolbar" Columns="@GridCols" 
+            AllowPdfExport="true" ShowColumnChooser="true"    AllowResizing="true">
+
+        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+
+        <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="true"></GridGroupSettings>
+        <GridPageSettings PageCount="5"></GridPageSettings>
+
+    </SfGrid>
+</ContentMain>
+
+
+@code {
+
+    List<string> toolbar = new List<string>() { "Print", "ExcelExport", "PdfExport", "ColumnChooser", "Search" };
+    List<object> contextMenuItems = new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending", "Copy", "Edit", "Delete", "Save", "Cancel", "FirstPage", "PrevPage", "LastPage", "NextPage" };
+    protected List<GridColumn> GridCols;
+
+    private string[] GroupedColumn = new string[] { "VoucherType" };
+    private List<CashVoucherDTO>? entities;
+
+    SfGrid<CashVoucherDTO> Grid;
+
+    bool Loading = true;
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Helper.Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+            CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+
+            entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoreDTO", $"?storeid={Setting.StoreCode}");
+            Loading = false;
+            //StateHasChanged();
+            GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
+            await Grid.AutoFitColumnsAsync();
+
+
+            StateHasChanged();
+        }
+        catch (Exception exception)
+        {
+            // exception.Redirect();
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+    protected void GenerateColums(PropertyInfo[] infos, string idName)
+    {
+        GridCols = new List<GridColumn>();
+        foreach (var prop in infos)
+        {
+            if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
+            {
+                var v = new GridColumn()
+                {
+                    AutoFit = true,
+                    Field = prop.Name,
+                    AllowSorting = true,
+                    IsPrimaryKey = prop.Name == idName ? true : false,
+                    AllowEditing = prop.CanWrite,
+                    HeaderText = prop.Name,
+                    HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center
+                };
+                if (prop.GetType() == typeof(decimal))
+                {
+                    v.TextAlign = Syncfusion.Blazor.Grids.TextAlign.Left;
+                    if (prop.Name.Contains("Amount"))
+                        v.Format = "C2";
+                    else v.Format = "D2";
+                }
+
+                GridCols.Add(v);
+            }
+        }
+    }
+
+}
+

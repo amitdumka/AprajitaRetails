@@ -33,6 +33,7 @@
     <None Remove="Pages\Apps\Accounts\DailySales\Dues\" />
     <None Remove="Pages\Apps\Stores\Pos\" />
     <None Remove="Shared\Test\" />
+    <None Remove="Pages\Apps\Test\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,5 +75,6 @@
     <Folder Include="Pages\Apps\Accounts\DailySales\Dues\" />
     <Folder Include="Pages\Apps\Stores\Pos\" />
     <Folder Include="Shared\Test\" />
+    <Folder Include="Pages\Apps\Test\" />
   </ItemGroup>
 </Project>

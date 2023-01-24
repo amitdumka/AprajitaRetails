@@ -30,14 +30,13 @@
     {
         try
         {
+
             GroupedColumn = new string[] { "VoucherType" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
             StateHasChanged();
             base.OnInitialized();
-            StateHasChanged();
-
         }
         catch (Exception exception)
         {
@@ -50,7 +49,6 @@
     async Task<List<CashVoucherDTO>?> FetchDataAsync()
     {
         entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
-        StateHasChanged();
         return entities;
 
     }
@@ -63,8 +61,7 @@
         }
         CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
         CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
-        StateHasChanged();
-
+      
     }
 
     protected void GenerateColums(PropertyInfo[] infos, string idName)
@@ -80,8 +77,16 @@
                     Field = prop.Name,
                     AllowSorting = true,
                     IsPrimaryKey = prop.Name == idName ? true : false,
-                    AllowEditing = prop.CanWrite
+                    AllowEditing = prop.CanWrite,
+                    HeaderText = prop.Name,
+                    HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center
                 };
+                if (prop.GetType() == typeof(decimal))
+                {
+                    if (prop.Name.Contains("Amount"))
+                        v.Format = "C2";
+                    else v.Format = "D2";
+                }
 
                 GridCols.Add(v);
             }
