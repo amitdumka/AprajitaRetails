@@ -29,8 +29,16 @@ namespace AprajitaRetails.Client.Shared.Test
             GridCols = new List<GridColumn>();
             foreach (var prop in infos)
             {
+
+                var x = prop.CustomAttributes;
+                foreach (var item in x)
+                {
+                    Console.WriteLine(item.ToString());
+                }
+
                 if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" &&    prop.Name != "PartyId" &&    prop.Name != "StoreId" )
                 {
+                   
                     var v = new GridColumn()
                     {
                         AutoFit = true,

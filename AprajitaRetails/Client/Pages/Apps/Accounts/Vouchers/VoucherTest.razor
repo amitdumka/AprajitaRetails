@@ -13,16 +13,16 @@
 @using Syncfusion.Blazor.Grids
 @using System.Globalization
 @using AprajitaRetails.Aks
-@using System.Reflection 
+@using System.Reflection
 
 @inject DataHelper Helper
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn"  Grouping=true></EntityGridIndex>
+<EntityGridIndex TItem="CashVoucherDTO" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
 @code {
-   
+
     private List<CashVoucherDTO>? entities;
 
     protected override async Task OnInitializedAsync()
@@ -50,6 +50,110 @@
         return entities;
 
     }
-    
+
 
 }
+
+@* <GridColumns>
+        <GridColumn Field=@nameof(OrdersDetails.OrderID) HeaderText="Order ID" IsPrimaryKey="true" ValidationRules="@(new ValidationRules{ Required=true, Number=true})" TextAlign="TextAlign.Right" Width="140"></GridColumn>
+        <GridColumn Field=@nameof(OrdersDetails.CustomerID) HeaderText="Customer ID" ValidationRules="@(new ValidationRules{ Required=true})" Width="150"></GridColumn>
+        <GridColumn Field=@nameof(OrdersDetails.Freight) ValidationRules="@(new ValidationRules{ Required=true, Range = new object[]{1, 1000}})" EditType="EditType.NumericEdit" Format="C2" TextAlign="TextAlign.Right" Width="140"></GridColumn>
+        <GridColumn Field=@nameof(OrdersDetails.OrderDate) HeaderText="Order Date" EditType="EditType.DatePickerEdit" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="160"></GridColumn>
+        <GridColumn Field=@nameof(OrdersDetails.ShipCountry) HeaderText="Ship Country" EditType="EditType.DropDownEdit" Width="150"></GridColumn>
+        <GridColumn Field=@nameof(OrdersDetails.Verified) EditType="EditType.BooleanEdit" DisplayAsCheckBox="true" Width="150" TextAlign="TextAlign.Center"></GridColumn>
+        </GridColumns>
+
+    <SfDialog Width="470" @bind-Visible="@IsVisible" ShowCloseIcon="true" IsModal="false" Target="#MyGrid">
+    <DialogTemplates>
+    <Header>Employee Information</Header>
+    <Content>
+    @{
+    <div style="display:inline-flex;padding-bottom:15px">
+    @if (RowDetails != null)
+    {
+    <div style="float:left;padding:45px;padding-top:48px"><img class="photo" src="@UriHelper.ToAbsoluteUri($"{SampleService.WebAssetsPath}images/data-grid/{RowDetails?.EmployeeId}.png")" alt="@RowDetails?.EmployeeId" /></div>
+    }
+    <div style="padding-top:20px">
+    <div style="padding-bottom:10px;padding-left:10px;">
+    <span style="font-size:large;font-weight: bold">@RowDetails?.FirstName @RowDetails?.LastName</span>
+    </div>
+    <div>
+    <span class="position">@RowDetails?.Title</span>
+    </div>
+    <div style="padding-top:10px;">
+    <table class="table">
+    <tr>
+    <th>Birth Date </th>
+    <td>@RowDetails?.BirthDate?.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+    <th>City </th>
+    <td>@RowDetails?.City</td>
+    </tr>
+    <tr>
+    <th>Postal Code </th>
+    <td>@RowDetails?.Code</td>
+    </tr>
+    </table>
+    </div>
+    </div>
+    </div>
+    }
+    </Content>
+    </DialogTemplates>
+    <DialogPositionData X="@Xvalue" Y="@Yvalue"></DialogPositionData>
+    </SfDialog>*@
+
+@*<div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="col-form-label">Email ID :</label>
+                <SfTextBox @bind-Value="@employeeDetails.Email"></SfTextBox>
+                <ValidationMessage For="@(() => employeeDetails.Email)"></ValidationMessage>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-form-label">Phone Number :</label>
+                <SfTextBox @bind-Value="@employeeDetails.PhoneNumber"></SfTextBox>
+                <ValidationMessage For="@(() => employeeDetails.PhoneNumber)"></ValidationMessage>
+            </div>
+        </div>
+     //protected override   Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    //await Grid.AutoFitColumnsAsync();
+    //    //StateHasChanged();
+    //   return base.OnAfterRenderAsync(firstRender);
+    //}
+
+    //protected override  Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    await Grid.AutoFitColumnsAsync();
+    //    StateHasChanged();
+    //    return base.OnAfterRenderAsync(firstRender);
+    //}
+    //public void RowDeSelectHandler(RowDeselectEventArgs<OrderDetails> args)
+        //{
+        //    SelectedData = new OrderDetails();
+        //    this.Disabled = true;
+        //    this.Enabled = false;
+        //}
+        //public async Task Save()
+        //{
+        //    if ((SelectedData.OrderID != null) && (SelectedData.CustomerID != string.Empty) && (SelectedData.OrderDate != null) && (SelectedData.Freight != null))
+        //    {
+        //        await this.Grid.SetRowDataAsync(SelectedData.OrderID, SelectedData);
+        //        await Cancel();
+        //    }
+        //}
+        //public async Task Cancel()
+        //{
+        //    SelectedData = new OrderDetails() { };
+        //    await this.Grid.ClearSelectionAsync();
+        //}
+
+
+
+
+
+
+
+
+*@

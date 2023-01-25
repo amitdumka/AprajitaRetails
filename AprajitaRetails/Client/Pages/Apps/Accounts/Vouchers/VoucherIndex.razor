@@ -1,258 +1,69 @@
 ﻿@page "/vouchers"
+
+@inherits AprajitaRetails.Client.Shared.Test.IndexView
+
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization;
 @using Syncfusion.Blazor.Grids
 @using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+ 
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+ 
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+
 
 @attribute [Authorize]
+
 @inject DataHelper Helper
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<ContentHeader>
-    <Header>
-        <Blazor.AdminLte.PageTitle Title="Vouchers" />
-    </Header>
-</ContentHeader>
-@*Toolbar="@(new List<string>() { "Print", "Add", "Edit", "Delete", "Cancel", "Update", "ColumnChooser", "ExcelExport", "PdfExport", "Search" })" AllowTextWrap="true"
-    ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending", "Copy", "Edit", "Delete", "Save", "Cancel", "PdfExport", "ExcelExport", "CsvExport", "FirstPage", "PrevPage", "LastPage", "NextPage" })"
-*@
-<ContentMain>
-    <SfGrid ID="Grid" @ref="Grid" AllowExcelExport="true" AllowPdfExport="true" DataSource="@entities" AllowResizing="true"
-            AllowReordering="true" AllowGrouping=true ShowColumnChooser="true" EnableStickyHeader=true PrintMode=PrintMode.AllPages
-			EnableAutoFill="true"
-            Toolbar="@(new List<string>() { "Print","ColumnChooser", "ExcelExport", "PdfExport","Search" })" AllowTextWrap="true"
-            ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending","Copy", "Edit", "Delete", "Save", "Cancel",  "FirstPage", "PrevPage","LastPage", "NextPage"})"
-            AllowSorting="true" AllowFiltering="true"  Height="100%" Width="100%" AllowPaging="true">
-        <GridEvents RowSelected="RowSelectHandler" OnToolbarClick="ToolbarClick"
-                    CommandClicked="OnCommandClicked" ColumnMenuItemClicked="ColumnMenuItemClickedHandler"
-                    ContextMenuItemClicked="ContextMenuItemClickedHandler"
-                    TValue="Voucher"></GridEvents>
+<EntityGridIndex TItem="VoucherDTO" Title="Vouchers" Columns="@GridCols"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-        @*<GridEvents RowSelected="RowSelectHandler" RowDeselected="RowDeSelectHandler" TValue="OrderDetails"></GridEvents>*@
-        @*<GridEvents OnActionBegin="ActionBeginHandler" TValue="Order"></GridEvents>*@
-        @*<GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>*@
 
-        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-        <GridPageSettings PageCount="5"></GridPageSettings>
-        <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="true"></GridGroupSettings>
-        @*<GridGroupSettings Columns=@GroupedColumn></GridGroupSettings>*@
-        <GridAggregates>
-            @*<GridAggregate>
-            <GridAggregateColumns>
-            <GridAggregateColumn Field="@nameof(Voucher.Amount)" Type="AggregateType.Sum" Format="C2">
-            <FooterTemplate>
-            @{ var SumValue = (context as AggregateTemplateContext);
-
-            <div>
-            Total Payment Amoumt: @SumValue.Sum
-            </div>
-            }
-            </FooterTemplate>
-            </GridAggregateColumn>
-            </GridAggregateColumns>
-            </GridAggregate>*@
-            <GridAggregate>
-                <GridAggregateColumns>
-                    <GridAggregateColumn Field="@nameof(Voucher.Amount)" Type="AggregateType.Sum" Format="C2">
-                        @* <GroupFooterTemplate>*@
-                        <GroupCaptionTemplate>
-                            @*<FooterTemplate>*@
-                            @{
-                                var SumValue = (context as AggregateTemplateContext);
-
-                                <div class="text-danger text-bg-warning">
-                                    Total Amount: @SumValue.Sum
-                                </div>
-                            }
-                            @*</FooterTemplate>*@
-                        </GroupCaptionTemplate>
-                        @*</GroupFooterTemplate>*@
-
-                    </GridAggregateColumn>
-                </GridAggregateColumns>
-            </GridAggregate>
-        </GridAggregates>
-        <GridColumns>
-            <GridColumn Field=@nameof(Voucher.VoucherType) HeaderText="Type" Width="100"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.OnDate) HeaderText="Date" Width="100"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.VoucherNumber) HeaderText="ID" Width="120"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.PartyName) HeaderText="Party" Width="110" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.Particulars) HeaderText="Particulars" Width="120" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.Amount) Format="C2" HeaderText="Amount" Width="100" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.PaymentMode) HeaderText="Mode" Width="90" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.Remarks) HeaderText="Remarks" Width="100" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.EmployeeId) HeaderText="Issued By" Width="100" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
-            <GridColumn Field=@nameof(Voucher.SlipNumber) HeaderText="Slip No" Width="100" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right"></GridColumn>
-            @*<GridForeignColumn Field=@nameof(Voucher.EmployeeId) HeaderText="Issued Bu" ForeignKeyValue="StaffName"
-            ValidationRules="@(new ValidationRules{ Required=true})" ForeignDataSource="@Employees" Width="150"></GridForeignColumn>*@
-            @*<GridForeignColumn TValue="EmployeeData" Field=@nameof(OrdersDetails.EmployeeID) HeaderText="First Name" ForeignKeyValue="FirstName" Width="150" ValidationRules="@(new ValidationRules{ Required=true})">
-            <Syncfusion.Blazor.Data.SfDataManager Url="https://js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Employees" CrossDomain="true" Adaptor="Adaptors.ODataAdaptor">
-            </Syncfusion.Blazor.Data.SfDataManager>
-            </GridForeignColumn>*@
-            @* <GridColumn HeaderText="View Details" TextAlign="TextAlign.Center" Width="150">
-            <GridCommandColumns>
-            <GridCommandColumn ButtonOption="@(new CommandButtonOptions() { CssClass="e-icons e-view-details"})" Title="View"></GridCommandColumn>
-            </GridCommandColumns>
-            </GridColumn>*@
-            @*<GridColumn Field=@nameof(OrdersDetails.CustomerID) HeaderText="Customer ID" ValidationRules="@(new ValidationRules{ Required=true})" Width="150">
-            <EditTemplate>
-            <SfAutoComplete TItem="OrdersDetails" TValue="string" ID="CustomerID" @bind-Value="@((context as OrdersDetails).CustomerID)" DataSource="@GridData">
-            <AutoCompleteFieldSettings Value="CustomerID"></AutoCompleteFieldSettings>
-            </SfAutoComplete>
-            </EditTemplate>
-            </GridColumn>*@
-            <GridColumn HeaderText="Manage Records" Width="150">
-                <GridCommandColumns>
-                    <GridCommandColumn Title="Edit" Type="CommandButtonType.None" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-edit", CssClass="e-flat" })"></GridCommandColumn>
-                    <GridCommandColumn Title="Delete" Type="CommandButtonType.None" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-delete", CssClass="e-flat" })"></GridCommandColumn>
-                    <GridCommandColumn Title="Detail" Type="CommandButtonType.None" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-save", CssClass="e-flat" })"></GridCommandColumn>
-                    <GridCommandColumn Title="Cancle" Type="CommandButtonType.Cancel" ButtonOption="@(new CommandButtonOptions() {IconCss="e-icons e-cancel-icon", CssClass="e-flat" })"></GridCommandColumn>
-                </GridCommandColumns>
-            </GridColumn>
-        </GridColumns>
-        @* <GridColumns>
-        <GridColumn Field=@nameof(OrdersDetails.OrderID) HeaderText="Order ID" IsPrimaryKey="true" ValidationRules="@(new ValidationRules{ Required=true, Number=true})" TextAlign="TextAlign.Right" Width="140"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.CustomerID) HeaderText="Customer ID" ValidationRules="@(new ValidationRules{ Required=true})" Width="150"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.Freight) ValidationRules="@(new ValidationRules{ Required=true, Range = new object[]{1, 1000}})" EditType="EditType.NumericEdit" Format="C2" TextAlign="TextAlign.Right" Width="140"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.OrderDate) HeaderText="Order Date" EditType="EditType.DatePickerEdit" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="160"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.ShipCountry) HeaderText="Ship Country" EditType="EditType.DropDownEdit" Width="150"></GridColumn>
-        <GridColumn Field=@nameof(OrdersDetails.Verified) EditType="EditType.BooleanEdit" DisplayAsCheckBox="true" Width="150" TextAlign="TextAlign.Center"></GridColumn>
-        </GridColumns>*@
-    </SfGrid>
-    @* <SfDialog Width="470" @bind-Visible="@IsVisible" ShowCloseIcon="true" IsModal="false" Target="#MyGrid">
-    <DialogTemplates>
-    <Header>Employee Information</Header>
-    <Content>
-    @{
-    <div style="display:inline-flex;padding-bottom:15px">
-    @if (RowDetails != null)
-    {
-    <div style="float:left;padding:45px;padding-top:48px"><img class="photo" src="@UriHelper.ToAbsoluteUri($"{SampleService.WebAssetsPath}images/data-grid/{RowDetails?.EmployeeId}.png")" alt="@RowDetails?.EmployeeId" /></div>
-    }
-    <div style="padding-top:20px">
-    <div style="padding-bottom:10px;padding-left:10px;">
-    <span style="font-size:large;font-weight: bold">@RowDetails?.FirstName @RowDetails?.LastName</span>
-    </div>
-    <div>
-    <span class="position">@RowDetails?.Title</span>
-    </div>
-    <div style="padding-top:10px;">
-    <table class="table">
-    <tr>
-    <th>Birth Date </th>
-    <td>@RowDetails?.BirthDate?.ToString("dd/MM/yyyy")</td>
-    </tr>
-    <tr>
-    <th>City </th>
-    <td>@RowDetails?.City</td>
-    </tr>
-    <tr>
-    <th>Postal Code </th>
-    <td>@RowDetails?.Code</td>
-    </tr>
-    </table>
-    </div>
-    </div>
-    </div>
-    }
-    </Content>
-    </DialogTemplates>
-    <DialogPositionData X="@Xvalue" Y="@Yvalue"></DialogPositionData>
-    </SfDialog>*@
-</ContentMain>
 
 @code {
-    private string[] GroupedColumn = new string[] { "VoucherType" };
-    private List<Voucher>? entities;
-    SfGrid<Voucher> Grid;
-    private bool Loading = true;
-    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
-    {
-        if (args.Item.Id == "Grid_pdfexport")
-        {
-            PdfExportProperties Props = new PdfExportProperties();
-            Props.PageSize = PdfPageSize.A4;
-            Props.PageOrientation = PageOrientation.Landscape;
-            List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
-{
-                new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Vouchers", Position = new PdfPosition() { X = 280, Y = 0 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 20} },
-                new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Report Date", Position = new PdfPosition() { X = 500, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050"} },
-                new PdfHeaderFooterContent() { Type = ContentType.Text, Value= DateTime.Now.ToString("d"), Position = new PdfPosition() { X = 501, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#000000"} },
-                new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Aprajita Retails", Position = new PdfPosition() { X = 22, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 14} },
-                new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Bhagalpur Road, Dumka", Position = new PdfPosition() { X = 19, Y = 55 }, Style = new PdfContentStyle() { TextBrushColor = "#000000", FontSize = 10} },
 
-            };
-            List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
-{
-                new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="AKS Labs(India)",  Position = new PdfPosition() { X = 250, Y = 20 }, Style = new PdfContentStyle() { TextBrushColor = "#C77878", FontSize = 12 } },
-                new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="thearvindstoredumka@gmail.com",  Position = new PdfPosition() { X = 200, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#C67878", FontSize = 12 } }
-                };
-            PdfHeader Header = new PdfHeader()
-                {
-                    FromTop = 0,
-                    Height = 130,
-                    Contents = HeaderContent
-                };
-            PdfFooter Footer = new PdfFooter()
-                {
-                    FromBottom = 160,
-                    Height = 150,
-                    Contents = FooterContent
-                };
-            Props.Header = Header;
-            Props.Footer = Footer;
-            Props.FileName = $"Vouchers_{DateTime.Now.ToShortDateString()}_1.pdf";
-
-            this.Grid.ExportToPdfAsync(Props);
-        }
-        else if (args.Item.Id == "Grid_excelexport")
-        {
-            this.Grid.ExportToExcelAsync();
-        }
-        else if (args.Item.Id == "Grid_csvexport")
-        {
-            this.Grid.ExportToCsvAsync();
-        }
-    }
-
-    //protected override   Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    //await Grid.AutoFitColumnsAsync();
-    //    //StateHasChanged();
-    //   return base.OnAfterRenderAsync(firstRender);
-    //}
-
-    //protected override  Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    await Grid.AutoFitColumnsAsync();
-    //    StateHasChanged();
-    //    return base.OnAfterRenderAsync(firstRender);
-    //}
+    private List<VoucherDTO>? entities;
 
     protected override async Task OnInitializedAsync()
     {
-        CultureInfo myCIintl = new CultureInfo("es-IN", false);
-        CultureInfo.CurrentCulture = myCIintl;
-        if (string.IsNullOrEmpty(Setting.StoreCode))
-        {
-            Helper.Msg("Error", "Select store!, Kindly re-login", true);
-            return;
-        }
         try
         {
-            entities = await Helper.FetchAsync<Voucher>($"api/Vouchers/bystore", $"?storeid={Setting.StoreCode}");
-            Loading = false;
+            GroupedColumn = new string[] { "VoucherType" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(VoucherDTO).GetProperties(), "VoucherNumber");
             StateHasChanged();
-            await Grid.AutoFitColumnsAsync();
-            StateHasChanged();
-
+            base.OnInitialized();
         }
         catch (Exception exception)
         {
-            Helper.Msg("Error", exception.Message, true);
+
+            Helper.Msg("Error On Init", exception.Message, true);
         }
+
     }
+
+    async Task<List<VoucherDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<VoucherDTO>($"api/Vouchers/bystoredto", $"?storeid={Setting.StoreCode}");
+        return entities;
+
+    }
+
+
+    private bool Loading = true;
+
+     
 
     public void RowSelectHandler(RowSelectEventArgs<Voucher> args)
     {
@@ -261,77 +72,11 @@
         var SelectedData = args.Data;
         Helper.Msg($"Selected Row #{args.RowIndex}", SelectedData.VoucherNumber);
 
-        //this.Disabled = false;
-        //this.Enabled = true;
+        
     }
-    //public void RowDeSelectHandler(RowDeselectEventArgs<OrderDetails> args)
-    //{
-    //    SelectedData = new OrderDetails();
-    //    this.Disabled = true;
-    //    this.Enabled = false;
-    //}
-    //public async Task Save()
-    //{
-    //    if ((SelectedData.OrderID != null) && (SelectedData.CustomerID != string.Empty) && (SelectedData.OrderDate != null) && (SelectedData.Freight != null))
-    //    {
-    //        await this.Grid.SetRowDataAsync(SelectedData.OrderID, SelectedData);
-    //        await Cancel();
-    //    }
-    //}
-    //public async Task Cancel()
-    //{
-    //    SelectedData = new OrderDetails() { };
-    //    await this.Grid.ClearSelectionAsync();
-    //}
 
-    public void ContextMenuItemClickedHandler(ContextMenuClickEventArgs<Voucher> args)
-    {
-        // Here you can customize your code
-        Helper.Msg("Context", args.Name);
-    }
-    public void ColumnMenuItemClickedHandler(ColumnMenuClickEventArgs args)
-    {
-        // Here, you can customize your code.
-        Helper.Msg("ColMenu", args.Name, true);
-    }
-    public void OnCommandClicked(CommandClickEventArgs<Voucher> args)
-    {
-        // Perform required operations here.
-        Helper.Msg("CommandMenu", args.CommandColumn.Type.ToString());
 
-        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
-        {
-
-            NavigationManager.NavigateTo($"/vouchers/Edit/true/{args.RowData.VoucherNumber}");
-        }
-        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
-        {
-            Helper.Msg("Delete Selected", args.RowData.VoucherNumber);
-
-            //NavigationManager.NavigateTo($"/vouchers/Edit/true/{args.RowData.VoucherNumber}");
-        }
-        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
-        {
-
-            NavigationManager.NavigateTo($"/Vouchers/Detail/{args.RowData.VoucherNumber}");
-        }
-        else
-        {
-            Helper.Msg("Error", "Wrong Selection!", true);
-        }
-    }
+    
 }
 
 
-@*<div class="form-row">
-        <div class="form-group col-md-6">
-            <label class="col-form-label">Email ID :</label>
-            <SfTextBox @bind-Value="@employeeDetails.Email"></SfTextBox>
-            <ValidationMessage For="@(() => employeeDetails.Email)"></ValidationMessage>
-        </div>
-        <div class="form-group col-md-6">
-            <label class="col-form-label">Phone Number :</label>
-            <SfTextBox @bind-Value="@employeeDetails.PhoneNumber"></SfTextBox>
-            <ValidationMessage For="@(() => employeeDetails.PhoneNumber)"></ValidationMessage>
-        </div>
-    </div>*@

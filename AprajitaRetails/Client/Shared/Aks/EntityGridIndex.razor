@@ -3,6 +3,9 @@
 @using Syncfusion.Blazor.Grids
 @using AprajitaRetails.Shared.Models.Vouchers
 
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
 @typeparam TItem
 
 <ContentHeader>
@@ -12,11 +15,13 @@
 <ContentMain>
     @*ContextMenuItems="@contextMenuItem"*@
 
-    <SfGrid TValue="TItem" DataSource="@Entities" Toolbar="@toolbar"
+    <SfGrid TValue="TItem" DataSource="@Entities" Toolbar="@toolbar" ContextMenuItems="@contextMenuItem"
             AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping=@Grouping
             AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true"
             ID="Grid" @ref="Grid" Columns="@Columns" EnableAltRow="false">
-
+        <GridEvents OnToolbarClick="ToolbarClick"CommandClicked="OnCommandClicked" TValue="TItem"></GridEvents>
+                    @*ContextMenuItemClicked="ContextMenuItemClickedHandler" ColumnMenuItemClicked="ColumnMenuItemClickedHandler"*@ 
+                    
         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
         @if (Grouping)
         {
@@ -24,7 +29,7 @@
         }
         <GridPageSettings PageCount="5"></GridPageSettings>
         <EntityAggregator>
-            <EntityAggCol Title="Total Sum" Field="Amount" ></EntityAggCol>
+            <EntityAggCol Title="Total Sum" Field="Amount"></EntityAggCol>
         </EntityAggregator>
         @ChildContent
     </SfGrid>
@@ -71,22 +76,115 @@
 
     }
 
-    protected override async Task OnInitializedAsync()
+    private void ExportPDF(string headerText, string storename = "Aprajita Retails", string address = "Bhagalpur Road, Dumka")
     {
+        PdfExportProperties Props = new PdfExportProperties();
+        Props.PageSize = PdfPageSize.A4;
+        Props.PageOrientation = PageOrientation.Landscape;
+        List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
+{
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value=headerText, Position = new PdfPosition() { X = 280, Y = 0 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 20} },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Report Date", Position = new PdfPosition() { X = 500, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050"} },
 
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value= DateTime.Now.ToString("d"), Position = new PdfPosition() { X = 501, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#000000"} },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value=storename, Position = new PdfPosition() { X = 22, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 14} },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value=address, Position = new PdfPosition() { X = 19, Y = 55 }, Style = new PdfContentStyle() { TextBrushColor = "#000000", FontSize = 10} },
+
+            };
+        List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
+{
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="AKS Labs(India)",  Position = new PdfPosition() { X = 250, Y = 20 }, Style = new PdfContentStyle() { TextBrushColor = "#C77878", FontSize = 12 } },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="amit.dumka@gmail.com",  Position = new PdfPosition() { X = 200, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#C67878", FontSize = 12 } }
+                };
+
+        PdfHeader Header = new PdfHeader()
+        {
+            FromTop = 0,
+            Height = 130,
+            Contents = HeaderContent
+        };
+        PdfFooter Footer = new PdfFooter()
+        {
+            FromBottom = 160,
+            Height = 150,
+            Contents = FooterContent
+        };
+        Props.Header = Header;
+        Props.Footer = Footer;
+        Props.FileName = $"{headerText.Replace(" ", "_")}_{DateTime.Now.ToShortDateString()}_1.pdf";
+
+        this.Grid.ExportToPdfAsync(Props);
+    }
+    void ExportExcel()
+    {
+        this.Grid.ExportToExcelAsync();
+    }
+    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "Grid_pdfexport")
+        {
+            ExportPDF(Title);
+        }
+        else if (args.Item.Id == "Grid_excelexport")
+        {
+
+        }
+        else if (args.Item.Id == "Grid_csvexport")
+        {
+            this.Grid.ExportToCsvAsync();
+        }
+    }
+
+    //public void ColumnMenuItemClickedHandler(ColumnMenuClickEventArgs args)
+    //{
+    //TODO: implment in future if requried .
+    //    Helper.Msg("ColMenu", args.Name, true);
+    //}
+
+    //public void ContextMenuItemClickedHandler(ContextMenuClickEventArgs<TItem> args)
+    //{
+    //TODO: This function is working implment in future if required.
+    //TODO: Can be used for delete operation
+    //}
+
+    public void OnCommandClicked(CommandClickEventArgs<TItem> args)
+    {
+        // Perform required operations here.
+        Helper.Msg("CommandMenu", args.CommandColumn.Type.ToString());
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+
+            // NavigationManager.NavigateTo($"/vouchers/Edit/true/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+            Helper.Msg("Delete Selected", "args.RowData.VoucherNumber");
+
+            //NavigationManager.NavigateTo($"/vouchers/Edit/true/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            // NavigationManager.NavigateTo($"/Vouchers/Detail/{args.RowData.VoucherNumber}");
+        }
+        else
+        {
+            Helper.Msg("Error", "Wrong Selection!", true);
+        }
     }
 
 }
 
 @*
 
-https://blazor.syncfusion.com/documentation/datagrid/columns
-https://www.syncfusion.com/forums/164922/dynamic-data-binding-in-grid-without-defining-column-in-design-time
-https://www.syncfusion.com/forums/146129/programatically-create-change-columns-on-the-fly
-https://www.syncfusion.com/forums/172348/grid-auto-fit-dynamically
-https://www.syncfusion.com/forums/172348/grid-auto-fit-dynamically
-https://www.syncfusion.com/forums/160040/conditional-templating-with-dynamic-columns
-https://www.syncfusion.com/forums/169160/programmatically-add-columns
-https://www.google.com/search?q=syncfusion+blazor+datagrid+dynamic+columns&oq=syncfusion+blazor+datagrid+columns&aqs=chrome.3.69i57j0i22i30l6j69i60.16755j0j7&sourceid=chrome&ie=UTF-8
+    https://blazor.syncfusion.com/documentation/datagrid/columns
+    https://www.syncfusion.com/forums/164922/dynamic-data-binding-in-grid-without-defining-column-in-design-time
+    https://www.syncfusion.com/forums/146129/programatically-create-change-columns-on-the-fly
+    https://www.syncfusion.com/forums/172348/grid-auto-fit-dynamically
+    https://www.syncfusion.com/forums/172348/grid-auto-fit-dynamically
+    https://www.syncfusion.com/forums/160040/conditional-templating-with-dynamic-columns
+    https://www.syncfusion.com/forums/169160/programmatically-add-columns
+    https://www.google.com/search?q=syncfusion+blazor+datagrid+dynamic+columns&oq=syncfusion+blazor+datagrid+columns&aqs=chrome.3.69i57j0i22i30l6j69i60.16755j0j7&sourceid=chrome&ie=UTF-8
 
-    *@
+*@
