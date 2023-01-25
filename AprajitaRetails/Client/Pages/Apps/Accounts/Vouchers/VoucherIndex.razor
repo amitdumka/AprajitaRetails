@@ -17,8 +17,6 @@
 @using AprajitaRetails.Aks
 @using System.Reflection
 
-
-
 @attribute [Authorize]
 
 @inject DataHelper Helper
@@ -28,8 +26,6 @@
 <EntityGridIndex TItem="VoucherDTO" Title="Vouchers" Columns="@GridCols"
                  Baseurl="/vouchers"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
-
-
 
 @code {
 
@@ -60,23 +56,6 @@
         return entities;
 
     }
-
-
-    private bool Loading = true;
-
-     
-
-    public void RowSelectHandler(RowSelectEventArgs<Voucher> args)
-    {
-
-
-        var SelectedData = args.Data;
-        Helper.Msg($"Selected Row #{args.RowIndex}", SelectedData.VoucherNumber);
-
-        
-    }
-
-
     
 }
 

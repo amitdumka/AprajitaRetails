@@ -1,115 +1,54 @@
 ﻿@page "/vouchers/Cash"
 
+@inherits AprajitaRetails.Client.Shared.Test.IndexView
+
 @using AprajitaRetails.Commons
-@using AprajitaRetails.Shared.Models.Vouchers;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Shared.Models.Vouchers
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared
 @using AprajitaRetails.Client.Helpers
-@using AprajitaRetails.Shared.ViewModels;
+@using AprajitaRetails.Shared.ViewModels
 @using Syncfusion.Blazor.Grids
-@using System.Globalization;
+@using System.Globalization
+@using AprajitaRetails.Aks
+@using System.Reflection
 
-@attribute [Authorize]
 @inject DataHelper Helper
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<ContentMain>
-    <SfGrid AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=false AllowGrouping=true
-            AllowPaging="true" ID="Grid" @ref="Grid" DataSource="@entities" AllowExcelExport="true"
-        AllowPdfExport="true" ShowColumnChooser="true"
-        Toolbar="@(new List<string>() {"Print", "ExcelExport", "PdfExport", "ColumnChooser","Search"})"
-            ContextMenuItems="@(new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending","Copy", "Edit", "Delete", "Save", "Cancel",  "FirstPage", "PrevPage","LastPage", "NextPage"})"
-            AllowResizing="true">
-
-        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-       
-        <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="true"></GridGroupSettings>
-        <GridPageSettings PageCount="5"></GridPageSettings>
-        <GridAggregates>
-            <GridAggregate >
-                <GridAggregateColumns>
-
-                    <GridAggregateColumn ColumnName="TotalAMT" Field="@nameof(CashVoucher.Amount)" Type="AggregateType.Sum" Format="C2">
-                        <GroupCaptionTemplate>
-                            @{
-
-                                var SumValue = (context as AggregateTemplateContext);
-                                    <div class="text-danger">
-                                    Total Amount: @SumValue.Sum
-
-                                </div>
-                            }
-
-                        </GroupCaptionTemplate>
-
-                    </GridAggregateColumn>
-                </GridAggregateColumns>
-            </GridAggregate>
-        </GridAggregates>
-
-        <GridColumns>
-            @foreach (var prop in typeof(CashVoucher).GetProperties())
-            {
-            @if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "Employee" && prop.Name != "Partys" && prop.Name != "PartyId" && prop.Name != "Store" && prop.Name != "StoreId" && prop.Name != "UserId" && prop.Name != "EntryStatus" && prop.Name != "IsReadOnly" && prop.Name != "MarkedDeleted")
-                {
-                    <GridColumn Field="@prop.Name" IsPrimaryKey="@(prop.Name == "VoucherNumber")" AllowEditing="@prop.CanWrite"></GridColumn>
-                }
-                else if (prop.Name == "TransactionId")
-                {
-                    <GridForeignColumn Field=@nameof(CashVoucher.TransactionId) HeaderText="Transaction" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@modeList"></GridForeignColumn>
-                }
-                else if (prop.Name == "EmployeeId")
-                {
-                    <GridForeignColumn Field=@nameof(CashVoucher.EmployeeId) HeaderText="Issued By" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@employees"></GridForeignColumn>
-                }
-                else if (prop.Name == "PartyId")
-                {
-                    <GridForeignColumn Field=@nameof(CashVoucher.PartyId) HeaderText="Ledger" ForeignKeyField="ID" ForeignKeyValue="Value" ForeignDataSource="@parties"></GridForeignColumn>
-                }
-
-            }
-        </GridColumns>
-    </SfGrid>
-</ContentMain>
-
+<EntityGridIndex TItem="CashVoucherDTO" Baseurl="/vouchers/cash" Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 @code {
-    private string[] GroupedColumn = new string[] { "VoucherType" };
-    private List<CashVoucher>? entities;
-    private SelectOption[]? modeList;
-    private SelectOption[]? employees;
-    private SelectOption[]? parties;
-    SfGrid<CashVoucher> Grid;
+    private List<CashVoucherDTO>? entities;
 
-    bool Loading = true;
+
+
 
     protected override async Task OnInitializedAsync()
     {
-        // CustomCol();
-        if (string.IsNullOrEmpty(Setting.StoreCode))
-        {
-            Helper.Msg("Error", "Select store!, Kindly re-login", true);
-            return;
-        }
         try
         {
-             CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
-            CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
-
-            entities = await Helper.FetchAsync<CashVoucher>($"CashVouchers/bystore", $"?storeid={Setting.StoreCode}");
-            modeList = await Helper.FetchOptionsAsync("Transactions", "");
-            employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
-            parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
-            Loading = false;
-            await Grid.AutoFitColumnsAsync();
+            GroupedColumn = new string[] { "VoucherType" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
             StateHasChanged();
+            base.OnInitialized();
         }
         catch (Exception exception)
         {
-            // exception.Redirect();
+
             Helper.Msg("Error On Init", exception.Message, true);
         }
+
+    }
+
+    async Task<List<CashVoucherDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
+        return entities;
 
     }
 }
