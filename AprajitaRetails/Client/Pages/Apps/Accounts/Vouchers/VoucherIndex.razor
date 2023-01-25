@@ -26,6 +26,7 @@
 @inject NavigationManager NavigationManager
 
 <EntityGridIndex TItem="VoucherDTO" Title="Vouchers" Columns="@GridCols"
+                 Baseurl="/vouchers"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
 
