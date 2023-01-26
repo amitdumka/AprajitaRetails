@@ -21,8 +21,7 @@
             AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true"
             ID="Grid" @ref="Grid" Columns="@Columns" EnableAltRow="false">
         <GridEvents OnToolbarClick="ToolbarClick" CommandClicked="CommandClicked" TValue="TItem"></GridEvents>
-        @*ContextMenuItemClicked="ContextMenuItemClickedHandler" ColumnMenuItemClicked="ColumnMenuItemClickedHandler"*@
-
+        
         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
         @if (Grouping)
         {
