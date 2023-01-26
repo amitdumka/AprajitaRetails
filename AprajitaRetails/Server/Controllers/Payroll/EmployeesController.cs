@@ -1,11 +1,11 @@
 using AprajitaRetails.Server.BL.Payrolls;
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using AprajitaRetails.Shared.AutoMapper.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -39,24 +39,24 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             if (isWorking)
-                return await _context.Employees.Include(c=>c.Store).Where(c => c.StoreId == storeid && c.IsWorking)
+                return await _context.Employees.Include(c => c.Store).Where(c => c.StoreId == storeid && c.IsWorking)
                     .ProjectTo<EmployeeDTO>(_mapper.ConfigurationProvider).ToListAsync();
             else
-                return await _context.Employees.Include(c=>c.Store).Where(c => c.StoreId == storeid)
+                return await _context.Employees.Include(c => c.Store).Where(c => c.StoreId == storeid)
                     .ProjectTo<EmployeeDTO>(_mapper.ConfigurationProvider)
                     .ToListAsync();
         }
         [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByStore(string storeid,bool isWorking=true)
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeesByStore(string storeid, bool isWorking = true)
         {
             if (_context.Employees == null)
             {
                 return NotFound();
             }
-            if(isWorking)
-            return await _context.Employees.Where(c=>c.StoreId==storeid && c.IsWorking).ToListAsync();
+            if (isWorking)
+                return await _context.Employees.Where(c => c.StoreId == storeid && c.IsWorking).ToListAsync();
             else
-                return await _context.Employees.Where(c => c.StoreId == storeid) .ToListAsync();
+                return await _context.Employees.Where(c => c.StoreId == storeid).ToListAsync();
         }
 
         // GET: api/Employees/5

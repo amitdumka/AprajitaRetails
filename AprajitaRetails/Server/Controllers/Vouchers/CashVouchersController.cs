@@ -6,8 +6,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Syncfusion.Blazor.Diagrams;
-using System.Collections.Generic;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {

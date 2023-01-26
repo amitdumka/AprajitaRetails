@@ -1,6 +1,6 @@
 ﻿@page "/vouchers"
 
-@inherits AprajitaRetails.Client.Shared.Test.IndexView
+@inherits AprajitaRetails.BasicViews.IndexView
 
 @using AprajitaRetails.Shared.Models.Vouchers;
 @using Microsoft.AspNetCore.Authorization;
@@ -23,7 +23,7 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="VoucherDTO" Title="Vouchers" Columns="@GridCols"
+<EntityGridIndex TItem="VoucherDTO" Title="Vouchers" Columns="@GridCols" EnableAggretor=true
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 

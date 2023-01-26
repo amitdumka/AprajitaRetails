@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Syncfusion.Blazor.Grids;
 using System.Globalization;
 using System.Reflection;
-using AprajitaRetails.Shared.AutoMapper.DTO;
-using Syncfusion.Blazor.Grids;
 
-namespace AprajitaRetails.Client.Shared.Test
+namespace AprajitaRetails.BasicViews
 {
     public partial class IndexView
     {
@@ -20,6 +18,8 @@ namespace AprajitaRetails.Client.Shared.Test
                 Helper.Msg("Error", "Select store!, Kindly re-login", true);
                 return;
             }
+
+
         }
 
         protected void GenerateColums(PropertyInfo[] infos, string idName)
@@ -27,16 +27,10 @@ namespace AprajitaRetails.Client.Shared.Test
             GridCols = new List<GridColumn>();
             foreach (var prop in infos)
             {
-
-                var x = prop.CustomAttributes;
-                foreach (var item in x)
+                if (prop.Name.EndsWith("Id")==false && prop.Name.EndsWith("ID") == false )
+                    //&& prop.Name != "EmployeeId" && prop.Name != "TransactionId" 
+                    //&& prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
                 {
-                    Console.WriteLine(item.ToString());
-                }
-
-                if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
-                {
-
                     var v = new GridColumn()
                     {
                         AutoFit = true,

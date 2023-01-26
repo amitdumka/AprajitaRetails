@@ -38,7 +38,7 @@ else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 }
 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 {
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    connectionString = builder.Configuration.GetConnectionString("DefaultLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 

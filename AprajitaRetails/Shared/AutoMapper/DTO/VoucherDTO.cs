@@ -1,35 +1,24 @@
-﻿using System;
-using AprajitaRetails.Shared.Models.Bases;
-using AprajitaRetails.Shared.Models.Payroll;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AprajitaRetails.Shared.AutoMapper.DTO
 {
     public class VoucherDTO
     {
         [Key]
-        [Display(Name ="VCH No")]
         public string VoucherNumber { get; set; }
 
-        [Display(Name ="VCH Type")]
         public VoucherType VoucherType { get; set; }
-        [Display(Name ="Date")]
         public DateTime OnDate { get; set; }
-        [Display(Name ="Slip #")]
         public string SlipNumber { get; set; }
-        [Display(Name ="Party")]
+
         public string PartyName { get; set; }
 
         public string Particulars { get; set; }
 
         public decimal Amount { get; set; }
-        [Display(Name ="Mode")]
         public PaymentMode PaymentMode { get; set; }
-        [Display(Name ="Details")]
         public string PaymentDetails { get; set; }
         public string Remarks { get; set; }
-        [Display(Name ="Acc/No")]
         public string AccountNumber { get; set; }
         public string EmployeeId { get; set; }
 
@@ -37,11 +26,9 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string StaffName { get; set; }
 
         public string PartyId { get; set; }
-        [Display(Name ="Ledger")]
         public string LedgerName { get; set; }
 
         public string StoreId { get; set; }
-        [Display(Name ="Store")]
         public string StoreName { get; set; }
     }
 

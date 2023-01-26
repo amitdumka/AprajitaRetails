@@ -1,10 +1,11 @@
 using AprajitaRetails.Server.BL.Payrolls;
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
     [Route("[controller]")]
@@ -36,7 +37,19 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return NotFound();
             }
-            return await _context.SalaryPayments.Where(c=>c.StoreId==storeid && c.OnDate.Year>= DateTime.Today.Year-1).OrderByDescending(c=>c.OnDate).ToListAsync();
+            return await _context.SalaryPayments.Where(c => c.StoreId == storeid && c.OnDate.Year >= DateTime.Today.Year - 1).OrderByDescending(c => c.OnDate).ToListAsync();
+        }
+        // GET: api/SalaryPayments/ByStore
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<SalaryPaymentDTO>>> GetSalaryPaymentByStoreDTO(string storeid)
+        {
+            if (_context.SalaryPayments == null)
+            {
+                return NotFound();
+            }
+            return await _context.SalaryPayments.Include(c => c.Employee).Include(c => c.Store).Where(c => c.OnDate.Year >= DateTime.Today.Year - 1 && c.StoreId == storeid)
+                .OrderByDescending(c => c.OnDate).ProjectTo<SalaryPaymentDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
         // GET: api/SalaryPayments/5
         [HttpGet("{id}")]

@@ -1,103 +1,102 @@
 ﻿@page "/payroll/SalaryPayments"
+ 
 
-@using AprajitaRetails.Commons
-@using AprajitaRetails.AdminLte
-@using AprajitaRetails.Shared.Models.Payroll
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Payroll;
 @using Microsoft.AspNetCore.Authorization;
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-@using AprajitaRetails.Helpers
-@using AprajitaRetails.Client.Helpers
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
 
-@inject ClientSetting Setting
-@inject DataHelper Helper
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
 
 @attribute [Authorize]
 
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
 
-<ContentMain>
-    <EntityList Title="@Title" BaseUrl=@PageUrl Loading=@Loading>
-        <TableHead>
-            <TableHeadCell>ID</TableHeadCell>
-            <TableHeadCell>Employee </TableHeadCell>
-            <TableHeadCell> Componet</TableHeadCell>
-            <TableHeadCell>  Month</TableHeadCell>
-            <TableHeadCell> Date</TableHeadCell>
-            <TableHeadCell>Amount </TableHeadCell>
-            <TableHeadCell> Mode</TableHeadCell>
-            <TableHeadCell>Details </TableHeadCell>
-            <TableHeadCell> </TableHeadCell>
-        </TableHead>
-        <TableBody>
-            @foreach (var ent in entities)
-            {
-                <TableRow>
-                    <TableCell>@ent.SalaryPaymentId</TableCell>
-                    <TableCell>@StaffName(ent.EmployeeId)</TableCell>
-                    <TableCell>@ent.SalaryComponet.ToString()</TableCell>
-                    <TableCell>@ent.SalaryMonth</TableCell>
-                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
-                    <TableCell>@ent.Amount.ToString()</TableCell>
-                    <TableCell>@ent.PayMode.ToString()</TableCell>
-                    <TableCell>@ent.Details</TableCell>
+<EntityGridIndex TItem="SalaryPaymentDTO" Title="Salary Payment" Columns="@GridCols"
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked" EnableAggretor=true
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-                    <TableCell>  <ActionMenu Link=@PageUrl Id="@ent.SalaryPaymentId" OnClickDelete="()=>ConfirmDelete(ent.SalaryPaymentId)" /></TableCell>
-                </TableRow>
-            }
-        </TableBody>
-    </EntityList>
-</ContentMain>
+
 
 @code {
+    private const string BaseURL = "/payroll/SalaryPayments";
+    private List<SalaryPaymentDTO>? entities;
 
-    private const string PageUrl = "/payroll/SalaryPayments";
-
-    private const string Title = "Salary Payment";
-    private List<SalaryPayment>? entities;
-
-    private List<Employee>? employees;
-
-    private bool Loading = true;
-    
-    private string StaffName(string id)
-    {
-        return employees != null ? employees.First(c => c.EmployeeId == id).StaffName : "";
-    }
-
-    async void ConfirmDelete(string id)
-    {
-
-        var flag = await Helper.DeleteAsync("SalaryPayments", "Salary Payment", id);
-
-        if (flag)
-        {
-            entities.Remove(entities.First(c => c.SalaryPaymentId == id));
-            StateHasChanged();
-            Helper.Msg("Delete", $"{Title} {id} is deleted");
-            StateHasChanged();
-        }
-
-    }
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            if (!string.IsNullOrEmpty(Setting.StoreCode))
-            {
-                employees = await Helper.FetchAsync<Employee>("Employees/ByStore", $"?storeid={Setting.StoreCode}&isWorking=true");
 
-                entities = await Helper.FetchAsync<SalaryPayment>("SalaryPayments/ByStore", $"?storeid={Setting.StoreCode}");
-                Loading = false;
-                StateHasChanged();
-            }
-            else
-            {
-                Helper.Msg("Error", "Store Code is not selected! Kindly re-login!", true);
-            }
+            GroupedColumn = new string[] { "SalaryMonth", "StaffName" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(SalaryPaymentDTO).GetProperties(), "SalaryPaymentId");
+            StateHasChanged();
+            base.OnInitialized();
+            return;
+        }
+        catch (HttpRequestException e)
+        {
+           
+            Helper.Msg("Server Error", "Failed to get data.\n #" + e.StatusCode, true);
+
         }
         catch (Exception exception)
         {
-            Helper.Msg("Error", exception.Message, true);
+
+            Helper.Msg("Error[s]", exception.Message, true);
+         
+        }
+        //finally
+        //{
+        //    GenerateColums(typeof(SalaryPaymentDTO).GetProperties(), "SalaryPaymentId");
+        //    StateHasChanged();
+        //    base.OnInitialized();
+        //}
+
+    }
+
+    async Task<List<SalaryPaymentDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<SalaryPaymentDTO>($"SalaryPayments/bystoredto", $"?storeid={Setting.StoreCode}");
+
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<SalaryPaymentDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.SalaryPaymentId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.SalaryPaymentId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.SalaryPaymentId}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
         }
     }
 
 }
+ 

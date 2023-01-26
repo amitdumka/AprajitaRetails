@@ -1,4 +1,6 @@
-﻿@page "/payroll/employees"
+﻿@page "/payroll/advances"
+
+
 @inherits AprajitaRetails.BasicViews.IndexView
 
 @using AprajitaRetails.Shared.Models.Payroll;
@@ -22,21 +24,25 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="EmployeeDTO" Title="Employees" Columns="@GridCols" Baseurl=@BaseURL CommandClicked="OnCommandClicked"
-                @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+<EntityGridIndex TItem="StaffAdvanceReceiptDTO" Title="Salary Advance Reciepts" Columns="@GridCols"
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
+
 
 @code {
-    private const string BaseURL = "/payroll/employees";
-    private List<EmployeeDTO>? entities;
+    private const string BaseURL = "/payroll/advances";
+    private List<StaffAdvanceReceiptDTO>? entities;
 
     protected override async Task OnInitializedAsync()
     {
         try
-        { 
-            GroupedColumn = new string[] { "IsWorking", "Category"};
+        {
+             
+            GroupedColumn = new string[] { "StaffName" };
             InitView();
             await FetchDataAsync();
-            GenerateColums(typeof(EmployeeDTO).GetProperties(), "EmployeeId");
+            GenerateColums(typeof(StaffAdvanceReceiptDTO).GetProperties(), "StaffAdvanceReceiptId");
             StateHasChanged();
             base.OnInitialized();
         }
@@ -48,28 +54,29 @@
 
     }
 
-    async Task<List<EmployeeDTO>?> FetchDataAsync()
+    async Task<List<StaffAdvanceReceiptDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<EmployeeDTO>($"Employees/bystoredto", $"?storeid={Setting.StoreCode}&isWorking=false");
+        entities = await Helper.FetchAsync<StaffAdvanceReceiptDTO>($"StaffAdvanceReceipts/bystoredto", $"?storeid={Setting.StoreCode}");
+
         return entities;
 
     }
-    public void OnCommandClicked(CommandClickEventArgs<EmployeeDTO> args)
+    public void OnCommandClicked(CommandClickEventArgs<StaffAdvanceReceiptDTO> args)
     {
-         
+
         if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
         {
-            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.EmployeeId}");
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.StaffAdvanceReceiptId}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.EmployeeId}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StaffAdvanceReceiptId}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.EmployeeId}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StaffAdvanceReceiptId}");
         }
         else
         {
@@ -79,4 +86,3 @@
 
 }
 
- 

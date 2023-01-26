@@ -1,9 +1,10 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
     [Route("[controller]")]
@@ -26,6 +27,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             return await _context.Salaries.ToListAsync();
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<SalaryDTO>>> GetSalaryByStoreDTO(string storeid)
+        {
+            if (_context.Salaries == null)
+            {
+                return NotFound();
+            }
+            return await _context.Salaries.Include(c => c.Employee).Include(c => c.Store).Where(c => c.IsEffective && c.StoreId == storeid)
+                .OrderByDescending(c => c.EffectiveDate).ProjectTo<SalaryDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/Salaries/5

@@ -1,6 +1,4 @@
-﻿using System;
-using AprajitaRetails.Shared.Models.Bases;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AprajitaRetails.Shared.AutoMapper.DTO
 {
@@ -19,7 +17,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string PanNo { get; set; }
         public string GSTIN { get; set; }
         public string VatNo { get; set; }
-         
+
     }
 
 

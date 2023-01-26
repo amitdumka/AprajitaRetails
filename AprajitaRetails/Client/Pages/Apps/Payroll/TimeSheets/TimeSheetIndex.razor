@@ -1,5 +1,85 @@
-﻿<h3>TimeSheetIndex</h3>
+﻿@page "/payroll/timesheet"
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Payroll;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="TimeSheetDTO" Title="Time Sheet" Columns="@GridCols"
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
+
 
 @code {
+    private const string BaseURL = "/payroll/timesheet";
+    private List<TimeSheetDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            GroupedColumn = new string[] { "OnDate", "StaffName" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(TimeSheetDTO).GetProperties(), "Id");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<TimeSheetDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<TimeSheetDTO>($"TimeSheets/bystoredto", $"?storeid={Setting.StoreCode}");
+
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<TimeSheetDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.Id}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Id}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Id}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
 
 }

@@ -1,10 +1,7 @@
-﻿using System;
+﻿using AprajitaRetails.Shared.Models.Inventory;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AprajitaRetails.Shared.Models.Bases;
-using AprajitaRetails.Shared.Models.Inventory;
-using AprajitaRetails.Shared.Models.Stores;
 
 namespace AprajitaRetails.Shared.AutoMapper.DTO
 {
@@ -99,7 +96,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string CustomerName { get; set; }
         public string StoreId { get; set; }
         public string StoreName { get; set; }
-        
+
     }
 
     public class ProductSaleDTO
@@ -136,7 +133,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string SalesmanId { get; set; }
         public string SalemanName { get; set; }
         public bool Tailoring { get; set; }
-       
+
     }
 
     public class SaleItemDTO
@@ -175,7 +172,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string StoreName { get; set; }
     }
 
-     
+
 
     public class CardPaymentDetailDTO
     {
@@ -187,7 +184,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public int CardLastDigit { get; set; }
         public int AuthCode { get; set; }
         public string? EDCTerminalId { get; set; }
-        public string EDCTerminalName{ get; set; }
+        public string EDCTerminalName { get; set; }
     }
     public class StockDTO
     {

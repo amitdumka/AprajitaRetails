@@ -1,10 +1,10 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Vouchers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using AprajitaRetails.Shared.AutoMapper.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
@@ -16,7 +16,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         private readonly IMapper _mapper;
         public NotesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;_mapper = mapper;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/Notes
@@ -47,7 +47,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             {
                 return NotFound();
             }
-            return await _context.Notes.Include(c=>c.Store).Include(c=>c.Party).Where(c => c.StoreId == storeid && c.OnDate.Year > (DateTime.Today.Year - 2)).OrderByDescending(c => c.OnDate)
+            return await _context.Notes.Include(c => c.Store).Include(c => c.Party).Where(c => c.StoreId == storeid && c.OnDate.Year > (DateTime.Today.Year - 2)).OrderByDescending(c => c.OnDate)
                 .ProjectTo<NoteDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

@@ -1,10 +1,10 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Radzen.Blazor.Rendering;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -28,6 +28,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             return await _context.TimeSheets.ToListAsync();
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TimeSheetDTO>>> GetTimeSheetByStoreDTO(string storeid)
+        {
+            if (_context.TimeSheets == null)
+            {
+                return NotFound();
+            }
+            return await _context.TimeSheets.Include(c => c.Employee).Where(c => c.OutTime.Year == DateTime.Today.Year )
+                .OrderByDescending(c => c.OutTime).ProjectTo<TimeSheetDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/TimeSheets/5

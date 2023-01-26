@@ -1,10 +1,10 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Radzen.Blazor.Rendering;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -29,7 +29,17 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             }
             return await _context.StaffAdvanceReceipts.ToListAsync();
         }
-
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<StaffAdvanceReceiptDTO>>> GetStaffAdvanceReceiptByStoreDTO(string storeid)
+        {
+            if (_context.StaffAdvanceReceipts == null)
+            {
+                return NotFound();
+            }
+            return await _context.StaffAdvanceReceipts.Include(c => c.Employee).Include(c => c.Store).Where(c => c.OnDate.Year == DateTime.Today.Year && c.StoreId == storeid)
+                .OrderByDescending(c => c.OnDate).ProjectTo<StaffAdvanceReceiptDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
         // GET: api/StaffAdvanceReceipts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StaffAdvanceReceipt>> GetStaffAdvanceReceipt(string id)

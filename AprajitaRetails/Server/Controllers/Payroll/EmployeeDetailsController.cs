@@ -1,10 +1,10 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using AprajitaRetails.Shared.AutoMapper.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
@@ -14,9 +14,9 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     {
         private readonly ARDBContext _context;
         private readonly IMapper _mapper;
-        public EmployeeDetailsController(ARDBContext context,IMapper mapper)
+        public EmployeeDetailsController(ARDBContext context, IMapper mapper)
         {
-            _context = context;_mapper = mapper;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/EmployeeDetails
@@ -37,7 +37,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return NotFound();
             }
-            return await _context.EmployeeDetails.Include(c => c.Employee).Include(c=>c.Store).Where(c => c.StoreId == storeid).ProjectTo<EmployeeDetailsDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            return await _context.EmployeeDetails.Include(c => c.Employee).Include(c => c.Store).Where(c => c.StoreId == storeid).ProjectTo<EmployeeDetailsDTO>(_mapper.ConfigurationProvider).ToListAsync();
         }
         // GET: api/EmployeeDetails
         [HttpGet("ByStore")]
@@ -47,7 +47,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return NotFound();
             }
-            return await _context.EmployeeDetails.Include(c=>c.Employee).Where(c=>c.StoreId==storeid).ToListAsync();
+            return await _context.EmployeeDetails.Include(c => c.Employee).Where(c => c.StoreId == storeid).ToListAsync();
         }
         // GET: api/EmployeeDetails/5
         [HttpGet("{id}")]

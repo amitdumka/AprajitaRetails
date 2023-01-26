@@ -16,6 +16,10 @@ namespace AprajitaRetails.Server
             CreateMap<Employee, EmployeeDTO>().ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))
                  .ReverseMap();
 
+            CreateMap<MonthlyAttendance, MonthlyAttendanceDTO>()
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))
+                .ForMember(dest => dest.StaffName, opt => opt.MapFrom(src => src.Employee.StaffName)).ReverseMap();
+
             CreateMap<Store, StoreDTO>();
 
             CreateMap<PaySlip, PaySlipDTO>().ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))

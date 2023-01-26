@@ -1,9 +1,10 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
     [Route("[controller]")]
@@ -26,6 +27,27 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 return NotFound();
             }
             return await _context.PaySlips.ToListAsync();
+        }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<PaySlip>>> GetPaySlipByStore(string storeid)
+        {
+            if (_context.PaySlips == null)
+            {
+                return NotFound();
+            }
+            return await _context.PaySlips.Where(c => c.OnDate.Year == DateTime.Today.Year && c.StoreId == storeid).OrderByDescending(c => c.OnDate).ToListAsync();
+        }
+        // GET: api/PaySlips
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<PaySlipDTO>>> GetPaySlipByStoreDTO(string storeid)
+        {
+            if (_context.PaySlips == null)
+            {
+                return NotFound();
+            }
+            return await _context.PaySlips.Include(c => c.CurrentSalary).Include(c => c.Employee).Include(c => c.Store).Where(c => c.OnDate.Year >= DateTime.Today.Year-1 && c.StoreId == storeid)
+                .OrderByDescending(c => c.OnDate).ProjectTo<PaySlipDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/PaySlips/5

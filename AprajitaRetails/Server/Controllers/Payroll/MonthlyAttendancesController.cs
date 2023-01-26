@@ -1,9 +1,10 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
     [Route("[controller]")]
@@ -12,7 +13,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
     {
         private readonly ARDBContext _context;
         private readonly IMapper _mapper;
-        public MonthlyAttendancesController(ARDBContext context,IMapper mapper)
+        public MonthlyAttendancesController(ARDBContext context, IMapper mapper)
         {
             _context = context; _mapper = mapper;
         }
@@ -27,6 +28,33 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             }
             return await _context.MonthlyAttendances.ToListAsync();
         }
+
+        // GET: api/MonthlyAttendances/ByStore
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<MonthlyAttendance>>> GetMonthlyAttendanceByStore(string storeid)
+        {
+            if (_context.MonthlyAttendances == null)
+            {
+                return NotFound();
+            }
+            return await _context.MonthlyAttendances.Where(c => c.OnDate.Year >= DateTime.Today.Year-1 && c.StoreId == storeid)
+                .OrderByDescending(c => c.OnDate)
+                .ToListAsync();
+        }
+        // GET: api/MonthlyAttendances/ByStore
+        [HttpGet("ByStoreDTo")]
+        public async Task<ActionResult<IEnumerable<MonthlyAttendanceDTO>>> GetMonthlyAttendanceByStoreDTO(string storeid)
+        {
+            if (_context.MonthlyAttendances == null)
+            {
+                return NotFound();
+            }
+            return await _context.MonthlyAttendances.Include(c => c.Employee).Include(c => c.Store).Where(c => c.OnDate.Year >= DateTime.Today.Year-1 && c.StoreId == storeid)
+                .OrderByDescending(c => c.OnDate).ProjectTo<MonthlyAttendanceDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+
 
         // GET: api/MonthlyAttendances/5
         [HttpGet("{id}")]

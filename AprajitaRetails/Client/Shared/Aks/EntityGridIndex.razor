@@ -21,16 +21,23 @@
             AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true"
             ID="Grid" @ref="Grid" Columns="@Columns" EnableAltRow="false">
         <GridEvents OnToolbarClick="ToolbarClick" CommandClicked="CommandClicked" TValue="TItem"></GridEvents>
-        
+        <GridTemplates>
+            <EmptyRecordTemplate>
+                <span>@Title : No Record found! Kindly add records </span>
+            </EmptyRecordTemplate>
+        </GridTemplates>
         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+        
         @if (Grouping)
         {
             <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="false"></GridGroupSettings>
         }
         <GridPageSettings PageCount="5"></GridPageSettings>
-        <EntityAggregator>
-            <EntityAggCol Title="Total Sum" Field="Amount"></EntityAggCol>
-        </EntityAggregator>
+        @if (EnableAggretor)
+        {
+            <EntityAggregator>
+                <EntityAggCol Title="@AggTitle" Field="@AggSumField"></EntityAggCol>
+        </EntityAggregator>}
         @ChildContent
     </SfGrid>
 </ContentMain>
@@ -48,8 +55,8 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public List<TItem> Entities { get; set; }
     [Parameter] public bool EnableAggretor { get; set; } = false;
-    [Parameter] public string AggTitle { get; set; } = "";
-    [Parameter] public string AggSumField { get; set; } = "";
+    [Parameter] public string AggTitle { get; set; } = "Total";
+    [Parameter] public string AggSumField { get; set; } = "Amount";
     [Parameter] public string Baseurl { get; set; } = "/";
     [Parameter] public List<GridColumn> Columns { get; set; }
     [Parameter] public EventCallback<List<TItem>> EntitiesChanged { get; set; }

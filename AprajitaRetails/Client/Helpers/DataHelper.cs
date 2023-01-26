@@ -1,8 +1,8 @@
 ﻿using AprajitaRetails.Shared.ViewModels;
-using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Radzen;
 using Syncfusion.Blazor.Popups;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using System.Net.Http.Json;
 
 namespace AprajitaRetails.Client.Helpers
 {

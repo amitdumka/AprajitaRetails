@@ -1,10 +1,7 @@
-﻿using System;
-using AprajitaRetails.Shared.Models.Bases;
-using AprajitaRetails.Shared.Models.Stores;
+﻿using AprajitaRetails.Shared.Models.Bases;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 
 
 namespace AprajitaRetails.Shared.AutoMapper.DTO
@@ -108,7 +105,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
     {
         [Key]
         public string EmployeeId { get; set; }
-        public int EmpId { get; set; } 
+        public int EmpId { get; set; }
 
         [Display(Name = "Employee Name")]
         public string StaffName
@@ -145,7 +142,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string SalaryId { get; set; }
 
         public string EmployeeId { get; set; }
-        public string StaffName{ get; set; }
+        public string StaffName { get; set; }
 
         [DataType(DataType.Currency), Column(TypeName = "money")]
         public decimal BasicSalary { get; set; }
@@ -212,7 +209,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         [Display(Name = "Staff Name")]
         public string EmployeeId { get; set; }
 
-        public string  StaffName { get; set; }
+        public string StaffName { get; set; }
 
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Receipt Date")]
@@ -328,7 +325,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public DateTime OutTime { get; set; }
         public DateTime? InTime { get; set; }
         public string Reason { get; set; }
-      
+
         public double Duration { get { return ((InTime.HasValue ? InTime.Value : DateTime.Now) - OutTime).TotalMinutes; } }
 
         public string StoreId { get; set; }

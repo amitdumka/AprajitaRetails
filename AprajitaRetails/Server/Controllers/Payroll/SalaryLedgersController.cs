@@ -1,9 +1,8 @@
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Payroll;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
     [Route("[controller]")]

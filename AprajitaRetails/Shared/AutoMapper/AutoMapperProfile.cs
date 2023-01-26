@@ -1,13 +1,7 @@
-﻿using System;
-using AprajitaRetails.Shared.Models.Banking;
+﻿using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
-using AprajitaRetails.Shared.Models.Inventory;
-using AprajitaRetails.Shared.Models.Bases;
-using AprajitaRetails.Shared.Models.Auth;
-using AprajitaRetails.Shared.AutoMapper.DTO;
-
 using AutoMapper;
 
 namespace AprajitaRetails.Shared.AutoMapper
