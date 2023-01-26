@@ -24,7 +24,7 @@
 @inject NavigationManager NavigationManager
 
 <EntityGridIndex TItem="VoucherDTO" Title="Vouchers" Columns="@GridCols"
-                 Baseurl="/vouchers"
+                 Baseurl="/vouchers" CommandClicked="OnCommandClicked"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
 @code {
@@ -56,7 +56,35 @@
         return entities;
 
     }
-    
+    public void OnCommandClicked(CommandClickEventArgs<VoucherDTO> args)
+    {
+        // Perform required operations here.
+       
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+
+             NavigationManager.NavigateTo($"/vouchers/Edit/true/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+           //TODO: Make Detail page to handle delete request.
+           //TODO: or Show Custom Dialog to show detail and ask confirmation for delete.
+           //TODO: implement both for Better intergation
+
+            NavigationManager.NavigateTo($"/vouchers/Detail/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+             NavigationManager.NavigateTo($"/Vouchers/Detail/{args.RowData.VoucherNumber}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+
 }
 
 

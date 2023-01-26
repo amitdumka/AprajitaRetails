@@ -20,8 +20,6 @@ namespace AprajitaRetails.Client.Shared.Test
                 Helper.Msg("Error", "Select store!, Kindly re-login", true);
                 return;
             }
-           
-
         }
 
         protected void GenerateColums(PropertyInfo[] infos, string idName)
@@ -36,13 +34,13 @@ namespace AprajitaRetails.Client.Shared.Test
                     Console.WriteLine(item.ToString());
                 }
 
-                if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" &&    prop.Name != "PartyId" &&    prop.Name != "StoreId" )
+                if (prop.Name != "EmployeeId" && prop.Name != "TransactionId" && prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
                 {
-                   
+
                     var v = new GridColumn()
                     {
                         AutoFit = true,
-                       
+
                         Field = prop.Name,
                         AllowSorting = true,
                         IsPrimaryKey = prop.Name == idName ? true : false,
@@ -52,13 +50,47 @@ namespace AprajitaRetails.Client.Shared.Test
                     };
                     if (prop.GetType() == typeof(decimal))
                     {
-                        if (prop.Name.Contains("Amount") )
-                           v.Format = "C2";
+                        if (prop.Name.Contains("Amount"))
+                            v.Format = "C2";
                     }
 
                     GridCols.Add(v);
                 }
             }
+
+            var CommandsList = new List<GridCommandColumn>();
+            var edit = new GridCommandColumn()
+            {
+                ID = "edit",
+                Title = "Edit",
+                Type = CommandButtonType.None,
+                ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" }
+            };
+            var delete = new GridCommandColumn()
+            {
+                ID = "delete",
+                Title = "Delete",
+                Type = CommandButtonType.None,
+                ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-delete", CssClass = "e-flat" }
+            };
+            var info = new GridCommandColumn()
+            {
+                ID = "info",
+                Title = "Detail",
+                Type = CommandButtonType.None,
+                ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-update", CssClass = "e-flat" }
+            };
+            CommandsList.Add(info);
+            CommandsList.Add(edit);
+            CommandsList.Add(delete);
+            var cCol = new GridColumn()
+            {
+                HeaderText = "Actions",
+                AutoFit = true,
+                Commands = CommandsList
+
+            };
+            GridCols.Add(cCol);
         }
 
 
