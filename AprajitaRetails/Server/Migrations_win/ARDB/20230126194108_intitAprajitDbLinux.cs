@@ -799,7 +799,7 @@ namespace AprajitaRetails.Server.Migrations.ARDB
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     EntryTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Remarks = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     IsTailoring = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsReadOnly = table.Column<bool>(type: "bit", nullable: false),
