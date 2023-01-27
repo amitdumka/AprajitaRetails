@@ -1,16 +1,20 @@
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
-
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.KnownProxies.Add(IPAddress.Parse("192.168.11.21"));
+});
 //Detemining which os
 //bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 //bool isMac = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
@@ -68,7 +72,14 @@ builder.Services.AddAuthentication()
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+// if (!builder.Environment.IsDevelopment())
+// {
+//     builder.Services.AddHttpsRedirection(options =>
+//     {
+//         options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+//         options.HttpsPort = 443;
+//     });
+// }
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -76,6 +87,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
+   
 }
 else
 {
@@ -84,6 +96,7 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
     //app.UseHttpsRedirection();
+    
 }
 
 app.UseHttpsRedirection();
@@ -92,7 +105,12 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
+// using Microsoft.AspNetCore.HttpOverrides;
 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.UseIdentityServer();
 app.UseAuthorization();
 
