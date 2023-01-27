@@ -59,19 +59,7 @@
             <Column Classes="col.md"><ATextInput @bind-Value=@entity.Particulars Name="Particulars" Label="Particulars" /></Column>
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
 
-            <Column Classes="col.md">
-                <div class="mb-3 row">
-                    <label for="PayMode" class="col-sm-4 col-form-label">Status</label>
-                    <div class="col-sm-6">
-                        <SfComboBox TValue="PaymentMode" TItem="string" Placeholder="Payment"
-                                    Autofill="true"
-                                    @bind-Value="@entity.PaymentMode" PopupHeight="230px"
-                                    DataSource="@payModes">
-                            <ComboBoxFieldSettings Text="Value" Value="ID" />
-                        </SfComboBox>
-                    </div>
-                </div>
-            </Column>
+            
         </Row>
         <Row>
 
