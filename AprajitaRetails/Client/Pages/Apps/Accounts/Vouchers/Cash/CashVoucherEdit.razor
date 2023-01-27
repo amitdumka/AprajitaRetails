@@ -1,0 +1,219 @@
+﻿@page "/vouchers/cash/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Shared.Models.Vouchers
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Payroll
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+
+@attribute [Authorize]
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@CashVoucher" Title="Vouchers[Cash]" ApiUrl="api/vouchers" ReturnUrl="/vouchers/cash" Id="@ID" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.lg">
+
+                <SfRadioButton Label="Payment" CssClass="e-small" Name="voucherType"  EnablePersistence="true" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.CashPayment.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
+
+                <SfRadioButton Label="Receipts" CssClass="e-small" Name="voucherType" LabelPosition="LabelPosition.After" TChecked=@VoucherType Value="@VoucherType.CashReceipt.ToString()" @bind-Checked="entity.VoucherType"></SfRadioButton>
+                
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+
+        </Row>
+        <Row>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.SlipNumber Name="SlipNo" Label="Slip No" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.PartyName Name="PartyName" Label="Party Name" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Particulars Name="Particulars" Label="Particulars" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="PayMode" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="PaymentMode" TItem="string" Placeholder="Payment"
+                                    Autofill="true"
+                                    @bind-Value="@entity.PaymentMode" PopupHeight="230px"
+                                    DataSource="@payModes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+        <Row>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Mode" class="col-sm-4 col-form-label">Mode</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Tran Mode"
+                                    Autofill="true"
+                                    @bind-Value="@entity.TransactionId" PopupHeight="230px"
+                                    DataSource="@TransMode">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+
+           
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="party" class="col-sm-4 col-form-label">Ledger</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Ledger"
+                                    Autofill="true"
+                                    @bind-Value="@entity.PartyId" PopupHeight="230px"
+                                    DataSource="@Parties">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.Remarks Name="Remarls" Label="Remarks" />
+            </Column>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Employee" class="col-sm-4 col-form-label">Issued By</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
+                                    Autofill="true"
+                                    @bind-Value="@entity.EmployeeId" PopupHeight="230px"
+                                    DataSource="@Employees">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.sm"></Column>
+        </Row>
+
+    </EntityEdit>
+</ContentMain>
+
+@code {
+
+    private string Title = "Voucher";
+
+
+    [Parameter] public string ID { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+
+    [Parameter] public VoucherType VoucherType { get; set; } = VoucherType.CashPayment;
+
+    private CashVoucher entity = new CashVoucher { VoucherType = VoucherType.CashPayment, OnDate = DateTime.Now, Amount = 0 };
+
+
+
+    IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
+
+    private IList<SelectOption>? Stores;
+    private IList<SelectOption>? Employees;
+    private IList<SelectOption>? Parties;
+    private IList<SelectOption>? TransMode;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+
+
+        if (IsEdit)
+        {
+            Title = "Edit Voucher[Cash] #" + ID;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                Title = Title + " #VCHNo: " + ID;
+                entity = await Helper.GetRecordAsync<CashVoucher>("/CashVouchers", ID);
+                this.VoucherType = entity.VoucherType;
+
+                StateHasChanged();
+            }
+
+        }
+        else
+        {
+            Title = "Add " + Title;
+
+            entity = new CashVoucher
+            {
+                OnDate = DateTime.Now,
+                VoucherType = VoucherType.CashPayment,
+                TransactionId = TransMode[0].ID,
+                Amount = 0,
+                EmployeeId = Employees[0].ID,
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                PartyId = Parties.First(c => c.Value == "No Party").ID,// Parties[0].ID,//TODO: need to set For no Party
+                PartyName = "",
+                  
+                Remarks = "",
+                SlipNumber = "",
+                
+                StoreId = Setting.StoreCode,
+                UserId = Setting.UserName,
+                VoucherNumber = " ",
+                Particulars = ""
+
+            };
+        }
+        entity.VoucherType = VoucherType;
+
+    }
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            TransMode = await Helper.FetchOptionsAsync("Transactions", Setting.StoreCode);
+            Parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
+            Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("Stores", "");
+
+        }
+        catch (Exception e)
+        {
+            Helper.Msg("Error", e.Message, true);
+        }
+        return true;
+
+    }
+}
