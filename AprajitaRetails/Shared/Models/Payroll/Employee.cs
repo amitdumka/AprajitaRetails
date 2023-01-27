@@ -59,7 +59,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         [Required]
         public string EntryTime { get; set; }
         [Required]
-        [StringLength(20, ErrorMessage = "Remarks is too long.")]
+        [StringLength(50, ErrorMessage = "Remarks is too long.")]
         public string Remarks { get; set; }
 
         [Display(Name = "Tailor")]
