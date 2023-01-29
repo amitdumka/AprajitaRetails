@@ -11,10 +11,10 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
-builder.Services.Configure<ForwardedHeadersOptions>(options =>
-{
-    options.KnownProxies.Add(IPAddress.Parse("192.168.11.21"));
-});
+// builder.Services.Configure<ForwardedHeadersOptions>(options =>
+// {
+//     options.KnownProxies.Add(IPAddress.Parse("192.168.11.21"));
+// });
 //Detemining which os
 //bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 //bool isMac = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
@@ -98,19 +98,18 @@ else
     //app.UseHttpsRedirection();
     
 }
-
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.UseHttpsRedirection();
+
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
 // using Microsoft.AspNetCore.HttpOverrides;
-
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
 app.UseIdentityServer();
 app.UseAuthorization();
 
