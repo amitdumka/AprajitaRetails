@@ -10,6 +10,37 @@ using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
 {
+    public class SetupWithOld
+    {
+        private IWebHostEnvironment hostingEnv;
+        private ARDBContext aRDB;
+        private ImportData ImportData;
+        public SetupWithOld(IWebHostEnvironment env, ARDBContext db)
+        {
+            this.hostingEnv = env; aRDB = db;
+            ImportData = new ImportData(env, db);
+        }
+
+        public async void Start()
+        {
+            var fileList = ImportData.ListFiles();
+            var viFileList = fileList.Where(c => c.FileName.StartsWith("V1_")).ToList();
+            bool flag = true;
+            // Import Store
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c=>c.FileName=="V1_Stores").FirstOrDefault().Path);
+            if (!flag) return;
+            // Import Employee
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Employees").FirstOrDefault().Path);
+            if (!flag) return;
+            // Import Attendances
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Attendances").FirstOrDefault().Path);
+
+
+        }
+
+    }
+
+
     public class ImportData
     {
         private IWebHostEnvironment hostingEnv;

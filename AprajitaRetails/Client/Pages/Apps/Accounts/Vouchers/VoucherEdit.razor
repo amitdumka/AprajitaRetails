@@ -203,6 +203,7 @@
     {
         try
         {
+
             Accounts = await Helper.FetchOptionsAsync("Accounts", Setting.StoreCode);
             Parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
             Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);

@@ -14,6 +14,10 @@
     <Content Remove="Migrations_Mac\**" />
     <EmbeddedResource Remove="Migrations_Mac\**" />
     <None Remove="Migrations_Mac\**" />
+    <Compile Remove="Migrations_win\20230126194025_FirstLinuxIdentity.cs" />
+    <Compile Remove="Migrations_win\20230126194025_FirstLinuxIdentity.Designer.cs" />
+    <Compile Remove="Migrations_win\ARDB\20230126194108_intitAprajitDbLinux.cs" />
+    <Compile Remove="Migrations_win\ARDB\20230126194108_intitAprajitDbLinux.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.1" />

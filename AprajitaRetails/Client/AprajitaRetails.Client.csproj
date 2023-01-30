@@ -1,78 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
-    <ExternalConsole>true</ExternalConsole>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Shared\Apps\" />
-    <None Remove="Shared\Apps\Menu\" />
-    <None Remove="Pages\Apps\Accounts\Vouchers\Cash\" />
-    <None Remove="Pages\Apps\Accounts\Vouchers\Notes\" />
-    <None Remove="Pages\Apps\Accounts\Vouchers\Transcations\" />
-    <None Remove="Pages\Apps\Payroll\" />
-    <None Remove="Pages\Setup\" />
-    <None Remove="Pages\Setup\Import\" />
-    <None Remove="Pages\Auths\" />
-    <None Remove="Helpers\" />
-    <None Remove="Pages\Apps\Payroll\Employees\" />
-    <None Remove="Pages\Apps\Accounts\DailyCash\" />
-    <None Remove="Pages\Apps\Accounts\DailyCash\CashDetails\" />
-    <None Remove="Pages\Apps\Accounts\DailyCash\PettyCashDetails\" />
-    <None Remove="Pages\Apps\Accounts\Banking\" />
-    <None Remove="Pages\Apps\Accounts\Banking\Banks\" />
-    <None Remove="Pages\Apps\Accounts\Banking\Banks %28copy%29\" />
-    <None Remove="Pages\Apps\Stores\" />
-    <None Remove="Pages\Apps\Accounts\Banking\AccountLists\" />
-    <None Remove="Pages\Apps\Accounts\DailySales\Dues\" />
-    <None Remove="Pages\Apps\Stores\Pos\" />
-    <None Remove="Shared\Test\" />
-    <None Remove="Pages\Apps\Test\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
-    <PackageReference Include="Blazorized.AdminLte.Content" Version="3.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.1" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.1" />
-    <PackageReference Include="Radzen.Blazor" Version="4.4.7" />
-    <PackageReference Include="Syncfusion.Blazor" Version="20.4.0.43" />
-<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Shared\AprajitaRetails.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Shared\Apps\Menu\" />
-    <Folder Include="Pages\Apps\Accounts\Vouchers\Cash\" />
-    <Folder Include="Pages\Apps\Accounts\Vouchers\Notes\" />
-    <Folder Include="Pages\Apps\Accounts\Vouchers\Transcations\" />
-    <Folder Include="wwwroot\js\bootstrap\" />
-    <Folder Include="Pages\Setup\" />
-    <Folder Include="Pages\Setup\Import\" />
-    <Folder Include="Pages\Apps\Accounts\DailyCash\" />
-    <Folder Include="Pages\Apps\Accounts\DailyCash\CashDetails\" />
-    <Folder Include="Pages\Apps\Accounts\DailyCash\PettyCashDetails\" />
-    <Folder Include="Pages\Apps\Accounts\Banking\Banks\" />
-    <Folder Include="Pages\Apps\Accounts\Banking\BankAccounts\" />
-    <Folder Include="Pages\Apps\Stores\" />
-    <Folder Include="Pages\Apps\Accounts\Banking\AccountLists\" />
-    <Folder Include="Pages\Apps\Accounts\DailySales\Dues\" />
-    <Folder Include="Pages\Apps\Stores\Pos\" />
-    <Folder Include="Shared\BasicViews\" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
+		<ExternalConsole>true</ExternalConsole>
+	</PropertyGroup>
+	<PropertyGroup>
+		<RunAOTCompilation>true</RunAOTCompilation>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Shared\Apps\" />
+		<None Remove="Shared\Apps\Menu\" />
+		<None Remove="Pages\Apps\Accounts\Vouchers\Cash\" />
+		<None Remove="Pages\Apps\Accounts\Vouchers\Notes\" />
+		<None Remove="Pages\Apps\Accounts\Vouchers\Transcations\" />
+		<None Remove="Pages\Apps\Payroll\" />
+		<None Remove="Pages\Setup\" />
+		<None Remove="Pages\Setup\Import\" />
+		<None Remove="Pages\Auths\" />
+		<None Remove="Helpers\" />
+		<None Remove="Pages\Apps\Payroll\Employees\" />
+		<None Remove="Pages\Apps\Accounts\DailyCash\" />
+		<None Remove="Pages\Apps\Accounts\DailyCash\CashDetails\" />
+		<None Remove="Pages\Apps\Accounts\DailyCash\PettyCashDetails\" />
+		<None Remove="Pages\Apps\Accounts\Banking\" />
+		<None Remove="Pages\Apps\Accounts\Banking\Banks\" />
+		<None Remove="Pages\Apps\Accounts\Banking\Banks %28copy%29\" />
+		<None Remove="Pages\Apps\Stores\" />
+		<None Remove="Pages\Apps\Accounts\Banking\AccountLists\" />
+		<None Remove="Pages\Apps\Accounts\DailySales\Dues\" />
+		<None Remove="Pages\Apps\Stores\Pos\" />
+		<None Remove="Shared\Test\" />
+		<None Remove="Pages\Apps\Test\" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
+		<PackageReference Include="Blazorized.AdminLte.Content" Version="3.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.1" />
+		<PackageReference Include="Radzen.Blazor" Version="4.4.7" />
+		<PackageReference Include="Syncfusion.Blazor" Version="20.4.0.43" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Shared\AprajitaRetails.Shared.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Shared\Apps\Menu\" />
+		<Folder Include="Pages\Apps\Accounts\Vouchers\Cash\" />
+		<Folder Include="Pages\Apps\Accounts\Vouchers\Notes\" />
+		<Folder Include="Pages\Apps\Accounts\Vouchers\Transcations\" />
+		<Folder Include="wwwroot\js\bootstrap\" />
+		<Folder Include="Pages\Setup\" />
+		<Folder Include="Pages\Setup\Import\" />
+		<Folder Include="Pages\Apps\Accounts\DailyCash\" />
+		<Folder Include="Pages\Apps\Accounts\DailyCash\CashDetails\" />
+		<Folder Include="Pages\Apps\Accounts\DailyCash\PettyCashDetails\" />
+		<Folder Include="Pages\Apps\Accounts\Banking\Banks\" />
+		<Folder Include="Pages\Apps\Accounts\Banking\BankAccounts\" />
+		<Folder Include="Pages\Apps\Stores\" />
+		<Folder Include="Pages\Apps\Accounts\Banking\AccountLists\" />
+		<Folder Include="Pages\Apps\Accounts\DailySales\Dues\" />
+		<Folder Include="Pages\Apps\Stores\Pos\" />
+		<Folder Include="Shared\BasicViews\" />
+	</ItemGroup>
 </Project>
