@@ -71,7 +71,7 @@
         bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete");
         if (isConfirm)
         {
-            var result = await Http.DeleteAsync($"bankaccountlists/{id}");
+            var result = await Http.DeleteAsync($"api/bankaccountlists/{id}");
             if (result.IsSuccessStatusCode)
             {
                 entities.Remove(entities.First(c => c.AccountNumber == id));
@@ -88,8 +88,8 @@
     {
         try
         {
-            banks = await Http.GetFromJsonAsync<Bank[]>("Banks");
-            entities = await Http.GetFromJsonAsync<List<BankAccountList>>("bankaccountlists");
+            banks = await Http.GetFromJsonAsync<Bank[]>("api/Banks");
+            entities = await Http.GetFromJsonAsync<List<BankAccountList>>("api/bankaccountlists");
             Loading = false;
             StateHasChanged();
         }

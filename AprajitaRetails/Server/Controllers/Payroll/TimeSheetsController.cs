@@ -29,7 +29,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             }
             return await _context.TimeSheets.ToListAsync();
         }
-        [HttpGet]
+        [HttpGet("ByStoreDTO")]
         public async Task<ActionResult<IEnumerable<TimeSheetDTO>>> GetTimeSheetByStoreDTO(string storeid)
         {
             if (_context.TimeSheets == null)

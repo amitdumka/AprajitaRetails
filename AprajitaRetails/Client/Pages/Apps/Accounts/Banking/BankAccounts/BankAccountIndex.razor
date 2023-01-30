@@ -1,4 +1,4 @@
-﻿@page "/banking/bankaccounts"
+﻿@page "/banking/BankAccounts"
 @using AprajitaRetails.Commons
 @using AprajitaRetails.AdminLte
 @using AprajitaRetails.Shared.Models.Banking
@@ -12,7 +12,7 @@
 @inject HttpClient Http
 
 <ContentMain>
-    <EntityList Title="@Title" BaseUrl="/banking/bankaccounts" Loading=@Loading>
+    <EntityList Title="@Title" BaseUrl="/banking/BankAccounts" Loading=@Loading>
         <TableHead>
             <TableHeadCell>Acc No</TableHeadCell>
             <TableHeadCell>Holder </TableHeadCell>
@@ -40,7 +40,7 @@
                     <TableCell>@ent.IsActive.ToString()</TableCell>
                     <TableCell>@ent.CurrentBalance</TableCell>
 
-                    <TableCell>  <ActionMenu Link="/banking/bankaccounts" Id="@ent.AccountNumber" OnClickDelete="()=>ConfirmDelete(ent.AccountNumber)" /></TableCell>
+                    <TableCell>  <ActionMenu Link="/banking/BankAccounts" Id="@ent.AccountNumber" OnClickDelete="()=>ConfirmDelete(ent.AccountNumber)" /></TableCell>
                 </TableRow>
             }
         </TableBody>
@@ -72,7 +72,7 @@
         bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete");
         if (isConfirm)
         {
-            var result = await Http.DeleteAsync($"BankAccounts/{id}");
+            var result = await Http.DeleteAsync($"api/BankAccounts/{id}");
             if (result.IsSuccessStatusCode)
             {
                 entities.Remove(entities.First(c => c.AccountNumber == id));
@@ -89,8 +89,8 @@
     {
         try
         {
-            banks = await Http.GetFromJsonAsync<Bank[]>("Banks");
-            entities = await Http.GetFromJsonAsync<List<BankAccount>>("BankAccounts");
+            banks = await Http.GetFromJsonAsync<Bank[]>("api/Banks");
+            entities = await Http.GetFromJsonAsync<List<BankAccount>>("api/BankAccounts");
             Loading = false;
             StateHasChanged();
         }

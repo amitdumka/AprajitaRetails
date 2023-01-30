@@ -17,13 +17,15 @@
     <EntityList Title="@Title" BaseUrl="/stores/PosMachines" Loading=@Loading>
         <TableHead>
             <TableHeadCell>ID</TableHeadCell>
-            <TableHeadCell>Employee </TableHeadCell>
-            <TableHeadCell> Componet</TableHeadCell>
-            <TableHeadCell>  Month</TableHeadCell>
+            <TableHeadCell>Name </TableHeadCell>
+            <TableHeadCell> Provider</TableHeadCell>
+            <TableHeadCell>  MID</TableHeadCell>
             <TableHeadCell> Date</TableHeadCell>
-            <TableHeadCell>Amount </TableHeadCell>
-            <TableHeadCell> Mode</TableHeadCell>
-            <TableHeadCell>Details </TableHeadCell>
+            <TableHeadCell>TID </TableHeadCell>
+            <TableHeadCell> Status</TableHeadCell>
+            <TableHeadCell>ClosingDate </TableHeadCell>
+            <TableHeadCell> Bank</TableHeadCell>
+            <TableHeadCell>Store </TableHeadCell>
             <TableHeadCell> </TableHeadCell>
         </TableHead>
         <TableBody>
@@ -36,9 +38,9 @@
                     <TableCell>@ent.MID.ToString()</TableCell>
                     <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
                     <TableCell>@ent.TID.ToString()</TableCell>
-                    <TableCell>@ent.Active..ToString()</TableCell>
+                    <TableCell>@ent.Active.ToString()</TableCell>
                     <TableCell>@ent.CloseDate.ToString()</TableCell>
-                    <TableCell>@banks.First(c => c.BankId == ent.BankId).Name</TableCell>
+                    <TableCell>@banks.FirstOrDefault(c => c.BankId == ent.BankId, Dummy).Name</TableCell>
                     <TableCell>@ent.StoreId.ToString()</TableCell>
                     <TableCell>  <ActionMenu Link="/stores/Posmachines" Id="@ent.EDCTerminalId" OnClickDelete="()=>ConfirmDelete(ent.EDCTerminalId)" /></TableCell>
                 </TableRow>
@@ -48,6 +50,7 @@
 </ContentMain>
 
 @code {
+    Bank Dummy = new Bank {Name="NF", BankId="MISSING" };
     private const string Title = "POS Machines";
     private List<EDCTerminal>? entities;
     private Bank[]? banks;
@@ -78,7 +81,7 @@
     {
         try
         {
-            banks = await Http.GetFromJsonAsync<Bank[]>("Banks");
+            banks = await Http.GetFromJsonAsync<Bank[]>("api/Banks");
             entities = await Http.GetFromJsonAsync<List<EDCTerminal>>("EDCTerminals");
             Loading = false;
             StateHasChanged();

@@ -32,7 +32,7 @@
     {
         if (IsEdit)
         {
-            entity = await Http.GetFromJsonAsync<Bank>($"Banks/{Id}");
+            entity = await Http.GetFromJsonAsync<Bank>($"api/Banks/{Id}");
             StateHasChanged();
         }
 

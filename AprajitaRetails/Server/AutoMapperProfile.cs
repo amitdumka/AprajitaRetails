@@ -43,6 +43,17 @@ namespace AprajitaRetails.Server
                 .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))
                 .ForMember(dest => dest.TransactionName, opt => opt.MapFrom(src => src.TransactionMode.TransactionName))
                 .ForMember(dest => dest.LedgerName, opt => opt.MapFrom(src => src.Partys.PartyName)).ReverseMap();
+
+            CreateMap<TimeSheet, TimeSheetDTO>().ForMember(dest => dest.StaffName, opt => opt.MapFrom(src => src.Employee.StaffName))
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
+            CreateMap<Salary, SalaryDTO>().ForMember(dest => dest.StaffName, opt => opt.MapFrom(src => src.Employee.StaffName))
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
+
+
+            CreateMap<DailySale, DailySaleDTO>().ForMember(dest => dest.SalesmanName, opt => opt.MapFrom(src => src.Salesman.Name))
+                 .ForMember(dest => dest.POSName, opt => opt.MapFrom(src => src.EDC.Name))
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
+
         }
     }
 }

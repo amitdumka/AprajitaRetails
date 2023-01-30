@@ -19,7 +19,7 @@
             <TableHeadCell>Inv No </TableHeadCell>
             <TableHeadCell>Date</TableHeadCell>
             <TableHeadCell>Mode</TableHeadCell>
-            <TableHeadCell>Due</TableHeadCell>
+          
             <TableHeadCell>Amount </TableHeadCell>
             <TableHeadCell> Mode</TableHeadCell>
             <TableHeadCell>Remarks </TableHeadCell>
@@ -33,8 +33,8 @@
                     <TableCell>@ent.InvoiceNumber</TableCell>
                     <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
                     <TableCell>@ent.PayMode.ToString()</TableCell>
-                    <TableCell>@ent.PartialPayment</TableCell>
-                    <TableCell>@ent.Due.ToString()</TableCell>
+                    <TableCell>@ent.PartialPayment.ToString()</TableCell>
+                   
                     <TableCell>@ent.Amount.ToString()</TableCell>
                     <TableCell>@ent.Remarks</TableCell>
 
@@ -47,7 +47,7 @@
 </ContentMain>
 
 @code {
-    private const string Title = "Salary Payment";
+    private const string Title = "Dues Recovery";
     private List<DueRecovery>? entities;
     private bool Loading = true;
 
@@ -56,7 +56,7 @@
         bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete ");
         if (isConfirm)
         {
-            var result = await Http.DeleteAsync($"Attendances/{id}");
+            var result = await Http.DeleteAsync($"DueRecoveries/{id}");
             if (result.IsSuccessStatusCode)
             {
                 entities.Remove(entities.First(c => c.InvoiceNumber == id));

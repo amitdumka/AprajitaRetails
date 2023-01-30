@@ -34,8 +34,33 @@ namespace AprajitaRetails.Server.Importer
             if (!flag) return;
             // Import Attendances
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Attendances").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Banks").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_MonthlyAttendances").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Salaries").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_BankAccounts").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Brands").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_CardPaymentDetails").FirstOrDefault().Path);
 
 
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_CashDetails").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_CustomerDues").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_DailySales").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_EDCMachine").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Parties").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_LedgerMasters").FirstOrDefault().Path);
+
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_PettyCashSheets").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Products").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_ProductSales").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_PurchaseItems").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_PaySlips").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Salesmen").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_TranscationModes").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Vendors").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "CashVouchers").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "Vouchers").FirstOrDefault().Path);
+
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "EmployeeDetails").FirstOrDefault().Path);
         }
 
     }
@@ -197,7 +222,16 @@ namespace AprajitaRetails.Server.Importer
                     case "Contact":
                         await aRDB.AddRangeAsync(JsonToObject<Contact>(path)); break;
                     case "PettyCashSheet":
-                        await aRDB.AddRangeAsync(JsonToObject<PettyCashSheet>(path)); break;
+                        var data = JsonToObject<PettyCashSheet>(path);
+                        foreach (var item in data)
+                        {
+                            item.UserId = "AutoID";
+                            item.EntryStatus = EntryStatus.Added;
+                            item.IsReadOnly = true; 
+                            item.MarkedDeleted=false;
+                            item.StoreId = "ARD";
+                        }
+                        await aRDB.AddRangeAsync(data); break;
                     case "Voucher":
                         await aRDB.AddRangeAsync(JsonToObject<Voucher>(path)); break;
                     case "CashVoucher":

@@ -299,7 +299,7 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public decimal OutAmount { get; set; }
 
     }
-    public class TimeSheet : Base
+    public class TimeSheet : BaseST
     {
         public string Id { get; set; }
         public string EmployeeId { get; set; }

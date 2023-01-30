@@ -1,5 +1,8 @@
 ﻿using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Stores;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +12,12 @@ namespace AprajitaRetails.Server.Controllers.Accounts
     [ApiController]
     public class DailySalesController : ControllerBase
     {
-        private readonly ARDBContext _context;
+        private readonly ARDBContext _context; private readonly IMapper _mapper;
 
-        public DailySalesController(ARDBContext context)
+        public DailySalesController(ARDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/DailySales
@@ -25,6 +29,18 @@ namespace AprajitaRetails.Server.Controllers.Accounts
                 return NotFound();
             }
             return await _context.DailySales.Where(c => c.OnDate.Year > (DateTime.Now.Year - 2)).ToListAsync();
+        }
+        // GET: api/DailySales
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<DailySaleDTO>>> GetDailySalesByStoreDTO(string storeid)
+        {
+            if (_context.DailySales == null)
+            {
+                return NotFound();
+            }
+            return await _context.DailySales.Include(c => c.Store).Include(c => c.EDC).Include(c => c.Salesman).Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate)
+                .ProjectTo<DailySaleDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/DailySales/5

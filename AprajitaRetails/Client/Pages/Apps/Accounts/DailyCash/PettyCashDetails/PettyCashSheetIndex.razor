@@ -48,7 +48,6 @@
                     <TableCell>@ent.PaymentTotal</TableCell>
                     <TableCell>@ent.BankDeposit</TableCell>
                     <TableCell>@ent.CustomerDue</TableCell>
-
                     <TableCell>  <ActionMenu Link="/accounts/PettyCashSheets" Id="@ent.Id" OnClickDelete="()=>ConfirmDelete(ent.Id)" /></TableCell>
                 </TableRow>
             }
@@ -57,9 +56,9 @@
 </ContentMain>
 
 @code {
-    private const string Title = "Salary Payment";
+    private const string Title = "Petty Cash Sheet";
     private List<PettyCashSheet>? entities;
-    // private Employee[]? employees;
+    
     private bool Loading = true;
 
     void Msg(string title, string text, bool error = false)

@@ -54,7 +54,7 @@
         //string confirmMessage = isConfirm ? "" : "canceled";
         if (isConfirm)
         {
-            var result = await Http.DeleteAsync($"banks/{id}");
+            var result = await Http.DeleteAsync($"api/banks/{id}");
             if (result.IsSuccessStatusCode)
             {
                 entities.Remove(entities.First(c => c.BankId == id));
@@ -72,7 +72,7 @@
         try
         {
             // employees = await Http.GetFromJsonAsync<Employee[]>("Cas");
-            entities = await Http.GetFromJsonAsync<List<Bank>>("Banks");
+            entities = await Http.GetFromJsonAsync<List<Bank>>("api/Banks");
             Loading = false;
             StateHasChanged();
         }

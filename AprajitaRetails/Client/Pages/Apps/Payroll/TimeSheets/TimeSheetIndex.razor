@@ -54,7 +54,7 @@
 
     async Task<List<TimeSheetDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<TimeSheetDTO>($"TimeSheets/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<TimeSheetDTO>($"TimeSheets/ByStoreDTO", $"?storeid={Setting.StoreCode}");
 
         return entities;
 

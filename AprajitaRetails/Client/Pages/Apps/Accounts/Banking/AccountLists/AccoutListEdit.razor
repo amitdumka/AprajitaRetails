@@ -105,7 +105,7 @@
         try
         {
             Stores = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Stores");
-            var bb = await Http.GetFromJsonAsync<IList<Bank>>("Banks");
+            var bb = await Http.GetFromJsonAsync<IList<Bank>>("api/Banks");
             Banks = bb.Select(c => new SelectOption { ID = c.BankId, Value = c.Name }).ToList();
             return true;
         }
@@ -122,7 +122,7 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            entity = await Http.GetFromJsonAsync<BankAccountList>($"BankAccountLists/{Id}");
+            entity = await Http.GetFromJsonAsync<BankAccountList>($"api/bankaccountlists/{Id}");
             StateHasChanged();
         }
         else

@@ -16,9 +16,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -38,9 +38,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 833 : 513#ARDI 834 : 2910#ARDI 835 : 3463#BOM ATM(SAVING ACCOUNT) : 2000#BOB ATM : 9000",
+    "ReceiptsNarration": "#ARDI 833 : 513#ARDI 834 : 2910#ARDI 835 : 3463#BOM ATM(SAVING ACCOUNT) : 2000#BOB ATM : 9000",
     "ReceiptsTotal": 17886.00,
-    "PaymentNaration": "#BATERY : 164#MOBILE BILL(BHAIYA) : 5200#SURF : 10#SCIENTIFIC EMPORIUM(MADHU BUA) : 9000",
+    "PaymentNarration": "#BATERY : 164#MOBILE BILL(BHAIYA) : 5200#SURF : 10#SCIENTIFIC EMPORIUM(MADHU BUA) : 9000",
     "PaymentTotal": 14374.00
   },
   {
@@ -60,9 +60,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#MUKESH MANDAL(SCHOOL ADV) : 1000#BOM(CH. NUM. 1595) : 2500",
+    "ReceiptsNarration": "#MUKESH MANDAL(SCHOOL ADV) : 1000#BOM(CH. NUM. 1595) : 2500",
     "ReceiptsTotal": 3500.00,
-    "PaymentNaration": "#MUKESH MANDAL(REST SALARY SEP-22) : 1000#MANOJ MARANDI(SALARY ADV) : 2500#WATER(KITES AQUA) : 105",
+    "PaymentNarration": "#MUKESH MANDAL(REST SALARY SEP-22) : 1000#MANOJ MARANDI(SALARY ADV) : 2500#WATER(KITES AQUA) : 105",
     "PaymentTotal": 3605.00
   },
   {
@@ -82,9 +82,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 836 : 1460",
+    "ReceiptsNarration": "#ARDI 836 : 1460",
     "ReceiptsTotal": 1460.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -104,9 +104,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMIT JEE(HOME EXP) : 1500#LEMON : 50#LIME : 15#MOB. REC(VODAFONNE) : 666",
+    "PaymentNarration": "#AMIT JEE(HOME EXP) : 1500#LEMON : 50#LIME : 15#MOB. REC(VODAFONNE) : 666",
     "PaymentTotal": 2231.00
   },
   {
@@ -126,9 +126,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 837 : 900#ARDI 838 : 2423",
+    "ReceiptsNarration": "#ARDI 837 : 900#ARDI 838 : 2423",
     "ReceiptsTotal": 3323.00,
-    "PaymentNaration": "#GLASS\u002BCUP : 120#MOB.REC(8409201476) : 180",
+    "PaymentNarration": "#GLASS\u002BCUP : 120#MOB.REC(8409201476) : 180",
     "PaymentTotal": 300.00
   },
   {
@@ -148,9 +148,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 839 : 1945",
+    "ReceiptsNarration": "#ARDI 839 : 1945",
     "ReceiptsTotal": 1945.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10",
     "PaymentTotal": 10.00
   },
   {
@@ -170,9 +170,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI CHOURASIA(CARD SWAP) : 28000",
+    "ReceiptsNarration": "#GOPI CHOURASIA(CARD SWAP) : 28000",
     "ReceiptsTotal": 28000.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -192,9 +192,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 840 : 2668#ARDI 841 : 2940",
+    "ReceiptsNarration": "#ARDI 840 : 2668#ARDI 841 : 2940",
     "ReceiptsTotal": 5608.00,
-    "PaymentNaration": "#AMAZONE : 200#E.BILL(SHOP) : 9000#TEA : 20#MEDICINE : 180#DAN : 2",
+    "PaymentNarration": "#AMAZONE : 200#E.BILL(SHOP) : 9000#TEA : 20#MEDICINE : 180#DAN : 2",
     "PaymentTotal": 9402.00
   },
   {
@@ -214,9 +214,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 842 : 1889",
+    "ReceiptsNarration": "#ARDI 842 : 1889",
     "ReceiptsTotal": 1889.00,
-    "PaymentNaration": "#ALLOUT\u002BCOLIN\u002BLYZOL\u002BHIT : 478#CISCO(CITI NET) : 1300#GUDDU(DUMKA TENT) : 28000#PAPAYA\u002BGUAVA : 65#DAN : 5",
+    "PaymentNarration": "#ALLOUT\u002BCOLIN\u002BLYZOL\u002BHIT : 478#CISCO(CITI NET) : 1300#GUDDU(DUMKA TENT) : 28000#PAPAYA\u002BGUAVA : 65#DAN : 5",
     "PaymentTotal": 29848.00
   },
   {
@@ -236,9 +236,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOLA LOAN(ICICI) : 34360#ARDI 843 : 3492",
+    "ReceiptsNarration": "#GOLA LOAN(ICICI) : 34360#ARDI 843 : 3492",
     "ReceiptsTotal": 37852.00,
-    "PaymentNaration": "#MUKESH MANDAL(SALARY ADV) : 2000#VOTER CARD PRINT(AMIT JEE) : 50#PETROL(CLOTH WASH) : 30#DAN : 5",
+    "PaymentNarration": "#MUKESH MANDAL(SALARY ADV) : 2000#VOTER CARD PRINT(AMIT JEE) : 50#PETROL(CLOTH WASH) : 30#DAN : 5",
     "PaymentTotal": 2085.00
   },
   {
@@ -258,9 +258,9 @@
     "DueList": "#ARDI 825 : 1490",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 821 : 450#ARDI 822 : 1300#ARDI 823 : 1150#ARDI 824 : 1000#ARDI 825 : 2490",
+    "ReceiptsNarration": "#ARDI 821 : 450#ARDI 822 : 1300#ARDI 823 : 1150#ARDI 824 : 1000#ARDI 825 : 2490",
     "ReceiptsTotal": 6390.00,
-    "PaymentNaration": "#MEGHA KUMARI(SALARY) : 5538#AMAZONE : 1080#SWEAPER(PUJA BAKSHISH) : 30",
+    "PaymentNarration": "#MEGHA KUMARI(SALARY) : 5538#AMAZONE : 1080#SWEAPER(PUJA BAKSHISH) : 30",
     "PaymentTotal": 6648.00
   },
   {
@@ -280,9 +280,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#SAKSHI TAILOR : 300#DAN : 5",
+    "PaymentNarration": "#SAKSHI TAILOR : 300#DAN : 5",
     "PaymentTotal": 305.00
   },
   {
@@ -302,9 +302,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 844 : 4905",
+    "ReceiptsNarration": "#ARDI 844 : 4905",
     "ReceiptsTotal": 4905.00,
-    "PaymentNaration": "#AIR CHECK(HARLEY) : 20#MEDICINE(CURIER) : 2534#HANDKARCHIFF\u002BBEDSHEET\u002BCOPY\u002BPEN : 377#WATER(KITES AQUA) : 105#TISSUE PAPER : 120#AMIT JEE(HOME EXP) : 4000#DAN : 5",
+    "PaymentNarration": "#AIR CHECK(HARLEY) : 20#MEDICINE(CURIER) : 2534#HANDKARCHIFF\u002BBEDSHEET\u002BCOPY\u002BPEN : 377#WATER(KITES AQUA) : 105#TISSUE PAPER : 120#AMIT JEE(HOME EXP) : 4000#DAN : 5",
     "PaymentTotal": 7161.00
   },
   {
@@ -324,9 +324,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 845 : 1539#ARDI 846 : 2357",
+    "ReceiptsNarration": "#ARDI 845 : 1539#ARDI 846 : 2357",
     "ReceiptsTotal": 3896.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#PUJA SAMAN\u002BDIYA\u002BOIL : 1270#LADDU(300*2.5 KG) : 750#JHARU : 190#BREAKFAST(MANOJ) : 40#BHUNJA(AMIT JEE) : 30#DAN : 5#AMIT JEE(FOR DHANTERAS) : 2000",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#PUJA SAMAN\u002BDIYA\u002BOIL : 1270#LADDU(300*2.5 KG) : 750#JHARU : 190#BREAKFAST(MANOJ) : 40#BHUNJA(AMIT JEE) : 30#DAN : 5#AMIT JEE(FOR DHANTERAS) : 2000",
     "PaymentTotal": 4295.00
   },
   {
@@ -346,9 +346,9 @@
     "DueList": "#ARDI 847 : 2016",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 847 : 2016",
+    "ReceiptsNarration": "#ARDI 847 : 2016",
     "ReceiptsTotal": 2016.00,
-    "PaymentNaration": "#AMIT JEE(HOME EXP) : 2000#BREAKFAST : 50#DAN : 5",
+    "PaymentNarration": "#AMIT JEE(HOME EXP) : 2000#BREAKFAST : 50#DAN : 5",
     "PaymentTotal": 2055.00
   },
   {
@@ -368,9 +368,9 @@
     "DueList": "#",
     "CustomerRecovery": 2016.00,
     "RecoveryList": "#ARDI 847 : 2016",
-    "ReceiptsNaration": "#ARDI 848 : 1620#ARDI 849 : 7618",
+    "ReceiptsNarration": "#ARDI 848 : 1620#ARDI 849 : 7618",
     "ReceiptsTotal": 9238.00,
-    "PaymentNaration": "#LOTUS\u002BFLOWER\u002BBANANA TREE : 435#MAT\u002BBULB\u002BHOLDER\u002BWIRE : 885#CUP\u002BPLATE : 80#LADDU(1-2 KG) : 150#STICKER\u002BMOMBATTI : 47#AMIT JEE(HOME EXP) : 2000#PATHAKA : 300#BREAKFAST : 106#DINNER : 1100#PUJA\u002BLOCKER\u002BPOTLI : 752",
+    "PaymentNarration": "#LOTUS\u002BFLOWER\u002BBANANA TREE : 435#MAT\u002BBULB\u002BHOLDER\u002BWIRE : 885#CUP\u002BPLATE : 80#LADDU(1-2 KG) : 150#STICKER\u002BMOMBATTI : 47#AMIT JEE(HOME EXP) : 2000#PATHAKA : 300#BREAKFAST : 106#DINNER : 1100#PUJA\u002BLOCKER\u002BPOTLI : 752",
     "PaymentTotal": 5855.00
   },
   {
@@ -390,9 +390,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 850 : 894",
+    "ReceiptsNarration": "#ARDI 850 : 894",
     "ReceiptsTotal": 894.00,
-    "PaymentNaration": "#DAXINA(PANDIT JEE) : 1100",
+    "PaymentNarration": "#DAXINA(PANDIT JEE) : 1100",
     "PaymentTotal": 1100.00
   },
   {
@@ -412,9 +412,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 851 : 3580#ARDI 852 : 1578",
+    "ReceiptsNarration": "#ARDI 851 : 3580#ARDI 852 : 1578",
     "ReceiptsTotal": 5158.00,
-    "PaymentNaration": "#MEDICINE : 90#TEA : 20",
+    "PaymentNarration": "#MEDICINE : 90#TEA : 20",
     "PaymentTotal": 110.00
   },
   {
@@ -434,9 +434,9 @@
     "DueList": "#ARDI 853 : 1002",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 853 : 2002#ARDI 854 : 1270#GOLD LOAN(ICICI) : 13100",
+    "ReceiptsNarration": "#ARDI 853 : 2002#ARDI 854 : 1270#GOLD LOAN(ICICI) : 13100",
     "ReceiptsTotal": 16372.00,
-    "PaymentNaration": "#SCIENTIFIC EMPORIUM(FOR MADHU BUA) : 10000",
+    "PaymentNarration": "#SCIENTIFIC EMPORIUM(FOR MADHU BUA) : 10000",
     "PaymentTotal": 10000.00
   },
   {
@@ -456,9 +456,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#WORKSHOP RENT : 2000#ARDI 855 : 2129",
+    "ReceiptsNarration": "#WORKSHOP RENT : 2000#ARDI 855 : 2129",
     "ReceiptsTotal": 4129.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#WATER(KITES AQUA) : 105#AIR CONDITION INSTALMENT : 5313#CHANDA(BANDERJORI CHAT PUJA) : 11",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#WATER(KITES AQUA) : 105#AIR CONDITION INSTALMENT : 5313#CHANDA(BANDERJORI CHAT PUJA) : 11",
     "PaymentTotal": 5439.00
   },
   {
@@ -478,9 +478,9 @@
     "DueList": "#",
     "CustomerRecovery": 1490.00,
     "RecoveryList": "#ARDI 825 : 1490",
-    "ReceiptsNaration": "#ARDI 826 : 1100#ARDI 827 : 617",
+    "ReceiptsNarration": "#ARDI 826 : 1100#ARDI 827 : 617",
     "ReceiptsTotal": 1717.00,
-    "PaymentNaration": "#ALOK(SALARY ADV. SEP-22) : 10000#DAN : 5#AMIT JEE(SELF) : 2500",
+    "PaymentNarration": "#ALOK(SALARY ADV. SEP-22) : 10000#DAN : 5#AMIT JEE(SELF) : 2500",
     "PaymentTotal": 12505.00
   },
   {
@@ -500,9 +500,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -522,9 +522,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 856 : 1672#ARDI 857 : 3500",
+    "ReceiptsNarration": "#ARDI 856 : 1672#ARDI 857 : 3500",
     "ReceiptsTotal": 5172.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -544,9 +544,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 828 : 2681#ARDI 829 : 414#ARDI 830 : 1665",
+    "ReceiptsNarration": "#ARDI 828 : 2681#ARDI 829 : 414#ARDI 830 : 1665",
     "ReceiptsTotal": 4760.00,
-    "PaymentNaration": "#GLASS : 45#AMAZONE : 279",
+    "PaymentNarration": "#GLASS : 45#AMAZONE : 279",
     "PaymentTotal": 324.00
   },
   {
@@ -566,9 +566,9 @@
     "DueList": "#",
     "CustomerRecovery": 1283.00,
     "RecoveryList": "#ARDI 782 : 1283",
-    "ReceiptsNaration": "#ARDI 831 : 5365",
+    "ReceiptsNarration": "#ARDI 831 : 5365",
     "ReceiptsTotal": 5365.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#PAPAYA\u002BGUAVA : 64#MEDICINE : 130#PETROL(HARLEY) : 1000#ADOPTER\u002BPIN : 355",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#PAPAYA\u002BGUAVA : 64#MEDICINE : 130#PETROL(HARLEY) : 1000#ADOPTER\u002BPIN : 355",
     "PaymentTotal": 1559.00
   },
   {
@@ -588,9 +588,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 832 : 3149",
+    "ReceiptsNarration": "#ARDI 832 : 3149",
     "ReceiptsTotal": 3149.00,
-    "PaymentNaration": "#ADOPTER SOLDING : 10#NEWSPAPER(SHOP) : 163#AMIT THAKUR(SALARY ADV. OCT-22) : 200#ISWER RAM(SALARY SEP-22) : 1200",
+    "PaymentNarration": "#ADOPTER SOLDING : 10#NEWSPAPER(SHOP) : 163#AMIT THAKUR(SALARY ADV. OCT-22) : 200#ISWER RAM(SALARY SEP-22) : 1200",
     "PaymentTotal": 1573.00
   },
   {
@@ -610,9 +610,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#DAN : 5",
+    "PaymentNarration": "#DAN : 5",
     "PaymentTotal": 5.00
   },
   {
@@ -632,9 +632,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 875 : 1406#GOPI CHOURASIA : 25000#ARDI 876 : 2043",
+    "ReceiptsNarration": "#ARDI 875 : 1406#GOPI CHOURASIA : 25000#ARDI 876 : 2043",
     "ReceiptsTotal": 28449.00,
-    "PaymentNaration": "#AMIT JEE SELF(ON LINE TRANSFER) : 25200#DAN : 5",
+    "PaymentNarration": "#AMIT JEE SELF(ON LINE TRANSFER) : 25200#DAN : 5",
     "PaymentTotal": 25205.00
   },
   {
@@ -654,9 +654,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#WATER(KITES AQUQ) : 105#MUKESH(HOME) : 3000#DAN : 5",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#WATER(KITES AQUQ) : 105#MUKESH(HOME) : 3000#DAN : 5",
     "PaymentTotal": 3120.00
   },
   {
@@ -676,9 +676,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 877 : 4968#ARDI 878 : 2064#ARDI 879 : 3435#ARDI 880 : 750",
+    "ReceiptsNarration": "#ARDI 877 : 4968#ARDI 878 : 2064#ARDI 879 : 3435#ARDI 880 : 750",
     "ReceiptsTotal": 11217.00,
-    "PaymentNaration": "#AMAZONE : 300#DAN : 5",
+    "PaymentNarration": "#AMAZONE : 300#DAN : 5",
     "PaymentTotal": 305.00
   },
   {
@@ -698,9 +698,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 881 : 2193#ARDI 882 : 576#MANTU(SAKSHAM) : 13000#GOPI CHOURASIA : 20000",
+    "ReceiptsNarration": "#ARDI 881 : 2193#ARDI 882 : 576#MANTU(SAKSHAM) : 13000#GOPI CHOURASIA : 20000",
     "ReceiptsTotal": 35769.00,
-    "PaymentNaration": "#AMAZONE : 370#SARI FALL\u002BTHREADS : 30#CAR WASH(MUKESH HOME) : 500#CHANACHUR\u002BSAMOSA : 290#AMIT THAKUR(SALARY ADV) : 200#ALOK(SALARY OCT-22) : 16096#AMIT JEE(SELF 13000 FOR RING\u002B4000 CASH AT HOME) : 17000#DAN : 5",
+    "PaymentNarration": "#AMAZONE : 370#SARI FALL\u002BTHREADS : 30#CAR WASH(MUKESH HOME) : 500#CHANACHUR\u002BSAMOSA : 290#AMIT THAKUR(SALARY ADV) : 200#ALOK(SALARY OCT-22) : 16096#AMIT JEE(SELF 13000 FOR RING\u002B4000 CASH AT HOME) : 17000#DAN : 5",
     "PaymentTotal": 34491.00
   },
   {
@@ -720,9 +720,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 883 : 9100#MANTU(SAKSHAM) : 12000",
+    "ReceiptsNarration": "#ARDI 883 : 9100#MANTU(SAKSHAM) : 12000",
     "ReceiptsTotal": 21100.00,
-    "PaymentNaration": "#DAN : 5",
+    "PaymentNarration": "#DAN : 5",
     "PaymentTotal": 5.00
   },
   {
@@ -742,9 +742,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 884 : 3918#ADI 885 : 4618#ARDI 886 : 2624#PANKAJ VERMA : 20000",
+    "ReceiptsNarration": "#ARDI 884 : 3918#ADI 885 : 4618#ARDI 886 : 2624#PANKAJ VERMA : 20000",
     "ReceiptsTotal": 31160.00,
-    "PaymentNaration": "#AMIT JEE(HOME EXP) : 5000#DAN : 5#SHORT : 1",
+    "PaymentNarration": "#AMIT JEE(HOME EXP) : 5000#DAN : 5#SHORT : 1",
     "PaymentTotal": 5006.00
   },
   {
@@ -764,9 +764,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 887 : 1318",
+    "ReceiptsNarration": "#ARDI 887 : 1318",
     "ReceiptsTotal": 1318.00,
-    "PaymentNaration": "#DAN : 2",
+    "PaymentNarration": "#DAN : 2",
     "PaymentTotal": 2.00
   },
   {
@@ -786,9 +786,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 888 : 3017",
+    "ReceiptsNarration": "#ARDI 888 : 3017",
     "ReceiptsTotal": 3017.00,
-    "PaymentNaration": "#DAN : 5",
+    "PaymentNarration": "#DAN : 5",
     "PaymentTotal": 5.00
   },
   {
@@ -808,9 +808,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 889 : 2399#ARDI 890 : 2051#ARDI 891 : 1765#ARDI 892 : 1159",
+    "ReceiptsNarration": "#ARDI 889 : 2399#ARDI 890 : 2051#ARDI 891 : 1765#ARDI 892 : 1159",
     "ReceiptsTotal": 7374.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#AMIT THAKUR(SALARY ADV. NOV-22) : 2000#DAN : 5",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#AMIT THAKUR(SALARY ADV. NOV-22) : 2000#DAN : 5",
     "PaymentTotal": 2015.00
   },
   {
@@ -830,9 +830,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 859 : 525#ARDI 860 : 3780",
+    "ReceiptsNarration": "#ARDI 859 : 525#ARDI 860 : 3780",
     "ReceiptsTotal": 4305.00,
-    "PaymentNaration": "#AMAZONE : 1480#16 GHAT BOARD : 300",
+    "PaymentNarration": "#AMAZONE : 1480#16 GHAT BOARD : 300",
     "PaymentTotal": 1780.00
   },
   {
@@ -852,9 +852,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -874,9 +874,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#MUKESH MANDAL(SALARY ADV) : 500",
+    "PaymentNarration": "#MUKESH MANDAL(SALARY ADV) : 500",
     "PaymentTotal": 500.00
   },
   {
@@ -896,9 +896,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#MOB.REC(7667178482) : 100",
+    "PaymentNarration": "#MOB.REC(7667178482) : 100",
     "PaymentTotal": 100.00
   },
   {
@@ -918,9 +918,9 @@
     "DueList": "#ARDI 893 : 8499#ARDI 894 : 1492#ARDI 895 : 2603",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 893 : 8499#ARDI 894 : 1992#ARDI 895 : 2603#ARDI 896 : 3499",
+    "ReceiptsNarration": "#ARDI 893 : 8499#ARDI 894 : 1992#ARDI 895 : 2603#ARDI 896 : 3499",
     "ReceiptsTotal": 16593.00,
-    "PaymentNaration": "#BREAKFAST : 30",
+    "PaymentNarration": "#BREAKFAST : 30",
     "PaymentTotal": 30.00
   },
   {
@@ -940,9 +940,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI CHOURASIA(UPI TRANSFER ALOK MOBILEDT. 23-11-2022) : 30000#ARDI 897 : 5688",
+    "ReceiptsNarration": "#GOPI CHOURASIA(UPI TRANSFER ALOK MOBILEDT. 23-11-2022) : 30000#ARDI 897 : 5688",
     "ReceiptsTotal": 35688.00,
-    "PaymentNaration": "#AMIT JEE(HOME EXP) : 8000#WATER(KITES AQUA) : 105",
+    "PaymentNarration": "#AMIT JEE(HOME EXP) : 8000#WATER(KITES AQUA) : 105",
     "PaymentTotal": 8105.00
   },
   {
@@ -962,9 +962,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 898 : 1766",
+    "ReceiptsNarration": "#ARDI 898 : 1766",
     "ReceiptsTotal": 1766.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -984,9 +984,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10",
     "PaymentTotal": 10.00
   },
   {
@@ -1006,9 +1006,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 899 : 2849",
+    "ReceiptsNarration": "#ARDI 899 : 2849",
     "ReceiptsTotal": 2849.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -1028,9 +1028,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#MUKESH MANDAL(SALARY ADV) : 3000#MANOJ MARANDI(SALARY ADV) : 2000#JIO NET(HOME) : 470",
+    "PaymentNarration": "#MUKESH MANDAL(SALARY ADV) : 3000#MANOJ MARANDI(SALARY ADV) : 2000#JIO NET(HOME) : 470",
     "PaymentTotal": 5470.00
   },
   {
@@ -1050,9 +1050,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMMAZONE : 1859",
+    "PaymentNarration": "#AMMAZONE : 1859",
     "PaymentTotal": 1859.00
   },
   {
@@ -1072,9 +1072,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 861 : 1021#ARDI 862 : 1100",
+    "ReceiptsNarration": "#ARDI 861 : 1021#ARDI 862 : 1100",
     "ReceiptsTotal": 2121.00,
-    "PaymentNaration": "#MEDICINE(CURIER) : 1237#CALLBELL SOLDING : 40#SONU(E.MISTRY) : 300#JUICE : 50#MEDICINE\u002BSODA : 150",
+    "PaymentNarration": "#MEDICINE(CURIER) : 1237#CALLBELL SOLDING : 40#SONU(E.MISTRY) : 300#JUICE : 50#MEDICINE\u002BSODA : 150",
     "PaymentTotal": 1777.00
   },
   {
@@ -1094,9 +1094,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI CHOURASIA(UP TRANSFER ALOK UPI DT.29-11-2022) : 30000",
+    "ReceiptsNarration": "#GOPI CHOURASIA(UP TRANSFER ALOK UPI DT.29-11-2022) : 30000",
     "ReceiptsTotal": 30000.00,
-    "PaymentNaration": "#AMOT JEE(HOME EXP) : 30000",
+    "PaymentNarration": "#AMOT JEE(HOME EXP) : 30000",
     "PaymentTotal": 30000.00
   },
   {
@@ -1116,9 +1116,9 @@
     "DueList": "#",
     "CustomerRecovery": 1002.00,
     "RecoveryList": "#ARDI 853 : 1002",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#GUM : 30#AMIT JEE(HOME EXP) : 500#LEMINETION : 45#AMIT THAKUR(SALARY ADV) : 500#DAN : 2",
+    "PaymentNarration": "#GUM : 30#AMIT JEE(HOME EXP) : 500#LEMINETION : 45#AMIT THAKUR(SALARY ADV) : 500#DAN : 2",
     "PaymentTotal": 1077.00
   },
   {
@@ -1138,9 +1138,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 863 : 1000",
+    "ReceiptsNarration": "#ARDI 863 : 1000",
     "ReceiptsTotal": 1000.00,
-    "PaymentNaration": "#AMAZONE : 319#LEMON\u002BCHILLE : 10#MEDICINE(CURIER) : 1390#DAN : 5",
+    "PaymentNarration": "#AMAZONE : 319#LEMON\u002BCHILLE : 10#MEDICINE(CURIER) : 1390#DAN : 5",
     "PaymentTotal": 1724.00
   },
   {
@@ -1160,9 +1160,9 @@
     "DueList": "#ARDI 866 : 100",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 864 : 1889#ARDI 865 : 1000#ARDI 866 : 1699#ARDI 867 : 1150",
+    "ReceiptsNarration": "#ARDI 864 : 1889#ARDI 865 : 1000#ARDI 866 : 1699#ARDI 867 : 1150",
     "ReceiptsTotal": 5738.00,
-    "PaymentNaration": "#MANOJ MARANDI(SALARY ADV. OCT-22) : 2000#MEDICINE : 60#NEWSPAPER : 144#DAN : 5",
+    "PaymentNarration": "#MANOJ MARANDI(SALARY ADV. OCT-22) : 2000#MEDICINE : 60#NEWSPAPER : 144#DAN : 5",
     "PaymentTotal": 2209.00
   },
   {
@@ -1182,9 +1182,9 @@
     "DueList": "#",
     "CustomerRecovery": 100.00,
     "RecoveryList": "#ARDI 866 : 100",
-    "ReceiptsNaration": "#ARDI 869 : 1799#EXTRA RECEIVED ARDI 869 : 101#ARDI 870 : 18000#ARDI 871 : 1477",
+    "ReceiptsNarration": "#ARDI 869 : 1799#EXTRA RECEIVED ARDI 869 : 101#ARDI 870 : 18000#ARDI 871 : 1477",
     "ReceiptsTotal": 21377.00,
-    "PaymentNaration": "#DAN : 10#CUP : 40#BHUNJA : 10",
+    "PaymentNarration": "#DAN : 10#CUP : 40#BHUNJA : 10",
     "PaymentTotal": 60.00
   },
   {
@@ -1204,9 +1204,9 @@
     "DueList": "#ARDI 872 : 3300",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 872 : 3300#ARDI 873 : 4000",
+    "ReceiptsNarration": "#ARDI 872 : 3300#ARDI 873 : 4000",
     "ReceiptsTotal": 7300.00,
-    "PaymentNaration": "#MEDICINE : 800#PETROL(ALTROZ) : 500#RETURN TO ARDI 873 : 6",
+    "PaymentNarration": "#MEDICINE : 800#PETROL(ALTROZ) : 500#RETURN TO ARDI 873 : 6",
     "PaymentTotal": 1306.00
   },
   {
@@ -1226,9 +1226,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 874 : 1182",
+    "ReceiptsNarration": "#ARDI 874 : 1182",
     "ReceiptsTotal": 1182.00,
-    "PaymentNaration": "#MEGHA KUMARI(SALARY OCT-22) : 5654#MANOJ MARAMDI(SALARY OCT-22) : 2308#DAN : 5",
+    "PaymentNarration": "#MEGHA KUMARI(SALARY OCT-22) : 5654#MANOJ MARAMDI(SALARY OCT-22) : 2308#DAN : 5",
     "PaymentTotal": 7967.00
   },
   {
@@ -1248,9 +1248,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -1270,9 +1270,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 911 : 2400#ARDI 912 : 3941#GOPI(CARD SWAP) : 30000",
+    "ReceiptsNarration": "#ARDI 911 : 2400#ARDI 912 : 3941#GOPI(CARD SWAP) : 30000",
     "ReceiptsTotal": 36341.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#AMAZONE : 300",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#AMAZONE : 300",
     "PaymentTotal": 310.00
   },
   {
@@ -1292,9 +1292,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMAZONE : 3450#MANOJ MARANDI(LUNCH) : 100#AMIT THAKUR(SALARY ADV. DEC-22) : 1000",
+    "PaymentNarration": "#AMAZONE : 3450#MANOJ MARANDI(LUNCH) : 100#AMIT THAKUR(SALARY ADV. DEC-22) : 1000",
     "PaymentTotal": 4550.00
   },
   {
@@ -1314,9 +1314,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 913 : 603",
+    "ReceiptsNarration": "#ARDI 913 : 603",
     "ReceiptsTotal": 603.00,
-    "PaymentNaration": "#WATER(KITES AQUA) : 140#STAMP PAPER : 100#MEGHA KUMARI(SALARY NOV-22) : 5885#BADAM\u002BBISCUIT\u002BAKHROT : 613",
+    "PaymentNarration": "#WATER(KITES AQUA) : 140#STAMP PAPER : 100#MEGHA KUMARI(SALARY NOV-22) : 5885#BADAM\u002BBISCUIT\u002BAKHROT : 613",
     "PaymentTotal": 6738.00
   },
   {
@@ -1336,9 +1336,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMAZONE : 599#JAR(GANGAJAL) : 250",
+    "PaymentNarration": "#AMAZONE : 599#JAR(GANGAJAL) : 250",
     "PaymentTotal": 849.00
   },
   {
@@ -1358,9 +1358,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 914 : 0#ARDI 915 : 4497#ARDI 916 : 1399#ARDI 917 : 398#ARDI 918 : 3150",
+    "ReceiptsNarration": "#ARDI 914 : 0#ARDI 915 : 4497#ARDI 916 : 1399#ARDI 917 : 398#ARDI 918 : 3150",
     "ReceiptsTotal": 9444.00,
-    "PaymentNaration": "#E.BILL(HOME) : 6000#SCIENTIFIC EMPORIUM(MADHU BUA) : 10000#TOFFEE(HOME) : 175#DAN : 5",
+    "PaymentNarration": "#E.BILL(HOME) : 6000#SCIENTIFIC EMPORIUM(MADHU BUA) : 10000#TOFFEE(HOME) : 175#DAN : 5",
     "PaymentTotal": 16180.00
   },
   {
@@ -1380,9 +1380,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#BLOOD\u002BURINE REPORT : 1450#MEDICINE : 160#DAN : 5",
+    "PaymentNarration": "#BLOOD\u002BURINE REPORT : 1450#MEDICINE : 160#DAN : 5",
     "PaymentTotal": 1615.00
   },
   {
@@ -1402,9 +1402,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#MEDICINE(CURIER) : 745#MEDICINE : 250#AMIT THAKUR(SALARY ADV. DEC-22) : 1000#DAN : 5",
+    "PaymentNarration": "#MEDICINE(CURIER) : 745#MEDICINE : 250#AMIT THAKUR(SALARY ADV. DEC-22) : 1000#DAN : 5",
     "PaymentTotal": 2000.00
   },
   {
@@ -1424,9 +1424,9 @@
     "DueList": "#ARDI 919 : 6000",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 919 : 11000",
+    "ReceiptsNarration": "#ARDI 919 : 11000",
     "ReceiptsTotal": 11000.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#DAN : 5",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#DAN : 5",
     "PaymentTotal": 15.00
   },
   {
@@ -1446,9 +1446,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMIT JEE(HOME EXP) : 1000",
+    "PaymentNarration": "#AMIT JEE(HOME EXP) : 1000",
     "PaymentTotal": 1000.00
   },
   {
@@ -1468,9 +1468,9 @@
     "DueList": "#ARDI 920 : 1250",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 920 : 1250",
+    "ReceiptsNarration": "#ARDI 920 : 1250",
     "ReceiptsTotal": 1250.00,
-    "PaymentNaration": "#GIFT PACKING(ROCKEY) : 10#MEDICINE : 180#MUKESH MANDAL(SALARY ADV. EC-22) : 3500#DAN : 5",
+    "PaymentNarration": "#GIFT PACKING(ROCKEY) : 10#MEDICINE : 180#MUKESH MANDAL(SALARY ADV. EC-22) : 3500#DAN : 5",
     "PaymentTotal": 3695.00
   },
   {
@@ -1490,9 +1490,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 900 : 1539",
+    "ReceiptsNarration": "#ARDI 900 : 1539",
     "ReceiptsTotal": 1539.00,
-    "PaymentNaration": "#CUP\u002BGLASS : 80#LUNCH(ALOK) : 100#ENVELOP\u002BCHOWK(RAJU SAH,DANGALPARA) : 510",
+    "PaymentNarration": "#CUP\u002BGLASS : 80#LUNCH(ALOK) : 100#ENVELOP\u002BCHOWK(RAJU SAH,DANGALPARA) : 510",
     "PaymentTotal": 690.00
   },
   {
@@ -1512,9 +1512,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 921 : 1363#ARDI 922 : 3188#ARDI 923 : 3931#ARDI 924 : 14201#ARDI 925 : 3679#ARDI 926 : 2759",
+    "ReceiptsNarration": "#ARDI 921 : 1363#ARDI 922 : 3188#ARDI 923 : 3931#ARDI 924 : 14201#ARDI 925 : 3679#ARDI 926 : 2759",
     "ReceiptsTotal": 29121.00,
-    "PaymentNaration": "#CUP : 40#DAN : 5",
+    "PaymentNarration": "#CUP : 40#DAN : 5",
     "PaymentTotal": 45.00
   },
   {
@@ -1534,9 +1534,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI(CARD SWAP) : 80000#ARDI 927 : 2967#ARDI 928 : 7865#ARDI 929 : 5315#ARDI 930 : 6801#ARDI 931 : 3475",
+    "ReceiptsNarration": "#GOPI(CARD SWAP) : 80000#ARDI 927 : 2967#ARDI 928 : 7865#ARDI 929 : 5315#ARDI 930 : 6801#ARDI 931 : 3475",
     "ReceiptsTotal": 106423.00,
-    "PaymentNaration": "#AMAZONE : 579#PETROL(HARLEY) : 500#CUP(2 PICS) : 180#LAYS : 100#DAN : 5",
+    "PaymentNarration": "#AMAZONE : 579#PETROL(HARLEY) : 500#CUP(2 PICS) : 180#LAYS : 100#DAN : 5",
     "PaymentTotal": 1364.00
   },
   {
@@ -1556,9 +1556,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 932 : 2579#ARDI 933 : 0",
+    "ReceiptsNarration": "#ARDI 932 : 2579#ARDI 933 : 0",
     "ReceiptsTotal": 2579.00,
-    "PaymentNaration": "#COLD DRINK : 50#DAN : 5",
+    "PaymentNarration": "#COLD DRINK : 50#DAN : 5",
     "PaymentTotal": 55.00
   },
   {
@@ -1578,9 +1578,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 934 : 878",
+    "ReceiptsNarration": "#ARDI 934 : 878",
     "ReceiptsTotal": 878.00,
-    "PaymentNaration": "#BREAKFAST(HOME,IDLEE) : 360#AMIT THAKUR(SALARY ADV) : 2500#AMIT JEE(GIVEN TO MUNNA SINGH FOR WALEFAIR DEPTT) : 15000#GUDDU(DUMKA TENT) : 18000#DAN : 5",
+    "PaymentNarration": "#BREAKFAST(HOME,IDLEE) : 360#AMIT THAKUR(SALARY ADV) : 2500#AMIT JEE(GIVEN TO MUNNA SINGH FOR WALEFAIR DEPTT) : 15000#GUDDU(DUMKA TENT) : 18000#DAN : 5",
     "PaymentTotal": 35865.00
   },
   {
@@ -1600,9 +1600,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 935 : 1100#ARDI 936 : 1844#ARDI 937 : 720#ARDI 938 : 8184",
+    "ReceiptsNarration": "#ARDI 935 : 1100#ARDI 936 : 1844#ARDI 937 : 720#ARDI 938 : 8184",
     "ReceiptsTotal": 11848.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#PASTRY(HOME) : 250#DAN : 5#BREAKFAST : 45",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#PASTRY(HOME) : 250#DAN : 5#BREAKFAST : 45",
     "PaymentTotal": 310.00
   },
   {
@@ -1622,9 +1622,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#PICKEL : 70#DAN : 5",
+    "PaymentNarration": "#PICKEL : 70#DAN : 5",
     "PaymentTotal": 75.00
   },
   {
@@ -1644,9 +1644,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 939 : 3149#ARDI 940 : 4228#ARDI 941 : 9100#ARDI 942 : 805",
+    "ReceiptsNarration": "#ARDI 939 : 3149#ARDI 940 : 4228#ARDI 941 : 9100#ARDI 942 : 805",
     "ReceiptsTotal": 17282.00,
-    "PaymentNaration": "#AMAZONE : 1195#SWEETS(RASMALAI) : 300#DAN : 5",
+    "PaymentNarration": "#AMAZONE : 1195#SWEETS(RASMALAI) : 300#DAN : 5",
     "PaymentTotal": 1500.00
   },
   {
@@ -1666,9 +1666,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI(CARD SWAP) : 25000#ARDI 943 : 780#ARDI 944 : 1134#ARDI 945 : 3500",
+    "ReceiptsNarration": "#GOPI(CARD SWAP) : 25000#ARDI 943 : 780#ARDI 944 : 1134#ARDI 945 : 3500",
     "ReceiptsTotal": 30414.00,
-    "PaymentNaration": "#E.BILL(SHOP) : 20000#AMAZONE : 166#AMIT JEE(HOME EXP) : 30000#TOTO(CHAIR FOR HOME) : 50#GUDDU(DUMKA TENT) : 10000#DAN : 5",
+    "PaymentNarration": "#E.BILL(SHOP) : 20000#AMAZONE : 166#AMIT JEE(HOME EXP) : 30000#TOTO(CHAIR FOR HOME) : 50#GUDDU(DUMKA TENT) : 10000#DAN : 5",
     "PaymentTotal": 60221.00
   },
   {
@@ -1688,9 +1688,9 @@
     "DueList": "#ARDI 946 : 182",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 946 : 1182#ARDI 947 : 4079#ARDI 948 : 2904#ARDI 949 : 630#ARDI 950 : 1050#ARDI 951 : 270#ARDI 952 : 3388#ARDI 953 : 855",
+    "ReceiptsNarration": "#ARDI 946 : 1182#ARDI 947 : 4079#ARDI 948 : 2904#ARDI 949 : 630#ARDI 950 : 1050#ARDI 951 : 270#ARDI 952 : 3388#ARDI 953 : 855",
     "ReceiptsTotal": 14358.00,
-    "PaymentNaration": "#VEGETABLE : 200#JIO NET(HOME) : 475#DAN : 5",
+    "PaymentNarration": "#VEGETABLE : 200#JIO NET(HOME) : 475#DAN : 5",
     "PaymentTotal": 680.00
   },
   {
@@ -1710,9 +1710,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 901 : 1150#ARDI 902 : 1000#ARDI 903 : 886",
+    "ReceiptsNarration": "#ARDI 901 : 1150#ARDI 902 : 1000#ARDI 903 : 886",
     "ReceiptsTotal": 3036.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#BREAKFAST : 40#POLYTHINE : 15",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#BREAKFAST : 40#POLYTHINE : 15",
     "PaymentTotal": 65.00
   },
   {
@@ -1732,9 +1732,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#WATER(KITES AQUA) : 105#MEDICINE : 160#PANEER MASALA\u002BMATAR PANEER : 578#ANIL(DUES OFCARTRADGE REFILL) : 250#DAN : 5",
+    "PaymentNarration": "#WATER(KITES AQUA) : 105#MEDICINE : 160#PANEER MASALA\u002BMATAR PANEER : 578#ANIL(DUES OFCARTRADGE REFILL) : 250#DAN : 5",
     "PaymentTotal": 1098.00
   },
   {
@@ -1754,9 +1754,9 @@
     "DueList": "#",
     "CustomerRecovery": 182.00,
     "RecoveryList": "#ARDI 946 : 182",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#AMAZONE : 275#BREAKFAST : 64#DAN : 5#ADV. FOR DINNER : 1000",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#AMAZONE : 275#BREAKFAST : 64#DAN : 5#ADV. FOR DINNER : 1000",
     "PaymentTotal": 1354.00
   },
   {
@@ -1776,9 +1776,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -1798,9 +1798,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#WORKSHOP RENT : 4000#ARDI 904 : 4366#EXTRA RECEIVED ARDI 904 : 3.66#ARDI 905 : 1739#ARDI 906 : 3000#ARDI 907 : 475",
+    "ReceiptsNarration": "#WORKSHOP RENT : 4000#ARDI 904 : 4366#EXTRA RECEIVED ARDI 904 : 3.66#ARDI 905 : 1739#ARDI 906 : 3000#ARDI 907 : 475",
     "ReceiptsTotal": 13583.66,
-    "PaymentNaration": "#AMAZONE : 1300#MOB.REC.(BACK OFFICE) : 180#TEA : 20",
+    "PaymentNarration": "#AMAZONE : 1300#MOB.REC.(BACK OFFICE) : 180#TEA : 20",
     "PaymentTotal": 1500.00
   },
   {
@@ -1820,9 +1820,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#NEWSPAPER : 158#AIRCHECK(HARLEY) : 10#BREAKFAST(BHUNJA) : 20",
+    "PaymentNarration": "#NEWSPAPER : 158#AIRCHECK(HARLEY) : 10#BREAKFAST(BHUNJA) : 20",
     "PaymentTotal": 188.00
   },
   {
@@ -1842,9 +1842,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 908 : 947#ARDI 909 : 1087",
+    "ReceiptsNarration": "#ARDI 908 : 947#ARDI 909 : 1087",
     "ReceiptsTotal": 2034.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -1864,9 +1864,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#EXTRA IN CASH : 1",
+    "ReceiptsNarration": "#EXTRA IN CASH : 1",
     "ReceiptsTotal": 1.00,
-    "PaymentNaration": "#LUNCH(MUKESH) : 100",
+    "PaymentNarration": "#LUNCH(MUKESH) : 100",
     "PaymentTotal": 100.00
   },
   {
@@ -1886,9 +1886,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 910 : 1200",
+    "ReceiptsNarration": "#ARDI 910 : 1200",
     "ReceiptsTotal": 1200.00,
-    "PaymentNaration": "#SOCKS : 90#MOB.REC. : 179#SHORT(MOB.REC) : 1",
+    "PaymentNarration": "#SOCKS : 90#MOB.REC. : 179#SHORT(MOB.REC) : 1",
     "PaymentTotal": 270.00
   },
   {
@@ -1908,9 +1908,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#lemon\u002Bchille\u002Bglass : 60#dry fruit\u002Bapple : 850#mukesh mandal(diff.sal. may-22) : 35#telephone mistry : 50#mob. rec.(9431348122) : 400#a-c mistry(home fitting) : 1500",
+    "PaymentNarration": "#lemon\u002Bchille\u002Bglass : 60#dry fruit\u002Bapple : 850#mukesh mandal(diff.sal. may-22) : 35#telephone mistry : 50#mob. rec.(9431348122) : 400#a-c mistry(home fitting) : 1500",
     "PaymentTotal": 2895.00
   },
   {
@@ -1930,9 +1930,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -1952,9 +1952,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#BREAKFAST : 70",
+    "PaymentNarration": "#BREAKFAST : 70",
     "PaymentTotal": 70.00
   },
   {
@@ -1974,9 +1974,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#SALETAX ASSESMENT DUES\u002BCOMMISSION : 1700#AMAZONE : 155#DRY FRUIT\u002BFRUIT : 840#MEDICINE(ARSENIC 30) : 160#WATER(KITES AQUA) : 105",
+    "PaymentNarration": "#SALETAX ASSESMENT DUES\u002BCOMMISSION : 1700#AMAZONE : 155#DRY FRUIT\u002BFRUIT : 840#MEDICINE(ARSENIC 30) : 160#WATER(KITES AQUA) : 105",
     "PaymentTotal": 2960.00
   },
   {
@@ -1996,9 +1996,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#WORKSHOP RENT : 2000",
+    "ReceiptsNarration": "#WORKSHOP RENT : 2000",
     "ReceiptsTotal": 2000.00,
-    "PaymentNaration": "#CURIER : 1034#PETROL(BULLET) : 500",
+    "PaymentNarration": "#CURIER : 1034#PETROL(BULLET) : 500",
     "PaymentTotal": 1534.00
   },
   {
@@ -2018,9 +2018,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI659 : 2099#ARDI660 : 5181",
+    "ReceiptsNarration": "#ARDI659 : 2099#ARDI660 : 5181",
     "ReceiptsTotal": 7280.00,
-    "PaymentNaration": "#JUICE\u002BSWEET : 80#COLD DRINK\u002BBALOON\u002BPLATE ETC. : 825#WATER(KITES AQUA) : 105",
+    "PaymentNarration": "#JUICE\u002BSWEET : 80#COLD DRINK\u002BBALOON\u002BPLATE ETC. : 825#WATER(KITES AQUA) : 105",
     "PaymentTotal": 1010.00
   },
   {
@@ -2040,9 +2040,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ardi661 : 2639",
+    "ReceiptsNarration": "#ardi661 : 2639",
     "ReceiptsTotal": 2639.00,
-    "PaymentNaration": "#dhaga : 25#pump(baloon) : 60#cake : 2377#sweet\u002Bnamkin : 830#sbi(stamp) : 200#sachin mishra(bob) : 3000",
+    "PaymentNarration": "#dhaga : 25#pump(baloon) : 60#cake : 2377#sweet\u002Bnamkin : 830#sbi(stamp) : 200#sachin mishra(bob) : 3000",
     "PaymentTotal": 6492.00
   },
   {
@@ -2062,9 +2062,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI662 : 1139#BATTERY WATER : 120",
+    "ReceiptsNarration": "#ARDI662 : 1139#BATTERY WATER : 120",
     "ReceiptsTotal": 1259.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#BREAKFAST : 20#JIO NET(HOME) : 470",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#BREAKFAST : 20#JIO NET(HOME) : 470",
     "PaymentTotal": 500.00
   },
   {
@@ -2084,9 +2084,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#SHUKLA JEE(SALETAX) : 50",
+    "ReceiptsNarration": "#SHUKLA JEE(SALETAX) : 50",
     "ReceiptsTotal": 50.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -2106,9 +2106,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI664 : 2207#ARDI665 : 1469",
+    "ReceiptsNarration": "#ARDI664 : 2207#ARDI665 : 1469",
     "ReceiptsTotal": 3676.00,
-    "PaymentNaration": "#PAPAYA : 40#MEDICINE : 190#JUICE : 60#LESS PAYMENT ARDI664,665 : 250#FLEX : 80",
+    "PaymentNarration": "#PAPAYA : 40#MEDICINE : 190#JUICE : 60#LESS PAYMENT ARDI664,665 : 250#FLEX : 80",
     "PaymentTotal": 620.00
   },
   {
@@ -2128,9 +2128,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI664 : 2207#ARDI665 : 1469#GOPI(CARD SWAP) : 99999#ARDI666 : 3927#ARDI667 : 3478#ARDI668 : 419",
+    "ReceiptsNarration": "#ARDI664 : 2207#ARDI665 : 1469#GOPI(CARD SWAP) : 99999#ARDI666 : 3927#ARDI667 : 3478#ARDI668 : 419",
     "ReceiptsTotal": 107823.00,
-    "PaymentNaration": "#PAPAYA : 40#MEDICINE : 190#JUICE : 60#LESS PAYMENT ARDI664,665 : 250#FLEX : 80#JUICE : 60#WATER(KITES AQUA) : 105",
+    "PaymentNarration": "#PAPAYA : 40#MEDICINE : 190#JUICE : 60#LESS PAYMENT ARDI664,665 : 250#FLEX : 80#JUICE : 60#WATER(KITES AQUA) : 105",
     "PaymentTotal": 165.00
   },
   {
@@ -2150,9 +2150,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI : 30000",
+    "ReceiptsNarration": "#GOPI : 30000",
     "ReceiptsTotal": 30000.00,
-    "PaymentNaration": "#JUICE : 120#AMIT JEE(HOME EXP) : 30000#A-C INSTALMENT : 313",
+    "PaymentNarration": "#JUICE : 120#AMIT JEE(HOME EXP) : 30000#A-C INSTALMENT : 313",
     "PaymentTotal": 30433.00
   },
   {
@@ -2172,9 +2172,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#JUICE : 70#GIGT PACKING : 10",
+    "PaymentNarration": "#JUICE : 70#GIGT PACKING : 10",
     "PaymentTotal": 80.00
   },
   {
@@ -2194,9 +2194,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#LUNCH(MUKESH) : 100",
+    "PaymentNarration": "#LUNCH(MUKESH) : 100",
     "PaymentTotal": 100.00
   },
   {
@@ -2216,9 +2216,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI677 : 1299#ARDI678 : 950",
+    "ReceiptsNarration": "#ARDI677 : 1299#ARDI678 : 950",
     "ReceiptsTotal": 2249.00,
-    "PaymentNaration": "#PAPAYA\u002BJUICE : 100#DAN : 5",
+    "PaymentNarration": "#PAPAYA\u002BJUICE : 100#DAN : 5",
     "PaymentTotal": 105.00
   },
   {
@@ -2238,9 +2238,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI679 : 1679#ARDI680 : 1319#EXTRA : 2",
+    "ReceiptsNarration": "#ARDI679 : 1679#ARDI680 : 1319#EXTRA : 2",
     "ReceiptsTotal": 3000.00,
-    "PaymentNaration": "#JUICE : 60#DAN : 5",
+    "PaymentNarration": "#JUICE : 60#DAN : 5",
     "PaymentTotal": 65.00
   },
   {
@@ -2260,9 +2260,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "##ARDI681 : 4675",
+    "ReceiptsNarration": "##ARDI681 : 4675",
     "ReceiptsTotal": 4675.00,
-    "PaymentNaration": "##WATER(KITES AQUA) : 105#JUICE\u002BDOSA : 135#SINGHANIA SANITETION : 3500#COLOUR MISTRY(999MADHU BUA) : 5000#SCOTCH BRITE\u002BMACHIS\u002BSOAP : 20#DAN : 5",
+    "PaymentNarration": "##WATER(KITES AQUA) : 105#JUICE\u002BDOSA : 135#SINGHANIA SANITETION : 3500#COLOUR MISTRY(999MADHU BUA) : 5000#SCOTCH BRITE\u002BMACHIS\u002BSOAP : 20#DAN : 5",
     "PaymentTotal": 8765.00
   },
   {
@@ -2282,9 +2282,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#COLIN\u002BLYZOL : 195#MEDICINE : 790#JUICE\u002BPAPAYA : 100#LEMON : 50#DAN : 5",
+    "PaymentNarration": "#COLIN\u002BLYZOL : 195#MEDICINE : 790#JUICE\u002BPAPAYA : 100#LEMON : 50#DAN : 5",
     "PaymentTotal": 1140.00
   },
   {
@@ -2304,9 +2304,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#AMIT JEE : 5000",
+    "ReceiptsNarration": "#AMIT JEE : 5000",
     "ReceiptsTotal": 5000.00,
-    "PaymentNaration": "#JUICE : 60#MEDICINE(CURIER) : 1933#DAN : 5",
+    "PaymentNarration": "#JUICE : 60#MEDICINE(CURIER) : 1933#DAN : 5",
     "PaymentTotal": 1998.00
   },
   {
@@ -2326,9 +2326,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 682 : 3119",
+    "ReceiptsNarration": "#ARDI 682 : 3119",
     "ReceiptsTotal": 3119.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#PLASTIC TUB : 250#BREAKFAST\u002BLUNCH : 300#DAN : 5",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#PLASTIC TUB : 250#BREAKFAST\u002BLUNCH : 300#DAN : 5",
     "PaymentTotal": 565.00
   },
   {
@@ -2348,9 +2348,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 683 : 2480",
+    "ReceiptsNarration": "#ARDI 683 : 2480",
     "ReceiptsTotal": 2480.00,
-    "PaymentNaration": "#JUICE : 60",
+    "PaymentNarration": "#JUICE : 60",
     "PaymentTotal": 60.00
   },
   {
@@ -2370,9 +2370,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI684 : 2263#WORKSHOP RENT : 2000",
+    "ReceiptsNarration": "#ARDI684 : 2263#WORKSHOP RENT : 2000",
     "ReceiptsTotal": 4263.00,
-    "PaymentNaration": "#MEDICINE : 880#JUICE : 60#AMIT THAKUR(SALARY ADV) : 2500#TEA : 20#DAN : 5",
+    "PaymentNarration": "#MEDICINE : 880#JUICE : 60#AMIT THAKUR(SALARY ADV) : 2500#TEA : 20#DAN : 5",
     "PaymentTotal": 3465.00
   },
   {
@@ -2392,9 +2392,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI685 : 5198#ARDI686 : 1999#ARDI687 : 1400",
+    "ReceiptsNarration": "#ARDI685 : 5198#ARDI686 : 1999#ARDI687 : 1400",
     "ReceiptsTotal": 8597.00,
-    "PaymentNaration": "#AMIT JEE(SELF) : 10000#DAN : 5",
+    "PaymentNarration": "#AMIT JEE(SELF) : 10000#DAN : 5",
     "PaymentTotal": 10005.00
   },
   {
@@ -2414,9 +2414,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI670 : 2292",
+    "ReceiptsNarration": "#ARDI670 : 2292",
     "ReceiptsTotal": 2292.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#CURIER(MEDICINE) : 240#JUICE : 60#MEDICINE : 80#NEWSPAPER : 162",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#CURIER(MEDICINE) : 240#JUICE : 60#MEDICINE : 80#NEWSPAPER : 162",
     "PaymentTotal": 552.00
   },
   {
@@ -2436,9 +2436,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI688,689 : 13419",
+    "ReceiptsNarration": "#ARDI688,689 : 13419",
     "ReceiptsTotal": 13419.00,
-    "PaymentNaration": "#MEDICINE : 320#LED BULB REPAIRING : 20#DAN : 5",
+    "PaymentNarration": "#MEDICINE : 320#LED BULB REPAIRING : 20#DAN : 5",
     "PaymentTotal": 345.00
   },
   {
@@ -2458,9 +2458,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI690 : 2943#ARDI691 : 3867#ARDI692 : 2304",
+    "ReceiptsNarration": "#ARDI690 : 2943#ARDI691 : 3867#ARDI692 : 2304",
     "ReceiptsTotal": 9114.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -2480,9 +2480,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "##ARDI693 : 839#ARDI694 : 3852",
+    "ReceiptsNarration": "##ARDI693 : 839#ARDI694 : 3852",
     "ReceiptsTotal": 4691.00,
-    "PaymentNaration": "##PAPAYA\u002BJUICE : 100#AMIT THAKUR(SALARY ADV) : 1000#SACHIN MIHRA(BOB A-C) : 500",
+    "PaymentNarration": "##PAPAYA\u002BJUICE : 100#AMIT THAKUR(SALARY ADV) : 1000#SACHIN MIHRA(BOB A-C) : 500",
     "PaymentTotal": 1600.00
   },
   {
@@ -2502,9 +2502,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#JUICE : 60#MUKESH(WOW BILL,ARDI688,689) : 135#DAN : 5",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#JUICE : 60#MUKESH(WOW BILL,ARDI688,689) : 135#DAN : 5",
     "PaymentTotal": 210.00
   },
   {
@@ -2524,9 +2524,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI696 : 3909#ARDI697 : 4484# : 0#ARDI 698 : 2338",
+    "ReceiptsNarration": "#ARDI696 : 3909#ARDI697 : 4484# : 0#ARDI 698 : 2338",
     "ReceiptsTotal": 10731.00,
-    "PaymentNaration": "#AMIT JEE(SELF,MASANJORE) : 12500#PETROL(MUKESH BIKE,MASANJORE) : 200#DAN : 5",
+    "PaymentNarration": "#AMIT JEE(SELF,MASANJORE) : 12500#PETROL(MUKESH BIKE,MASANJORE) : 200#DAN : 5",
     "PaymentTotal": 12705.00
   },
   {
@@ -2546,9 +2546,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#AMIT JEE : 5000#ARDI699 : 1200#ARDI700 : 4154",
+    "ReceiptsNarration": "#AMIT JEE : 5000#ARDI699 : 1200#ARDI700 : 4154",
     "ReceiptsTotal": 10354.00,
-    "PaymentNaration": "#AMAZONE : 550#JUICE : 60# : 0#AMIT JEE(HOME EXP) : 4500#JIO NET RECHARGE(HOME) : 470#DAN : 5",
+    "PaymentNarration": "#AMAZONE : 550#JUICE : 60# : 0#AMIT JEE(HOME EXP) : 4500#JIO NET RECHARGE(HOME) : 470#DAN : 5",
     "PaymentTotal": 5585.00
   },
   {
@@ -2568,9 +2568,9 @@
     "DueList": "#",
     "CustomerRecovery": 5500.00,
     "RecoveryList": "#ARDI580 : 5500",
-    "ReceiptsNaration": "#ARDI701 : 3900",
+    "ReceiptsNarration": "#ARDI701 : 3900",
     "ReceiptsTotal": 3900.00,
-    "PaymentNaration": "#JUICE\u002BPAPAYA : 100#EAR RING REPAIR(M-S SANDEEP) : 50#WATER(KITES AQUA) : 105#LEMON : 50#TISSUE PAPER : 70#DAN : 5",
+    "PaymentNarration": "#JUICE\u002BPAPAYA : 100#EAR RING REPAIR(M-S SANDEEP) : 50#WATER(KITES AQUA) : 105#LEMON : 50#TISSUE PAPER : 70#DAN : 5",
     "PaymentTotal": 380.00
   },
   {
@@ -2590,9 +2590,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI702 : 713",
+    "ReceiptsNarration": "#ARDI702 : 713",
     "ReceiptsTotal": 713.00,
-    "PaymentNaration": "#JUICE : 60#RAMESHWER DADI FOR PUJA : 100#TELEPHONE MISTRY : 50#DAN : 5",
+    "PaymentNarration": "#JUICE : 60#RAMESHWER DADI FOR PUJA : 100#TELEPHONE MISTRY : 50#DAN : 5",
     "PaymentTotal": 215.00
   },
   {
@@ -2612,9 +2612,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#JUICE : 60#DAN : 5",
+    "PaymentNarration": "#JUICE : 60#DAN : 5",
     "PaymentTotal": 65.00
   },
   {
@@ -2634,9 +2634,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI703 : 2629",
+    "ReceiptsNarration": "#ARDI703 : 2629",
     "ReceiptsTotal": 2629.00,
-    "PaymentNaration": "#JUICE : 60# : 0#CUP\u002BGLASS : 93#DAN : 5",
+    "PaymentNarration": "#JUICE : 60# : 0#CUP\u002BGLASS : 93#DAN : 5",
     "PaymentTotal": 158.00
   },
   {
@@ -2656,9 +2656,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI671 : 10152",
+    "ReceiptsNarration": "#ARDI671 : 10152",
     "ReceiptsTotal": 10152.00,
-    "PaymentNaration": "#MEDICINE : 80#PAPAYA : 40#JUICE : 60#MUKESH(WOW BILL,ARDI671) : 101",
+    "PaymentNarration": "#MEDICINE : 80#PAPAYA : 40#JUICE : 60#MUKESH(WOW BILL,ARDI671) : 101",
     "PaymentTotal": 281.00
   },
   {
@@ -2678,9 +2678,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI(80000 CARD\u002B20000 CASH) : 100000",
+    "ReceiptsNarration": "#GOPI(80000 CARD\u002B20000 CASH) : 100000",
     "ReceiptsTotal": 100000.00,
-    "PaymentNaration": "#WATER(KITES AQUA) : 105#LEMON\u002BCHILLE : 10#VODAPHONE REC(8877880175) : 100# : 0#NEW AIRTEL SIM : 300#BAHRUPIA DAN : 5",
+    "PaymentNarration": "#WATER(KITES AQUA) : 105#LEMON\u002BCHILLE : 10#VODAPHONE REC(8877880175) : 100# : 0#NEW AIRTEL SIM : 300#BAHRUPIA DAN : 5",
     "PaymentTotal": 520.00
   },
   {
@@ -2700,9 +2700,9 @@
     "DueList": "#",
     "CustomerRecovery": 4670.00,
     "RecoveryList": "#ARDI657 : 4670",
-    "ReceiptsNaration": "#ARDI704 : 4094#ARDI705 : 4366# : 0#ARDI706,ARDI707 : 11300",
+    "ReceiptsNarration": "#ARDI704 : 4094#ARDI705 : 4366# : 0#ARDI706,ARDI707 : 11300",
     "ReceiptsTotal": 19760.00,
-    "PaymentNaration": "#PETROL(AMIT THAKUR BIKE) : 50",
+    "PaymentNarration": "#PETROL(AMIT THAKUR BIKE) : 50",
     "PaymentTotal": 50.00
   },
   {
@@ -2722,9 +2722,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI672 : 5491",
+    "ReceiptsNarration": "#ARDI672 : 5491",
     "ReceiptsTotal": 5491.00,
-    "PaymentNaration": "#CURIER : 258#JUICE : 50#PIPE MISTRY(FLASH\u002BBESIN FITTING) : 1400",
+    "PaymentNarration": "#CURIER : 258#JUICE : 50#PIPE MISTRY(FLASH\u002BBESIN FITTING) : 1400",
     "PaymentTotal": 1708.00
   },
   {
@@ -2744,9 +2744,9 @@
     "DueList": "#ARDI673 : 2206",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI673 : 4206#ARDI674 : 2669",
+    "ReceiptsNarration": "#ARDI673 : 4206#ARDI674 : 2669",
     "ReceiptsTotal": 6875.00,
-    "PaymentNaration": "#AMIT JEE : 1000",
+    "PaymentNarration": "#AMIT JEE : 1000",
     "PaymentTotal": 1000.00
   },
   {
@@ -2766,9 +2766,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI675 : 4236",
+    "ReceiptsNarration": "#ARDI675 : 4236",
     "ReceiptsTotal": 4236.00,
-    "PaymentNaration": "#POWER PLUG\u002BWIRE : 220#SOCKET : 80#E.MISTRY : 200",
+    "PaymentNarration": "#POWER PLUG\u002BWIRE : 220#SOCKET : 80#E.MISTRY : 200",
     "PaymentTotal": 500.00
   },
   {
@@ -2788,9 +2788,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#WATER(KITES AQUA) : 105",
+    "PaymentNarration": "#WATER(KITES AQUA) : 105",
     "PaymentTotal": 105.00
   },
   {
@@ -2810,9 +2810,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI676 : 4950#MANTU(SAKSHAM) : 25000",
+    "ReceiptsNarration": "#ARDI676 : 4950#MANTU(SAKSHAM) : 25000",
     "ReceiptsTotal": 29950.00,
-    "PaymentNaration": "#TELEPHONE BILL : 1000#CISCO(RS.1300\u002BRS.200 ADVANCE) : 1500#MEGHA KUMARI(SALARY JUNE-22) : 2000#JUICE : 60#PAPAYA : 40",
+    "PaymentNarration": "#TELEPHONE BILL : 1000#CISCO(RS.1300\u002BRS.200 ADVANCE) : 1500#MEGHA KUMARI(SALARY JUNE-22) : 2000#JUICE : 60#PAPAYA : 40",
     "PaymentTotal": 4600.00
   },
   {
@@ -2832,9 +2832,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#MOR PANKH : 200#LEMON\u002BCHILLE : 10#PETROL(HARLEY) : 500#GITANJALI KUMARI(SALARY JUNE-22) : 8000# : 0#ALOK KUMAR(SALARY JUNE-22) : 12560#JUICE\u002BSALT : 295",
+    "PaymentNarration": "#MOR PANKH : 200#LEMON\u002BCHILLE : 10#PETROL(HARLEY) : 500#GITANJALI KUMARI(SALARY JUNE-22) : 8000# : 0#ALOK KUMAR(SALARY JUNE-22) : 12560#JUICE\u002BSALT : 295",
     "PaymentTotal": 21565.00
   },
   {
@@ -2854,9 +2854,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 724 : 3045",
+    "ReceiptsNarration": "#ARDI 724 : 3045",
     "ReceiptsTotal": 3045.00,
-    "PaymentNaration": "#PETROL(HARLEY) : 500#MEDICINE(CURIER) : 880#JUICE\u002BPAPAYA : 90#DAN : 5",
+    "PaymentNarration": "#PETROL(HARLEY) : 500#MEDICINE(CURIER) : 880#JUICE\u002BPAPAYA : 90#DAN : 5",
     "PaymentTotal": 1475.00
   },
   {
@@ -2876,9 +2876,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ICICI(A-C-2791)ATM : 14000",
+    "ReceiptsNarration": "#ICICI(A-C-2791)ATM : 14000",
     "ReceiptsTotal": 14000.00,
-    "PaymentNaration": "#ALOK(SALARY) : 14010#AMAZONE : 595#DAN : 5",
+    "PaymentNarration": "#ALOK(SALARY) : 14010#AMAZONE : 595#DAN : 5",
     "PaymentTotal": 14610.00
   },
   {
@@ -2898,9 +2898,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 725 : 3535#ARDI 726 : 3679",
+    "ReceiptsNarration": "#ARDI 725 : 3535#ARDI 726 : 3679",
     "ReceiptsTotal": 7214.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#DAN(5\u002B5) : 10",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#DAN(5\u002B5) : 10",
     "PaymentTotal": 20.00
   },
   {
@@ -2920,9 +2920,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#SWEAPER(TOILET WASH) : 150#AMIT THAKUR(SALARY ADV. AUG-22) : 1000",
+    "PaymentNarration": "#SWEAPER(TOILET WASH) : 150#AMIT THAKUR(SALARY ADV. AUG-22) : 1000",
     "PaymentTotal": 1150.00
   },
   {
@@ -2942,9 +2942,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#BREAKFAST : 150#AMAZONE : 350",
+    "PaymentNarration": "#BREAKFAST : 150#AMAZONE : 350",
     "PaymentTotal": 500.00
   },
   {
@@ -2964,9 +2964,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#GLASS HOUSE(MADHU BUA) : 4360#LEMON : 50",
+    "PaymentNarration": "#GLASS HOUSE(MADHU BUA) : 4360#LEMON : 50",
     "PaymentTotal": 4410.00
   },
   {
@@ -2986,9 +2986,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMAZONE : 190#WATER(KITES AQUA) : 105#BREAKFAST(CHOLE-BHATURE) : 65",
+    "PaymentNarration": "#AMAZONE : 190#WATER(KITES AQUA) : 105#BREAKFAST(CHOLE-BHATURE) : 65",
     "PaymentTotal": 360.00
   },
   {
@@ -3008,9 +3008,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI CHOURASIA(CARD SWAP) : 20000",
+    "ReceiptsNarration": "#GOPI CHOURASIA(CARD SWAP) : 20000",
     "ReceiptsTotal": 20000.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -3030,9 +3030,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 727 : 1412#ARDI 728 : 700",
+    "ReceiptsNarration": "#ARDI 727 : 1412#ARDI 728 : 700",
     "ReceiptsTotal": 2112.00,
-    "PaymentNaration": "#MOB. REC(8409201476) : 180#JUICE\u002BPAPAYA : 100#CUP : 30",
+    "PaymentNarration": "#MOB. REC(8409201476) : 180#JUICE\u002BPAPAYA : 100#CUP : 30",
     "PaymentTotal": 310.00
   },
   {
@@ -3052,9 +3052,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#JUICE : 50#MEGHA KUMARI(SALARY JULY-22) : 6000#AMIT JEE(FOR PUJA) : 99#ANIL (CAMERA\u002BLAPTOP REPAIRING) : 1600",
+    "PaymentNarration": "#JUICE : 50#MEGHA KUMARI(SALARY JULY-22) : 6000#AMIT JEE(FOR PUJA) : 99#ANIL (CAMERA\u002BLAPTOP REPAIRING) : 1600",
     "PaymentTotal": 7749.00
   },
   {
@@ -3074,9 +3074,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMAZONE : 998# : 0",
+    "PaymentNarration": "#AMAZONE : 998# : 0",
     "PaymentTotal": 998.00
   },
   {
@@ -3096,9 +3096,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 729 : 3222#ARDI 730,ARDI 731 : 7990",
+    "ReceiptsNarration": "#ARDI 729 : 3222#ARDI 730,ARDI 731 : 7990",
     "ReceiptsTotal": 11212.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -3118,9 +3118,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 732 : 1013#ARDI 733 : 1000",
+    "ReceiptsNarration": "#ARDI 732 : 1013#ARDI 733 : 1000",
     "ReceiptsTotal": 2013.00,
-    "PaymentNaration": "#LIME : 15#JUICE\u002BGUAVA : 100#DAN : 5",
+    "PaymentNarration": "#LIME : 15#JUICE\u002BGUAVA : 100#DAN : 5",
     "PaymentTotal": 120.00
   },
   {
@@ -3140,9 +3140,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 734 : 886#ARDI 735 : 1200",
+    "ReceiptsNarration": "#ARDI 734 : 886#ARDI 735 : 1200",
     "ReceiptsTotal": 2086.00,
-    "PaymentNaration": "#WATER(KITES AQUA) : 70# : 0#PETROL(ALTROZ) : 500#FLIPCART : 192#JUICE\u002BPAPAYA) : 95#DAN : 5",
+    "PaymentNarration": "#WATER(KITES AQUA) : 70# : 0#PETROL(ALTROZ) : 500#FLIPCART : 192#JUICE\u002BPAPAYA) : 95#DAN : 5",
     "PaymentTotal": 862.00
   },
   {
@@ -3162,9 +3162,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 736 : 686",
+    "ReceiptsNarration": "#ARDI 736 : 686",
     "ReceiptsTotal": 686.00,
-    "PaymentNaration": "#ADVERTISMENT RECORDING : 1200# : 0#JUICE : 50#MEDICINE : 1426#JIO NET RECHARGE(HOME) : 470#DAN : 5",
+    "PaymentNarration": "#ADVERTISMENT RECORDING : 1200# : 0#JUICE : 50#MEDICINE : 1426#JIO NET RECHARGE(HOME) : 470#DAN : 5",
     "PaymentTotal": 3151.00
   },
   {
@@ -3184,9 +3184,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 737 : 2293#ARDI 738 : 1000",
+    "ReceiptsNarration": "#ARDI 737 : 2293#ARDI 738 : 1000",
     "ReceiptsTotal": 3293.00,
-    "PaymentNaration": "#FEVIQUICK FOR FLEX PASTING : 100#JUICE\u002BPAPAYA : 100#DAN : 2",
+    "PaymentNarration": "#FEVIQUICK FOR FLEX PASTING : 100#JUICE\u002BPAPAYA : 100#DAN : 2",
     "PaymentTotal": 202.00
   },
   {
@@ -3206,9 +3206,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 739 : 857#ARDI 740 : 1988",
+    "ReceiptsNarration": "#ARDI 739 : 857#ARDI 740 : 1988",
     "ReceiptsTotal": 2845.00,
-    "PaymentNaration": "#AMIT THAKUR(SALARY ADV.AUG-22) : 500#FLEX PRINTING : 900#TOTO FOR ADVERTISEMENT : 1100#WATER(KITES AQUA) : 105#DAN : 5",
+    "PaymentNarration": "#AMIT THAKUR(SALARY ADV.AUG-22) : 500#FLEX PRINTING : 900#TOTO FOR ADVERTISEMENT : 1100#WATER(KITES AQUA) : 105#DAN : 5",
     "PaymentTotal": 2610.00
   },
   {
@@ -3228,9 +3228,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 741 : 660",
+    "ReceiptsNarration": "#ARDI 741 : 660",
     "ReceiptsTotal": 660.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#LEMON : 50#CHANDA(OUR HOPE,DURGAPUR) : 200# : 0#DAN : 5# : 0",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#LEMON : 50#CHANDA(OUR HOPE,DURGAPUR) : 200# : 0#DAN : 5# : 0",
     "PaymentTotal": 265.00
   },
   {
@@ -3250,9 +3250,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#MEDICINE : 850",
+    "PaymentNarration": "#MEDICINE : 850",
     "PaymentTotal": 850.00
   },
   {
@@ -3272,9 +3272,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#AMIT THAKUR(SALARY ADV.) : 200",
+    "PaymentNarration": "#AMIT THAKUR(SALARY ADV.) : 200",
     "PaymentTotal": 200.00
   },
   {
@@ -3294,9 +3294,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI708 : 2446#ARDI709 : 1453# : 0#ACCOUNT ADJUSTMENT : 1",
+    "ReceiptsNarration": "#ARDI708 : 2446#ARDI709 : 1453# : 0#ACCOUNT ADJUSTMENT : 1",
     "ReceiptsTotal": 3900.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -3316,9 +3316,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 742 : 1038",
+    "ReceiptsNarration": "#ARDI 742 : 1038",
     "ReceiptsTotal": 1038.00,
-    "PaymentNaration": "#COLIN\u002BLYZOL : 197#TOTO(FOR PRINTER) : 10#JUICE : 50#TEA : 20#DAN : 5",
+    "PaymentNarration": "#COLIN\u002BLYZOL : 197#TOTO(FOR PRINTER) : 10#JUICE : 50#TEA : 20#DAN : 5",
     "PaymentTotal": 282.00
   },
   {
@@ -3338,9 +3338,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 743 : 2500",
+    "ReceiptsNarration": "#ARDI 743 : 2500",
     "ReceiptsTotal": 2500.00,
-    "PaymentNaration": "#TEA : 30#LUNCH(ALOK) : 100#TOTO FOR ADVERTISMENT : 1100#DAN : 5",
+    "PaymentNarration": "#TEA : 30#LUNCH(ALOK) : 100#TOTO FOR ADVERTISMENT : 1100#DAN : 5",
     "PaymentTotal": 1235.00
   },
   {
@@ -3360,9 +3360,9 @@
     "DueList": "#",
     "CustomerRecovery": 2206.00,
     "RecoveryList": "#ARDI673 : 2206",
-    "ReceiptsNaration": "#ARDI710 : 3421",
+    "ReceiptsNarration": "#ARDI710 : 3421",
     "ReceiptsTotal": 3421.00,
-    "PaymentNaration": "#JUICE\u002BPAPAYA\u002BGUAVA : 110#DAN : 5",
+    "PaymentNarration": "#JUICE\u002BPAPAYA\u002BGUAVA : 110#DAN : 5",
     "PaymentTotal": 115.00
   },
   {
@@ -3382,9 +3382,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 711 : 1284#ARDI 712 : 1739# : 0",
+    "ReceiptsNarration": "#ARDI 711 : 1284#ARDI 712 : 1739# : 0",
     "ReceiptsTotal": 3023.00,
-    "PaymentNaration": "#AMAZONE : 225# : 0#AMIT THAKUR(SALARY ADV. JULY-22) : 500#JUICE : 50# : 0#DAN : 5",
+    "PaymentNarration": "#AMAZONE : 225# : 0#AMIT THAKUR(SALARY ADV. JULY-22) : 500#JUICE : 50# : 0#DAN : 5",
     "PaymentTotal": 780.00
   },
   {
@@ -3404,9 +3404,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI713 : 3288",
+    "ReceiptsNarration": "#ARDI713 : 3288",
     "ReceiptsTotal": 3288.00,
-    "PaymentNaration": "#E.BILL(SHOP 33000\u002BHOME 7000) : 40000#LEMON\u002BCHILLE : 10#AMAZONE : 500#WATER(KITES AQUA) : 105# : 0#CUP : 30#DAN : 5",
+    "PaymentNarration": "#E.BILL(SHOP 33000\u002BHOME 7000) : 40000#LEMON\u002BCHILLE : 10#AMAZONE : 500#WATER(KITES AQUA) : 105# : 0#CUP : 30#DAN : 5",
     "PaymentTotal": 40650.00
   },
   {
@@ -3426,9 +3426,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#ISWAR RAM(SALARY ADV.JULY-22) : 1500",
+    "PaymentNarration": "#ISWAR RAM(SALARY ADV.JULY-22) : 1500",
     "PaymentTotal": 1500.00
   },
   {
@@ -3448,9 +3448,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI714 : 4656#ARDI715 : 4134",
+    "ReceiptsNarration": "#ARDI714 : 4656#ARDI715 : 4134",
     "ReceiptsTotal": 8790.00,
-    "PaymentNaration": "#AMIT THAKUR(SALARY JULY) : 791#ISWAR RAM (SALARY JULY) : 3192#GITANJALI KUMARI(SALARY JULY) : 5500#MUKESH(SALARY JULY) : 9135#DAN : 5",
+    "PaymentNarration": "#AMIT THAKUR(SALARY JULY) : 791#ISWAR RAM (SALARY JULY) : 3192#GITANJALI KUMARI(SALARY JULY) : 5500#MUKESH(SALARY JULY) : 9135#DAN : 5",
     "PaymentTotal": 18623.00
   },
   {
@@ -3470,9 +3470,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 716 : 2321#ARDI 717 : 6763#ARDI 718 : 1415#ARDI 719 : 966#ARDI 720 : 1379",
+    "ReceiptsNarration": "#ARDI 716 : 2321#ARDI 717 : 6763#ARDI 718 : 1415#ARDI 719 : 966#ARDI 720 : 1379",
     "ReceiptsTotal": 12844.00,
-    "PaymentNaration": "#JUICE : 50#DAN : 5",
+    "PaymentNarration": "#JUICE : 50#DAN : 5",
     "PaymentTotal": 55.00
   },
   {
@@ -3492,9 +3492,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#GOPI CHOURASIA : 23000",
+    "ReceiptsNarration": "#GOPI CHOURASIA : 23000",
     "ReceiptsTotal": 23000.00,
-    "PaymentNaration": "#SCAN(PLOT PAPER) : 50#JUICE\u002BGUAVA\u002BTEA : 100",
+    "PaymentNarration": "#SCAN(PLOT PAPER) : 50#JUICE\u002BGUAVA\u002BTEA : 100",
     "PaymentTotal": 150.00
   },
   {
@@ -3514,9 +3514,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#2022-9-IN-0013 : 1057#ARDI 757 : 2953",
+    "ReceiptsNarration": "#2022-9-IN-0013 : 1057#ARDI 757 : 2953",
     "ReceiptsTotal": 4010.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#AMIT THAKUR(SALARY ADV. SEP-22) : 1000",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#AMIT THAKUR(SALARY ADV. SEP-22) : 1000",
     "PaymentTotal": 1010.00
   },
   {
@@ -3536,9 +3536,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 758 : 2896#ARDI 759 : 1132#ARDI 760 : 7809#ARDI 761 : 3193",
+    "ReceiptsNarration": "#ARDI 758 : 2896#ARDI 759 : 1132#ARDI 760 : 7809#ARDI 761 : 3193",
     "ReceiptsTotal": 15030.00,
-    "PaymentNaration": "#AMIT THAKUR(SALARY ADV. SEP-22) : 3000#DAN : 2",
+    "PaymentNarration": "#AMIT THAKUR(SALARY ADV. SEP-22) : 3000#DAN : 2",
     "PaymentTotal": 3002.00
   },
   {
@@ -3558,9 +3558,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 762 : 2453#ARDI 763 : 1247#ARDI 764 : 2379#ARDI 765 : 1959",
+    "ReceiptsNarration": "#ARDI 762 : 2453#ARDI 763 : 1247#ARDI 764 : 2379#ARDI 765 : 1959",
     "ReceiptsTotal": 8038.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -3580,9 +3580,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 766 : 900#ARDI 767 : 2748",
+    "ReceiptsNarration": "#ARDI 766 : 900#ARDI 767 : 2748",
     "ReceiptsTotal": 3648.00,
-    "PaymentNaration": "#VEGETABLE FOR HOME : 135# : 0",
+    "PaymentNarration": "#VEGETABLE FOR HOME : 135# : 0",
     "PaymentTotal": 135.00
   },
   {
@@ -3602,9 +3602,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#",
+    "ReceiptsNarration": "#",
     "ReceiptsTotal": 0.00,
-    "PaymentNaration": "#TELEPHONE BILL : 500",
+    "PaymentNarration": "#TELEPHONE BILL : 500",
     "PaymentTotal": 500.00
   },
   {
@@ -3624,9 +3624,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 768 : 4043",
+    "ReceiptsNarration": "#ARDI 768 : 4043",
     "ReceiptsTotal": 4043.00,
-    "PaymentNaration": "#MEDICINE\u002BEXAM BOARD\u002BPENCIL BOX : 430#BREAKFAST : 60#VODAPHONE REC.(8877880175) : 100",
+    "PaymentNarration": "#MEDICINE\u002BEXAM BOARD\u002BPENCIL BOX : 430#BREAKFAST : 60#VODAPHONE REC.(8877880175) : 100",
     "PaymentTotal": 590.00
   },
   {
@@ -3646,9 +3646,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#WORKSHOP RENT(ADVANCE) : 4000#ARDI 769 : 2946",
+    "ReceiptsNarration": "#WORKSHOP RENT(ADVANCE) : 4000#ARDI 769 : 2946",
     "ReceiptsTotal": 6946.00,
-    "PaymentNaration": "#REMOVE BOARD : 500#MOB.REC(8409201476) : 180#JIO TV REMOTE : 600#SWEET\u002BBAM\u002BVEGETABLE\u002BSAMOSA\u002BBHUNJA : 260#PETROL(AMIT THAKUR BIKE) : 50#DAN : 5",
+    "PaymentNarration": "#REMOVE BOARD : 500#MOB.REC(8409201476) : 180#JIO TV REMOTE : 600#SWEET\u002BBAM\u002BVEGETABLE\u002BSAMOSA\u002BBHUNJA : 260#PETROL(AMIT THAKUR BIKE) : 50#DAN : 5",
     "PaymentTotal": 1595.00
   },
   {
@@ -3668,9 +3668,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 770 : 3429#ARDI 771 : 1668#ARDI 772 : 1000#ARDI 773 : 976",
+    "ReceiptsNarration": "#ARDI 770 : 3429#ARDI 771 : 1668#ARDI 772 : 1000#ARDI 773 : 976",
     "ReceiptsTotal": 7073.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#AMIT JEE(HOME EXP.8000\u002BMUKESH SALARU 5000) : 13000#VISWAKARMA PUJA : 201#AMIT THAKUR(SALARY ADV) : 500#DAN : 5",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#AMIT JEE(HOME EXP.8000\u002BMUKESH SALARU 5000) : 13000#VISWAKARMA PUJA : 201#AMIT THAKUR(SALARY ADV) : 500#DAN : 5",
     "PaymentTotal": 13716.00
   },
   {
@@ -3690,9 +3690,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 774 : 1086#ARDI 775 : 698",
+    "ReceiptsNarration": "#ARDI 774 : 1086#ARDI 775 : 698",
     "ReceiptsTotal": 1784.00,
-    "PaymentNaration": "#AMAZONE : 300#BREAKFAST : 30",
+    "PaymentNarration": "#AMAZONE : 300#BREAKFAST : 30",
     "PaymentTotal": 330.00
   },
   {
@@ -3712,9 +3712,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 776 : 4650",
+    "ReceiptsNarration": "#ARDI 776 : 4650",
     "ReceiptsTotal": 4650.00,
-    "PaymentNaration": "#JIO (HOME)RECHARGE : 470#DAN : 5",
+    "PaymentNarration": "#JIO (HOME)RECHARGE : 470#DAN : 5",
     "PaymentTotal": 475.00
   },
   {
@@ -3734,9 +3734,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 744 : 1391#ARDI 745 : 4875#ARDI 746 : 1000#ARDI 747 : 1700#ARDI 748 : 3213#ARDI 749 : 1087",
+    "ReceiptsNarration": "#ARDI 744 : 1391#ARDI 745 : 4875#ARDI 746 : 1000#ARDI 747 : 1700#ARDI 748 : 3213#ARDI 749 : 1087",
     "ReceiptsTotal": 13266.00,
-    "PaymentNaration": "#MEDICINE : 300#JUICE\u002BTEA\u002BCUP : 100#DAN : 5#TOTO FOR ADVERTISMENT : 1100",
+    "PaymentNarration": "#MEDICINE : 300#JUICE\u002BTEA\u002BCUP : 100#DAN : 5#TOTO FOR ADVERTISMENT : 1100",
     "PaymentTotal": 1505.00
   },
   {
@@ -3756,9 +3756,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 777 : 2059#ARDI 778 : 1367",
+    "ReceiptsNarration": "#ARDI 777 : 2059#ARDI 778 : 1367",
     "ReceiptsTotal": 3426.00,
-    "PaymentNaration": "#AMIT THAKUR(SALARY ADV) : 2500#CHANDA(BABUPARA) : 51#DAN : 5",
+    "PaymentNarration": "#AMIT THAKUR(SALARY ADV) : 2500#CHANDA(BABUPARA) : 51#DAN : 5",
     "PaymentTotal": 2556.00
   },
   {
@@ -3778,9 +3778,9 @@
     "DueList": "#",
     "CustomerRecovery": 3380.00,
     "RecoveryList": "#ARDI 752 : 3380",
-    "ReceiptsNaration": "#ARDI 779 : 1571#ARDI 780 : 711#ARDI 781 : 1359# : 0",
+    "ReceiptsNarration": "#ARDI 779 : 1571#ARDI 780 : 711#ARDI 781 : 1359# : 0",
     "ReceiptsTotal": 3641.00,
-    "PaymentNaration": "#BULB REPAIRING : 30#WATER(KITES AQUA) : 105#TOTO FOR ADVERTISMENT : 1100# : 0#DAN : 5",
+    "PaymentNarration": "#BULB REPAIRING : 30#WATER(KITES AQUA) : 105#TOTO FOR ADVERTISMENT : 1100# : 0#DAN : 5",
     "PaymentTotal": 1240.00
   },
   {
@@ -3800,9 +3800,9 @@
     "DueList": "#ARDI 782 : 1283",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 782 : 6283#ARDI 783 : 1238",
+    "ReceiptsNarration": "#ARDI 782 : 6283#ARDI 783 : 1238",
     "ReceiptsTotal": 7521.00,
-    "PaymentNaration": "#MOB BILL(7667178482) : 230#AMIT JEE(SELF),DEOGHAR : 15000#BREAKFAST : 50#DAN : 5",
+    "PaymentNarration": "#MOB BILL(7667178482) : 230#AMIT JEE(SELF),DEOGHAR : 15000#BREAKFAST : 50#DAN : 5",
     "PaymentTotal": 15285.00
   },
   {
@@ -3822,9 +3822,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 784 : 797",
+    "ReceiptsNarration": "#ARDI 784 : 797",
     "ReceiptsTotal": 797.00,
-    "PaymentNaration": "#TRADE LICENCE(APRAJITA RETAILS) : 1620#TRADE LICENCE(PROMINENT BARTER) : 620#CUP\u002BGLASS : 80#CHANDA(GANDHINAGAR) : 21#DAN : 5",
+    "PaymentNarration": "#TRADE LICENCE(APRAJITA RETAILS) : 1620#TRADE LICENCE(PROMINENT BARTER) : 620#CUP\u002BGLASS : 80#CHANDA(GANDHINAGAR) : 21#DAN : 5",
     "PaymentTotal": 2346.00
   },
   {
@@ -3844,9 +3844,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "##ARDI 785 : 834#ARDI 786 : 1172#ARDI 787 : 956#ARDI 788 : 969#ARDI 789 : 983",
+    "ReceiptsNarration": "##ARDI 785 : 834#ARDI 786 : 1172#ARDI 787 : 956#ARDI 788 : 969#ARDI 789 : 983",
     "ReceiptsTotal": 4914.00,
-    "PaymentNaration": "##LEMON\u002BCHILLE : 10#CISCO(MONTH OF SEP-22) : 1100#DAN : 5#CHANDA(LAKHIKUNDI) : 21",
+    "PaymentNarration": "##LEMON\u002BCHILLE : 10#CISCO(MONTH OF SEP-22) : 1100#DAN : 5#CHANDA(LAKHIKUNDI) : 21",
     "PaymentTotal": 1136.00
   },
   {
@@ -3866,9 +3866,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 790 : 1404#ARDI 791 : 1265#ARDI 792 : 1763",
+    "ReceiptsNarration": "#ARDI 790 : 1404#ARDI 791 : 1265#ARDI 792 : 1763",
     "ReceiptsTotal": 4432.00,
-    "PaymentNaration": "#AMIT JEE(HOME EXPENCE) : 2000#DAN : 5",
+    "PaymentNarration": "#AMIT JEE(HOME EXPENCE) : 2000#DAN : 5",
     "PaymentTotal": 2005.00
   },
   {
@@ -3888,9 +3888,9 @@
     "DueList": "#ARDI 793 : 986",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 793 : 1186# : 0#ARDI 794 : 1344#ARDI 795 : 618",
+    "ReceiptsNarration": "#ARDI 793 : 1186# : 0#ARDI 794 : 1344#ARDI 795 : 618",
     "ReceiptsTotal": 3148.00,
-    "PaymentNaration": "#GUAVA : 50#AMIT JEE(HOME EXP) : 5000#SLEEPAR(AMIT JEE) : 360#CHANDA(SHIVPAHAR) : 51#DAN : 5",
+    "PaymentNarration": "#GUAVA : 50#AMIT JEE(HOME EXP) : 5000#SLEEPAR(AMIT JEE) : 360#CHANDA(SHIVPAHAR) : 51#DAN : 5",
     "PaymentTotal": 5466.00
   },
   {
@@ -3910,9 +3910,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "##ARDI 796 : 700#ARDI 797 : 1021#ARDI 798 : 1030#ARDI 799 : 1069#ARDI 800 : 2182#ARDI 801 : 1000#GOPI CHOURASIA (CARD SWAP) : 100000",
+    "ReceiptsNarration": "##ARDI 796 : 700#ARDI 797 : 1021#ARDI 798 : 1030#ARDI 799 : 1069#ARDI 800 : 2182#ARDI 801 : 1000#GOPI CHOURASIA (CARD SWAP) : 100000",
     "ReceiptsTotal": 107002.00,
-    "PaymentNaration": "##CHANDA(DHARMSTHAN) : 51#DAN : 5",
+    "PaymentNarration": "##CHANDA(DHARMSTHAN) : 51#DAN : 5",
     "PaymentTotal": 56.00
   },
   {
@@ -3932,9 +3932,9 @@
     "DueList": "#ARDI 805 : 625",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 802 : 1000#ARDI 803 : 1547#ARDI 804 : 1778#ARDI 805 : 1125#ARDI 806 : 1398#ARDI 807 : 750",
+    "ReceiptsNarration": "#ARDI 802 : 1000#ARDI 803 : 1547#ARDI 804 : 1778#ARDI 805 : 1125#ARDI 806 : 1398#ARDI 807 : 750",
     "ReceiptsTotal": 7598.00,
-    "PaymentNaration": "#PAPAYA : 40#AMIT JEE(HOME EXP) : 2000#BHUNJA : 20#DAN : 5#AMIT THAKUR(SALARY ADV) : 200",
+    "PaymentNarration": "#PAPAYA : 40#AMIT JEE(HOME EXP) : 2000#BHUNJA : 20#DAN : 5#AMIT THAKUR(SALARY ADV) : 200",
     "PaymentTotal": 2265.00
   },
   {
@@ -3954,9 +3954,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 808 : 2944#ARDI 809 : 1199#ARDI 810 : 959#ARDI 811 : 1435#ARDI 812 : 1332#ARDI 813 : 1036#ARDI 814 : 1940",
+    "ReceiptsNarration": "#ARDI 808 : 2944#ARDI 809 : 1199#ARDI 810 : 959#ARDI 811 : 1435#ARDI 812 : 1332#ARDI 813 : 1036#ARDI 814 : 1940",
     "ReceiptsTotal": 10845.00,
-    "PaymentNaration": "#CHANDA(JAIL) : 21#DAN : 5",
+    "PaymentNarration": "#CHANDA(JAIL) : 21#DAN : 5",
     "PaymentTotal": 26.00
   },
   {
@@ -3976,9 +3976,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 750(2022-9-IN-0004) : 994#2022-9-IN-0005 : 1260",
+    "ReceiptsNarration": "#ARDI 750(2022-9-IN-0004) : 994#2022-9-IN-0005 : 1260",
     "ReceiptsTotal": 2254.00,
-    "PaymentNaration": "#LEMON\u002BCHILLE : 10#MEDICINE : 521#A-C INSTALMENT\u002BFINE : 5700#MOB. REPAIR(SCREEN GAURD) : 500#AMIT THAKUR(SALARY ADV. AUG-22) : 1500#MOB. REC(BACK OFF.) : 455#DAN : 5",
+    "PaymentNarration": "#LEMON\u002BCHILLE : 10#MEDICINE : 521#A-C INSTALMENT\u002BFINE : 5700#MOB. REPAIR(SCREEN GAURD) : 500#AMIT THAKUR(SALARY ADV. AUG-22) : 1500#MOB. REC(BACK OFF.) : 455#DAN : 5",
     "PaymentTotal": 8691.00
   },
   {
@@ -3998,9 +3998,9 @@
     "DueList": "#",
     "CustomerRecovery": 1611.00,
     "RecoveryList": "#ARDI 793 : 986#ARDI 805 : 625",
-    "ReceiptsNaration": "#ARDI 815 : 1571#ARDI 816 : 4100",
+    "ReceiptsNarration": "#ARDI 815 : 1571#ARDI 816 : 4100",
     "ReceiptsTotal": 5671.00,
-    "PaymentNaration": "#MEDICINE(29-09-2022) : 30#PUJA CLOTH(GITANJALI\u002BMEGHA) : 4000#AMIT JEE(HOME EXP) : 25000#AMIT JEE(SELF) : 5000#MANOJ MARANDI(SALARY) : 2770#MEDICINE : 200#DAN(PANDIT JEE,BAKSHISH) : 20",
+    "PaymentNarration": "#MEDICINE(29-09-2022) : 30#PUJA CLOTH(GITANJALI\u002BMEGHA) : 4000#AMIT JEE(HOME EXP) : 25000#AMIT JEE(SELF) : 5000#MANOJ MARANDI(SALARY) : 2770#MEDICINE : 200#DAN(PANDIT JEE,BAKSHISH) : 20",
     "PaymentTotal": 37020.00
   },
   {
@@ -4020,9 +4020,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 751 : 13565#2022-9-IN-0006 : 1039#2022-9-IN-0007 : 900#2022-9-IN-0008 : 697",
+    "ReceiptsNarration": "#ARDI 751 : 13565#2022-9-IN-0006 : 1039#2022-9-IN-0007 : 900#2022-9-IN-0008 : 697",
     "ReceiptsTotal": 16201.00,
-    "PaymentNaration": "#",
+    "PaymentNarration": "#",
     "PaymentTotal": 0.00
   },
   {
@@ -4042,9 +4042,9 @@
     "DueList": "#ARDI 752 : 3380",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 752 : 6380#ARDI 753 : 1728#2022-9-IN-0009 : 1313",
+    "ReceiptsNarration": "#ARDI 752 : 6380#ARDI 753 : 1728#2022-9-IN-0009 : 1313",
     "ReceiptsTotal": 9421.00,
-    "PaymentNaration": "#AMAZONE : 1846#ISWAR RAM(SALARY ADV) : 1000#MEGHA KUMARI(SALARY AUG) : 5654#NEWSPAPER : 162",
+    "PaymentNarration": "#AMAZONE : 1846#ISWAR RAM(SALARY ADV) : 1000#MEGHA KUMARI(SALARY AUG) : 5654#NEWSPAPER : 162",
     "PaymentTotal": 8662.00
   },
   {
@@ -4064,9 +4064,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#ARDI 754 : 3599#ARDI 755 : 4000",
+    "ReceiptsNarration": "#ARDI 754 : 3599#ARDI 755 : 4000",
     "ReceiptsTotal": 7599.00,
-    "PaymentNaration": "#WATER(KITES AQUA) : 105",
+    "PaymentNarration": "#WATER(KITES AQUA) : 105",
     "PaymentTotal": 105.00
   },
   {
@@ -4086,9 +4086,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#2022-9-IN-0010 : 1817#2022-9-IN-0011 : 2063#ARDI 756 : 1667",
+    "ReceiptsNarration": "#2022-9-IN-0010 : 1817#2022-9-IN-0011 : 2063#ARDI 756 : 1667",
     "ReceiptsTotal": 5547.00,
-    "PaymentNaration": "#ANUBHA SCHOOL FEE : 4314",
+    "PaymentNarration": "#ANUBHA SCHOOL FEE : 4314",
     "PaymentTotal": 4314.00
   },
   {
@@ -4108,9 +4108,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#2022-9-IN-0012 : 1086#GOPI CHOURASIA(CARD SWAP) : 50000",
+    "ReceiptsNarration": "#2022-9-IN-0012 : 1086#GOPI CHOURASIA(CARD SWAP) : 50000",
     "ReceiptsTotal": 51086.00,
-    "PaymentNaration": "#CISCO(AUG-22) : 1300#LUNCH(ALOK) : 100",
+    "PaymentNarration": "#CISCO(AUG-22) : 1300#LUNCH(ALOK) : 100",
     "PaymentTotal": 1400.00
   },
   {
@@ -4130,9 +4130,9 @@
     "DueList": "#",
     "CustomerRecovery": 0.00,
     "RecoveryList": "#",
-    "ReceiptsNaration": "#RETURN FROM DINNER : 310",
+    "ReceiptsNarration": "#RETURN FROM DINNER : 310",
     "ReceiptsTotal": 310.00,
-    "PaymentNaration": "#BROWN BREAD : 90#MEDICINE : 375#BREAKFAST : 70",
+    "PaymentNarration": "#BROWN BREAD : 90#MEDICINE : 375#BREAKFAST : 70",
     "PaymentTotal": 535.00
   }
 ]

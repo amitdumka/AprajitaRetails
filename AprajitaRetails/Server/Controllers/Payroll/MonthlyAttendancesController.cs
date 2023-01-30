@@ -42,7 +42,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
                 .ToListAsync();
         }
         // GET: api/MonthlyAttendances/ByStore
-        [HttpGet("ByStoreDTo")]
+        [HttpGet("ByStoreDTO")]
         public async Task<ActionResult<IEnumerable<MonthlyAttendanceDTO>>> GetMonthlyAttendanceByStoreDTO(string storeid)
         {
             if (_context.MonthlyAttendances == null)
