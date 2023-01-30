@@ -27,7 +27,7 @@
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.41" />
 <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.41" />
 <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.2" />
+<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.3" />
 <PackageReference Include="AutoMapper" Version="12.0.1" />
 <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
-    <Folder Include="Controllers\Banking\" />
     <Folder Include="BL\" />
     <Folder Include="BL\Accounts\" />
     <Folder Include="Controllers\Helpers\" />
