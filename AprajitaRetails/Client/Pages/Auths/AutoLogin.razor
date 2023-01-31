@@ -5,7 +5,7 @@
 @inject IHttpClientFactory ClientFactory
 @*@inject IJSRuntime JSRuntime*@
 @using AprajitaRetails.Helpers
-@inject ClientSetting ClientSetting
+@inject ClientSetting  Setting
 @inject LocalStorageAccessor LocalStorage
 @if (!isLoggedIn)
 {
@@ -30,12 +30,11 @@
                 var user = login.Content.ReadFromJsonAsync<LoggedUser>().Result;
                 if (user != null)
                 {
-                    LocalStorage.SetValueAsync("UserFullName", user.FullName);
-                    LocalStorage.SetValueAsync("StoreCode", user.StoreId);
-                    // LocalStorage.SetValueAsync("Employee", user.EmployeeId);
-                    // LocalStorage.SetValueAsync("UserName", user.Id);
-                    ClientSetting.SetLogin(user.StoreId, "", user.FullName, user.Id, user.EmployeeId);
 
+                    LocalStorage.SetValueAsync("UserFullName", user.FullName);
+                   // LocalStorage.SetValueAsync("StoreCode", user.StoreId);
+                    Setting.SetLogin(user.StoreId, "", user.FullName, user.Id, user.EmployeeId);
+                    LocalStorage.SetValueAsync<ClientSetting>("ClientSettings",  Setting);
                 }
 
                 NavigationManager.NavigateTo("/home");

@@ -16,6 +16,7 @@
         public void SetLogin(string code, string sName, string uName, string userid, string eid)
         {
             EmployeeId = eid; StoreCode = code; StoreName = sName; UserId = userid; UserName = uName;
+            Name= uName; UserType = "StoreManager"; Role = "User";
         }
 
         public void Clear()

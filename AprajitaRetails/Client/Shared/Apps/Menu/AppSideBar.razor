@@ -232,7 +232,7 @@
     {
         Setting.UserName= LoggedUser = await LocalStorage.GetValueAsync<string>("UserFullName");
         Setting.StoreCode = SelectedStore = await LocalStorage.GetValueAsync<string>("StoreCode");
-
+        //Setting = await LocalStorage.GetValueAsync<ClientSetting>("ClientSettings");
         StateHasChanged();
 
     }

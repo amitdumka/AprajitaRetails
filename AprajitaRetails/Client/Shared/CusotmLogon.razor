@@ -29,6 +29,8 @@
     }
     protected override async Task OnInitializedAsync()
     {
-        currentUserName = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new[] { "UserFullName" });
+         currentUserName = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new[] { "UserFullName" });
+        //var setting = await JSRuntime.InvokeAsync<ClientSetting>("localStorage.getItem", new[] { "ClientSettings" });
+        //currentUserName = setting.UserName;
     }
 }
