@@ -9,12 +9,12 @@
     [Parameter]
     public Blazor.AdminLte.Color ButtonColor { get; set; }
     [Parameter]
-    public Client.AdminLte.ButtonSize Size { get; set; }
+    public AdminLte.ButtonSize Size { get; set; }
     private string buttonColor = "";
 
     protected override void OnInitialized()
     {
-        if (ButtonColor != Color.Default)
+        if (ButtonColor != Blazor.AdminLte.Color.Default)
         {
             buttonColor = "btn-" + ButtonColor;
         }

@@ -11,14 +11,7 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
-// builder.Services.Configure<ForwardedHeadersOptions>(options =>
-// {
-//     options.KnownProxies.Add(IPAddress.Parse("192.168.11.21"));
-// });
-//Detemining which os
-//bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-//bool isMac = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-//bool isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+
 string connectionString = "";
 
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -72,14 +65,7 @@ builder.Services.AddAuthentication()
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-// if (!builder.Environment.IsDevelopment())
-// {
-//     builder.Services.AddHttpsRedirection(options =>
-//     {
-//         options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
-//         options.HttpsPort = 443;
-//     });
-// }
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -95,7 +81,7 @@ else
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    //app.UseHttpsRedirection();
+    
     
 }
 app.UseForwardedHeaders(new ForwardedHeadersOptions
