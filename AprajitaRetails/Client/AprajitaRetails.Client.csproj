@@ -10,7 +10,7 @@
 		<ExternalConsole>true</ExternalConsole>
 	</PropertyGroup>
 	<PropertyGroup>
-		<RunAOTCompilation>true</RunAOTCompilation>
+  		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Shared\Apps\" />
@@ -73,4 +73,5 @@
 		<Folder Include="Pages\Apps\Stores\Pos\" />
 		<Folder Include="Shared\BasicViews\" />
 	</ItemGroup>
+	
 </Project>
