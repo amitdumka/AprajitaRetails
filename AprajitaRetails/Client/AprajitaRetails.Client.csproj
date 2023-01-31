@@ -9,9 +9,13 @@
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
 		<ExternalConsole>true</ExternalConsole>
 	</PropertyGroup>
-	<PropertyGroup>
-		<RunAOTCompilation>true</RunAOTCompilation>
-	</PropertyGroup>
+	<!--<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<RunAOTCompilation>True</RunAOTCompilation>
+		<WasmEmitSymbolMap>true</WasmEmitSymbolMap>
+		<WasmNativeStrip>false</WasmNativeStrip>
+		<PublishTrimmed>false</PublishTrimmed>
+	</PropertyGroup>-->
 	<ItemGroup>
 		<None Remove="Shared\Apps\" />
 		<None Remove="Shared\Apps\Menu\" />
