@@ -1,0 +1,146 @@
+﻿@page "/payroll/attendances/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Commons
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Shared.ViewModels;
+@using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
+@using Radzen.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+@attribute [Authorize]
+@*@inject HttpClient Http*@
+@inject ClientSetting Setting
+@inject DataHelper DataHelper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel=@attendance TItem="@Attendance" Title="Attendance" ApiUrl="Attendances" ReturnUrl="/payroll/attendances" Id="@Id" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
+
+                @*<ASelect ValueChanged="@OnStoreSelected" Label="Store" Name="Stores" TItem="SelectOption" Items="Stores" Selector="(x => x.Value)" />*@
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@attendance.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@attendance.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        @*<RadzenDatePicker @bind-Value=@attendance.OnDate id="ondate" Change=@OnDateChange />*@
+                    </div>
+                </div>
+            </Column>
+
+        </Row>
+
+        <Row>
+            <Column Classes="col.md">
+                @* <ASelect ValueChanged="@OnEmployeeSelected" Label="Employee" Name="Employees" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" />*@
+                <div class="mb-3 row">
+                    <label for="Employee" class="col-sm-4 col-form-label">Employee</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
+                                    Autofill="true"
+                                    @bind-Value="@attendance.EmployeeId" PopupHeight="230px"
+                                    DataSource="@Employees">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                @*<ASelect ValueChanged="@onStatusChange" Label="Status" Name="Status" TItem="string" Items="AttUnits" Selector="(x => x)" />*@
+                <div class="mb-3 row">
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="AttUnit" TItem="string" Placeholder="Status"
+                                    Autofill="true"
+                                    @bind-Value="@attendance.Status" PopupHeight="230px"
+                                    DataSource="@AttUnits">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+
+            </Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.EntryTime Name="EntryTime" Label="Entry Time" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@attendance.Remarks Name="Remarks" Label="Remarks" /></Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ACheckBox Title="Tailor" Name="isTailor" @bind-Checked="@attendance.IsTailoring" />
+            </Column>
+        </Row>
+    </EntityEdit>
+</ContentMain>
+@code {
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
+    private Attendance attendance = new Attendance { OnDate = DateTime.Now };
+
+    private IList<SelectOption>? Stores;
+    private IList<SelectOption>? Employees;
+    IList<string> AttUnits = Enum.GetNames(typeof(AttUnit));
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            Employees = await DataHelper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
+            return true;
+        }
+        catch (Exception)
+        {
+
+            return false;
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+        if (IsEdit)
+        {
+            attendance = await DataHelper.GetRecordAsync<Attendance>("Attendances", Id);
+            StateHasChanged();
+
+        }
+        else
+        {
+            attendance = new Attendance
+            {
+                OnDate = DateTime.Now,
+                AttendanceId = "",
+                EmployeeId = "",
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                Remarks = " ",
+                StoreId = Setting.StoreCode,
+                IsTailoring = false,
+                Status = AttUnit.Present,
+                UserId = Setting.UserName,
+                EntryTime = $"{DateTime.Now.ToShortTimeString()}"
+            };
+        }
+
+    }
+}

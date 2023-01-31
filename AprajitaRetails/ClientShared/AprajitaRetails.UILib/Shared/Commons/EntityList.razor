@@ -1,0 +1,52 @@
+﻿@namespace AprajitaRetails.Commons
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    @if (Loading)
+    {
+        <p><em> Loading......</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                <Title>
+                    <CardTitle>@Title</CardTitle>
+
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <a class="btn btn-primary btn-xs btn" href="@url">Add</a>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
+                        <caption>Record Count: @Count .</caption>
+                        @ChildContent
+                    </AprajitaRetails.AdminLte.Table.ATable>
+                </Body>
+            </Card>
+        </Row>
+    }
+</ContentMain>
+
+@code {
+    [Parameter] public string Title { get; set; } = " ";
+    [Parameter] public bool Loading { get; set; } = true;
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string? BaseUrl { get; set; } = "/";
+    [Parameter] public int Count { get; set; } = 0;
+
+    private string url = "/edit/false";
+
+    protected override async Task OnInitializedAsync()
+    {
+        url = BaseUrl + url;
+    }
+}

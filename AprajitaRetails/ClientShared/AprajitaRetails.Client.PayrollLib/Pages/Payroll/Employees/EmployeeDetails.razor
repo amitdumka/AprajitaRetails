@@ -1,0 +1,49 @@
+﻿@page "/payroll/employees/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager NavigationManager
+@inject LocalStorageAccessor LocalStorage
+@attribute [Authorize]
+@inject HttpClient Http
+
+@using AprajitaRetails.Helpers
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="ID" Value="@entity.EmployeeId" />
+    <EntityRow Lable="Name" Value="@entity.StaffName" />
+    <EntityRow Lable="Birth Date" Value="@entity.DOB.ToString()" />
+    <EntityRow Lable="City" Value="@entity.City" />
+    <EntityRow Lable="Category" Value="@entity.Category.ToString()" />
+    <EntityRow Lable="Geneder" Value="@entity.Gender.ToString()" />
+    <EntityRow Lable="Joining Date" Value="@entity.JoiningDate.ToString()" />
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    Employee? entity;
+    EmployeeDetails? details;
+    string Title = "Details";
+    bool Loading = true;
+    void BackButton() { NavigationManager.NavigateTo("/payroll/employees"); }
+    void DeleteButton() { }
+    bool isDeleted = false;
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+            entity = await Http.GetFromJsonAsync<Employee>($"Employees/{ID}");
+            Title = "Details of " + entity.StaffName;
+            details = await Http.GetFromJsonAsync<EmployeeDetails>($"EmployeeDetails/{ID}");
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+}

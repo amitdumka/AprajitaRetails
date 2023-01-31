@@ -1,0 +1,109 @@
+﻿@page "/accounts/CashDetails"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Stores
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/accounts/CashDetails" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>ID</TableHeadCell>
+            <TableHeadCell>Date </TableHeadCell>
+            <TableHeadCell> Count</TableHeadCell>
+            <TableHeadCell>  Total Amount</TableHeadCell>
+            <TableHeadCell> 2000</TableHeadCell>
+            <TableHeadCell>1000 </TableHeadCell>
+            <TableHeadCell> 500</TableHeadCell>
+            <TableHeadCell>200 </TableHeadCell>
+            <TableHeadCell>100 </TableHeadCell>
+            <TableHeadCell>50 </TableHeadCell>
+            <TableHeadCell>20 </TableHeadCell>
+            <TableHeadCell>10 </TableHeadCell>
+            <TableHeadCell>5 </TableHeadCell>
+            <TableHeadCell>Coin </TableHeadCell>
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.CashDetailId</TableCell>
+                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                    <TableCell>@ent.Count.ToString()</TableCell>
+                    <TableCell>@ent.TotalAmount.ToString()</TableCell>
+                    <TableCell> [2000  x  @ent.N2000.ToString()]:@ent.N2000*2000</TableCell>
+                    <TableCell>[1000  x  @ent.N1000.ToString()]:@ent.N1000*1000</TableCell>
+                    <TableCell>[500  x  @ent.N500.ToString()]:@ent.N500*500</TableCell>
+                    <TableCell>[200  x  @ent.N200.ToString()]:@ent.N200*200</TableCell>
+                    <TableCell>[100  x  @ent.N100.ToString()]:@ent.N100*100</TableCell>
+                    <TableCell>[50  x  @ent.N50.ToString()]:@ent.N50*50</TableCell>
+                    <TableCell>[20  x  @ent.N20.ToString()]:@ent.N20*20</TableCell>
+                    <TableCell>[10  x  @ent.N10.ToString()]:@ent.N10*10</TableCell>
+                    <TableCell>Coin:[@ent.C10*10,@ent.C5*5, @ent.C2*2,@ent.C1]</TableCell>
+
+                    <TableCell>  <ActionMenu Link="/accounts/CashDetails" Id="@ent.CashDetailId" OnClickDelete="()=>ConfirmDelete(ent.CashDetailId)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
+
+@code {
+    private const string Title = "Cash Details";
+    private List<CashDetail>? entities;
+
+    private bool Loading = true;
+
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Cash Detail");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"CashDetails/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.CashDetailId == id));
+                StateHasChanged();
+                Msg("Cash Detail Delete", $"Cash {id} is deleted");
+            }
+            else
+            {
+                Msg("Cash Detail Delete", $" Error : Cash {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // employees = await Http.GetFromJsonAsync<Employee[]>("Cas");
+            entities = await Http.GetFromJsonAsync<List<CashDetail>>("CashDetails");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

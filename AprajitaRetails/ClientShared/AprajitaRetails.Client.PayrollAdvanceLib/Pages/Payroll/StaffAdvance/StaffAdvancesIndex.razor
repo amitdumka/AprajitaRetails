@@ -1,0 +1,88 @@
+﻿@page "/payroll/advances"
+
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Payroll;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="StaffAdvanceReceiptDTO" Title="Salary Advance Reciepts" Columns="@GridCols"
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
+
+
+@code {
+    private const string BaseURL = "/payroll/advances";
+    private List<StaffAdvanceReceiptDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+             
+            GroupedColumn = new string[] { "StaffName" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(StaffAdvanceReceiptDTO).GetProperties(), "StaffAdvanceReceiptId");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<StaffAdvanceReceiptDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<StaffAdvanceReceiptDTO>($"StaffAdvanceReceipts/bystoredto", $"?storeid={Setting.StoreCode}");
+
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<StaffAdvanceReceiptDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.StaffAdvanceReceiptId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StaffAdvanceReceiptId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StaffAdvanceReceiptId}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+
+}
+

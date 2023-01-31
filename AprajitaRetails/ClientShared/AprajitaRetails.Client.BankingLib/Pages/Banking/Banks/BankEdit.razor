@@ -1,0 +1,40 @@
+﻿@page "/banking/banks/edit/{IsEdit:bool}/{*Id}"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Banking
+@using AprajitaRetails.Shared.ViewModels;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
+@using Radzen.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
+@attribute [Authorize]
+@inject HttpClient Http
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel=@entity TItem="@Bank" Title="Bank " ApiUrl="Bank" ReturnUrl="/banking/banks" Id="@Id" IsEdit=@IsEdit>
+
+        <Row>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.BankId Name="accno" Label="Bank ID" />
+            </Column>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.Name Name="holder" Label=""Name" />
+            </Column>
+        </Row>
+    </EntityEdit>
+</ContentMain>
+@code {
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
+    private Bank entity = new Bank { Name = " ", BankId = "" };
+    protected override async Task OnInitializedAsync()
+    {
+        if (IsEdit)
+        {
+            entity = await Http.GetFromJsonAsync<Bank>($"api/Banks/{Id}");
+            StateHasChanged();
+        }
+
+    }
+}

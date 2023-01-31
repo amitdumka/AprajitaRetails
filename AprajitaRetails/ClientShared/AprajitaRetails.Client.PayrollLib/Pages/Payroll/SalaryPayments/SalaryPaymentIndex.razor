@@ -1,0 +1,102 @@
+﻿@page "/payroll/SalaryPayments"
+ 
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Payroll;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="SalaryPaymentDTO" Title="Salary Payment" Columns="@GridCols"
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked" EnableAggretor=true
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
+
+
+@code {
+    private const string BaseURL = "/payroll/SalaryPayments";
+    private List<SalaryPaymentDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+
+            GroupedColumn = new string[] { "SalaryMonth", "StaffName" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(SalaryPaymentDTO).GetProperties(), "SalaryPaymentId");
+            StateHasChanged();
+            base.OnInitialized();
+            return;
+        }
+        catch (HttpRequestException e)
+        {
+           
+            Helper.Msg("Server Error", "Failed to get data.\n #" + e.StatusCode, true);
+
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error[s]", exception.Message, true);
+         
+        }
+        //finally
+        //{
+        //    GenerateColums(typeof(SalaryPaymentDTO).GetProperties(), "SalaryPaymentId");
+        //    StateHasChanged();
+        //    base.OnInitialized();
+        //}
+
+    }
+
+    async Task<List<SalaryPaymentDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<SalaryPaymentDTO>($"SalaryPayments/bystoredto", $"?storeid={Setting.StoreCode}");
+
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<SalaryPaymentDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.SalaryPaymentId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.SalaryPaymentId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.SalaryPaymentId}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+
+}
+ 

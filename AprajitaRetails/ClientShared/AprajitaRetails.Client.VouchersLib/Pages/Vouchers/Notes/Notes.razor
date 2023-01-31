@@ -1,0 +1,114 @@
+﻿@page "/vouchers/notes"
+
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+
+@attribute [Authorize]
+@inject HttpClient Http
+@inject NotificationService NotificationService
+@inject ClientSetting Setting
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Notes" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    @if (vchlist == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                <Title>
+                    <CardTitle>Dedit/Credit Notes</CardTitle>
+
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary">
+                                Add
+                            </Button>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
+                        <caption>Record Count: @vchlist.Count() .</caption>
+                        <TableHead>
+                            <TableHeadCell>Type</TableHeadCell>
+                            <TableHeadCell>Date</TableHeadCell>
+                            <TableHeadCell>VoucherNo</TableHeadCell>
+                            <TableHeadCell>Party Name</TableHeadCell>
+                            <TableHeadCell>Particulars</TableHeadCell>
+                            <TableHeadCell>Amount</TableHeadCell>
+                            <TableHeadCell>PayMode</TableHeadCell>
+                            <TableHeadCell>Remarks</TableHeadCell>
+                            <TableHeadCell>Issued By</TableHeadCell>
+                            <TableHeadCell>Slip No</TableHeadCell>
+                            <TableHeadCell> </TableHeadCell>
+                        </TableHead>
+                        <TableBody>
+
+                            @foreach (var vch in vchlist)
+                            {
+                                <TableRow>
+                                    <TableCell>@vch.NotesType.</TableCell>
+                                    <TableCell>@vch.OnDate.ToShortDateString()</TableCell>
+                                    <TableCell>@vch.NoteNumber</TableCell>
+                                    <TableCell>@vch.PartyName</TableCell>
+                                    <TableCell>@vch.Reason.</TableCell>
+                                    <TableCell>@vch.Amount</TableCell>
+                                    <TableCell>@vch.TaxRate</TableCell>
+                                    <TableCell>@vch.TaxAmount</TableCell>
+                                    <TableCell>@vch.NetAmount.</TableCell>
+                                    <TableCell>@vch.Remarks.</TableCell>
+                                    <TableCell>
+                                        <AprajitaRetails.AdminLte.ActionMenu Link="/vouchers/notes" Id="@vch.NoteNumber" />
+                                    </TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </AprajitaRetails.AdminLte.Table.ATable>
+                </Body>
+            </Card>
+        </Row>
+    }
+</ContentMain>
+@code {
+    private Note[]? vchlist;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(Setting.StoreCode))
+        {
+            Msg("Error", "Select store!, Kindly re-login", true);
+            return;
+        }
+        try
+        {
+            vchlist = await Http.GetFromJsonAsync<Note[]>($"Notes/ByStore?storeid={Setting.StoreCode}");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+        NotificationService.Notify(msg);
+    }
+}

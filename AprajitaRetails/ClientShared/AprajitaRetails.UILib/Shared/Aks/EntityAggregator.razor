@@ -1,0 +1,16 @@
+﻿@namespace AprajitaRetails.Aks
+@using Syncfusion.Blazor.Grids
+
+<GridAggregates >
+    <GridAggregate >
+        <GridAggregateColumns >
+            @ChildContent
+        </GridAggregateColumns>        
+    </GridAggregate>
+</GridAggregates>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+}
+

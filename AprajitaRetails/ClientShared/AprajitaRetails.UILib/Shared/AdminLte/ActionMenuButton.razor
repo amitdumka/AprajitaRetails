@@ -1,0 +1,49 @@
+﻿@namespace AprajitaRetails.AdminLte
+<div class="btn-group">
+    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        @Title
+    </button>
+    <ul class="dropdown-menu">
+        <li><button class="dropdown-item" @onclick=@Edit>Edit</button></li>
+        <li><button class="dropdown-item" @onclick=@Detail>Details</button></li>
+        <li><button class="dropdown-item" @onclick=@Delete>Delete</button></li>
+        @*<li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>*@
+    </ul>
+</div>
+@code {
+
+    [Parameter] public string Title { get; set; } = "Action";
+    [EditorRequired]
+    [Parameter] public string Id { get; set; } = "#";
+    [EditorRequired]
+    [Parameter] public string Link { get; set; } = "";
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickEdit { get; set; }
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickDetail { get; set; }
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickDelete { get; set; }
+
+     
+    private async void Edit(MouseEventArgs e)
+    {
+        if (OnClickEdit.HasDelegate)
+            await OnClickEdit.InvokeAsync(e);
+    }
+    private async void Detail(MouseEventArgs e)
+    {
+        if (OnClickDetail.HasDelegate)
+            await OnClickDetail.InvokeAsync(e);
+    }
+    private async void Delete(MouseEventArgs e)
+    {
+        if (OnClickDelete.HasDelegate)
+            await OnClickDelete.InvokeAsync(e);
+    }
+
+    
+
+
+}

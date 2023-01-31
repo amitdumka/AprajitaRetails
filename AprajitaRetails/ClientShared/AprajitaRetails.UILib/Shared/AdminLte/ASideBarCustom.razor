@@ -1,0 +1,11 @@
+﻿@namespace AprajitaRetails.AdminLte
+<div class="sidebar-custom small">
+    <a href="@Link1" class="btn btn-xs btn-link"><i class="fas fa-cogs"></i></a>
+    <a href="@Link2" class="btn  btn-xs btn-info hide-on-collapse pos-right">@Text</a>
+</div>
+
+@code {
+    [Parameter] public string Link1 { get; set; } = "#";
+    [Parameter] public string Link2 { get; set; } = "#";
+    [Parameter] public string Text { get; set; } = "Help";
+}

@@ -1,0 +1,88 @@
+﻿@page "/banking/banks/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Banking
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@attribute [Authorize]
+@inject HttpClient Http
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="ID" Value="@entity.BankId" />
+    <EntityRow Lable="Name" Value="@entity.Name" />    
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    Bank? entity;
+    string Title = "Details";
+    bool Loading = true;
+    bool isDeleted = false;
+    void BackButton() { NavigationManager.NavigateTo("/banking/banks"); }
+    //void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+
+            entity = await Http.GetFromJsonAsync<Bank>($"api/banks/{ID}");
+            Title = "Details of " + entity.Name;
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+    async void DeleteButton()
+    {
+        try
+        {
+
+            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
+            if (isConfirm)
+            {
+                var result = await Http.DeleteAsync($"api/banks/{ID}");
+                if (result.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                    StateHasChanged();
+                    Msg(" Delete", $"Bank {ID} is deleted");
+
+                }
+                else
+                {
+                    Msg(" Delete", $" Error : Bank {ID} is not deleted", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Msg("Error", ex.Message, true);
+        }
+
+    }
+
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+
+
+
+}

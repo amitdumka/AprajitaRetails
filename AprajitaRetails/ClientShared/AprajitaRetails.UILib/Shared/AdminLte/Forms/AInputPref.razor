@@ -1,0 +1,25 @@
+﻿@namespace AprajitaRetails.AdminLte.Forms
+<div class="input-group mb-3">
+    <span class="input-group-text" id="@Name">@Pref</span>
+    <input type="@Type" class="form-control" placeholder="@PlaceHolder" aria-label="PrefGroup" aria-describedby="basic-addon1" value="@Value" @oninput="@OnValueChanged">
+</div>
+
+@code {
+    [Parameter]
+    public string Pref { get; set; }
+    [Parameter]
+    public string Type { get; set; } = "text";
+    [Parameter]
+    public string PlaceHolder { get; set; }
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter]
+    public string Value{ get; set; }
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+    private async Task OnValueChanged(ChangeEventArgs e)
+    {
+        Value = e?.Value?.ToString();
+        await ValueChanged.InvokeAsync(Value);
+    }
+}

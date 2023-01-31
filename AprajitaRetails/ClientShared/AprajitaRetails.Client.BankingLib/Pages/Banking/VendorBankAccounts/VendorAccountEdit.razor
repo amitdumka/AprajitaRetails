@@ -1,0 +1,167 @@
+﻿@page "/banking/vendorAccouts/edit/{IsEdit:bool}/{*Id}"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Banking
+@using AprajitaRetails.Shared.ViewModels;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
+@using Radzen.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
+@attribute [Authorize]
+@inject HttpClient Http
+
+<ContentMain>
+
+    <EntityEdit @bind-EntityModel=@entity TItem="@VendorBankAccount" Title="Vendor Account" ApiUrl="VendorBankAccounts" ReturnUrl="/banking/vendoraccounts" Id="@Id" IsEdit=@IsEdit>
+
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Banks" class="col-sm-4 col-form-label">Bank</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Bank"
+                                    Autofill="true"
+                                    @bind-Value="@entity.BankId" PopupHeight="230px"
+                                    DataSource="@Banks">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+
+        <Row>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.AccountNumber Name="accno" Label="Account Number" />
+            </Column>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.AccountHolderName Name="holder" Label="Account Holder Name" />
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.BranchName Name="branch" Label="Branch Name" />
+            </Column>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.IFSCCode Name="IFSC" Label="IFSC Code" />
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Opening Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OpeningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.OpeningBalance Name="OpeningBal" Label="Opening Bal" /></Column>
+        </Row>
+
+        <Row>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Account Type</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="AccountType" TItem="string" Placeholder="Account Type"
+                                    Autofill="true"
+                                    @bind-Value="@entity.AccountType" PopupHeight="230px"
+                                    DataSource="@AccountTypes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+
+            </Column>
+           
+
+        </Row>
+
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="close" class="col-sm-4 col-form-label">Closing Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.ClosingDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <ACheckBox Title="Active" Name="Active" @bind-Checked="@entity.IsActive" />
+            </Column>
+        </Row>
+        
+
+    </EntityEdit>
+</ContentMain>
+@code {
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
+    private VendorBankAccount entity = new VendorBankAccount { OpeningDate = DateTime.Now };
+
+    private IList<SelectOption>? Banks;
+    private IList<SelectOption>? Stores;
+    IList<string> AccountTypes = Enum.GetNames(typeof(AccountType));
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            Stores = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Stores");
+            var bb = await Http.GetFromJsonAsync<IList<Bank>>("api/Banks");
+            Banks = bb.Select(c => new SelectOption { ID = c.BankId, Value = c.Name }).ToList();
+            return true;
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+            return false;
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+        if (IsEdit)
+        {
+            entity = await Http.GetFromJsonAsync<VendorBankAccount>($"api/VendorBankAccounts/{Id}");
+            StateHasChanged();
+        }
+        else
+        {
+            entity = new VendorBankAccount
+            {
+                OpeningDate = DateTime.Now,
+                MarkedDeleted = false,
+                StoreId = Stores != null ? Stores[0].ID : "ARD",
+                AccountHolderName = "",
+                BankId = Banks != null ? Banks[0].ID : "",
+                AccountNumber = "",
+                AccountType = AccountType.Current,
+                BranchName = "",
+                ClosingDate = null,
+                IFSCCode = "",
+                IsActive = true,
+                OpeningBalance = 0,
+         
+            };
+        }
+
+    }
+}

@@ -1,0 +1,82 @@
+﻿@page "/payroll/employees"
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Payroll;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="EmployeeDTO" Title="Employees" Columns="@GridCols" Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
+@code {
+    private const string BaseURL = "/payroll/employees";
+    private List<EmployeeDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        { 
+            GroupedColumn = new string[] { "IsWorking", "Category"};
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(EmployeeDTO).GetProperties(), "EmployeeId");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<EmployeeDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<EmployeeDTO>($"Employees/bystoredto", $"?storeid={Setting.StoreCode}&isWorking=false");
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<EmployeeDTO> args)
+    {
+         
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.EmployeeId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.EmployeeId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.EmployeeId}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+
+}
+
+ 

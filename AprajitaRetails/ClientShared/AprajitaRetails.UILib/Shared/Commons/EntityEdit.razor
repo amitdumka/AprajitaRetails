@@ -1,0 +1,86 @@
+﻿@namespace AprajitaRetails.Commons
+
+@using AprajitaRetails.AdminLte.Forms
+
+@inject NavigationManager NavigationManager
+@inject DataHelper DataHelper
+@typeparam TItem
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+
+<ContentMain>
+    <Row>
+        <Column Classes="col.lg.auto">
+            <EditForm Model=@EntityModel OnValidSubmit=@Save OnInvalidSubmit=@DataHelper.ErrorMsg>
+                <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
+                    <Title><CardTitle>@Title</CardTitle></Title>
+                    <Header><CardTools /></Header>
+                    <Body>
+                        @ChildContent
+                    </Body>
+                    <Footer>
+                        <Row>
+                            <Column Classes="col.sm._2">
+                                <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
+                                        @onclick="BackButton">
+                                    Back
+                                </Button>
+                            </Column>
+                            <Column Classes="col.md._3">
+                                <ASubmitButton Title="Save" />
+                            </Column>
+                        </Row>
+                        <Row>
+                            <DataAnnotationsValidator />
+                        </Row><Row>
+                            <ValidationSummary />
+                        </Row>
+                    </Footer>
+                </Card>
+            </EditForm>
+        </Column>
+    </Row>
+
+</ContentMain>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public bool IsEdit { get; set; } = true;
+    [Parameter] public string ReturnUrl { get; set; } = "/";
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string ApiUrl { get; set; } = "";
+    [Parameter] public TItem? EntityModel { get; set; }
+
+    [Parameter] public EventCallback<TItem> EntityModelChanged { get; set; }
+
+    private string className = "";
+    private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
+
+    private async Task OnEntityModelChanged(ChangeEventArgs e)
+    {
+        EntityModel = (TItem)e.Value;
+        await EntityModelChanged.InvokeAsync(EntityModel);
+    }
+
+    private async void Save()
+    {
+        var flag = await DataHelper.SaveAsync<TItem>(ApiUrl, EntityModel, className, Id, IsEdit);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        className = Title;
+
+        if (IsEdit)
+            Title = $"Edit {className} Id: {Id} ";
+        else
+            Title = "Add " + Title;
+        StateHasChanged();
+    }
+
+}

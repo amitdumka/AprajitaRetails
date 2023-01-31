@@ -1,0 +1,39 @@
+﻿@namespace AprajitaRetails.Commons
+@using AprajitaRetails.Shared.ViewModels;
+@using Syncfusion.Blazor.DropDowns
+
+<Column Classes="@classes">
+    <div class="mb-3 row">
+        <label for="Store" class="col-sm-4 col-form-label">Store</label>
+        <div class="col-sm-6">
+            <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                        Autofill="true"
+                        @bind-Value="@Value" PopupHeight="230px"
+                        DataSource="@DataSource">
+                <ComboBoxFieldSettings Text="@Text" Value="@ValueId" />
+            </SfComboBox>
+        </div>
+    </div>
+</Column>
+
+@code {
+    [Parameter] public string Lable { get; set; } = " ";
+    [Parameter] public string Value { get; set; }
+    [Parameter] public string Text { get; set; } = "Value";
+    [Parameter] public string ValueId { get; set; } = "ID";
+    [Parameter] public IList<SelectOption> DataSource { get; set; }
+    [Parameter]
+    public object Classes
+    {
+        get
+        {
+            return classes;
+        }
+        set
+        {
+            classes = value.ToString();
+        }
+    }
+
+    public string classes { get; set; } = col.md.ToString();
+}

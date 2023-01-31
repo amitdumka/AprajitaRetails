@@ -1,0 +1,131 @@
+﻿@page "/accounts/PettyCashSheet/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@attribute [Authorize]
+@inject HttpClient Http 
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="ID" Value="@entity.Id" />
+
+    <EntityRow Lable="Date" Value="@entity.OnDate.ToShortDateString()" />
+    <EntityRow Lable="Opening Balance" Value="@entity.OpeningBalance.ToString()" />
+
+    <EntityRow Lable=" " Value="  " />
+    <EntityRow Lable="Receipts" Value="@TotalReciepts.ToString()" />
+
+    <EntityRow Lable="Sale" Value="@entity.DailySale.ToString()" />
+    <EntityRow Lable="Manual Sale" Value="@entity.ManualSale.ToString()" />
+    <EntityRow Lable="Tailoring Sale" Value="@entity.TailoringSale.ToString()" />
+
+    <EntityRow Lable="Total Sale" Value="@TotalSale.ToString()" />
+    <EntityRow Lable=" " Value="  " />
+
+    <EntityRow Lable="@entity.RecoveryList" Value="@entity.CustomerRecovery.ToString()" />
+    <EntityRow Lable="Withdrawal" Value="@entity.BankWithdrawal.ToString()" />
+    <EntityRow Lable="@entity.ReceiptsNarration" Value="@entity.ReceiptsTotal.ToString()" />
+
+    <EntityRow Lable=" " Value="  " />
+
+    <EntityRow Lable="Payment" Value="@TotalExpenses.ToString()" />
+
+    <EntityRow Lable="Card Sale" Value="@entity.CardSale.ToString()" />
+    <EntityRow Lable="Non Cash Sale" Value="@entity.NonCashSale.ToString()" />
+    <EntityRow Lable="Total Non Cash Sale" Value="@TotalNonCashSale.ToString()" />
+
+    <EntityRow Lable=" " Value="  " />
+
+    <EntityRow Lable="@entity.DueList" Value="@entity.CustomerDue.ToString()" />
+    <EntityRow Lable="Tailoring Payment" Value="@entity.TailoringPayment.ToString()" />
+    <EntityRow Lable="Deposit" Value="@entity.BankDeposit.ToString()" />
+    <EntityRow Lable="@entity.PaymentNarration" Value="@entity.PaymentTotal.ToString()" />
+
+    <EntityRow Lable="Total Expenses/Payment " Value="@TotalPayments.ToString()" />
+    <EntityRow Lable=" " Value="  " />
+
+    <EntityRow Lable="Closing Balance" Value="@entity.ClosingBalance.ToString()" />
+
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    PettyCashSheet? entity;
+    string Title = "Details";
+    bool Loading = true;
+    bool isDeleted = false;
+    void BackButton() { NavigationManager.NavigateTo("/banking/bankaccounts"); }
+
+    decimal TotalSale, TotalNonCashSale, TotalReciepts, TotalExpenses, TotalPayments;
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+
+            entity = await Http.GetFromJsonAsync<PettyCashSheet>($"PettyCashSheets/{ID}");
+
+            TotalSale = entity.DailySale + entity.ManualSale + entity.TailoringSale;
+            TotalNonCashSale = entity.CardSale + entity.NonCashSale;
+            TotalReciepts = TotalSale + entity.ReceiptsTotal + entity.BankWithdrawal + entity.CustomerRecovery;
+            TotalExpenses = TotalNonCashSale + entity.CustomerDue + entity.BankDeposit + entity.PaymentTotal + entity.TailoringPayment;
+            TotalPayments = entity.BankDeposit + entity.PaymentTotal + entity.TailoringPayment;
+            Title = "Petty Cash Details of " + entity.OnDate;
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+            Msg("Error", $"#Id: {ID} not found!!!");
+        }
+    }
+    async void DeleteButton()
+    {
+        try
+        {
+
+            bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
+            if (isConfirm)
+            {
+                var result = await Http.DeleteAsync($"PettyCashSheets/{ID}");
+                if (result.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                    StateHasChanged();
+                    Msg(" Delete", $"Petty Cash  {ID} is deleted");
+
+                }
+                else
+                {
+                    Msg(" Delete", $" Error : Petty Cash {ID} is not deleted", true);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Msg("Error", ex.Message, true);
+        }
+
+    }
+
+    void Msg(string title, string text, bool isError = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+
+}

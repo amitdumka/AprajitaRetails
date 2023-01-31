@@ -1,0 +1,19 @@
+﻿@namespace AprajitaRetails.AdminLte
+<ContentMain>
+    <Row>
+        <H2>Are you sure to Delete @Title  with ID @ID</H2>
+    </Row>
+    <Row><button  @onclick="@Yes">Yes</button><button @onclick="@No"> No</button></Row>
+</ContentMain>
+
+@code {
+
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string ID { get; set; }
+
+    void Yes() { }
+    void No() {
+        
+    }
+}
+

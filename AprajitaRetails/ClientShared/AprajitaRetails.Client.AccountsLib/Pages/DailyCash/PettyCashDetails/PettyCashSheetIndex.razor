@@ -1,0 +1,108 @@
+﻿@page "/accounts/PettyCashSheet"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Vouchers
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/accounts/PettyCashSheet" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>ID</TableHeadCell>
+            <TableHeadCell>Date </TableHeadCell>
+            <TableHeadCell> Open Bal</TableHeadCell>
+            <TableHeadCell>Close Bal</TableHeadCell>
+            <TableHeadCell>Sale</TableHeadCell>
+            <TableHeadCell>Manual Sale </TableHeadCell>
+            <TableHeadCell> Withdrawal</TableHeadCell>
+            <TableHeadCell>Recovery </TableHeadCell>
+            <TableHeadCell>Receipts </TableHeadCell>
+            <TableHeadCell>Card Sale</TableHeadCell>
+            <TableHeadCell>Payment </TableHeadCell>
+            <TableHeadCell> Deposit</TableHeadCell>
+            <TableHeadCell>Due </TableHeadCell>
+
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.Id</TableCell>
+                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                    <TableCell>@ent.OpeningBalance.ToString()</TableCell>
+                    <TableCell>@ent.ClosingBalance</TableCell>
+                    <TableCell>@ent.DailySale</TableCell>
+                    <TableCell>@ent.ManualSale.ToString()</TableCell>
+                    <TableCell>@ent.BankWithdrawal.ToString()</TableCell>
+                    <TableCell>@ent.CustomerRecovery</TableCell>
+                    <TableCell>@ent.ReceiptsTotal</TableCell>
+                    <TableCell>@ent.CardSale</TableCell>
+                    <TableCell>@ent.PaymentTotal</TableCell>
+                    <TableCell>@ent.BankDeposit</TableCell>
+                    <TableCell>@ent.CustomerDue</TableCell>
+                    <TableCell>  <ActionMenu Link="/accounts/PettyCashSheets" Id="@ent.Id" OnClickDelete="()=>ConfirmDelete(ent.Id)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
+
+@code {
+    private const string Title = "Petty Cash Sheet";
+    private List<PettyCashSheet>? entities;
+    
+    private bool Loading = true;
+
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete Petty Cash");
+        //string confirmMessage = isConfirm ? "" : "canceled";
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"PettyCashSheets/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.Id == id));
+                StateHasChanged();
+                Msg("Petty Cash Delete", $"Petty Cash {id} is deleted");
+            }
+            else
+            {
+                Msg("Petty Cash Delete", $" Error : Petty Cash {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            entities = await Http.GetFromJsonAsync<List<PettyCashSheet>>("PettyCashSheets");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

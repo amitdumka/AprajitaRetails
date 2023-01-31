@@ -1,0 +1,65 @@
+﻿@page "/vouchers/cash/Detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager NavigationManager 
+@attribute [Authorize]
+@inject HttpClient Http
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
+
+    <EntityRow Lable="Voucher" Value="@entity.VoucherType.ToString()" />
+    <EntityRow Lable="ID" Value="@entity.VoucherNumber" />
+    <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+    @if (string.IsNullOrEmpty(entity.SlipNumber) == false)
+    {<EntityRow Lable="Slip No" Value="@entity.SlipNumber" />}
+    <EntityRow Lable="Mode" Value="@modes.TransactionName" />
+    <EntityRow Lable="PartyName" Value="@entity.PartyName" />
+    <EntityRow Lable="Particulars" Value="@entity.Particulars" />
+    <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
+    <EntityRow Lable="Remarks" Value="@entity.Remarks" />
+
+    @if (party != null)
+    {<EntityRow Lable="Ledger" Value="@party.PartyName" />}
+    @if (employee != null)
+    {<EntityRow Lable="Issued By" Value="@employee.StaffName" />}
+
+</EntityDetails>
+
+@code {
+    [Parameter] public string? ID { get; set; }
+    CashVoucher? entity;
+    Employee? employee;
+    Party? party;
+    TransactionMode? modes;
+
+    string Title = "Details";
+    bool Loading = true;
+    void BackButton() { NavigationManager.NavigateTo("/vouchers/cash"); }
+    void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            //ID = ID ?? "NO ID Found";
+            entity = await Http.GetFromJsonAsync<CashVoucher>($"cashvouchers/{ID}");
+            Title = "Details of CVH: " + entity.VoucherNumber;
+
+            modes = await Http.GetFromJsonAsync<TransactionMode>($"TransactionModes/{entity.TransactionId}");
+            employee = await Http.GetFromJsonAsync<Employee>($"Employees/{entity.EmployeeId}");
+            if (string.IsNullOrEmpty(entity.PartyId) == false)
+                party = await Http.GetFromJsonAsync<Party>($"Parties/{entity.PartyId}");
+
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            //alert
+        }
+    }
+}

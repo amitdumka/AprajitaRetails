@@ -1,0 +1,99 @@
+﻿@namespace AprajitaRetails.AdminLte.Forms
+@typeparam TItem
+<div class="mb-3 row">
+    <label for="@Name" class="col-sm-4 col-form-label">@Label</label>
+    <div class="col-sm-6">
+        <select class="form-select form-control" aria-label="@Name" id="@Name" name="@Name" @onchange="@OnSelectChange">
+            @if (ShowDefaultOption)
+            {
+                <option value="0" hidden disabled>@DefaultOptionTitle</option>
+            }
+            @foreach (var (id, item) in idDictionary)
+            {
+                <option value="@id">@Selector(item).ToString()</option>
+            }
+            @ChildContent
+        </select>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter] public string Label { get; set; } = " ";
+    [Parameter] public IList<TItem> Items { get; set; }
+    [Parameter] public Func<TItem, object> Selector { get; set; }
+    [Parameter] public EventCallback<TItem> ValueChanged { get; set; }
+    [Parameter] public bool ShowDefaultOption { get; set; } = true;
+    [Parameter] public string DefaultOptionTitle { get; set; } = "-  Please Select  -";
+
+    private Dictionary<Guid, TItem> idDictionary;
+
+    protected override void OnInitialized()
+    {
+        idDictionary = new Dictionary<Guid, TItem>();
+        if(Items!=null && Items.Count()>0)
+        Items.ToList().ForEach(x => idDictionary.Add(Guid.NewGuid(), x));
+    }
+
+    private async Task OnSelectChange(ChangeEventArgs args)
+    {
+        if (idDictionary.TryGetValue(Guid.Parse(args.Value.ToString()), out var selectedItem))
+        {
+            await ValueChanged.InvokeAsync(selectedItem);
+        }
+    }
+    //TODO: make an option to send Enum as item directory just like in ASP
+
+}
+
+
+@*//Usage*@
+
+@*Object
+    <MySelect ValueChanged="handleChange" TItem="Person" Items="items" Selector="(x => x.Firstname)" />
+
+    @if (_selectedItem is object)
+    {
+        <p>Selected person: Name: @_selectedItem.Firstname, Age: @_selectedItem.Age</p>
+    }
+
+    @code {
+        class Person
+        {
+            public string Firstname { get; set; }
+            public int Age { get; set; }
+        }
+
+        IList<Person> items = new List<Person>
+    {
+            new Person {Firstname = "John Doe", Age = 26},
+            new Person {Firstname = "Jane Doe", Age = 23}
+        };
+
+        Person _selectedItem;
+
+        void handleChange(Person value) => _selectedItem = value;
+    }*@
+
+<!--//String-->
+@*<MySelect ValueChanged="handleStringChange" TItem="string" Items="stringItems" Selector="(x => x)" />b
+<p>@_selectedStringItem</p>
+
+
+@code {
+
+    IList<string> stringItems = new List<string>()
+{
+    "Random",
+    "String",
+    "Content",
+    "ForDemo"
+};
+
+    string _selectedStringItem;
+    void handleStringChange(string value) => _selectedStringItem = value;
+}*@

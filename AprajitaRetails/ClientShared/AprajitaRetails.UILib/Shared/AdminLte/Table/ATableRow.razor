@@ -1,0 +1,6 @@
+﻿@namespace AprajitaRetails.AdminLte.Table
+<tr class="@Classes">@ChildElement</tr>
+@code {
+    [Parameter] public string Classes { get; set; } = "";
+    [Parameter] public RenderFragment ChildElement { get; set; }
+}

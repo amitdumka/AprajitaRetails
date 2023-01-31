@@ -1,0 +1,77 @@
+﻿@page "/vouchers/Cash"
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Shared.Models.Vouchers
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+@using Syncfusion.Blazor.Grids
+@using System.Globalization
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="CashVoucherDTO" Baseurl="@BaseURL" CommandClicked="OnCommandClicked" EnableAggretor=true AggTitle="Total Amount"
+    Title="Vouchers[Cash]" Columns="@GridCols" @bind-Entities=@entities @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+@code {
+    private const string BaseURL = "/vouchers/cash";
+    private List<CashVoucherDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            GroupedColumn = new string[] { "VoucherType" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<CashVoucherDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
+        return entities;
+
+    }
+   
+    public void OnCommandClicked(CommandClickEventArgs<CashVoucherDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.VoucherNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.VoucherNumber}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+}

@@ -1,0 +1,97 @@
+﻿@page "/accounts/DueRecoveries"
+
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Stores
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http 
+
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/accounts/DueRecoveries" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>ID</TableHeadCell>
+            <TableHeadCell>Inv No </TableHeadCell>
+            <TableHeadCell>Date</TableHeadCell>
+            <TableHeadCell>Mode</TableHeadCell>
+          
+            <TableHeadCell>Amount </TableHeadCell>
+            <TableHeadCell> Mode</TableHeadCell>
+            <TableHeadCell>Remarks </TableHeadCell>
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.Id</TableCell>
+                    <TableCell>@ent.InvoiceNumber</TableCell>
+                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
+                    <TableCell>@ent.PayMode.ToString()</TableCell>
+                    <TableCell>@ent.PartialPayment.ToString()</TableCell>
+                   
+                    <TableCell>@ent.Amount.ToString()</TableCell>
+                    <TableCell>@ent.Remarks</TableCell>
+
+
+                    <TableCell>  <ActionMenu Link="/accounts/DueRecoveries" Id="@ent.Id" OnClickDelete="()=>ConfirmDelete(ent.Id)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
+
+@code {
+    private const string Title = "Dues Recovery";
+    private List<DueRecovery>? entities;
+    private bool Loading = true;
+
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete ");
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"DueRecoveries/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.InvoiceNumber == id));
+                StateHasChanged();
+                Msg("  Delete", $"  {id} is deleted");
+            }
+            else
+            {
+                Msg("  Delete", $" Error :   {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            entities = await Http.GetFromJsonAsync<List<DueRecovery>>("DueRecoveries");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+
+}

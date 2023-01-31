@@ -1,0 +1,140 @@
+﻿@page "/payroll/attendances/detail/{*ID}"
+
+@using AprajitaRetails.Helpers
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@attribute [Authorize]
+@inject HttpClient Http
+@inject LocalStorageAccessor LocalStorage
+@inject DataHelper DataHelper
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+
+<ContentMain>
+    @if (entity == null)
+    {
+        <p><em>Loading.....</em></p>
+    }
+    else
+    {
+        <Row>
+            <Column Classes="col._4">
+                <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                    <Title>
+                        <CardTitle>@Title</CardTitle>
+                    </Title>
+                    <Header>
+                        <CardTools />
+                    </Header>
+                    <Body>
+                        <AprajitaRetails.AdminLte.Table.ATable Bordered=false Hover=false Small=true>
+                            <TableBody>
+                                <EntityRow Lable="ID" Value="@entity.AttendanceId" />
+                                <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+                                @if (entity.Employee != null)
+                                {
+                                    <EntityRow Lable="Name" Value="@entity.Employee.StaffName" />
+                                }
+                                else
+                                {
+                                    <EntityRow Lable="Emp Id" Value="@entity.EmployeeId" />
+                                }
+                                <EntityRow Lable="Status" Value="@entity.Status.ToString()" />
+                                <EntityRow Lable="Time" Value="@entity.EntryTime" />
+                                <EntityRow Lable="Remarks" Value="@entity.Remarks" />
+                                <EntityRow Lable="Tailor" Value="@entity.IsTailoring.ToString()" />
+                                <EntityRow Lable="Store" Value="@entity.StoreId.ToString()" />
+                                <EmptyRow/>
+                                <EmptyRow/>
+                                <TableRow>
+                                    <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
+                                    @if (!isDeleted)
+                                    {
+                                        <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    }
+                                </TableRow>
+                            </TableBody>
+                        </AprajitaRetails.AdminLte.Table.ATable>
+                    </Body>
+                </Card>
+            </Column>
+
+        </Row>
+    }
+</ContentMain>
+
+@code {
+
+    [Parameter] public string? ID { get; set; }
+    Attendance? entity;
+    bool isDeleted = false;
+    string Title = "Detail";
+
+  async  void DeleteButton()
+    {
+        //ConfirmDelete(ID);
+        try
+        {
+            isDeleted = await DataHelper.DeleteAsync("Attendances", "Attendance", ID);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            DataHelper.Msg("Error", ex.Message, true);
+        }
+
+    }
+
+    async void ConfirmDelete(string id)
+    {
+        try
+        {
+            isDeleted = await DataHelper.DeleteAsync("Attendances", "Attendance", id);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            DataHelper.Msg("Error", ex.Message, true);
+        }
+
+    }
+    void BackButton()
+    {
+        NavigationManager.NavigateTo("/payroll/attendances");
+    }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+
+            try
+            {
+                entity = await Http.GetFromJsonAsync<Attendance>($"Attendances/{ID}");
+                Title = "Attendance of " + entity.Employee.StaffName;
+                StateHasChanged();
+            }catch(HttpRequestException e)
+            {
+                NavigationManager.NavigateTo("/payroll/attendances");
+                DataHelper.Msg("Error", $"Attendance ID# {ID} not found!! and error is {e.Message}");
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/payroll/attendances");
+            DataHelper.Msg("Error", $"Attendance ID# {ID} not found!!");
+        }
+    }
+
+}

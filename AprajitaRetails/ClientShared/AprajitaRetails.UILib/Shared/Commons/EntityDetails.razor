@@ -1,0 +1,72 @@
+﻿@namespace AprajitaRetails.Commons
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+
+<ContentMain>
+    @if (Loading)
+    {
+        <p><em>Loading.....</em></p>
+    }
+    else
+    {
+        <Row>
+            <Column Classes="col._4">
+                <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                    <Title>
+                        <CardTitle>@Title</CardTitle>
+                    </Title>
+                    <Header>
+                        <CardTools />
+                    </Header>
+                    <Body>
+                        <AprajitaRetails.AdminLte.Table.ATable Bordered=false Hover=false Small=true>
+                            <TableBody>
+                                @ChildContent
+                                <TableRow><TableCell></TableCell> </TableRow>
+                                <TableRow><TableCell></TableCell> </TableRow>
+                                <TableRow>
+                                    <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
+                                    @if (!Deleted)
+                                    {<TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    }
+                                </TableRow>
+                            </TableBody>
+                        </AprajitaRetails.AdminLte.Table.ATable>
+                    </Body>
+                </Card>
+            </Column>
+
+        </Row>
+    }
+</ContentMain>
+
+@code {
+    [Parameter] public string Title { get; set; } = " ";
+    [Parameter] public bool Loading { get; set; } = false;
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnBack { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnDelete { get; set; }
+    [Parameter] public bool Deleted { get; set; } = false;
+    [Parameter] public EventCallback<bool> DeletedChanged { get; set; }
+
+    private async Task OnDeletedChanged(ChangeEventArgs e)
+    {
+        Deleted = (bool)e.Value;
+        await DeletedChanged.InvokeAsync(Deleted);
+    }
+
+    private async void DeleteButton(MouseEventArgs e)
+    {
+        if (OnDelete.HasDelegate)
+            await OnDelete.InvokeAsync(e);
+    }
+    private async void BackButton(MouseEventArgs e)
+    {
+        if (OnBack.HasDelegate)
+            await OnBack.InvokeAsync(e);
+    }
+
+}

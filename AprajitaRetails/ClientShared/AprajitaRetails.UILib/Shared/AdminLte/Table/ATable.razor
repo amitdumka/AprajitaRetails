@@ -1,0 +1,35 @@
+﻿@namespace AprajitaRetails.AdminLte.Table
+
+<div class="d-flex flex-row align-items-center table-responsive border border-5 shadow-lg p-3 mb-5 bg-dark rounded rounded-3 border-success-subtle p-1 align-middle">
+    <table @ref="TableReference" class="table text-wrap  overflow-scroll  rounded rounded-3 @borderd @striped @hover @small align-middle caption-top ">
+        @ChildContent
+    </table>
+</div>
+@code {
+    private string borderd = "table-bordered";
+    private string striped = "table-striped";
+    private string hover = "table-hover";
+    private string small = "table-sm";
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public ElementReference TableReference { get; set; }
+
+    [Parameter]
+    public bool Bordered { get; set; } = false;
+    [Parameter]
+    public bool Striped { get; set; } = false;
+    [Parameter]
+    public bool Hover { get; set; } = false;
+    [Parameter]
+    public bool Small { get; set; } = true;
+    protected override void OnInitialized()
+    {
+        borderd = Bordered ? "table-bordered" : "table-borderless";
+        striped = Striped ? "table-striped" : "";
+        hover = Hover ? "table-hover" : "";
+        small = Small ? "table-sm " : "";
+
+    }
+}

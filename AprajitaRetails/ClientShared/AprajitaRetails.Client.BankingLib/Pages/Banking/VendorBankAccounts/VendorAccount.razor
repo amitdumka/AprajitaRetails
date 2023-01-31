@@ -1,0 +1,103 @@
+﻿@page "/banking/vendoraccounts"
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Banking
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+@attribute [Authorize]
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+<ContentMain>
+    <EntityList Title="@Title" BaseUrl="/banking/vendoraccounts" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>Acc No</TableHeadCell>
+            <TableHeadCell>Holder </TableHeadCell>
+            <TableHeadCell> Bank</TableHeadCell>
+            <TableHeadCell>Branch</TableHeadCell>
+            <TableHeadCell>IFSC</TableHeadCell>
+            <TableHeadCell>Type </TableHeadCell>
+            <TableHeadCell> Date</TableHeadCell>
+            <TableHeadCell>Status </TableHeadCell>
+            <TableHeadCell>Balance </TableHeadCell>
+
+            <TableHeadCell> </TableHeadCell>
+        </TableHead>
+        <TableBody>
+            @foreach (var ent in entities)
+            {
+                <TableRow>
+                    <TableCell>@ent.AccountNumber</TableCell>
+                    <TableCell>@ent.AccountHolderName</TableCell>
+                    <TableCell>@BankName(ent.BankId)</TableCell>
+                    <TableCell>@ent.BranchName</TableCell>
+                    <TableCell>@ent.IFSCCode</TableCell>
+                    <TableCell>@ent.AccountType.ToString()</TableCell>
+                    <TableCell>@ent.OpeningDate.ToShortDateString()</TableCell>
+                    <TableCell>@ent.IsActive.ToString()</TableCell>
+                    <TableCell>@ent.VendorId</TableCell>
+
+                    <TableCell>  <ActionMenu Link="/banking/vendoraccounts" Id="@ent.AccountNumber" OnClickDelete="()=>ConfirmDelete(ent.AccountNumber)" /></TableCell>
+                </TableRow>
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
+
+@code {
+    private const string Title = "Vendor Account";
+    private List<VendorBankAccount>? entities;
+    private Bank[]? banks;
+    private bool Loading = true;
+    private string BankName(string id)
+    {
+        return banks != null ? banks.First(c => c.BankId == id).Name : "";
+    }
+    void Msg(string title, string text, bool error = false)
+    {
+        var msg = new Radzen.NotificationMessage
+        {
+            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+            Summary = title,
+            Detail = text,
+            Duration = 14000
+        };
+        NotificationService.Notify(msg);
+    }
+    async void ConfirmDelete(string id)
+    {
+        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete");
+        if (isConfirm)
+        {
+            var result = await Http.DeleteAsync($"api/BankAccounts/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                entities.Remove(entities.First(c => c.AccountNumber == id));
+                StateHasChanged();
+                Msg("Bank Account  Delete", $"Bank Account  {id} is deleted");
+            }
+            else
+            {
+                Msg("Bank Account Delete", $" Error : Bank Account {id} is not deleted", true);
+            }
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            banks = await Http.GetFromJsonAsync<Bank[]>("api/Banks");
+            entities = await Http.GetFromJsonAsync<List<VendorBankAccount>>("api/VendorBankAccounts");
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

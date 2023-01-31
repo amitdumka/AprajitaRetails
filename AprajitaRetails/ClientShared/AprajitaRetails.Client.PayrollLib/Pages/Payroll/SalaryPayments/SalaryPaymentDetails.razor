@@ -1,0 +1,81 @@
+﻿@page "/payroll/salarypayments/detail/{*ID}"
+
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@using AprajitaRetails.Helpers
+
+@inject ClientSetting Setting
+@inject DataHelper Helper
+@inject NavigationManager NavigationManager
+
+@attribute [Authorize]
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
+    <EntityRow Lable="ID" Value="@entity.SalaryPaymentId" />
+    <EntityRow Lable="Name" Value="@employee.StaffName" />
+    <EntityRow Lable="Date" Value="@entity.OnDate.ToString()" />
+    <EntityRow Lable="Salary Component" Value="@entity.SalaryComponet.ToString()" />
+    <EntityRow Lable="Month" Value="@entity.SalaryMonth.ToString()" />
+    <EntityRow Lable="Payment " Value="@entity.PayMode.ToString()" />
+    <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
+    <EntityRow Lable="Details" Value="@entity.Details" />
+</EntityDetails>
+
+@code {
+
+    [Parameter] public string? ID { get; set; }
+
+    SalaryPayment? entity;
+    Employee? employee;
+
+    string Title = "Details";
+    bool Loading = true;
+    bool isDeleted = false;
+
+    //TODO: Move to EntityDetail 
+    void BackButton() { NavigationManager.NavigateTo("/payroll/salarypayments"); }
+
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            entity = await Helper.GetRecordAsync<SalaryPayment>("SalaryPayments", ID);
+            if (entity != null)
+            {
+                employee = await Helper.GetRecordAsync<Employee>("Employees", entity.EmployeeId);
+                Title = "Payment Details of " + employee.StaffName;
+                Loading = false;
+                StateHasChanged();
+            }
+            else
+            {
+                BackButton();
+                Helper.Msg("Error", "Record not found", true);
+
+            }
+        }
+        else
+        {
+            Helper.Msg("Error", "Send ID to get data details", true);
+        }
+    }
+    async void DeleteButton()
+    {
+        //TODO: move to EntityDetail Page
+        try
+        {
+            isDeleted = await Helper.DeleteAsync("SalaryPayments", "Salary Payment", ID);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+
+            Helper.Msg("Error", ex.Message, true);
+        }
+
+    }
+
+}

@@ -1,0 +1,80 @@
+﻿@page "/TransactionMode"
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@inject IJSRuntime JS
+@attribute [Authorize]
+@inject HttpClient Http
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Transaction Mode" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    @if (vchlist == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                <Title>
+                    <CardTitle>Transaction Mode</CardTitle>
+
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <Button Type="Blazor.AdminLte.ButtonType.Gradient" Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Primary">
+                                Add
+                            </Button>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                        <TableHead>
+                            <TableHeadCell>ID</TableHeadCell>
+                            <TableHeadCell>Name</TableHeadCell>
+                            <TableHeadCell>
+                            
+                            </TableHeadCell>
+                        </TableHead>
+                        <TableBody>
+
+                            @foreach (var vch in vchlist)
+                            {
+                                <TableRow>
+                                    <TableCell>@vch.TransactionId</TableCell>
+                                    <TableCell>@vch.TransactionName</TableCell>
+                                    <TableCell>
+                                        <AprajitaRetails.AdminLte.ActionMenu Link="/TranscationMode" Id="@vch.TransactionId" />
+                                    </TableCell>
+
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </AprajitaRetails.AdminLte.Table.ATable>
+                </Body>
+            </Card>
+        </Row>
+    }
+</ContentMain>
+@code {
+    private TransactionMode[]? vchlist;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            vchlist = await Http.GetFromJsonAsync<TransactionMode[]>("TransactionModes");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

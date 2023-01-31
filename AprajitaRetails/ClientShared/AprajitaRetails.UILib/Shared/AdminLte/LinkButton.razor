@@ -1,0 +1,22 @@
+﻿@namespace AprajitaRetails.AdminLte
+<a href=@Link class="btn btn-sm @buttonColor ">@Title</a>
+
+@code {
+    [Parameter]
+    public string Title  { get; set; } = "LinkButton";
+    [Parameter]
+    public string Link { get; set; } = "#";
+    [Parameter]
+    public Blazor.AdminLte.Color ButtonColor { get; set; }
+    [Parameter]
+    public Client.AdminLte.ButtonSize Size { get; set; }
+    private string buttonColor = "";
+
+    protected override void OnInitialized()
+    {
+        if (ButtonColor != Color.Default)
+        {
+            buttonColor = "btn-" + ButtonColor;
+        }
+    }
+}

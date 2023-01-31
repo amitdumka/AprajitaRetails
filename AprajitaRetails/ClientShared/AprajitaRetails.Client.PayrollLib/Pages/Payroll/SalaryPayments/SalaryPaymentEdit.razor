@@ -1,0 +1,158 @@
+﻿@page "/payroll/SalaryPayments/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Shared.ViewModels;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
+@using Radzen.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+
+@attribute [Authorize]
+
+@inject HttpClient Http
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel=@entity TItem="@SalaryPayment" Title="Salary Payment" ApiUrl="SalaryPayments" ReturnUrl="/payroll/salarypayments" Id="@Id" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Employee" class="col-sm-4 col-form-label">Employee</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
+                                    Autofill="true"
+                                    @bind-Value="@entity.EmployeeId" PopupHeight="230px"
+                                    DataSource="@Employees">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="SalaryComponent" TItem="string" Placeholder="Salary Component"
+                                    Autofill="true"
+                                    @bind-Value="@entity.SalaryComponet" PopupHeight="230px"
+                                    DataSource="@Components">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+
+            </Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ANumInput @bind-Value=@entity.SalaryMonth Name="SalaryMonth" Label="Salary Month" />
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="PayMode" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="PayMode" TItem="string" Placeholder="Payment"
+                                    Autofill="true"
+                                    @bind-Value="@entity.PayMode" PopupHeight="230px"
+                                    DataSource="@PayModes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Details Name="Details" Label="Details" /></Column>
+        </Row>
+    </EntityEdit>
+</ContentMain>
+@code {
+
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
+
+    private SalaryPayment entity = new SalaryPayment { OnDate = DateTime.Now };
+
+    private IList<SelectOption>? Stores;
+    private IList<SelectOption>? Employees;
+
+    IList<string> Components = Enum.GetNames(typeof(SalaryComponent));
+    IList<string> PayModes = Enum.GetNames(typeof(PayMode));
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("Stores", null);
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+
+        if (IsEdit)
+        {
+            entity = await Helper.GetRecordAsync<SalaryPayment>("SalaryPayments", Id);
+            StateHasChanged();
+        }
+        else
+        {
+            entity = new SalaryPayment
+                {
+                    OnDate = DateTime.Now,
+                    EmployeeId = "",
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    StoreId = Setting.StoreCode,
+                    UserId = Setting.UserName,
+                    Amount = 0,
+                    Details = "",
+                    PayMode = PayMode.Cash,
+                    SalaryComponet = SalaryComponent.Advance,
+                    SalaryPaymentId = "",
+
+                };
+        }
+
+    }
+}
