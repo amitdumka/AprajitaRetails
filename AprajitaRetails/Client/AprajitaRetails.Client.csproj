@@ -9,6 +9,13 @@
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
 		<ExternalConsole>true</ExternalConsole>
 	</PropertyGroup>
+	<!--<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<RunAOTCompilation>True</RunAOTCompilation>
+		<WasmEmitSymbolMap>true</WasmEmitSymbolMap>
+		<WasmNativeStrip>false</WasmNativeStrip>
+		<PublishTrimmed>false</PublishTrimmed>
+	</PropertyGroup>-->
 	<PropertyGroup>
   		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
 	</PropertyGroup>
