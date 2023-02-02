@@ -151,5 +151,19 @@ namespace AprajitaRetails.Server.Controllers.Payroll
         {
             return (_context.EmployeeDetails?.Any(e => e.EmployeeId == id)).GetValueOrDefault();
         }
+
+        [HttpGet("NewEmployeeList")]
+        public async Task<ActionResult<IEnumerable<string>>> GetNewEmployeeList(string storeid)
+        {
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
+
+            var list = await _context.Employees.Where(c => c.StoreId == storeid).OrderByDescending(c => c.JoiningDate).Select(c => c.EmployeeId).ToListAsync();
+            var a = await _context.EmployeeDetails.Where(c => c.StoreId == storeid).Select(c => c.EmployeeId).ToListAsync();
+            var flist = list.Except(a).ToList(); ;
+            return flist;
+        }
     }
 }

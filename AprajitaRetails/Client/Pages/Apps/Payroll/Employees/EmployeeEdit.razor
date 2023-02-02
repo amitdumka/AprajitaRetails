@@ -1,0 +1,184 @@
+﻿@page "/payroll/employees/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Commons
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Shared.ViewModels;
+@using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
+@using Radzen.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+
+@attribute [Authorize]
+@*@inject HttpClient Http*@
+@inject ClientSetting Setting
+@inject DataHelper DataHelper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel=@employee TItem="@Employee" Title="Employee" ApiUrl="Employees" ReturnUrl="/payroll/employees" Id="@Id" IsEdit=@IsEdit>
+
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@employee.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+
+            <Column Classes="col.md">
+
+                <div class="mb-3 row">
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="EmpType" TItem="string" Placeholder="Category"
+                                    Autofill="true"
+                                    @bind-Value="@employee.Category" PopupHeight="230px"
+                                    DataSource="@EmpTypes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Joining Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@employee.JoiningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        @*<RadzenDatePicker @bind-Value=@employee.OnDate id="ondate" Change=@OnDateChange />*@
+                    </div>
+                </div>
+            </Column>
+        </Row>
+
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.Title Name="Title" Label="Title" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.FirstName Name="FirstNAme" Label="FirstName" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.LastName Name="LastName" Label="LastName" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="Gender" TItem="string" Placeholder="Gender"
+                                    Autofill="true"
+                                    @bind-Value="@employee.Gender" PopupHeight="230px"
+                                    DataSource="@Genders">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Joining Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@employee.JoiningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.City Name="City" Label="City" /></Column>
+
+        </Row>
+
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.StreetName Name="Streetname" Label="Street Name" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.AddressLine Name="Address" Label="Address Line" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.ZipCode Name="Zip" Label="Zip" /></Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.State Name="State" Label="State" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.Country Name="Coutnry" Label="Country" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ACheckBox Title="Tailor" Name="isTailor" @bind-Checked="@employee.IsTailors" />
+            </Column>
+            <Column Classes="col.md">
+                <ACheckBox Title="Working" Name="isworking" @bind-Checked="@employee.IsWorking" />
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Leaving Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@employee.LeavingDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+    </EntityEdit>
+</ContentMain>
+
+@code {
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
+
+    private Employee employee = new Employee { JoiningDate = DateTime.Now };
+    private IList<SelectOption>? Stores;
+    IList<string> EmpTypes = Enum.GetNames(typeof(EmpType));
+    IList<string> Genders = Enum.GetNames(typeof(Gender));
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+        if (IsEdit)
+        {
+            employee = await DataHelper.GetRecordAsync<Employee>("Employees", Id);
+            StateHasChanged();
+
+        }
+        else
+        {
+            employee = new Employee
+            {
+                JoiningDate = DateTime.Today,
+                AddressLine = "",
+                Category = EmpType.Salesman,
+                City = "",
+                Country = "",
+                DOB = DateTime.Today.AddYears(-25),
+                FirstName = "",
+                Gender = Gender.Male,
+                IsTailors = false,
+                IsWorking = true,
+                LastName = "",
+                State = "",
+                StreetName = "",
+                Title = "Mr",
+                ZipCode = "",
+                EmployeeId = "",
+                MarkedDeleted = false,
+                StoreId = Setting.StoreCode,
+
+            };
+        }
+
+    }
+}

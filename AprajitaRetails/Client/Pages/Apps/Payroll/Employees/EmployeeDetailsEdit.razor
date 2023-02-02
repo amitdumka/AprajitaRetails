@@ -1,0 +1,113 @@
+﻿@page "/payroll/employees/withdetail/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Commons
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Shared.ViewModels;
+@using AprajitaRetails.AdminLte.Forms
+@using Microsoft.AspNetCore.Authorization
+@using Radzen.Blazor
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+
+@attribute [Authorize]
+@*@inject HttpClient Http*@
+@inject ClientSetting Setting
+@inject DataHelper DataHelper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel=@employeeDetail TItem="@EmployeeDetails" Title="Employee[Detail]" ApiUrl="EmployeeDetails" ReturnUrl="/payroll/employeeDetails" Id="@Id" IsEdit=@IsEdit>
+
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.EmployeeId Name="ID" Label="Highest Emp Id" /></Column>
+            <Column Classes="col.md"><ATextInput   @bind-Value=@employee.FirstName Name="Name" Label="Full Name " /></Column>            
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date Of Birth</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@employeeDetail.DateOfBirth" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.HighestQualification Name="HighestQualification" Label="Highest Qualification" /></Column>
+        </Row>
+
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.FatherName Name="Father Name" Label="Street Name" /></Column>
+
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.SpouseName Name="Spouse Name" Label="Address Line" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.MaritalStatus Name="Zip" Label="Marital Status" /></Column>
+
+        </Row>
+        <Row>
+
+
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.AdharNumber Name="Aadhar" Label="Aadhar" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.PanNo Name="PAN" Label="PAN" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.OtherIdDetails Name="OtherIdDetails" Label="Other Id Details" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.BankAccountNumber Name="BankAccountNumber" Label="Account Number" /></Column>
+
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.BankNameWithBranch Name="BankNameWithBranch" Label="Bank With Branch" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.IFSCode Name="IFSCode" Label="IFSCode" /></Column>
+
+        </Row>
+    </EntityEdit>
+</ContentMain>
+
+@code {
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public string? Id { get; set; }
+
+    private EmployeeDetails employeeDetail = new EmployeeDetails();
+    private Employee employee;
+    private List<string> employeeIdList;
+
+    private IList<SelectOption>? Stores;
+    IList<string> EmpTypes = Enum.GetNames(typeof(EmpType));
+    IList<string> Genders = Enum.GetNames(typeof(Gender));
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+        employee = await DataHelper.GetRecordAsync<Employee>("Employees", Id);
+        if (IsEdit)
+        {
+            employeeDetail = await DataHelper.GetRecordAsync<EmployeeDetails>("EmployeeDetails", Id);
+
+
+        }
+        else
+        {
+            employeeDetail = new EmployeeDetails {
+                DateOfBirth = DateTime.Today.AddYears(-25),
+                AdharNumber="", EntryStatus=EntryStatus.Added, FatherName="", HighestQualification="", IFSCode="",
+                EmployeeId = "", IsReadOnly=false, MaritalStatus="", OtherIdDetails="", PanNo="", UserId="BlazorUI", SpouseName="",
+                MarkedDeleted = false, BankNameWithBranch="",
+                StoreId = Setting.StoreCode, BankAccountNumber=""
+
+            };
+
+        }
+        StateHasChanged();
+
+    }
+}
