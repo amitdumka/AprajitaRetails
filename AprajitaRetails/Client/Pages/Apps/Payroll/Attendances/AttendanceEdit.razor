@@ -38,7 +38,7 @@
                     <label for="ondate" class="col-sm-4 col-form-label">Date</label>
                     <div class="col-sm-6">
                         <SfDatePicker Value="@attendance.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
-                        @*<RadzenDatePicker @bind-Value=@attendance.OnDate id="ondate" Change=@OnDateChange />*@
+                       
                     </div>
                 </div>
             </Column>
@@ -47,8 +47,7 @@
 
         <Row>
             <Column Classes="col.md">
-                @* <ASelect ValueChanged="@OnEmployeeSelected" Label="Employee" Name="Employees" TItem="SelectOption" Items="Employees" Selector="(x => x.Value)" />*@
-                <div class="mb-3 row">
+                 <div class="mb-3 row">
                     <label for="Employee" class="col-sm-4 col-form-label">Employee</label>
                     <div class="col-sm-6">
                         <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Employee"
@@ -61,8 +60,7 @@
                 </div>
             </Column>
             <Column Classes="col.md">
-                @*<ASelect ValueChanged="@onStatusChange" Label="Status" Name="Status" TItem="string" Items="AttUnits" Selector="(x => x)" />*@
-                <div class="mb-3 row">
+                 <div class="mb-3 row">
                     <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
                     <div class="col-sm-6">
                         <SfComboBox TValue="AttUnit" TItem="string" Placeholder="Status"

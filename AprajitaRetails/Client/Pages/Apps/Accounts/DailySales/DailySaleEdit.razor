@@ -1,5 +1,193 @@
-﻿<h3>DailySaleEdit</h3>
+﻿@page "/accounts/DailySales/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Shared.Models.Stores
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Payroll
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+
+@attribute [Authorize]
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@DailySale" Title="DailySales" ApiUrl="DailySales" ReturnUrl="/accounts/DailySales" Id="@ID" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.InvoiceNumber Name="InvNo" Label="InvoiceNo" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.CashAmount Name="CAmount" Label="Cash Amount" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.NonCashAmount Name="NAmount" Label="Non Cash Amount" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="PayMode" class="col-sm-4 col-form-label">Mode</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="PayMode" TItem="string" Placeholder="Payment Mode"
+                                    Autofill="true"
+                                    @bind-Value="@entity.PayMode" PopupHeight="230px"
+                                    DataSource="@payModes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="party" class="col-sm-4 col-form-label">POS</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="POS"
+                                    Autofill="true"
+                                    @bind-Value="@entity.EDCTerminalId" PopupHeight="230px"
+                                    DataSource="@EDCList">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-4 row">
+                    <label for="Employee" class="col-sm-4 col-form-label">Salesman</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Saleman"
+                                    Autofill="true"
+                                    @bind-Value="@entity.SalesmanId" PopupHeight="230px"
+                                    DataSource="@Salesmen">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            
+
+        </Row>
+
+        <Row>
+            <Column Classes="col.md">
+                <ACheckBox Title="Due" Name="d3" @bind-Checked="@entity.IsDue" />
+            </Column>
+            <Column Classes="col.md">
+                <ACheckBox Title="Manual" Name="d1" @bind-Checked="@entity.ManualBill" />
+            </Column>
+            <Column Classes="col.md">
+                <ACheckBox Title="Tailoring" Name="d2" @bind-Checked="@entity.TailoringBill" />
+            </Column>
+            <Column Classes="col.md">
+                <ACheckBox Title="Sale's Return" Name="d4" @bind-Checked="@entity.SalesReturn" />
+            </Column>
+           
+        </Row>
+
+    </EntityEdit>
+</ContentMain>
 
 @code {
 
+    private string Title = "Daily Sale";
+
+
+    [Parameter] public string ID { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+    private DailySale entity = new DailySale { OnDate = DateTime.Now, Amount = 0 };
+
+    IList<string> payModes = Enum.GetNames(typeof(PayMode));
+
+    private IList<SelectOption>? Stores;
+    private IList<SelectOption>? Salesmen;
+    private IList<SelectOption>? EDCList;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+
+
+        if (IsEdit)
+        {
+            Title = "Edit Daily Sales #" + ID;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                Title = Title + " #Inv: " + ID;
+                entity = await Helper.GetRecordAsync<DailySale>("DailySales", ID);
+                StateHasChanged();
+            }
+
+        }
+        else
+        {
+            Title = "Add " + Title;
+
+            entity = new DailySale
+                {
+                    OnDate = DateTime.Now,
+                    Amount = 0,
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    Remarks = "",
+                    StoreId = Setting.StoreCode,
+                    UserId = Setting.UserName,
+                    CashAmount = 0,
+                    EDCTerminalId = null,
+                    InvoiceNumber = "",
+                    IsDue = false,
+                    ManualBill = false,
+                    NonCashAmount = 0,
+                    PayMode = PayMode.Cash,
+                    SalesReturn = false,
+                    TailoringBill = false,
+                    SalesmanId = Salesmen[0].ID
+                };
+        }
+
+
+    }
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+
+            Salesmen = await Helper.FetchOptionsAsync("Salesman", Setting.StoreCode);
+            EDCList = await Helper.FetchOptionsAsync("MPOS", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("Stores", "");
+
+        }
+        catch (Exception e)
+        {
+            Helper.Msg("Error", e.Message, true);
+        }
+        return true;
+
+    }
 }

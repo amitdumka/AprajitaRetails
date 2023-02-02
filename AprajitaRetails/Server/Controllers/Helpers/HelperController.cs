@@ -76,6 +76,16 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return await _context.Parties.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.PartyId, Value = c.PartyName }).ToListAsync();
         }
 
+        [HttpGet("MPOS")]
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetMPos(string storeid)
+        {
+            if (_context.EDCTerminals == null)
+            {
+                return NotFound();
+            }
+            return await _context.EDCTerminals.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.EDCTerminalId, Value = c.Name }).ToListAsync();
+        }
+
         [HttpGet("BankAccounts")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetBankAccounts(string storeid)
         {

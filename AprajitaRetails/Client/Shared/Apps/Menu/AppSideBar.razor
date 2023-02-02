@@ -7,182 +7,7 @@
     <!-- Sidebar user panel (optional) -->
     <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Five" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
     @*<SideBarSearch></SideBarSearch>*@
-
     <SideBarMenu>
-        @if (string.IsNullOrEmpty(SelectedStore) == false)
-        {
-            <SideBarMenuItem Icon="fas fa-solid fa-store" Link="/stores/details/SelectedStore">
-                Store Code: @SelectedStore
-            </SideBarMenuItem>
-
-        }
-        <SideBarMenuItem Link="widgets" Icon="fas fa-th">
-            Dashboard
-        </SideBarMenuItem>
-        @*Voucher*@
-        <SideBarTreeView Icon="fa-sharp fa-solid fa-receipt">
-            <Title>Vouchers</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="vouchers">
-                    Voucher
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="vouchers/cash">
-                    Cash Voucher
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="vouchers/notes">
-                    Notes Voucher
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-       @*Payroll*@
-        <SideBarTreeView Icon="fa-solid fa-people-roof">
-            <Title>Payroll</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/employees">
-                    Employee
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/attendances">
-                    Attendance
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/SalaryPayments">
-                    Salary Payment
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/payslips">
-                    PaySlip
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/advances">
-                    Advances
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/monthlyattendaces">
-                    Monthly Attendance
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/salaries">
-                   Salary
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="payroll/timesheet">
-                   Time Sheet
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-       @*Accounts*@
-        <SideBarTreeView Icon="fas fa-tachometer-alt">
-            <Title>Accounts</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/banks">
-                    Banking
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="accounts/DailySales">
-                    Daily Sale
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="accounts/CustomerDues">
-                    Dues
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="accounts/DueRecoveries">
-                    Recovery
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="TransactionMode">
-                    Transaction Mode
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="/accounts/CashDetails">
-                    Cash Details
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="/accounts/PettyCashSheet">
-                    Petty Cash Sheet
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="/legders">
-                   Ledger(s)
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="/legders/group">
-                   Legder Group
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        @*Inventory*@
-        <SideBarTreeView Icon="fa-solid fa-warehouse">
-            <Title>Inventory</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="inventory/purchases">
-                    Purchase
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="inventory/stocks">
-                    Stock
-                </SideBarMenuItem>
-                <SideBarMenuItem Link="inventory/products" Icon="far fa-circle">
-                    Products
-                </SideBarMenuItem>
-                <SideBarMenuItem Link="inventory/productcategories" Icon="far fa-circle">
-                    Product Category
-                </SideBarMenuItem>
-                <SideBarMenuItem Link="inventory/subproductcategories" Icon="far fa-circle">
-                    Sub Product Category
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView Icon="fa-solid fa-cart-arrow-down">
-            <Title>Sale</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="inventory/sales">
-                    Regular Invoice
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="inventory/manualsales">
-                    Manual Invoice
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="inventory/printInvoices">
-                    Invoice Printing
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="inventory/salereports">
-                    Sale Report
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView Icon="fa-sharp fa-solid fa-store">
-            <Title>Stores</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="stores">
-                    Store
-                </SideBarMenuItem>
-                
-                <SideBarMenuItem Icon="far fa-circle" Link="stores/customers">
-                    Customers
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="stores/contacts">
-                    Contacts
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="stores/salesmen">
-                    Salesmen
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="stores/posMachines">
-                    POS Machine
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
-        <SideBarTreeView Icon="fa fa-university ">
-            <Title>Banking</Title>
-            <Items>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/banks">
-                    Bank
-                </SideBarMenuItem>
-
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/bankaccounts">
-                    Bank Accounts
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/vendoraccounts">
-                    Vendor Accounts
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/accountLists">
-                    Account List
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/chequelogs">
-                   Cheque Logs
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/chequeIssueds">
-                    Cheque Issued
-                </SideBarMenuItem>
-                <SideBarMenuItem Icon="far fa-circle" Link="banking/chequebooks">
-                    Cheque Book
-                </SideBarMenuItem>
-            </Items>
-        </SideBarTreeView>
         <AuthorizeView>
             <NotAuthorized>
                 <SideBarTreeView Icon=" fa-solid fa-users-line ">
@@ -199,7 +24,190 @@
                         </SideBarMenuItem>
                     </Items>
                 </SideBarTreeView>
+                <SideBarMenuItem Link="autologin" Icon="fas fa-user">
+                    AutoLogin
+                </SideBarMenuItem>
             </NotAuthorized>
+            <Authorized>
+                @if (string.IsNullOrEmpty(SelectedStore) == false)
+                {
+                    <SideBarMenuItem Icon="fas fa-solid fa-store" Link="/stores/details/SelectedStore">
+                        Store Code: @SelectedStore
+                    </SideBarMenuItem>
+
+                }
+                <SideBarMenuItem Link="widgets" Icon="fas fa-th">
+                    Dashboard
+                </SideBarMenuItem>
+                @*Voucher*@
+                <SideBarTreeView Icon="fa-sharp fa-solid fa-receipt">
+                    <Title>Vouchers</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="vouchers">
+                            Voucher
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="vouchers/cash">
+                            Cash Voucher
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="vouchers/notes">
+                            Notes Voucher
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                @*Payroll*@
+                <SideBarTreeView Icon="fa-solid fa-people-roof">
+                    <Title>Payroll</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/employees">
+                            Employee
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/attendances">
+                            Attendance
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/SalaryPayments">
+                            Salary Payment
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/payslips">
+                            PaySlip
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/advances">
+                            Advances
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/monthlyattendaces">
+                            Monthly Attendance
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/salaries">
+                            Salary
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="payroll/timesheet">
+                            Time Sheet
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                @*Accounts*@
+                <SideBarTreeView Icon="fas fa-tachometer-alt">
+                    <Title>Accounts</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/banks">
+                            Banking
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="accounts/DailySales">
+                            Daily Sale
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="accounts/CustomerDues">
+                            Dues
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="accounts/DueRecoveries">
+                            Recovery
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="TransactionMode">
+                            Transaction Mode
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="/accounts/CashDetails">
+                            Cash Details
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="/accounts/PettyCashSheet">
+                            Petty Cash Sheet
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="/legders">
+                            Ledger(s)
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="/legders/group">
+                            Legder Group
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                @*Inventory*@
+                <SideBarTreeView Icon="fa-solid fa-warehouse">
+                    <Title>Inventory</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="inventory/purchases">
+                            Purchase
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="inventory/stocks">
+                            Stock
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Link="inventory/products" Icon="far fa-circle">
+                            Products
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Link="inventory/productcategories" Icon="far fa-circle">
+                            Product Category
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Link="inventory/subproductcategories" Icon="far fa-circle">
+                            Sub Product Category
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                <SideBarTreeView Icon="fa-solid fa-cart-arrow-down">
+                    <Title>Sale</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="inventory/sales">
+                            Regular Invoice
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="inventory/manualsales">
+                            Manual Invoice
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="inventory/printInvoices">
+                            Invoice Printing
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="inventory/salereports">
+                            Sale Report
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                <SideBarTreeView Icon="fa-sharp fa-solid fa-store">
+                    <Title>Stores</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="stores">
+                            Store
+                        </SideBarMenuItem>
+
+                        <SideBarMenuItem Icon="far fa-circle" Link="stores/customers">
+                            Customers
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="stores/contacts">
+                            Contacts
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="stores/salesmen">
+                            Salesmen
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="stores/posMachines">
+                            POS Machine
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                <SideBarTreeView Icon="fa fa-university ">
+                    <Title>Banking</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/banks">
+                            Bank
+                        </SideBarMenuItem>
+
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/bankaccounts">
+                            Bank Accounts
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/vendoraccounts">
+                            Vendor Accounts
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/accountLists">
+                            Account List
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/chequelogs">
+                            Cheque Logs
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/chequeIssueds">
+                            Cheque Issued
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="banking/chequebooks">
+                            Cheque Book
+                        </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                <SideBarMenuItem Link="importdata" Icon="fas fa-th">
+                    Import Data
+                    <span class="right badge badge-danger">New</span>
+                </SideBarMenuItem>
+            </Authorized>
         </AuthorizeView>
         @*<SideBarTreeView Icon="far fa-plus-square">
         <Title>Extras</Title>
@@ -215,13 +223,8 @@
         </SideBarMenuItem>
         </Items>
         </SideBarTreeView>*@
-        <SideBarMenuItem Link="autologin" Icon="fas fa-user">
-            AutoLogin
-        </SideBarMenuItem>
-        <SideBarMenuItem Link="importdata" Icon="fas fa-th">
-            Import Data
-            <span class="right badge badge-danger">New</span>
-        </SideBarMenuItem>
+       
+      
     </SideBarMenu>
 </SideBar>
 

@@ -1,5 +1,6 @@
 ﻿using AprajitaRetails.BL.Vouchers;
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.Models.Stores;
 
 namespace AprajitaRetails.Server.BL.Accounts
 {
@@ -18,6 +19,22 @@ namespace AprajitaRetails.Server.BL.Accounts
             }
             return VoucherManager.GenerateVoucherNumber(type, storeId, onDate, count);
 
+        }
+
+        public static void AddUpdateDueBill(ARDBContext db, DailySale dailySale, bool isNew)
+        {
+            if (isNew) {
+                CustomerDue due = new CustomerDue {
+                EntryStatus=EntryStatus.Added, ClearingDate=null, IsReadOnly=false, OnDate=dailySale.OnDate, 
+                Paid=false, InvoiceNumber=dailySale.InvoiceNumber, MarkedDeleted=false,
+                StoreId=dailySale.StoreId,UserId=dailySale.UserId
+                };
+                if (dailySale.PayMode == PayMode.Cash)
+                {
+                    due.Amount = dailySale.Amount - dailySale.CashAmount; 
+                }
+            }
+            else { }
         }
     }
 }
