@@ -1,5 +1,84 @@
-﻿<h3>ProductIndex</h3>
+﻿@page "/inventory/products"
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Inventory;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="ProductItemDTO" Title="Products" Columns="@GridCols" EnableAggretor=true
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
 @code {
+    private const string BaseURL = "/inventory/Products";
+    private List<ProductItemDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            GroupedColumn = new string[] { "Barcode" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(ProductItemDTO).GetProperties(), "Barcode");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<ProductItemDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<ProductItemDTO>($"api/Products/bystoredto", $"?storeid={Setting.StoreCode}");
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<ProductItemDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.Barcode}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Barcode}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Barcode}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
 
 }
+
+
