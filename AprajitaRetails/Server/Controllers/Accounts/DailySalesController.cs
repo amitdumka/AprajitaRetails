@@ -1,4 +1,5 @@
-﻿using AprajitaRetails.Server.Data;
+﻿using AprajitaRetails.Server.BL.Accounts;
+using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Stores;
 using AutoMapper;
@@ -71,6 +72,7 @@ namespace AprajitaRetails.Server.Controllers.Accounts
                 return BadRequest();
             }
 
+            AccountHelper.AddUpdateDueBill(_context, dailySale, false);
             _context.Entry(dailySale).State = EntityState.Modified;
 
             try
@@ -101,6 +103,8 @@ namespace AprajitaRetails.Server.Controllers.Accounts
             {
                 return Problem("Entity set 'ARDBContext.DailySales'  is null.");
             }
+
+            AccountHelper.AddUpdateDueBill(_context, dailySale, true);
             _context.DailySales.Add(dailySale);
             try
             {

@@ -6,6 +6,14 @@ namespace AprajitaRetails.Server.BL.Accounts
 {
     public class AccountHelper
     {
+        /// <summary>
+        /// Generate Voucher Number
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="type"></param>
+        /// <param name="storeId"></param>
+        /// <param name="onDate"></param>
+        /// <returns></returns>
         public static string VoucherNumberGenerator(ARDBContext db, VoucherType type, string storeId, DateTime onDate)
         {
             int count = 0;
@@ -21,20 +29,91 @@ namespace AprajitaRetails.Server.BL.Accounts
 
         }
 
+        /// <summary>
+        /// Add or Update Due Bill
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="dailySale"></param>
+        /// <param name="isNew"></param>
         public static void AddUpdateDueBill(ARDBContext db, DailySale dailySale, bool isNew)
         {
-            if (isNew) {
-                CustomerDue due = new CustomerDue {
+            CustomerDue due;
+            if (isNew)
+            {
+                 due = new CustomerDue {
                 EntryStatus=EntryStatus.Added, ClearingDate=null, IsReadOnly=false, OnDate=dailySale.OnDate, 
                 Paid=false, InvoiceNumber=dailySale.InvoiceNumber, MarkedDeleted=false,
                 StoreId=dailySale.StoreId,UserId=dailySale.UserId
                 };
+
                 if (dailySale.PayMode == PayMode.Cash)
                 {
                     due.Amount = dailySale.Amount - dailySale.CashAmount; 
                 }
+                else
+                {
+                    due.Amount = dailySale.Amount -dailySale.NonCashAmount- dailySale.CashAmount;
+                }
+                db.CustomerDues.Add(due);
             }
-            else { }
+            else {
+
+                var old = db.CustomerDues.Where(c => c.InvoiceNumber == dailySale.InvoiceNumber).FirstOrDefault();
+                if(old!=null && !dailySale.IsDue)
+                {
+                    db.CustomerDues.Remove(old);
+                }
+                else if (old == null)
+                {
+                    due = new CustomerDue
+                    {
+                        EntryStatus = EntryStatus.Added,
+                        ClearingDate = null,
+                        IsReadOnly = false,
+                        OnDate = dailySale.OnDate,
+                        Paid = false,
+                        InvoiceNumber = dailySale.InvoiceNumber,
+                        MarkedDeleted = false,
+                        StoreId = dailySale.StoreId,
+                        UserId = dailySale.UserId
+                    };
+
+                    if (dailySale.PayMode == PayMode.Cash)
+                    {
+                        due.Amount = dailySale.Amount - dailySale.CashAmount;
+                    }
+                    else
+                    {
+                        due.Amount = dailySale.Amount - dailySale.NonCashAmount - dailySale.CashAmount;
+                    }
+                    db.CustomerDues.Add(due);
+                }
+                else
+                {
+                    old = new CustomerDue
+                    {
+                        EntryStatus = EntryStatus.Updated,
+                        ClearingDate = null,
+                        IsReadOnly = false,
+                        OnDate = dailySale.OnDate,
+                        Paid = false,
+                        InvoiceNumber = dailySale.InvoiceNumber,
+                        MarkedDeleted = false,
+                        StoreId = dailySale.StoreId,
+                        UserId = dailySale.UserId
+                    };
+
+                    if (dailySale.PayMode == PayMode.Cash)
+                    {
+                        old.Amount = dailySale.Amount - dailySale.CashAmount;
+                    }
+                    else
+                    {
+                        old.Amount = dailySale.Amount - dailySale.NonCashAmount - dailySale.CashAmount;
+                    }
+                    db.CustomerDues.Update(old);
+                }
+            }
         }
     }
 }

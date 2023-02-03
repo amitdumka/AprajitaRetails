@@ -1,4 +1,4 @@
-﻿@page "/accounts/DueRecoveries/detail/{*ID}"
+﻿@page "/accounts/CustomerDues/detail/{*ID}"
 
 @using AprajitaRetails.Shared.Models.Payroll
 @using AprajitaRetails.Shared.Models.Stores
@@ -15,7 +15,6 @@
 @inject LocalStorageAccessor LocalStorage
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
-@*@TODO: Need to update col/row@*@
     <EntityRow Lable="ID" Value="@entity.InvoiceNumber" />
     <EntityRow Lable="Date" Value="@entity.OnDate.ToShortDateString()" />
     <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
@@ -42,14 +41,14 @@
     string Title = "Details";
     bool Loading = true;
     bool isDeleted = false;
-    void BackButton() { NavigationManager.NavigateTo("/accounts/DueRecoveries"); }
+    void BackButton() { NavigationManager.NavigateTo("/accounts/DailySales"); }
 
     protected override async void OnInitialized()
     {
         if (!string.IsNullOrEmpty(ID))
         {
 
-            entity = await Http.GetFromJsonAsync<DailySale>($"DueRecoveries/{ID}");
+            entity = await Http.GetFromJsonAsync<DailySale>($"DailySales/{ID}");
             employee = await Http.GetFromJsonAsync<Salesman>($"Salesmen/{entity.SalesmanId}");
             if (string.IsNullOrEmpty(entity.EDCTerminalId) == false)
                 edc = await Http.GetFromJsonAsync<EDCTerminal>($"EDCTerminals/{entity.EDCTerminalId}");
@@ -71,7 +70,7 @@
             bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
             if (isConfirm)
             {
-                var result = await Http.DeleteAsync($"DueRecoveries/{ID}");
+                var result = await Http.DeleteAsync($"DailySales/{ID}");
                 if (result.IsSuccessStatusCode)
                 {
                     isDeleted = true;

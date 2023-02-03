@@ -1,97 +1,90 @@
 ﻿@page "/accounts/DueRecoveries"
 
-@using AprajitaRetails.Commons
-@using AprajitaRetails.AdminLte
-@using AprajitaRetails.Shared.Models.Stores
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Stores;
 @using Microsoft.AspNetCore.Authorization;
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+
 
 @attribute [Authorize]
-@inject NotificationService NotificationService
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
 @inject NavigationManager NavigationManager
-@inject SfDialogService DialogService
-@inject HttpClient Http 
 
-<ContentMain>
-    <EntityList Title="@Title" BaseUrl="/accounts/DueRecoveries" Loading=@Loading>
-        <TableHead>
-            <TableHeadCell>ID</TableHeadCell>
-            <TableHeadCell>Inv No </TableHeadCell>
-            <TableHeadCell>Date</TableHeadCell>
-            <TableHeadCell>Mode</TableHeadCell>
-          
-            <TableHeadCell>Amount </TableHeadCell>
-            <TableHeadCell> Mode</TableHeadCell>
-            <TableHeadCell>Remarks </TableHeadCell>
-            <TableHeadCell> </TableHeadCell>
-        </TableHead>
-        <TableBody>
-            @foreach (var ent in entities)
-            {
-                <TableRow>
-                    <TableCell>@ent.Id</TableCell>
-                    <TableCell>@ent.InvoiceNumber</TableCell>
-                    <TableCell>@ent.OnDate.ToShortDateString()</TableCell>
-                    <TableCell>@ent.PayMode.ToString()</TableCell>
-                    <TableCell>@ent.PartialPayment.ToString()</TableCell>
-                   
-                    <TableCell>@ent.Amount.ToString()</TableCell>
-                    <TableCell>@ent.Remarks</TableCell>
+<EntityGridIndex TItem="DueRecovery" Title="Due Recovery " Columns="@GridCols" EnableAggretor=true
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-
-                    <TableCell>  <ActionMenu Link="/accounts/DueRecoveries" Id="@ent.Id" OnClickDelete="()=>ConfirmDelete(ent.Id)" /></TableCell>
-                </TableRow>
-            }
-        </TableBody>
-    </EntityList>
-</ContentMain>
 
 @code {
-    private const string Title = "Dues Recovery";
+     
+    private string BaseURL = "/accounts/DueRecoveries";
     private List<DueRecovery>? entities;
-    private bool Loading = true;
 
-    async void ConfirmDelete(string id)
-    {
-        bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete?", "Delete ");
-        if (isConfirm)
-        {
-            var result = await Http.DeleteAsync($"DueRecoveries/{id}");
-            if (result.IsSuccessStatusCode)
-            {
-                entities.Remove(entities.First(c => c.InvoiceNumber == id));
-                StateHasChanged();
-                Msg("  Delete", $"  {id} is deleted");
-            }
-            else
-            {
-                Msg("  Delete", $" Error :   {id} is not deleted", true);
-            }
-        }
-    }
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            entities = await Http.GetFromJsonAsync<List<DueRecovery>>("DueRecoveries");
-            Loading = false;
+            GroupedColumn = new string[] { "OnDate" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(DueRecovery).GetProperties(), "InvoiceNumber");
             StateHasChanged();
+            base.OnInitialized();
         }
-        catch (AccessTokenNotAvailableException exception)
+        catch (Exception exception)
         {
-            exception.Redirect();
+
+            Helper.Msg("Error On Init", exception.Message, true);
         }
+
     }
-    void Msg(string title, string text, bool error = false)
+
+    async Task<List<DueRecovery>?> FetchDataAsync()
     {
-        var msg = new Radzen.NotificationMessage
+        entities = await Helper.FetchAsync<DueRecovery>($"DueRecoveries/bystoredto", $"?storeid={Setting.StoreCode}");
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<DueRecovery> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
         {
-            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
-        NotificationService.Notify(msg);
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.InvoiceNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.InvoiceNumber}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.InvoiceNumber}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
     }
 
 }
+  
+
+ 
