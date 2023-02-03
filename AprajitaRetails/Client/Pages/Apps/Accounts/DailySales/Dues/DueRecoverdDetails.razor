@@ -15,30 +15,24 @@
 @inject LocalStorageAccessor LocalStorage
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
-@*@TODO: Need to update col/row@*@
+     
     <EntityRow Lable="ID" Value="@entity.InvoiceNumber" />
     <EntityRow Lable="Date" Value="@entity.OnDate.ToShortDateString()" />
     <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
-    <EntityRow Lable="Cash" Value="@entity.CashAmount.ToString()" />
-    <EntityRow Lable="Non Cash" Value="@entity.NonCashAmount.ToString()" />
-    <EntityRow Lable="Payment " Value="@entity.PayMode.ToString()" />
-    <EntityRow Lable="Due" Value="@entity.IsDue.ToString()" />
-    <EntityRow Lable="Manual" Value="@entity.ManualBill.ToString()" />
-    <EntityRow Lable="Tailoring" Value="@entity.TailoringBill.ToString()" />
-    <EntityRow Lable="Sale's Return" Value="@entity.SalesReturn.ToString()" />
-    <EntityRow Lable="Saleman" Value="@employee.Name" />
+
+    @*<EntityRow Lable="Due Amount" Value="@entity.Due.ToString()" />*@
+    <EntityRow Lable="Payment Mode" Value="@entity.PayMode.ToString()" />
+    <EntityRow Lable="PartialPayment " Value="@entity.PartialPayment.ToString()" />
     <EntityRow Lable="Remarks" Value="@entity.Remarks" />
-    @if (edc != null)
-    {
-        <EntityRow Lable="EDC" Value="@edc.Name" />
-    }
+    <EntityRow Lable="Store" Value="@entity.StoreId" />
+
 </EntityDetails>
 
 @code {
     [Parameter] public string? ID { get; set; }
-    DailySale? entity;
-    Salesman? employee;
-    EDCTerminal? edc;
+
+    DueRecovery? entity;
+    
     string Title = "Details";
     bool Loading = true;
     bool isDeleted = false;
@@ -49,12 +43,8 @@
         if (!string.IsNullOrEmpty(ID))
         {
 
-            entity = await Http.GetFromJsonAsync<DailySale>($"DueRecoveries/{ID}");
-            employee = await Http.GetFromJsonAsync<Salesman>($"Salesmen/{entity.SalesmanId}");
-            if (string.IsNullOrEmpty(entity.EDCTerminalId) == false)
-                edc = await Http.GetFromJsonAsync<EDCTerminal>($"EDCTerminals/{entity.EDCTerminalId}");
-            else edc = null;
-            Title = "Sale Details of " + entity.InvoiceNumber;
+            entity = await Http.GetFromJsonAsync<DueRecovery>($"DueRecoveries/{ID}");
+            Title = "Due Recovery Details of " + entity.InvoiceNumber;
             Loading = false;
             StateHasChanged();
         }
@@ -76,12 +66,12 @@
                 {
                     isDeleted = true;
                     StateHasChanged();
-                    Msg("Delete", $"Sale {ID} is deleted");
+                    Msg("Delete", $"Due Recovery  {ID} is deleted");
 
                 }
                 else
                 {
-                    Msg(" Delete", $" Error : Sale {ID} is not deleted", true);
+                    Msg(" Delete", $" Error : Due Recovery {ID} is not deleted", true);
                 }
             }
         }

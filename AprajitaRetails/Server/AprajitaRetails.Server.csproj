@@ -19,6 +19,7 @@
     <Compile Remove="Migrations_win\20230126194025_FirstLinuxIdentity.Designer.cs" />
     <Compile Remove="Migrations_win\ARDB\20230126194108_intitAprajitDbLinux.cs" />
     <Compile Remove="Migrations_win\ARDB\20230126194108_intitAprajitDbLinux.Designer.cs" />
+    <None Remove="Controllers\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.1" />
@@ -81,6 +82,7 @@
     <Folder Include="Importer\" />
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
+    <Folder Include="Controllers\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\Brands" />

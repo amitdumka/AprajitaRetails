@@ -90,8 +90,7 @@
     private PettyCashSheet entity = new PettyCashSheet { OnDate = DateTime.Now };
 
     private IList<SelectOption>? Stores;
-    // private IList<SelectOption>? Employees;
-    IList<string> Components = Enum.GetNames(typeof(SalaryComponent));
+     IList<string> Components = Enum.GetNames(typeof(SalaryComponent));
     IList<string> PayModes = Enum.GetNames(typeof(PayMode));
 
     private async Task<bool> FetchSelectData()
@@ -115,7 +114,7 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            entity = await Http.GetFromJsonAsync<PettyCashSheet>($"SalaryPayments/{Id}");
+            entity = await Http.GetFromJsonAsync<PettyCashSheet>($"PettyCashSheets/{Id}");
             StateHasChanged();
         }
         else

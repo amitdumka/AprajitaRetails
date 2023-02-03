@@ -1,6 +1,144 @@
-﻿<h3>Component1</h3>
+﻿@page "/accounts/DueRecoveries/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Shared.Models.Stores
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Payroll
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+
+@attribute [Authorize]
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@DueRecovery" Title="DueRecoveries" ApiUrl="DueRecoveries" ReturnUrl="/accounts/DueRecoveries" Id="@ID" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.InvoiceNumber Name="InvNo" Label="InvoiceNo" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.Amount Name="Amount" Label="Amount" /></Column>
+            <Column Classes="col.md">
+                <ACheckBox Title="Partial Payment" Name="d3" @bind-Checked="@entity.PartialPayment" />
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="PayMode" class="col-sm-4 col-form-label">Mode</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="PayMode" TItem="string" Placeholder="Payment Mode"
+                                    Autofill="true"
+                                    @bind-Value="@entity.PayMode" PopupHeight="230px"
+                                    DataSource="@payModes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+             
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Remarks Name="rnmk" Label="Remarks" /></Column>
+
+
+        </Row>
+
+        
+
+    </EntityEdit>
+</ContentMain>
 
 @code {
 
-}
+    private string Title = "Daily Sale";
 
+
+    [Parameter] public string ID { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+    private DueRecovery entity = new DueRecovery { OnDate = DateTime.Now, Amount = 0 };
+
+    IList<string> payModes = Enum.GetNames(typeof(PayMode));
+
+    private IList<SelectOption>? Stores;
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+
+
+        if (IsEdit)
+        {
+            Title = "Edit Due Recovery #" + ID;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                Title = Title + " #Inv: " + ID;
+                entity = await Helper.GetRecordAsync<DueRecovery>("DueRecoveries", ID);
+                StateHasChanged();
+            }
+
+        }
+        else
+        {
+            Title = "Add " + Title;
+
+            entity = new DueRecovery
+            {
+                OnDate = DateTime.Now,
+                Amount = 0,
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = false,
+                MarkedDeleted = false,
+                Remarks = "",
+                StoreId = Setting.StoreCode,
+                UserId = Setting.UserName,
+                InvoiceNumber = "",
+                PayMode = PayMode.Cash, Due=0, PartialPayment=false, 
+                
+            };
+        }
+
+
+    }
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            Stores = await Helper.FetchOptionsAsync("Stores", "");
+
+        }
+        catch (Exception e)
+        {
+            Helper.Msg("Error", e.Message, true);
+        }
+        return true;
+
+    }
+}
