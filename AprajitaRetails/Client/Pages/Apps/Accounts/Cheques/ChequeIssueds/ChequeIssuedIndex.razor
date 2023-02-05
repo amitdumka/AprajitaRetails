@@ -1,0 +1,88 @@
+﻿@page "/banking/chequeIssueds"
+
+ 
+
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Banking;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="ChequeIssued" Title="Cheque Issued" Columns="@GridCols" EnableAggretor=false
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
+@code {
+    private const string BaseURL = "/banking/ChequeIssueds";
+    private List<ChequeIssued>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            GroupedColumn = new string[] { "AccountId" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(ChequeIssued).GetProperties(), "ChequeIssuedId");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<ChequeIssued>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<ChequeIssued>($"ChequeIssueds/bystore", $"?storeid={Setting.StoreCode}");
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<ChequeIssued> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.ChequeIssuedId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.ChequeIssuedId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.ChequeIssuedId}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+
+}
+
+
+
