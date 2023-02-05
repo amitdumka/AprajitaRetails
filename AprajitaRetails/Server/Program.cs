@@ -35,12 +35,29 @@ else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 }
 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 {
-    connectionString = builder.Configuration.GetConnectionString("DefaultLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    var localDeploy = builder.Configuration.GetValue<string>("DeployedServer");
+    if (localDeploy == "cloud")
+    {
+        connectionString = builder.Configuration.GetConnectionString("CloudLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
 
-    builder.Services.AddDbContext<ARDBContext>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseMySQL(connectionString));
+
+
+        builder.Services.AddDbContext<ARDBContext>(options =>
+            options.UseMySQL(connectionString));
+    }
+    else
+    {
+        connectionString = builder.Configuration.GetConnectionString("DefaultLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
+
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
+
+
+        builder.Services.AddDbContext<ARDBContext>(options =>
+            options.UseSqlServer(connectionString));
+    }
 }
 else
 {

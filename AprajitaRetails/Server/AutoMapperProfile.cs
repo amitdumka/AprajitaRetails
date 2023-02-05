@@ -54,6 +54,9 @@ namespace AprajitaRetails.Server
                  .ForMember(dest => dest.POSName, opt => opt.MapFrom(src => src.EDC.Name))
                 .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
 
+            CreateMap<CashDetail, CashDetailDTO>()
+               .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
+
         }
     }
 }

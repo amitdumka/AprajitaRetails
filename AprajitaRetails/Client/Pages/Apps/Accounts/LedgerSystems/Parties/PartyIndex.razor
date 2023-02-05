@@ -25,7 +25,7 @@
 
 <EntityGridIndex TItem="PartyDTO" Title="Legders" Columns="@GridCols" EnableAggretor=true
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
-                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=false></EntityGridIndex>
 
 @code {
     private const string BaseURL = "/legders";
@@ -35,12 +35,13 @@
     {
         try
         {
-            GroupedColumn = new string[] { "Category" };
+            GroupedColumn = new string[] { "" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(PartyDTO).GetProperties(), "PartyId");
             StateHasChanged();
             base.OnInitialized();
+            
         }
         catch (Exception exception)
         {

@@ -1,5 +1,8 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Stores;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +13,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
     public class CashDetailsController : ControllerBase
     {
         private readonly ARDBContext _context;
+        private readonly IMapper _mapper;
 
-        public CashDetailsController(ARDBContext context)
+        public CashDetailsController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/CashDetails
@@ -25,6 +29,16 @@ namespace AprajitaRetails.Server.Controllers.Stores
                 return NotFound();
             }
             return await _context.CashDetails.ToListAsync();
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<CashDetailDTO>>> GetCashDetailByStoreDTO(string storeid)
+        {
+            if (_context.CashDetails == null)
+            {
+                return NotFound();
+            }
+            return await _context.CashDetails.Include(c=>c.Store).Where(c=>c.StoreId==storeid && !c.MarkedDeleted && c.OnDate.Year>=DateTime.Today.Year-1).ProjectTo<CashDetailDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/CashDetails/5
