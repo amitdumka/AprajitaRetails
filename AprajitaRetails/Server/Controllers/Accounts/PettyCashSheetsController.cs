@@ -1,5 +1,6 @@
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Vouchers;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +11,10 @@ namespace AprajitaRetails.Server.Controllers.Accounts
     public class PettyCashSheetsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public PettyCashSheetsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public PettyCashSheetsController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/PettyCashSheets
@@ -25,6 +26,17 @@ namespace AprajitaRetails.Server.Controllers.Accounts
                 return NotFound();
             }
             return await _context.PettyCashSheets.ToListAsync();
+        }
+
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<PettyCashSheet>>> GetPettyCashSheetsByStore(string storeid)
+        {
+            if (_context.PettyCashSheets == null)
+            {
+                return NotFound();
+            }
+            return await _context.PettyCashSheets.Where(c=>c.StoreId==storeid && !c.MarkedDeleted && c.OnDate.Year>= DateTime.Today.Year-1).OrderByDescending(c=>c.OnDate)
+                .ToListAsync();
         }
 
         // GET: api/PettyCashSheets/5

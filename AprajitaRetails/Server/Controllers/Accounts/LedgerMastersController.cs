@@ -26,6 +26,16 @@ namespace AprajitaRetails.Server.Controllers.Accounts
             }
             return await _context.LedgerMasters.ToListAsync();
         }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<LedgerMaster>>> GetLedgerMastersByStore(string storeid)
+        {
+            if (_context.LedgerMasters == null)
+            {
+                return NotFound();
+            }
+            return await _context.LedgerMasters.OrderByDescending(c=>c.OpeningDate)
+                .ToListAsync();
+        }
 
         // GET: api/LedgerMasters/5
         [HttpGet("{id}")]

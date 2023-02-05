@@ -1,5 +1,8 @@
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Vouchers;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +14,11 @@ namespace AprajitaRetails.Server.Controllers.Accounts
     {
         private readonly ARDBContext _context;
 
-        public PartiesController(ARDBContext context)
+        private readonly IMapper _mapper;
+
+        public PartiesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/Parties
@@ -25,6 +30,17 @@ namespace AprajitaRetails.Server.Controllers.Accounts
                 return NotFound();
             }
             return await _context.Parties.ToListAsync();
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<PartyDTO>>> GetParties(string storeid)
+        {
+            if (_context.Parties == null)
+            {
+                return NotFound();
+            }
+            return await _context.Parties.Include(c=>c.LedgerGroup).Where(c=>c.StoreId==storeid && !c.MarkedDeleted)
+                .ProjectTo<PartyDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/Parties/5

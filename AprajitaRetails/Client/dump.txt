@@ -1,0 +1,60 @@
+﻿
+ <!--<script>
+
+        var toggleSwitch = document.querySelector('.rz-switch input[type="checkbox"]');
+        var currentTheme = localStorage.getItem('theme');
+        var mainHeader = document.querySelector('.main-header');
+
+        if (currentTheme) {
+            if (currentTheme === 'dark') {
+                if (!document.body.classList.contains('dark-mode')) {
+                    document.body.classList.add("dark-mode");
+                }
+                if (mainHeader.classList.contains('navbar-light')) {
+                    mainHeader.classList.add('navbar-dark');
+                    mainHeader.classList.remove('navbar-light');
+                }
+                toggleSwitch.checked = true;
+            } else {
+                toggleSwitch.checked = false;
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function switchTheme(e) {
+
+            if (e.target.checked) {
+                if (!document.body.classList.contains('dark-mode')) {
+                    document.body.classList.add("dark-mode");
+                }
+                if (mainHeader.classList.contains('navbar-light')) {
+                    mainHeader.classList.add('navbar-dark');
+                    mainHeader.classList.remove('navbar-light');
+                }
+                localStorage.setItem('theme', 'dark');
+            } else {
+                if (document.body.classList.contains('dark-mode')) {
+                    document.body.classList.remove("dark-mode");
+                }
+                if (mainHeader.classList.contains('navbar-dark')) {
+                    mainHeader.classList.add('navbar-light');
+                    mainHeader.classList.remove('navbar-dark');
+                }
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+    </script>-->
+
+
+<!--Popper-->
+    <!--<script src="/plugins/popper/popper.min.js"></script>-->
+    <!--Bootstrap 4-->
+    <!--<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>-->
+
+<!--<svg class="loading-progress">
+                <circle r="40%" cx="50%" cy="50%" />
+                <circle r="40%" cx="50%" cy="50%" />
+            </svg>-->
+            

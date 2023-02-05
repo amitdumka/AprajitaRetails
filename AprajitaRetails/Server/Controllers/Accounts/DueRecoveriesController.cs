@@ -1,5 +1,6 @@
 ﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Stores;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +11,11 @@ namespace AprajitaRetails.Server.Controllers.Accounts
     public class DueRecoveriesController : ControllerBase
     {
         private readonly ARDBContext _context;
+        private readonly IMapper _mapper;
 
-        public DueRecoveriesController(ARDBContext context)
+        public DueRecoveriesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/DueRecoveries
@@ -25,6 +27,26 @@ namespace AprajitaRetails.Server.Controllers.Accounts
                 return NotFound();
             }
             return await _context.DuesRecovery.ToListAsync();
+        }
+        // GET: api/DueRecoveries
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<DueRecovery>>> GetDuesRecoveryByStore(string storeid)
+        {
+            if (_context.DuesRecovery == null)
+            {
+                return NotFound();
+            }
+            return await _context.DuesRecovery.Include(c=>c.Due).Where(c=>c.StoreId==storeid && c.OnDate.Year>=DateTime.Today.Year-1).OrderByDescending(c=>c.OnDate).ToListAsync();
+        }
+        // GET: api/DueRecoveries
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<DueRecovery>>> GetDuesRecoveryByStoreDTO(string storeid)
+        {
+            if (_context.DuesRecovery == null)
+            {
+                return NotFound();
+            }
+            return await _context.DuesRecovery.Include(c => c.Due).Where(c => c.StoreId == storeid && c.OnDate.Year >= DateTime.Today.Year - 1).OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/DueRecoveries/5

@@ -1,5 +1,6 @@
 ﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Stores;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ namespace AprajitaRetails.Server.Controllers.Accounts
     {
         private readonly ARDBContext _context;
 
-        public CustomerDuesController(ARDBContext context)
+        private readonly IMapper _mapper;
+
+        public CustomerDuesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/CustomerDues
@@ -24,7 +27,27 @@ namespace AprajitaRetails.Server.Controllers.Accounts
             {
                 return NotFound();
             }
-            return await _context.CustomerDues.ToListAsync();
+            return await _context.CustomerDues.OrderByDescending(c => c.OnDate).ToListAsync();
+        }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<CustomerDue>>> GetCustomerDuesByStore(string storeid)
+        {
+            if (_context.CustomerDues == null)
+            {
+                return NotFound();
+            }
+            return await _context.CustomerDues.Where(c=>c.StoreId==storeid && !c.Paid)
+                .OrderByDescending(c=>c.OnDate).ToListAsync();
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<CustomerDue>>> GetCustomerDuesByStoreDTO(string storeid)
+        {
+            if (_context.CustomerDues == null)
+            {
+                return NotFound();
+            }
+            return await _context.CustomerDues.Where(c => c.StoreId == storeid && !c.Paid)
+                .OrderByDescending(c => c.OnDate).ToListAsync();
         }
 
         // GET: api/CustomerDues/5
