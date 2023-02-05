@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
@@ -26,7 +26,7 @@ namespace AprajitaRetails.Server.Controllers.Stores
             }
             return await _context.Customers.ToListAsync();
         }
-
+       
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(string id)

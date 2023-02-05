@@ -36,7 +36,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "DailySale" };
+            GroupedColumn = new string[0];
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(PettyCashSheet).GetProperties(), "Id");

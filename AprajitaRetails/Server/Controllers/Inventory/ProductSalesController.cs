@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
+using AutoMapper;
+using AprajitaRetails.Shared.AutoMapper.DTO;
+using AutoMapper.QueryableExtensions;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -15,31 +18,55 @@ namespace AprajitaRetails.Server.Controllers.Inventory
     public class ProductSalesController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public ProductSalesController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public ProductSalesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/ProductSales
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductSale>>> GetProductSales()
         {
-          if (_context.ProductSales == null)
-          {
-              return NotFound();
-          }
+            if (_context.ProductSales == null)
+            {
+                return NotFound();
+            }
             return await _context.ProductSales.ToListAsync();
         }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<ProductSale>>> GetProductSalesByStoreDTO(string storeid, InvoiceType itpe = InvoiceType.Sales)
+        {
+            if (_context.ProductSales == null)
+            {
+                return NotFound();
+            }
+            return await _context.ProductSales.Include(c => c.Salesman)
+                .Where(c => c.StoreId == storeid && c.InvoiceType == itpe && c.OnDate.Year >= DateTime.Today.Year - 1)
+                .OrderByDescending(c => c.OnDate)
+               .ToListAsync();
+        }
 
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<ProductSaleDTO>>> GetProductSalesByStore(string storeid)
+        {
+            if (_context.ProductSales == null)
+            {
+                return NotFound();
+            }
+            return await _context.ProductSales.Include(c => c.Salesman).Include(c => c.Store)
+                .Where(c => c.StoreId == storeid && c.OnDate.Year >= DateTime.Today.Year - 1)
+                .OrderByDescending(c => c.OnDate).ProjectTo<ProductSaleDTO>(_mapper.ConfigurationProvider)
+               .ToListAsync();
+        }
         // GET: api/ProductSales/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductSale>> GetProductSale(string id)
         {
-          if (_context.ProductSales == null)
-          {
-              return NotFound();
-          }
+            if (_context.ProductSales == null)
+            {
+                return NotFound();
+            }
             var productSale = await _context.ProductSales.FindAsync(id);
 
             if (productSale == null)
@@ -86,10 +113,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         [HttpPost]
         public async Task<ActionResult<ProductSale>> PostProductSale(ProductSale productSale)
         {
-          if (_context.ProductSales == null)
-          {
-              return Problem("Entity set 'ARDBContext.ProductSales'  is null.");
-          }
+            if (_context.ProductSales == null)
+            {
+                return Problem("Entity set 'ARDBContext.ProductSales'  is null.");
+            }
             _context.ProductSales.Add(productSale);
             try
             {

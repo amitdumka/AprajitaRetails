@@ -1,5 +1,129 @@
-﻿<h3>SaleIndex</h3>
+﻿
+@page "/sales/{Returns:bool}/{*params}"
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Vouchers;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="ProductSaleDTO" Title="@Title" Columns="@GridCols" EnableAggretor=true
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
 
 @code {
+
+    [Parameter] public string Params { get; set; } = "Regular";
+    [Parameter] public bool Returns { get; set; } = false;
+    InvoiceType invoiceType = InvoiceType.Sales;
+    string Title = "Regular";
+    string BaseURL = $"/sales/false/Regular";
+    private List<ProductSaleDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        SetInvoiceMode();
+        BaseURL = $"/sales/{Returns}/{Params}";
+        try
+        {
+            GroupedColumn = new string[] { "InvoiceType","OnDate" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(ProductSaleDTO).GetProperties(), "InvoiceNo");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<ProductSaleDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<ProductSaleDTO>($"api/ProductSales/bystoredto", $"?storeid={Setting.StoreCode}&itpe={invoiceType}");
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<ProductSaleDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.InvoiceNo}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.InvoiceNo}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.InvoiceNo}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        SetInvoiceMode();
+        BaseURL = $"/sales/{Returns}/{Params}";
+        await FetchDataAsync();
+        StateHasChanged();
+        base.OnParametersSetAsync();
+    }
+
+
+    void SetInvoiceMode()
+    {
+        if (Returns)
+        {
+            Title = Params + "'s Return";
+        }
+        else Title = Params;
+
+        switch (Params)
+        {
+            case "Regular":
+                invoiceType = Returns?InvoiceType.SalesReturn: InvoiceType.Sales;
+                break;
+            case "Manual": invoiceType = Returns ? InvoiceType.ManualSaleReturn : InvoiceType.ManualSale; break;
+            //case "Service":
+            default:
+                invoiceType = InvoiceType.Sales; break;
+                break;
+        }
+
+
+
+    }
+
+
+
+
 
 }

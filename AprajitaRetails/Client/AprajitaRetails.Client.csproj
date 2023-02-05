@@ -43,6 +43,8 @@
 		<None Remove="Pages\Apps\Stores\Pos\" />
 		<None Remove="Shared\Test\" />
 		<None Remove="Pages\Apps\Test\" />
+		<None Remove="Pages\Apps\Stores\Customers\" />
+		<None Remove="Pages\Apps\Stores\Salesmen\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
@@ -77,6 +79,8 @@
 		<Folder Include="Pages\Apps\Accounts\DailySales\Dues\" />
 		<Folder Include="Pages\Apps\Stores\Pos\" />
 		<Folder Include="Shared\BasicViews\" />
+		<Folder Include="Pages\Apps\Stores\Customers\" />
+		<Folder Include="Pages\Apps\Stores\Salesmen\" />
 	</ItemGroup>
 	
 </Project>

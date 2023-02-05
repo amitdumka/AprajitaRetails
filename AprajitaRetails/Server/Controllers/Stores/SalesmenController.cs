@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SalesmenController : ControllerBase
     {
@@ -25,6 +25,15 @@ namespace AprajitaRetails.Server.Controllers.Stores
                 return NotFound();
             }
             return await _context.Salesmen.ToListAsync();
+        }
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<Salesman>>> GetSalesmanByStore(string storeid)
+        {
+            if (_context.Salesmen == null)
+            {
+                return NotFound();
+            }
+            return await _context.Salesmen.Where(c=>c.StoreId==storeid && !c.MarkedDeleted ).ToListAsync();
         }
 
         // GET: api/Salesmen/5
