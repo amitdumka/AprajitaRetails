@@ -69,8 +69,6 @@
 		<Folder Include="wwwroot\js\bootstrap\" />
 		<Folder Include="Pages\Setup\" />
 		<Folder Include="Pages\Setup\Import\" />
-		<Folder Include="Pages\Apps\Accounts\DailyCash\" />
-		<Folder Include="Pages\Apps\Accounts\DailyCash\CashDetails\" />
 		<Folder Include="Pages\Apps\Accounts\DailyCash\PettyCashDetails\" />
 		<Folder Include="Pages\Apps\Accounts\Banking\Banks\" />
 		<Folder Include="Pages\Apps\Accounts\Banking\BankAccounts\" />

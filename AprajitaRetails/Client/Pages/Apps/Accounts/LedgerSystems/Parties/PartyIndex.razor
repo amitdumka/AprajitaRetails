@@ -23,9 +23,9 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="PartyDTO" Title="Legders" Columns="@GridCols" EnableAggretor=true
+<EntityGridIndex TItem="PartyDTO" Title="Legders" Columns="@GridCols" EnableAggretor=false
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
-                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=false></EntityGridIndex>
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
 @code {
     private const string BaseURL = "/legders";
@@ -35,7 +35,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "" };
+            GroupedColumn = new string[] { "StoreName" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(PartyDTO).GetProperties(), "PartyId");

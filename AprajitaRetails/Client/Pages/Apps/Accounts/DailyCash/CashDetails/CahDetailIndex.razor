@@ -24,9 +24,9 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="CashDetailDTO" Title="Cash Deatil(s)" Columns="@GridCols" EnableAggretor=true
+<EntityGridIndex TItem="CashDetailDTO" Title="Cash Deatil" Columns="@GridCols" EnableAggretor=false
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
-                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=false></EntityGridIndex>
 
 @code {
     private const string BaseURL = "/accounts/CashDetails";
@@ -36,7 +36,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "StoreId" };
+            GroupedColumn = new string[] { "" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(CashDetailDTO).GetProperties(), "CashDetailId");

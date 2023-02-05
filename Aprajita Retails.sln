@@ -22,11 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientShared", "ClientShare
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.UILib", "AprajitaRetails\ClientShared\AprajitaRetails.UILib\AprajitaRetails.UILib.csproj", "{6858C377-35FD-428D-8009-01A5A5765842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Libs", "AprajitaRetails.Libs\AprajitaRetails.Libs.csproj", "{6434253B-07F2-4EF7-987B-B593E7C9424E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.Libs", "AprajitaRetails.Libs\AprajitaRetails.Libs.csproj", "{6434253B-07F2-4EF7-987B-B593E7C9424E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{09B6DE17-08D1-4115-9C38-1B200E447461}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.ClientUI", "AprajitaRetails.ClientUI\AprajitaRetails.ClientUI.csproj", "{C67673F0-3AAB-44F9-A6B5-8A46019FF346}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.ClientUI", "AprajitaRetails.ClientUI\AprajitaRetails.ClientUI.csproj", "{C67673F0-3AAB-44F9-A6B5-8A46019FF346}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

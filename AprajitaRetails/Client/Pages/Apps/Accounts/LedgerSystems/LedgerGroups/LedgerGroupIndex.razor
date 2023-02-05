@@ -24,7 +24,7 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="LedgerGroup" Title="Ledger Group" Columns="@GridCols" EnableAggretor=true
+<EntityGridIndex TItem="LedgerGroup" Title="Ledger Group" Columns="@GridCols" EnableAggretor=false
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 

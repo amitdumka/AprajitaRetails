@@ -24,7 +24,7 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="PettyCashSheet" Title="Petty Cash Sheet" Columns="@GridCols" EnableAggretor=true
+<EntityGridIndex TItem="PettyCashSheet" Title="Petty Cash Sheet" Columns="@GridCols" EnableAggretor=false
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
@@ -36,7 +36,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "StoreId" };
+            GroupedColumn = new string[] { "DailySale" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(PettyCashSheet).GetProperties(), "Id");
