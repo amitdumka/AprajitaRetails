@@ -1,19 +1,9 @@
-﻿@namespace AprajitaRetails.AdminLte.Forms
-<div class="mb-3 row">
-    @if (string.IsNullOrEmpty(Label) == false)
-        { <label for="@Name" class="col-sm-4 col-form-label">@Label</label>}
-    <div class="col-sm-6 input-group">
-        <input type="text" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+﻿@namespace AprajitaRetails.Aks.Forms
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Inputs
 
-        @if (!string.IsNullOrEmpty(Icon))
-        {
-            <div class="input-group-append">
-                <div class="@iconBgColor input-group-text">
-                    <span class="@Icon"></span>
-                </div>
-            </div>
-        }
-    </div>
+<div class="mb-3 row">
+    <SfTextBox Placeholder=@Label FloatLabelType='@FloatLabelType.Auto' @bind-Value="@Value"></SfTextBox>
 </div>
 
 @code {
@@ -34,7 +24,7 @@
         Value = e?.Value?.ToString();
         await ValueChanged.InvokeAsync(Value);
     }
-   // private Color _borderColor;
+    // private Color _borderColor;
     private Color _iconBgColor;
     //private Color? _originalBorderColor;
     private Color? _originalIconBgColor;
@@ -51,3 +41,4 @@
         }
     }
 }
+

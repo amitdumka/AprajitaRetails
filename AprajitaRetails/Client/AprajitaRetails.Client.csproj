@@ -45,6 +45,7 @@
 		<None Remove="Pages\Apps\Test\" />
 		<None Remove="Pages\Apps\Stores\Customers\" />
 		<None Remove="Pages\Apps\Stores\Salesmen\" />
+		<None Remove="Shared\Aks\Forms\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
@@ -81,6 +82,7 @@
 		<Folder Include="Shared\BasicViews\" />
 		<Folder Include="Pages\Apps\Stores\Customers\" />
 		<Folder Include="Pages\Apps\Stores\Salesmen\" />
+		<Folder Include="Shared\Aks\Forms\" />
 	</ItemGroup>
 	
 </Project>

@@ -1,5 +1,128 @@
-﻿<h3>SaleEntry</h3>
+﻿@page "/sales/edit/{Returns:bool}/{params}/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Shared.Models.Stores
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Inventory
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Navigations
+@using AprajitaRetails.Aks
+
+@attribute [Authorize]
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@ProductSale" Title="@Title" ApiUrl="api/productSales" ReturnUrl="@backUrl" Id="@ID" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Invoice Type</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    DataSource="@Stores">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+        <Row>
+            @if (IsEdit)
+            {
+                <Column Classes="col.md"><ATextInput disabled @bind-Value=@entity.InvoiceNo Name="Invno" Label="Invoice No" /></Column>
+            }
+            <Column Classes="col.md">
+                <ACheckBox Title="Adjustment" Name="d5" @bind-Checked="@entity.Adjusted" />
+            </Column>
+
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="sm" class="col-sm-4 col-form-label">Sale's man</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="sm"
+                                    Autofill="true"
+                                    @bind-Value="@entity.SalesmanId" PopupHeight="230px"
+                                    DataSource="@Salesmen">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+        <Row>
+            @*<Column Classes="col.md"><AInputNumber  @bind-Value=@entity.TotalQty Name="MRPAmount" Label="MRP" /></Column>*@
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.FreeQty Name="qq" Label="Free Qty" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.BilledQty Name="NAmount" Label="Billed Qty" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalMRP Name="MRPAmount" Label="MRP" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalDiscountAmount Name="qq" Label="Discount Amount" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalBasicAmount Name="NAmount" Label="Basic Amount" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalTaxAmount Name="MRPAmount" Label="Tax" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.RoundOff Name="NAmount" Label="Round Off" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalPrice Name="qq" Label="Bill Amount" /></Column>
+
+        </Row>
+        <Row>
+           
+                    <Column Classes="col.auto"><ATextInput @bind-Value="Item.Barcode" Placeholder="Barcode" /> </Column>
+                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
+                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
+                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Discount" Placeholder="Discount" /> </Column>
+                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
+              
+        </Row>
+
+        <Row>
+            <SfGrid TValue="SItem" DataSource="@SaleItemList" Toolbar="@toolbar" AllowTextWrap=true AllowResizing="true" AllowPaging="true" ShowColumnChooser="true" ID="Grid" @ref="Grid" Columns="@Columns">
+                <GridEvents OnToolbarClick="ToolbarClick" TValue="SItem"></GridEvents>
+                <EntityAggregator>
+                    <EntityAggCol Title="Total Amount" Field="Amount"></EntityAggCol>
+                    <EntityAggCol Title="Total Qty" Field="QTY"></EntityAggCol>
+                </EntityAggregator>
+            </SfGrid>
+        </Row>
+
+    </EntityEdit>
+</ContentMain>
 
 @code {
-
+    [Parameter] public string ID { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public bool Returns { get; set; } = false;
+    [Parameter] public string Params { get; set; } = "Regular";
 }

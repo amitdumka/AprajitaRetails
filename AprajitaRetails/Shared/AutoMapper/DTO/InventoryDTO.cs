@@ -136,6 +136,23 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
 
     }
 
+    public class SaleItemViewModel
+    {
+        public int Id { get; set; }
+        public string Barcode { get; set; }
+
+        public decimal BilledQty { get; set; }
+        public decimal FreeQty { get; set; }
+        public Unit Unit { get; set; }
+
+        public decimal MRP { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal BasicAmount { get; set; }
+        public decimal TaxAmount { get; set; }
+        public decimal Value { get; set; }
+
+    }
+
     public class SaleItemDTO
     {
         public int Id { get; set; }
