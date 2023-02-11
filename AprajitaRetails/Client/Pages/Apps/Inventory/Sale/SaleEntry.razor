@@ -15,6 +15,8 @@
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Navigations
 @using AprajitaRetails.Aks
+@using AprajitaRetails.Aks.Forms
+
 
 @attribute [Authorize]
 @inject ClientSetting Setting
@@ -97,16 +99,13 @@
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalPrice Name="qq" Label="Bill Amount" /></Column>
 
         </Row>
-        <Row>
-           
-                    <Column Classes="col.auto"><ATextInput @bind-Value="Item.Barcode" Placeholder="Barcode" /> </Column>
-                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
-                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
-                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Discount" Placeholder="Discount" /> </Column>
-                    <Column Classes="col.auto"><AInputNumber @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
-              
-        </Row>
-
+                <div class="row  text-center row-cols-5 justify-content-start ">
+                    <Column Classes="col.md"><ABTextInput Label="Barcode" @bind-Value="Item.Barcode" Placeholder="Barcode" /> </Column>
+                    <Column Classes="col.md"><AInputNumber Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
+                    <Column Classes="col.sm"><AInputNumber Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
+                    <Column Classes="col.sm"><AInputNumber Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" /> </Column>
+                    <Column Classes="col.sm"><AInputNumber Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
+                </div>
         <Row>
             <SfGrid TValue="SItem" DataSource="@SaleItemList" Toolbar="@toolbar" AllowTextWrap=true AllowResizing="true" AllowPaging="true" ShowColumnChooser="true" ID="Grid" @ref="Grid" Columns="@Columns">
                 <GridEvents OnToolbarClick="ToolbarClick" TValue="SItem"></GridEvents>

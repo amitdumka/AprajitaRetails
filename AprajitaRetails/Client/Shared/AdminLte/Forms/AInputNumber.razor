@@ -1,12 +1,23 @@
 ﻿@namespace AprajitaRetails.AdminLte.Forms
-<div class="mb-3 row">
-    @if (string.IsNullOrEmpty(Label) == false)
-    {<label for="@Name" class="col-sm-4 col-form-label">@Label</label>}
-    <div class="col-sm-6">
-        <input type="number" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+@if (string.IsNullOrEmpty(Label))
+{
+    <div class="mb-3 row">
+        <div class="col-sm-5">
+            <input type="number" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+        </div>
     </div>
-</div>
+}
+else
+{
 
+    <div class="mb-3 row">
+
+        <label for="@Name" class="col-sm-4 col-form-label">@Label</label>
+        <div class="col-sm-6">
+            <input type="number" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+        </div>
+    </div>
+}
 @code {
     [Parameter]
     public string Label { get; set; } = " ";
@@ -16,7 +27,7 @@
     public string Placeholder { get; set; }
     [Parameter]
     public decimal Value { get; set; }
-  //  [Parameter] public string ExtraSetting { get; set; } = " ";
+    //  [Parameter] public string ExtraSetting { get; set; } = " ";
 
     [Parameter]
     public EventCallback<decimal> ValueChanged { get; set; }

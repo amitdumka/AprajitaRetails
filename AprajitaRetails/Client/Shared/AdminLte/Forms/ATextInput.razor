@@ -1,20 +1,40 @@
 ﻿@namespace AprajitaRetails.AdminLte.Forms
-<div class="mb-3 row">
-    @if (string.IsNullOrEmpty(Label) == false)
-        { <label for="@Name" class="col-sm-4 col-form-label">@Label</label>}
-    <div class="col-sm-6 input-group">
-        <input type="text" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
 
-        @if (!string.IsNullOrEmpty(Icon))
-        {
-            <div class="input-group-append">
-                <div class="@iconBgColor input-group-text">
-                    <span class="@Icon"></span>
+
+@if (string.IsNullOrEmpty(Label))
+{
+    <div class="mb-3 row">
+        <div class="col-sm-6 input-group">
+            <input type="text" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <div class="input-group-append">
+                    <div class="@iconBgColor input-group-text">
+                        <span class="@Icon"></span>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
+}
+
+else
+{
+    <div class="mb-3 row">
+        <label for="@Name" class="col-sm-4 col-form-label">@Label</label>
+        <div class="col-sm-6 input-group">
+            <input type="text" class="form-control" value="@Value" id="@Name" placeholder="@Placeholder" @oninput="OnValueChanged">
+
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <div class="input-group-append">
+                    <div class="@iconBgColor input-group-text">
+                        <span class="@Icon"></span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>}
 
 @code {
     [Parameter]
@@ -34,13 +54,10 @@
         Value = e?.Value?.ToString();
         await ValueChanged.InvokeAsync(Value);
     }
-   // private Color _borderColor;
+    
     private Color _iconBgColor;
-    //private Color? _originalBorderColor;
     private Color? _originalIconBgColor;
-
-    private string iconBgColor => $"bg-{@IconBgColor.GetDescription<StyleAttribute>()}";
-    //private string borderColor => $"border-{@BorderColor.GetDescription<StyleAttribute>()}";
+    private string iconBgColor => $"bg-{@IconBgColor.GetDescription<StyleAttribute>()}";     
     public Color IconBgColor
     {
         get { return _iconBgColor; }
