@@ -23,7 +23,7 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="ProductItemDTO" Title="Products" Columns="@GridCols" EnableAggretor=true
+<EntityGridIndex TItem="ProductItemDTO" Title="Products" Columns="@GridCols" EnableAggretor=false
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
@@ -35,7 +35,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "Barcode" };
+            GroupedColumn = new string[] { "ProductCategory" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(ProductItemDTO).GetProperties(), "Barcode");
@@ -52,7 +52,7 @@
 
     async Task<List<ProductItemDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<ProductItemDTO>($"api/Products/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<ProductItemDTO>($"api/ProductItems/bystoredto", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

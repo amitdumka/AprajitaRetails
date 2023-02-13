@@ -23,22 +23,22 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="StockDTO" Title="Stocks" Columns="@GridCols" EnableAggretor=true
+<EntityGridIndex TItem="ProductType" Title="Product Types" Columns="@GridCols" EnableAggretor=false
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
-                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=false></EntityGridIndex>
 
 @code {
-    private const string BaseURL = "/inventory/Stocks";
-    private List<StockDTO>? entities;
+    private const string BaseURL = "/inventory/ProductTypes";
+    private List<ProductType>? entities;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            GroupedColumn = new string[] { "MultiPrice", "Unit" };
+            GroupedColumn = new string[] { "" };
             InitView();
             await FetchDataAsync();
-            GenerateColums(typeof(StockDTO).GetProperties(), "Id");
+            GenerateColums(typeof(ProductType).GetProperties(), "ProductTypeId");
             StateHasChanged();
             base.OnInitialized();
         }
@@ -50,28 +50,28 @@
 
     }
 
-    async Task<List<StockDTO>?> FetchDataAsync()
+    async Task<List<ProductType>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<StockDTO>($"api/Stocks/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<ProductType>($"api/ProductTypes", "");
         return entities;
 
     }
-    public void OnCommandClicked(CommandClickEventArgs<StockDTO> args)
+    public void OnCommandClicked(CommandClickEventArgs<ProductType> args)
     {
 
         if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
         {
-            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.Id}");
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.ProductTypeId}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Id}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.ProductTypeId}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Id}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.ProductTypeId}");
         }
         else
         {

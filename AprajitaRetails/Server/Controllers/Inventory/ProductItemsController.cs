@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
+using AutoMapper;
+using AprajitaRetails.Shared.AutoMapper.DTO;
+using AutoMapper.QueryableExtensions;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -15,10 +18,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
     public class ProductItemsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public ProductItemsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public ProductItemsController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/ProductItems
@@ -30,6 +33,17 @@ namespace AprajitaRetails.Server.Controllers.Inventory
               return NotFound();
           }
             return await _context.ProductItems.ToListAsync();
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<ProductItemDTO>>> GetProductItemsByStoreDTO(string storeid)
+        {
+            if (_context.ProductItems == null)
+            {
+                return NotFound();
+            }
+            return await _context.ProductItems.Include(c=>c.Brand).Include(c=>c.ProductType).Include(c=>c.ProductSubCategory)
+                .ProjectTo<ProductItemDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/ProductItems/5

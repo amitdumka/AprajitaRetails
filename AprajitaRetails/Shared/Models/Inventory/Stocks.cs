@@ -40,4 +40,36 @@ namespace AprajitaRetails.Shared.Models.Inventory
         [ForeignKey("Barcode")]
         public virtual ProductItem? Product { get; set; }
     }
+
+  //   {
+  //  "Barcode": "000000887H",
+  //  "PurhcaseQty": 16.00,
+  //  "SoldQty": 0.00,
+  //  "HoldQty": 0.00,
+  //  "CostPrice": 211.00,
+  //  "UserId": "AUTO",
+  //  "IsReadOnly": true,
+  //  "MarkedDeleted": false,
+  //  "StoreId": "ARD",
+  //  "EntryStatus": 0,
+  //  "Unit": 0,
+  //  "MRP": 306.00,
+  //  "MultiPrice": false
+  //},
+  //{
+  //  "Barcode": "000000887H",
+  //  "PurhcaseQty": 16.00,
+  //  "SoldQty": 3.20,
+  //  "HoldQty": 0.00,
+  //  "CostPrice": 211.00,
+  //  "UserId": "Auto",
+  //  "IsReadOnly": true,
+  //  "MarkedDeleted": false,
+  //  "StoreId": "ARD",
+  //  "EntryStatus": 0,
+  //  "Unit": 0,
+  //  "MRP": 0.00,
+  //  "MultiPrice": false
+  //},
+
 }

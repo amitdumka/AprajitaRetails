@@ -1,6 +1,7 @@
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Banking;
 using AprajitaRetails.Shared.Models.Bases;
+using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
@@ -162,6 +163,12 @@ namespace AprajitaRetails.Server.Importer
                     case "SalaryPayment": aRDB.SalaryPayments.RemoveRange(aRDB.SalaryPayments.ToList()); break;
                     case "StaffAdvanceReceipt": aRDB.StaffAdvanceReceipts.RemoveRange(aRDB.StaffAdvanceReceipts.ToList()); break;
                     case "BankAccountList": aRDB.AccountLists.RemoveRange(aRDB.AccountLists.ToList()); break;
+                    case "ProductType": aRDB.ProductTypes.RemoveRange(aRDB.ProductTypes.ToList()); break;
+                    case "Product": aRDB.ProductItems.RemoveRange(aRDB.ProductItems.ToList()); break;
+                    case "Brand": aRDB.Brands.RemoveRange(aRDB.Brands.ToList()); break;
+                    case "Stock": aRDB.Stocks.RemoveRange(aRDB.Stocks.ToList()); break;
+                    case "ProductSubCategory": aRDB.ProductSubCategories.RemoveRange(aRDB.ProductSubCategories.ToList()); break;
+
                     default:
                         return false;
                 }
@@ -258,6 +265,16 @@ namespace AprajitaRetails.Server.Importer
                         await aRDB.AddRangeAsync(JsonToObject<CustomerDue>(path)); break;
                     case "DueRecovery":
                         await aRDB.AddRangeAsync(JsonToObject<DueRecovery>(path)); break;
+                    case "ProductType": await aRDB.AddRangeAsync(JsonToObject<ProductType>(path)); break;
+                    case "ProductSubCategory": await aRDB.AddRangeAsync(JsonToObject<ProductSubCategory>(path)); break;
+                    case "Product": await aRDB.AddRangeAsync(JsonToObject<ProductItem>(path)); break;
+                    case "Brand": await aRDB.AddRangeAsync(JsonToObject<Brand>(path)); break;
+                    case "Stock":
+                        var stocks = JsonToObject<Stock>(path);
+
+                        await aRDB.AddRangeAsync(stocks);
+                        break;
+
                     default:
                         return false;
                 }
