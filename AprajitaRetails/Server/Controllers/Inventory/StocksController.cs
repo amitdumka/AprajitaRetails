@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.AutoMapper.DTO;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -16,14 +18,14 @@ namespace AprajitaRetails.Server.Controllers.Inventory
     public class StocksController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public StocksController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public StocksController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
-        // GET: api/Stocks
-        [HttpGet]
+    // GET: api/Stocks
+    [HttpGet]
         public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
             if (_context.Stocks == null)
@@ -31,6 +33,19 @@ namespace AprajitaRetails.Server.Controllers.Inventory
                 return NotFound();
             }
             return await _context.Stocks.ToListAsync();
+        }
+        [HttpGet("ByStoreDTo")]
+        public async Task<ActionResult<IEnumerable<StockDTO>>> GetStocksByStoreDTO(string storeid)
+        {
+            if (_context.Stocks == null)
+            {
+                return NotFound();
+            }
+            return await _context.Stocks.Include(c=>c.Store)
+                .Include(c=>c.Product)
+                .Where(c=>c.StoreId==storeid)
+                .ProjectTo<StockDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         [HttpGet("ByBarcode")]

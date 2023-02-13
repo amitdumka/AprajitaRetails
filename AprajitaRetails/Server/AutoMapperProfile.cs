@@ -1,4 +1,5 @@
 ﻿using AprajitaRetails.Shared.AutoMapper.DTO;
+using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
@@ -55,6 +56,8 @@ namespace AprajitaRetails.Server
                 .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
 
             CreateMap<CashDetail, CashDetailDTO>()
+               .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
+            CreateMap<Stock, StockDTO>()
                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
 
         }

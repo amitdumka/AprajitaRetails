@@ -1,5 +1,84 @@
-﻿<h3>CategoryIndex</h3>
+﻿@page "/inventory/Category"
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.Models.Inventory;
+@using Microsoft.AspNetCore.Authorization;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Commons
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+<EntityGridIndex TItem="StockDTO" Title="Stocks" Columns="@GridCols" EnableAggretor=true
+                 Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+                 @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
 @code {
+    private const string BaseURL = "/inventory/Stocks";
+    private List<StockDTO>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            GroupedColumn = new string[] { "MultiPrice", "Unit" };
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(StockDTO).GetProperties(), "Id");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<StockDTO>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<StockDTO>($"api/Stocks/bystoredto", $"?storeid={Setting.StoreCode}");
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<StockDTO> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.Id}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Id}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.Id}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
 
 }
+
+
