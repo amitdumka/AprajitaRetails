@@ -1,7 +1,10 @@
-﻿using AprajitaRetails.Shared.ViewModels;
+﻿using AprajitaRetails.Shared.AutoMapper.DTO;
+using AprajitaRetails.Shared.ViewModels;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Radzen;
+using Syncfusion.Blazor.PivotView;
 using Syncfusion.Blazor.Popups;
+using System;
 using System.Net.Http.Json;
 
 namespace AprajitaRetails.Client.Helpers
@@ -11,7 +14,7 @@ namespace AprajitaRetails.Client.Helpers
         private HttpClient Http;
         private SfDialogService DialogService;
         private NotificationService NotificationService;
-
+        private static List<StockViewModel> CurrentStock = new List<StockViewModel>();
         public void ErrorMsg()
         { Msg("Error", "Enter data is not valid or missing mandatory data, Kindly check all fields and try again!", true); }
 
@@ -19,6 +22,28 @@ namespace AprajitaRetails.Client.Helpers
         public DataHelper(HttpClient client, SfDialogService sf, NotificationService not)
         {
             Http = client; DialogService = sf; NotificationService = not;
+        }
+
+        public async Task<List<StockViewModel>?> FetchBarcodeAsync(string Barcode,string storeid)
+        {
+            var stock = CurrentStock.Where(c => c.Barcode == Barcode).ToList();
+            if (stock != null && stock.Count > 0)
+            {
+                return stock;
+            }
+            else
+            {
+                try
+                {
+                    return await Http.GetFromJsonAsync<List<StockViewModel>>($"Stocks/ByBarcode?barcode={Barcode}&storeid={storeid}");
+                }
+                catch (AccessTokenNotAvailableException exception)
+                {
+                    exception.Redirect();
+                    Msg("Error", "Kindly login before use", true);
+                    return null;
+                }
+            }
         }
 
         public async Task<bool> DeleteAsync(string apiUrl, string className, string id)

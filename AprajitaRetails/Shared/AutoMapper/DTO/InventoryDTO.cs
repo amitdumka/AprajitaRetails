@@ -189,8 +189,6 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string StoreName { get; set; }
     }
 
-
-
     public class CardPaymentDetailDTO
     {
         public int Id { get; set; }
@@ -203,6 +201,23 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string? EDCTerminalId { get; set; }
         public string EDCTerminalName { get; set; }
     }
+
+    public class StockViewModel
+    {
+        [Key]
+        public Guid Id { get; set; }
+        public string Barcode { get; set; }
+        public string ProductName { get; set; }
+        public decimal CurrentQty { get; set; }
+        public decimal HoldQty { get; set; }
+        public decimal Rate { get; set; }
+        public Unit Unit { get; set; }
+        public TaxType TaxRate { get; set; }
+        public bool MutliPrice { get; set; }
+        public string? HSNCode { get; set; }
+
+    }
+
     public class StockDTO
     {
         [Key]

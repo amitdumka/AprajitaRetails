@@ -2,6 +2,7 @@
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.ViewModels;
 using Syncfusion.Blazor.Grids;
+using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Navigations;
 
 namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
@@ -36,6 +37,24 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         public SaleEntry()
         {
 
+        }
+
+        
+         
+        private async void OnBarcodeChange(ChangedEventArgs args)
+        {
+            // Here you can customize your code
+            if (args.Value.Length > 8)
+            {
+                Helper.Msg("Barcode", args.Value);
+             var stock=  await Helper.FetchBarcodeAsync(args.Value, Setting.StoreCode);
+                if(stock!=null && stock.Count > 0)
+                {
+                    Item.Qty = stock[0].CurrentQty;
+                    Item.Rate = stock[0].Rate;
+                }
+
+            }
         }
         public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
         {

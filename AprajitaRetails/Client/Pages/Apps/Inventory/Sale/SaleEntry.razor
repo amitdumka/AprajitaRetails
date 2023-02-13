@@ -114,7 +114,7 @@
         <div class="row  text-center row-cols-5 justify-content-start mb-3">
             <Column Classes="col.sm">
                 @*<ABTextInput Label="Barcode" @bind-Value="Item.Barcode" Placeholder="Barcode" />*@
-                <SfTextBox @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
+                <SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
             </Column>
             <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
             <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>

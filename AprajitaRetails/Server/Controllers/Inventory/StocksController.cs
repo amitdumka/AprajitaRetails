@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -25,21 +26,47 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
-          if (_context.Stocks == null)
-          {
-              return NotFound();
-          }
+            if (_context.Stocks == null)
+            {
+                return NotFound();
+            }
             return await _context.Stocks.ToListAsync();
+        }
+
+        [HttpGet("ByBarcode")]
+        public async Task<ActionResult<IEnumerable<StockViewModel>>> GetBarcode(string barcode, string storeid)
+        {
+            if (_context.Stocks == null)
+            {
+                return NotFound();
+            }
+            return await _context.Stocks
+                     .Include(c => c.Product)
+                     .Where(c => c.Barcode == barcode && c.StoreId == storeid)
+                     .Select(c => new StockViewModel
+                     {
+                         Barcode = c.Barcode,
+                         CurrentQty = c.CurrentQty,
+                         HoldQty = c.CurrentQtyWH,
+                         Id = c.Id,
+                         Rate = c.MRP,
+                         MutliPrice = c.MultiPrice,
+                         Unit = c.Unit,
+                         ProductName = c.Product.Name,
+                         TaxRate = c.Product.TaxType,
+                         HSNCode = c.Product.HSNCode
+                     })
+                     .ToListAsync();
         }
 
         // GET: api/Stocks/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Stock>> GetStock(Guid id)
         {
-          if (_context.Stocks == null)
-          {
-              return NotFound();
-          }
+            if (_context.Stocks == null)
+            {
+                return NotFound();
+            }
             var stock = await _context.Stocks.FindAsync(id);
 
             if (stock == null)
@@ -86,10 +113,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         [HttpPost]
         public async Task<ActionResult<Stock>> PostStock(Stock stock)
         {
-          if (_context.Stocks == null)
-          {
-              return Problem("Entity set 'ARDBContext.Stocks'  is null.");
-          }
+            if (_context.Stocks == null)
+            {
+                return Problem("Entity set 'ARDBContext.Stocks'  is null.");
+            }
             _context.Stocks.Add(stock);
             await _context.SaveChangesAsync();
 
@@ -120,5 +147,7 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         {
             return (_context.Stocks?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
     }
 }
