@@ -7,6 +7,7 @@ using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
 using AprajitaRetails.Shared.ViewModels;
 using PluralizeService.Core;
+using System.Drawing;
 using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
@@ -282,11 +283,52 @@ namespace AprajitaRetails.Server.Importer
 
                     default:
                         return false;
-                    case "PurchaseItem": await aRDB.AddRangeAsync(JsonToObject<PurchaseItem>(path)); break;
+                    case "PurchaseItem":
+                        var items = JsonToObject<PurchaseItem>(path);
+                        foreach (var item in items)
+                        {
+                            item.Id = 0;
+                        }
+                        await aRDB.AddRangeAsync(items); break;
                     case "PurchaseProduct": await aRDB.AddRangeAsync(JsonToObject<ProductPurchase>(path)); break;
                     case "Vendor": await aRDB.AddRangeAsync(JsonToObject<Vendor>(path)); break;
-                    case "SaleItem": await aRDB.AddRangeAsync(JsonToObject<SaleItem>(path)); break;
-                    case "ProductSale": await aRDB.AddRangeAsync(JsonToObject<ProductSale>(path)); break;
+                    case "SaleItem":
+                        var sItems = JsonToObject<SaleItem>(path);
+                        var npath = path.Replace(className, "ProductSale");
+                        var psl = JsonToObject<PSale>(npath);
+                        foreach (var item in sItems)
+                        {
+                            item.Id = 0;
+                            item.InvoiceNumber = psl.Where(c => c.InvoiceCode == item.InvoiceNumber).FirstOrDefault().InvoiceNo;
+                        }
+                        await aRDB.AddRangeAsync(sItems); break;
+                    case "ProductSale":
+                        var psale = JsonToObject<ProductSale>(path);
+                        
+                        
+                        await aRDB.AddRangeAsync(psale); break;
+                    case "CardPaymentDetail":
+                        var cpd = JsonToObject<CardPaymentDetail>(path);
+                        var npath2 = path.Replace(className, "ProductSale");
+                        var psl2 = JsonToObject<PSale>(npath2);
+                        foreach (var item in cpd)
+                        {
+                            item.Id = 0;
+                            item.InvoiceNumber = psl2.Where(c => c.InvoiceCode == item.InvoiceNumber).FirstOrDefault().InvoiceNo;
+                        }
+                        await aRDB.AddRangeAsync(cpd); break;
+
+                    case "SalePaymentDetail":
+
+                        var spd = JsonToObject<SalePaymentDetail>(path);
+                        var npath3 = path.Replace(className, "ProductSale");
+                        var psl3 = JsonToObject<PSale>(npath3);
+                        foreach (var item in spd)
+                        {
+                            item.Id = 0;
+                            item.InvoiceNumber = psl3.Where(c => c.InvoiceCode == item.InvoiceNumber).FirstOrDefault().InvoiceNo;
+                        }
+                        await aRDB.AddRangeAsync(spd); break; ; 
 
                 }
                 return await aRDB.SaveChangesAsync() > 0;

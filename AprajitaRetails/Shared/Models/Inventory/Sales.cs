@@ -19,6 +19,12 @@ namespace AprajitaRetails.Shared.Models.Inventory
         public virtual ProductSale Sale { get; set; }
     }
 
+    public class PSale
+    {
+        [Key]
+        public string InvoiceNo { get; set; }
+        public string InvoiceCode{get;set;}
+    }
     public class ProductSale : BaseST
     {
         [Key]
@@ -54,8 +60,9 @@ namespace AprajitaRetails.Shared.Models.Inventory
         public bool Tailoring { get; set; }
         public virtual Salesman Salesman { get; set; }
     }
+   
 
-    public class SaleItem
+public class SaleItem
     {
         public int Id { get; set; }
 

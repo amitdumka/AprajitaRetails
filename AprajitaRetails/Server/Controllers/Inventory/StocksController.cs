@@ -24,8 +24,8 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             _context = context; _mapper = mapper;
         }
 
-    // GET: api/Stocks
-    [HttpGet]
+        // GET: api/Stocks
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
         {
             if (_context.Stocks == null)
@@ -34,6 +34,19 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             }
             return await _context.Stocks.ToListAsync();
         }
+        //[HttpGet("ReStock")]
+        //public async Task<ActionResult<bool>> GetReStocks()
+        //{
+        //   int x= await _context.Stocks.ExecuteDeleteAsync();
+        //   var stock= await _context.PurchaseItems.Include(c=>c.ProductItem)
+        //        .Select(c=>new Stock { Barcode=c.Barcode, CostPrice=c.CostPrice, HoldQty=0, 
+        //            EntryStatus=EntryStatus.Added, IsReadOnly=false, MarkedDeleted=false,
+        //             StoreId="ARD", MultiPrice=false, SoldQty=0, UserId="AUTO", Unit=c.Unit, 
+        //              PurchaseQty=c.Qty+c.FreeQty, MRP=c.
+        //        })
+        //        .ToListAsync();
+           
+        //}
         [HttpGet("ByStoreDTo")]
         public async Task<ActionResult<IEnumerable<StockDTO>>> GetStocksByStoreDTO(string storeid)
         {
@@ -41,9 +54,9 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             {
                 return NotFound();
             }
-            return await _context.Stocks.Include(c=>c.Store)
-                .Include(c=>c.Product)
-                .Where(c=>c.StoreId==storeid)
+            return await _context.Stocks.Include(c => c.Store)
+                .Include(c => c.Product)
+                .Where(c => c.StoreId == storeid)
                 .ProjectTo<StockDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

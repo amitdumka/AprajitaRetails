@@ -75,8 +75,6 @@
     <Folder Include="BL\" />
     <Folder Include="BL\Accounts\" />
     <Folder Include="Controllers\Helpers\" />
-    <Folder Include="ESDB\" />
-    <Folder Include="ESDB\Tables\" />
     <Folder Include="wwwroot\NewFolder\" />
     <Folder Include="wwwroot\Tables\" />
     <Folder Include="Controllers\Auths\" />
