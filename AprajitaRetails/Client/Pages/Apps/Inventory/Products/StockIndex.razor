@@ -23,7 +23,7 @@
 @inject ClientSetting Setting
 @inject NavigationManager NavigationManager
 
-<EntityGridIndex TItem="StockDTO" Title="Stocks" Columns="@GridCols" EnableAggretor=false
+<EntityGridIndex TItem="StockDTO" Title="Stocks" Columns="@GridCols" EnableAggretor=true AggSumField="StockValue"
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 

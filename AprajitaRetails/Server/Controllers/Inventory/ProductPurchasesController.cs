@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
+using AutoMapper;
+using AprajitaRetails.Shared.AutoMapper.DTO;
+using AutoMapper.QueryableExtensions;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -15,10 +18,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
     public class ProductPurchasesController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public ProductPurchasesController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public ProductPurchasesController(ARDBContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/ProductPurchases
@@ -30,6 +33,17 @@ namespace AprajitaRetails.Server.Controllers.Inventory
               return NotFound();
           }
             return await _context.ProductPurchases.ToListAsync();
+        }
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<ProductPurchaseDTO>>> GetProductPurchasesByStoreDTO(string storeid)
+        {
+            if (_context.ProductPurchases == null)
+            {
+                return NotFound();
+            }
+            return await _context.ProductPurchases.Include(c=>c.Store).Include(c=>c.Vendor).Where(c=>c.StoreId==storeid)
+                .OrderBy(c=>c.InwardDate)
+                .ProjectTo<ProductPurchaseDTO>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         // GET: api/ProductPurchases/5

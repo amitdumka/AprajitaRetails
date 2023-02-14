@@ -62,7 +62,9 @@ namespace AprajitaRetails.Server
             CreateMap<ProductItem, ProductItemDTO>()
                  .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.BrandName))
              .ForMember(dest => dest.ProductTypeName, opt => opt.MapFrom(src => src.ProductType.ProductTypeName)).ReverseMap();
-
+            CreateMap<ProductPurchase, ProductPurchaseDTO>()
+                 .ForMember(dest => dest.VendorName, opt => opt.MapFrom(src => src.Vendor.VendorName))
+              .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
         }
     }
 }
