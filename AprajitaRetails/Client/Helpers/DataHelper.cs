@@ -35,7 +35,7 @@ namespace AprajitaRetails.Client.Helpers
             {
                 try
                 {
-                    return await Http.GetFromJsonAsync<List<StockViewModel>>($"Stocks/ByBarcode?barcode={Barcode}&storeid={storeid}");
+                    return await Http.GetFromJsonAsync<List<StockViewModel>>($"api/Stocks/ByBarcode?barcode={Barcode}&storeid={storeid}");
                 }
                 catch (AccessTokenNotAvailableException exception)
                 {

@@ -171,6 +171,8 @@ namespace AprajitaRetails.Server.Importer
                     case "PurchaseItem": aRDB.PurchaseItems.RemoveRange(aRDB.PurchaseItems.ToList()); break;
                     case "PurchaseProduct": aRDB.ProductPurchases.RemoveRange(aRDB.ProductPurchases.ToList()); break;
                     case "Vendor": aRDB.Vendors.RemoveRange(aRDB.Vendors.ToList()); break;
+                    case "SaleItem": aRDB.SaleItems.RemoveRange(aRDB.SaleItems.ToList()); break;
+                    case "ProductSale": aRDB.ProductSales.RemoveRange(aRDB.ProductSales.ToList()); break;
 
                     default:
                         return false;
@@ -283,6 +285,8 @@ namespace AprajitaRetails.Server.Importer
                     case "PurchaseItem": await aRDB.AddRangeAsync(JsonToObject<PurchaseItem>(path)); break;
                     case "PurchaseProduct": await aRDB.AddRangeAsync(JsonToObject<ProductPurchase>(path)); break;
                     case "Vendor": await aRDB.AddRangeAsync(JsonToObject<Vendor>(path)); break;
+                    case "SaleItem": await aRDB.AddRangeAsync(JsonToObject<SaleItem>(path)); break;
+                    case "ProductSale": await aRDB.AddRangeAsync(JsonToObject<ProductSale>(path)); break;
 
                 }
                 return await aRDB.SaveChangesAsync() > 0;
