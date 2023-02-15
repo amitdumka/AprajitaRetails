@@ -6,6 +6,7 @@ namespace AprajitaRetails.Server.BL.Inventory
 {
 	public class InventroyManager
 	{
+		//TODO: Need to Handle Purhchase , Sale and Stock , and InterStore transfer.
 
 		public static void CleanUpStock(ARDBContext db, string storeid)
 		{
@@ -22,8 +23,6 @@ namespace AprajitaRetails.Server.BL.Inventory
 			var sale = db.SaleItems.Include(c => c.ProductSale).Where(c => c.ProductSale.StoreId == storeid)
 				.Select(c=>new {c.Barcode, c.BilledQty, c.FreeQty, c.InvoiceType })
 				.ToList();
-
-
 
 		}
 	}
