@@ -20,6 +20,7 @@
     <Compile Remove="Migrations_win\ARDB\20230126194108_intitAprajitDbLinux.cs" />
     <Compile Remove="Migrations_win\ARDB\20230126194108_intitAprajitDbLinux.Designer.cs" />
     <None Remove="Controllers\Reports\" />
+    <None Remove="BL\Inventory\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.1" />
@@ -82,6 +83,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
     <Folder Include="Controllers\Reports\" />
+    <Folder Include="BL\Inventory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\Brands" />
