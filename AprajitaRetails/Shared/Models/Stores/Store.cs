@@ -2,6 +2,7 @@
 using AprajitaRetails.Shared.Models.Stores;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AprajitaRetails.Shared.Models.Bases
 {
@@ -77,6 +78,30 @@ namespace AprajitaRetails.Shared.Models.Bases
 }
 namespace AprajitaRetails.Shared.Models.Stores
 {
+
+    public class Client
+    {
+        [Key]
+        public Guid ClientId { get; set; }
+        public string ClientName { get; set; }
+        public string ClientAddress { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
+        public string City { get; set; }
+        public string MobileNumber { get; set; }
+    }
+
+    public class StoreGroup
+    {
+        [Key]
+        public string StoreGroupId { get; set; }
+        public string GroupName { get; set; }        
+        public Guid ClientId { get; set; }
+        public string Remarks { get; set; }
+
+        [ForeignKey("ClientId")]
+        public virtual Client Client { get; set; }
+    }
     public class Store
     {
         [Key]
@@ -102,6 +127,9 @@ namespace AprajitaRetails.Shared.Models.Stores
         public string GSTIN { get; set; }
         public string VatNo { get; set; }
         public bool MarkedDeleted { get; set; }
+
+        public string? StoreGroupId { get; set; }
+        public virtual StoreGroup StoreGroup { get; set; }
     }
 
 
@@ -110,10 +138,6 @@ namespace AprajitaRetails.Shared.Models.Stores
         [Key]
         public string SalesmanId { get; set; }
         public string Name { get; set; }
-
-#pragma warning disable CS0108 // 'Salesman.StoreId' hides inherited member 'BaseST.StoreId'. Use the new keyword if hiding was intended.
-        public string StoreId { get; set; }
-#pragma warning restore CS0108 // 'Salesman.StoreId' hides inherited member 'BaseST.StoreId'. Use the new keyword if hiding was intended.
         public string EmployeeId { get; set; }
         public bool IsActive { get; set; }
     }
