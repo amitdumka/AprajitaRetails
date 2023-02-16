@@ -78,7 +78,6 @@
     <Folder Include="Controllers\Helpers\" />
     <Folder Include="wwwroot\Tables\" />
     <Folder Include="Controllers\Auths\" />
-    <Folder Include="Importer\" />
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
     <Folder Include="Controllers\Reports\" />
@@ -150,6 +149,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
+    <None Include="wwwroot\Data\ARD\ARD\Products\ProductStocks.json.2" />
+    <None Include="wwwroot\Data\ARD\TheArvindStoreDumkaData.xlsx" />
     <None Include="wwwroot\Tables\Brands" />
     <None Include="wwwroot\Tables\CashVouchers" />
     <None Include="wwwroot\Tables\Categories" />

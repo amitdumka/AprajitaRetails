@@ -125,4 +125,6 @@ public class SaleItem
         public string? EDCTerminalId { get; set; }
         public virtual EDCTerminal PosMachine { get; set; }
     }
+
+     
 }
