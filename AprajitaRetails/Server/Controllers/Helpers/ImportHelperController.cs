@@ -18,6 +18,14 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             aRDB = db;
         }
 
+        [HttpGet("StockUpdate")]
+        public async Task<ActionResult<bool>> GetStiockUpdate(string storeid="ARD")
+        {
+            var im = new ImportData(hostingEnv, aRDB);
+            StockImporter stockImporter = new StockImporter(hostingEnv, aRDB, storeid);
+            return await stockImporter.StockUpdate();
+        }
+
         [HttpGet]
         public ActionResult<List<FileModel>> GetFiles()
         {
