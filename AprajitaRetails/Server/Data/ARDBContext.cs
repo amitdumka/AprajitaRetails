@@ -88,5 +88,9 @@ namespace AprajitaRetails.Server.Data
 
         //Stock
         public DbSet<Stock> Stocks { get; set; }
+
+        //Client and Group
+        public DbSet<AppClient> AppClients { get; set; }
+        public DbSet<StoreGroup> StoreGroups { get; set; }
     }
 }

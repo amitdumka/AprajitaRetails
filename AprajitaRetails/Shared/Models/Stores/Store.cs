@@ -79,10 +79,10 @@ namespace AprajitaRetails.Shared.Models.Bases
 namespace AprajitaRetails.Shared.Models.Stores
 {
 
-    public class Client
+    public class AppClient
     {
         [Key]
-        public Guid ClientId { get; set; }
+        public Guid AppClientId { get; set; }
         public string ClientName { get; set; }
         public string ClientAddress { get; set; }
         public DateTime StartDate { get; set; }
@@ -96,11 +96,11 @@ namespace AprajitaRetails.Shared.Models.Stores
         [Key]
         public string StoreGroupId { get; set; }
         public string GroupName { get; set; }        
-        public Guid ClientId { get; set; }
+        public Guid AppClientId { get; set; }
         public string Remarks { get; set; }
 
-        [ForeignKey("ClientId")]
-        public virtual Client Client { get; set; }
+        [ForeignKey("AppClientId")]
+        public virtual AppClient AppClient { get; set; }
     }
     public class Store
     {
@@ -130,6 +130,10 @@ namespace AprajitaRetails.Shared.Models.Stores
 
         public string? StoreGroupId { get; set; }
         public virtual StoreGroup StoreGroup { get; set; }
+
+        public Guid? AppClientId { get; set; }
+        [ForeignKey("AppClientId")]
+        public virtual AppClient AppClient { get; set; }
     }
 
 

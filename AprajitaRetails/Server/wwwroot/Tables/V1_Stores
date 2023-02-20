@@ -17,7 +17,9 @@
     "PanNo": "AJHPA7396P",
     "GSTIN": "20AJHPA739P1zv",
     "VatNo": "NA",
-    "MarkedDeleted": false
+    "MarkedDeleted": false,
+    "AppClientId":	"a765c480-25c8-440b-9fc4-047e4a66834f",
+    "StoreGroupId":"TAS"
   },
   {
     "StoreId": "ARJ",
@@ -37,6 +39,8 @@
     "PanNo": "AJHPA7396P",
     "GSTIN": "20AJHPA739P1zv",
     "VatNo": "NA",
-    "MarkedDeleted": false
+    "MarkedDeleted": false,
+    "AppClientId":	"a765c480-25c8-440b-9fc4-047e4a66834f",
+    "StoreGroupId":"TAS"
   }
 ]

@@ -34,31 +34,36 @@ namespace AprajitaRetails.Server.Importer
 
                 foreach (var item in purchaseList)
                 {
+                    var ItemCost = decimal.Parse(item.Cost);
+                    var ItemMRP = decimal.Parse(item.MRP);
+                    var ItemQuantity = decimal.Parse(item.Quantity);
+
                     if (NewStockList.Any(c => c.Barcode == item.Barcode && c.StoreId == StoreCode))
                     {
                         var stocks = NewStockList.Where(c => c.Barcode == item.Barcode && c.StoreId == StoreCode).ToList();
+
                         if (stocks.Count > 1)
                         {
-                            var zstock = stocks.Where(c => c.CostPrice == item.Cost && c.MRP == item.MRP).FirstOrDefault();
-                            if (zstock != null) zstock.PurchaseQty += item.Quantity;
+                            var zstock = stocks.Where(c => c.CostPrice == ItemCost && c.MRP == ItemMRP).FirstOrDefault();
+                            if (zstock != null) zstock.PurchaseQty += ItemQuantity;
                             else
                             {
-                                var stock = new Stock { Barcode = item.Barcode, CostPrice = item.Cost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = item.MRP, MultiPrice = true, PurchaseQty = item.Quantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                                var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
                                 NewStockList.Add(stock);
                             }
                         }
                         else
                         {
                             var fstock = stocks[0];
-                            if (fstock.MRP == item.MRP && fstock.CostPrice == item.Cost)
+                            if (fstock.MRP == ItemMRP && fstock.CostPrice == ItemCost)
                             {
 
-                                fstock.PurchaseQty += item.Quantity;
+                                fstock.PurchaseQty += ItemQuantity;
                             }
                             else
                             {
                                 fstock.MultiPrice = true;
-                                var cstock = new Stock { Barcode = item.Barcode, CostPrice = item.Cost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = item.MRP, MultiPrice = true, PurchaseQty = item.Quantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                                var cstock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
 
                                 NewStockList.Add(cstock);
 
@@ -69,7 +74,7 @@ namespace AprajitaRetails.Server.Importer
                     else
                     {
 
-                        var stock = new Stock { Barcode = item.Barcode, CostPrice = item.Cost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = item.MRP, MultiPrice = false, PurchaseQty = item.Quantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                        var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = false, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
                         NewStockList.Add(stock);
                     }
                 }
@@ -77,20 +82,29 @@ namespace AprajitaRetails.Server.Importer
 
                 JSONFILE = JsonSerializer.Serialize<List<Stock>>(NewStockList);
 
-                using StreamReader reader2 = new StreamReader(SalePath);
-                 JSONFILE = reader2.ReadToEnd();
-                reader2.Close();
+
                 using StreamWriter writer = new StreamWriter(Path.Combine(this.hostingEnv.WebRootPath, "Data/PurchaseStockJson.json"));
-               await writer.WriteAsync(JSONFILE);
+                await writer.WriteAsync(JSONFILE);
                 writer.Close();
+
+                using StreamReader reader2 = new StreamReader(SalePath);
+                JSONFILE = reader2.ReadToEnd();
+                reader2.Close();
+
                 var saleList = JsonSerializer.Deserialize<List<SInvoice>>(JSONFILE);
                 List<SInvoice> BarCodeNotFound = new List<SInvoice>();
 
                 foreach (var item in saleList)
                 {
-                    var stock = NewStockList.Where(c => c.Barcode == item.BARCODE && c.StoreId == StoreCode && c.MRP == item.MRP).FirstOrDefault();
+                    // var ItemCost = decimal.Parse(item.);
+                    var ItemMRP = decimal.Parse(item.MRP);
+                    var ItemQuantity = decimal.Parse(item.Quantity);
 
-                    if (stock != null) { stock.SoldQty += item.Quantity;
+                    var stock = NewStockList.Where(c => c.Barcode == item.BARCODE && c.StoreId == StoreCode && c.MRP == ItemMRP).FirstOrDefault();
+
+                    if (stock != null)
+                    {
+                        stock.SoldQty += ItemQuantity;
                         if (stock.CurrentQty > 0) stock.EntryStatus = EntryStatus.Rejected;
                     }
                     else
@@ -108,10 +122,10 @@ namespace AprajitaRetails.Server.Importer
                 {
                     JSONFILE = JsonSerializer.Serialize<List<SInvoice>>(BarCodeNotFound);
                     using StreamWriter writer3 = new StreamWriter(Path.Combine(this.hostingEnv.WebRootPath, "Data/BarcodeNotFound.json"));
-                   await writer3.WriteAsync(JSONFILE);
+                    await writer3.WriteAsync(JSONFILE);
                     writer3.Close();
                 }
-                return true; 
+                return true;
 
             }
             catch (Exception ex)
@@ -137,40 +151,40 @@ namespace AprajitaRetails.Server.Importer
 
     public class SInvoice
     {
-        //public string InvoiceNo { get; set; }//C33IN601784,
-        //public string InvoiceDate { get; set; }//01-01-2017,
-        //public string InvoiceType { get; set; }//SALES,
-        //public string BrandName { get; set; }//FlyingMachine,
-        //public string ProductName { get; set; }//Apparel/MensCasual/Jeans,
-        //public string ItemDesc { get; set; }//MIDRISEMICHAEL,
-        //public string HSNCode { get; set; }//,
-        public string BARCODE { get; set; }//8907378341709,
-        //public string StyleCode { get; set; }//FMJN781734,
+        public string BARCODE { get; set; }//8907378341709,        
         public string Quantity { get; set; }//1,
         public string MRP { get; set; }//2199,
-        //public decimal BasicAmt { get; set; }//1759.2,
-        //public decimal TaxAmt { get; set; }//,
-        //public decimal SGSTAmt { get; set; }//96.76,
-        //public decimal CGSTAmt { get; set; }//,
 
     }
     public class PInvoice
     {
-       // public string GRNNo { get; set; }
-
-       // public string InvoiceNo { get; set; }
-       // public string InvoiceDate { get; set; }
-        //public string SupplierName { get; set; }
         public string Barcode { get; set; }
-        //public string ProductName { get; set; }
-        //public string StyleCode { get; set; }
-        //public string ItemDesc { get; set; }
         public string Quantity { get; set; }
         public string MRP { get; set; }
-        //public decimal MRPValue { get; set; }
         public string Cost { get; set; }
-        //public decimal CostValue { get; set; }
-        //public decimal TaxAmt { get; set; }
     }
+    // public string GRNNo { get; set; }
+    // public string InvoiceNo { get; set; }
+    // public string InvoiceDate { get; set; }
+    //public string SupplierName { get; set; }
+    //public string ProductName { get; set; }
+    //public string StyleCode { get; set; }
+    //public string ItemDesc { get; set; }
+    //public decimal MRPValue { get; set; }
+    //public decimal CostValue { get; set; }
+    //public decimal TaxAmt { get; set; }
+    //public string StyleCode { get; set; }//FMJN781734,
+    //public decimal BasicAmt { get; set; }//1759.2,
+    //public decimal TaxAmt { get; set; }//,
+    //public decimal SGSTAmt { get; set; }//96.76,
+    //public decimal CGSTAmt { get; set; }//,
+    //public string InvoiceNo { get; set; }//C33IN601784,
+    //public string InvoiceDate { get; set; }//01-01-2017,
+    //public string InvoiceType { get; set; }//SALES,
+    //public string BrandName { get; set; }//FlyingMachine,
+    //public string ProductName { get; set; }//Apparel/MensCasual/Jeans,
+    //public string ItemDesc { get; set; }//MIDRISEMICHAEL,
+    //public string HSNCode { get; set; }//,
+
 
 }
