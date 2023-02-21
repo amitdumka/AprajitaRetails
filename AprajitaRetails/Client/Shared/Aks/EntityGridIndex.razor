@@ -50,7 +50,7 @@
 
 @code {
     SfGrid<TItem>? Grid;
-    
+
 
     [Parameter] public string Title { get; set; } = " ";
     [Parameter] public RenderFragment ChildContent { get; set; }
@@ -148,7 +148,7 @@
         }
         else if (args.Item.Id == "Grid_excelexport")
         {
-
+              this.Grid.ExcelExport();
         }
         else if (args.Item.Id == "Grid_csvexport")
         {

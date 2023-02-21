@@ -27,6 +27,25 @@ namespace AprajitaRetails.Server.Importer
             List<Stock> NewStockList = new List<Stock>();
             try
             {
+                // Fetch Product from DB
+                NewStockList = aRDB.ProductItems.Select(c => new Stock
+                {
+                    Barcode = c.Barcode,
+                    CostPrice = 0,
+                    EntryStatus = EntryStatus.Added,
+                    HoldQty = 0,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    MRP = 0,
+                    MultiPrice = false,
+                    PurchaseQty = 0,
+                    SoldQty = 0,
+                    StoreId = StoreCode,
+                    Unit = c.Unit,
+                    UserId = "Auto",
+                    Id = Guid.NewGuid()
+                }).OrderBy(c => c.Barcode).ToList();
+
                 using StreamReader reader = new StreamReader(PurchasePath);
                 var JSONFILE = reader.ReadToEnd();
                 reader.Close();
@@ -34,7 +53,7 @@ namespace AprajitaRetails.Server.Importer
 
                 foreach (var item in purchaseList)
                 {
-                    var ItemCost = decimal.Parse(item.Cost);
+                    var ItemCost = Math.Round(decimal.Parse(item.Cost), 2);
                     var ItemMRP = decimal.Parse(item.MRP);
                     var ItemQuantity = decimal.Parse(item.Quantity);
 
@@ -44,18 +63,67 @@ namespace AprajitaRetails.Server.Importer
 
                         if (stocks.Count > 1)
                         {
-                            var zstock = stocks.Where(c => c.CostPrice == ItemCost && c.MRP == ItemMRP).FirstOrDefault();
-                            if (zstock != null) zstock.PurchaseQty += ItemQuantity;
+                            var zstock = stocks.Where(c => c.MRP == ItemMRP).FirstOrDefault();
+
+                            if (zstock != null)
+                            {
+
+                                if (zstock.CostPrice != ItemCost)
+                                {
+                                    if (((zstock.CostPrice - ItemCost) < 1)|| ItemQuantity==1 || ItemQuantity == 2 || ItemQuantity == 4 || ItemQuantity == 3)
+                                    {
+                                        var avrCp = (zstock.PurchaseQty * zstock.CostPrice) + (ItemQuantity * ItemCost);
+                                        avrCp = avrCp / (ItemQuantity + zstock.PurchaseQty);
+                                        zstock.CostPrice = Math.Round(avrCp,2);
+                                        zstock.PurchaseQty += ItemQuantity;
+                                    }
+                                    
+                                    else
+                                    {
+                                        var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = true, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                                        NewStockList.Add(stock);
+                                    }
+                                }
+                                else
+                                {
+
+                                    zstock.PurchaseQty += ItemQuantity;
+                                }
+                            }
                             else
                             {
-                                var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                                var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = true, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
                                 NewStockList.Add(stock);
                             }
                         }
                         else
                         {
                             var fstock = stocks[0];
-                            if (fstock.MRP == ItemMRP && fstock.CostPrice == ItemCost)
+
+                            if (fstock.MRP == 0 && fstock.CostPrice == 0 && fstock.PurchaseQty == 0)
+                            {
+                                fstock.PurchaseQty += ItemQuantity;
+                                fstock.MRP = ItemMRP;
+                                fstock.CostPrice = ItemCost;
+                            }
+                            else if(fstock.CostPrice != ItemCost && fstock.MRP==ItemMRP)
+                            {
+                                if (((fstock.CostPrice - ItemCost) < 1) || ItemQuantity == 1 || ItemQuantity == 2 || ItemQuantity == 4 || ItemQuantity == 3)
+                                {
+                                    var avrCp = (fstock.PurchaseQty * fstock.CostPrice) + (ItemQuantity * ItemCost);
+                                    avrCp = avrCp / (ItemQuantity + fstock.PurchaseQty);
+                                    fstock.CostPrice = Math.Round(avrCp, 2);
+                                    fstock.PurchaseQty += ItemQuantity;
+                                    fstock.MultiPrice = true;
+                                }
+
+                                else
+                                {
+                                    var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = true, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                                    NewStockList.Add(stock);
+                                }
+                            }
+                            else if (fstock.MRP == ItemMRP && fstock.CostPrice == ItemCost)
                             {
 
                                 fstock.PurchaseQty += ItemQuantity;
@@ -63,7 +131,7 @@ namespace AprajitaRetails.Server.Importer
                             else
                             {
                                 fstock.MultiPrice = true;
-                                var cstock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                                var cstock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = true, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
 
                                 NewStockList.Add(cstock);
 
@@ -74,7 +142,7 @@ namespace AprajitaRetails.Server.Importer
                     else
                     {
 
-                        var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = false, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
+                        var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.DeleteApproved, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = false, PurchaseQty = ItemQuantity, UserId = "AutoNEW", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
                         NewStockList.Add(stock);
                     }
                 }
@@ -90,7 +158,6 @@ namespace AprajitaRetails.Server.Importer
                 using StreamReader reader2 = new StreamReader(SalePath);
                 JSONFILE = reader2.ReadToEnd();
                 reader2.Close();
-
                 var saleList = JsonSerializer.Deserialize<List<SInvoice>>(JSONFILE);
                 List<SInvoice> BarCodeNotFound = new List<SInvoice>();
 
@@ -100,16 +167,24 @@ namespace AprajitaRetails.Server.Importer
                     var ItemMRP = decimal.Parse(item.MRP);
                     var ItemQuantity = decimal.Parse(item.Quantity);
 
-                    var stock = NewStockList.Where(c => c.Barcode == item.BARCODE && c.StoreId == StoreCode && c.MRP == ItemMRP).FirstOrDefault();
+                    var stock = NewStockList.Where(c => c.Barcode == item.BARCODE && c.StoreId == StoreCode).FirstOrDefault();
 
                     if (stock != null)
                     {
                         stock.SoldQty += ItemQuantity;
-                        if (stock.CurrentQty > 0) stock.EntryStatus = EntryStatus.Rejected;
+                        if (stock.CurrentQty < 0) stock.EntryStatus = EntryStatus.Rejected;
                     }
                     else
                     {
-                        BarCodeNotFound.Add(item);
+                        if (item.BARCODE.StartsWith("SA"))
+                        {
+
+                        }
+                        else
+                        {
+                            BarCodeNotFound.Add(item);
+                        }
+
                     }
 
                 }
@@ -125,7 +200,19 @@ namespace AprajitaRetails.Server.Importer
                     await writer3.WriteAsync(JSONFILE);
                     writer3.Close();
                 }
-                return true;
+                //var data = NewStockList.GroupBy(c => c.Barcode).Where(c => c.Count() > 1)
+                //    .Select(c => new {Barcode= c.Key, MRP = c.Select(x => x.MRP), Cost = c.Select(x => x.CostPrice), Qty=c.Select(x=>x.PurchaseQty) }).ToList();
+                var data = NewStockList.Where(c => c.EntryStatus == EntryStatus.DeleteApproved).ToList(); 
+                JSONFILE = JsonSerializer.Serialize(data);
+                using StreamWriter writer21 = new StreamWriter(Path.Combine(this.hostingEnv.WebRootPath, "Data/SummyStockJson.json"));
+                await writer21.WriteAsync(JSONFILE);
+
+                aRDB.Stocks.RemoveRange(aRDB.Stocks.ToList());
+                aRDB.SaveChanges();
+
+                aRDB.Stocks.AddRange(NewStockList) ;
+                return aRDB.SaveChanges() > 0;
+               // return true;
 
             }
             catch (Exception ex)
@@ -154,6 +241,7 @@ namespace AprajitaRetails.Server.Importer
         public string BARCODE { get; set; }//8907378341709,        
         public string Quantity { get; set; }//1,
         public string MRP { get; set; }//2199,
+        public string InvoiceNo { get; set; }
 
     }
     public class PInvoice
