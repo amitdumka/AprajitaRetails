@@ -1,5 +1,71 @@
-﻿<h3>ProductDetails</h3>
+﻿@page "/inventory/products/{*ID}"
+
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
+
+    <EntityRow Lable="Barcode" Value="@entity.Barcode.ToString()" />
+
+    <EntityRow Lable="Brand" Value="@entity.BrandName" />
+
+    <EntityRow Lable="Slip No" Value="@entity.Name" />
+
+    <EntityRow Lable="Date" Value="@entity.Description.ToString()" />
+
+    <EntityRow Lable="PartyName" Value="@entity.ProductCategory.ToString()" />
+    <EntityRow Lable="Particulars" Value="@entity.ProductTypeName" />
+    <EntityRow Lable="Mode" Value="@entity.SubCategory.ToString()" />
+    <EntityRow Lable="Amount" Value="@entity.HSNCode.ToString()" />
+    <EntityRow Lable="Remarks" Value="@entity.Unit.ToString()" />
+    <EntityRow Lable="Acc No" Value="@entity.StyleCode.ToString()" />
+    <EntityRow Lable="Payment Details" Value="@entity.Size.ToString()" />
+    
+        <EntityRow Lable="Ledger" Value="@entity.MRP.ToString()" />
+     
+        <EntityRow Lable="Issued By" Value="@entity.TaxType.ToString()" />
+    
+
+</EntityDetails>
 
 @code {
+    [Parameter] public string? ID { get; set; }
+    ProductItemDTO? entity;
+    //Employee? employee;
+    //Party? party;
 
+    string Title = "Details";
+    bool Loading = true;
+    void BackButton() { NavigationManager.NavigateTo("/inventory/products"); }
+    void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            entity = await Helper.GetRecordAsync<ProductItemDTO>($"api/productItems", ID);
+            Title = "Product: " + entity.Barcode;
+            //employee = await Helper.GetRecordAsync<Employee>($"Employees", entity.EmployeeId);
+
+            //if (string.IsNullOrEmpty(entity.PartyId) == false)
+            //    party = await Helper.GetRecordAsync<Party>($"Parties", entity.PartyId);
+
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            BackButton();
+            Helper.Msg("Error", "Please Select Product for details", true);
+        }
+    }
 }

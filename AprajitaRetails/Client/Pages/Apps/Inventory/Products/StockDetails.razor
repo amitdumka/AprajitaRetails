@@ -1,5 +1,64 @@
-﻿<h3>StockDetails</h3>
+﻿@page "/inventory/stocks/{*ID}"
+
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.Models.Payroll
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte.Table
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
+
+    <EntityRow Lable="Barcode" Value="@entity.Barcode.ToString()" />
+    <EntityRow Lable="CostPrice" Value="@entity.CostPrice.ToString()" />
+    <EntityRow Lable="MRP" Value="@entity.MRP.ToString()" />
+    <EntityRow Lable="Purchase Qty" Value="@entity.PurchaseQty.ToString()" />
+    <EntityRow Lable="Sold Qty" Value="@entity.SoldQty.ToString()" />
+    <EntityRow Lable="Unit" Value="@entity.Unit.ToString()" />
+    <EntityRow Lable="Stock In Hand" Value="@entity.CurrentQty.ToString()" />
+    <EntityRow Lable="Stock In Hold" Value="@entity.CurrentQtyWH.ToString()" />
+    <EntityRow Lable="Value" Value="@entity.StockValue.ToString()" />
+    <EntityRow Lable="Value In Hold" Value="@entity.StockValueWH.ToString()" />
+    <EntityRow Lable="Multi Price" Value="@entity.MultiPrice.ToString()" />
+    <EntityRow Lable="Store" Value="@entity.StoreName" />
+
+</EntityDetails>
 
 @code {
+    [Parameter] public string? ID { get; set; }
+    StockDTO? entity;
+    //Employee? employee;
+    //Party? party;
 
+    string Title = "Details";
+    bool Loading = true;
+    void BackButton() { NavigationManager.NavigateTo("/inventory/stocks"); }
+    void DeleteButton() { }
+
+    protected override async void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(ID))
+        {
+            entity = await Helper.GetRecordAsync<StockDTO>($"api/Stocks", ID);
+            Title = "Product: " + entity.Barcode;
+
+            // employee = await Helper.GetRecordAsync<Employee>($"Employees", entity.EmployeeId);
+
+            //if (string.IsNullOrEmpty(entity.PartyId) == false)
+            //  party = await Helper.GetRecordAsync<Party>($"Parties", entity.PartyId);
+
+            Loading = false;
+            StateHasChanged();
+        }
+        else
+        {
+            BackButton();
+            Helper.Msg("Error", "Please Select Product/Stock for details", true);
+        }
+    }
 }
