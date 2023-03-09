@@ -160,11 +160,13 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string InvoiceNumber { get; set; }
 
         public string Barcode { get; set; }
+        public string ProductName { get; set; }
 
         public decimal BilledQty { get; set; }
         public decimal FreeQty { get; set; }
         public Unit Unit { get; set; }
 
+        public decimal MRP { get; set; }
         public decimal DiscountAmount { get; set; }
 
         //Amount Without Tax

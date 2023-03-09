@@ -25,6 +25,28 @@ namespace AprajitaRetails.Shared.Models.Inventory
         public string InvoiceNo { get; set; }
         public string InvoiceCode{get;set;}
     }
+
+    public class Sale : BaseST {
+        [Key]
+        public string InvoiceNo { get; set; }
+        public DateTime OnDate { get; set; }
+        public string RefInvoiceNo { get; set; }
+        public bool SaleReturn { get; set; }
+        public decimal Qty { get; set; }
+        public decimal MRP { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal BasicPrice { get; set; }
+        public decimal TaxAmount { get; set; }
+        public decimal RoundOff { get; set; }
+        public decimal BillAmount { get; set; }
+        public string SalesmanId { get; set; }
+        public bool Paid { get; set; }
+        public bool ServiceBill { get; set; }
+
+        [ForeignKey("RefInvoice")]
+        public virtual IEnumerable<SaleItem> SaleItems { get; set; }
+    }
+
     public class ProductSale : BaseST
     {
         [Key]

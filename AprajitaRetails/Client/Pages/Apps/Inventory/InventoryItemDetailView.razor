@@ -4,6 +4,8 @@
 @using AprajitaRetails.Commons
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
+@using Syncfusion.Blazor.Grids
+
 
 @inject NavigationManager NavigationManager
 @attribute [Authorize]
@@ -11,9 +13,90 @@
 @inject ClientSetting Setting
 @inject DataHelper Helper
 
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    @if (Loading)
+    {
+        <p><em>Loading.....</em></p>
+    }
+    else
+    {
+        <Row>
+            <Column Classes="col._4">
+                <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                    <Title>
+                        <CardTitle>@Title</CardTitle>
+                    </Title>
+                    <Header>
+                        <CardTools />
+                    </Header>
+                    <Body>
+                        <AprajitaRetails.AdminLte.Table.ATable Bordered=false Hover=false Small=true>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>Invoice No</TableCell><TableCell>@Item.InvoiceNumber</TableCell>
+                                    <TableCell>Date</TableCell><TableCell>@Item.OnDate.ToShortDateString()</TableCell>
+                                    <TableCell>Invoice Type</TableCell><TableCell>Item.InvoiceType</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Basic Amount</TableCell><TableCell>@Item.BasicAmount</TableCell>
+                                    <TableCell>Tax Amount</TableCell><TableCell>@Item.TaxAmount</TableCell>
+                                    <TableCell>Discount</TableCell><TableCell>@Item.DiscountAmount</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Bill Amount</TableCell><TableCell>@Item.BillAmount</TableCell>
+                                    <TableCell>Billed Qty</TableCell><TableCell>@Item.BillQty</TableCell>
+                                </TableRow>
+                                <TableRow><TableCell></TableCell> </TableRow>
+                                <ATableRow>
+                                    <ATableCell >
+                                        <SfGrid @bind-DataSource="@Item.Items" TValue="InventoryItemDetail" ID="ItemGrid">
+                                            <GridTemplates>
+                                                <EmptyRecordTemplate>
+                                                    <span>Invoice Item is not avilable! </span>
+                                                </EmptyRecordTemplate>
+                                            </GridTemplates>
+                                        </SfGrid>
+                                    </ATableCell>
+                                </ATableRow>
 
+                                <TableRow><TableCell></TableCell> </TableRow>
+                                <TableRow><TableCell></TableCell> </TableRow>
+                                <TableRow>
+                                    <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
+                                    @if (!Deleted)
+                                    {<TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    }
+                                </TableRow>
+                            </TableBody>
+                        </AprajitaRetails.AdminLte.Table.ATable>
+                    </Body>
+                </Card>
+            </Column>
+
+        </Row>
+    }
+</ContentMain>
 
 @code {
+    protected string Title;
+    protected bool Loading = false;
+    protected string BackAddress = "/";
+    protected bool Deleted = false;
+
+
+    private  void BackButton(MouseEventArgs e)
+    {
+         NavigationManager.NavigateTo(BackAddress);
+    }
+    private async void DeleteButton(MouseEventArgs e)
+    {
+
+    }
 
 }
 

@@ -34,8 +34,8 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             }
             return await _context.ProductSales.ToListAsync();
         }
-        [HttpGet("ByStoreDTO")]
-        public async Task<ActionResult<IEnumerable<ProductSale>>> GetProductSalesByStoreDTO(string storeid, InvoiceType itpe = InvoiceType.Sales)
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<ProductSale>>> GetProductSalesByStore(string storeid, InvoiceType itpe = InvoiceType.Sales)
         {
             if (_context.ProductSales == null)
             {
@@ -47,8 +47,8 @@ namespace AprajitaRetails.Server.Controllers.Inventory
                .ToListAsync();
         }
 
-        [HttpGet("ByStore")]
-        public async Task<ActionResult<IEnumerable<ProductSaleDTO>>> GetProductSalesByStore(string storeid)
+        [HttpGet("ByStoreDTO")]
+        public async Task<ActionResult<IEnumerable<ProductSaleDTO>>> GetProductSalesByStoreDTO(string storeid)
         {
             if (_context.ProductSales == null)
             {

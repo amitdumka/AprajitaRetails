@@ -1,0 +1,63 @@
+﻿
+
+@page "/SaleDetails/{invType}/{ReturnAddress}/{InvoiceAddress}"
+
+@inherits AprajitaRetails.Client.Pages.Apps.Inventory.InventoryItemDetailView
+
+@using Microsoft.AspNetCore.Authorization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+@code {
+
+    private void Init()
+    {
+        Title = "Sale Invoice";
+        Loading = false;
+        BackAddress = @"/Inventory/Sales";
+        Deleted = false;
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        Init();
+    }
+
+    private async void TestValue()
+    {
+        var data = await Helper.FetchAsync<ProductSaleDTO>($"api/ProductSales/bystoredto", $"?storeid={Setting.StoreCode}&itpe={InvoiceType.Sales}");
+
+        var saleInv = data.First();
+
+        var saleItems=await Helper.FetchAsync<SaleItemDTO>($"api/SaleItems/byinvoicedto", $"?invoicenumber={saleInv.InvoiceNo}");
+        //saleInv.Items = saleItems;
+
+
+        InventoryItem item = new InventoryItem { InvoiceNumber = saleInv.InvoiceNo, OnDate=saleInv.OnDate,
+            BasicAmount=saleInv.TotalBasicAmount, BillAmount=saleInv.TotalPrice, BillQty=saleInv.BilledQty,
+            DiscountAmount=saleInv.TotalDiscountAmount, TaxAmount= saleInv.TotalTaxAmount,
+
+        };
+        var iL = new List<InventoryItemDetail>();
+
+        foreach (var im in saleItems)
+        {
+            iL.Add(new InventoryItemDetail {
+                Barcode=im.Barcode, BasicAmount=im.BasicAmount, Qty=im.BilledQty,
+                Discount=im.DiscountAmount, InvoiceNumber=saleInv.InvoiceNo, Unit=im.Unit,
+                TaxAmount=im.TaxAmount, Amount=im.Value, Rate=im.MRP, ProductName=im.ProductName
+            });
+        }
+        item.Items = iL;
+        StateHasChanged(); 
+
+    }
+
+
+    }
+

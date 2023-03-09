@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
+using AutoMapper;
+using AprajitaRetails.Shared.AutoMapper.DTO;
+using AutoMapper.QueryableExtensions;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -15,10 +13,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
     public class SaleItemsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public SaleItemsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public SaleItemsController(ARDBContext context,IMapper mapper)
         {
-            _context = context;
+            _context = context; _mapper = mapper;
         }
 
         // GET: api/SaleItems
@@ -30,6 +28,45 @@ namespace AprajitaRetails.Server.Controllers.Inventory
               return NotFound();
           }
             return await _context.SaleItems.ToListAsync();
+        }
+
+        // GET: api/SaleItems
+        [HttpGet("ByInvoice")]
+        public async Task<ActionResult<IEnumerable<SaleItem>>> GetSaleItemsByInvoice(string InvoiceNumber)
+        {
+            if (_context.SaleItems == null)
+            {
+                return NotFound();
+            }
+            return await _context.SaleItems.Where(c=>c.InvoiceNumber==InvoiceNumber)
+                .ToListAsync();
+        }
+        // GET: api/SaleItems
+
+        [HttpGet("ByInvoiceDTO")]
+        public async Task<ActionResult<IEnumerable<SaleItemDTO>>> GetSaleItemsByInvoiceDTO(string InvoiceNumber)
+        {
+            if (_context.SaleItems == null)
+            {
+                return NotFound();
+            }
+            
+            return await _context.SaleItems.Include(c => c.ProductItem)
+               .Where(c => c.InvoiceNumber == InvoiceNumber).ProjectTo<SaleItemDTO>(_mapper.ConfigurationProvider)
+              .ToListAsync();
+        }
+
+        [HttpGet("ByInvoiceInventory")]
+        public async Task<ActionResult<IEnumerable<SaleItemDTO>>> GetSaleItemsByInvoiceInventory(string InvoiceNumber)
+        {
+            if (_context.SaleItems == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.SaleItems.Include(c => c.ProductItem)
+               .Where(c => c.InvoiceNumber == InvoiceNumber).ProjectTo<SaleItemDTO>(_mapper.ConfigurationProvider)
+              .ToListAsync();
         }
 
         // GET: api/SaleItems/5
