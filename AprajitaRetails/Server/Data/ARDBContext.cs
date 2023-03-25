@@ -5,6 +5,7 @@ using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AprajitaRetails.Server.Data
 {
@@ -13,6 +14,20 @@ namespace AprajitaRetails.Server.Data
         public ARDBContext(DbContextOptions<ARDBContext> options)
         : base(options)
         {
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var converter = new ValueConverter<Guid, byte[]>(
+                    to => to.ToByteArray(),
+                    from => new Guid(from));
+
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                    .SelectMany(t => t.GetProperties())
+                .Where(p => p.ClrType == typeof(Guid) ||
+                                p.ClrType == typeof(Guid?)))
+            {
+                property.SetValueConverter(converter);
+            }
         }
         //Client and Group
         public DbSet<AppClient> AppClients { get; set; }
