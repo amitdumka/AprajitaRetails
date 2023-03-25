@@ -1930,8 +1930,8 @@ namespace AprajitaRetails.Server.Migrations.ARDB
           //  migrationBuilder.DropTable(
             //    name: "Attendances");
 
-            migrationBuilder.DropTable(
-                name: "BankTransactions");
+          //  migrationBuilder.DropTable(
+            //    name: "BankTransactions");
 
             migrationBuilder.DropTable(
                 name: "CardPaymentDetails");
