@@ -14,38 +14,49 @@ namespace AprajitaRetails.Server.Data
         : base(options)
         {
         }
-
-        public DbSet<Voucher> Vouchers { get; set; }
-
-        public DbSet<CashVoucher> CashVouchers { get; set; }
-        public DbSet<Note> Notes { get; set; }
+        //Client and Group
+        public DbSet<AppClient> AppClients { get; set; }
+        public DbSet<StoreGroup> StoreGroups { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<TransactionMode> TransactionModes { get; set; }
+        public DbSet<Bank> Banks { get; set; }
+        public DbSet<Store> Stores { get; set; }
+        //Parties
         public DbSet<LedgerGroup> LedgerGroups { get; set; }
         public DbSet<Party> Parties { get; set; }
         public DbSet<LedgerMaster> LedgerMasters { get; set; }
+
+        //PettyCash
         public DbSet<PettyCashSheet> PettyCashSheets { get; set; }
         public DbSet<CashDetail> CashDetails { get; set; }
 
-        public DbSet<Salesman> Salesmen { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Customer> Customers { get; set; }
 
+        //Voucher
+        public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<CashVoucher> CashVouchers { get; set; }
+        public DbSet<Note> Notes { get; set; }
+
+        //Payroll
+
+        public DbSet<Salesman> Salesmen { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
-
-        public DbSet<Store> Stores { get; set; }
-        public DbSet<Attendance> Attendances { get; set; }
-        public DbSet<SalaryPayment> SalaryPayments { get; set; }
-
+        public DbSet<TimeSheet> TimeSheets { get; set; }
         public DbSet<MonthlyAttendance> MonthlyAttendances { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+
+        //Salary Payment
+        public DbSet<SalaryPayment> SalaryPayments { get; set; }
+        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; }
+
 
         public DbSet<Salary> Salaries { get; set; }
-        public DbSet<StaffAdvanceReceipt> StaffAdvanceReceipts { get; set; }
         public DbSet<PaySlip> PaySlips { get; set; }
-        public DbSet<TimeSheet> TimeSheets { get; set; }
         public DbSet<SalaryLedger> SalaryLedgers { get; set; }
 
-        public DbSet<Bank> Banks { get; set; }
+        //Banking
+
         public DbSet<VendorBankAccount> VendorBankAccounts { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<BankAccountList> AccountLists { get; set; }
@@ -55,7 +66,8 @@ namespace AprajitaRetails.Server.Data
         public DbSet<ChequeBook> ChequeBooks { get; set; }
         public DbSet<ChequeIssued> ChequeIssued { get; set; }
         public DbSet<ChequeLog> ChequeLogs { get; set; }
-        //Daily Sale
+
+        ////Daily Sale
 
         public DbSet<DailySale> DailySales { get; set; }
         public DbSet<CustomerDue> CustomerDues { get; set; }
@@ -63,7 +75,7 @@ namespace AprajitaRetails.Server.Data
 
         public DbSet<EDCTerminal> EDCTerminals { get; set; }
 
-        //Inventory
+        ////Inventory
         public DbSet<ProductItem> ProductItems { get; set; }
 
         public DbSet<ProductType> ProductTypes { get; set; }
@@ -72,13 +84,13 @@ namespace AprajitaRetails.Server.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 
-        //Purchase
+        ////Purchase
         public DbSet<Vendor> Vendors { get; set; }
 
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
         public DbSet<ProductPurchase> ProductPurchases { get; set; }
 
-        //Sale
+        ////Sale
         public DbSet<CustomerSale> CustomerSales { get; set; }
 
         public DbSet<ProductSale> ProductSales { get; set; }
@@ -86,11 +98,9 @@ namespace AprajitaRetails.Server.Data
         public DbSet<SalePaymentDetail> SalePaymentDetails { get; set; }
         public DbSet<CardPaymentDetail> CardPaymentDetails { get; set; }
 
-        //Stock
+        ////Stock
         public DbSet<Stock> Stocks { get; set; }
 
-        //Client and Group
-        public DbSet<AppClient> AppClients { get; set; }
-        public DbSet<StoreGroup> StoreGroups { get; set; }
+
     }
 }
