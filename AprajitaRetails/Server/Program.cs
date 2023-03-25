@@ -3,6 +3,7 @@ using AprajitaRetails.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using Oracle.ManagedDataAccess.Client;
 using System.Net;
 using System.Runtime.InteropServices;
 
@@ -13,61 +14,76 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 });
 
 string connectionString = "";
+string DBType = builder.Configuration.GetConnectionString("DatabaseMode");
+//if (DBType == "OracleCloud") {
 
-if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-{
-    // Add services to the container.
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    OracleConfiguration.TnsAdmin = @"/Users/amitkumar/Wallet_AprajitaRetailsDB01";
+    OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
+
+    connectionString = builder.Configuration.GetConnectionString("OracleAD") ?? throw new InvalidOperationException("Connection string 'OracleAD' not found.");
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseOracle(connectionString));
 
     builder.Services.AddDbContext<ARDBContext>(options =>
-        options.UseSqlServer(connectionString));
-}
-else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-{
-    connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+        options.UseOracle(connectionString));
 
-    builder.Services.AddDbContext<ARDBContext>(options =>
-        options.UseSqlite(connectionString));
-}
-else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-{
-    var localDeploy = builder.Configuration.GetValue<string>("DeployedServer");
-    if (localDeploy == "cloud")
-    {
-        connectionString = builder.Configuration.GetConnectionString("CloudLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
+//}
 
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseMySQL(connectionString));
+//else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+//{
+//    // Add services to the container.
+//    connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+
+//    builder.Services.AddDbContext<ARDBContext>(options =>
+//        options.UseSqlServer(connectionString));
+//}
+//else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+//{
+//    connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
+//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlite(connectionString));
+
+//    builder.Services.AddDbContext<ARDBContext>(options =>
+//        options.UseSqlite(connectionString));
+//}
+//else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+//{
+//    var localDeploy = builder.Configuration.GetValue<string>("DeployedServer");
+//    if (localDeploy == "cloud")
+//    {
+//        connectionString = builder.Configuration.GetConnectionString("CloudLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
+
+//        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//        options.UseMySQL(connectionString));
 
 
-        builder.Services.AddDbContext<ARDBContext>(options =>
-            options.UseMySQL(connectionString));
-    }
-    else
-    {
-        connectionString = builder.Configuration.GetConnectionString("DefaultLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
+//        builder.Services.AddDbContext<ARDBContext>(options =>
+//            options.UseMySQL(connectionString));
+//    }
+//    else
+//    {
+//        connectionString = builder.Configuration.GetConnectionString("DefaultLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
 
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+//        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//        options.UseSqlServer(connectionString));
 
 
-        builder.Services.AddDbContext<ARDBContext>(options =>
-            options.UseSqlServer(connectionString));
-    }
-}
-else
-{
-    connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+//        builder.Services.AddDbContext<ARDBContext>(options =>
+//            options.UseSqlServer(connectionString));
+//    }
+//}
+//else
+//{
+//    connectionString = builder.Configuration.GetConnectionString("DefaultMacCon") ?? throw new InvalidOperationException("Connection string 'DefaultMacCon' not found.");
+//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlite(connectionString));
 
-    builder.Services.AddDbContext<ARDBContext>(options =>
-        options.UseSqlite(connectionString));
-}
+//    builder.Services.AddDbContext<ARDBContext>(options =>
+//        options.UseSqlite(connectionString));
+//}
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

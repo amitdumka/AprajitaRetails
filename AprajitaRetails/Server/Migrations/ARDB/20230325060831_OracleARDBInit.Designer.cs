@@ -3,28 +3,36 @@ using System;
 using AprajitaRetails.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Oracle.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace AprajitaRetails.Server.Migrations
+namespace AprajitaRetails.Server.Migrations.ARDB
 {
     [DbContext(typeof(ARDBContext))]
-    partial class ARDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230325060831_OracleARDBInit")]
+    partial class OracleARDBInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Banking.Bank", b =>
                 {
                     b.Property<string>("BankId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("BankId");
 
@@ -34,54 +42,54 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Banking.BankAccount", b =>
                 {
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AccountHolderName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("AccountType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("BankId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("BranchName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime?>("ClosingDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<decimal>("CurrentBalance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<bool>("DefaultBank")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("IFSCCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("OpeningBalance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime>("OpeningDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("SharedAccount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("AccountNumber");
 
@@ -93,39 +101,39 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Banking.BankAccountList", b =>
                 {
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AccountHolderName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("AccountType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("BankId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("BranchName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("IFSCCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("SharedAccount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("AccountNumber");
 
@@ -138,54 +146,56 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<int>("BankTransactionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BankTransactionId"));
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("Balance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime?>("BankDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("DebitCredit")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("Narration")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("RefNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("Verified")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.HasKey("BankTransactionId");
 
@@ -199,52 +209,52 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Banking.ChequeBook", b =>
                 {
                     b.Property<string>("ChequeBookId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AccountId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("BankAccountAccountNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Count")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<long>("EndingNumber")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(19)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("IssuedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<int>("NoOfChequeIssued")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("NoOfClearedCheques")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("NoOfPDC")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<long>("StartingNumber")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(19)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("ChequeBookId");
 
@@ -258,48 +268,48 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Banking.ChequeIssued", b =>
                 {
                     b.Property<string>("ChequeIssuedId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AccountId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("BankAccountAccountNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ChequeBookId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<long>("ChequeNumber")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(19)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("InFavorOf")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("ChequeIssuedId");
 
@@ -315,53 +325,53 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Banking.ChequeLog", b =>
                 {
                     b.Property<string>("ChequeLogId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("BankId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ChequeIssuer")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<long>("ChequeNumber")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(19)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("InFavorOf")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("ChequeLogId");
 
@@ -373,49 +383,49 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Banking.VendorBankAccount", b =>
                 {
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AccountHolderName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("AccountType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("BankId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("BranchName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime?>("ClosingDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("IFSCCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("OpeningBalance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime>("OpeningDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("VendorId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("AccountNumber");
 
@@ -428,61 +438,63 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<int>("ContactId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactId"));
 
                     b.Property<string>("AddressLine")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("DOB")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("EMail")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("MobileNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StreetName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("ContactId");
 
@@ -492,11 +504,11 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.Brand", b =>
                 {
                     b.Property<string>("BrandCode")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("BrandName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("BrandCode");
 
@@ -507,29 +519,31 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthCode")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("Card")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("CardLastDigit")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("CardType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("EDCTerminalId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("InvoiceNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("PaidAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.HasKey("Id");
 
@@ -541,11 +555,11 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.CustomerSale", b =>
                 {
                     b.Property<string>("InvoiceNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("MobileNo")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("InvoiceNumber");
 
@@ -557,50 +571,50 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.ProductItem", b =>
                 {
                     b.Property<string>("Barcode")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("BrandCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("HSNCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("MRP")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("ProductCategory")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("ProductTypeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Size")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("StyleCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("SubCategory")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("TaxType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("Unit")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("Barcode");
 
@@ -616,78 +630,78 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.ProductPurchase", b =>
                 {
                     b.Property<string>("InwardNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("BasicAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("BillQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("Count")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("FreeQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("InvoiceNo")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("InvoiceType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<DateTime>("InwardDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("Paid")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("ShippingCost")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("TaxAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("TaxType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("TotalAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("TotalQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("VendorId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Warehouse")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("InwardNumber");
 
@@ -701,70 +715,70 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.ProductSale", b =>
                 {
                     b.Property<string>("InvoiceNo")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<bool>("Adjusted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("BilledQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("FreeQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("InvoiceType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("Paid")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("RoundOff")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("SalesmanId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<bool>("Tailoring")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("Taxed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("TotalBasicAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("TotalDiscountAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("TotalMRP")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("TotalTaxAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("InvoiceNo");
 
@@ -778,10 +792,10 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.ProductSubCategory", b =>
                 {
                     b.Property<string>("SubCategory")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("ProductCategory")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("SubCategory");
 
@@ -791,11 +805,11 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.ProductType", b =>
                 {
                     b.Property<string>("ProductTypeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ProductTypeName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("ProductTypeId");
 
@@ -806,36 +820,38 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Barcode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("CostPrice")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("CostValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("DiscountValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("FreeQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("InwardNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Qty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("TaxAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("Unit")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("Id");
 
@@ -850,48 +866,50 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Adjusted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("Barcode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("BasicAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("BilledQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("FreeQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("InvoiceNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("InvoiceType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("LastPcs")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("TaxAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("TaxType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("Unit")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.HasKey("Id");
 
@@ -906,21 +924,23 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("InvoiceNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("PaidAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("PayMode")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("RefId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
@@ -933,49 +953,49 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("RAW(16)");
 
                     b.Property<string>("Barcode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("CostPrice")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("HoldQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("MRP")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MultiPrice")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("PurchaseQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("SoldQty")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Unit")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
@@ -989,11 +1009,11 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.Supplier", b =>
                 {
                     b.Property<string>("SupplierName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Warehouse")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("SupplierName");
 
@@ -1003,40 +1023,40 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.Vendor", b =>
                 {
                     b.Property<string>("VendorId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<bool>("Active")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("VendorName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("VendorType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("VendorId");
 
@@ -1048,46 +1068,46 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.Attendance", b =>
                 {
                     b.Property<string>("AttendanceId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("EntryTime")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsTailoring")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(50)");
 
                     b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("AttendanceId");
 
@@ -1101,74 +1121,74 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.Employee", b =>
                 {
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AddressLine")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("Category")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("DOB")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("EmpId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsTailors")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsWorking")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("JoiningDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime?>("LeavingDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("StreetName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("EmployeeId");
 
@@ -1180,67 +1200,67 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.EmployeeDetails", b =>
                 {
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AdharNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("BankAccountNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("BankNameWithBranch")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("FatherName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("HighestQualification")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("IFSCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("MaritalStatus")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("OtherIdDetails")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PanNo")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("SpouseName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("EmployeeId");
 
@@ -1252,62 +1272,62 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.MonthlyAttendance", b =>
                 {
                     b.Property<string>("MonthlyAttendanceId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Absent")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("CasualLeave")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("HalfDay")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("Holidays")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<int>("NoOfWorkingDays")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("PaidLeave")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("Present")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Sunday")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("WeeklyLeave")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("MonthlyAttendanceId");
 
@@ -1321,7 +1341,7 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.PaySlip", b =>
                 {
                     b.Property<string>("PaySlipId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("AdvanceDeducations")
                         .HasColumnType("money");
@@ -1334,19 +1354,19 @@ namespace AprajitaRetails.Server.Migrations
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("GrossSalary")
                         .HasColumnType("money");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool?>("IsTailoring")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("LastPCsIncentive")
                         .HasColumnType("money");
@@ -1355,16 +1375,16 @@ namespace AprajitaRetails.Server.Migrations
                         .HasColumnType("money");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<int>("Month")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("NoOfDaysPresent")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<decimal>("OtherDeductions")
                         .HasColumnType("money");
@@ -1377,10 +1397,10 @@ namespace AprajitaRetails.Server.Migrations
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("SalaryId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("SaleIncentive")
                         .HasColumnType("money");
@@ -1390,7 +1410,7 @@ namespace AprajitaRetails.Server.Migrations
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("TDSDeductions")
                         .HasColumnType("money");
@@ -1403,7 +1423,7 @@ namespace AprajitaRetails.Server.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("WOWBillAmount")
                         .HasColumnType("money");
@@ -1412,10 +1432,10 @@ namespace AprajitaRetails.Server.Migrations
                         .HasColumnType("money");
 
                     b.Property<int>("WorkingDays")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("Year")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("PaySlipId");
 
@@ -1431,58 +1451,58 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.Salary", b =>
                 {
                     b.Property<string>("SalaryId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("BasicSalary")
                         .HasColumnType("money");
 
                     b.Property<DateTime?>("CloseDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<DateTime>("EffectiveDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("FullMonth")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("Incentive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsEffective")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsTailoring")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("LastPcs")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<bool>("SundayBillable")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("WowBill")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.HasKey("SalaryId");
 
@@ -1497,34 +1517,36 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("InAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<decimal>("OutAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("Particulars")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
@@ -1534,47 +1556,47 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.SalaryPayment", b =>
                 {
                     b.Property<string>("SalaryPaymentId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");
 
                     b.Property<string>("Details")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("PayMode")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("SalaryComponet")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("SalaryMonth")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("SalaryPaymentId");
 
@@ -1588,41 +1610,41 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.StaffAdvanceReceipt", b =>
                 {
                     b.Property<string>("StaffAdvanceReceiptId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");
 
                     b.Property<string>("Details")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("PayMode")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("StaffAdvanceReceiptId");
 
@@ -1636,38 +1658,38 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Payroll.TimeSheet", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<DateTime?>("InTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OutTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
@@ -1682,29 +1704,29 @@ namespace AprajitaRetails.Server.Migrations
                 {
                     b.Property<Guid>("AppClientId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("RAW(16)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ClientAddress")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ClientName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime?>("ExpireDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("MobileNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.HasKey("AppClientId");
 
@@ -1714,69 +1736,69 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.CashDetail", b =>
                 {
                     b.Property<string>("CashDetailId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("C1")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("C10")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("C2")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("C5")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("Count")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<int>("N10")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("N100")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("N1000")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("N20")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("N200")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("N2000")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("N50")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int>("N500")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("TotalAmount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("CashDetailId");
 
@@ -1788,37 +1810,37 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.Customer", b =>
                 {
                     b.Property<string>("MobileNo")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Age")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("NoOfBills")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<decimal>("TotalAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.HasKey("MobileNo");
 
@@ -1828,36 +1850,36 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.CustomerDue", b =>
                 {
                     b.Property<string>("InvoiceNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime?>("ClearingDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("Paid")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("InvoiceNumber");
 
@@ -1869,62 +1891,62 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.DailySale", b =>
                 {
                     b.Property<string>("InvoiceNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("CashAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("EDCTerminalId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsDue")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("ManualBill")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("NonCashAmount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("PayMode")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("SalesReturn")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("SalesmanId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<bool>("TailoringBill")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("InvoiceNumber");
 
@@ -1940,47 +1962,47 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.DueRecovery", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("DueInvoiceNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("InvoiceNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<bool>("PartialPayment")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<int>("PayMode")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
@@ -1994,53 +2016,53 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.EDCTerminal", b =>
                 {
                     b.Property<string>("EDCTerminalId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<bool>("Active")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("BankId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime?>("CloseDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("MID")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("ProviderName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("TID")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("EDCTerminalId");
 
@@ -2052,35 +2074,35 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.Salesman", b =>
                 {
                     b.Property<string>("SalesmanId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("SalesmanId");
 
@@ -2092,78 +2114,78 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.Store", b =>
                 {
                     b.Property<string>("StoreId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<Guid?>("AppClientId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("RAW(16)");
 
                     b.Property<DateTime>("BeginDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("GSTIN")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("PanNo")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreEmailId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreGroupId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("StoreManager")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreManagerContactNo")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StorePhoneNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("VatNo")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("StoreId");
 
@@ -2177,18 +2199,18 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.StoreGroup", b =>
                 {
                     b.Property<string>("StoreGroupId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<Guid>("AppClientId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("RAW(16)");
 
                     b.Property<string>("GroupName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("StoreGroupId");
 
@@ -2200,61 +2222,61 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.CashVoucher", b =>
                 {
                     b.Property<string>("VoucherNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Particulars")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PartyId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("PartyName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("SlipNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("TransactionId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("VoucherType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("VoucherNumber");
 
@@ -2272,18 +2294,18 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.LedgerGroup", b =>
                 {
                     b.Property<string>("LedgerGroupId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Category")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("GroupName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Remark")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("LedgerGroupId");
 
@@ -2293,14 +2315,14 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.LedgerMaster", b =>
                 {
                     b.Property<string>("PartyId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<DateTime>("OpeningDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("PartyName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("PartyId");
 
@@ -2310,55 +2332,55 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.Note", b =>
                 {
                     b.Property<string>("NoteNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<int>("NotesType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("PartyId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("PartyName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("TaxRate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("WithGST")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.HasKey("NoteNumber");
 
@@ -2372,63 +2394,63 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.Party", b =>
                 {
                     b.Property<string>("PartyId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("Category")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<decimal>("ClosingBalance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime?>("ClosingDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("GSTIN")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("LedgerGroupId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("OpeningBalance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime>("OpeningDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("PANNo")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PartyName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("PartyId");
 
@@ -2442,85 +2464,85 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.PettyCashSheet", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("BankDeposit")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("BankWithdrawal")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("CardSale")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("ClosingBalance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("CustomerDue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("CustomerRecovery")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("DailySale")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("DueList")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("ManualSale")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<decimal>("NonCashSale")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<decimal>("OpeningBalance")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("PaymentNarration")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("PaymentTotal")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("ReceiptsNarration")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("ReceiptsTotal")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("RecoveryList")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<decimal>("TailoringPayment")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<decimal>("TailoringSale")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
@@ -2532,11 +2554,11 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.TransactionMode", b =>
                 {
                     b.Property<string>("TransactionId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("TransactionName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("TransactionId");
 
@@ -2546,68 +2568,68 @@ namespace AprajitaRetails.Server.Migrations
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Vouchers.Voucher", b =>
                 {
                     b.Property<string>("VoucherNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("AccountId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DECIMAL(18, 2)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("EntryStatus")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<bool>("IsReadOnly")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("MarkedDeleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Particulars")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PartyId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("PartyName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PaymentDetails")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("PaymentMode")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("SlipNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<int>("VoucherType")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("VoucherNumber");
 

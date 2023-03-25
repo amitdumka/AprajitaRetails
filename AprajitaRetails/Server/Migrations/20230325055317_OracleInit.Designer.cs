@@ -5,81 +5,86 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Oracle.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace AprajitaRetails.Server.Migrations.ApplicationDb
+namespace AprajitaRetails.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230220052123_InitUser")]
-    partial class InitUser
+    [Migration("20230325055317_OracleInit")]
+    partial class OracleInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("AprajitaRetails.Server.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7) WITH TIME ZONE");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("StoreId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(256)");
 
                     b.HasKey("Id");
 
@@ -88,7 +93,8 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("\"NormalizedUserName\" IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -97,41 +103,41 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
                 {
                     b.Property<string>("UserCode")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<string>("ClientId")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasMaxLength(50000)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NCLOB");
 
                     b.Property<string>("Description")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<string>("DeviceCode")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<DateTime?>("Expiration")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("SessionId")
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(100)");
 
                     b.Property<string>("SubjectId")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.HasKey("UserCode");
 
@@ -146,31 +152,31 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.Key", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Algorithm")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(100)");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<bool>("DataProtected")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<bool>("IsX509Certificate")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(1)");
 
                     b.Property<string>("Use")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<int>("Version")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("Id");
 
@@ -183,43 +189,43 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
                 {
                     b.Property<string>("Key")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<string>("ClientId")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<DateTime?>("ConsumedTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasMaxLength(50000)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NCLOB");
 
                     b.Property<string>("Description")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<DateTime?>("Expiration")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("SessionId")
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(100)");
 
                     b.Property<string>("SubjectId")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(200)");
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(50)");
 
                     b.HasKey("Key");
 
@@ -237,25 +243,26 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("\"NormalizedName\" IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -264,17 +271,19 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("Id");
 
@@ -287,17 +296,19 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("Id");
 
@@ -310,18 +321,18 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -333,10 +344,10 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -348,18 +359,18 @@ namespace AprajitaRetails.Server.Migrations.ApplicationDb
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
