@@ -77,7 +77,7 @@
     <Content Remove="wwwroot\Tables\Over\SalaryLedgers" />
     <Content Remove="wwwroot\Tables\Over\Taxes" />
     <Content Remove="wwwroot\Tables\Over\V1_SalePaymentDetails" />
-    <Content Remove="wwwroot\Tables\V1_CustomerDues %28copy%29" />
+    <Content Remove="wwwroot\Tables\Over\V1_CustomerDues" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.4" />
@@ -146,7 +146,6 @@
     <Folder Include="wwwroot\Tables\Over\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="wwwroot\Tables\V1_CustomerDues" />
     <Content Remove="wwwroot\Tables\V1_SaleItems" />
     <Content Remove="wwwroot\Tables\V1_SalePaymentDetails" />
     <Content Remove="wwwroot\Tables\" />
@@ -156,7 +155,6 @@
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\Data\ARD\ARD\Products\ProductStocks.json.2" />
     <None Include="wwwroot\Data\ARD\TheArvindStoreDumkaData.xlsx" />
-    <None Include="wwwroot\Tables\V1_CustomerDues" />
     <None Include="wwwroot\Tables\V1_SaleItems" />
     <None Include="wwwroot\Tables\V1_SalePaymentDetails" />
     <None Include="wwwroot\stores.json" />
@@ -213,7 +211,7 @@
     <None Include="wwwroot\Tables\Over\SalaryLedgers" />
     <None Include="wwwroot\Tables\Over\Taxes" />
     <None Include="wwwroot\Tables\Over\V1_SalePaymentDetails" />
-    <None Include="wwwroot\Tables\V1_CustomerDues %28copy%29" />
+    <None Include="wwwroot\Tables\Over\V1_CustomerDues" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\favicon.ico">
