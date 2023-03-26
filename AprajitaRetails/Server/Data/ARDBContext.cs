@@ -29,6 +29,8 @@ namespace AprajitaRetails.Server.Data
                 property.SetValueConverter(converter);
             }
         }
+
+        public DbSet<Tax> Taxes { get; set; }
         //Client and Group
         public DbSet<AppClient> AppClients { get; set; }
         public DbSet<StoreGroup> StoreGroups { get; set; }

@@ -948,9 +948,9 @@ namespace AprajitaRetails.Server.Migrations.ARDB
 
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.Stock", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<byte[]>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("RAW(16)");
+                        .HasColumnType("RAW(900)");
 
                     b.Property<string>("Barcode")
                         .IsRequired()
@@ -1015,6 +1015,32 @@ namespace AprajitaRetails.Server.Migrations.ARDB
                     b.HasKey("SupplierName");
 
                     b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.Tax", b =>
+                {
+                    b.Property<int>("TaxNameId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaxNameId"));
+
+                    b.Property<decimal>("CompositeRate")
+                        .HasColumnType("DECIMAL(18, 2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool>("OutPutTax")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<int>("TaxType")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.HasKey("TaxNameId");
+
+                    b.ToTable("Taxes");
                 });
 
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Inventory.Vendor", b =>
@@ -1699,9 +1725,9 @@ namespace AprajitaRetails.Server.Migrations.ARDB
 
             modelBuilder.Entity("AprajitaRetails.Shared.Models.Stores.AppClient", b =>
                 {
-                    b.Property<Guid>("AppClientId")
+                    b.Property<byte[]>("AppClientId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("RAW(16)");
+                        .HasColumnType("RAW(900)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -2113,9 +2139,9 @@ namespace AprajitaRetails.Server.Migrations.ARDB
                     b.Property<string>("StoreId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<Guid?>("AppClientId")
+                    b.Property<byte[]>("AppClientId")
                         .IsRequired()
-                        .HasColumnType("RAW(16)");
+                        .HasColumnType("RAW(900)");
 
                     b.Property<DateTime>("BeginDate")
                         .HasColumnType("TIMESTAMP(7)");
@@ -2198,8 +2224,9 @@ namespace AprajitaRetails.Server.Migrations.ARDB
                     b.Property<string>("StoreGroupId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<Guid>("AppClientId")
-                        .HasColumnType("RAW(16)");
+                    b.Property<byte[]>("AppClientId")
+                        .IsRequired()
+                        .HasColumnType("RAW(900)");
 
                     b.Property<string>("GroupName")
                         .IsRequired()

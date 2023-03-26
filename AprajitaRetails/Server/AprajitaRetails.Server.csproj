@@ -67,6 +67,13 @@
     <Content Remove="wwwroot\Tables\Old\Suppliers" />
     <Content Remove="wwwroot\Tables\Old\Categories" />
     <Content Remove="wwwroot\Tables\Over\V3_Stocks" />
+    <Content Remove="wwwroot\Tables\Over\V1_SalaryPayments" />
+    <Content Remove="wwwroot\Tables\Over\V1_PurchaseProducts" />
+    <Content Remove="wwwroot\Tables\Over\V1_ProductSales" />
+    <Content Remove="wwwroot\Tables\V1_ProductSales" />
+    <Content Remove="wwwroot\Tables\Over\Contacts" />
+    <Content Remove="wwwroot\Tables\Over\V1_CardPaymentDetails" />
+    <Content Remove="wwwroot\Tables\Over\V1_PurchaseItems" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.4" />
@@ -135,15 +142,9 @@
     <Folder Include="wwwroot\Tables\Over\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="wwwroot\Tables\Contacts" />
     <Content Remove="wwwroot\Tables\SalaryLedgers" />
     <Content Remove="wwwroot\Tables\Taxes" />
-    <Content Remove="wwwroot\Tables\V1_CardPaymentDetails" />
     <Content Remove="wwwroot\Tables\V1_CustomerDues" />
-    <Content Remove="wwwroot\Tables\V1_ProductSales" />
-    <Content Remove="wwwroot\Tables\V1_PurchaseItems" />
-    <Content Remove="wwwroot\Tables\V1_PurchaseProducts" />
-    <Content Remove="wwwroot\Tables\V1_SalaryPayments" />
     <Content Remove="wwwroot\Tables\V1_SaleItems" />
     <Content Remove="wwwroot\Tables\V1_SalePaymentDetails" />
     <Content Remove="wwwroot\Tables\" />
@@ -153,15 +154,9 @@
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\Data\ARD\ARD\Products\ProductStocks.json.2" />
     <None Include="wwwroot\Data\ARD\TheArvindStoreDumkaData.xlsx" />
-    <None Include="wwwroot\Tables\Contacts" />
     <None Include="wwwroot\Tables\SalaryLedgers" />
     <None Include="wwwroot\Tables\Taxes" />
-    <None Include="wwwroot\Tables\V1_CardPaymentDetails" />
     <None Include="wwwroot\Tables\V1_CustomerDues" />
-    <None Include="wwwroot\Tables\V1_ProductSales" />
-    <None Include="wwwroot\Tables\V1_PurchaseItems" />
-    <None Include="wwwroot\Tables\V1_PurchaseProducts" />
-    <None Include="wwwroot\Tables\V1_SalaryPayments" />
     <None Include="wwwroot\Tables\V1_SaleItems" />
     <None Include="wwwroot\Tables\V1_SalePaymentDetails" />
     <None Include="wwwroot\stores.json" />
@@ -208,6 +203,13 @@
     <None Include="wwwroot\Tables\Old\Suppliers" />
     <None Include="wwwroot\Tables\Old\Categories" />
     <None Include="wwwroot\Tables\Over\V3_Stocks" />
+    <None Include="wwwroot\Tables\Over\V1_SalaryPayments" />
+    <None Include="wwwroot\Tables\Over\V1_PurchaseProducts" />
+    <None Include="wwwroot\Tables\Over\V1_ProductSales" />
+    <None Include="wwwroot\Tables\V1_ProductSales" />
+    <None Include="wwwroot\Tables\Over\Contacts" />
+    <None Include="wwwroot\Tables\Over\V1_CardPaymentDetails" />
+    <None Include="wwwroot\Tables\Over\V1_PurchaseItems" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\favicon.ico">

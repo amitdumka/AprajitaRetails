@@ -79,6 +79,8 @@ namespace AprajitaRetails.Server.Importer
             {
                 switch (className)
                 {
+                    case "Tax":
+                        aRDB.Taxes.RemoveRange(aRDB.Taxes.ToList()); break;
                     case "Store":
                         aRDB.Stores.RemoveRange(aRDB.Stores.ToList()); break;
                     case "Bank":
@@ -117,6 +119,7 @@ namespace AprajitaRetails.Server.Importer
                     case "Vendor": aRDB.Vendors.RemoveRange(aRDB.Vendors.ToList()); break;
                     case "SaleItem": aRDB.SaleItems.RemoveRange(aRDB.SaleItems.ToList()); break;
                     case "ProductSale": aRDB.ProductSales.RemoveRange(aRDB.ProductSales.ToList()); break;
+                    case "SalaryLedger": aRDB.SalaryLedgers.RemoveRange(aRDB.SalaryLedgers.ToList()); break;
 
                     default:
                         return false;
@@ -136,6 +139,13 @@ namespace AprajitaRetails.Server.Importer
             {
                 switch (className)
                 {
+                    case "Tax":
+                        await aRDB.AddRangeAsync(JsonToObject<Tax>(path));
+                        return await aRDB.SaveChangesAsync() > 0;
+                    case "SalaryLedger":
+                        await aRDB.AddRangeAsync(JsonToObject<SalaryLedger>(path));
+                        return await aRDB.SaveChangesAsync() > 0;
+                         
                     case "Store":
                         await aRDB.AddRangeAsync(JsonToObject<Store>(path));
                         return await aRDB.SaveChangesAsync() > 0;
@@ -228,11 +238,16 @@ namespace AprajitaRetails.Server.Importer
                         return false;
 
                     case "PurchaseItem":
-                        var items = JsonToObject<PurchaseItem>(path);
-                        foreach (var item in items)
-                        {
-                            item.Id = 0;
-                        }
+                        var items = JsonToObject<PurchaseItem>(path)
+                            .Select(c=>new PurchaseItem {Id=0, Barcode=c.Barcode, CostPrice=c.CostPrice,
+                             CostValue=c.CostValue, DiscountValue=c.DiscountValue, FreeQty=c.FreeQty,
+                              InwardNumber=c.InwardNumber,  Qty=c.Qty, TaxAmount=c.TaxAmount  , Unit=c.Unit,
+                               
+                            });
+                        // foreach (var item in items)
+                        //{
+                        //    item.Id = 0;
+                        //}
                         await aRDB.AddRangeAsync(items); break;
                     case "PurchaseProduct": await aRDB.AddRangeAsync(JsonToObject<ProductPurchase>(path)); break;
                     case "Vendor": await aRDB.AddRangeAsync(JsonToObject<Vendor>(path)); break;
