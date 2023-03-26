@@ -20,7 +20,7 @@ namespace AprajitaRetails.Shared.Models.Stores
         public bool ManualBill { get; set; }
         public bool SalesReturn { get; set; }
         public bool TailoringBill { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         public string? EDCTerminalId { get; set; }
         public virtual EDCTerminal EDC { get; set; }
@@ -60,7 +60,7 @@ namespace AprajitaRetails.Shared.Models.Stores
         public string InvoiceNumber { set; get; }
         public decimal Amount { set; get; }
         public PayMode PayMode { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
         public bool PartialPayment { get; set; }
         public virtual CustomerDue Due { get; set; }
 

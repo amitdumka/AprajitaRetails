@@ -133,6 +133,8 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string SalesmanId { get; set; }
         public string SalemanName { get; set; }
         public bool Tailoring { get; set; }
+        public string StoreId { get; set; }
+        public string StoreName { get; set; }
 
     }
 

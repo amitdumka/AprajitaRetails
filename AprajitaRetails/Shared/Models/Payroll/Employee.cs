@@ -56,11 +56,11 @@ namespace AprajitaRetails.Shared.Models.Payroll
         public virtual Employee? Employee { get; set; }
         public DateTime OnDate { get; set; }
         public AttUnit Status { get; set; }
-        [Required]
-        public string EntryTime { get; set; }
-        [Required]
-        [StringLength(50, ErrorMessage = "Remarks is too long.")]
-        public string Remarks { get; set; }
+        //[Required]
+        public string? EntryTime { get; set; }
+        //[Required]
+        //[StringLength(50, ErrorMessage = "Remarks is too long.")]
+        public string? Remarks { get; set; }
 
         [Display(Name = "Tailor")]
         public bool IsTailoring { get; set; }

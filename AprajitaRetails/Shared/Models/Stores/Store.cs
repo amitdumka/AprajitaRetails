@@ -39,21 +39,21 @@ namespace AprajitaRetails.Shared.Models.Bases
     public class Person : Address
     {
         public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         public string FullName { get { return FirstName + " " + LastName; } }
-        public string Title { get; set; }
+        public string? Title { get; set; }
         public Gender Gender { get; set; } // Enum Gender
         public DateTime DOB { get; set; }
     }
 
     public class Address
     {
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-        public string StreetName { get; set; }
-        public string ZipCode { get; set; }
-        public string AddressLine { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? Country { get; set; }
+        public string? StreetName { get; set; }
+        public string? ZipCode { get; set; }
+        public string? AddressLine { get; set; }
     }
 
     public class City
@@ -142,7 +142,7 @@ namespace AprajitaRetails.Shared.Models.Stores
         [Key]
         public string SalesmanId { get; set; }
         public string Name { get; set; }
-        public string EmployeeId { get; set; }
+        public string? EmployeeId { get; set; }
         public bool IsActive { get; set; }
     }
 
@@ -152,7 +152,7 @@ namespace AprajitaRetails.Shared.Models.Stores
         [Key]
         public string MobileNo { get; set; }
         public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         public string CustomerName { get { return (FirstName + " " + LastName); } }
         public int Age { get; set; }
         public DateTime DateOfBirth { get; set; }

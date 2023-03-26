@@ -20,9 +20,9 @@ namespace AprajitaRetails.Shared.Models.Vouchers
 
         public decimal Amount { get; set; }
         public PaymentMode PaymentMode { get; set; }
-        public string PaymentDetails { get; set; }
-        public string Remarks { get; set; }
-        public string AccountId { get; set; }
+        public string? PaymentDetails { get; set; }
+        public string? Remarks { get; set; }
+        public string? AccountId { get; set; }
 
         public string EmployeeId { get; set; }
         public virtual Employee? Employee { get; set; }
@@ -97,7 +97,7 @@ namespace AprajitaRetails.Shared.Models.Vouchers
 
         public string GroupName { get; set; }
         public LedgerCategory Category { get; set; }
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
     }
 
     public class Party : BaseST
@@ -109,10 +109,10 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public decimal OpeningBalance { get; set; }
         public decimal ClosingBalance { get; set; }
         public LedgerCategory Category { get; set; }
-        public string GSTIN { get; set; }
-        public string PANNo { get; set; }
-        public string Address { get; set; }
-        public string Remarks { get; set; }
+        public string? GSTIN { get; set; }
+        public string? PANNo { get; set; }
+        public string? Address { get; set; }
+        public string? Remarks { get; set; }
         public string LedgerGroupId { get; set; }
         public virtual LedgerGroup LedgerGroup { get; set; }
     }

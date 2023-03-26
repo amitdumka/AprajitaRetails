@@ -21,7 +21,7 @@ namespace AprajitaRetails.Shared.Models.Inventory
         public DateTime InwardDate { get; set; }
 
         public string InvoiceNo { get; set; }
-        public string VendorId { get; set; }
+        public string? VendorId { get; set; }
 
         public PurchaseInvoiceType InvoiceType { get; set; }
         public TaxType TaxType { get; set; }
@@ -43,7 +43,7 @@ namespace AprajitaRetails.Shared.Models.Inventory
 
         public bool Paid { get; set; }
 
-        public string Warehouse { get; set; }
+        public string? Warehouse { get; set; }
         public virtual Vendor Vendor { get; set; }
         public virtual ICollection<PurchaseItem> Items { get; set; }
     }

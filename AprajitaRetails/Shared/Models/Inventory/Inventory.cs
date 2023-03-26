@@ -20,8 +20,8 @@ public class ProductItem
     public string Barcode { get; set; }
 
     public string Name { get; set; }
-    public string Description { get; set; }
-    public string StyleCode { get; set; }
+    public string? Description { get; set; }
+    public string? StyleCode { get; set; }
 
     public TaxType TaxType { get; set; }
     public decimal MRP { get; set; }
@@ -33,10 +33,10 @@ public class ProductItem
     public string SubCategory { get; set; }
     public string? ProductTypeId { get; set; }
 
-    public string HSNCode { get; set; }
+    public string? HSNCode { get; set; }
     public Unit Unit { get; set; }
 
-    public string BrandCode { get; set; }
+    public string? BrandCode { get; set; }
 
     //FKs
     [ForeignKey("BrandCode")]

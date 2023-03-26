@@ -9,6 +9,11 @@
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
 		<ExternalConsole>true</ExternalConsole>
 	</PropertyGroup>
+	<PropertyGroup>
+		 <WasmEnableSIMD>true</WasmEnableSIMD>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		 <WasmEnableExceptionHandling>true</WasmEnableExceptionHandling>
+	</PropertyGroup>
 	<!--<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<RunAOTCompilation>True</RunAOTCompilation>
@@ -17,7 +22,7 @@
 		<PublishTrimmed>false</PublishTrimmed>
 	</PropertyGroup>-->
 	<PropertyGroup>
-  		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Shared\Apps\" />
@@ -84,5 +89,4 @@
 		<Folder Include="Pages\Apps\Stores\Salesmen\" />
 		<Folder Include="Shared\Aks\Forms\" />
 	</ItemGroup>
-	
 </Project>
