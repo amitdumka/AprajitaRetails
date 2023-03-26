@@ -78,6 +78,7 @@
     <Content Remove="wwwroot\Tables\Over\Taxes" />
     <Content Remove="wwwroot\Tables\Over\V1_SalePaymentDetails" />
     <Content Remove="wwwroot\Tables\Over\V1_CustomerDues" />
+    <None Remove="KyS\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.4" />
@@ -144,10 +145,10 @@
     <Folder Include="BL\Reports\" />
     <Folder Include="BL\Reports\Inventory\" />
     <Folder Include="wwwroot\Tables\Over\" />
+    <Folder Include="KyS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\V1_SaleItems" />
-    <Content Remove="wwwroot\Tables\V1_SalePaymentDetails" />
     <Content Remove="wwwroot\Tables\" />
     <Content Remove="wwwroot\V1_Stores" />
   </ItemGroup>
@@ -156,7 +157,6 @@
     <None Include="wwwroot\Data\ARD\ARD\Products\ProductStocks.json.2" />
     <None Include="wwwroot\Data\ARD\TheArvindStoreDumkaData.xlsx" />
     <None Include="wwwroot\Tables\V1_SaleItems" />
-    <None Include="wwwroot\Tables\V1_SalePaymentDetails" />
     <None Include="wwwroot\stores.json" />
     <None Include="wwwroot\Tables\Over\V1_Stores" />
     <None Include="wwwroot\Tables\Over\V1_TranscationModes" />
