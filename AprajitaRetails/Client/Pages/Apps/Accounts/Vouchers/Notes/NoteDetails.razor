@@ -9,6 +9,9 @@
 @inject LocalStorageAccessor LocalStorage
 @attribute [Authorize]
 @inject HttpClient Http
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
 
@@ -38,11 +41,21 @@
     Note? entity;
     //Employee? employee;
     Party? party;
+    bool isDeleted = false;
 
     string Title = "Details";
     bool Loading = true;
     void BackButton() { NavigationManager.NavigateTo("/vouchers/notes"); }
-    void DeleteButton() { }
+    async void DeleteButton()
+    {
+        var result = await Helper.DeleteAsync("api/Notes", "Notes", ID);
+        if (result)
+        {
+            isDeleted = true;
+            StateHasChanged();
+        }
+
+    }
 
     protected override async void OnInitialized()
     {

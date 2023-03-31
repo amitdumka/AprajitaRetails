@@ -8,6 +8,9 @@
 @inject LocalStorageAccessor LocalStorage
 @attribute [Authorize]
 @inject HttpClient Http
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
 
 @using AprajitaRetails.Helpers
 
@@ -28,8 +31,16 @@
     string Title = "Details";
     bool Loading = true;
     void BackButton() { NavigationManager.NavigateTo("/payroll/employees"); }
-    void DeleteButton() { }
     bool isDeleted = false;
+    async void DeleteButton()
+    {
+        var result = await Helper.DeleteAsync($"api/Employees", "Employee", ID);
+        if (result)
+        {
+            isDeleted = true;
+            StateHasChanged();
+        }
+    }
     protected override async void OnInitialized()
     {
         if (!string.IsNullOrEmpty(ID))

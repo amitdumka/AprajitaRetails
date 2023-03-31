@@ -65,7 +65,7 @@
                 <div class="mb-3 row">
                     <label for="ondate" class="col-sm-4 col-form-label">Opening Date</label>
                     <div class="col-sm-6">
-                        <SfDatePicker Value="@entity.OpeningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                         <SfDatePicker  @bind-Value="@entity.OpeningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
                     </div>
                 </div>
             </Column>
@@ -97,7 +97,7 @@
                 <div class="mb-3 row">
                     <label for="close" class="col-sm-4 col-form-label">Closing Date</label>
                     <div class="col-sm-6">
-                        <SfDatePicker Value="@entity.ClosingDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                         <SfDatePicker  @bind-Value="@entity.ClosingDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
                     </div>
                 </div>
             </Column>

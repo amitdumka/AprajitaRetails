@@ -30,8 +30,8 @@
                                     Back
                                 </Button>
                             </Column>
-                            <Column Classes="col.md._3">
-                                <ASubmitButton Title="Save" />
+                            <Column Classes="col.md._3" >
+                                <ASubmitButton Title="Save"  />
                             </Column>
                         </Row>
                         <Row>
@@ -57,10 +57,10 @@
     [Parameter] public TItem? EntityModel { get; set; }
 
     [Parameter] public EventCallback<TItem> EntityModelChanged { get; set; }
-
+    //private TItem? entity;
     private string className = "";
     private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
-
+    private bool disable = false;
     private async Task OnEntityModelChanged(ChangeEventArgs e)
     {
         EntityModel = (TItem)e.Value;
@@ -69,17 +69,28 @@
 
     private async void Save()
     {
-        var flag = await DataHelper.SaveAsync<TItem>(ApiUrl, EntityModel, className, Id, IsEdit);
+        if (!disable)
+        {
+
+            var flag = await DataHelper.SaveAsync<TItem>(ApiUrl, EntityModel, className, Id, IsEdit);
+            if (flag && !IsEdit)
+            {
+                disable = true;
+              //  EntityModel = entity;
+                StateHasChanged();
+            }
+
+        }
     }
 
     protected override async Task OnInitializedAsync()
     {
         className = Title;
-
         if (IsEdit)
             Title = $"Edit {className} Id: {Id} ";
         else
             Title = "Add " + Title;
+       // entity = default(TItem);
         StateHasChanged();
     }
 

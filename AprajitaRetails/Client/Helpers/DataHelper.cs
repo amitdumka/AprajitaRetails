@@ -67,7 +67,7 @@ namespace AprajitaRetails.Client.Helpers
                 }
                 else
                 {
-                    Msg("Cancled", "User cancled delete operation!");
+                    Msg("Canceled", "User canceled delete operation!");
                     return false;
                 }
             }
@@ -181,13 +181,13 @@ namespace AprajitaRetails.Client.Helpers
                 }
                 else
                 {
-                    Msg("Error", $"An error occured while saving {className} and error is {result.StatusCode.ToString()}", true);
+                    Msg("Error", $"An error occurred while saving {className} and error is {result.StatusCode.ToString()}", true);
                     return false;
                 }
             }
             catch (Exception e)
             {
-                Msg("Error", $"An error occured while saving {className} and error is \n {e.Message}", true);
+                Msg("Error", $"An error occurred while saving {className} and error is \n {e.Message}", true);
                 return false;
             }
         }

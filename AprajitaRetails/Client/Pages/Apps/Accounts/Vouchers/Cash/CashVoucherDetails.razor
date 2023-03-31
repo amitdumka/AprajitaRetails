@@ -5,10 +5,12 @@
 @using AprajitaRetails.Commons
 @using AprajitaRetails.AdminLte.Table
 @using Microsoft.AspNetCore.Authorization
-@inject NavigationManager NavigationManager 
-@attribute [Authorize]
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
 
+@inject ClientSetting Setting
+@inject DataHelper Helper
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
 
     <EntityRow Lable="Voucher" Value="@entity.VoucherType.ToString()" />
@@ -35,11 +37,21 @@
     Employee? employee;
     Party? party;
     TransactionMode? modes;
+    bool isDeleted = false;
 
     string Title = "Details";
     bool Loading = true;
     void BackButton() { NavigationManager.NavigateTo("/vouchers/cash"); }
-    void DeleteButton() { }
+    async void DeleteButton()
+    {
+        var result = await Helper.DeleteAsync("cashvouchers", "Vouchers [Cash]", ID);
+        if (result)
+        {
+            isDeleted = true;
+            StateHasChanged();
+        }
+
+    }
 
     protected override async void OnInitialized()
     {

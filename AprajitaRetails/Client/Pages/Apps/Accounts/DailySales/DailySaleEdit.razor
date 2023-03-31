@@ -37,7 +37,7 @@
                 <div class="mb-3 row">
                     <label for="ondate" class="col-sm-4 col-form-label">Date</label>
                     <div class="col-sm-6">
-                        <SfDatePicker Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        <SfDatePicker @bind-Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
                     </div>
                 </div>
             </Column>

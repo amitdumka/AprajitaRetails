@@ -29,11 +29,10 @@
     <EntityRow Lable="Remarks" Value="@entity.Unit.ToString()" />
     <EntityRow Lable="Acc No" Value="@entity.StyleCode.ToString()" />
     <EntityRow Lable="Payment Details" Value="@entity.Size.ToString()" />
-    
-        <EntityRow Lable="Ledger" Value="@entity.MRP.ToString()" />
-     
-        <EntityRow Lable="Issued By" Value="@entity.TaxType.ToString()" />
-    
+
+    <EntityRow Lable="Ledger" Value="@entity.MRP.ToString()" />
+
+    <EntityRow Lable="Issued By" Value="@entity.TaxType.ToString()" />
 
 </EntityDetails>
 
@@ -45,8 +44,19 @@
 
     string Title = "Details";
     bool Loading = true;
+
     void BackButton() { NavigationManager.NavigateTo("/inventory/products"); }
-    void DeleteButton() { }
+
+    bool isDeleted = false;
+    async void DeleteButton()
+    {
+        var result = await Helper.DeleteAsync($"api/productItems", "Product", ID);
+        if (result)
+        {
+            isDeleted = true;
+            StateHasChanged();
+        }
+    }
 
     protected override async void OnInitialized()
     {

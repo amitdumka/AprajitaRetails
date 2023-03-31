@@ -11,7 +11,7 @@
 @inject ClientSetting Setting
 @inject DataHelper Helper
 
-<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton">
+<EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
 
     <EntityRow Lable="Voucher" Value="@entity.VoucherType.ToString()" />
     <EntityRow Lable="ID" Value="@entity.VoucherNumber" />
@@ -25,7 +25,10 @@
     <EntityRow Lable="Mode" Value="@entity.PaymentMode.ToString()" />
     <EntityRow Lable="Amount" Value="@entity.Amount.ToString()" />
     <EntityRow Lable="Remarks" Value="@entity.Remarks" />
-    <EntityRow Lable="Acc No" Value="@entity.AccountId.ToString()" />
+    @if (entity.AccountId != null)
+    {
+        <EntityRow Lable="Acc No" Value="@entity.AccountId.ToString()" />
+    }
     <EntityRow Lable="Payment Details" Value="@entity.PaymentDetails" />
     @if (party != null)
     {
@@ -43,22 +46,35 @@
     Voucher? entity;
     Employee? employee;
     Party? party;
-
+    bool isDeleted = false;
     string Title = "Details";
     bool Loading = true;
     void BackButton() { NavigationManager.NavigateTo("/vouchers"); }
-    void DeleteButton() { }
+
+    async void DeleteButton()
+    {
+        var result = await Helper.DeleteAsync("api/Vouchers", "Vouchers", ID);
+        if (result)
+        {
+            isDeleted = true;
+            StateHasChanged();
+        }
+
+    }
 
     protected override async void OnInitialized()
     {
         if (!string.IsNullOrEmpty(ID))
         {
-            entity = await Helper.GetRecordAsync<Voucher>($"api/Vouchers", ID);
+            entity = await Helper.GetRecordAsync<Voucher>
+    ($"api/Vouchers", ID);
             Title = "Voucher: " + entity.VoucherNumber;
-            employee = await Helper.GetRecordAsync<Employee>($"Employees", entity.EmployeeId);
+            employee = await Helper.GetRecordAsync<Employee>
+                ($"Employees", entity.EmployeeId);
 
             if (string.IsNullOrEmpty(entity.PartyId) == false)
-                party = await Helper.GetRecordAsync<Party>($"Parties", entity.PartyId);
+                party = await Helper.GetRecordAsync<Party>
+                    ($"Parties", entity.PartyId);
 
             Loading = false;
             StateHasChanged();

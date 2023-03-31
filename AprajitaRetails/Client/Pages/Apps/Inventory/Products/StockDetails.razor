@@ -38,7 +38,16 @@
     string Title = "Details";
     bool Loading = true;
     void BackButton() { NavigationManager.NavigateTo("/inventory/stocks"); }
-    void DeleteButton() { }
+    bool isDeleted = false;
+    async void DeleteButton()
+    {
+        var result = await Helper.DeleteAsync($"api/Stocks", "Stocks", ID);
+        if (result)
+        {
+            isDeleted = true;
+            StateHasChanged();
+        }
+    }
 
     protected override async void OnInitialized()
     {

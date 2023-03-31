@@ -30,7 +30,8 @@
                                 <TableRow>
                                     <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
                                     @if (!Deleted)
-                                    {<TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                                    {
+                                        <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
                                     }
                                 </TableRow>
                             </TableBody>
@@ -51,6 +52,7 @@
     [Parameter] public EventCallback<MouseEventArgs> OnDelete { get; set; }
     [Parameter] public bool Deleted { get; set; } = false;
     [Parameter] public EventCallback<bool> DeletedChanged { get; set; }
+   // [Parameter] public string API { get; set; } = "";
 
     private async Task OnDeletedChanged(ChangeEventArgs e)
     {

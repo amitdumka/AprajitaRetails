@@ -10,11 +10,11 @@
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
 		<ExternalConsole>true</ExternalConsole>
 	</PropertyGroup>
-	<PropertyGroup>
+	<!--<PropertyGroup>
 		 <WasmEnableSIMD>true</WasmEnableSIMD>
 		<RunAOTCompilation>true</RunAOTCompilation>
 		 <WasmEnableExceptionHandling>true</WasmEnableExceptionHandling>
-	</PropertyGroup>
+	</PropertyGroup>-->
 	<!--<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<RunAOTCompilation>True</RunAOTCompilation>
