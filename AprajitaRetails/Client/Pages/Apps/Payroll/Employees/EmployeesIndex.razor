@@ -33,7 +33,7 @@
     {
         try
         { 
-            GroupedColumn = new string[] { "IsWorking", "Category"};
+            GroupedColumn = new string[] {  "Category"};
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(EmployeeDTO).GetProperties(), "EmployeeId");

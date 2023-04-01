@@ -37,7 +37,7 @@
     {
         try
         { 
-            GroupedColumn = new string[] { "OnDate", "Status" };
+            GroupedColumn = new string[] {  "Status" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(AttendanceDTO).GetProperties(), "AttendanceId");

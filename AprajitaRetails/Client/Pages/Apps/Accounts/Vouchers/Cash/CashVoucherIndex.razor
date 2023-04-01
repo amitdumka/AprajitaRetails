@@ -30,7 +30,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "VoucherType" };
+            GroupedColumn = new string[0]; //new string[] { "VoucherType" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(CashVoucherDTO).GetProperties(), "VoucherNumber");
