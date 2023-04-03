@@ -1,0 +1,59 @@
+﻿@page "/payroll"
+
+@inject IJSRuntime JS
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="HR Dashboard" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <H5>HR Dashboard</H5>
+    <Row>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Danger" Icon="far fa-envelope">
+                <Title>Sale</Title>
+                <Value>1410</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox BackgroundColor="Color.Info" Icon="far fa-bookmark" Percentage=70>
+                <Title>Bookmarks</Title>
+                <Value>41.410</Value>
+                <ProgressDescription>70% Increase in 30 Days</ProgressDescription>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <SmallBox Icon="fas fa-shopping-cart" BackgroundColor="Color.Info">
+                <Value>150</Value>
+                <Title>New Orders</Title>
+                <Footer><SmallBoxFooter></SmallBoxFooter></Footer>
+            </SmallBox>
+        </Column>
+
+    </Row>
+    <Row>
+        <Column Classes="col.md._4">
+            <WidgetSocial BackgroundColor="Color.Info"
+                          ImageEffect="ImageEffect.Circle"
+                          Elevation="Elevation.Two"
+                          Image="_content/Blazor.AdminLte.Site.Shared/dist/img/user1-128x128.jpg"
+                          Name="Alexander Pierce"
+                          Title="Founder & CEO">
+                <DescriptionHeader1>3,200</DescriptionHeader1>
+                <Description1>SALES</Description1>
+                <DescriptionHeader2>13,000</DescriptionHeader2>
+                <Description2>FOLLOWERS</Description2>
+                <DescriptionHeader3>35</DescriptionHeader3>
+                <Description3>PRODUCTS</Description3>
+            </WidgetSocial>
+        </Column>
+    </Row>
+
+</ContentMain>
+
+
+
+@code {
+
+}
+
