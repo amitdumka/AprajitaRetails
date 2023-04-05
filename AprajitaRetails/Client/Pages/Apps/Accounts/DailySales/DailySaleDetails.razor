@@ -49,7 +49,7 @@
         {
 
             entity = await Http.GetFromJsonAsync<DailySale>($"DailySales/{ID}");
-            employee = await Http.GetFromJsonAsync<Salesman>($"Salesmen/{entity.SalesmanId}");
+            employee = await Http.GetFromJsonAsync<Salesman>($"api/Salesmen/{entity.SalesmanId}");
             if (string.IsNullOrEmpty(entity.EDCTerminalId) == false)
                 edc = await Http.GetFromJsonAsync<EDCTerminal>($"EDCTerminals/{entity.EDCTerminalId}");
             else edc = null;

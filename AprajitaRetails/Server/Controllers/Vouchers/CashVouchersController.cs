@@ -48,14 +48,30 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
         [HttpGet("ByStoreDTO")]
         public async Task<ActionResult<IEnumerable<CashVoucherDTO>>> GetCashVouchersByStoreDTO(string storeid)
         {
-            if (_context.CashVouchers == null)
+            try
             {
-                return NotFound();
+                if (_context.CashVouchers == null)
+                {
+                    return NotFound();
+                }
+
+
+                //var y = _mapper.Map<IEnumerable<CashVoucherDTO>>((List<CashVoucher>?)await _context.CashVouchers.Include(c => c.Store).Include(c => c.TransactionMode).Include(c => c.Partys)
+                //    .Include(c => c.Employee)
+                //    .Where(c => c.StoreId == storeid&& c.OnDate.Year == (DateTime.Today.Year))
+                //    .OrderByDescending(c => c.OnDate).ToListAsync());
+                //return y.ToList(); ;
+
+                return await _context.CashVouchers.Include(c => c.Store).Include(c => c.TransactionMode).Include(c => c.Partys)
+                    .Include(c => c.Employee)
+                    .Where(c => c.StoreId == storeid && c.OnDate.Year == (DateTime.Today.Year ))
+                    .OrderByDescending(c => c.OnDate).ProjectTo<CashVoucherDTO>(_mapper.ConfigurationProvider).ToListAsync();
+
             }
-            return await _context.CashVouchers.Include(c => c.Store).Include(c => c.TransactionMode).Include(c => c.Partys)
-                .Include(c => c.Employee)
-                .Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1))
-                .OrderByDescending(c => c.OnDate).ProjectTo<CashVoucherDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // GET: api/CashVouchers/5

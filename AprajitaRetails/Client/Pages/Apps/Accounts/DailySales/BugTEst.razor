@@ -1,0 +1,43 @@
+﻿@page "/BugTest"
+@using AprajitaRetails.Shared.Models.Vouchers
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Payroll
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+@using System.Text.Json
+
+@attribute [Authorize]
+@inject ClientSetting Setting
+@inject DataHelper Helper
+<h3>BugTest</h3>
+
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string data = "[\n  \n  \n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-11-30\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-11T00:00:00.000\",\n    \"transactionid\": \"TM-13\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Breakfast\",\n    \"particulars\": \"Breakfast\",\n    \"amount\": 140,\n    \"remarks\": \"Breakfast\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-63\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-13-34\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-13T00:00:00.000\",\n    \"transactionid\": \"TM-1\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Home Expenses\",\n    \"particulars\": \"Home Expenses\",\n    \"amount\": 325,\n    \"remarks\": \"Fruits\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-43\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-13-35\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-13T00:00:00.000\",\n    \"transactionid\": \"TM-13\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Breakfast\",\n    \"particulars\": \"Breakfast\",\n    \"amount\": 100,\n    \"remarks\": \"Breakfast\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-63\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-13-36\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-13T00:00:00.000\",\n    \"transactionid\": \"TM-12\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Dan\",\n    \"particulars\": \"Dan\",\n    \"amount\": 5,\n    \"remarks\": \"Dan\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-66\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-14-37\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-14T00:00:00.000\",\n    \"transactionid\": \"TM-23\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Miscellaneous Expenses\",\n    \"particulars\": \"Miscellaneous Expenses\",\n    \"amount\": 10,\n    \"remarks\": \"Nimbu,Mirch\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-43\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-14-38\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-14T00:00:00.000\",\n    \"transactionid\": \"TM-10\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Online Purchase\",\n    \"particulars\": \"Online Purchase\",\n    \"amount\": 500,\n    \"remarks\": \"Amazone\",\n    \"employeeid\": \"ARD-2023-SLM\",\n    \"partyid\": \"ARD-PTY-43\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-14-39\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-14T00:00:00.000\",\n    \"transactionid\": \"TM-1\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Home Expenses\",\n    \"particulars\": \"Home Expenses\",\n    \"amount\": 335,\n    \"remarks\": \"Sweets\",\n    \"employeeid\": \"ARD-2023-SLM\",\n    \"partyid\": \"ARD-PTY-43\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-14-40\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-14T00:00:00.000\",\n    \"transactionid\": \"TM-12\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Dan\",\n    \"particulars\": \"Dan\",\n    \"amount\": 5,\n    \"remarks\": \"Dan\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-66\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-16-41\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-16T00:00:00.000\",\n    \"transactionid\": \"TM-13\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Breakfast\",\n    \"particulars\": \"Breakfast\",\n    \"amount\": 375,\n    \"remarks\": \"Breakfast, Plate\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-63\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-1-17-42\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-01-17T00:00:00.000\",\n    \"transactionid\": \"TM-13\",\n    \"slipnumber\": \"N\\/A\",\n    \"partyname\": \"Breakfast\",\n    \"particulars\": \"Breakfast\",\n    \"amount\": 120,\n    \"remarks\": \"Breakfast\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-63\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  },\n  {\n    \"vouchernumber\": \"ARD-CPT-2023-4-3-4\",\n    \"vouchertype\": 8,\n    \"ondate\": \"2023-04-03 10:36:50.513000000\",\n    \"transactionid\": \"TM-11\",\n    \"slipnumber\": \"NA\",\n    \"partyname\": \"BREAKFAST\",\n    \"particulars\": \"BREAKFAST\",\n    \"amount\": 0,\n    \"remarks\": \"BREAKFAST\",\n    \"employeeid\": \"ARD-2016-SM-1\",\n    \"partyid\": \"ARD-PTY-63\",\n    \"userid\": \"AmitKumar\",\n    \"isreadonly\": true,\n    \"markeddeleted\": true,\n    \"storeid\": \"ARD\",\n    \"entrystatus\": 0\n  }\n  \n  \n\n]\n\n";
+
+
+            var x = JsonSerializer.Deserialize<CashVoucher>(data);
+            var y = await Helper.SaveAsync<CashVoucher>("api/DailySales", x, "CashVoucher");// null, false);
+
+        }
+        catch (Exception ex)
+        {
+            Helper.Msg("Err", ex.Message, true);
+        }
+    }
+
+
+}
+

@@ -57,7 +57,9 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public string Particulars { get; set; }
         public decimal Amount { get; set; }
         public string Remarks { get; set; }
+
         public string EmployeeId { get; set; }
+
         public virtual Employee? Employee { get; set; }
 
         public string PartyId { get; set; }

@@ -88,9 +88,10 @@
                     </div>
                 </div>
             </Column>
-            
+
 
         </Row>
+
 
         <Row>
             <Column Classes="col.md">
@@ -105,7 +106,11 @@
             <Column Classes="col.md">
                 <ACheckBox Title="Sale's Return" Name="d4" @bind-Checked="@entity.SalesReturn" />
             </Column>
-           
+
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Remarks Name="Remaks" Label="Remarks" /></Column>
+
         </Row>
 
     </EntityEdit>

@@ -23,8 +23,8 @@ namespace AprajitaRetails.Shared.Models.Stores
         public string? Remarks { get; set; }
 
         public string? EDCTerminalId { get; set; }
-        public virtual EDCTerminal EDC { get; set; }
-        public virtual Salesman Salesman { get; set; }
+        public virtual EDCTerminal? EDC { get; set; }
+        public virtual Salesman? Salesman { get; set; }
     }
 
     //TODO: Move to VM
