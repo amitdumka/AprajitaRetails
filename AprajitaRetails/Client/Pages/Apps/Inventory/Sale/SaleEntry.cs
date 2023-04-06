@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Reflection;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.ViewModels;
 using Syncfusion.Blazor.Grids;
+using Syncfusion.Blazor.Grids.Internal;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Navigations;
 
@@ -32,13 +35,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         InvoiceType invType = InvoiceType.Sales;
         TaxType taxType = TaxType.GST;
 
-
-
-        public SaleEntry()
-        {
-
-        }
-
+               
         private async void OnItemValChange(ChangedEventArgs args)
         {
             //Item.Qty = stock[0].CurrentQty;
@@ -116,6 +113,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         protected override async Task OnInitializedAsync()
         {
             await FetchSelectData();
+          
             if (IsEdit)
             {
                 Title = "Edit Daily Sales #" + ID;
@@ -157,7 +155,9 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 SaleItemList = new List<SItem>();
                 saleItems = new List<SaleItem>();
             }
-
+            GenerateColums(typeof(SItem).GetProperties(), "Barcode");
+            StateHasChanged();
+            base.OnInitialized();
 
         }
 
@@ -184,20 +184,90 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
             }
         }
+        public SaleEntry()
+        {
 
+        }
         private void AddItem()
         {
-            if (Item.Qty > 0)
+            if (Item.Qty != 0)
             {
                 SaleItemList.Add(Item);
+
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
+                Grid.AutoFitColumns();
+                StateHasChanged();
             }
+           
 
         }
         private void AddDiscount()
         {
-           //Show pop window to ask amount in per/ or rs
+            //Show pop window to ask amount in per/ or rs
+            this.Visibility = true;
+        }
 
+        protected void GenerateColums(PropertyInfo[] infos, string idName)
+        {
+            this.Columns = new List<GridColumn>();
+            foreach (var prop in infos)
+            {
+                if (prop.Name.StartsWith("Tax") == false && prop.Name.StartsWith("TAX") == false)
+                                {
+                    var v = new GridColumn()
+                    {
+                        AutoFit = true,
+
+                        Field = prop.Name,
+                        AllowSorting = true,
+                        //IsPrimaryKey = prop.Name == idName ? true : false,
+                        AllowEditing = prop.CanWrite,
+                        HeaderText = prop.Name,
+                        HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center
+                    };
+                    if (prop.GetType() == typeof(decimal))
+                    {
+                        if (prop.Name.Contains("Amount"))
+                            v.Format = "C2";
+                    }
+
+                   this.Columns.Add(v);
+                }
+            }
+
+           // var CommandsList = new List<GridCommandColumn>();
+            //var edit = new GridCommandColumn()
+            //{
+            //    ID = "edit",
+            //    Title = "Edit",
+            //    Type = CommandButtonType.None,
+            //    ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" }
+            //};
+            //var delete = new GridCommandColumn()
+            //{
+            //    ID = "delete",
+            //    Title = "Delete",
+            //    Type = CommandButtonType.None,
+            //    ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-delete", CssClass = "e-flat" }
+            //};
+            //var info = new GridCommandColumn()
+            //{
+            //    ID = "info",
+            //    Title = "Detail",
+            //    Type = CommandButtonType.None,
+            //    ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-update", CssClass = "e-flat" }
+            //};
+            //CommandsList.Add(info);
+            //CommandsList.Add(edit);
+            //CommandsList.Add(delete);
+            //var cCol = new GridColumn()
+            //{
+            //    HeaderText = "Actions",
+            //    AutoFit = true,
+            //    Commands = CommandsList
+
+            //};
+            //Columns.Add(cCol);
         }
 
     }
