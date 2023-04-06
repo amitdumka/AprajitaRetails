@@ -1,6 +1,6 @@
 ﻿@page "/BugTest"
 
-@using AprajitaRetails.Shared.Models.Vouchers
+@using AprajitaRetails.Shared.Models.Inventory
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.AdminLte.Forms
@@ -19,28 +19,56 @@
 @inject ClientSetting Setting
 @inject DataHelper Helper
 
-<h3>BugTest</h3>
+<ContentMain>
+    <EntityList Title="Stocks" BaseUrl="/banking/Banks" Loading=@Loading>
+        <TableHead>
+            <TableHeadCell>Barcode</TableHeadCell>
+            <TableHeadCell>CostPrice </TableHeadCell>
+            <TableHeadCell>MRP </TableHeadCell>
+            <TableHeadCell>Qty </TableHeadCell>
+            <TableHeadCell>Mutli </TableHeadCell>
+            <TableHeadCell>Value </TableHeadCell>
+            <TableHeadCell>Store </TableHeadCell>
+
+
+        </TableHead>
+        <TableBody>
+            @foreach (var x1 in Stocks)
+                {
+                    foreach (var ent in x1.Value)
+                    {
+
+
+                <TableRow>
+                    <TableCell>@ent.Barcode</TableCell>
+                    <TableCell>@ent.CostPrice</TableCell>
+                    <TableCell>@ent.MRP</TableCell>
+                    <TableCell>@ent.PurchaseQty</TableCell>
+                    <TableCell>@ent.MultiPrice</TableCell>
+                    <TableCell>@ent.StockValue</TableCell>
+                    <TableCell>@ent.StoreId</TableCell>
+                </TableRow>}
+            }
+        </TableBody>
+    </EntityList>
+</ContentMain>
 
 @code {
 
+    SortedDictionary<string, List<Stock>>? Stocks;
+    bool Loading = true;
     protected override async Task OnInitializedAsync()
     {
-        //try
-        //{
-
-        //    string data = "[{'vouchernumber':'ARD-CPT-2023-1-11-30','vouchertype':8,'ondate':'2023-01-11T00:00:00.000','transactionid':'TM-13','slipnumber':'NA','partyname':'Breakfast','particulars':'Breakfast','amount':140,'remarks':'Breakfast','employeeid':'ARD-2016-SM-1','partyid':'ARD-PTY-63','userid':'AmitKumar','isreadonly':true,'markeddeleted':true,'storeid':'ARD','entrystatus':0},{'vouchernumber':'ARD-CPT-2023-1-13-34','vouchertype':8,'ondate':'2023-01-13T00:00:00.000','transactionid':'TM-1','slipnumber':'NA','partyname':'HomeExpenses','particulars':'HomeExpenses','amount':325,'remarks':'Fruits','employeeid':'ARD-2016-SM-1','partyid':'ARD-PTY-43','userid':'AmitKumar','isreadonly':true,'markeddeleted':true,'storeid':'ARD','entrystatus':0}]";
-
-        //    var x2 = JsonSerializer.Deserialize<List<CashVoucher>>(data);
-        //    foreach (var x in x2)
-        //    {
-        //        var y = await Helper.SaveAsync<CashVoucher>("CashVouchers", x, "CashVoucher");//null,false);
-        //    }
-
-        //}
-        //catch (Exception ex)
-        //{
-        //    Helper.Msg("Err", ex.Message, true);
-        //}
+        try
+        {
+            var x = await Helper.FetchDictAsync<SortedDictionary<string,List<Stock>>>("api/Stocks/NewStock", null);
+            Loading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
 }

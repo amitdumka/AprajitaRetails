@@ -52,11 +52,11 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         [ForeignKey("TransactionId")]
         public virtual TransactionMode? TransactionMode { get; set; }
 
-        public string SlipNumber { get; set; }
+        public string? SlipNumber { get; set; }
         public string PartyName { get; set; }
         public string Particulars { get; set; }
         public decimal Amount { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         public string EmployeeId { get; set; }
 

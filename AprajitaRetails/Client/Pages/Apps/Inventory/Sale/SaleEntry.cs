@@ -39,7 +39,14 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
         }
 
-        
+        private async void OnItemValChange(ChangedEventArgs args)
+        {
+            //Item.Qty = stock[0].CurrentQty;
+            //Item.Rate = stock[0].Rate;
+            
+            Item.Amount = Item.Qty * Item.Rate-Item.Discount;
+            StateHasChanged();
+        }
          
         private async void OnBarcodeChange(ChangedEventArgs args)
         {
@@ -47,11 +54,14 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             if (args.Value.Length > 8)
             {
                 Helper.Msg("Barcode", args.Value);
+
              var stock=  await Helper.FetchBarcodeAsync(args.Value, Setting.StoreCode);
                 if(stock!=null && stock.Count > 0)
                 {
                     Item.Qty = stock[0].CurrentQty;
                     Item.Rate = stock[0].Rate;
+                    Item.Amount = Item.Qty * Item.Rate;
+                    StateHasChanged();
                 }
 
             }
@@ -182,6 +192,11 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 SaleItemList.Add(Item);
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
             }
+
+        }
+        private void AddDiscount()
+        {
+           //Show pop window to ask amount in per/ or rs
 
         }
 

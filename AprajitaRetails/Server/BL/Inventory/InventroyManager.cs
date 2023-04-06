@@ -1,30 +1,94 @@
 ﻿using System;
+using System.Text.Json;
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.Models.Inventory;
 using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.BL.Inventory
 {
-	public class InventroyManager
-	{
-		//TODO: Need to Handle Purhchase , Sale and Stock , and InterStore transfer.
+    public class InventroyManager
+    {
+        //TODO: Need to Handle Purhchase , Sale and Stock , and InterStore transfer.
 
-		public static void CleanUpStock(ARDBContext db, string storeid)
-		{
-			var stockList = db.Stocks.Where(c => c.StoreId == storeid).ToList();
+        public static void CleanUpStock(ARDBContext db, string storeid)
+        {
+            var stockList = db.Stocks.Where(c => c.StoreId == storeid).ToList();
 
-			foreach (var item in stockList)
-			{
-				item.HoldQty=item.PurchaseQty=item.SoldQty = 0;
-			}
+            foreach (var item in stockList)
+            {
+                item.HoldQty = item.PurchaseQty = item.SoldQty = 0;
+            }
 
-			var purchase = db.PurchaseItems.Include(c=>c.ProductItem).Include(c => c.PurchaseProduct).Where(c => c.PurchaseProduct.StoreId == storeid)
-				.Select(c => new {c.Unit, c.ProductItem.MRP,  Qty = c.Qty + c.FreeQty, CostPrice = c.CostPrice, c.Barcode }).ToList();
+            var purchase = db.PurchaseItems.Include(c => c.ProductItem).Include(c => c.PurchaseProduct).Where(c => c.PurchaseProduct.StoreId == storeid)
+                .Select(c => new { c.Unit, c.ProductItem.MRP, Qty = c.Qty + c.FreeQty, CostPrice = c.CostPrice, c.Barcode }).ToList();
 
-			var sale = db.SaleItems.Include(c => c.ProductSale).Where(c => c.ProductSale.StoreId == storeid)
-				.Select(c=>new {c.Barcode, c.BilledQty, c.FreeQty, c.InvoiceType })
-				.ToList();
+            var sale = db.SaleItems.Include(c => c.ProductSale).Where(c => c.ProductSale.StoreId == storeid)
+                .Select(c => new { c.Barcode, c.BilledQty, c.FreeQty, c.InvoiceType })
+                .ToList();
 
-		}
-	}
+        }
+
+
+        public static async Task<SortedDictionary<string, List<Stock>>> ReOraganiseStockAsync(ARDBContext db)
+        {
+            //Delete All Stock from List.
+            var status=	await db.Stocks.ExecuteDeleteAsync();
+            //Create Stock Item List.
+            var storescode = db.Stores.Select(c => c.StoreId).ToList();
+
+            SortedDictionary<string, List<Stock>> stocks = new SortedDictionary<string, List<Stock>>();
+            foreach (var sc in storescode)
+            {
+                var pStock = db.PurchaseItems.Include(c => c.ProductItem).Include(c => c.PurchaseProduct).Where(c => c.PurchaseProduct.StoreId == sc)
+                .Select(c => new { c.Unit, c.ProductItem.MRP, Qty = c.Qty + c.FreeQty, CostPrice = c.CostPrice, c.Barcode }).ToList();
+
+                var stock = pStock.GroupBy(c => c.Barcode)
+                    .Select(c => new Stock
+                    {
+                        Id = Guid.NewGuid(),
+                        Barcode = c.Select(x => x.Barcode).First(),
+                        EntryStatus = EntryStatus.Added,
+                        HoldQty = 0,
+                        IsReadOnly = true,
+                        MarkedDeleted = false,
+                        SoldQty = 0,
+                        UserId = "AutoAdmin",
+                        Unit = c.Select(x => x.Unit).First(),
+                        StoreId = sc,
+                        PurchaseQty = c.Sum(x => x.Qty),
+                        MRP = c.Select(x => x.MRP).Max(),
+                        CostPrice = (c.Sum(x => (x.Qty * x.CostPrice)) / (c.Sum(x => x.Qty))),
+                        MultiPrice = c.Count() > 1 ? true : false
+                    }).OrderBy(c => c.MultiPrice).OrderBy(c => c.Barcode).ToList();
+                stocks.Add(sc, stock);
+
+                string JSONFILE = JsonSerializer.Serialize<List<Stock>>(stock);
+                using StreamWriter writer = new StreamWriter(Path.Combine("", $"Data/{sc}_PurchaseStock.json"));
+                await writer.WriteAsync(JSONFILE);
+                writer.Close();
+
+                var sStock = db.SaleItems.Include(c => c.ProductSale).Where(c => c.ProductSale.StoreId == sc)
+                    .GroupBy(c => c.Barcode)
+                    .Select(c => new { Barcode = c.Key, Qty = c.Sum(x => x.FreeQty + x.BilledQty) })
+                    .ToList();
+                foreach (var item in sStock)
+                {
+                    var stk = stock.Where(c => c.Barcode == item.Barcode).FirstOrDefault();
+                    if (stk != null)
+                    {
+                        stk.SoldQty = item.Qty;
+                    }
+                }
+                JSONFILE = JsonSerializer.Serialize<List<Stock>>(stock);
+                using StreamWriter writer2 = new StreamWriter(Path.Combine("", $"Data/{sc}_WithSaleStock.json"));
+                await writer2.WriteAsync(JSONFILE);
+                writer.Close();
+              //await  db.Stocks.AddRangeAsync(stock);
+              //  int x = await db.SaveChangesAsync();
+               // System.Console.WriteLine("x:" + x);
+            }
+            return stocks;
+        }
+    }
 }
 

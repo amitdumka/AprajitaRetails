@@ -10,6 +10,7 @@ using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.AutoMapper.DTO;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using AprajitaRetails.Server.BL.Inventory;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -34,6 +35,13 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             }
             return await _context.Stocks.ToListAsync();
         }
+
+        [HttpGet("NewStock")]
+        public async Task<SortedDictionary<string, List<Stock>>> GetNewStock()
+        {
+            return await InventroyManager.ReOraganiseStockAsync(_context);
+        }
+
         //[HttpGet("ReStock")]
         //public async Task<ActionResult<bool>> GetReStocks()
         //{
@@ -45,7 +53,7 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         //              PurchaseQty=c.Qty+c.FreeQty, MRP=c.
         //        })
         //        .ToListAsync();
-           
+
         //}
         [HttpGet("ByStoreDTo")]
         public async Task<ActionResult<IEnumerable<StockDTO>>> GetStocksByStoreDTO(string storeid)

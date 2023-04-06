@@ -109,6 +109,19 @@ namespace AprajitaRetails.Client.Helpers
                 return null;
             }
         }
+        public async Task<SortedDictionary<string, List<T>>?> FetchDictAsync<T>(string url, string condition)
+        {
+            try
+            {
+                return await Http.GetFromJsonAsync<SortedDictionary<string, List<T>>>($"{url}{condition}");
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return null;
+            }
+        }
 
         public async Task<T?> GetRecordAsync<T>(string url, string id)
         {

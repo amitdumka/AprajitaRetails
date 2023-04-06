@@ -1,4 +1,4 @@
-﻿@page "/sales/edit/{Returns:bool}/{params}/{IsEdit:bool}/{*Id}"
+﻿    @page "/sales/edit/{Returns:bool}/{params}/{IsEdit:bool}/{*Id}"
 @page "/sales/{Returns:bool}/{params}/edit/{IsEdit:bool}"
 
 @using AprajitaRetails.Shared.Models.Stores
@@ -117,16 +117,20 @@
                 @*<ABTextInput Label="Barcode" @bind-Value="Item.Barcode" Placeholder="Barcode" />*@
                 <SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
             </Column>
-            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true"/> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
             @*<Column Classes="col.sm"><SfButton  OnClick="AddItem" CssClass="e-round e-small e-success	" IconCss="e-icons e-plus-icon" IsPrimary="false"></SfButton></Column>*@
-            <Column>
-                <button type="button" @onclick="@AddItem" class="btn btn-success btn-circle btn-sm" >
-                   <i class="fas fa-add"></i>
-                </button>
-            </Column>
+        <Column>
+            <button type="button" @onclick="@AddDiscount" class="btn btn-info btn-circle btn-sm">
+                <i class="fas fa-percent"></i>
+            </button>
+            <button type="button" @onclick="@AddItem" class="btn btn-success btn-circle btn-sm">
+                <i class="fas fa-add"></i>
+            </button>
+
+        </Column>
         </div>
         <Row>
             <SfGrid TValue="SItem" DataSource="@SaleItemList" Toolbar="@toolbar" AllowTextWrap=true AllowResizing="true" AllowPaging="true" ShowColumnChooser="true" ID="Grid" @ref="Grid" Columns="@Columns">
