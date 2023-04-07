@@ -1,3 +1,4 @@
+using System.Globalization;
 using AprajitaRetails.Client;
 using AprajitaRetails.Client.Helpers;
 using AprajitaRetails.Helpers;
@@ -37,5 +38,13 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
+
+//CultureInfo.CurrentCulture = new CultureInfo("hi-IN", true);
+//CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+
+//CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("hi-IN");
+//CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture("hi-IN");
+//CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+
 
 await builder.Build().RunAsync();

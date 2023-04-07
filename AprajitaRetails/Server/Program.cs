@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
+using System.Globalization;
 using System.Net;
 using System.Runtime.InteropServices;
 
@@ -139,6 +140,12 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
-app.MapFallbackToFile("index.html");
 
+app.MapFallbackToFile("index.html");
+//CultureInfo.CurrentCulture = new CultureInfo("hi-IN", true);
+//CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+
+//CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("hi-IN");
+//CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture("hi-IN");
+//CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
 app.Run();

@@ -23,7 +23,12 @@
 		<PublishTrimmed>false</PublishTrimmed>
 	</PropertyGroup>-->
 	<PropertyGroup>
-		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+		<BlazorEnableTimeZoneSupport>true</BlazorEnableTimeZoneSupport>
+		
+	</PropertyGroup>
+	<PropertyGroup>
+		 
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Shared\Apps\" />

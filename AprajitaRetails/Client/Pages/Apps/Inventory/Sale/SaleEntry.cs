@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Inventory;
@@ -47,6 +48,9 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
          
         private async void OnBarcodeChange(ChangedEventArgs args)
         {
+             //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+            //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+
             // Here you can customize your code
             if (args.Value.Length > 8)
             {
@@ -113,7 +117,8 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         protected override async Task OnInitializedAsync()
         {
             await FetchSelectData();
-          
+            //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+            //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
             if (IsEdit)
             {
                 Title = "Edit Daily Sales #" + ID;
@@ -186,16 +191,16 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         }
         public SaleEntry()
         {
-
+            //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
+            //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
         }
         private void AddItem()
         {
             if (Item.Qty != 0)
             {
                 SaleItemList.Add(Item);
-
+                Grid.Refresh();
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
-                Grid.AutoFitColumns();
                 StateHasChanged();
             }
            

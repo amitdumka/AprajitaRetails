@@ -1,0 +1,26 @@
+﻿@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Navigations
+
+<SfToolbar>
+    <ToolbarItems>
+        <ToolbarItem Text="Invoice"></ToolbarItem>
+        <ToolbarItem Text="Attendance"></ToolbarItem>
+        <ToolbarItem Text="Voucher"></ToolbarItem>
+        //To separate the Toolbar items
+        <ToolbarItem></ToolbarItem>
+        <ToolbarItem Text="Cash Voucher"></ToolbarItem>
+        <ToolbarItem Text="Salary Payment"></ToolbarItem>
+        <ToolbarItem Text="Sale's Return"></ToolbarItem>
+        <ToolbarItem Text="Petty Cash Sheet"></ToolbarItem>
+    </ToolbarItems>
+</SfToolbar>
+
+@code{
+
+    List<string> UrlList =new List<string> {
+        "/Sales/","/payroll/", "/vouchers/",
+        "/vouchers/cash/"
+    };
+
+
+}

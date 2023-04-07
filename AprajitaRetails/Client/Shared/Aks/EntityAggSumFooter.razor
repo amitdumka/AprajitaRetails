@@ -1,7 +1,7 @@
 ﻿@namespace AprajitaRetails.Aks
 @using Syncfusion.Blazor.Grids
 
-<GridAggregateColumn ColumnName="@ColumnName" Field="@Field" Type="AggregateType.Sum" Format="C2">
+<GridAggregateColumn  Field="@Field" Type="AggregateType.Sum" Format="@Format">
     <FooterTemplate>
         @{
             var SumValue = (context as AggregateTemplateContext);
@@ -17,7 +17,6 @@
 
     [Parameter] public string Field { get; set; }
     [Parameter] public string Title { get; set; }
-    [Parameter] public string ColumnName { get; set; } = "TtoalAmt";
-
+    [Parameter] public string Format { get; set; } = "C2";
 }
 

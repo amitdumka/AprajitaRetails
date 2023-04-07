@@ -1,4 +1,4 @@
-﻿    @page "/sales/edit/{Returns:bool}/{params}/{IsEdit:bool}/{*Id}"
+﻿@page "/sales/edit/{Returns:bool}/{params}/{IsEdit:bool}/{*Id}"
 @page "/sales/{Returns:bool}/{params}/edit/{IsEdit:bool}"
 
 @using AprajitaRetails.Shared.Models.Stores
@@ -23,7 +23,7 @@
 @attribute [Authorize]
 @inject ClientSetting Setting
 @inject DataHelper Helper
-     
+
 <ContentMain>
     <EntityEdit @bind-EntityModel="@entity" TItem="@ProductSale" Title="@Title" ApiUrl="api/productSales" ReturnUrl="@backUrl" Id="@ID" IsEdit=@IsEdit>
         <Row>
@@ -44,7 +44,7 @@
                 <div class="mb-3 row">
                     <label for="ondate" class="col-sm-4 col-form-label">Date</label>
                     <div class="col-sm-6">
-                         <SfDatePicker  @bind-Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        <SfDatePicker @bind-Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
                     </div>
                 </div>
             </Column>
@@ -117,59 +117,60 @@
                 @*<ABTextInput Label="Barcode" @bind-Value="Item.Barcode" Placeholder="Barcode" />*@
                 <SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
             </Column>
-            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true"/> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox  TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
             @*<Column Classes="col.sm"><SfButton  OnClick="AddItem" CssClass="e-round e-small e-success	" IconCss="e-icons e-plus-icon" IsPrimary="false"></SfButton></Column>*@
-        <Column>
-            <button type="button" @onclick="@AddDiscount" class="btn btn-info btn-circle btn-sm">
-                <i class="fas fa-percent"></i>
-            </button>
-            <button type="button" @onclick="@AddItem" class="btn btn-success btn-circle btn-sm">
-                <i class="fas fa-add"></i>
-            </button>
+            <Column>
+                <button type="button" @onclick="@AddDiscount" class="btn btn-info btn-circle btn-sm">
+                    <i class="fas fa-percent"></i>
+                </button>
+                <button type="button" @onclick="@AddItem" class="btn btn-success btn-circle btn-sm">
+                    <i class="fas fa-add"></i>
+                </button>
 
-        </Column>
+            </Column>
         </div>
         <Row>
-            <SfGrid TValue="SItem" DataSource="@SaleItemList"  AllowTextWrap=true AllowResizing="true"   AllowPaging="true"   ID="Grid" @ref="Grid" Columns="@Columns">
-               @* <GridEvents OnToolbarClick="ToolbarClick" TValue="SItem"></GridEvents>
-                <EntityAggregator>
-                    <EntityAggCol Title="Total Amount" Field="Amount"></EntityAggCol>
-                    <EntityAggCol Title="Total Qty" Field="Qty"></EntityAggCol>
-                </EntityAggregator>*@
-                @*<GridColumns>
-                    <GridColumn Field="@nameof(SItem.Barcode)" HeaderText="Barcode"  ></GridColumn>
-                    <GridColumn Field="@nameof(SItem.Qty)" HeaderText="Qty" Format="d"></GridColumn>
-                    <GridColumn Field="@nameof(SItem.Rate)" HeaderText="Rate" Format="d"></GridColumn>
-                    <GridColumn Field="@nameof(SItem.Discount)" HeaderText="Discount"  ></GridColumn>
-                    <GridColumn Field="@nameof(SItem.Amount)" HeaderText="Amount" Format="d"></GridColumn>
-                </GridColumns>*@
+            <SfGrid TValue="SItem" DataSource="@SaleItemList" AllowTextWrap=true AllowResizing="true"
+                    AllowPaging="true" ID="Grid" @ref="Grid" Columns="@Columns">
+                <GridPageSettings PageSize="4"></GridPageSettings>
+                <GridTemplates>
+                    <EmptyRecordTemplate>
+                        <span>Product Item : No SKU has been added!  </span>
+                    </EmptyRecordTemplate>
+                </GridTemplates>
+                @* <GridEvents OnToolbarClick="ToolbarClick" TValue="SItem"></GridEvents>*@
+            <EntityAggregator>
+                <EntityAggSumFooter Title="Total Amount" Field="@nameof(SItem.Amount)"></EntityAggSumFooter>
+                <EntityAggSumFooter Format="f" Title="Total Qty" Field="@nameof(SItem.Qty)"></EntityAggSumFooter>
+            </EntityAggregator>
+
             </SfGrid>
         </Row>
 
     </EntityEdit>
 </ContentMain>
 
-<SfDialog Height="200px%" Width="200px"  IsModal=true  ShowCloseIcon="true" @bind-Visible="Visibility">
-        <DialogTemplates>
-            <Content>
-                <div class="dialogContent">
-                  <label class="text-danger-emphasis"> Discount:</label>
+<SfDialog Height="200px%" Width="200px" IsModal=true ShowCloseIcon="true" @bind-Visible="Visibility">
+    <DialogTemplates>
+        <Content>
+            <div class="dialogContent">
+                <label class="text-danger-emphasis"> Discount:</label>
                 <SfTextBox ID="inVal" @bind-Value="@TextBoxValue" @ref="TextboxObj"
-                Type="InputType.Text"
-                Placeholder="Percentage/Amount!" />
+                           Type="InputType.Text"
+                           Placeholder="Percentage/Amount!" />
                 <button @onclick="@SendBtnclicked" class="e-control e-btn e-primary" data-ripple="true">Add</button>
-                </div>
-            </Content>
-        </DialogTemplates>
-        <DialogButtons>
-            <DialogButton Content="Close" IsPrimary="true" OnClick="@OnBtnCloseclicked" />
-        </DialogButtons>
-        <DialogEvents  Closed="@DialogClose"></DialogEvents>
-        <DialogPositionData X="center" Y="center"></DialogPositionData>
-    </SfDialog>
+            </div>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="Close" IsPrimary="true" OnClick="@OnBtnCloseclicked" />
+    </DialogButtons>
+    <DialogEvents Closed="@DialogClose"></DialogEvents>
+    <DialogPositionData X="center" Y="center"></DialogPositionData>
+</SfDialog>
 
 @code {
     [Parameter] public string ID { get; set; }
@@ -213,7 +214,7 @@
                 else
                 {
                     Item.Discount = decimal.Parse(TextBoxValue.Trim());
-                    
+
                 }
                 Item.Amount = Item.Qty * Item.Rate - Item.Discount;
                 TextboxObj.Value = "";
@@ -225,9 +226,9 @@
                 Helper.Msg("Error", "Enter only numeric and % ", true);
                 TextboxObj.Value = "";
             }
-            
 
-           
+
+
         }
     }
 
