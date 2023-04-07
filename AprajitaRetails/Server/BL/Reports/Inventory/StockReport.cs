@@ -165,7 +165,7 @@ namespace AprajitaRetails.Server.BL.Reports.Inventory
         //            pdfDocument.Close(true);
         //            return stream;
         //        }
-        //    }
+         //   }
         }
         public class PurchaseData
         {

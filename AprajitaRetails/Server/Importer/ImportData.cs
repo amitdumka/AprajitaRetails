@@ -7,10 +7,76 @@ using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
 using AprajitaRetails.Shared.ViewModels;
 using PluralizeService.Core;
+using Syncfusion.XlsIO;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
 {
+    public class NewSale
+    {//SN	Date	Invoice No	Customer	Mobile	Barcode	MRP	QTY	Discount	LineTotal	BillAmount	PayMode
+        [Key]
+        public int SN { set; get; }
+
+        public DateTime Date { get; set; }
+        public string InvoiceNo { get; set; }
+        public string Customer { get; set; }
+        public string Mobile { get; set; }
+        public string Barcode { get; set; }
+        public decimal MRP { get; set; }
+        public decimal Qty { get; set; }
+        public decimal Discount { get; set; }
+        public decimal LineTotal { get; set; }
+        public decimal BillAmount { get; set; }
+        public string PayMode { get; set; }
+    }
+
+    public class NewProfitLoss : NewSale
+    {
+        public decimal CostPrice { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal Basic { get; set; }
+        public decimal TaxAmnt { get; set; }
+        public decimal Round { get; set; }
+        public decimal ProfitLoss { get; set; }
+    }
+
+    public class ImportNewExcel
+    {
+        //private IWebHostEnvironment hostingEnv;
+        public MemoryStream ImportData(string path, string worksheetName, string rangeI, bool isSchema = false)
+        {
+            //Excel import
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                //Step 2 : Instantiate the excel application object
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Excel2016;
+                var filename = Path.Combine(path, @"Data/gstdata.xlsm");
+                using StreamReader reader = new StreamReader(filename);
+                //Opening the encrypted Workbook
+                IWorkbook workbook = application.Workbooks.Open(reader.BaseStream, ExcelParseOptions.Default);
+                //Accessing first worksheet in the workbook
+                IWorksheet worksheet = workbook.Worksheets[worksheetName];
+                IRange range = worksheet.Range[rangeI];
+                //Save the document as a stream and return the stream
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    //Save the created Excel document to MemoryStream
+                    //if (option == "Workbook")
+                    //    workbook.SaveAsJson(stream, isSchema);
+                    //else if (option == "Worksheet")
+                    //    workbook.SaveAsJson(stream, worksheet, isSchema);
+                    //else if (option == "Range")
+                    //    workbook.SaveAsJson(stream, range, isSchema);
+                    workbook.SaveAsJson(stream, range, isSchema);
+                    reader.Close();
+                    return stream;
+                }
+            }
+        }
+    }
+
     public class ImportData
     {
         private IWebHostEnvironment hostingEnv;
@@ -142,10 +208,11 @@ namespace AprajitaRetails.Server.Importer
                     case "Tax":
                         await aRDB.AddRangeAsync(JsonToObject<Tax>(path));
                         return await aRDB.SaveChangesAsync() > 0;
+
                     case "SalaryLedger":
                         await aRDB.AddRangeAsync(JsonToObject<SalaryLedger>(path));
                         return await aRDB.SaveChangesAsync() > 0;
-                         
+
                     case "Store":
                         await aRDB.AddRangeAsync(JsonToObject<Store>(path));
                         return await aRDB.SaveChangesAsync() > 0;
@@ -239,10 +306,18 @@ namespace AprajitaRetails.Server.Importer
 
                     case "PurchaseItem":
                         var items = JsonToObject<PurchaseItem>(path)
-                            .Select(c=>new PurchaseItem {Id=0, Barcode=c.Barcode, CostPrice=c.CostPrice,
-                             CostValue=c.CostValue, DiscountValue=c.DiscountValue, FreeQty=c.FreeQty,
-                              InwardNumber=c.InwardNumber,  Qty=c.Qty, TaxAmount=c.TaxAmount  , Unit=c.Unit,
-                               
+                            .Select(c => new PurchaseItem
+                            {
+                                Id = 0,
+                                Barcode = c.Barcode,
+                                CostPrice = c.CostPrice,
+                                CostValue = c.CostValue,
+                                DiscountValue = c.DiscountValue,
+                                FreeQty = c.FreeQty,
+                                InwardNumber = c.InwardNumber,
+                                Qty = c.Qty,
+                                TaxAmount = c.TaxAmount,
+                                Unit = c.Unit,
                             });
                         // foreach (var item in items)
                         //{
