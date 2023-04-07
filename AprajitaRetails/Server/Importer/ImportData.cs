@@ -13,6 +13,19 @@ using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
 {
+
+    //SN	Date	InvoiceNo	Customer 	Mobile	PayMode	BillAmount
+    public class NewSaleInfo
+    {
+        [Key]
+        public int SN { set; get; }
+        public DateTime? Date { get; set; }
+        public string? InvoiceNo { get; set; }
+        public string? Customer { get; set; }
+        public string? Mobile { get; set; }
+        public decimal? BillAmount { get; set; }
+        public string? PayMode { get; set; }
+    }
     public class NewSale
     {//SN	Date	Invoice No	Customer	Mobile	Barcode	MRP	QTY	Discount	LineTotal	BillAmount	PayMode
         [Key]
@@ -20,31 +33,113 @@ namespace AprajitaRetails.Server.Importer
 
         public DateTime Date { get; set; }
         public string InvoiceNo { get; set; }
-        public string Customer { get; set; }
-        public string Mobile { get; set; }
-        public string Barcode { get; set; }
-        public decimal MRP { get; set; }
-        public decimal Qty { get; set; }
-        public decimal Discount { get; set; }
-        public decimal LineTotal { get; set; }
-        public decimal BillAmount { get; set; }
-        public string PayMode { get; set; }
+        public string? Customer { get; set; }
+        public string? Mobile { get; set; }
+        public string? Barcode { get; set; }
+        public decimal? MRP { get; set; }
+        public decimal? Qty { get; set; }
+        public decimal? Discount { get; set; }
+        public decimal? LineTotal { get; set; }
+        public decimal? BillAmount { get; set; }
+        public string? PayMode { get; set; }
     }
 
-    public class NewProfitLoss : NewSale
+    public class NewProfitLoss //: NewSale
     {
-        public decimal CostPrice { get; set; }
-        public decimal DiscountAmount { get; set; }
-        public decimal Basic { get; set; }
-        public decimal TaxAmnt { get; set; }
-        public decimal Round { get; set; }
-        public decimal ProfitLoss { get; set; }
+        //Date	InvoiceNo	Barcode	Quantity	MRP	CostPrice	
+        //Discount %	DiscountAmount	BasicPrice	TaxAmount	SalePrice	RoundOff	BilAmount	Profit/Loss
+        [Key]
+        public int SN { set; get; }
+        public DateTime? Date { get; set; }
+        public string? InvoiceNo { get; set; }
+        //public string? Customer { get; set; }
+        //public string? Mobile { get; set; }
+        public string? Barcode { get; set; }
+        public decimal? MRP { get; set; }
+        public decimal? Quantity { get; set; }
+
+        public decimal? Discount { get; set; }
+        public decimal? SalePrice { get; set; }
+        public decimal? BillAmount { get; set; }
+        //public string? PayMode { get; set; }
+        public decimal? CostPrice { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? BasicPrice { get; set; }
+        public decimal? TaxAmount { get; set; }
+        public decimal? RoundOff { get; set; }
+        public decimal? ProfitLoss { get; set; }
     }
 
     public class ImportNewExcel
     {
+        public static List<T>? JsonToObject<T>(MemoryStream filename)
+        {
+            try
+            {
+                using StreamReader reader = new StreamReader(filename);
+                var json = reader.ReadToEnd();
+                reader.Close();
+                // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
+                return JsonSerializer.Deserialize<List<T>>(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public static async Task<bool> NewData(string path, ARDBContext db)
+        {
+
+            // var data = ImportData(path, "InvoiceList", "O1:U127", false);
+            // var data2 = ImportData(path, "InvoiceList", "A1:L274", false);
+            // var data3 = ImportData(path, "PofitLoss", "A1:N564", false);
+            try
+            {
+
+            
+          // var InvInfo = JsonToObject<NewSaleInfo>(ImportData(path, "InvoiceList", "O1:U127", false));
+           //var Invsale = JsonToObject<NewSaleInfo>(ImportData(path, "InvoiceList", "A1:L274", false));
+           //var InvProfit = JsonToObject<NewSaleInfo>(ImportData(path, "PofitLoss", "A1:N564", false));
+
+                var InvInfo = ImportData<NewSaleInfo>(path, "InvoiceList", "O1:U127", false);
+                var Invsale =  ImportData<NewSale>(path, "InvoiceList", "A1:L274", false);
+                var InvProfit =  ImportData<NewProfitLoss>(path, "PofitLoss", "A1:N564", false);
+
+
+                // InvList present in invinfo and sale
+
+                var invs = InvInfo.Select(c => c.InvoiceNo).ToList();
+
+           var x = InvInfo.Select(c => c.InvoiceNo).Except(Invsale.Select(c => c.InvoiceNo).Distinct()).ToList();
+           var invs2 = Invsale.Select(c => c.InvoiceNo).Distinct().Except(invs).ToList();
+           var miss = InvInfo.Select(c => c.InvoiceNo).Except(InvProfit.Select(c => c.InvoiceNo).Distinct().ToList()).ToList();
+
+            var JSONFILE = JsonSerializer.Serialize<List<string>>(x);
+            using StreamWriter writer = new StreamWriter(Path.Combine(path, "Data/invsale.json"));
+            await writer.WriteAsync(JSONFILE);
+            writer.Close();
+
+            JSONFILE = JsonSerializer.Serialize<List<string>>(invs2);
+            using StreamWriter writer2 = new StreamWriter(Path.Combine(path, "Data/inv2.json"));
+            await writer2.WriteAsync(JSONFILE);
+            writer.Close();
+
+            JSONFILE = JsonSerializer.Serialize<List<string>>(miss);
+            using StreamWriter writer1 = new StreamWriter(Path.Combine(path, "Data/miss.json"));
+            await writer1.WriteAsync(JSONFILE);
+            writer.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
         //private IWebHostEnvironment hostingEnv;
-        public MemoryStream ImportData(string path, string worksheetName, string rangeI, bool isSchema = false)
+        public static List<T>? ImportData<T>(string path, string worksheetName, string rangeI, bool isSchema = false)
         {
             //Excel import
             using (ExcelEngine excelEngine = new ExcelEngine())
@@ -71,7 +166,7 @@ namespace AprajitaRetails.Server.Importer
                     //    workbook.SaveAsJson(stream, range, isSchema);
                     workbook.SaveAsJson(stream, range, isSchema);
                     reader.Close();
-                    return stream;
+                    return JsonToObject<T>(stream);
                 }
             }
         }

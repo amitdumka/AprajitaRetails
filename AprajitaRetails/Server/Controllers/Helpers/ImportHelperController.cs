@@ -26,6 +26,14 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return await stockImporter.StockUpdate();
         }
 
+        [HttpGet("Newsale")]
+        public async Task<ActionResult<bool>> GetNewSale()
+        {
+            var im = await ImportNewExcel.NewData(hostingEnv.WebRootPath, aRDB);
+            // StockImporter stockImporter = new StockImporter(hostingEnv, aRDB, storeid);
+            return im;
+        }
+
         [HttpGet]
         public ActionResult<List<FileModel>> GetFiles()
         {
