@@ -6,9 +6,13 @@ using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Stores;
 using AprajitaRetails.Shared.Models.Vouchers;
 using AprajitaRetails.Shared.ViewModels;
+using Newtonsoft.Json.Linq;
 using PluralizeService.Core;
 using Syncfusion.XlsIO;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Reflection;
+using System.Text;
 using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
@@ -17,8 +21,8 @@ namespace AprajitaRetails.Server.Importer
     //SN	Date	InvoiceNo	Customer 	Mobile	PayMode	BillAmount
     public class NewSaleInfo
     {
-        [Key]
-        public int SN { set; get; }
+       // [Key]
+        public int? SN { set; get; }
         public DateTime? Date { get; set; }
         public string? InvoiceNo { get; set; }
         public string? Customer { get; set; }
@@ -28,11 +32,11 @@ namespace AprajitaRetails.Server.Importer
     }
     public class NewSale
     {//SN	Date	Invoice No	Customer	Mobile	Barcode	MRP	QTY	Discount	LineTotal	BillAmount	PayMode
-        [Key]
-        public int SN { set; get; }
+        //[Key]
+        public int? SN   { set; get; }
 
-        public DateTime Date { get; set; }
-        public string InvoiceNo { get; set; }
+        public DateTime? Date { get; set; }
+        public string? InvoiceNo { get; set; }
         public string? Customer { get; set; }
         public string? Mobile { get; set; }
         public string? Barcode { get; set; }
@@ -48,8 +52,8 @@ namespace AprajitaRetails.Server.Importer
     {
         //Date	InvoiceNo	Barcode	Quantity	MRP	CostPrice	
         //Discount %	DiscountAmount	BasicPrice	TaxAmount	SalePrice	RoundOff	BilAmount	Profit/Loss
-        [Key]
-        public int SN { set; get; }
+       // [Key]
+        public int ?SN { set; get; }
         public DateTime? Date { get; set; }
         public string? InvoiceNo { get; set; }
         //public string? Customer { get; set; }
@@ -79,6 +83,22 @@ namespace AprajitaRetails.Server.Importer
                 using StreamReader reader = new StreamReader(filename);
                 var json = reader.ReadToEnd();
                 reader.Close();
+                // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
+                return JsonSerializer.Deserialize<List<T>>(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public static List<T>? JsonToObject<T>(string  json)
+        {
+            try
+            {
+               // using StreamReader reader = new StreamReader(filename);
+                //var json = reader.ReadToEnd();
+                //reader.Close();
                 // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
                 return JsonSerializer.Deserialize<List<T>>(json);
             }
@@ -148,27 +168,124 @@ namespace AprajitaRetails.Server.Importer
                 IApplication application = excelEngine.Excel;
                 application.DefaultVersion = ExcelVersion.Excel2016;
                 var filename = Path.Combine(path, @"Data/gstdata.xlsm");
-                using StreamReader reader = new StreamReader(filename);
+               // using StreamReader reader = new StreamReader(filename);
+                using FileStream reader = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite);
+
                 //Opening the encrypted Workbook
-                IWorkbook workbook = application.Workbooks.Open(reader.BaseStream, ExcelParseOptions.Default);
+                IWorkbook workbook = application.Workbooks.Open(reader, ExcelParseOptions.Default);
+                reader.Close();
+
                 //Accessing first worksheet in the workbook
                 IWorksheet worksheet = workbook.Worksheets[worksheetName];
                 IRange range = worksheet.Range[rangeI];
                 //Save the document as a stream and return the stream
-                using (MemoryStream stream = new MemoryStream())
+
+               var dt= worksheet.ExportDataTable(range, ExcelExportDataTableOptions.ColumnNames);
+
+                var objList = ConvertDataTable<T>(dt);
+                return objList;
+                //using (MemoryStream stream = new MemoryStream())
+                //{
+                //    //Save the created Excel document to MemoryStream
+                //    //if (option == "Workbook")
+                //    //    workbook.SaveAsJson(stream, isSchema);
+                //    //else if (option == "Worksheet")
+                //    //    workbook.SaveAsJson(stream, worksheet, isSchema);
+                //    //else if (option == "Range")
+                //    //    workbook.SaveAsJson(stream, range, isSchema);
+                //    workbook.SaveAsJson(stream, range, true);
+                //    byte[] json = new byte[stream.Length];
+                //    stream.Position = 0;
+                //    stream.Read(json, 0, (int)stream.Length);
+                //    string jsonString = Encoding.UTF8.GetString(json);
+                //    stream.Position = 0;
+                //    JObject j = JObject.Parse(jsonString);
+                //    var jstr = j[worksheetName].ToString();
+                //  var x4=  JsonSerializer.Serialize(jstr);
+                //    //var tx = j[worksheetName].ToObject<List<T>>();
+                //   // return tx;
+                //     return JsonToObject<T>(x4);
+                //}
+            }
+        }
+        private static List<T> ConvertDataTable<T>(DataTable dt)
+        {
+            List<T> data = new List<T>();
+            foreach (DataRow row in dt.Rows)
+            {
+                T item = GetItem<T>(row);
+                data.Add(item);
+            }
+            return data;
+        }
+
+        private static T GetItem<T>(DataRow dr)
+        {
+            Type temp = typeof(T);
+            T obj = Activator.CreateInstance<T>();
+
+            foreach (DataColumn column in dr.Table.Columns)
+            {
+                if(dr[column.ColumnName] !=null)
+                foreach (PropertyInfo pro in temp.GetProperties())
                 {
-                    //Save the created Excel document to MemoryStream
-                    //if (option == "Workbook")
-                    //    workbook.SaveAsJson(stream, isSchema);
-                    //else if (option == "Worksheet")
-                    //    workbook.SaveAsJson(stream, worksheet, isSchema);
-                    //else if (option == "Range")
-                    //    workbook.SaveAsJson(stream, range, isSchema);
-                    workbook.SaveAsJson(stream, range, isSchema);
-                    reader.Close();
-                    return JsonToObject<T>(stream);
+                    if (pro.Name == column.ColumnName)
+                    {
+                        switch (column.ColumnName)
+                        {
+                            case "Amount":
+                            case "BillAmount":
+                            case "Qty":
+                            case "Quantity":
+                            case "MRP":
+                            case "LineTotal":
+                            case "SaleAmount":
+                            case "CostPrice":
+                            case "TaxAmount":
+                            case "BasicPrice":
+                            case "RoundOff":
+                            case "ProfitLoss":
+
+                            case "Discount":
+                            case "DiscountAmount":
+                                pro.SetValue(obj, decimal.Parse((string)dr[column.ColumnName]), null);
+                                break;
+                            case "Date":
+                            case "OnDate":
+                                pro.SetValue(obj, DateTime.Parse((string)dr[column.ColumnName]), null);
+                                break;
+                            case "EntryStatus":
+                            //case "PayMode":
+                                pro.SetValue(obj, int.Parse((string)dr[column.ColumnName]), null);
+                                break;
+                            case "IsDue":
+                            case "ManualBill":
+                            case "SalesReturn":
+                            case "TailoringBill":
+                            case "IsReadOnly":
+                            case "MarkedDeleted":
+
+
+                                pro.SetValue(obj, bool.Parse((string)dr[column.ColumnName]), null);
+                                break;
+                            case "EDCTerminalId":
+                                pro.SetValue(obj, null, null);
+                                break;
+                            case "SN":
+                                pro.SetValue(obj, int.Parse((string)dr[column.ColumnName]), null);
+                                break;
+                            default:
+                                if (dr[column.ColumnName] != null)
+                                    pro.SetValue(obj, dr[column.ColumnName], null);
+                                break;
+                        }
+
+                    }
+                    else
+                        continue;
                 }
             }
+            return obj;
         }
     }
 
