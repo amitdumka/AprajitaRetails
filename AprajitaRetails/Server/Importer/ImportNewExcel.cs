@@ -109,7 +109,7 @@ namespace AprajitaRetails.Server.Importer
             {
 
 
-                // var InvInfo = JsonToObject<NewSaleInfo>(ImportData(path, "InvoiceList", "O1:U127", false));
+                //var InvInfo = JsonToObject<NewSaleInfo>(ImportData(path, "InvoiceList", "O1:U127", false));
                 //var Invsale = JsonToObject<NewSaleInfo>(ImportData(path, "InvoiceList", "A1:L274", false));
                 //var InvProfit = JsonToObject<NewSaleInfo>(ImportData(path, "PofitLoss", "A1:N564", false));
 
@@ -142,7 +142,7 @@ namespace AprajitaRetails.Server.Importer
                 using StreamWriter writer11 = new StreamWriter(Path.Combine(path, "Data/InvInfo.json"));
                 await writer11.WriteAsync(JSONFILE);
                 writer.Close();
-               
+
                 JSONFILE = JsonSerializer.Serialize<List<NewSale>>(Invsale);
                 using StreamWriter writer12 = new StreamWriter(Path.Combine(path, "Data/InvDetail.json"));
                 await writer12.WriteAsync(JSONFILE);
@@ -313,27 +313,169 @@ namespace AprajitaRetails.Server.Importer
             return obj;
 
         }
-   
+
         private decimal DisAmt(decimal mrp, decimal dis)
         {
             return mrp * (dis / 100);
         }
-    
+        private static decimal GetBasicAmt(decimal amt, Unit unit)
+        {
+            decimal TaxRate = 5;
+            if (unit != Unit.Meters && amt > 999) TaxRate = 12;
+            //Need to implement for jacket and other then 12 % option
+            TaxRate = TaxRate / 100;
+            var Basic = amt / (1 + TaxRate);
+            return Basic;
+        }
+
         // Generate Sale Inv from New Sale
         public static void GenerateSaleInv(string json, ARDBContext db)
         {
             var sales = JsonToObject<NewSale>(json);
             List<ProductSale> pSale = new List<ProductSale>();
-            List<SaleItem> saleItems= new List<SaleItem>();
+            List<SaleItem> saleItems = new List<SaleItem>();
 
             foreach (var im in sales)
             {
-                SaleItem si = new SaleItem {
-                Adjusted=false, Barcode=im.Barcode, BilledQty=(decimal)im.Qty, 
-                DiscountAmount=(decimal)im.MRP *( (decimal)im.Discount/100), FreeQty=0, InvoiceNumber=im.InvoiceNo, 
-                LastPcs=false, Value=(decimal)im.LineTotal,  TaxType=TaxType.GST, 
-                }; 
+                SaleItem si = new SaleItem
+                {
+                    Adjusted = false,
+                    Barcode = im.Barcode,
+                    BilledQty = (decimal)im.Qty,
+                    DiscountAmount = (decimal)im.Discount / 100,
+                    FreeQty = 0,
+                    InvoiceNumber = im.InvoiceNo,
+                    LastPcs = false,
+                    Value = (decimal)im.LineTotal,
+                    TaxType = TaxType.GST,
+                    Unit = Unit.NoUnit,
+                    InvoiceType = (decimal)im.Qty > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
+                    BasicAmount = 0,
+                    TaxAmount = 0,
+                };
+                si.Unit = (decimal)im.Qty % 1 == 0 ? Unit.Meters : Unit.NoUnit;
+                if (si.Unit == Unit.Meters)
+                {
+                    si.BasicAmount = GetBasicAmt(si.Value, Unit.Meters);
+                    si.TaxAmount = si.Value - si.BasicAmount;
+                }
+                saleItems.Add(si);
             }
+
+            var pis = db.ProductItems.Select(c => new { c.Barcode, c.Unit, c.MRP }).ToList();
+
+            foreach (var im in saleItems)
+            {
+                var s = pis.Where(c => c.Barcode == im.Barcode).First();
+                if (s != null)
+                {
+                    im.Unit = s.Unit;
+                    im.DiscountAmount = s.MRP * im.DiscountAmount;
+                    if (im.Unit == Unit.Meters)
+                    {
+                        im.BasicAmount = GetBasicAmt(im.Value, Unit.Meters);
+                        im.TaxAmount = im.Value - im.BasicAmount;
+                    }
+                }
+                else
+                {
+                    var x = sales.Where(c => c.Barcode == im.Barcode && c.InvoiceNo == im.InvoiceNumber).First();
+
+                    ProductItem p = new ProductItem
+                    {
+                        HSNCode = "",
+                        Description = "",
+                        BrandCode = "",
+                        Barcode = im.Barcode,
+                        MRP = x.MRP.Value,
+                        Name = "#MISSINGINFO",
+                        Unit = Unit.NoUnit,
+                        TaxType = TaxType.GST,
+                        SubCategory = "",
+                        StyleCode = "",
+                        Size = Size.NOTVALID,
+                        ProductTypeId = "",
+                        ProductCategory = ProductCategory.Others
+
+                    };
+                    // Productitem as Reject then confirm when item is added.
+                    im.DiscountAmount = x.MRP.Value * im.DiscountAmount;
+                    if (im.Unit == Unit.Meters)
+                    {
+                        im.BasicAmount = GetBasicAmt(im.Value, Unit.Meters);
+                        im.TaxAmount = im.Value - im.BasicAmount;
+                    }
+                    db.ProductItems.Add(p);
+
+                }
+            }
+
+
+            var ins = saleItems.GroupBy(c => c.InvoiceNumber).
+                Select(c => new ProductSale
+                {
+                    Adjusted = false,
+                    EntryStatus = EntryStatus.Added,
+                    FreeQty = 0,
+                    InvoiceNo = c.Key,
+                    IsReadOnly = true,
+                    MarkedDeleted = false,
+                    Taxed = true,
+                    StoreId = "ARD",
+                    Paid = true,
+                    Tailoring = false,
+                    UserId = "AutoAdmin",
+                    SalesmanId = "ARD/SM/0001",
+                    OnDate = sales.Where(x => x.InvoiceNo == c.Key).First().Date.Value,
+                    BilledQty = c.Sum(x => x.BilledQty),
+                    TotalBasicAmount = c.Sum(x => x.BasicAmount),
+                    TotalDiscountAmount = c.Sum(x => x.DiscountAmount),
+                    TotalTaxAmount = c.Sum(x => x.TaxAmount),
+                    TotalMRP = c.Sum(x => x.DiscountAmount + x.Value),
+                    InvoiceType = c.Select(x => x.InvoiceType).First(),
+                    TotalPrice = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value,
+                    RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - c.Sum(x => x.Value)
+                }).ToList();
+
+            var forP = sales.Where(c => string.IsNullOrEmpty(c.PayMode) == false)
+           .Select(c => new SalePaymentDetail
+           {
+               InvoiceNumber = c.InvoiceNo,
+               PaidAmount = c.BillAmount.Value,
+               RefId = "Missing",
+               PayMode = PayModeType(c.PayMode)
+           }).ToList();
+
+            foreach(var im in forP.Where(c => c.PayMode == PayMode.Card))
+            {
+                CardPaymentDetail cd = new CardPaymentDetail {
+                    AuthCode=0, Card=Card.DebitCard, CardLastDigit=-1,
+                    CardType=CardType.Rupay, InvoiceNumber=im.InvoiceNumber,
+                     PaidAmount=im.PaidAmount, EDCTerminalId=null, 
+
+                };
+                db.CardPaymentDetails.Add(cd);
+            }
+
+        }
+
+        private static PayMode PayModeType(string p) {
+
+            switch (p.ToLower())
+            {
+                case "cash": return PayMode.Cash;
+                case "card": return PayMode.Card;
+                case "upi":return PayMode.UPI;
+                case "mix": return PayMode.MixPayments;
+                case "icicipine": return PayMode.Card;
+                case "icicipineupi": return PayMode.UPI;
+
+                default:
+                    if (p.ToLower().Contains("mix")) return PayMode.MixPayments;
+                    else return PayMode.Others;
+                   
+            }
+            
         }
         public static void FillMissingInvInProfitList(string pathfileName, string invListRange, string profitRange)
         {
@@ -365,9 +507,9 @@ namespace AprajitaRetails.Server.Importer
 
                 //var objList = ConvertDataTable<T>(dt);
                 //return objList;
-                
+
             }
         }
-    
+
     }
 }
