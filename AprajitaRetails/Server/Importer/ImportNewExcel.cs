@@ -1,10 +1,16 @@
 ﻿using AprajitaRetails.Server.Data;
-using AprajitaRetails.Shared.Models.Inventory;
+using AprajitaRetails.Shared.Models.Inventory; 
 using Syncfusion.ExcelExport;
 using Syncfusion.XlsIO;
 using System.Data;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text.Json;
+using Syncfusion.XlsIO;
+using Syncfusion.Drawing;
+using System.IO;
+using System;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace AprajitaRetails.Server.Importer
 {
@@ -99,6 +105,33 @@ namespace AprajitaRetails.Server.Importer
                 return null;
             }
         }
+
+        public static async Task<MemoryStream> GetSaleReportFromExcelSheetAsync(string path,ARDBContext db)
+        {
+            try
+            {
+                //var InvInfo = ImportData<NewSaleInfo>(path, "InvoiceList", "O1:U126", false);
+                var Invsale = ImportData<NewSale>(path, "InvoiceList", "A1:L261", false);
+
+                //var JSONFILE = JsonSerializer.Serialize<List<NewSaleInfo>>(InvInfo);
+                //using StreamWriter writer = new StreamWriter(Path.Combine(path, "Data/InvInfo.json"));
+                //await writer.WriteAsync(JSONFILE);
+                //writer.Close();
+
+                var JSONFILE = JsonSerializer.Serialize<List<NewSale>>(Invsale);
+                using StreamWriter writer1 = new StreamWriter(Path.Combine(path, "Data/InvDetail.json"));
+                await writer1.WriteAsync(JSONFILE);
+                writer1.Close();
+
+               return GenerateSaleInv(JSONFILE, db);
+            }
+            catch (Exception ex)
+            {
+                return null; 
+            }
+        }
+
+
         public static async Task<bool> NewData(string path, ARDBContext db)
         {
 
@@ -131,27 +164,27 @@ namespace AprajitaRetails.Server.Importer
                 JSONFILE = JsonSerializer.Serialize<List<string>>(invs2);
                 using StreamWriter writer2 = new StreamWriter(Path.Combine(path, "Data/inv2.json"));
                 await writer2.WriteAsync(JSONFILE);
-                writer.Close();
+                writer2.Close();
 
                 JSONFILE = JsonSerializer.Serialize<List<string>>(miss);
                 using StreamWriter writer1 = new StreamWriter(Path.Combine(path, "Data/miss.json"));
                 await writer1.WriteAsync(JSONFILE);
-                writer.Close();
+                writer1.Close();
 
                 JSONFILE = JsonSerializer.Serialize<List<NewSaleInfo>>(InvInfo);
                 using StreamWriter writer11 = new StreamWriter(Path.Combine(path, "Data/InvInfo.json"));
                 await writer11.WriteAsync(JSONFILE);
-                writer.Close();
+                writer11.Close();
 
                 JSONFILE = JsonSerializer.Serialize<List<NewSale>>(Invsale);
                 using StreamWriter writer12 = new StreamWriter(Path.Combine(path, "Data/InvDetail.json"));
                 await writer12.WriteAsync(JSONFILE);
-                writer.Close();
+                writer12.Close();
 
                 JSONFILE = JsonSerializer.Serialize<List<NewProfitLoss>>(InvProfit);
                 using StreamWriter writer13 = new StreamWriter(Path.Combine(path, "Data/InvProfitLoss.json"));
                 await writer13.WriteAsync(JSONFILE);
-                writer.Close();
+                writer13.Close();
 
                 return true;
             }
@@ -329,12 +362,11 @@ namespace AprajitaRetails.Server.Importer
         }
 
         // Generate Sale Inv from New Sale
-        public static void GenerateSaleInv(string json, ARDBContext db)
+        public static MemoryStream GenerateSaleInv(string json, ARDBContext db)
         {
             var sales = JsonToObject<NewSale>(json);
             List<ProductSale> pSale = new List<ProductSale>();
             List<SaleItem> saleItems = new List<SaleItem>();
-
             foreach (var im in sales)
             {
                 SaleItem si = new SaleItem
@@ -361,9 +393,7 @@ namespace AprajitaRetails.Server.Importer
                 }
                 saleItems.Add(si);
             }
-
             var pis = db.ProductItems.Select(c => new { c.Barcode, c.Unit, c.MRP }).ToList();
-
             foreach (var im in saleItems)
             {
                 var s = pis.Where(c => c.Barcode == im.Barcode).First();
@@ -410,7 +440,6 @@ namespace AprajitaRetails.Server.Importer
                 }
             }
 
-
             var ins = saleItems.GroupBy(c => c.InvoiceNumber).
                 Select(c => new ProductSale
                 {
@@ -436,7 +465,6 @@ namespace AprajitaRetails.Server.Importer
                     TotalPrice = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value,
                     RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - c.Sum(x => x.Value)
                 }).ToList();
-
             var forP = sales.Where(c => string.IsNullOrEmpty(c.PayMode) == false)
            .Select(c => new SalePaymentDetail
            {
@@ -445,27 +473,121 @@ namespace AprajitaRetails.Server.Importer
                RefId = "Missing",
                PayMode = PayModeType(c.PayMode)
            }).ToList();
-
-            foreach(var im in forP.Where(c => c.PayMode == PayMode.Card))
+            foreach (var im in forP.Where(c => c.PayMode == PayMode.Card))
             {
-                CardPaymentDetail cd = new CardPaymentDetail {
-                    AuthCode=0, Card=Card.DebitCard, CardLastDigit=-1,
-                    CardType=CardType.Rupay, InvoiceNumber=im.InvoiceNumber,
-                     PaidAmount=im.PaidAmount, EDCTerminalId=null, 
+                CardPaymentDetail cd = new CardPaymentDetail
+                {
+                    AuthCode = 0,
+                    Card = Card.DebitCard,
+                    CardLastDigit = -1,
+                    CardType = CardType.Rupay,
+                    InvoiceNumber = im.InvoiceNumber,
+                    PaidAmount = im.PaidAmount,
+                    EDCTerminalId = null,
 
                 };
                 db.CardPaymentDetails.Add(cd);
             }
+            DataTable dt = new DataTable();
+            dt.TableName = "SaleReport";
+            dt = ToDataTable<SaleItem>(saleItems);
+            return CreateExcelfile(dt);
 
         }
+        public static DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
+        }
+        
+        public static MemoryStream CreateExcelfile( DataTable dt)
+        {
+            string Period = "Jan-March/2023";
+            DateTime SDate = DateTime.Today.Date;
+            DateTime EDate = DateTime.Today.Date;
 
-        private static PayMode PayModeType(string p) {
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Xlsx;
+
+                //Create a workbook
+                IWorkbook workbook = application.Workbooks.Create(1);
+                IWorksheet worksheet = workbook.Worksheets[0];
+               
+                //Disable gridlines in the worksheet
+                worksheet.IsGridLinesVisible = false;
+
+                //Enter values to the cells from A3 to A5
+                worksheet.Range["D2"].Text = "Aprajita Retails";
+                worksheet.Range["D3"].Text = "Bhagalpur Road, Dumka";
+                worksheet.Range["D5"].Text = "GSTIN: 20AJHPA7396P";
+
+                worksheet.Range["B7"].Text = "Period";
+                worksheet.Range["C7"].Text = Period;
+
+
+
+                //Make the text bold
+                worksheet.Range["D2:D5"].CellStyle.Font.Bold = true;
+
+                //Merge cells
+                worksheet.Range["D9:E9"].Merge();
+
+                //Enter text to the cell D1 and apply formatting
+                worksheet.Range["D9"].Text = "GST Sale Report";
+                worksheet.Range["D9"].CellStyle.Font.Bold = true;
+                worksheet.Range["D9"].CellStyle.Font.RGBColor =Color.FromArgb(42, 118, 189);
+                worksheet.Range["D9"].CellStyle.Font.Size = 35;
+
+                //Apply alignment in the cell D1
+                worksheet.Range["D9"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                worksheet.Range["D9"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignTop;
+                //Enter values to the cells from D5 to E8
+
+                worksheet.Range["D10"].Text = "Sale Date From";
+                worksheet.Range["E10"].DateTime = SDate.Date;
+                worksheet.Range["G10"].Text = "To";
+                worksheet.Range["H10"].DateTime = EDate.Date;
+
+                worksheet.ImportDataTable(dt, true, 11, 1, true);
+                //Save the document as a stream and retrun the stream.
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    //Save the created Excel document to MemoryStream
+                    workbook.SaveAs(stream);
+                    return stream;
+                }
+
+            }
+        }
+
+        private static PayMode PayModeType(string p)
+        {
 
             switch (p.ToLower())
             {
                 case "cash": return PayMode.Cash;
                 case "card": return PayMode.Card;
-                case "upi":return PayMode.UPI;
+                case "upi": return PayMode.UPI;
                 case "mix": return PayMode.MixPayments;
                 case "icicipine": return PayMode.Card;
                 case "icicipineupi": return PayMode.UPI;
@@ -473,9 +595,9 @@ namespace AprajitaRetails.Server.Importer
                 default:
                     if (p.ToLower().Contains("mix")) return PayMode.MixPayments;
                     else return PayMode.Others;
-                   
+
             }
-            
+
         }
         public static void FillMissingInvInProfitList(string pathfileName, string invListRange, string profitRange)
         {

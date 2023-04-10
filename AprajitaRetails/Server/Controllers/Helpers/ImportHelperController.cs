@@ -1,4 +1,5 @@
-﻿using AprajitaRetails.Server.Data;
+﻿using System.IO;
+using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,14 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             var im = await ImportNewExcel.NewData(hostingEnv.WebRootPath, aRDB);
             // StockImporter stockImporter = new StockImporter(hostingEnv, aRDB, storeid);
             return im;
+        }
+
+        [HttpGet("SaleRP")]
+        public async Task<ActionResult< FileStreamResult>> GetSaleRepAsync()
+        {
+           var dataFile= await ImportNewExcel.GetSaleReportFromExcelSheetAsync(hostingEnv.WebRootPath, aRDB);
+            dataFile.Position = 0;
+            return File(dataFile, "application/octet-stream", "SaleReport.xlsx");
         }
 
         [HttpGet]
