@@ -1,16 +1,10 @@
-﻿using AprajitaRetails.Server.Data;
-using AprajitaRetails.Shared.Models.Inventory; 
-using Syncfusion.ExcelExport;
-using Syncfusion.XlsIO;
-using System.Data;
-using System.Net.NetworkInformation;
+﻿using System.Data;
 using System.Reflection;
 using System.Text.Json;
-using Syncfusion.XlsIO;
+using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.Models.Inventory;
 using Syncfusion.Drawing;
-using System.IO;
-using System;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Syncfusion.XlsIO;
 
 namespace AprajitaRetails.Server.Importer
 {
@@ -38,7 +32,7 @@ namespace AprajitaRetails.Server.Importer
         public string? Mobile { get; set; }
         public string? Barcode { get; set; }
         public decimal? MRP { get; set; }
-        public decimal? Qty { get; set; }
+        public decimal? QTY { get; set; }
         public decimal? Discount { get; set; }
         public decimal? LineTotal { get; set; }
         public decimal? BillAmount { get; set; }
@@ -105,33 +99,24 @@ namespace AprajitaRetails.Server.Importer
                 return null;
             }
         }
-
-        public static async Task<MemoryStream> GetSaleReportFromExcelSheetAsync(string path,ARDBContext db)
+        public static async Task<MemoryStream> GetSaleReportFromExcelSheetAsync(string path, ARDBContext db)
         {
             try
             {
-                //var InvInfo = ImportData<NewSaleInfo>(path, "InvoiceList", "O1:U126", false);
                 var Invsale = ImportData<NewSale>(path, "InvoiceList", "A1:L261", false);
-
-                //var JSONFILE = JsonSerializer.Serialize<List<NewSaleInfo>>(InvInfo);
-                //using StreamWriter writer = new StreamWriter(Path.Combine(path, "Data/InvInfo.json"));
-                //await writer.WriteAsync(JSONFILE);
-                //writer.Close();
 
                 var JSONFILE = JsonSerializer.Serialize<List<NewSale>>(Invsale);
                 using StreamWriter writer1 = new StreamWriter(Path.Combine(path, "Data/InvDetail.json"));
                 await writer1.WriteAsync(JSONFILE);
                 writer1.Close();
 
-               return GenerateSaleInv(JSONFILE, db);
+                return GenerateSaleInv(JSONFILE, db);
             }
             catch (Exception ex)
             {
-                return null; 
+                return null;
             }
         }
-
-
         public static async Task<bool> NewData(string path, ARDBContext db)
         {
 
@@ -194,8 +179,6 @@ namespace AprajitaRetails.Server.Importer
             }
 
         }
-
-        //private IWebHostEnvironment hostingEnv;
         public static List<T>? ImportData<T>(string path, string worksheetName, string rangeI, bool isSchema = false)
         {
             //Excel import
@@ -221,28 +204,7 @@ namespace AprajitaRetails.Server.Importer
 
                 var objList = ConvertDataTable<T>(dt);
                 return objList;
-                //using (MemoryStream stream = new MemoryStream())
-                //{
-                //    //Save the created Excel document to MemoryStream
-                //    //if (option == "Workbook")
-                //    //    workbook.SaveAsJson(stream, isSchema);
-                //    //else if (option == "Worksheet")
-                //    //    workbook.SaveAsJson(stream, worksheet, isSchema);
-                //    //else if (option == "Range")
-                //    //    workbook.SaveAsJson(stream, range, isSchema);
-                //    workbook.SaveAsJson(stream, range, true);
-                //    byte[] json = new byte[stream.Length];
-                //    stream.Position = 0;
-                //    stream.Read(json, 0, (int)stream.Length);
-                //    string jsonString = Encoding.UTF8.GetString(json);
-                //    stream.Position = 0;
-                //    JObject j = JObject.Parse(jsonString);
-                //    var jstr = j[worksheetName].ToString();
-                //  var x4=  JsonSerializer.Serialize(jstr);
-                //    //var tx = j[worksheetName].ToObject<List<T>>();
-                //   // return tx;
-                //     return JsonToObject<T>(x4);
-                //}
+
             }
         }
         private static List<T> ConvertDataTable<T>(DataTable dt)
@@ -255,7 +217,6 @@ namespace AprajitaRetails.Server.Importer
             }
             return data;
         }
-
         private static T GetItem<T>(DataRow dr)
         {
 
@@ -288,7 +249,7 @@ namespace AprajitaRetails.Server.Importer
                                     case "BasicPrice":
                                     case "RoundOff":
                                     case "ProfitLoss":
-
+                                    case "QTY":
                                     case "Discount":
                                     case "DiscountAmount":
                                         pro.SetValue(obj, decimal.Parse((string)dr[column.ColumnName]), null);
@@ -346,10 +307,9 @@ namespace AprajitaRetails.Server.Importer
             return obj;
 
         }
-
         private decimal DisAmt(decimal mrp, decimal dis)
         {
-            return mrp * (dis / 100);
+            return Math.Round(mrp * (dis / 100), 2) ;
         }
         private static decimal GetBasicAmt(decimal amt, Unit unit)
         {
@@ -358,45 +318,54 @@ namespace AprajitaRetails.Server.Importer
             //Need to implement for jacket and other then 12 % option
             TaxRate = TaxRate / 100;
             var Basic = amt / (1 + TaxRate);
-            return Basic;
+            return Math.Round(Basic,2);
         }
-
         // Generate Sale Inv from New Sale
         public static MemoryStream GenerateSaleInv(string json, ARDBContext db)
         {
             var sales = JsonToObject<NewSale>(json);
             List<ProductSale> pSale = new List<ProductSale>();
             List<SaleItem> saleItems = new List<SaleItem>();
-            foreach (var im in sales)
+            int xx = 0;
+            try
             {
-                SaleItem si = new SaleItem
+                foreach (var im in sales)
                 {
-                    Adjusted = false,
-                    Barcode = im.Barcode,
-                    BilledQty = (decimal)im.Qty,
-                    DiscountAmount = (decimal)im.Discount / 100,
-                    FreeQty = 0,
-                    InvoiceNumber = im.InvoiceNo,
-                    LastPcs = false,
-                    Value = (decimal)im.LineTotal,
-                    TaxType = TaxType.GST,
-                    Unit = Unit.NoUnit,
-                    InvoiceType = (decimal)im.Qty > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
-                    BasicAmount = 0,
-                    TaxAmount = 0,
-                };
-                si.Unit = (decimal)im.Qty % 1 == 0 ? Unit.Meters : Unit.NoUnit;
-                if (si.Unit == Unit.Meters)
-                {
-                    si.BasicAmount = GetBasicAmt(si.Value, Unit.Meters);
-                    si.TaxAmount = si.Value - si.BasicAmount;
+                    SaleItem si = new SaleItem
+                    {
+                        Adjusted = false,
+                        Barcode = im.Barcode,
+                        BilledQty = (decimal)im.QTY.Value,
+                        DiscountAmount = (decimal)im.Discount.Value / 100,
+                        FreeQty = 0,
+                        InvoiceNumber = im.InvoiceNo,
+                        LastPcs = false,
+                        Value = (decimal)im.LineTotal.Value,
+                        TaxType = TaxType.GST,
+                        Unit = Unit.NoUnit,
+                        InvoiceType = (decimal)im.QTY.Value > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
+                        BasicAmount = 0,
+                        TaxAmount = 0,
+                    };
+                    si.Unit = (decimal)im.QTY % 1 == 0 ? Unit.Meters : Unit.NoUnit;
+                    if (si.Unit == Unit.Meters)
+                    {
+                        si.BasicAmount = GetBasicAmt(si.Value, Unit.Meters);
+                        si.TaxAmount = si.Value - si.BasicAmount;
+                    }
+                    saleItems.Add(si);
+                    xx++;
                 }
-                saleItems.Add(si);
+            }
+            catch (Exception ex)
+            {
+                xx++;
+                return null;
             }
             var pis = db.ProductItems.Select(c => new { c.Barcode, c.Unit, c.MRP }).ToList();
             foreach (var im in saleItems)
             {
-                var s = pis.Where(c => c.Barcode == im.Barcode).First();
+                var s = pis.Where(c => c.Barcode == im.Barcode).FirstOrDefault();
                 if (s != null)
                 {
                     im.Unit = s.Unit;
@@ -435,7 +404,8 @@ namespace AprajitaRetails.Server.Importer
                         im.BasicAmount = GetBasicAmt(im.Value, Unit.Meters);
                         im.TaxAmount = im.Value - im.BasicAmount;
                     }
-                    db.ProductItems.Add(p);
+                    if(db.ProductItems.Local.Where(c=>c.Barcode==p.Barcode).Count()==0)
+                        db.ProductItems.Add(p);
 
                 }
             }
@@ -517,8 +487,7 @@ namespace AprajitaRetails.Server.Importer
             //put a breakpoint here and check datatable
             return dataTable;
         }
-        
-        public static MemoryStream CreateExcelfile( DataTable dt)
+        public static MemoryStream CreateExcelfile(DataTable dt)
         {
             string Period = "Jan-March/2023";
             DateTime SDate = DateTime.Today.Date;
@@ -532,7 +501,7 @@ namespace AprajitaRetails.Server.Importer
                 //Create a workbook
                 IWorkbook workbook = application.Workbooks.Create(1);
                 IWorksheet worksheet = workbook.Worksheets[0];
-               
+
                 //Disable gridlines in the worksheet
                 worksheet.IsGridLinesVisible = false;
 
@@ -544,43 +513,58 @@ namespace AprajitaRetails.Server.Importer
                 worksheet.Range["B7"].Text = "Period";
                 worksheet.Range["C7"].Text = Period;
 
-
-
                 //Make the text bold
                 worksheet.Range["D2:D5"].CellStyle.Font.Bold = true;
 
                 //Merge cells
-                worksheet.Range["D9:E9"].Merge();
+                worksheet.Range["D9:F9"].Merge();
 
                 //Enter text to the cell D1 and apply formatting
                 worksheet.Range["D9"].Text = "GST Sale Report";
                 worksheet.Range["D9"].CellStyle.Font.Bold = true;
-                worksheet.Range["D9"].CellStyle.Font.RGBColor =Color.FromArgb(42, 118, 189);
-                worksheet.Range["D9"].CellStyle.Font.Size = 35;
+                worksheet.Range["D9"].CellStyle.Font.RGBColor = Color.FromArgb(42, 118, 189);
+                worksheet.Range["D9"].CellStyle.Font.Size = 14;
 
                 //Apply alignment in the cell D1
                 worksheet.Range["D9"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 worksheet.Range["D9"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignTop;
                 //Enter values to the cells from D5 to E8
 
+                worksheet.Range["D10:e10"].Merge();
+                worksheet.Range["F10:G10"].Merge();
+                worksheet.Range["I10:J10"].Merge();
                 worksheet.Range["D10"].Text = "Sale Date From";
-                worksheet.Range["E10"].DateTime = SDate.Date;
-                worksheet.Range["G10"].Text = "To";
-                worksheet.Range["H10"].DateTime = EDate.Date;
+                worksheet.Range["F10"].DateTime = SDate.Date;
+                worksheet.Range["H10"].Text = "To";
+                worksheet.Range["I10"].DateTime = EDate.Date;
 
-                worksheet.ImportDataTable(dt, true, 11, 1, true);
+                dt.Columns.Remove("Id");
+                dt.Columns.Remove("Adjusted");
+                dt.Columns.Remove("FreeQty");
+                dt.Columns.Remove("LastPcs");
+                dt.Columns.Remove("ProductSale");
+                dt.Columns.Remove("ProductItem");
+
+                int rows=  worksheet.ImportDataTable(dt, true, 11, 1, true);
+                worksheet.Range[$"A11:P{11+rows}"].CellStyle.Font.Bold = true;
+                worksheet.Range[$"A11:P{11 + rows}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[$"A11:P{11 + rows}"].BorderAround();
+                worksheet.Range[$"A11:P{11 + rows}"].BorderInside();
+                worksheet.Range[$"A11:P{11 + rows}"].AutofitColumns();
+
+               // int lr = 11 + 2 + rows;
+               // worksheet.Range[$"D{lr}"].SubTotal(4,ConsolidationFunction.Sum,) ;
+
                 //Save the document as a stream and retrun the stream.
-                using (MemoryStream stream = new MemoryStream())
-                {
+                MemoryStream stream = new MemoryStream();
                     //Save the created Excel document to MemoryStream
                     workbook.SaveAs(stream);
                     return stream;
-                }
+                
 
             }
         }
-
-        private static PayMode PayModeType(string p)
+        public static PayMode PayModeType(string p)
         {
 
             switch (p.ToLower())
@@ -634,4 +618,346 @@ namespace AprajitaRetails.Server.Importer
         }
 
     }
+
+
+    //public class SaleReportFromExcel
+    //{
+    //    public static List<T>? JsonToObject<T>(MemoryStream filename)
+    //    {
+    //        try
+    //        {
+    //            using StreamReader reader = new StreamReader(filename);
+    //            var json = reader.ReadToEnd();
+    //            reader.Close();
+    //            // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
+    //            return JsonSerializer.Deserialize<List<T>>(json);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Console.WriteLine(ex.Message);
+    //            return null;
+    //        }
+    //    }
+    //    public static List<T>? JsonToObject<T>(string json)
+    //    {
+    //        try
+    //        {
+    //            // using StreamReader reader = new StreamReader(filename);
+    //            //var json = reader.ReadToEnd();
+    //            //reader.Close();
+    //            // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
+    //            return JsonSerializer.Deserialize<List<T>>(json);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Console.WriteLine(ex.Message);
+    //            return null;
+    //        }
+    //    }
+
+
+    //    private static T GetItem<T>(DataRow dr)
+    //    {
+
+    //        Type temp = typeof(T);
+    //        T obj = Activator.CreateInstance<T>();
+
+    //        foreach (DataColumn column in dr.Table.Columns)
+    //        {
+    //            try
+    //            {
+
+
+    //                if (((string)dr[column.ColumnName]) != null || dr[column.ColumnName] != typeof(DBNull))
+    //                {
+    //                    foreach (PropertyInfo pro in temp.GetProperties())
+    //                    {
+    //                        if (pro.Name == column.ColumnName)
+    //                        {
+    //                            switch (column.ColumnName)
+    //                            {
+    //                                case "Amount":
+    //                                case "BillAmount":
+    //                                case "Qty":
+    //                                case "Quantity":
+    //                                case "MRP":
+    //                                case "LineTotal":
+    //                                case "SaleAmount":
+    //                                case "CostPrice":
+    //                                case "TaxAmount":
+    //                                case "BasicPrice":
+    //                                case "RoundOff":
+    //                                case "ProfitLoss":
+
+    //                                case "Discount":
+    //                                case "DiscountAmount":
+    //                                    pro.SetValue(obj, decimal.Parse((string)dr[column.ColumnName]), null);
+    //                                    break;
+    //                                case "Date":
+    //                                case "OnDate":
+    //                                    pro.SetValue(obj, DateTime.Parse((string)dr[column.ColumnName]), null);
+    //                                    break;
+    //                                case "EntryStatus":
+    //                                    //case "PayMode":
+    //                                    pro.SetValue(obj, int.Parse((string)dr[column.ColumnName]), null);
+    //                                    break;
+    //                                case "IsDue":
+    //                                case "ManualBill":
+    //                                case "SalesReturn":
+    //                                case "TailoringBill":
+    //                                case "IsReadOnly":
+    //                                case "MarkedDeleted":
+
+
+    //                                    pro.SetValue(obj, bool.Parse((string)dr[column.ColumnName]), null);
+    //                                    break;
+    //                                case "EDCTerminalId":
+    //                                    pro.SetValue(obj, null, null);
+    //                                    break;
+    //                                case "SN":
+    //                                    pro.SetValue(obj, int.Parse((string)dr[column.ColumnName]), null);
+    //                                    break;
+    //                                case "Customer":
+    //                                case "Mobile":
+    //                                case "PayMode":
+    //                                case "InvoiceNo":
+    //                                default:
+    //                                    if (!string.IsNullOrEmpty((string)dr[column.ColumnName]))
+    //                                        pro.SetValue(obj, (string)dr[column.ColumnName], null);
+    //                                    break;
+    //                            }
+
+    //                        }
+    //                        else
+    //                            continue;
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    continue;
+    //                }
+    //            }
+    //            catch (Exception)
+    //            {
+
+    //                continue;
+    //            }
+    //        }
+    //        return obj;
+
+    //    }
+
+    //    private decimal DisAmt(decimal mrp, decimal dis)
+    //    {
+    //        return mrp * (dis / 100);
+    //    }
+    //    private static decimal GetBasicAmt(decimal amt, Unit unit)
+    //    {
+    //        decimal TaxRate = 5;
+    //        if (unit != Unit.Meters && amt > 999) TaxRate = 12;
+    //        //Need to implement for jacket and other then 12 % option
+    //        TaxRate = TaxRate / 100;
+    //        var Basic = amt / (1 + TaxRate);
+    //        return Basic;
+    //    }
+
+    //    // Generate Sale Inv from New Sale
+    //    public static MemoryStream GenerateSaleInv(string json, ARDBContext db)
+    //    {
+    //        var sales = JsonToObject<NewSale>(json);
+    //        List<ProductSale> pSale = new List<ProductSale>();
+    //        List<SaleItem> saleItems = new List<SaleItem>();
+    //        foreach (var im in sales)
+    //        {
+    //            SaleItem si = new SaleItem
+    //            {
+    //                Adjusted = false,
+    //                Barcode = im.Barcode,
+    //                BilledQty = (decimal)im.Qty,
+    //                DiscountAmount = (decimal)im.Discount / 100,
+    //                FreeQty = 0,
+    //                InvoiceNumber = im.InvoiceNo,
+    //                LastPcs = false,
+    //                Value = (decimal)im.LineTotal,
+    //                TaxType = TaxType.GST,
+    //                Unit = Unit.NoUnit,
+    //                InvoiceType = (decimal)im.Qty > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
+    //                BasicAmount = 0,
+    //                TaxAmount = 0,
+    //            };
+    //            si.Unit = (decimal)im.Qty % 1 == 0 ? Unit.Meters : Unit.NoUnit;
+    //            if (si.Unit == Unit.Meters)
+    //            {
+    //                si.BasicAmount = GetBasicAmt(si.Value, Unit.Meters);
+    //                si.TaxAmount = si.Value - si.BasicAmount;
+    //            }
+    //            saleItems.Add(si);
+    //        }
+    //        var pis = db.ProductItems.Select(c => new { c.Barcode, c.Unit, c.MRP }).ToList();
+    //        foreach (var im in saleItems)
+    //        {
+    //            var s = pis.Where(c => c.Barcode == im.Barcode).First();
+    //            if (s != null)
+    //            {
+    //                im.Unit = s.Unit;
+    //                im.DiscountAmount = s.MRP * im.DiscountAmount;
+    //                if (im.Unit == Unit.Meters)
+    //                {
+    //                    im.BasicAmount = GetBasicAmt(im.Value, Unit.Meters);
+    //                    im.TaxAmount = im.Value - im.BasicAmount;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                var x = sales.Where(c => c.Barcode == im.Barcode && c.InvoiceNo == im.InvoiceNumber).First();
+
+    //                ProductItem p = new ProductItem
+    //                {
+    //                    HSNCode = "",
+    //                    Description = "",
+    //                    BrandCode = "",
+    //                    Barcode = im.Barcode,
+    //                    MRP = x.MRP.Value,
+    //                    Name = "#MISSINGINFO",
+    //                    Unit = Unit.NoUnit,
+    //                    TaxType = TaxType.GST,
+    //                    SubCategory = "",
+    //                    StyleCode = "",
+    //                    Size = Size.NOTVALID,
+    //                    ProductTypeId = "",
+    //                    ProductCategory = ProductCategory.Others
+
+    //                };
+    //                // Productitem as Reject then confirm when item is added.
+    //                im.DiscountAmount = x.MRP.Value * im.DiscountAmount;
+    //                if (im.Unit == Unit.Meters)
+    //                {
+    //                    im.BasicAmount = GetBasicAmt(im.Value, Unit.Meters);
+    //                    im.TaxAmount = im.Value - im.BasicAmount;
+    //                }
+    //                db.ProductItems.Add(p);
+
+    //            }
+    //        }
+
+    //        var ins = saleItems.GroupBy(c => c.InvoiceNumber).
+    //            Select(c => new ProductSale
+    //            {
+    //                Adjusted = false,
+    //                EntryStatus = EntryStatus.Added,
+    //                FreeQty = 0,
+    //                InvoiceNo = c.Key,
+    //                IsReadOnly = true,
+    //                MarkedDeleted = false,
+    //                Taxed = true,
+    //                StoreId = "ARD",
+    //                Paid = true,
+    //                Tailoring = false,
+    //                UserId = "AutoAdmin",
+    //                SalesmanId = "ARD/SM/0001",
+    //                OnDate = sales.Where(x => x.InvoiceNo == c.Key).First().Date.Value,
+    //                BilledQty = c.Sum(x => x.BilledQty),
+    //                TotalBasicAmount = c.Sum(x => x.BasicAmount),
+    //                TotalDiscountAmount = c.Sum(x => x.DiscountAmount),
+    //                TotalTaxAmount = c.Sum(x => x.TaxAmount),
+    //                TotalMRP = c.Sum(x => x.DiscountAmount + x.Value),
+    //                InvoiceType = c.Select(x => x.InvoiceType).First(),
+    //                TotalPrice = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value,
+    //                RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - c.Sum(x => x.Value)
+    //            }).ToList();
+    //        var forP = sales.Where(c => string.IsNullOrEmpty(c.PayMode) == false)
+    //       .Select(c => new SalePaymentDetail
+    //       {
+    //           InvoiceNumber = c.InvoiceNo,
+    //           PaidAmount = c.BillAmount.Value,
+    //           RefId = "Missing",
+    //           PayMode = PayModeType(c.PayMode)
+    //       }).ToList();
+    //        foreach (var im in forP.Where(c => c.PayMode == PayMode.Card))
+    //        {
+    //            CardPaymentDetail cd = new CardPaymentDetail
+    //            {
+    //                AuthCode = 0,
+    //                Card = Card.DebitCard,
+    //                CardLastDigit = -1,
+    //                CardType = CardType.Rupay,
+    //                InvoiceNumber = im.InvoiceNumber,
+    //                PaidAmount = im.PaidAmount,
+    //                EDCTerminalId = null,
+
+    //            };
+    //            db.CardPaymentDetails.Add(cd);
+    //        }
+    //        DataTable dt = new DataTable();
+    //        dt.TableName = "SaleReport";
+    //        dt = ToDataTable<SaleItem>(saleItems);
+    //        return CreateExcelfile(dt);
+
+    //    }
+    //    public static async Task<MemoryStream> GetSaleReportFromExcelSheetAsync(string path, ARDBContext db)
+    //    {
+    //        try
+    //        {
+    //            //var InvInfo = ImportData<NewSaleInfo>(path, "InvoiceList", "O1:U126", false);
+    //            var Invsale = ImportData<NewSale>(path, "InvoiceList", "A1:L261", false);
+
+    //            //var JSONFILE = JsonSerializer.Serialize<List<NewSaleInfo>>(InvInfo);
+    //            //using StreamWriter writer = new StreamWriter(Path.Combine(path, "Data/InvInfo.json"));
+    //            //await writer.WriteAsync(JSONFILE);
+    //            //writer.Close();
+
+    //            var JSONFILE = JsonSerializer.Serialize<List<NewSale>>(Invsale);
+    //            using StreamWriter writer1 = new StreamWriter(Path.Combine(path, "Data/InvDetail.json"));
+    //            await writer1.WriteAsync(JSONFILE);
+    //            writer1.Close();
+
+    //            return GenerateSaleInv(JSONFILE, db);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            return null;
+    //        }
+    //    }
+    //    public static List<T>? ImportData<T>(string path, string worksheetName, string rangeI, bool isSchema = false)
+    //    {
+    //        //Excel import
+    //        using (ExcelEngine excelEngine = new ExcelEngine())
+    //        {
+    //            //Step 2 : Instantiate the excel application object
+    //            IApplication application = excelEngine.Excel;
+    //            application.DefaultVersion = ExcelVersion.Excel2016;
+    //            var filename = Path.Combine(path, @"Data/gstdata.xlsm");
+    //            // using StreamReader reader = new StreamReader(filename);
+    //            using FileStream reader = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite);
+
+    //            //Opening the encrypted Workbook
+    //            IWorkbook workbook = application.Workbooks.Open(reader, ExcelParseOptions.Default);
+    //            reader.Close();
+
+    //            //Accessing first worksheet in the workbook
+    //            IWorksheet worksheet = workbook.Worksheets[worksheetName];
+    //            IRange range = worksheet.Range[rangeI];
+    //            //Save the document as a stream and return the stream
+
+    //            var dt = worksheet.ExportDataTable(range, ExcelExportDataTableOptions.ColumnNames);
+
+    //            var objList = ConvertDataTable<T>(dt);
+    //            return objList;
+
+    //        }
+    //    }
+    //    private static List<T> ConvertDataTable<T>(DataTable dt)
+    //    {
+    //        List<T> data = new List<T>();
+    //        foreach (DataRow row in dt.Rows)
+    //        {
+    //            T item = GetItem<T>(row);
+    //            data.Add(item);
+    //        }
+    //        return data;
+    //    }
+
+
+    //}
+
 }

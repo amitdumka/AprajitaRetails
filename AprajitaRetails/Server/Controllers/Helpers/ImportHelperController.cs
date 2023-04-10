@@ -36,11 +36,11 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         }
 
         [HttpGet("SaleRP")]
-        public async Task<ActionResult< FileStreamResult>> GetSaleRepAsync()
+        public async Task<ActionResult> GetSaleRepAsync()
         {
            var dataFile= await ImportNewExcel.GetSaleReportFromExcelSheetAsync(hostingEnv.WebRootPath, aRDB);
             dataFile.Position = 0;
-            return File(dataFile, "application/octet-stream", "SaleReport.xlsx");
+            return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
         }
 
         [HttpGet]
