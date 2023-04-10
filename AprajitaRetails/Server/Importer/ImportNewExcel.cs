@@ -443,6 +443,7 @@ namespace AprajitaRetails.Server.Importer
                RefId = "Missing",
                PayMode = PayModeType(c.PayMode)
            }).ToList();
+
             foreach (var im in forP.Where(c => c.PayMode == PayMode.Card))
             {
                 CardPaymentDetail cd = new CardPaymentDetail
