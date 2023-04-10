@@ -1,5 +1,11 @@
-﻿<h3>SaleDetails</h3>
+﻿@page "/sales/{Returns:bool}/{params}/Detail/{*Id}"
+
+<h3>SaleDetails</h3>
 
 @code {
+    [Parameter] public string ID { get; set; }
+    
+    [Parameter] public bool Returns { get; set; } = false;
+    [Parameter] public string Params { get; set; } = "Regular";
 
 }

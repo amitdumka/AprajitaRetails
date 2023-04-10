@@ -127,7 +127,7 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
 
         public bool Adjusted { get; set; }
 
-        public virtual ICollection<SaleItem> Items { get; set; }
+        //public virtual ICollection<SaleItem> Items { get; set; }
         public bool Paid { get; set; }
 
         public string SalesmanId { get; set; }

@@ -14,11 +14,12 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
     public partial class SaleEntry
     {
         string Title = "Sale Invoice ";
-        string backUrl = "/sale/false/Regular";
+        string backUrl = "/sales/false/Regular";
 
         ProductSale? entity = new ProductSale { OnDate = DateTime.Now };
         List<SaleItem>? saleItems = new List<SaleItem>();
         IList<string> payModes = Enum.GetNames(typeof(PayMode));
+        IList<string> invTypes = Enum.GetNames(typeof(InvoiceType));
         IList<SelectOption>? Stores;
         IList<SelectOption>? Salesmen;
         IList<SelectOption>? EDCList;
@@ -116,6 +117,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
         protected override async Task OnInitializedAsync()
         {
+            backUrl = $"/sales/{Returns}/{Params}";
             await FetchSelectData();
             //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
             //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
@@ -142,7 +144,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                     FreeQty = 0,
                     InvoiceNo = "",
                     Paid = false,
-                    InvoiceType = InvoiceType.Sales,
+                    InvoiceType =(InvoiceType)invTypes.IndexOf(Params),
                     Tailoring = false,
                     EntryStatus = EntryStatus.Added,
                     IsReadOnly = false,

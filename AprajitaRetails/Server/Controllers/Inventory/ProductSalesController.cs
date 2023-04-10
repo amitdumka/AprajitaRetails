@@ -48,14 +48,14 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         }
 
         [HttpGet("ByStoreDTO")]
-        public async Task<ActionResult<IEnumerable<ProductSaleDTO>>> GetProductSalesByStoreDTO(string storeid)
+        public async Task<ActionResult<IEnumerable<ProductSaleDTO>>> GetProductSalesByStoreDTO(string storeid, InvoiceType itpe = InvoiceType.Sales)
         {
             if (_context.ProductSales == null)
             {
                 return NotFound();
             }
             return await _context.ProductSales.Include(c => c.Salesman).Include(c => c.Store)
-                .Where(c => c.StoreId == storeid && c.OnDate.Year >= DateTime.Today.Year - 1)
+                .Where(c => c.StoreId == storeid && c.OnDate.Year >= DateTime.Today.Year && c.InvoiceType == itpe)
                 .OrderByDescending(c => c.OnDate).ProjectTo<ProductSaleDTO>(_mapper.ConfigurationProvider)
                .ToListAsync();
         }

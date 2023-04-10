@@ -1,5 +1,4 @@
-﻿
-@page "/sales/{Returns:bool}/{*params}"
+﻿@page "/sales/{Returns:bool}/{*params}"
 
 @inherits AprajitaRetails.BasicViews.IndexView
 
@@ -28,12 +27,13 @@
                  Baseurl=@BaseURL CommandClicked="OnCommandClicked"
                  @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-
 @code {
 
     [Parameter] public string Params { get; set; } = "Regular";
     [Parameter] public bool Returns { get; set; } = false;
+
     InvoiceType invoiceType = InvoiceType.Sales;
+
     string Title = "Regular";
     string BaseURL = $"/sales";
     private List<ProductSaleDTO>? entities;
@@ -70,17 +70,17 @@
 
         if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
         {
-            NavigationManager.NavigateTo($"{BaseURL}/Edit/{this.Returns}/{this.Params}/{true}{args.RowData.InvoiceNo}");
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/{true}/{args.RowData.InvoiceNo}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{this.Returns}/{this.Params}{args.RowData.InvoiceNo}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.InvoiceNo}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{this.Returns}/{this.Params}{args.RowData.InvoiceNo}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.InvoiceNo}");
         }
         else
         {
@@ -97,7 +97,6 @@
         base.OnParametersSetAsync();
     }
 
-
     void SetInvoiceMode()
     {
         if (Returns)
@@ -109,7 +108,7 @@
         switch (Params)
         {
             case "Regular":
-                invoiceType = Returns?InvoiceType.SalesReturn: InvoiceType.Sales;
+                invoiceType = Returns ? InvoiceType.SalesReturn : InvoiceType.Sales;
                 break;
             case "Manual": invoiceType = Returns ? InvoiceType.ManualSaleReturn : InvoiceType.ManualSale; break;
             //case "Service":
@@ -118,12 +117,6 @@
                 break;
         }
 
-
-
     }
-
-
-
-
 
 }

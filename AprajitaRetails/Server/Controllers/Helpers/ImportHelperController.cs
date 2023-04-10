@@ -35,13 +35,19 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return im;
         }
 
-        [HttpGet("SaleRP")]
-        public async Task<ActionResult> GetSaleRepAsync()
+        [HttpGet("NewSaleAdd")]
+        public async Task<ActionResult<bool>> GetNewSaleAddAsync()
         {
-           var dataFile= await ImportNewExcel.GetSaleReportFromExcelSheetAsync(hostingEnv.WebRootPath, aRDB);
-            dataFile.Position = 0;
-            return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
+            return await ImportNewExcel.GetSaleReportFromExcelSheetAsync(hostingEnv.WebRootPath, aRDB);
         }
+
+        //[HttpGet("SaleRP")]
+        //public async Task<ActionResult> GetSaleRepAsync()
+        //{
+        //   var dataFile= await ImportNewExcel.GetSaleReportFromExcelSheetAsync(hostingEnv.WebRootPath, aRDB);
+        //    dataFile.Position = 0;
+        //    return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
+        //}
 
         [HttpGet]
         public ActionResult<List<FileModel>> GetFiles()

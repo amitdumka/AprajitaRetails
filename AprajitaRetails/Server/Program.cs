@@ -8,7 +8,11 @@ using System.Globalization;
 using System.Net;
 using System.Runtime.InteropServices;
 
+
+//"SyncFusionLic": "OTIwMjA3QDMyMzAyZTM0MmUzMFlOM29rWTFKdm1xcXRHZi9Sb1FpQTNCSnhBN1JWSC9oeFNaTjYvYWs5MHc9", 20.4.41
 var builder = WebApplication.CreateBuilder(args);
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("OTIwMjA3QDMyMzAyZTM0MmUzMFlOM29rWTFKdm1xcXRHZi9Sb1FpQTNCSnhBN1JWSC9oeFNaTjYvYWs5MHc9");
+
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
