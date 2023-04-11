@@ -1,6 +1,7 @@
 ﻿using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.JSInterop;
 using Radzen;
 using Syncfusion.Blazor.PivotView;
 using Syncfusion.Blazor.Popups;
@@ -9,6 +10,16 @@ using System.Net.Http.Json;
 
 namespace AprajitaRetails.Client.Helpers
 {
+    public static class FileUtils
+    {
+        public static ValueTask<object> SaveAs(this IJSRuntime js, string filename, byte[] data)
+            => js.InvokeAsync<object>(
+                "saveAsFile",
+                filename,
+                Convert.ToBase64String(data));
+
+    }
+
     public class DataHelper : IAsyncDisposable
     {
         private HttpClient Http;
@@ -95,11 +106,28 @@ namespace AprajitaRetails.Client.Helpers
             throw new NotImplementedException();
         }
 
+        public async Task<byte[]> FetchFileAsync(string url, string condition)
+        {
+            try
+            {
+
+                var x= await Http.GetAsync($"{url}{condition}");
+                x.EnsureSuccessStatusCode();
+              return  await x.Content.ReadAsByteArrayAsync();
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return null;
+            }
+        }
         // Condition ?id=adasd&storeid=ARD etc
         public async Task<List<T>?> FetchAsync<T>(string url, string condition)
         {
             try
             {
+                
                 return await Http.GetFromJsonAsync<List<T>>($"{url}{condition}");
             }
             catch (AccessTokenNotAvailableException exception)

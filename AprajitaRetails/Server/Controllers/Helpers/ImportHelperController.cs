@@ -42,9 +42,9 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         }
 
         [HttpGet("SaleRP")]
-        public async Task<ActionResult> GetSaleRepAsync()
+        public async Task<ActionResult> GetSaleRepAsync(string storeid="ARD", int year=2023, int month=3)
         {
-            var dataFile = SaleReport.GenerateSaleReport(aRDB, "ARD", 2, 2023);
+            var dataFile = SaleReport.GenerateSaleReport(aRDB, storeid, month,year);
             dataFile.Position = 0;
             return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
         }

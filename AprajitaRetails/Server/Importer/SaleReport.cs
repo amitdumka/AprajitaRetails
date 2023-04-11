@@ -2,6 +2,7 @@
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor.Data;
 using Syncfusion.Drawing;
 using Syncfusion.XlsIO;
 
@@ -88,9 +89,10 @@ namespace AprajitaRetails.Server.Importer
 
         public static MemoryStream CreateExcelFile(List<SaleReportVM> dt)
         {
-            string Period = "Jan-March/2023";
-            DateTime SDate = DateTime.Today.Date;
-            DateTime EDate = DateTime.Today.Date;
+            
+            DateTime SDate = dt.Select(c => c.Date).First().Date;// DateTime.Today.Date;
+            DateTime EDate = dt.Select(c => c.Date).Last().Date;//DateTime.Today.Date;
+            string Period = SDate.ToString("MMMM-yyyy");
 
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
@@ -106,14 +108,24 @@ namespace AprajitaRetails.Server.Importer
 
                 //Enter values to the cells from A3 to A5
                 worksheet.Range["D2"].Text = "Aprajita Retails";
-                worksheet.Range["D3"].Text = "Bhagalpur Road, Dumka";
-                worksheet.Range["D5"].Text = "GSTIN: 20AJHPA7396P";
+                worksheet.Range["D3"].Text = "Bhagalpur Road, Near TATA Showroom Dumka";
+                worksheet.Range["D4"].Text = "Email: thearvindstroredumka@gmail.com, Phone: 06434-224461";
+                worksheet.Range["D5"].Text = "GSTIN: 20AJHPA7396P, PAN: AJHPA7396P";
+
+                worksheet.Range["D2"].CellStyle.Font.Bold = true;
+                worksheet.Range["D2"].CellStyle.Font.RGBColor = Color.FromArgb(24, 21, 89);
+                worksheet.Range["D2"].CellStyle.Font.Size = 15;
+
+                //worksheet.Range["D3:D5"].CellStyle.Font.Bold = true;
+                worksheet.Range["D3:D5"].CellStyle.Font.Italic = true;
+                worksheet.Range["D3:D5"].CellStyle.Font.RGBColor = Color.FromArgb(24, 21, 89);
+                worksheet.Range["D3:D5"].CellStyle.Font.Size = 11;
 
                 worksheet.Range["B7"].Text = "Period";
                 worksheet.Range["C7"].Text = Period;
 
                 //Make the text bold
-                worksheet.Range["D2:D5"].CellStyle.Font.Bold = true;
+                //worksheet.Range["D2:D5"].CellStyle.Font.Bold = true;
 
                 //Merge cells
                 worksheet.Range["D9:F9"].Merge();
@@ -127,38 +139,75 @@ namespace AprajitaRetails.Server.Importer
                 //Apply alignment in the cell D1
                 worksheet.Range["D9"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 worksheet.Range["D9"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignTop;
-                //Enter values to the cells from D5 to E8
+                
+                worksheet.Range["b8:h8"].Merge();
+                //worksheet.Range["c8:d8"].Merge();
+                worksheet.Range["b8"].Text = $"Sale Date From : {SDate.Date.ToShortDateString()} To {EDate.Date.ToShortDateString()} ";
+                
+                //worksheet.Range["c8"].DateTime = SDate.Date;
+                //worksheet.Range["e8"].Text = "To";
+                //worksheet.Range["f8"].DateTime = EDate.Date;
 
-                worksheet.Range["D10:e10"].Merge();
-                worksheet.Range["F10:G10"].Merge();
-                worksheet.Range["I10:J10"].Merge();
-                worksheet.Range["D10"].Text = "Sale Date From";
-                worksheet.Range["F10"].DateTime = SDate.Date;
-                worksheet.Range["H10"].Text = "To";
-                worksheet.Range["I10"].DateTime = EDate.Date;
+                worksheet.Range["a7:i8"].CellStyle.Font.RGBColor = Color.FromArgb(64, 63, 66);
+                worksheet.Range["a7:i8"].CellStyle.Font.Size = 12;
+                worksheet.Range["a7:i8"].CellStyle.Font.Bold = true;
+
+                worksheet.Range["a7:i8"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
 
                 DataTable table = DocIO.ToDataTable(dt);
 
-                int rows = worksheet.ImportDataTable(table, true, 11, 1, true);
+                int rows = worksheet.ImportDataTable(table, true, 11, 1, false);
 
-                worksheet.Range[$"A11:P{11 + rows}"].CellStyle.Font.Bold = true;
-                worksheet.Range[$"A11:P{11 + rows}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                worksheet.Range[$"A11:P{11 + rows}"].BorderAround();
-                worksheet.Range[$"A11:P{11 + rows}"].BorderInside();
-                worksheet.Range[$"A11:P{11 + rows}"].AutofitColumns();
+                worksheet.Range[$"A11:q{11}"].CellStyle.Font.Bold = true;
+                worksheet.Range[$"A11:q{11}"].CellStyle.Font.Color = ExcelKnownColors.Violet;
+                worksheet.Range[$"A11:q{11}"].CellStyle.Color=Color.Coral;
 
-                 int lr = 11 + 2 + rows;
-               
-                worksheet.Range[$"F{lr}"].Number=worksheet.Range[$"F11:F{12+rows}"].Sum();
-                worksheet.Range[$"i{lr}"].Number = worksheet.Range[$"i11:i{12 + rows}"].Sum();
-                worksheet.Range[$"k{lr}"].Number = worksheet.Range[$"k11:k{12 + rows}"].Sum();
-                worksheet.Range[$"l{lr}"].Number = worksheet.Range[$"l11:l{12 + rows}"].Sum();
+                worksheet.Range[$"A12:q{11 + rows}"].CellStyle.Color = Color.LightSkyBlue;
+                worksheet.Range[$"A12:q{11 + rows}"].CellStyle.Font.Color = ExcelKnownColors.Blue ;
+                worksheet.Range[$"A11:q{11 + rows}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                
+                worksheet.Range[$"A11:q{11 + rows}"].BorderAround();
+                worksheet.Range[$"A11:q{11 + rows}"].BorderInside();
+                worksheet.Range[$"A11:q{11 + rows}"].AutofitColumns();
 
-                worksheet.Range[$"m{lr}"].Number = worksheet.Range[$"m11:m{12 + rows}"].Sum();
-                worksheet.Range[$"n{lr}"].Number = worksheet.Range[$"n11:l{12 + rows}"].Sum();
-                worksheet.Range[$"o{lr}"].Number = worksheet.Range[$"o11:o{12 + rows}"].Sum();
-                worksheet.Range[$"p{lr}"].Number = worksheet.Range[$"p11:p{12 + rows}"].Sum();
-                worksheet.Range[$"q{lr}"].Number = worksheet.Range[$"q11:q{12 + rows}"].Sum();
+                 int lr = 11 + 1 + rows;
+
+                //worksheet.Range[$"F{lr}"].Number=worksheet.Range[$"F11:F{11+rows}"].Sum();
+                //worksheet.Range[$"i{lr}"].Number = worksheet.Range[$"i11:i{11 + rows}"].Sum();
+                //worksheet.Range[$"k{lr}"].Number = worksheet.Range[$"k11:k{11 + rows}"].Sum();
+                //worksheet.Range[$"l{lr}"].Number = worksheet.Range[$"l11:l{11 + rows}"].Sum();
+
+                //worksheet.Range[$"m{lr}"].Number = worksheet.Range[$"m11:m{11 + rows}"].Sum();
+                //worksheet.Range[$"n{lr}"].Number = worksheet.Range[$"n11:n{11 + rows}"].Sum();
+                //worksheet.Range[$"o{lr}"].Number = worksheet.Range[$"o11:o{11 + rows}"].Sum();
+                //worksheet.Range[$"p{lr}"].Number = worksheet.Range[$"p11:p{11+ rows}"].Sum();
+                //worksheet.Range[$"q{lr}"].Number = worksheet.Range[$"q11:q{11 + rows}"].Sum();
+                worksheet.Range[$"F{lr}"].Formula = $"=sum(F11:F{11 + rows})";
+                worksheet.Range[$"i{lr}"].Formula = $"=sum(i11:i{11 + rows})";
+                worksheet.Range[$"k{lr}"].Formula = $"=sum(k11:k{11 + rows})";
+                worksheet.Range[$"l{lr}"].Formula = $"=sum(l11:l{11 + rows})";
+
+                worksheet.Range[$"m{lr}"].Formula = $"=sum(m11:m{11 + rows})";
+                worksheet.Range[$"n{lr}"].Formula = $"=sum(n11:n{11 + rows})";
+                worksheet.Range[$"o{lr}"].Formula = $"=sum(o11:o{11 + rows})";
+                worksheet.Range[$"p{lr}"].Formula = $"=sum(p11:p{11 + rows})";
+                worksheet.Range[$"q{lr}"].Formula = $"=sum(q11:q{11 + rows})";
+                worksheet.Range[$"e{lr}"].Text = "Total";
+                worksheet.Range[$"c{lr}"].Formula = $"=Count(q11:q{11 + rows}))";
+
+                worksheet.Range[$"A{lr}:q{lr}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                worksheet.Range[$"A{lr}:q{lr}"].CellStyle.Font.Size = 14;
+                worksheet.Range[$"A{lr}:q{lr}"].CellStyle.Font.Bold=true;
+                worksheet.Range[$"A{lr}:q{lr}"].CellStyle.Font.Color = ExcelKnownColors.Red;
+
+                worksheet.Range[$"A{lr}:q{lr}"].BorderAround();
+                worksheet.Range[$"A{lr}:q{lr}"].BorderInside();
+                //worksheet.Range[$"A{lr}:q{lr}"].AutofitColumns();
+
+
+
+
+
                 //Save the document as a stream and retrun the stream.
                 MemoryStream stream = new MemoryStream();
                 //Save the created Excel document to MemoryStream

@@ -34,6 +34,16 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             }
             return await _context.ProductSales.ToListAsync();
         }
+        [HttpGet("YearList")]
+        public async Task<ActionResult<IEnumerable<int>>> GetProductSales(string storeid)
+        {
+            if (_context.ProductSales == null)
+            {
+                return NotFound();
+            }
+            return await _context.ProductSales.Where(c=>c.StoreId==storeid).Select(c=>c.OnDate.Year).Distinct().OrderBy(c=>c).ToListAsync();
+        }
+
         [HttpGet("ByStore")]
         public async Task<ActionResult<IEnumerable<ProductSale>>> GetProductSalesByStore(string storeid, InvoiceType itpe = InvoiceType.Sales)
         {
