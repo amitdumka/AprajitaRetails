@@ -41,13 +41,13 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return await ImportNewExcel.GetSaleReportFromExcelSheetAsync(hostingEnv.WebRootPath, aRDB);
         }
 
-        //[HttpGet("SaleRP")]
-        //public async Task<ActionResult> GetSaleRepAsync()
-        //{
-        //   var dataFile= await ImportNewExcel.GetSaleReportFromExcelSheetAsync(hostingEnv.WebRootPath, aRDB);
-        //    dataFile.Position = 0;
-        //    return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
-        //}
+        [HttpGet("SaleRP")]
+        public async Task<ActionResult> GetSaleRepAsync()
+        {
+            var dataFile = SaleReport.GenerateSaleReport(aRDB, "ARD", 2, 2023);
+            dataFile.Position = 0;
+            return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
+        }
 
         [HttpGet]
         public ActionResult<List<FileModel>> GetFiles()

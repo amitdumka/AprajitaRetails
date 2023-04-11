@@ -1,13 +1,174 @@
 ﻿using System.Data;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
+using Microsoft.EntityFrameworkCore;
 using Syncfusion.Drawing;
 using Syncfusion.XlsIO;
 
 namespace AprajitaRetails.Server.Importer
 {
+    public class SaleReportVM
+    {
+        public InvoiceType InvoiceType { get; set; }
+        public DateTime Date { get; set; }
+        public string InvoiceNumber { get; set; }
+        public string Product { get; set; }
+        public string Barcode { get; set; }
+        public decimal BilledQty { get; set; }
+        public Unit Unit { get; set; }
+        public decimal MRP { get; set; }
+        public decimal Discount { get; set; }
+        public TaxType TaxType { get; set; }
+        public decimal BasicAmount { get; set; }
+        public decimal Tax { get; set; }
+        public decimal Amount { get; set; }
+        public decimal BasicValue { get; set; }
+        public decimal TaxValue { get; set; }
+        public decimal RoundOff { get; set; }
+        public decimal BillAmount { get; set; }
+    }
     public class SaleReport
     {
+        public static MemoryStream GenerateSaleReport(ARDBContext db, string storecode, int month, int year)//, string path)
+        {
+            var dataList = db.SaleItems.Include(c => c.ProductSale).Include(c => c.ProductItem).
+                Where(c => c.ProductSale.OnDate.Year == year && c.ProductSale.OnDate.Month == month && c.ProductSale.StoreId == storecode)
+                .OrderBy(c => c.ProductSale.OnDate).ThenBy(c => c.InvoiceType).ThenBy(c => c.InvoiceNumber)
+                .Select(c => new SaleReportVM
+                {
+                    InvoiceType = c.InvoiceType,
+                    Date = c.ProductSale.OnDate,
+                    InvoiceNumber = c.InvoiceNumber,
+                    Product = c.ProductItem.Name,
+                    Barcode = c.Barcode,
+                    BilledQty =
+                    c.BilledQty,
+                    Unit =
+                    c.Unit,
+                    MRP =
+                    c.ProductItem.MRP,
+                    Discount =
+                    c.DiscountAmount,
+                    TaxType =
+                    c.TaxType,
+                    BasicAmount =
+                    c.BasicAmount,
+                    Tax =
+                    c.TaxAmount,
+                    Amount =
+                    c.Value,
+                    RoundOff = c.ProductSale.RoundOff,
+                    BasicValue = c.ProductSale.TotalBasicAmount,
+                    TaxValue = c.ProductSale.TotalTaxAmount,
+                  BillAmount =
+                    c.ProductSale.TotalPrice
+                })
+                .ToList();
+            var invList = dataList.GroupBy(c => c.InvoiceNumber).ToList();
+            int i = 0;
+            List<SaleReportVM> SaleList = new List<SaleReportVM>();
+            foreach (var inv in invList)
+            {
+                var inSum = dataList.Where(c => c.InvoiceNumber == inv.Key).ToList();
+                 i = 0;
+                foreach(var itm in inSum)
+                {
+                    if (i > 0)
+                    {
+                        itm.BillAmount = itm.TaxValue = itm.RoundOff = 0;
+                    }
+                    i++;
+                }
+                SaleList.AddRange(inSum);
+            }
+
+
+            return CreateExcelFile(SaleList);
+        }
+
+        public static MemoryStream CreateExcelFile(List<SaleReportVM> dt)
+        {
+            string Period = "Jan-March/2023";
+            DateTime SDate = DateTime.Today.Date;
+            DateTime EDate = DateTime.Today.Date;
+
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Xlsx;
+
+                //Create a workbook
+                IWorkbook workbook = application.Workbooks.Create(1);
+                IWorksheet worksheet = workbook.Worksheets[0];
+
+                //Disable gridlines in the worksheet
+                worksheet.IsGridLinesVisible = false;
+
+                //Enter values to the cells from A3 to A5
+                worksheet.Range["D2"].Text = "Aprajita Retails";
+                worksheet.Range["D3"].Text = "Bhagalpur Road, Dumka";
+                worksheet.Range["D5"].Text = "GSTIN: 20AJHPA7396P";
+
+                worksheet.Range["B7"].Text = "Period";
+                worksheet.Range["C7"].Text = Period;
+
+                //Make the text bold
+                worksheet.Range["D2:D5"].CellStyle.Font.Bold = true;
+
+                //Merge cells
+                worksheet.Range["D9:F9"].Merge();
+
+                //Enter text to the cell D1 and apply formatting
+                worksheet.Range["D9"].Text = "GST Sale Report";
+                worksheet.Range["D9"].CellStyle.Font.Bold = true;
+                worksheet.Range["D9"].CellStyle.Font.RGBColor = Color.FromArgb(42, 118, 189);
+                worksheet.Range["D9"].CellStyle.Font.Size = 14;
+
+                //Apply alignment in the cell D1
+                worksheet.Range["D9"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                worksheet.Range["D9"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignTop;
+                //Enter values to the cells from D5 to E8
+
+                worksheet.Range["D10:e10"].Merge();
+                worksheet.Range["F10:G10"].Merge();
+                worksheet.Range["I10:J10"].Merge();
+                worksheet.Range["D10"].Text = "Sale Date From";
+                worksheet.Range["F10"].DateTime = SDate.Date;
+                worksheet.Range["H10"].Text = "To";
+                worksheet.Range["I10"].DateTime = EDate.Date;
+
+                DataTable table = DocIO.ToDataTable(dt);
+
+                int rows = worksheet.ImportDataTable(table, true, 11, 1, true);
+
+                worksheet.Range[$"A11:P{11 + rows}"].CellStyle.Font.Bold = true;
+                worksheet.Range[$"A11:P{11 + rows}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[$"A11:P{11 + rows}"].BorderAround();
+                worksheet.Range[$"A11:P{11 + rows}"].BorderInside();
+                worksheet.Range[$"A11:P{11 + rows}"].AutofitColumns();
+
+                 int lr = 11 + 2 + rows;
+               
+                worksheet.Range[$"F{lr}"].Number=worksheet.Range[$"F11:F{12+rows}"].Sum();
+                worksheet.Range[$"i{lr}"].Number = worksheet.Range[$"i11:i{12 + rows}"].Sum();
+                worksheet.Range[$"k{lr}"].Number = worksheet.Range[$"k11:k{12 + rows}"].Sum();
+                worksheet.Range[$"l{lr}"].Number = worksheet.Range[$"l11:l{12 + rows}"].Sum();
+
+                worksheet.Range[$"m{lr}"].Number = worksheet.Range[$"m11:m{12 + rows}"].Sum();
+                worksheet.Range[$"n{lr}"].Number = worksheet.Range[$"n11:l{12 + rows}"].Sum();
+                worksheet.Range[$"o{lr}"].Number = worksheet.Range[$"o11:o{12 + rows}"].Sum();
+                worksheet.Range[$"p{lr}"].Number = worksheet.Range[$"p11:p{12 + rows}"].Sum();
+                worksheet.Range[$"q{lr}"].Number = worksheet.Range[$"q11:q{12 + rows}"].Sum();
+                //Save the document as a stream and retrun the stream.
+                MemoryStream stream = new MemoryStream();
+                //Save the created Excel document to MemoryStream
+                workbook.SaveAs(stream);
+                return stream;
+
+
+            }
+        }
+
         public static MemoryStream CreateExcelFile(DataTable dt)
         {
             string Period = "Jan-March/2023";
@@ -90,7 +251,7 @@ namespace AprajitaRetails.Server.Importer
         {
             var sales = DocIO.JsonToObject<NewSale>(json);
 
-           // List<ProductSale> pSale = new List<ProductSale>();
+            // List<ProductSale> pSale = new List<ProductSale>();
             List<SaleItem> saleItems = new List<SaleItem>();
 
 
@@ -98,32 +259,34 @@ namespace AprajitaRetails.Server.Importer
             {
                 foreach (var im in sales)
                 {
-                    if (im.InvoiceNo.Contains("/")) im.InvoiceNo.Replace("/", "-");
+                    if (im.InvoiceNo != null)
+                    {
+                        if (im.InvoiceNo.Contains(@"/")) im.InvoiceNo = im.InvoiceNo.Replace(@"/", "-");
 
-                    SaleItem si = new SaleItem
-                    {
-                        Adjusted = false,
-                        Barcode = im.Barcode,
-                        BilledQty = (decimal)im.QTY.Value,
-                        DiscountAmount = (decimal)im.Discount.Value / 100,
-                        FreeQty = 0,
-                        InvoiceNumber = im.InvoiceNo,
-                        LastPcs = false,
-                        Value = (decimal)im.LineTotal.Value,
-                        TaxType = TaxType.GST,
-                        Unit = Unit.NoUnit,
-                        InvoiceType = (decimal)im.QTY.Value > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
-                        BasicAmount = 0,
-                        TaxAmount = 0,
-                    };
-                    si.Unit = (decimal)im.QTY % 1 == 0 ? Unit.Meters : Unit.NoUnit;
-                    if (si.Unit == Unit.Meters)
-                    {
-                        si.BasicAmount = DocIO.GetBasicAmt(si.Value, Unit.Meters);
-                        si.TaxAmount = si.Value - si.BasicAmount;
+                        SaleItem si = new SaleItem
+                        {
+                            Adjusted = false,
+                            Barcode = im.Barcode,
+                            BilledQty = (decimal)im.QTY.Value,
+                            DiscountAmount = (decimal)im.Discount.Value / 100,
+                            FreeQty = 0,
+                            InvoiceNumber = im.InvoiceNo,
+                            LastPcs = false,
+                            Value = (decimal)im.LineTotal.Value,
+                            TaxType = TaxType.GST,
+                            Unit = Unit.NoUnit,
+                            InvoiceType = (decimal)im.QTY.Value > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
+                            BasicAmount = 0,
+                            TaxAmount = 0,
+                        };
+                        si.Unit = (decimal)im.QTY % 1 == 0 ? Unit.Meters : Unit.NoUnit;
+                        if (si.Unit == Unit.Meters)
+                        {
+                            si.BasicAmount = DocIO.GetBasicAmt(si.Value, Unit.Meters);
+                            si.TaxAmount = si.Value - si.BasicAmount;
+                        }
+                        saleItems.Add(si);
                     }
-                    saleItems.Add(si);
-
                 }
             }
             catch (Exception ex)
@@ -155,7 +318,7 @@ namespace AprajitaRetails.Server.Importer
                     ProductItem p = new ProductItem
                     {
                         HSNCode = "Missing#",
-                        Description = "Missing#", 
+                        Description = "Missing#",
                         BrandCode = "NOB",
                         Barcode = im.Barcode,
                         MRP = x.MRP.Value,
@@ -201,7 +364,8 @@ namespace AprajitaRetails.Server.Importer
                 }
             }
 
-            var ins = saleItems.GroupBy(c => c.InvoiceNumber).
+            var ins = saleItems.Where(c => !string.IsNullOrEmpty(c.InvoiceNumber)).GroupBy(c => c.InvoiceNumber).
+
                 Select(c => new ProductSale
                 {
                     Adjusted = false,

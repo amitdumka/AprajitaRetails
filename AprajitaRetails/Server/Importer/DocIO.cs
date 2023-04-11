@@ -41,9 +41,11 @@ namespace AprajitaRetails.Server.Importer
                 case "mix": return PayMode.MixPayments;
                 case "icicipine": return PayMode.Card;
                 case "icicipineupi": return PayMode.UPI;
+                case "bomupi": return PayMode.UPI;
 
                 default:
                     if (p.ToLower().Contains("mix")) return PayMode.MixPayments;
+                   else if (p.ToLower().Contains("upi")) return PayMode.UPI;
                     else return PayMode.Others;
 
             }
@@ -190,7 +192,17 @@ namespace AprajitaRetails.Server.Importer
                 return null;
             }
         }
-
+        public static string ObjectToJson<T>(List<T> lists) {
+            return JsonSerializer.Serialize<List<T>>(lists);
+        }
+        public static async Task<string> ObjectToJsonFileAsync<T>(List<T> lists, string path)
+        {
+            var JSONFILE = JsonSerializer.Serialize<List<T>>(lists);
+            using StreamWriter writer = new StreamWriter(path);
+            await writer.WriteAsync(JSONFILE);
+            writer.Close();
+            return JSONFILE;
+        }
     }
 
 }
