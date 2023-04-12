@@ -28,6 +28,32 @@ namespace AprajitaRetails.Server.Importer
         public decimal RoundOff { get; set; }
         public decimal BillAmount { get; set; }
     }
+
+    public class PLVM
+    {
+        public InvoiceType InvoiceType { get; set; }
+        public DateTime Date { get; set; }
+        public string InvoiceNumber { get; set; }
+        public string Product { get; set; }
+        public string Barcode { get; set; }
+        public decimal BilledQty { get; set; }
+        public Unit Unit { get; set; }
+        public decimal MRP { get; set; }
+        public decimal Discount { get; set; }
+        public TaxType TaxType { get; set; }
+        public decimal BasicAmount { get; set; }
+        public decimal Tax { get; set; }
+        public decimal Amount { get; set; }
+        public decimal BasicValue { get; set; }
+        public decimal TaxValue { get; set; }
+        public decimal RoundOff { get; set; }
+        public decimal BillAmount { get; set; }
+        public decimal CostPrice { get; set; }
+        public decimal CostValue { get; set; }
+        public decimal Profit { get; set; }
+        public decimal Percentage { get { return (CostPrice>0?((100*Profit)/CostValue):0); } }
+    }
+
     public class SaleReport
     {
         public static MemoryStream GenerateSaleReport(ARDBContext db, string storecode, int month, int year)//, string path)
@@ -76,6 +102,193 @@ namespace AprajitaRetails.Server.Importer
 
 
             return CreateExcelFile(SaleList);
+        }
+        public static MemoryStream GenerateProfitLossReport(ARDBContext db, string storecode, int month, int year)//, string path)
+        {
+            var dataList = db.SaleItems.Include(c => c.ProductSale).Include(c => c.ProductItem).
+                Where(c => c.ProductSale.OnDate.Year == year && c.ProductSale.OnDate.Month == month && c.ProductSale.StoreId == storecode)
+                .OrderBy(c => c.ProductSale.OnDate).ThenBy(c => c.InvoiceType).ThenBy(c => c.InvoiceNumber)
+                .Join(db.Stocks,o=>o.Barcode,i=>i.Barcode, (c,i)=> new PLVM {
+
+                    InvoiceType = c.InvoiceType,
+                    Date = c.ProductSale.OnDate,
+                    InvoiceNumber = c.InvoiceNumber,
+                    Product = c.ProductItem.Name,
+                    Barcode = c.Barcode,
+                    BilledQty = c.BilledQty,
+                    Unit = c.Unit,
+                    MRP = c.ProductItem.MRP,
+                    Discount = c.DiscountAmount,
+                    TaxType = c.TaxType,
+                    BasicAmount = c.BasicAmount,
+                    Tax = c.TaxAmount,
+                    Amount = c.Value,
+                    RoundOff = c.ProductSale.RoundOff,
+                    BasicValue = c.ProductSale.TotalBasicAmount,
+                    TaxValue = c.ProductSale.TotalTaxAmount,
+                    BillAmount = c.ProductSale.TotalPrice,
+                    CostPrice=i.CostPrice, CostValue=c.BilledQty*i.CostPrice,
+                    Profit=c.Value-(c.BilledQty*i.CostPrice)
+                    
+                })
+                .ToList();
+            var invList = dataList.GroupBy(c => c.InvoiceNumber).ToList();
+            int i = 0;
+            List<PLVM> SaleList = new List<PLVM>();
+            foreach (var inv in invList)
+            {
+                var inSum = dataList.Where(c => c.InvoiceNumber == inv.Key).ToList();
+                i = 0;
+                foreach (var itm in inSum)
+                {
+                    if (i > 0)
+                    {
+                        itm.BillAmount = itm.TaxValue = itm.RoundOff = 0;
+                    }
+                    i++;
+                }
+                SaleList.AddRange(inSum);
+            }
+
+
+            return CreateExcelFile(SaleList);
+        }
+
+        public static MemoryStream CreateExcelFile(List<PLVM> dt)
+        {
+
+            DateTime SDate = dt.Select(c => c.Date).First().Date;// DateTime.Today.Date;
+            DateTime EDate = dt.Select(c => c.Date).Last().Date;//DateTime.Today.Date;
+            string Period = SDate.ToString("MMMM-yyyy");
+
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Xlsx;
+
+                //Create a workbook
+                IWorkbook workbook = application.Workbooks.Create(1);
+                IWorksheet worksheet = workbook.Worksheets[0];
+
+                //Disable gridlines in the worksheet
+                worksheet.IsGridLinesVisible = false;
+
+                //Enter values to the cells from A3 to A5
+                worksheet.Range["D2"].Text = "Aprajita Retails";
+                worksheet.Range["D3"].Text = "Bhagalpur Road, Near TATA Showroom Dumka";
+                worksheet.Range["D4"].Text = "Email: thearvindstroredumka@gmail.com, Phone: 06434-224461";
+                worksheet.Range["D5"].Text = "GSTIN: 20AJHPA7396P, PAN: AJHPA7396P";
+
+                worksheet.Range["D2"].CellStyle.Font.Bold = true;
+                worksheet.Range["D2"].CellStyle.Font.RGBColor = Color.FromArgb(24, 21, 89);
+                worksheet.Range["D2"].CellStyle.Font.Size = 15;
+
+                //worksheet.Range["D3:D5"].CellStyle.Font.Bold = true;
+                worksheet.Range["D3:D5"].CellStyle.Font.Italic = true;
+                worksheet.Range["D3:D5"].CellStyle.Font.RGBColor = Color.FromArgb(24, 21, 89);
+                worksheet.Range["D3:D5"].CellStyle.Font.Size = 11;
+
+                worksheet.Range["B7"].Text = "Period";
+                worksheet.Range["C7"].Text = Period;
+
+                //Make the text bold
+                //worksheet.Range["D2:D5"].CellStyle.Font.Bold = true;
+
+                //Merge cells
+                worksheet.Range["D9:F9"].Merge();
+
+                //Enter text to the cell D1 and apply formatting
+                worksheet.Range["D9"].Text = "Sale Report with Profit Loss";
+                worksheet.Range["D9"].CellStyle.Font.Bold = true;
+                worksheet.Range["D9"].CellStyle.Font.RGBColor = Color.FromArgb(42, 118, 189);
+                worksheet.Range["D9"].CellStyle.Font.Size = 14;
+
+                //Apply alignment in the cell D1
+                worksheet.Range["D9"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                worksheet.Range["D9"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignTop;
+
+                worksheet.Range["b8:h8"].Merge();
+                //worksheet.Range["c8:d8"].Merge();
+                worksheet.Range["b8"].Text = $"Sale Date From : {SDate.Date.ToShortDateString()} To {EDate.Date.ToShortDateString()} ";
+
+                //worksheet.Range["c8"].DateTime = SDate.Date;
+                //worksheet.Range["e8"].Text = "To";
+                //worksheet.Range["f8"].DateTime = EDate.Date;
+
+                worksheet.Range["a7:i8"].CellStyle.Font.RGBColor = Color.FromArgb(64, 63, 66);
+                worksheet.Range["a7:i8"].CellStyle.Font.Size = 12;
+                worksheet.Range["a7:i8"].CellStyle.Font.Bold = true;
+
+                worksheet.Range["a7:i8"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+
+                DataTable table = DocIO.ToDataTable(dt);
+
+                int rows = worksheet.ImportDataTable(table, true, 11, 1, false);
+
+                worksheet.Range[$"A11:u{11}"].CellStyle.Font.Bold = true;
+                worksheet.Range[$"A11:u{11}"].CellStyle.Font.Color = ExcelKnownColors.Violet;
+                worksheet.Range[$"A11:u{11}"].CellStyle.Color = Color.Coral;
+
+                worksheet.Range[$"A12:u{11 + rows}"].CellStyle.Color = Color.LightSkyBlue;
+                worksheet.Range[$"A12:u{11 + rows}"].CellStyle.Font.Color = ExcelKnownColors.Blue;
+                worksheet.Range[$"A11:u{11 + rows}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+
+                worksheet.Range[$"A11:u{11 + rows}"].BorderAround();
+                worksheet.Range[$"A11:u{11 + rows}"].BorderInside();
+                worksheet.Range[$"A11:u{11 + rows}"].AutofitColumns();
+
+                int lr = 11 + 1 + rows;
+
+                //worksheet.Range[$"F{lr}"].Number=worksheet.Range[$"F11:F{11+rows}"].Sum();
+                //worksheet.Range[$"i{lr}"].Number = worksheet.Range[$"i11:i{11 + rows}"].Sum();
+                //worksheet.Range[$"k{lr}"].Number = worksheet.Range[$"k11:k{11 + rows}"].Sum();
+                //worksheet.Range[$"l{lr}"].Number = worksheet.Range[$"l11:l{11 + rows}"].Sum();
+
+                //worksheet.Range[$"m{lr}"].Number = worksheet.Range[$"m11:m{11 + rows}"].Sum();
+                //worksheet.Range[$"n{lr}"].Number = worksheet.Range[$"n11:n{11 + rows}"].Sum();
+                //worksheet.Range[$"o{lr}"].Number = worksheet.Range[$"o11:o{11 + rows}"].Sum();
+                //worksheet.Range[$"p{lr}"].Number = worksheet.Range[$"p11:p{11+ rows}"].Sum();
+                //worksheet.Range[$"q{lr}"].Number = worksheet.Range[$"q11:q{11 + rows}"].Sum();
+                worksheet.Range[$"F{lr}"].Formula = $"=sum(F11:F{11 + rows})";
+                worksheet.Range[$"i{lr}"].Formula = $"=sum(i11:i{11 + rows})";
+                worksheet.Range[$"k{lr}"].Formula = $"=sum(k11:k{11 + rows})";
+                worksheet.Range[$"l{lr}"].Formula = $"=sum(l11:l{11 + rows})";
+
+                worksheet.Range[$"m{lr}"].Formula = $"=sum(m11:m{11 + rows})";
+                worksheet.Range[$"n{lr}"].Formula = $"=sum(n11:n{11 + rows})";
+                worksheet.Range[$"o{lr}"].Formula = $"=sum(o11:o{11 + rows})";
+                worksheet.Range[$"p{lr}"].Formula = $"=sum(p11:p{11 + rows})";
+                worksheet.Range[$"q{lr}"].Formula = $"=sum(q11:q{11 + rows})";
+
+                worksheet.Range[$"s{lr}"].Formula = $"=sum(s11:s{11 + rows})";
+
+                worksheet.Range[$"t{lr}"].Formula = $"=sum(t11:t{11 + rows})";
+                worksheet.Range[$"u{lr}"].Formula = $"=AVERAGE(u11:u{11 + rows})";
+
+                worksheet.Range[$"e{lr}"].Text = "Total";
+                worksheet.Range[$"c{lr}"].Formula = $"=Count(q11:q{11 + rows}))";
+
+                worksheet.Range[$"A{lr}:u{lr}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                worksheet.Range[$"A{lr}:u{lr}"].CellStyle.Font.Size = 14;
+                worksheet.Range[$"A{lr}:u{lr}"].CellStyle.Font.Bold = true;
+                worksheet.Range[$"A{lr}:u{lr}"].CellStyle.Font.Color = ExcelKnownColors.Red;
+
+                worksheet.Range[$"A{lr}:u{lr}"].BorderAround();
+                worksheet.Range[$"A{lr}:u{lr}"].BorderInside();
+                //worksheet.Range[$"A{lr}:q{lr}"].AutofitColumns();
+
+
+
+
+
+                //Save the document as a stream and retrun the stream.
+                MemoryStream stream = new MemoryStream();
+                //Save the created Excel document to MemoryStream
+                workbook.SaveAs(stream);
+                return stream;
+
+
+            }
         }
 
         public static MemoryStream CreateExcelFile(List<SaleReportVM> dt)
@@ -481,6 +694,7 @@ namespace AprajitaRetails.Server.Importer
 
         }
 
+       
 
     }
 

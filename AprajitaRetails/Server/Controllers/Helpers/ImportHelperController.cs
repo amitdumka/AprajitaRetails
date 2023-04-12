@@ -42,11 +42,20 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         }
 
         [HttpGet("SaleRP")]
-        public async Task<ActionResult> GetSaleRepAsync(string storeid="ARD", int year=2023, int month=3)
+        public async Task<ActionResult> GetSaleRepAsync(string storeid="ARD", int year=2023, int month=3, bool pl=false)
         {
-            var dataFile = SaleReport.GenerateSaleReport(aRDB, storeid, month,year);
-            dataFile.Position = 0;
-            return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
+            if (pl)
+            {
+                var dataFile = SaleReport.GenerateProfitLossReport(aRDB, storeid, month, year);
+                dataFile.Position = 0;
+                return File(dataFile, "application/ms-excel", "SaleReportPL.xlsx");
+            }
+            else
+            {
+                var dataFile = SaleReport.GenerateSaleReport(aRDB, storeid, month, year);
+                dataFile.Position = 0;
+                return File(dataFile, "application/ms-excel", "SaleReport.xlsx");
+            }
         }
 
         [HttpGet]

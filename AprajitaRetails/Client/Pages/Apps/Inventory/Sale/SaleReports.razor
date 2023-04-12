@@ -84,10 +84,18 @@
 
 <Row>
     <Column Classes="col.md">
-        <div class="mb-3 row"><div class="col-sm-4">
-            <button class="btn btn-small btn-warning" @onclick="@FetchExcel"> Get Excel</button>
-                </div>
+        <div class="mb-3 row">
+            <div class="col-sm-4">
+                <button class="btn btn-small btn-warning" @onclick="@FetchExcel"> Get Excel</button>
             </div>
+        </div>
+    </Column>
+    <Column Classes="col.md">
+        <div class="mb-3 row">
+            <div class="col-sm-4">
+                <button class="btn btn-small btn-warning" @onclick="@FetchExcelPL"> Get Excel (Profit Loss)</button>
+            </div>
+        </div>
     </Column>
 </Row>
 </ContentMain>
@@ -102,8 +110,13 @@
 
     private async void FetchExcel()
     {
-       // var x = await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}");
-        await JS.SaveAs($"SaleReports-For_{Year}_{Month}.xlsx", await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}"));
+        // var x = await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}");
+        await JS.SaveAs($"SaleReports-For_{Year}_{Month}.xlsx", await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}&pl=false"));
+    }
+    private async void FetchExcelPL()
+    {
+        // var x = await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}");
+        await JS.SaveAs($"SaleReports-For_{Year}_{Month}.xlsx", await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}&pl=true"));
     }
     protected override async Task OnInitializedAsync()
     {
@@ -135,5 +148,5 @@
         }
         return true;
     }
-    
+
 }
