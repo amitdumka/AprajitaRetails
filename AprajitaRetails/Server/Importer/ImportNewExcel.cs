@@ -68,9 +68,9 @@ namespace AprajitaRetails.Server.Importer
         {
             try
             {
-                var Invsale = ImportExcel.ImportData<NewSale>(path, "InvoiceList", "A1:L261", false);
+                var Invsale = ImportExcel.ImportData<NewSale>(path, "InvoiceList", "A1:L276", false);
                 var JSONFILE = JsonSerializer.Serialize<List<NewSale>>(Invsale);
-                using StreamWriter writer1 = new StreamWriter(Path.Combine(path, "Data/InvDetail2.json"));
+                using StreamWriter writer1 = new StreamWriter(Path.Combine(path, "Data/InvDetails.json"));
                 await writer1.WriteAsync(JSONFILE);
                 writer1.Close();
                 return SaleReport.GenerateSaleInv(JSONFILE, db);

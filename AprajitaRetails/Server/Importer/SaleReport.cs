@@ -299,11 +299,12 @@ namespace AprajitaRetails.Server.Importer
         public static bool GenerateSaleInv(string json, ARDBContext db)
         {
             var sales = DocIO.JsonToObject<NewSale>(json);
-
-            // List<ProductSale> pSale = new List<ProductSale>();
+             
             List<SaleItem> saleItems = new List<SaleItem>();
-
-
+            db.ProductSales.RemoveRange(db.ProductSales.Where(c => c.OnDate.Year == 2023).ToList());
+            db.SaveChanges();
+            int count = 0;
+            int miss = 0;
             try
             {
                 foreach (var im in sales)
@@ -335,6 +336,10 @@ namespace AprajitaRetails.Server.Importer
                             si.TaxAmount = si.Value - si.BasicAmount;
                         }
                         saleItems.Add(si);
+                        count++;
+                    }else
+                    {
+                        miss++;
                     }
                 }
             }
@@ -345,7 +350,9 @@ namespace AprajitaRetails.Server.Importer
             }
 
             // Adding Unit and tax details 
-
+            if (count != sales.Count) { 
+                return false; 
+            }
             var pis = db.ProductItems.Select(c => new { c.Barcode, c.Unit, c.MRP }).ToList();
 
             foreach (var im in saleItems)
