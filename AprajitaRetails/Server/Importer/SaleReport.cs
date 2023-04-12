@@ -437,13 +437,17 @@ namespace AprajitaRetails.Server.Importer
                     SalesmanId = "SMN-2016-001",
                     OnDate = sales.Where(x => x.InvoiceNo == c.Key).First().Date.Value,
                     BilledQty = c.Sum(x => x.BilledQty),
+
                     TotalBasicAmount = c.Sum(x => x.BasicAmount),
                     TotalDiscountAmount = c.Sum(x => x.DiscountAmount),
                     TotalTaxAmount = c.Sum(x => x.TaxAmount),
+
                     TotalMRP = c.Sum(x => x.DiscountAmount + x.Value),
+                    
                     InvoiceType = c.Select(x => x.InvoiceType).First(),
+                    
                     TotalPrice = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value,
-                    RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - c.Sum(x => x.Value)
+                    RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.LineTotal).Value
                 }).ToList();
             db.ProductSales.AddRange(ins);
             db.SaleItems.AddRange(saleItems);
