@@ -316,16 +316,18 @@ namespace AprajitaRetails.Server.Importer
                             Value = (decimal)im.LineTotal.Value,
                             TaxType = TaxType.GST,
                             Unit = Unit.NoUnit,
-                            InvoiceType = (decimal)im.QTY.Value > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
+                            InvoiceType = (decimal)im.MRP.Value > 0 ? InvoiceType.Sales : InvoiceType.SalesReturn,
                             BasicAmount = 0,
                             TaxAmount = 0,
                         };
+                      
                         si.Unit = (decimal)im.QTY % 1 == 0 ? Unit.Meters : Unit.NoUnit;
                         if (si.Unit == Unit.Meters)
                         {
                             si.BasicAmount = DocIO.GetBasicAmt(si.Value, Unit.Meters);
                             si.TaxAmount = si.Value - si.BasicAmount;
                         }
+                        if (si.InvoiceType == InvoiceType.SalesReturn) si.BilledQty = 0 - si.BilledQty;
                         saleItems.Add(si);
                         count++;
                     }
