@@ -42,27 +42,18 @@ namespace AprajitaRetails.Server.Importer
                     InvoiceNumber = c.InvoiceNumber,
                     Product = c.ProductItem.Name,
                     Barcode = c.Barcode,
-                    BilledQty =
-                    c.BilledQty,
-                    Unit =
-                    c.Unit,
-                    MRP =
-                    c.ProductItem.MRP,
-                    Discount =
-                    c.DiscountAmount,
-                    TaxType =
-                    c.TaxType,
-                    BasicAmount =
-                    c.BasicAmount,
-                    Tax =
-                    c.TaxAmount,
-                    Amount =
-                    c.Value,
+                    BilledQty = c.BilledQty,
+                    Unit = c.Unit,
+                    MRP = c.ProductItem.MRP,
+                    Discount = c.DiscountAmount,
+                    TaxType = c.TaxType,
+                    BasicAmount = c.BasicAmount,
+                    Tax = c.TaxAmount,
+                    Amount = c.Value,
                     RoundOff = c.ProductSale.RoundOff,
                     BasicValue = c.ProductSale.TotalBasicAmount,
                     TaxValue = c.ProductSale.TotalTaxAmount,
-                  BillAmount =
-                    c.ProductSale.TotalPrice
+                    BillAmount = c.ProductSale.TotalPrice
                 })
                 .ToList();
             var invList = dataList.GroupBy(c => c.InvoiceNumber).ToList();
@@ -71,8 +62,8 @@ namespace AprajitaRetails.Server.Importer
             foreach (var inv in invList)
             {
                 var inSum = dataList.Where(c => c.InvoiceNumber == inv.Key).ToList();
-                 i = 0;
-                foreach(var itm in inSum)
+                i = 0;
+                foreach (var itm in inSum)
                 {
                     if (i > 0)
                     {
@@ -89,7 +80,7 @@ namespace AprajitaRetails.Server.Importer
 
         public static MemoryStream CreateExcelFile(List<SaleReportVM> dt)
         {
-            
+
             DateTime SDate = dt.Select(c => c.Date).First().Date;// DateTime.Today.Date;
             DateTime EDate = dt.Select(c => c.Date).Last().Date;//DateTime.Today.Date;
             string Period = SDate.ToString("MMMM-yyyy");
@@ -139,11 +130,11 @@ namespace AprajitaRetails.Server.Importer
                 //Apply alignment in the cell D1
                 worksheet.Range["D9"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 worksheet.Range["D9"].CellStyle.VerticalAlignment = ExcelVAlign.VAlignTop;
-                
+
                 worksheet.Range["b8:h8"].Merge();
                 //worksheet.Range["c8:d8"].Merge();
                 worksheet.Range["b8"].Text = $"Sale Date From : {SDate.Date.ToShortDateString()} To {EDate.Date.ToShortDateString()} ";
-                
+
                 //worksheet.Range["c8"].DateTime = SDate.Date;
                 //worksheet.Range["e8"].Text = "To";
                 //worksheet.Range["f8"].DateTime = EDate.Date;
@@ -160,17 +151,17 @@ namespace AprajitaRetails.Server.Importer
 
                 worksheet.Range[$"A11:q{11}"].CellStyle.Font.Bold = true;
                 worksheet.Range[$"A11:q{11}"].CellStyle.Font.Color = ExcelKnownColors.Violet;
-                worksheet.Range[$"A11:q{11}"].CellStyle.Color=Color.Coral;
+                worksheet.Range[$"A11:q{11}"].CellStyle.Color = Color.Coral;
 
                 worksheet.Range[$"A12:q{11 + rows}"].CellStyle.Color = Color.LightSkyBlue;
-                worksheet.Range[$"A12:q{11 + rows}"].CellStyle.Font.Color = ExcelKnownColors.Blue ;
+                worksheet.Range[$"A12:q{11 + rows}"].CellStyle.Font.Color = ExcelKnownColors.Blue;
                 worksheet.Range[$"A11:q{11 + rows}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                
+
                 worksheet.Range[$"A11:q{11 + rows}"].BorderAround();
                 worksheet.Range[$"A11:q{11 + rows}"].BorderInside();
                 worksheet.Range[$"A11:q{11 + rows}"].AutofitColumns();
 
-                 int lr = 11 + 1 + rows;
+                int lr = 11 + 1 + rows;
 
                 //worksheet.Range[$"F{lr}"].Number=worksheet.Range[$"F11:F{11+rows}"].Sum();
                 //worksheet.Range[$"i{lr}"].Number = worksheet.Range[$"i11:i{11 + rows}"].Sum();
@@ -197,7 +188,7 @@ namespace AprajitaRetails.Server.Importer
 
                 worksheet.Range[$"A{lr}:q{lr}"].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 worksheet.Range[$"A{lr}:q{lr}"].CellStyle.Font.Size = 14;
-                worksheet.Range[$"A{lr}:q{lr}"].CellStyle.Font.Bold=true;
+                worksheet.Range[$"A{lr}:q{lr}"].CellStyle.Font.Bold = true;
                 worksheet.Range[$"A{lr}:q{lr}"].CellStyle.Font.Color = ExcelKnownColors.Red;
 
                 worksheet.Range[$"A{lr}:q{lr}"].BorderAround();
@@ -299,7 +290,7 @@ namespace AprajitaRetails.Server.Importer
         public static bool GenerateSaleInv(string json, ARDBContext db)
         {
             var sales = DocIO.JsonToObject<NewSale>(json);
-             
+
             List<SaleItem> saleItems = new List<SaleItem>();
             db.ProductSales.RemoveRange(db.ProductSales.Where(c => c.OnDate.Year == 2023).ToList());
             db.SaveChanges();
@@ -337,7 +328,8 @@ namespace AprajitaRetails.Server.Importer
                         }
                         saleItems.Add(si);
                         count++;
-                    }else
+                    }
+                    else
                     {
                         miss++;
                     }
@@ -350,8 +342,9 @@ namespace AprajitaRetails.Server.Importer
             }
 
             // Adding Unit and tax details 
-            if (count != sales.Count) { 
-                return false; 
+            if (count != sales.Count)
+            {
+                return false;
             }
             var pis = db.ProductItems.Select(c => new { c.Barcode, c.Unit, c.MRP }).ToList();
 
@@ -443,12 +436,15 @@ namespace AprajitaRetails.Server.Importer
                     TotalTaxAmount = c.Sum(x => x.TaxAmount),
 
                     TotalMRP = c.Sum(x => x.DiscountAmount + x.Value),
-                    
+
                     InvoiceType = c.Select(x => x.InvoiceType).First(),
-                    
+
                     TotalPrice = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value,
-                    RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.LineTotal).Value
+                    RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - c.Sum(c=>c.Value)
+                    //RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.LineTotal).Value
+
                 }).ToList();
+
             db.ProductSales.AddRange(ins);
             db.SaleItems.AddRange(saleItems);
 
@@ -477,9 +473,6 @@ namespace AprajitaRetails.Server.Importer
                 };
                 db.CardPaymentDetails.Add(cd);
             }
-
-            db.ProductSales.AddRange(ins);
-            db.SaleItems.AddRange(saleItems);
 
             ios = db.SaveChanges();
             return ios > 0;
