@@ -421,7 +421,6 @@ namespace AprajitaRetails.Server.Importer
             }
 
             var ins = saleItems.Where(c => !string.IsNullOrEmpty(c.InvoiceNumber)).GroupBy(c => c.InvoiceNumber).
-
                 Select(c => new ProductSale
                 {
                     Adjusted = false,
@@ -446,7 +445,10 @@ namespace AprajitaRetails.Server.Importer
                     TotalPrice = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value,
                     RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - c.Sum(x => x.Value)
                 }).ToList();
+            db.ProductSales.AddRange(ins);
+            db.SaleItems.AddRange(saleItems);
 
+            int ios = db.SaveChanges();
             var forP = sales.Where(c => string.IsNullOrEmpty(c.PayMode) == false)
                     .Select(c => new SalePaymentDetail
                     {
@@ -475,7 +477,7 @@ namespace AprajitaRetails.Server.Importer
             db.ProductSales.AddRange(ins);
             db.SaleItems.AddRange(saleItems);
 
-            int ios = db.SaveChanges();
+            ios = db.SaveChanges();
             return ios > 0;
 
         }
