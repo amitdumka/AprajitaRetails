@@ -10,6 +10,7 @@ using AprajitaRetails.Shared.Models.Inventory;
 using AutoMapper;
 using AprajitaRetails.Shared.AutoMapper.DTO;
 using AutoMapper.QueryableExtensions;
+using AprajitaRetails.Shared.ViewModels;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -85,6 +86,42 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             }
 
             return productSale;
+        }
+
+        [HttpGet("SaleDetails")]
+        public async Task<ActionResult<SaleDetailsDTO>> GetProductSaleDetails(string id)
+        {
+            if (_context.ProductSales == null)
+            {
+                return NotFound();
+            }
+
+            SaleDetailsDTO dto = new SaleDetailsDTO();
+           
+           var inv= await _context.ProductSales.Include(c => c.Salesman).Include(c => c.Store)
+                .Where(c =>c.InvoiceNo==id).ProjectTo<ProductSaleDTO>(_mapper.ConfigurationProvider)
+               .FirstOrDefaultAsync();
+
+            if (inv == null) return NotFound();
+            else
+            {
+                dto.Invoice = inv;
+
+                dto.Items= await _context.SaleItems.Include(c => c.ProductItem)
+                .Where(c => c.InvoiceNumber == id).ProjectTo<SaleItemDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+                dto.PaymentDetail = await _context.SalePaymentDetails.Where(c => c.InvoiceNumber == id).FirstOrDefaultAsync();
+
+                if (dto.PaymentDetail.PayMode == PayMode.Card)
+                {
+                    dto.CardPayment = await _context.CardPaymentDetails.Where(c=>c.InvoiceNumber==id)
+                        .ProjectTo<CardPaymentDetailDTO>(_mapper.ConfigurationProvider)
+                        .FirstOrDefaultAsync(); 
+                }
+
+            }
+            return dto;
         }
 
         // PUT: api/ProductSales/5

@@ -164,6 +164,19 @@ namespace AprajitaRetails.Client.Helpers
                 return default(T);
             }
         }
+        public async Task<T?> GetRecordAsync<T>(string url)
+        {
+            try
+            {
+                return await Http.GetFromJsonAsync<T>(url);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default(T);
+            }
+        }
 
         public async Task<SelectOption[]?> FetchOptionsAsync(string optionName, string? storeid)
         {

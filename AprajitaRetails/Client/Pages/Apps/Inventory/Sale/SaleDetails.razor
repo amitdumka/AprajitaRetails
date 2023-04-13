@@ -19,6 +19,7 @@
 @using AprajitaRetails.Aks.Forms
 @using Syncfusion.Blazor.Inputs
 @using Syncfusion.Blazor.Popups
+@inject NavigationManager NavigationManager
 
 @attribute [Authorize]
 @inject ClientSetting Setting
@@ -45,37 +46,106 @@
                     <CardTools />
                 </Header>
                 <Body>
-                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true Small=true>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=false Hover=false Small=true Striped="false">
                         <TableRow>
+                            <TableCell> <RadzenLabel Text="Invoice Type" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.InvoiceType</TableCell>
+                            <TableCell><RadzenLabel Text="Invoice No" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.InvoiceNo</TableCell>
+                            <TableCell><RadzenLabel Text="Date" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.OnDate</TableCell>
                         </TableRow>
                         <TableRow>
+                            <TableCell><RadzenLabel Text="Sold By" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.SalemanName.</TableCell>
-                            <TableCell>@Invoice.Invoice.Paid.</TableCell>
+                            <TableCell><RadzenLabel Text="Payment Status" Style="color:greenyellow" /></TableCell>
+                            <TableCell>
+                                @if (Invoice.Invoice.Paid)
+                                {<i>Paid</i> }
+                                else
+                                {<i>Due</i>}
+                            </TableCell>
+                            <TableCell><RadzenLabel Text="Store Name" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.StoreName</TableCell>
                         </TableRow>
                         <TableRow>
+                            <TableCell><RadzenLabel Text="Total Qty" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.TotalQty</TableCell>
+                            <TableCell><RadzenLabel Text="Billed Qty" Style="color:greenyellow" /> </TableCell>
                             <TableCell>@Invoice.Invoice.BilledQty</TableCell>
+                            <TableCell><RadzenLabel Text="Free Items" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.FreeQty</TableCell>
                         </TableRow>
                         <TableRow>
+                            <TableCell><RadzenLabel Text="Basic Amount" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.TotalBasicAmount</TableCell>
+                            <TableCell><RadzenLabel Text="Tax Amount" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.TotalTaxAmount</TableCell>
+                            <TableCell><RadzenLabel Text="Discount Amount" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.TotalDiscountAmount</TableCell>
                         </TableRow>
                         <TableRow>
+                            <TableCell><RadzenLabel Text="MRP" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.TotalMRP</TableCell>
+                            <TableCell><RadzenLabel Text="Round Off" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.RoundOff</TableCell>
+                            <TableCell><RadzenLabel Text="Basic Amount" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.TotalPrice</TableCell>
                         </TableRow>
-                        @*<TableRow>
-                            <SfGrid TValue="List<SaleItemDTO>" DataSource="@Invoice.Items">
+                        <AprajitaRetails.AdminLte.Table.EmptyRow></AprajitaRetails.AdminLte.Table.EmptyRow>
+                        <TableRow>
+                            <TableCell><RadzenLabel Text="Mode" Style="color:greenyellow" /></TableCell>
+                            <TableCell>@Invoice.PaymentDetail.PayMode</TableCell>
+                            <TableCell><RadzenLabel Text="Paid Amount" Style="color:greenyellow" /></TableCell>
+                            <TableCell>@Invoice.PaymentDetail.PaidAmount</TableCell>
+                            <TableCell><RadzenLabel Text="Ref Id" Style="color:greenyellow" /></TableCell>
+                            <TableCell>@Invoice.PaymentDetail.RefId</TableCell>
+                        </TableRow>
+                        @if (Invoice.CardPayment != null)
+                        {
+                            <AprajitaRetails.AdminLte.Table.EmptyRow></AprajitaRetails.AdminLte.Table.EmptyRow>
+                            <TableRow>
+                                <TableCell><RadzenLabel Text="Card Type" Style="color:greenyellow" /></TableCell>
+                                <TableCell>@Invoice.CardPayment.Card</TableCell>
+                                <TableCell><RadzenLabel Text="Last 4 digit" Style="color:greenyellow" /></TableCell>
+                                <TableCell>@Invoice.CardPayment.CardLastDigit</TableCell>
+                                <TableCell><RadzenLabel Text="POS" Style="color:greenyellow" /></TableCell>
+                                <TableCell>@Invoice.CardPayment.EDCTerminalName</TableCell>
+                            </TableRow>
+                        }
+                        <AprajitaRetails.AdminLte.Table.EmptyRow></AprajitaRetails.AdminLte.Table.EmptyRow>
+                        <TableRow>
+                            <AprajitaRetails.AdminLte.Table.ATableCell ColSpan="6">
+                                <SfGrid DataSource="@Invoice.Items" AllowPaging="true">
+                                    <GridPageSettings PageSize="6"></GridPageSettings>
+                                    <GridColumns>
+                                        <GridColumn Field=@nameof(SaleItemDTO.Barcode) HeaderText="Barcode" Width="120"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.ProductName) HeaderText="Product Name" Width="150"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.BilledQty) HeaderText="Billed Qty" Width="90"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.MRP) HeaderText="MRP" Format="c2" Type="ColumnType.Number" Width="90"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.DiscountAmount) HeaderText="Dis Amt" Type="ColumnType.Number" Width="90"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.BasicAmount) HeaderText="Basic Amt" Format="C2" Width="90"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.TaxType) HeaderText="Tax" Width="90"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.TaxAmount) HeaderText="Tax Amt" Width="90"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.Unit) HeaderText="Unit" Width="90"></GridColumn>
+                                        <GridColumn Field=@nameof(SaleItemDTO.Value) HeaderText="Value" Format="c2" Type="ColumnType.Number" Width="90"></GridColumn>
 
-                            </SfGrid>
-                        </TableRow>*@
+
+                                    </GridColumns>
+                                </SfGrid>
+                            </AprajitaRetails.AdminLte.Table.ATableCell>
+                        </TableRow>
+                        <AprajitaRetails.AdminLte.Table.EmptyRow></AprajitaRetails.AdminLte.Table.EmptyRow>
+                        <AprajitaRetails.AdminLte.Table.EmptyRow></AprajitaRetails.AdminLte.Table.EmptyRow>
+                        <TableRow>
+                            <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Info" @onclick="@BackButton">Back</Button></TableCell>
+                            @if (!Deleted)
+                            {
+                                <TableCell><Button Size="Blazor.AdminLte.ButtonSize.Small" @onclick="@DeleteButton" Color="Color.Danger">Delete</Button></TableCell>
+                            }
+                            <AprajitaRetails.AdminLte.Table.ATableCell ColSpan="4"></AprajitaRetails.AdminLte.Table.ATableCell>
+                        </TableRow>
+
                     </AprajitaRetails.AdminLte.Table.ATable>
                 </Body>
             </Card>
@@ -90,6 +160,7 @@
 
     string Title = "Invoice Details";
     bool Loading = true;
+    bool Deleted = false;
     private ProductSale Inv;
     private List<SaleItem> SaleItems;
     private SalePaymentDetail? PaymentDetail;
@@ -101,7 +172,8 @@
     {
         try
         {
-            Invoice = await Helper.GetRecordAsync<SaleDetailsDTO>("api/ProductSale/SaleDetails", ID);
+            Invoice = await Helper.GetRecordAsync<SaleDetailsDTO>($"api/ProductSales/SaleDetails?id={ID}");
+
             if (Invoice != null)
             {
                 StateHasChanged();
@@ -118,9 +190,10 @@
     {
         try
         {
-            Invoice = await Helper.GetRecordAsync<SaleDetailsDTO>("api/ProductSale/SaleDetails", ID);
+            Invoice = await Helper.GetRecordAsync<SaleDetailsDTO>($"api/ProductSales/SaleDetails?id={ID}");
             if (Invoice != null)
             {
+                Loading = false;
                 StateHasChanged();
             }
 
@@ -129,5 +202,16 @@
         {
             Helper.Msg("Error", ex.Message, true);
         }
+    }
+    void BackButton() { NavigationManager.NavigateTo($"/sales/{Returns}/{Params}"); }
+    async void DeleteButton()
+    {
+        var result = await Helper.DeleteAsync("api/ProductSales", "ProductSale", ID);
+        if (result)
+        {
+            Deleted = true;
+            StateHasChanged();
+        }
+
     }
 }

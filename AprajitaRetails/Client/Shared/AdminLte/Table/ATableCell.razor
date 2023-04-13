@@ -1,7 +1,8 @@
 ﻿@namespace AprajitaRetails.AdminLte.Table
-<td class="@Classes">@ChildContent</td>
+<td  colspan="@ColSpan" class="@Classes"  >@ChildContent</td>
 @code {
     [Parameter] public RenderFragment ChildContent { set; get; }
     [Parameter] public string Classes { get; set; } = "";
-
+    [Parameter] public int ColSpan { get; set; } = 0;
+    
 }
