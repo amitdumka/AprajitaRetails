@@ -203,6 +203,14 @@ namespace AprajitaRetails.Server.Importer
             writer.Close();
             return JSONFILE;
         }
+        public static async Task<string> ObjectToJsonFileAsync<T>(T lists, string path)
+        {
+            var JSONFILE = JsonSerializer.Serialize<T>(lists);
+            using StreamWriter writer = new StreamWriter(path);
+            await writer.WriteAsync(JSONFILE);
+            writer.Close();
+            return JSONFILE;
+        }
     }
 
 }

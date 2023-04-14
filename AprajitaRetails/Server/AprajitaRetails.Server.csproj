@@ -81,6 +81,7 @@
     <None Remove="KyS\" />
     <Content Remove="wwwroot\Tables\Vouchers" />
     <Content Remove="wwwroot\Tables\Over\V1_SaleItems" />
+    <Content Remove="wwwroot\Data\XLS\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.4" />
@@ -150,6 +151,7 @@
     <Folder Include="BL\Reports\Inventory\" />
     <Folder Include="wwwroot\Tables\Over\" />
     <Folder Include="KyS\" />
+    <Folder Include="wwwroot\Data\XLS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\" />
