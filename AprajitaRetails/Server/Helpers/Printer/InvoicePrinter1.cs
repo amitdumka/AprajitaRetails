@@ -1,13 +1,18 @@
-﻿using AprajitaRetails.Shared.Models.Inventory;
+﻿using AprajitaRetails.Client.Helpers;
+using AprajitaRetails.Shared.AutoMapper.DTO;
+using AprajitaRetails.Shared.Models.Inventory;
+using Blazor.AdminLte;
+using Syncfusion.Blazor.BarcodeGenerator;
 using Syncfusion.Blazor.Kanban.Internal;
 using Syncfusion.Drawing;
 using Syncfusion.Pdf;
+using Syncfusion.Pdf.Barcode;
 using Syncfusion.Pdf.Graphics;
 using System.ComponentModel.DataAnnotations;
 
 namespace AprajitaRetails.Server.Helpers.Printer
 {
-    public class InvoicePrinter1
+    public class InvoicePrinter
     {
         [Required]
         public bool InvoiceSet { get; set; }
@@ -22,6 +27,8 @@ namespace AprajitaRetails.Server.Helpers.Printer
         public const string DotedLine = "---------------------------------\n";
         public const string DotedLineLong = "--------------------------------------------------\n";
 
+        public const string tab = "    ";
+
         public string StoreName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
@@ -31,10 +38,10 @@ namespace AprajitaRetails.Server.Helpers.Printer
         public string CustomerName { get; set; }
         public string MobileNumber { get; set; }
 
-        public ProductSale ProductSale { get; set; }
-        public List<SaleItem> SaleItems { get; set; }
+        public ProductSaleDTO ProductSale { get; set; }
+        public List<SaleItemDTO> SaleItems { get; set; }
         public List<SalePaymentDetail> PaymentDetails { get; set; }
-        public CardPaymentDetail CardDetails { get; set; }
+        public CardPaymentDetailDTO CardDetails { get; set; }
 
         public int NoOfCopy { get; set; }
         public bool Reprint { get; set; }
@@ -43,7 +50,7 @@ namespace AprajitaRetails.Server.Helpers.Printer
         public string FileName { get; set; }
 
         private const string InvoiceTitle = "                 RETAIL INVOICE";
-        private const string ItemLineHeader1 = "SKU Code/Description/ HSN";
+        private const string ItemLineHeader1 = "SKU Code / Description / HSN";
         private const string ItemLineHeader2 = "MRP     Qty     Disc     Amount";
         private const string ItemLineHeader3 = "CGST%    AMT     SGST%   AMT";
 
@@ -53,9 +60,9 @@ namespace AprajitaRetails.Server.Helpers.Printer
         private const int paragraphAfterSpacing = 8;
         private const string Employee = "Cashier: M0001      Name: Manager";
 
-        public void InvoiceThermalPdf()
+        public MemoryStream InvoiceThermalPdf()
         {
-            if (!this.InvoiceSet) return;
+            if (!this.InvoiceSet) return null;
             if (!Page2Inch)
             {
                 PageWith = 240;
@@ -66,8 +73,8 @@ namespace AprajitaRetails.Server.Helpers.Printer
                 try
                 {
                     PdfPage page = pdfDoc.Pages.Add();
-                    pdfDoc.PageSettings.Size =new SizeF(PageWith,PageHeight);
-                    
+                    pdfDoc.PageSettings.Size = new SizeF(PageWith, PageHeight);
+
 
                     //Create a new font.
                     PdfStandardFont font = new PdfStandardFont(PdfFontFamily.TimesRoman, this.FontSize);
@@ -80,52 +87,128 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     //format.Layout = PdfLayoutType.Paginate;
                     format.Layout = PdfLayoutType.OnePage;
 
-                    PdfTextElement title = new PdfTextElement($"{StoreName}\n{Address}\n{City}\n Phone No: {Phone}\n {TaxNo}", font, PdfBrushes.Black);
+                    PdfTextElement title = new PdfTextElement($"{StoreName}\n{Address}\n{City}\nPhone No: {Phone}\n{TaxNo}", font, PdfBrushes.Black);
                     PdfLayoutResult result = title.Draw(page, new PointF(0, 0));
 
-                    string detailString = $@"";
-                    PdfTextElement details= new PdfTextElement(detailString, font,PdfBrushes.Black);
 
-                    Paragraph ip = new Paragraph().SetFontSize(FontSize);
-                    ip.AddStyle(code);
-                    ip.SetTextAlignment(iText.Layout.Properties.TextAlignment.JUSTIFIED_ALL);
-                    if (!Page2Inch) ip.Add(DotedLineLong);
-                    else ip.Add(DotedLine);
-                    ip.AddTabStops(new TabStop(50));
-                    ip.Add("  " + InvoiceTitle + "\n");
-                    if (!Page2Inch) ip.Add(DotedLineLong); else ip.Add(DotedLine);
+                    string line = "";
+                    string sBill = "";
+
+                    if (!Page2Inch) line = DotedLineLong;
+                    else line = DotedLine;
+
                     if (ServiceBill)
                     {
-                        ip.Add("  Service Invoice\n");
-                        if (!Page2Inch) ip.Add(DotedLineLong);
-                        else ip.Add(DotedLine);
+                        sBill = $"Service Invoice\n{line}";
+
                     }
+                    string detailString = $"{line}{InvoiceTitle}\n{line}{sBill}{Employee}\nBill No: {ProductSale.InvoiceNo}\nDate: {ProductSale.OnDate.ToShortDateString()}\n{line}";
+                    string d2 = $"Name: {CustomerName}\nMobile : {MobileNumber}\n{line}{ItemLineHeader1}\n{ItemLineHeader2}\n{line}";
 
-                    ip.Add(Employee + "\n");
-                    ip.Add("Bill No: " + ProductSale.InvoiceNo + "\n");
-                    ip.AddTabStops(new TabStop(30));
-                    ip.Add("  " + "                  Date: " + ProductSale.OnDate.ToString() + "\n");
-                    ip.AddTabStops(new TabStop(30));
-                    //ip.Add("  " + "                  Time: " + ProductSale.OnDate.ToShortTimeString() + "\n");
-
-                    if (!Page2Inch) ip.Add(DotedLineLong); else ip.Add(DotedLine);
-                    ip.Add("Customer Name: " + CustomerName + "\n");
-                    ip.Add("Customer Mobile: " + MobileNumber + "\n");
-                    if (!Page2Inch) ip.Add(DotedLineLong); else ip.Add(DotedLine);
-
-                    ip.Add(ItemLineHeader1 + "\n");
-                    ip.Add(ItemLineHeader2 + "\n");
-
-                    if (!Page2Inch) ip.Add(DotedLineLong); else ip.Add(DotedLine);
-
+                    PdfTextElement details = new PdfTextElement($"{ detailString}{d2}", font, PdfBrushes.Black);
                     result = details.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
 
+                    string invItemStr = "";
+                    string f = "0.##";
+                    foreach (var itm in SaleItems)
+                    {
+                        invItemStr += $"{itm.Barcode} / {itm.ProductName} /{itm.HSNCode} \n";
+                        invItemStr += $"{itm.MRP.ToString(f)} / {itm.BilledQty.ToString(f)} / {itm.DiscountAmount.ToString(f)} / {itm.Value.ToString(f)}\n\n";
+
+                    }
+                    invItemStr += line;
+                    invItemStr += $"Total: {ProductSale.BilledQty.ToString(f)}   \t                          {(ProductSale.TotalPrice - ProductSale.RoundOff).ToString(f)}\n";
+                    invItemStr += $"Items(s): {ProductSale.TotalQty.ToString(f)} \t Net Amount: {(ProductSale.TotalPrice - ProductSale.RoundOff).ToString(f)}\n{line}";
+
+                    invItemStr += $"Tender (s)\t\nPaid Amount:\t\t Rs. {(ProductSale.TotalPrice).ToString(f)}\n{line}";
+
+                    invItemStr += $"Basic Price: \t{ProductSale.TotalBasicAmount.ToString("0.##")}";
+                    invItemStr += $"\nCGST:   \t \t {(ProductSale.TotalTaxAmount / 2).ToString("0.##")}";
+                    invItemStr += $"\nSGST:   \t \t {(ProductSale.TotalTaxAmount / 2).ToString("0.##")}\n{line}";
+
+
+                    PdfTextElement invitm = new PdfTextElement(invItemStr, font, PdfBrushes.Black);
+                    result = invitm.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
+
+                    if (PaymentDetails.Count > 0)
+                    {
+                        string payStr = line;
+
+                        foreach (var pd in PaymentDetails)
+                        {
+                            payStr += $"Paid Rs. {pd.PaidAmount.ToString("0.##")} in {pd.PayMode}\n";
+
+                            if (pd.PayMode == PayMode.Card)
+                            {
+                                if (CardDetails != null)
+                                    payStr += $"{CardDetails.CardType}/{CardDetails.CardLastDigit}";
+                            }
+                            else if (pd.PayMode == PayMode.UPI || pd.PayMode == PayMode.Wallets)
+                            {
+                                payStr += $"Ref No:{pd.RefId}\n";
+                            }
+                            else
+                            {
+                                if(string.IsNullOrEmpty(pd.RefId)==false && pd.PayMode!=PayMode.Cash)
+                                payStr += $"Ref No:{pd.RefId}\n";
+                            }
+                        }
+                        payStr += line;
+                        PdfTextElement pay = new PdfTextElement(payStr, font, PdfBrushes.Black);
+                        result = pay.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
+
+
+                    }
+
+                    //Footer
+                    string footerstr = $"{FooterFirstMessage}\n";
+
+                    if (ServiceBill) footerstr += "** Tailoring Service Invoice **";
+                    footerstr += $"{DotedLineLong}{FooterThanksMessage}\n{FooterLastMessage}\n{DotedLineLong}\n";
+
+                    if (Reprint)
+                    {
+                        footerstr += "(Reprinted Duplicate)\n";
+                    }
+                    else
+                    {
+                        footerstr += "(Customer Copy)\n";
+                    }
+
+                    footerstr += $"Printed on:  {DateTime.Now}  \n\n\n\n\n\n{DotedLine}\n\n\n";
+
+
+                    PdfTextElement foot = new PdfTextElement(footerstr, font, PdfBrushes.Black);
+                    result = foot.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
+
+                    PdfQRBarcode qrBarcode = new PdfQRBarcode();
+
+                    qrBarcode.ErrorCorrectionLevel = PdfErrorCorrectionLevel.High;
+                    //Set XDimension
+
+                    qrBarcode.XDimension = 3;
+                    qrBarcode.Text = ProductSale.InvoiceNo;
+
+                    //Printing barcode on to the PDF
+                    qrBarcode.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height));
+
+
+                    //using (
+                        MemoryStream stream = new MemoryStream();
+                      //  )
+                    //{
+                        //Saving the PDF document into the stream.
+                        pdfDoc.Save(stream);
+                        //Closing the PDF document.
+                        pdfDoc.Close(true);
+                        return stream;
+                    //}
 
                 }
                 catch (Exception ex)
                 {
-
-                    throw;
+                    return null;
+                    //throw;
                 }
             }
         }

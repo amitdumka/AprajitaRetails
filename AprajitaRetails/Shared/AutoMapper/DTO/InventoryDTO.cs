@@ -164,6 +164,8 @@ namespace AprajitaRetails.Shared.AutoMapper.DTO
         public string Barcode { get; set; }
         public string ProductName { get; set; }
 
+        public string? HSNCode { get; set; }
+
         public decimal BilledQty { get; set; }
         public decimal FreeQty { get; set; }
         public Unit Unit { get; set; }

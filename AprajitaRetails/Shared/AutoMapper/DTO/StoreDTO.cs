@@ -5,6 +5,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AprajitaRetails.Shared.AutoMapper.DTO
 {
+    public class StoreBasicDTO
+    {
+        [Key]
+        public string StoreId { get; set; }
+        public string StoreName { get; set; }
+        public string StorePhoneNumber { get; set; }
+        public string StoreEmailId { get; set; }
+       // public string? StoreAddress { get; set; }
+        public string City { get; set; }
+        public string GSTIN { get; set; }
+        public string VatNo { get; set; }
+    }
+
     public class StoreDTO
     {
         [Key]

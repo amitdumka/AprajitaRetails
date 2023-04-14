@@ -11,6 +11,8 @@ using AutoMapper;
 using AprajitaRetails.Shared.AutoMapper.DTO;
 using AutoMapper.QueryableExtensions;
 using AprajitaRetails.Shared.ViewModels;
+using AprajitaRetails.Server.BL.Printers;
+using System.Drawing.Imaging;
 
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
@@ -42,7 +44,7 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             {
                 return NotFound();
             }
-            return await _context.ProductSales.Where(c=>c.StoreId==storeid).Select(c=>c.OnDate.Year).Distinct().OrderBy(c=>c).ToListAsync();
+            return await _context.ProductSales.Where(c => c.StoreId == storeid).Select(c => c.OnDate.Year).Distinct().OrderBy(c => c).ToListAsync();
         }
 
         [HttpGet("ByStore")]
@@ -88,6 +90,51 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             return productSale;
         }
 
+        [HttpGet("InvoicePrint")]
+        public async Task<ActionResult> GetInvoice(string id, int copy=1, bool pagesmall=false, bool reprint=false)
+        {
+            SaleDetailsDTO dto = new SaleDetailsDTO();
+
+            var inv = await _context.ProductSales.Include(c => c.Salesman).Include(c => c.Store)
+                 .Where(c => c.InvoiceNo == id).ProjectTo<ProductSaleDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+            
+
+            if (inv == null) return NotFound();
+            else
+            {
+                var storedto = await _context.Stores.Where(c => c.StoreId == inv.StoreId).
+               ProjectTo<StoreBasicDTO>(_mapper.ConfigurationProvider)
+               .FirstOrDefaultAsync();
+                dto.Invoice = inv;
+
+                dto.Items = await _context.SaleItems.Include(c => c.ProductItem)
+                .Where(c => c.InvoiceNumber == id).ProjectTo<SaleItemDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+                dto.PaymentDetail = await _context.SalePaymentDetails.Where(c => c.InvoiceNumber == id).FirstOrDefaultAsync();
+
+                if (dto.PaymentDetail.PayMode == PayMode.Card)
+                {
+                    dto.CardPayment = await _context.CardPaymentDetails.Where(c => c.InvoiceNumber == id)
+                        .ProjectTo<CardPaymentDetailDTO>(_mapper.ConfigurationProvider)
+                        .FirstOrDefaultAsync();
+                }
+                var cust = _context.CustomerSales.Include(c=>c.Customer).Where(c => c.InvoiceNumber == id)
+                    .Select(c => new {MobileNo= c.MobileNo, CustomerName= c.Customer.CustomerName }).FirstOrDefault();
+
+                if (cust == null)
+                {
+                    cust = new {  MobileNo = "NoNumber" , CustomerName = "CashSale"};
+                }
+                var pdfile = VoucherPrinters.InvoicePrinter(pagesmall,dto,storedto, cust.CustomerName,cust.MobileNo,copy,reprint);
+                pdfile.Position = 0;
+                return File(pdfile, "application/pdf", $"{id}.pdf");
+            }
+
+
+        }
+
         [HttpGet("SaleDetails")]
         public async Task<ActionResult<SaleDetailsDTO>> GetProductSaleDetails(string id)
         {
@@ -97,17 +144,17 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             }
 
             SaleDetailsDTO dto = new SaleDetailsDTO();
-           
-           var inv= await _context.ProductSales.Include(c => c.Salesman).Include(c => c.Store)
-                .Where(c =>c.InvoiceNo==id).ProjectTo<ProductSaleDTO>(_mapper.ConfigurationProvider)
-               .FirstOrDefaultAsync();
+
+            var inv = await _context.ProductSales.Include(c => c.Salesman).Include(c => c.Store)
+                 .Where(c => c.InvoiceNo == id).ProjectTo<ProductSaleDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
 
             if (inv == null) return NotFound();
             else
             {
                 dto.Invoice = inv;
 
-                dto.Items= await _context.SaleItems.Include(c => c.ProductItem)
+                dto.Items = await _context.SaleItems.Include(c => c.ProductItem)
                 .Where(c => c.InvoiceNumber == id).ProjectTo<SaleItemDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -115,9 +162,9 @@ namespace AprajitaRetails.Server.Controllers.Inventory
 
                 if (dto.PaymentDetail.PayMode == PayMode.Card)
                 {
-                    dto.CardPayment = await _context.CardPaymentDetails.Where(c=>c.InvoiceNumber==id)
+                    dto.CardPayment = await _context.CardPaymentDetails.Where(c => c.InvoiceNumber == id)
                         .ProjectTo<CardPaymentDetailDTO>(_mapper.ConfigurationProvider)
-                        .FirstOrDefaultAsync(); 
+                        .FirstOrDefaultAsync();
                 }
 
             }
@@ -209,4 +256,6 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             return (_context.ProductSales?.Any(e => e.InvoiceNo == id)).GetValueOrDefault();
         }
     }
+
+     
 }

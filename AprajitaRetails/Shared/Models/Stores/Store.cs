@@ -118,6 +118,7 @@ namespace AprajitaRetails.Shared.Models.Stores
 
         public string StorePhoneNumber { get; set; }
         public string StoreEmailId { get; set; }
+        //public string? StoreAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }

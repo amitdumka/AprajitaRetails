@@ -82,6 +82,7 @@
     <Content Remove="wwwroot\Tables\Vouchers" />
     <Content Remove="wwwroot\Tables\Over\V1_SaleItems" />
     <Content Remove="wwwroot\Data\XLS\" />
+    <None Remove="BL\Printers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.4" />
@@ -151,6 +152,7 @@
     <Folder Include="BL\Reports\Inventory\" />
     <Folder Include="wwwroot\Tables\Over\" />
     <Folder Include="KyS\" />
+    <Folder Include="BL\Printers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\" />
