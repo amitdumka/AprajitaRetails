@@ -151,7 +151,6 @@
     <Folder Include="BL\Reports\Inventory\" />
     <Folder Include="wwwroot\Tables\Over\" />
     <Folder Include="KyS\" />
-    <Folder Include="wwwroot\Data\XLS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\" />

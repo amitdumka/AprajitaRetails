@@ -721,16 +721,19 @@ namespace AprajitaRetails.Server.Importer
             }
 
             var customers = sales
-                .GroupBy(c=>new {c.Mobile, c.Customer})
+                .GroupBy(c=>c.Mobile).OrderBy(c=>c)
                 .Select(c => new Customer { Age=40, City="Dumka", DateOfBirth=DateTime.Today.AddYears(-40)
-                , FirstName= c.Key.Customer, Gender=Gender.Male, MobileNo=c.Key.Mobile,
+                , FirstName= c.Select(x=>x.Customer).First(), Gender=Gender.Male, MobileNo=c.Key,
                  NoOfBills=0, TotalAmount=0, OnDate=DateTime.Today
-            }).ToList();
+            }).Distinct().ToList();
 
-            var custSale = sales.Select(c => new CustomerSale {InvoiceNumber=c.InvoiceNo, MobileNo=c.Mobile }).ToList();
+            ios+= db.SaveChanges();
+            var custSale = sales.Select(c => new CustomerSale {InvoiceNumber=c.InvoiceNo, MobileNo=c.Mobile }).Distinct().ToList();
+            db.Customers.AddRange(customers); 
+            db.CustomerSales.AddRange(custSale);
+            ios += db.SaveChanges();
 
 
-            ios = db.SaveChanges();
             return ios > 0;
 
         }
