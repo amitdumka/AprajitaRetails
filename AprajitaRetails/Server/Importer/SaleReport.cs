@@ -691,10 +691,13 @@ namespace AprajitaRetails.Server.Importer
 
 
             db.ProductSales.AddRange(ins);
+            int ios = db.SaveChanges();
+           
             db.SaleItems.AddRange(saleItems);
+            ios+= db.SaveChanges();
 
             DocIO.ObjectToJsonFileAsync<SortedDictionary<string, string>>(ChangeInvList, @"/Data/ChangeInvoiceList.json");
-            int ios = db.SaveChanges();
+            
             var forP = sales.Where(c => string.IsNullOrEmpty(c.PayMode) == false)
                     .Select(c => new SalePaymentDetail
                     {
@@ -704,6 +707,7 @@ namespace AprajitaRetails.Server.Importer
                         PayMode = DocIO.PayModeType(c.PayMode)
                     }).ToList();
             db.SalePaymentDetails.AddRange(forP);
+            ios += db.SaveChanges();
             foreach (var im in forP.Where(c => c.PayMode == PayMode.Card))
             {
                 CardPaymentDetail cd = new CardPaymentDetail
@@ -720,6 +724,8 @@ namespace AprajitaRetails.Server.Importer
                 db.CardPaymentDetails.Add(cd);
             }
 
+            ios += db.SaveChanges();
+
             var customers = sales
                 .GroupBy(c=>c.Mobile).OrderBy(c=>c)
                 .Select(c => new Customer { Age=40, City="Dumka", DateOfBirth=DateTime.Today.AddYears(-40)
@@ -727,8 +733,8 @@ namespace AprajitaRetails.Server.Importer
                  NoOfBills=0, TotalAmount=0, OnDate=DateTime.Today
             }).Distinct().ToList();
 
-            ios+= db.SaveChanges();
-            var custSale = sales.Select(c => new CustomerSale {InvoiceNumber=c.InvoiceNo, MobileNo=c.Mobile }).Distinct().ToList();
+           
+            var custSale = sales.GroupBy(c=>c.InvoiceNo).Select(c => new CustomerSale {InvoiceNumber=c.Key, MobileNo=c.Select(x=>x.Mobile).First(), }).Distinct().ToList();
             db.Customers.AddRange(customers); 
             db.CustomerSales.AddRange(custSale);
             ios += db.SaveChanges();
