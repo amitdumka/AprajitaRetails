@@ -18,7 +18,7 @@ namespace AprajitaRetails.Server.Helpers.Printer
         public bool InvoiceSet { get; set; }
 
         private int PageWith = 150;
-        private int PageHeight = 1170;
+        private int PageHeight = 1500;// 1170;
         private int FontSize = 8;
         public bool Page2Inch { get; set; } = false;
 
@@ -72,17 +72,18 @@ namespace AprajitaRetails.Server.Helpers.Printer
             {
                 try
                 {
-                    PdfPage page = pdfDoc.Pages.Add();
                     pdfDoc.PageSettings.Size = new SizeF(PageWith, PageHeight);
-
-
+                
                     //Create a new font.
                     PdfStandardFont font = new PdfStandardFont(PdfFontFamily.TimesRoman, this.FontSize);
-
                     if (Page2Inch)
                         pdfDoc.PageSettings.SetMargins(90, 25, 90, 8);
                     else
-                        pdfDoc.PageSettings.SetMargins(170, 25, 90, 35);
+                        pdfDoc.PageSettings.SetMargins(25, 25, 40, 25);
+                    
+                    PdfPage page = pdfDoc.Pages.Add();
+                    
+                    // pdfDoc.PageSettings.SetMargins(170, 25, 90, 35);
                     PdfLayoutFormat format = new PdfLayoutFormat();
                     //format.Layout = PdfLayoutType.Paginate;
                     format.Layout = PdfLayoutType.OnePage;
@@ -190,8 +191,10 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     qrBarcode.Text = ProductSale.InvoiceNo;
 
                     //Printing barcode on to the PDF
-                    qrBarcode.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height));
+                    qrBarcode.Draw(page, new PointF(30, result.Bounds.Bottom + paragraphAfterSpacing));
 
+                    pdfDoc.PageSettings.Height = result.Bounds.Bottom + paragraphAfterSpacing + 100;
+                    
 
                     //using (
                         MemoryStream stream = new MemoryStream();
