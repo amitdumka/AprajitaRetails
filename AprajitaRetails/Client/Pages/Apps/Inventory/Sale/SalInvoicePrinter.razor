@@ -1,0 +1,107 @@
+﻿@page "/inventory/printInvoices"
+
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Navigations
+@inject DataHelper Helper
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Invoice Printing" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <Row>
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <label for="inv" class="col-sm-4 col-form-label">Year</label>
+                <div class="col-sm-6">
+                    <SfComboBox TValue="int" TItem="int" Placeholder="Year"
+                                Autofill="true"
+                                @bind-Value="@year" PopupHeight="230px"
+                                DataSource="@YearList">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
+                </div>
+            </div>
+        </Column>
+
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <label for="inv" class="col-sm-4 col-form-label">Month</label>
+                <div class="col-sm-6">
+                    <SfComboBox TValue="int" TItem="int" Placeholder="Month"
+                                Autofill="true"
+                                @bind-Value="@month" PopupHeight="230px"
+                                DataSource="@MonthList">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
+                </div>
+            </div>
+        </Column>
+        <Column Classes="col.md"><button class="btn btn-sm btn-info" @onclick="FetchInvList">Get Invoice List</button> </Column>
+    </Row>
+    <Row>
+        <Column Classes="col.md"></Column>
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <label for="inv" class="col-sm-4 col-form-label">Invoice</label>
+                <div class="col-sm-6">
+                    <SfComboBox TValue="string" TItem="string" Placeholder="Invoice Type"
+                                Autofill="true" AllowFiltering="true"
+                                @bind-Value="@invoiceNumber" PopupHeight="230px"
+                                DataSource="@InvoiceList">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
+                </div>
+            </div>
+        </Column>
+        <AprajitaRetails.AdminLte.Forms.AInputNumber @bind-Value="@copy" Label="Copy" Name="Copy" />
+
+        <Column Classes="col.md"><button class="btn btn-sm btn-primary" @onclick="PrintInvoice">Print Invoice</button> </Column>
+
+    </Row>
+</ContentMain>
+
+@code {
+
+    private List<int> YearList;
+    private List<int> MonthList;
+    private List<string> InvoiceList;
+    private int year = 2023, month = 4;
+
+    private bool Reprint = true;
+    private int copy = 1;
+    private string invoiceNumber = "";
+
+    private void PrintInvoice()
+    {
+        if (string.IsNullOrEmpty(invoiceNumber) == false)
+        {
+
+
+        }
+    }
+
+    private async void FetchInvList()
+    {
+        InvoiceList.Clear();
+
+        InvoiceList = await Helper.FetchAsync<string>($"api/productsale/invoicelist?", $"year={year}&month={month}");
+        if (InvoiceList != null && InvoiceList.Count > 0)
+        {
+            StateHasChanged();
+        }
+        else
+        {
+            Helper.Msg("Error", "Not Found", true);
+        }
+    }
+
+
+}
+
