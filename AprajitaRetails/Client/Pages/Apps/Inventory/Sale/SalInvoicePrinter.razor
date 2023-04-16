@@ -8,7 +8,39 @@
 @using AprajitaRetails.Helpers
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Navigations
+@using AprajitaRetails.Commons
+
+@using AprajitaRetails.Helpers
+@using AprajitaRetails.Aks
+@using AprajitaRetails.Aks.Forms
+@using System;
+@using System.Globalization;
+@using System.Reflection;
+@using AprajitaRetails.Shared.AutoMapper.DTO;
+@using AprajitaRetails.Shared.Models.Inventory;
+@using AprajitaRetails.Shared.ViewModels;
+@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.Grids.Internal;
+@using Syncfusion.Blazor.Inputs;
+@using Syncfusion.Blazor.Navigations;
+@using AprajitaRetails.Shared.Models.Stores
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Commons
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+@using AprajitaRetails.Aks
+@using AprajitaRetails.Aks.Forms
+@using Syncfusion.Blazor.Popups
+
+@inject NavigationManager Navigation
 @inject DataHelper Helper
+@attribute [Authorize]
+@inject ClientSetting Setting
 <ContentHeader>
     <Header>
         <Blazor.AdminLte.PageTitle Title="Invoice Printing" />
@@ -43,15 +75,17 @@
                 </div>
             </div>
         </Column>
-        <Column Classes="col.md"><button class="btn btn-sm btn-info" @onclick="FetchInvList">Get Invoice List</button> </Column>
+        <Column Classes="col.md">
+
+            <SfButton CssClass="e-primary e-small" OnClick="FetchInvList">Get Invoice List</SfButton>
+        </Column>
     </Row>
     <Row>
-        <Column Classes="col.md"></Column>
         <Column Classes="col.md">
             <div class="mb-3 row">
                 <label for="inv" class="col-sm-4 col-form-label">Invoice</label>
                 <div class="col-sm-6">
-                    <SfComboBox TValue="string" TItem="string" Placeholder="Invoice Type"
+                    <SfComboBox TValue="string" TItem="string" Placeholder="Invoice  "
                                 Autofill="true" AllowFiltering="true"
                                 @bind-Value="@invoiceNumber" PopupHeight="230px"
                                 DataSource="@InvoiceList">
@@ -60,38 +94,49 @@
                 </div>
             </div>
         </Column>
-        <AprajitaRetails.AdminLte.Forms.AInputNumber @bind-Value="@copy" Label="Copy" Name="Copy" />
+        <Column Classes="col.md">
+            <AprajitaRetails.AdminLte.Forms.ANumInput @bind-Value="@copy" Label="Copy" Name="Copy" />
+        </Column>
 
-        <Column Classes="col.md"><button class="btn btn-sm btn-primary" @onclick="PrintInvoice">Print Invoice</button> </Column>
+        <Column Classes="col.md">
+            <SfButton CssClass="e-warning e-small" OnClick="PrintInvoice">Print Invoice</SfButton>
+            @*<button class="btn btn-sm btn-primary" @onclick="@PrintInvoice">Print Invoice</button>*@
+        </Column>
 
     </Row>
 </ContentMain>
 
 @code {
 
-    private List<int> YearList;
-    private List<int> MonthList;
+    IList<SelectOption>? Stores;
+    IList<int>? YearList;
+    IList<int>? MonthList = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };// "July", "Aug", "Sept", "Oct", "Nov","Dec" };
+
     private List<string> InvoiceList;
-    private int year = 2023, month = 4;
+    private int year = DateTime.Today.Year, month = DateTime.Today.Month;
 
     private bool Reprint = true;
     private int copy = 1;
     private string invoiceNumber = "";
+    private bool smallPage = false;
 
-    private void PrintInvoice()
+    void PrintInvoice(MouseEventArgs args)
     {
         if (string.IsNullOrEmpty(invoiceNumber) == false)
         {
-
-
+            //"/Sales/InvoicePrinting/View/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{param:string}"
+            Navigation.NavigateTo($"/Sales/InvoicePrinting/View/{Reprint}/{smallPage}/{copy}/{invoiceNumber}");
         }
     }
 
-    private async void FetchInvList()
-    {
-        InvoiceList.Clear();
 
-        InvoiceList = await Helper.FetchAsync<string>($"api/productsale/invoicelist?", $"year={year}&month={month}");
+    private async void FetchInvList(MouseEventArgs args)
+    {
+        if(InvoiceList!=null)
+            InvoiceList.Clear();
+
+        InvoiceList = await Helper.FetchAsync<string>($"api/productsale/invlist?StoreId ={ Setting.StoreCode}", $"year={year}&month={month}");
+
         if (InvoiceList != null && InvoiceList.Count > 0)
         {
             StateHasChanged();
@@ -100,6 +145,25 @@
         {
             Helper.Msg("Error", "Not Found", true);
         }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            Stores = await Helper.FetchOptionsAsync("Stores", "");
+            YearList = await Helper.FetchAsync<int>("api/ProductSales/YearList", $"?StoreId={Setting.StoreCode}");
+            //Year = DateTime.Today.Year;
+            year = DateTime.Today.Year;
+            month = DateTime.Today.Month;
+            InvoiceList = await Helper.FetchAsync<string>($"api/productsales/invlist?StoreId={Setting.StoreCode}", $"&year={year}&month={month}");
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Helper.Msg("Error", ex.Message, true);
+        }
+
     }
 
 
