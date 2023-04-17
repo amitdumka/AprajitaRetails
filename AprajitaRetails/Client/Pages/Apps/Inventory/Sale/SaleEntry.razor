@@ -143,12 +143,82 @@
                     </EmptyRecordTemplate>
                 </GridTemplates>
                 @* <GridEvents OnToolbarClick="ToolbarClick" TValue="SItem"></GridEvents>*@
-            <EntityAggregator>
-                <EntityAggSumFooter Title="Total Amount" Field="@nameof(SItem.Amount)"></EntityAggSumFooter>
-                <EntityAggSumFooter Format="f" Title="Total Qty" Field="@nameof(SItem.Qty)"></EntityAggSumFooter>
-            </EntityAggregator>
+                <EntityAggregator>
+                    <EntityAggSumFooter Title="Total Amount" Field="@nameof(SItem.Amount)"></EntityAggSumFooter>
+                    <EntityAggSumFooter Format="f" Title="Total Qty" Field="@nameof(SItem.Qty)"></EntityAggSumFooter>
+                </EntityAggregator>
 
             </SfGrid>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="sm" class="col-sm-4 col-form-label">Payment Mode</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="PayMode" TItem="string" Placeholder="PayMode"
+                                    Autofill="true"
+                                    @bind-Value="@payment.PayMode" PopupHeight="230px"
+                                    DataSource="@payModes">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+             <Column Classes="col.md"/>
+            <Column Classes="col.md" /><Column Classes="col.md" /><Column Classes="col.md" />
+            </Row>
+            <Row>
+            @if (payment.PayMode != PayMode.Cash && payment.PayMode != PayMode.Card)
+            {
+                <Column Classes="col.md">
+                    <SfTextBox Placeholder="Refenece No" FloatLabelType="FloatLabelType.Always" />
+                </Column>
+            }
+            else if (payment.PayMode == PayMode.Card)
+            {
+                 <Column Classes="col.md">
+                    <div class="mb-3 row">
+                        <label for="sm" class="col-sm-4 col-form-label">Card Type</label>
+                        <div class="col-sm-6">
+                            <SfComboBox TValue="CARDType" TItem="string" Placeholder="PayMode"
+                                    Autofill="true"
+                                    @bind-Value="@cardPayment.CardType" PopupHeight="230px"
+                                    DataSource="@cardTypes">
+                                <ComboBoxFieldSettings Text="Value" Value="ID" />
+                            </SfComboBox>
+                        </div>
+                    </div>
+                </Column>
+                <Column Classes="col.md">
+                    <div class="mb-3 row">
+                        <label for="sm" class="col-sm-4 col-form-label">Card</label>
+                        <div class="col-sm-6">
+                            <SfComboBox TValue="CARD" TItem="string" Placeholder="Card"
+                                    Autofill="true"
+                                    @bind-Value="@cardPayment.Card" PopupHeight="230px"
+                                    DataSource="@cards">
+                                <ComboBoxFieldSettings Text="Value" Value="ID" />
+                            </SfComboBox>
+                        </div>
+                    </div>
+                </Column>
+                <Column Classes="col.sm"><SfNumericTextBox TValue="int" Label="Card Last 4 Digit" @bind-Value="cardPayment.CardLastDigit" Placeholder="Card Four Digit" /> </Column>
+                <Column Classes="col.sm"><SfNumericTextBox TValue="int" Label="Auth Code" @bind-Value="cardPayment.AuthCode" Placeholder="Auth Code" /> </Column>
+                <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Amount" @bind-Value="cardPayment.PaidAmount" Placeholder="Amount" /> </Column>
+                <Column Classes="col.md">
+                    <div class="mb-3 row">
+                        <label for="sm" class="col-sm-4 col-form-label">PSO</label>
+                        <div class="col-sm-6">
+                            <SfComboBox TValue="PayMode" TItem="string" Placeholder="POS"
+                                    Autofill="true"
+                                    @bind-Value="@payment.PayMode" PopupHeight="230px"
+                                    DataSource="@payModes">
+                                <ComboBoxFieldSettings Text="Value" Value="ID" />
+                            </SfComboBox>
+                        </div>
+                    </div>
+                </Column>
+            }
         </Row>
 
     </EntityEdit>

@@ -1,4 +1,5 @@
 using System.Globalization;
+using Append.Blazor.Printing;
 using AprajitaRetails.Client;
 using AprajitaRetails.Client.Helpers;
 using AprajitaRetails.Helpers;
@@ -38,7 +39,7 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
-
+builder.Services.AddScoped<IPrintingService, PrintingService>();
 //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", true);
 //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
 

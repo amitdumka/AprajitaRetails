@@ -36,6 +36,8 @@
 @using AprajitaRetails.Aks
 @using AprajitaRetails.Aks.Forms
 @using Syncfusion.Blazor.Popups
+@using Append.Blazor.Printing
+@inject IPrintingService PrintingService
 
 @inject NavigationManager Navigation
 @inject DataHelper Helper
@@ -99,8 +101,10 @@
         </Column>
 
         <Column Classes="col.md">
-            <SfButton CssClass="e-warning e-small" OnClick="PrintInvoice">Print Invoice</SfButton>
-            @*<button class="btn btn-sm btn-primary" @onclick="@PrintInvoice">Print Invoice</button>*@
+            <SfButton CssClass="e-warning e-small" @onclick='@(()=> PrintingService.Print($"api/productsales/invoiceprint?id={invoiceNumber}&copy={copy}&pagesmall={smallPage}&reprint={Reprint}"))'>Print Invoice</SfButton>
+           
+          
+            
         </Column>
 
     </Row>

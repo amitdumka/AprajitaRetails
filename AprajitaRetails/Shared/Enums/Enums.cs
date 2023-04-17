@@ -46,10 +46,10 @@ public enum Size
 public enum ProductCategory
 { Fabric, Apparel, Accessories, Tailoring, Trims, PromoItems, Coupons, GiftVouchers, Others, SuitCovers }
 
-public enum Card
+public enum CARD
 { DebitCard, CreditCard, AmexCard }
 
-public enum CardType
+public enum CARDType
 { Visa, MasterCard, Maestro, Amex, Dinners, Rupay, }
 
 public enum LedgerCategory

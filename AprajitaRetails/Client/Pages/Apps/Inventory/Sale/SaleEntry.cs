@@ -8,7 +8,7 @@ using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Grids.Internal;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Navigations;
-
+ 
 namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 {
     public partial class SaleEntry
@@ -17,9 +17,13 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         string backUrl = "/sales/false/Regular";
 
         ProductSale? entity = new ProductSale { OnDate = DateTime.Now };
+        SalePaymentDetail payment = new SalePaymentDetail { PayMode = PayMode.Cash };
+        CardPaymentDetail cardPayment= new CardPaymentDetail { PaidAmount= 0 };
         List<SaleItem>? saleItems = new List<SaleItem>();
         IList<string> payModes = Enum.GetNames(typeof(PayMode));
         IList<string> invTypes = Enum.GetNames(typeof(InvoiceType));
+        IList<string> cards= Enum.GetNames(typeof(CARD));
+        IList<string> cardTypes = Enum.GetNames(typeof(CARDType));
         IList<SelectOption>? Stores;
         IList<SelectOption>? Salesmen;
         IList<SelectOption>? EDCList;
@@ -37,7 +41,27 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         InvoiceType invType = InvoiceType.Sales;
         TaxType taxType = TaxType.GST;
 
-               
+        void SetInvoiceMode()
+        {
+            if (Returns)
+            {
+                Title = Params + "'s Return";
+            }
+            else Title = Params;
+
+            switch (Params)
+            {
+                case "Regular":
+                    invType = Returns ? InvoiceType.SalesReturn : InvoiceType.Sales;
+                    break;
+                case "Manual": invType = Returns ? InvoiceType.ManualSaleReturn : InvoiceType.ManualSale; break;
+                //case "Service":
+                default:
+                    invType = InvoiceType.Sales; break;
+                    break;
+            }
+
+        }
         private async void OnItemValChange(ChangedEventArgs args)
         {
             //Item.Qty = stock[0].CurrentQty;
@@ -118,6 +142,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         protected override async Task OnInitializedAsync()
         {
             backUrl = $"/sales/{Returns}/{Params}";
+            SetInvoiceMode();
             await FetchSelectData();
             //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
             //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
@@ -144,7 +169,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                     FreeQty = 0,
                     InvoiceNo = "",
                     Paid = false,
-                    InvoiceType =(InvoiceType)invTypes.IndexOf(Params),
+                    InvoiceType = invType,//(InvoiceType)invTypes.IndexOf(Params),
                     Tailoring = false,
                     EntryStatus = EntryStatus.Added,
                     IsReadOnly = false,

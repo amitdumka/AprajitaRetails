@@ -713,9 +713,9 @@ namespace AprajitaRetails.Server.Importer
                 CardPaymentDetail cd = new CardPaymentDetail
                 {
                     AuthCode = 0,
-                    Card = Card.DebitCard,
+                    Card = CARD.DebitCard,
                     CardLastDigit = -1,
-                    CardType = CardType.Rupay,
+                    CardType = CARDType.Rupay,
                     InvoiceNumber = im.InvoiceNumber,
                     PaidAmount = im.PaidAmount,
                     EDCTerminalId = null,

@@ -140,8 +140,8 @@ public class SaleItem
         public int Id { get; set; }
         public string InvoiceNumber { get; set; }
         public decimal PaidAmount { get; set; }
-        public Card Card { get; set; }
-        public CardType CardType { get; set; }
+        public CARD Card { get; set; }
+        public CARDType CardType { get; set; }
         public int CardLastDigit { get; set; }
         public int AuthCode { get; set; }
         public string? EDCTerminalId { get; set; }
