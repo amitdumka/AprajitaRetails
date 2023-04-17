@@ -43,7 +43,7 @@ namespace AprajitaRetails.Server.BL.Inventory
                     .Select(c => new {Barcode= c.Key, Qty = c.Sum(x => x.BilledQty + x.FreeQty) })
                     .ToListAsync();
                 var stocks = await db.Stocks.Where(c => c.StoreId == storecode).ToListAsync();
-
+               // List<Stock> updateList = new List<Stock>();
                 int x = 0;
                 foreach (var stk in stocks)
                 {
@@ -53,7 +53,7 @@ namespace AprajitaRetails.Server.BL.Inventory
                     var pp = purchases.Where(c => c.Barcode == stk.Barcode).FirstOrDefault();
                     if (pp != null)
                         stk.PurchaseQty = pp.Qty;
-
+                    db.Stocks.Update(stk);
                     ++x;
                 }
                 if (stocks.Count != x)
@@ -63,7 +63,7 @@ namespace AprajitaRetails.Server.BL.Inventory
                 }
                 Console.WriteLine($"X={x}/ Stock={stocks.Count}/ pur={purchases.Count}/ sales={sales.Count}");
 
-                db.Stocks.UpdateRange(stocks);
+               // db.Stocks.UpdateRange(stocks);
                return (await db.SaveChangesAsync())>0;
 
             }
