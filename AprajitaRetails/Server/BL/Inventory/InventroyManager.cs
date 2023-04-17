@@ -28,6 +28,51 @@ namespace AprajitaRetails.Server.BL.Inventory
 
         }
 
+        public static async Task<bool> StockCorrectionAsync(ARDBContext db, string storecode)
+        {
+            try
+            {
+                var purchases = await db.PurchaseItems.Include(c=>c.PurchaseProduct)
+                    .Where(c => c.PurchaseProduct.StoreId == storecode)
+                    .GroupBy(c=>c.Barcode)
+                    .Select(c=>new {Barcode=c.Key, Qty=c.Sum(x=>x.Qty+x.FreeQty)})
+                    .ToListAsync();
+                var sales=await db.SaleItems.Include(c => c.ProductSale)
+                    .Where(c => c.ProductSale.StoreId == storecode)
+                    .GroupBy(c => c.Barcode)
+                    .Select(c => new {Barcode= c.Key, Qty = c.Sum(x => x.BilledQty + x.FreeQty) })
+                    .ToListAsync();
+                var stocks = await db.Stocks.Where(c => c.StoreId == storecode).ToListAsync();
+
+                int x = 0;
+                foreach (var stk in stocks)
+                {
+                    var ss=sales.Where(c => c.Barcode == stk.Barcode).FirstOrDefault();
+                    if(ss!=null) 
+                    stk.SoldQty =ss.Qty ;
+                    var pp = purchases.Where(c => c.Barcode == stk.Barcode).FirstOrDefault();
+                    if (pp != null)
+                        stk.PurchaseQty = pp.Qty;
+
+                    ++x;
+                }
+                if (stocks.Count != x)
+                {
+                    Console.WriteLine("X doesnt match with stock");
+
+                }
+                Console.WriteLine($"X={x}/ Stock={stocks.Count}/ pur={purchases.Count}/ sales={sales.Count}");
+
+                db.Stocks.UpdateRange(stocks);
+               return (await db.SaveChangesAsync())>0;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 
         public static async Task<SortedDictionary<string, List<Stock>>> ReOraganiseStockAsync(ARDBContext db)
         {

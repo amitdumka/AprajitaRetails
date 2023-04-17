@@ -73,9 +73,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
          
         private async void OnBarcodeChange(ChangedEventArgs args)
         {
-             //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
-            //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
-
+            
             // Here you can customize your code
             if (args.Value.Length > 8)
             {
@@ -216,18 +214,19 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
             }
         }
-        public SaleEntry()
-        {
-            //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
-            //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
-        }
+         
         private void AddItem()
         {
             if (Item.Qty != 0)
             {
                 SaleItemList.Add(Item);
+                entity.BilledQty += Item.Qty;
+                entity.TotalTaxAmount += Item.TaxAmount;
+                entity.TotalMRP += Item.Rate * Item.Qty;
+                entity.TotalPrice += Item.Amount;
                 Grid.Refresh();
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
+                
                 StateHasChanged();
             }
            

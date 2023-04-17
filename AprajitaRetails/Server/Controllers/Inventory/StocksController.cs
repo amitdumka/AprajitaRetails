@@ -41,6 +41,11 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         {
             return await InventroyManager.ReOraganiseStockAsync(_context);
         }
+        [HttpGet("StockCorrection")]
+        public async Task<bool> GetStockCorrection(string storeid)
+        {
+            return await InventroyManager.StockCorrectionAsync(_context,storeid);
+        }
 
         //[HttpGet("ReStock")]
         //public async Task<ActionResult<bool>> GetReStocks()

@@ -83,6 +83,7 @@
     <Content Remove="wwwroot\Tables\Over\V1_SaleItems" />
     <Content Remove="wwwroot\Data\XLS\" />
     <None Remove="BL\Printers\" />
+    <Content Remove="wwwroot\Data\JSONs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.4" />
@@ -153,6 +154,7 @@
     <Folder Include="wwwroot\Tables\Over\" />
     <Folder Include="KyS\" />
     <Folder Include="BL\Printers\" />
+    <Folder Include="wwwroot\Data\JSONs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Tables\" />
@@ -223,6 +225,24 @@
     <Content Update="wwwroot\favicon.ico">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="wwwroot\Data\JSONs\ARD_PurchaseStock.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="wwwroot\Data\JSONs\ARD_PurchaseStockJson.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="wwwroot\Data\JSONs\ARD_WithSaleStock.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="wwwroot\Data\JSONs\ARJ_PurchaseStock.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="wwwroot\Data\JSONs\ARJ_PurchaseStockJson.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="wwwroot\Data\JSONs\ARJ_WithSaleStock.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
