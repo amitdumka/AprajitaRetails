@@ -1,11 +1,11 @@
-﻿using System.Data;
-using AprajitaRetails.Server.Data;
+﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.Models.Stores;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Blazor.Data;
 using Syncfusion.Drawing;
 using Syncfusion.XlsIO;
+using System.Data;
 
 namespace AprajitaRetails.Server.Importer
 {
@@ -52,7 +52,8 @@ namespace AprajitaRetails.Server.Importer
         public decimal CostPrice { get; set; }
         public decimal CostValue { get; set; }
         public decimal Profit { get; set; }
-        public decimal Percentage { get { return (CostPrice > 0 ? ((100 * Profit) / CostValue) : 0); } }
+        public decimal Percentage
+        { get { return (CostPrice > 0 ? ((100 * Profit) / CostValue) : 0); } }
     }
 
     public class SaleReport
@@ -101,9 +102,9 @@ namespace AprajitaRetails.Server.Importer
                 SaleList.AddRange(inSum);
             }
 
-
             return CreateExcelFile(SaleList);
         }
+
         public static MemoryStream GenerateProfitLossReport(ARDBContext db, string storecode, int month, int year)//, string path)
         {
             var dataList = db.SaleItems.Include(c => c.ProductSale).Include(c => c.ProductItem).
@@ -111,7 +112,6 @@ namespace AprajitaRetails.Server.Importer
                 .OrderBy(c => c.ProductSale.OnDate).ThenBy(c => c.InvoiceType).ThenBy(c => c.InvoiceNumber)
                 .Join(db.Stocks, o => o.Barcode, i => i.Barcode, (c, i) => new PLVM
                 {
-
                     InvoiceType = c.InvoiceType,
                     Date = c.ProductSale.OnDate,
                     InvoiceNumber = c.InvoiceNumber,
@@ -132,7 +132,6 @@ namespace AprajitaRetails.Server.Importer
                     CostPrice = i.CostPrice,
                     CostValue = c.BilledQty * i.CostPrice,
                     Profit = c.Value - (c.BilledQty * i.CostPrice)
-
                 })
                 .ToList();
             var invList = dataList.GroupBy(c => c.InvoiceNumber).ToList();
@@ -153,13 +152,11 @@ namespace AprajitaRetails.Server.Importer
                 SaleList.AddRange(inSum);
             }
 
-
             return CreateExcelFile(SaleList);
         }
 
         public static MemoryStream CreateExcelFile(List<PLVM> dt)
         {
-
             DateTime SDate = dt.Select(c => c.Date).First().Date;// DateTime.Today.Date;
             DateTime EDate = dt.Select(c => c.Date).Last().Date;//DateTime.Today.Date;
             string Period = SDate.ToString("MMMM-yyyy");
@@ -280,23 +277,16 @@ namespace AprajitaRetails.Server.Importer
                 worksheet.Range[$"A{lr}:u{lr}"].BorderInside();
                 //worksheet.Range[$"A{lr}:q{lr}"].AutofitColumns();
 
-
-
-
-
                 //Save the document as a stream and retrun the stream.
                 MemoryStream stream = new MemoryStream();
                 //Save the created Excel document to MemoryStream
                 workbook.SaveAs(stream);
                 return stream;
-
-
             }
         }
 
         public static MemoryStream CreateExcelFile(List<SaleReportVM> dt)
         {
-
             DateTime SDate = dt.Select(c => c.Date).First().Date;// DateTime.Today.Date;
             DateTime EDate = dt.Select(c => c.Date).Last().Date;//DateTime.Today.Date;
             string Period = SDate.ToString("MMMM-yyyy");
@@ -411,17 +401,11 @@ namespace AprajitaRetails.Server.Importer
                 worksheet.Range[$"A{lr}:q{lr}"].BorderInside();
                 //worksheet.Range[$"A{lr}:q{lr}"].AutofitColumns();
 
-
-
-
-
                 //Save the document as a stream and retrun the stream.
                 MemoryStream stream = new MemoryStream();
                 //Save the created Excel document to MemoryStream
                 workbook.SaveAs(stream);
                 return stream;
-
-
             }
         }
 
@@ -498,8 +482,6 @@ namespace AprajitaRetails.Server.Importer
                 //Save the created Excel document to MemoryStream
                 workbook.SaveAs(stream);
                 return stream;
-
-
             }
         }
 
@@ -521,7 +503,6 @@ namespace AprajitaRetails.Server.Importer
                 {
                     if (im.InvoiceNo != null)
                     {
-
                         //if (im.InvoiceNo.StartsWith("ARD/2023"))
                         //{
                         //    if (im.InvoiceNo.Contains(@"/")) im.InvoiceNo = im.InvoiceNo.Replace(@"/", "-");
@@ -539,7 +520,6 @@ namespace AprajitaRetails.Server.Importer
                         //}
                         if (ChangeInvList.GetValueOrDefault(im.InvoiceNo) == null)
                         {
-
                             var inum = $"ARD-{im.Date.Value.Year}-{im.Date.Value.Month}-{im.Date.Value.Day}-{++xy}";
                             ChangeInvList.Add(im.InvoiceNo, inum);
                             im.InvoiceNo = inum;
@@ -585,7 +565,7 @@ namespace AprajitaRetails.Server.Importer
                 return false;
             }
 
-            // Adding Unit and tax details 
+            // Adding Unit and tax details
             if (count != sales.Count)
             {
                 return false;
@@ -639,7 +619,6 @@ namespace AprajitaRetails.Server.Importer
                         StoreId = "ARD",
                         Unit = Unit.NoUnit,
                         UserId = "AIT",
-
                     };
                     // Productitem as Reject then confirm when item is added.
                     im.DiscountAmount = x.MRP.Value * im.DiscountAmount;
@@ -653,7 +632,6 @@ namespace AprajitaRetails.Server.Importer
                         db.ProductItems.Add(p);
                         db.Stocks.Add(stk);
                     }
-
                 }
             }
 
@@ -686,18 +664,16 @@ namespace AprajitaRetails.Server.Importer
                     TotalPrice = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value,
                     RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - c.Sum(c => c.Value)
                     //RoundOff = sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.BillAmount).Value - sales.Where(x => x.InvoiceNo == c.Key).Sum(z => z.LineTotal).Value
-
                 }).ToList();
-
 
             db.ProductSales.AddRange(ins);
             int ios = db.SaveChanges();
-           
+
             db.SaleItems.AddRange(saleItems);
-            ios+= db.SaveChanges();
+            ios += db.SaveChanges();
 
             DocIO.ObjectToJsonFileAsync<SortedDictionary<string, string>>(ChangeInvList, @"/Data/ChangeInvoiceList.json");
-            
+
             var forP = sales.Where(c => string.IsNullOrEmpty(c.PayMode) == false)
                     .Select(c => new SalePaymentDetail
                     {
@@ -719,7 +695,6 @@ namespace AprajitaRetails.Server.Importer
                     InvoiceNumber = im.InvoiceNumber,
                     PaidAmount = im.PaidAmount,
                     EDCTerminalId = null,
-
                 };
                 db.CardPaymentDetails.Add(cd);
             }
@@ -727,25 +702,27 @@ namespace AprajitaRetails.Server.Importer
             ios += db.SaveChanges();
 
             var customers = sales
-                .GroupBy(c=>c.Mobile).OrderBy(c=>c)
-                .Select(c => new Customer { Age=40, City="Dumka", DateOfBirth=DateTime.Today.AddYears(-40)
-                , FirstName= c.Select(x=>x.Customer).First(), Gender=Gender.Male, MobileNo=c.Key,
-                 NoOfBills=0, TotalAmount=0, OnDate=DateTime.Today
-            }).Distinct().ToList();
+                .GroupBy(c => c.Mobile).OrderBy(c => c)
+                .Select(c => new Customer
+                {
+                    Age = 40,
+                    City = "Dumka",
+                    DateOfBirth = DateTime.Today.AddYears(-40)
+                ,
+                    FirstName = c.Select(x => x.Customer).First(),
+                    Gender = Gender.Male,
+                    MobileNo = c.Key,
+                    NoOfBills = 0,
+                    TotalAmount = 0,
+                    OnDate = DateTime.Today
+                }).Distinct().ToList();
 
-           
-            var custSale = sales.GroupBy(c=>c.InvoiceNo).Select(c => new CustomerSale {InvoiceNumber=c.Key, MobileNo=c.Select(x=>x.Mobile).First(), }).Distinct().ToList();
-            db.Customers.AddRange(customers); 
+            var custSale = sales.GroupBy(c => c.InvoiceNo).Select(c => new CustomerSale { InvoiceNumber = c.Key, MobileNo = c.Select(x => x.Mobile).First(), }).Distinct().ToList();
+            db.Customers.AddRange(customers);
             db.CustomerSales.AddRange(custSale);
             ios += db.SaveChanges();
 
-
             return ios > 0;
-
         }
-
-
-
     }
-
 }

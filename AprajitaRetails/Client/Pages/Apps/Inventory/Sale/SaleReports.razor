@@ -35,75 +35,75 @@
     </Header>
 </ContentHeader>
 <ContentMain>
-<Row>
-    <Column Classes="col.sm">
-        <div class="mb-3 row">
-            <label for="Store" class="col-sm-4 col-form-label">Store</label>
-            <div class="col-sm-4">
-                <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
-                            Autofill="true"
-                            @bind-Value="@StoreId" PopupHeight="230px"
-                            DataSource="@Stores">
-                    <ComboBoxFieldSettings Text="Value" Value="ID" />
-                </SfComboBox>
+    <Row>
+        <Column Classes="col.sm">
+            <div class="mb-3 row">
+                <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                <div class="col-sm-4">
+                    <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                Autofill="true"
+                                @bind-Value="@StoreId" PopupHeight="230px"
+                                DataSource="@Stores">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
+                </div>
             </div>
-        </div>
-    </Column>
-</Row>
-<Row>
-    <Column Classes="col.sm">
-        <div class="mb-3 row">
-            <label for="Year" class="col-sm-4 col-form-label">Year</label>
-            <div class="col-sm-4">
-                <SfComboBox TValue="int" TItem="int" Placeholder="Year"
-                            Autofill="true"
-                            @bind-Value="Year" PopupHeight="230px"
-                            DataSource="@YearList">
-                    <ComboBoxFieldSettings Text="Value" Value="ID" />
-                </SfComboBox>
+        </Column>
+    </Row>
+    <Row>
+        <Column Classes="col.sm">
+            <div class="mb-3 row">
+                <label for="Year" class="col-sm-4 col-form-label">Year</label>
+                <div class="col-sm-4">
+                    <SfComboBox TValue="int" TItem="int" Placeholder="Year"
+                                Autofill="true"
+                                @bind-Value="Year" PopupHeight="230px"
+                                DataSource="@YearList">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
+                </div>
             </div>
-        </div>
-    </Column>
+        </Column>
 
-</Row>
-<Row>
-    <Column Classes="col.sm">
-        <div class="mb-3 row">
-            <label for="Month" class="col-sm-4 col-form-label">Month</label>
-            <div class="col-sm-4">
-                <SfComboBox TValue="int" TItem="int" Placeholder="Month"
-                            Autofill="true"
-                            @bind-Value="@Month" PopupHeight="230px"
-                            DataSource="@MonthList">
-                    <ComboBoxFieldSettings   Text="Value" Value="Index" />
-                </SfComboBox>
+    </Row>
+    <Row>
+        <Column Classes="col.sm">
+            <div class="mb-3 row">
+                <label for="Month" class="col-sm-4 col-form-label">Month</label>
+                <div class="col-sm-4">
+                    <SfComboBox TValue="int" TItem="int" Placeholder="Month"
+                                Autofill="true"
+                                @bind-Value="@Month" PopupHeight="230px"
+                                DataSource="@MonthList">
+                        <ComboBoxFieldSettings Text="Value" Value="Index" />
+                    </SfComboBox>
+                </div>
             </div>
-        </div>
-    </Column>
-</Row>
+        </Column>
+    </Row>
 
-<Row>
-    <Column Classes="col.md">
-        <div class="mb-3 row">
-            <div class="col-sm-4">
-                <button class="btn btn-small btn-warning" @onclick="@FetchExcel"> Get Excel</button>
+    <Row>
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <div class="col-sm-4">
+                    <button class="btn btn-small btn-warning" @onclick="@FetchExcel"> Get Excel</button>
+                </div>
             </div>
-        </div>
-    </Column>
-    <Column Classes="col.md">
-        <div class="mb-3 row">
-            <div class="col-sm-4">
-                <button class="btn btn-small btn-warning" @onclick="@FetchExcelPL"> Get Excel (Profit Loss)</button>
+        </Column>
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <div class="col-sm-4">
+                    <button class="btn btn-small btn-warning" @onclick="@FetchExcelPL"> Get Excel (Profit Loss)</button>
+                </div>
             </div>
-        </div>
-    </Column>
-</Row>
+        </Column>
+    </Row>
 </ContentMain>
 @code {
 
     IList<SelectOption>? Stores;
     IList<int>? YearList;
-    IList<int>? MonthList = new List<int> { 1, 2, 3, 4, 5, 6,7,8,9,10,11,12};// "July", "Aug", "Sept", "Oct", "Nov","Dec" };
+    IList<int>? MonthList = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };// "July", "Aug", "Sept", "Oct", "Nov","Dec" };
     string StoreId = "ARD";
     int Year = DateTime.Today.Year;
     int Month = DateTime.Today.Month;

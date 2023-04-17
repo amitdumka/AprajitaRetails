@@ -10,7 +10,6 @@
 
 <H3> Import Test</H3>
 
-
 @{
     @if (stores == null)
     {
@@ -45,7 +44,6 @@
     <Button @onclick="@save">save</Button>
     <p>@errmsg</p>
 }
-
 
 @code {
 
@@ -86,7 +84,6 @@
         {
             stores = await Http.GetFromJsonAsync<Store[]>("stores.json");
             count = stores.Count();
-
 
         }
         catch (AccessTokenNotAvailableException exception)

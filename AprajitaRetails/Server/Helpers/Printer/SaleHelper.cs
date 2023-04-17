@@ -1,13 +1,11 @@
 ﻿//namespace AprajitaRetails.Server.Helpers.Printer
 //{
-
 //    public class SaleHelper
 //    {
 //        string[] Months = {"","Jan","Feb","Mar","April","May","June","July",
 //        "Aug","Sept","Oct","Nov","Dec"};
 //        private PdfPage AddPage(PdfPage page, List<SaleReport> saleReports)
 //        {
-
 //            PdfGraphics graphics = page.Graphics;
 //            // PdfPageNumberField pdfPageNumberField = new PdfPageNumberField();
 //            // pdfPageNumberField.NumberStyle = PdfNumberStyle.Numeric;
@@ -51,7 +49,6 @@
 
 //            pdfGrid.DataSource = ToDataTable(saleReports, out yearlyTotal, out monthlyTotal);
 
-
 //            //Creates the grid cell styles
 //            PdfGridCellStyle cellStyle = new PdfGridCellStyle();
 //            cellStyle.Borders.All = PdfPens.White;
@@ -63,7 +60,6 @@
 //            //pdfGrid.Style.TextBrush = PdfBrushes.DarkSlateBlue;
 //            //pdfGrid.Style.BorderOverlapStyle = PdfBorderOverlapStyle.Overlap;
 //            //pdfGrid.Style.CellPadding.All = 0.7f;
-
 
 //            PdfGridRow header = pdfGrid.Headers[0];
 
@@ -86,13 +82,11 @@
 //            //Applies the header style
 //            header.ApplyStyle(headerStyle);
 
-
 //            //Creates the layout format for grid
 //            PdfGridLayoutFormat layoutFormat = new PdfGridLayoutFormat();
 
 //            // Creates layout format settings to allow the table pagination
 //            layoutFormat.Layout = PdfLayoutType.Paginate;
-
 
 //            PdfGridCellStyle firstRowStyle = new PdfGridCellStyle();
 //            firstRowStyle.TextBrush = PdfBrushes.OrangeRed;
@@ -118,7 +112,6 @@
 //            monthlyRowStyle.Borders.Right = PdfPens.Black;
 //            monthlyRowStyle.Borders.Left = PdfPens.Black;
 //            monthlyRowStyle.Font = new PdfStandardFont(PdfFontFamily.TimesRoman, 10f, PdfFontStyle.Bold);
-
 
 //            foreach (var row in yearlyTotal)
 //            {
@@ -177,8 +170,8 @@
 //                dataTable.Columns.Add("Tax Value");
 //                dataTable.Columns.Add("Invoice Value");
 
-//                //Do group based on year and month then make sub total . 
-//                //then year wise total 
+//                //Do group based on year and month then make sub total .
+//                //then year wise total
 //                //then total  total
 //                var reps = saleReports.GroupBy(c => new { c.Year, c.Month }).ToList();
 
@@ -219,9 +212,7 @@
 //                        RowNo++;
 //                        yearlyTotal.Add(RowNo);
 
-
 //                    }
-
 
 //                    var datas = saleReports.Where(c => c.Month == item.Key.Month && c.Year == item.Key.Year).ToList();
 
@@ -273,11 +264,9 @@
 //            }
 //            catch (Exception e)
 //            {
-
 //                Console.WriteLine(e.Message);
 //                return dataTable;
 //            }
-
 
 //        }
 //        public string ToPdf(List<SaleReport> saleReports)
@@ -304,7 +293,6 @@
 //            }
 //            catch (Exception e)
 //            {
-
 //                Console.WriteLine(e.Message);
 //                return null;
 //            }

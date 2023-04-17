@@ -102,9 +102,7 @@
 
         <Column Classes="col.md">
             <SfButton CssClass="e-warning e-small" @onclick='@(()=> PrintingService.Print($"api/productsales/invoiceprint?id={invoiceNumber}&copy={copy}&pagesmall={smallPage}&reprint={Reprint}"))'>Print Invoice</SfButton>
-           
-          
-            
+
         </Column>
 
     </Row>
@@ -133,13 +131,12 @@
         }
     }
 
-
     private async void FetchInvList(MouseEventArgs args)
     {
-        if(InvoiceList!=null)
+        if (InvoiceList != null)
             InvoiceList.Clear();
 
-        InvoiceList = await Helper.FetchAsync<string>($"api/productsale/invlist?StoreId ={ Setting.StoreCode}", $"year={year}&month={month}");
+        InvoiceList = await Helper.FetchAsync<string>($"api/productsale/invlist?StoreId ={Setting.StoreCode}", $"year={year}&month={month}");
 
         if (InvoiceList != null && InvoiceList.Count > 0)
         {
@@ -170,6 +167,4 @@
 
     }
 
-
 }
-

@@ -27,12 +27,9 @@ namespace AprajitaRetails.Server.Importer
 
                 var dt = worksheet.ExportDataTable(range, ExcelExportDataTableOptions.ColumnNames);
 
-                var objList =DocIO.ConvertDataTable<T>(dt);
+                var objList = DocIO.ConvertDataTable<T>(dt);
                 return objList;
-
             }
         }
-
     }
-
 }

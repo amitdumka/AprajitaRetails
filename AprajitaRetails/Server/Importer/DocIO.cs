@@ -32,7 +32,6 @@ namespace AprajitaRetails.Server.Importer
 
         public static PayMode PayModeType(string p)
         {
-
             switch (p.ToLower())
             {
                 case "cash": return PayMode.Cash;
@@ -45,12 +44,11 @@ namespace AprajitaRetails.Server.Importer
 
                 default:
                     if (p.ToLower().Contains("mix")) return PayMode.MixPayments;
-                   else if (p.ToLower().Contains("upi")) return PayMode.UPI;
+                    else if (p.ToLower().Contains("upi")) return PayMode.UPI;
                     else return PayMode.Others;
-
             }
-
         }
+
         public static List<T> ConvertDataTable<T>(DataTable dt)
         {
             List<T> data = new List<T>();
@@ -61,9 +59,9 @@ namespace AprajitaRetails.Server.Importer
             }
             return data;
         }
+
         public static T GetItem<T>(DataRow dr)
         {
-
             Type temp = typeof(T);
             T obj = Activator.CreateInstance<T>();
 
@@ -71,8 +69,6 @@ namespace AprajitaRetails.Server.Importer
             {
                 try
                 {
-
-
                     if (((string)dr[column.ColumnName]) != null || dr[column.ColumnName] != typeof(DBNull))
                     {
                         foreach (PropertyInfo pro in temp.GetProperties())
@@ -98,14 +94,17 @@ namespace AprajitaRetails.Server.Importer
                                     case "DiscountAmount":
                                         pro.SetValue(obj, decimal.Parse((string)dr[column.ColumnName]), null);
                                         break;
+
                                     case "Date":
                                     case "OnDate":
                                         pro.SetValue(obj, DateTime.Parse((string)dr[column.ColumnName]), null);
                                         break;
+
                                     case "EntryStatus":
                                         //case "PayMode":
                                         pro.SetValue(obj, int.Parse((string)dr[column.ColumnName]), null);
                                         break;
+
                                     case "IsDue":
                                     case "ManualBill":
                                     case "SalesReturn":
@@ -113,15 +112,17 @@ namespace AprajitaRetails.Server.Importer
                                     case "IsReadOnly":
                                     case "MarkedDeleted":
 
-
                                         pro.SetValue(obj, bool.Parse((string)dr[column.ColumnName]), null);
                                         break;
+
                                     case "EDCTerminalId":
                                         pro.SetValue(obj, null, null);
                                         break;
+
                                     case "SN":
                                         pro.SetValue(obj, int.Parse((string)dr[column.ColumnName]), null);
                                         break;
+
                                     case "Customer":
                                     case "Mobile":
                                     case "PayMode":
@@ -131,7 +132,6 @@ namespace AprajitaRetails.Server.Importer
                                             pro.SetValue(obj, (string)dr[column.ColumnName], null);
                                         break;
                                 }
-
                             }
                             else
                                 continue;
@@ -144,17 +144,17 @@ namespace AprajitaRetails.Server.Importer
                 }
                 catch (Exception)
                 {
-
                     continue;
                 }
             }
             return obj;
-
         }
+
         public decimal DisAmt(decimal mrp, decimal dis)
         {
             return Math.Round(mrp * (dis / 100), 2);
         }
+
         public static decimal GetBasicAmt(decimal amt, Unit unit)
         {
             decimal TaxRate = 5;
@@ -164,6 +164,7 @@ namespace AprajitaRetails.Server.Importer
             var Basic = amt / (1 + TaxRate);
             return Math.Round(Basic, 2);
         }
+
         public static List<T>? JsonToObject<T>(MemoryStream filename)
         {
             try
@@ -180,6 +181,7 @@ namespace AprajitaRetails.Server.Importer
                 return null;
             }
         }
+
         public static List<T>? JsonToObject<T>(string json)
         {
             try
@@ -192,9 +194,12 @@ namespace AprajitaRetails.Server.Importer
                 return null;
             }
         }
-        public static string ObjectToJson<T>(List<T> lists) {
+
+        public static string ObjectToJson<T>(List<T> lists)
+        {
             return JsonSerializer.Serialize<List<T>>(lists);
         }
+
         public static async Task<string> ObjectToJsonFileAsync<T>(List<T> lists, string path)
         {
             var JSONFILE = JsonSerializer.Serialize<List<T>>(lists);
@@ -203,6 +208,7 @@ namespace AprajitaRetails.Server.Importer
             writer.Close();
             return JSONFILE;
         }
+
         public static async Task<string> ObjectToJsonFileAsync<T>(T lists, string path)
         {
             var JSONFILE = JsonSerializer.Serialize<T>(lists);
@@ -212,5 +218,4 @@ namespace AprajitaRetails.Server.Importer
             return JSONFILE;
         }
     }
-
 }

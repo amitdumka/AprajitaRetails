@@ -1,6 +1,5 @@
 ﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
-using System.Reflection.Metadata;
 using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
@@ -10,6 +9,7 @@ namespace AprajitaRetails.Server.Importer
         private ARDBContext aRDB;
         private string StoreCode;
         private IWebHostEnvironment hostingEnv;
+
         public StockImporter(IWebHostEnvironment env, ARDBContext db, string storeCode = "ARD")
         {
             this.hostingEnv = env;
@@ -21,7 +21,6 @@ namespace AprajitaRetails.Server.Importer
         {
             var PurchasePath = Path.Combine(this.hostingEnv.WebRootPath, "Data/PurchaseInvoice.json");
             var SalePath = Path.Combine(this.hostingEnv.WebRootPath, "Data/SaleInvoices.json");
-
 
             var productList = aRDB.ProductItems.ToList();
             List<Stock> NewStockList = new List<Stock>();
@@ -67,17 +66,15 @@ namespace AprajitaRetails.Server.Importer
 
                             if (zstock != null)
                             {
-
                                 if (zstock.CostPrice != ItemCost)
                                 {
-                                    if (((zstock.CostPrice - ItemCost) < 1)|| ItemQuantity==1 || ItemQuantity == 2 || ItemQuantity == 4 || ItemQuantity == 3)
+                                    if (((zstock.CostPrice - ItemCost) < 1) || ItemQuantity == 1 || ItemQuantity == 2 || ItemQuantity == 4 || ItemQuantity == 3)
                                     {
                                         var avrCp = (zstock.PurchaseQty * zstock.CostPrice) + (ItemQuantity * ItemCost);
                                         avrCp = avrCp / (ItemQuantity + zstock.PurchaseQty);
-                                        zstock.CostPrice = Math.Round(avrCp,2);
+                                        zstock.CostPrice = Math.Round(avrCp, 2);
                                         zstock.PurchaseQty += ItemQuantity;
                                     }
-                                    
                                     else
                                     {
                                         var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = true, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
@@ -86,7 +83,6 @@ namespace AprajitaRetails.Server.Importer
                                 }
                                 else
                                 {
-
                                     zstock.PurchaseQty += ItemQuantity;
                                 }
                             }
@@ -106,7 +102,7 @@ namespace AprajitaRetails.Server.Importer
                                 fstock.MRP = ItemMRP;
                                 fstock.CostPrice = ItemCost;
                             }
-                            else if(fstock.CostPrice != ItemCost && fstock.MRP==ItemMRP)
+                            else if (fstock.CostPrice != ItemCost && fstock.MRP == ItemMRP)
                             {
                                 if (((fstock.CostPrice - ItemCost) < 1) || ItemQuantity == 1 || ItemQuantity == 2 || ItemQuantity == 4 || ItemQuantity == 3)
                                 {
@@ -116,7 +112,6 @@ namespace AprajitaRetails.Server.Importer
                                     fstock.PurchaseQty += ItemQuantity;
                                     fstock.MultiPrice = true;
                                 }
-
                                 else
                                 {
                                     var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = true, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
@@ -125,7 +120,6 @@ namespace AprajitaRetails.Server.Importer
                             }
                             else if (fstock.MRP == ItemMRP && fstock.CostPrice == ItemCost)
                             {
-
                                 fstock.PurchaseQty += ItemQuantity;
                             }
                             else
@@ -134,22 +128,17 @@ namespace AprajitaRetails.Server.Importer
                                 var cstock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.Added, HoldQty = 0, IsReadOnly = true, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = true, PurchaseQty = ItemQuantity, UserId = "Auto", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
 
                                 NewStockList.Add(cstock);
-
                             }
-
                         }
                     }
                     else
                     {
-
                         var stock = new Stock { Barcode = item.Barcode, CostPrice = ItemCost, EntryStatus = EntryStatus.DeleteApproved, HoldQty = 0, IsReadOnly = false, MarkedDeleted = false, MRP = ItemMRP, MultiPrice = false, PurchaseQty = ItemQuantity, UserId = "AutoNEW", StoreId = StoreCode, SoldQty = 0, Unit = Unit.Nos };
                         NewStockList.Add(stock);
                     }
                 }
 
-
                 JSONFILE = JsonSerializer.Serialize<List<Stock>>(NewStockList);
-
 
                 using StreamWriter writer = new StreamWriter(Path.Combine(this.hostingEnv.WebRootPath, "Data/PurchaseStockJson.json"));
                 await writer.WriteAsync(JSONFILE);
@@ -178,15 +167,12 @@ namespace AprajitaRetails.Server.Importer
                     {
                         if (item.BARCODE.StartsWith("SA"))
                         {
-
                         }
                         else
                         {
                             BarCodeNotFound.Add(item);
                         }
-
                     }
-
                 }
 
                 JSONFILE = JsonSerializer.Serialize<List<Stock>>(NewStockList);
@@ -202,7 +188,7 @@ namespace AprajitaRetails.Server.Importer
                 }
                 //var data = NewStockList.GroupBy(c => c.Barcode).Where(c => c.Count() > 1)
                 //    .Select(c => new {Barcode= c.Key, MRP = c.Select(x => x.MRP), Cost = c.Select(x => x.CostPrice), Qty=c.Select(x=>x.PurchaseQty) }).ToList();
-                var data = NewStockList.Where(c => c.EntryStatus == EntryStatus.DeleteApproved).ToList(); 
+                var data = NewStockList.Where(c => c.EntryStatus == EntryStatus.DeleteApproved).ToList();
                 JSONFILE = JsonSerializer.Serialize(data);
                 using StreamWriter writer21 = new StreamWriter(Path.Combine(this.hostingEnv.WebRootPath, "Data/SummyStockJson.json"));
                 await writer21.WriteAsync(JSONFILE);
@@ -210,21 +196,16 @@ namespace AprajitaRetails.Server.Importer
                 aRDB.Stocks.RemoveRange(aRDB.Stocks.ToList());
                 aRDB.SaveChanges();
 
-                aRDB.Stocks.AddRange(NewStockList) ;
+                aRDB.Stocks.AddRange(NewStockList);
                 return aRDB.SaveChanges() > 0;
-               // return true;
-
+                // return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;
-
             }
-
         }
-
-
     }
 
     public class StockH
@@ -238,12 +219,12 @@ namespace AprajitaRetails.Server.Importer
 
     public class SInvoice
     {
-        public string BARCODE { get; set; }//8907378341709,        
+        public string BARCODE { get; set; }//8907378341709,
         public string Quantity { get; set; }//1,
         public string MRP { get; set; }//2199,
         public string InvoiceNo { get; set; }
-
     }
+
     public class PInvoice
     {
         public string Barcode { get; set; }
@@ -251,6 +232,7 @@ namespace AprajitaRetails.Server.Importer
         public string MRP { get; set; }
         public string Cost { get; set; }
     }
+
     // public string GRNNo { get; set; }
     // public string InvoiceNo { get; set; }
     // public string InvoiceDate { get; set; }
@@ -273,6 +255,4 @@ namespace AprajitaRetails.Server.Importer
     //public string ProductName { get; set; }//Apparel/MensCasual/Jeans,
     //public string ItemDesc { get; set; }//MIDRISEMICHAEL,
     //public string HSNCode { get; set; }//,
-
-
 }

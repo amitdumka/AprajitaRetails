@@ -7,6 +7,7 @@ namespace AprajitaRetails.Server.Importer
         private IWebHostEnvironment hostingEnv;
         private ARDBContext aRDB;
         private ImportData ImportData;
+
         public SetupWithOld(IWebHostEnvironment env, ARDBContext db)
         {
             this.hostingEnv = env; aRDB = db;
@@ -19,7 +20,7 @@ namespace AprajitaRetails.Server.Importer
             var viFileList = fileList.Where(c => c.FileName.StartsWith("V1_")).ToList();
             bool flag = true;
             // Import Store
-            flag = await ImportData.ImportTableAsync(viFileList.Where(c=>c.FileName=="V1_Stores").FirstOrDefault().Path);
+            flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Stores").FirstOrDefault().Path);
             if (!flag) return;
             // Import Employee
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Employees").FirstOrDefault().Path);
@@ -32,7 +33,6 @@ namespace AprajitaRetails.Server.Importer
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_BankAccounts").FirstOrDefault().Path);
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_Brands").FirstOrDefault().Path);
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_CardPaymentDetails").FirstOrDefault().Path);
-
 
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_CashDetails").FirstOrDefault().Path);
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "V1_CustomerDues").FirstOrDefault().Path);
@@ -54,6 +54,5 @@ namespace AprajitaRetails.Server.Importer
 
             flag = await ImportData.ImportTableAsync(viFileList.Where(c => c.FileName == "EmployeeDetails").FirstOrDefault().Path);
         }
-
     }
 }

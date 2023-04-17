@@ -5,7 +5,8 @@ namespace AprajitaRetails.Server.Importer
 {
     public class IDChanger
     {
-        ARDBContext db;
+        private ARDBContext db;
+
         public IDChanger(ARDBContext aa) => db = aa;
 
         public async Task<bool> ChangeID()
@@ -15,13 +16,11 @@ namespace AprajitaRetails.Server.Importer
             foreach (var emp in employee)
             {
                 emp.Employee.EmployeeId = emp.EmployeeId = emp.EmployeeId.Replace("/", "-");
-
             }
             var attds = await db.Attendances.ToListAsync();
             foreach (var emp in attds)
             {
                 emp.EmployeeId = emp.EmployeeId.Replace("/", "-");
-
             }
 
             int x = db.SaveChanges();
@@ -29,4 +28,3 @@ namespace AprajitaRetails.Server.Importer
         }
     }
 }
-

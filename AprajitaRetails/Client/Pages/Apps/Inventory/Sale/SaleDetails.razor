@@ -61,9 +61,13 @@
                             <TableCell><RadzenLabel Text="Payment Status" Style="color:greenyellow" /></TableCell>
                             <TableCell>
                                 @if (Invoice.Invoice.Paid)
-                                {<i>Paid</i> }
+                                {
+                                    <i>Paid</i>
+                                }
                                 else
-                                {<i>Due</i>}
+                                {
+                                    <i>Due</i>
+                                }
                             </TableCell>
                             <TableCell><RadzenLabel Text="Store Name" Style="color:greenyellow" /></TableCell>
                             <TableCell>@Invoice.Invoice.StoreName</TableCell>
@@ -129,7 +133,6 @@
                                         <GridColumn Field=@nameof(SaleItemDTO.TaxAmount) HeaderText="Tax Amt" Width="90"></GridColumn>
                                         <GridColumn Field=@nameof(SaleItemDTO.Unit) HeaderText="Unit" Width="90"></GridColumn>
                                         <GridColumn Field=@nameof(SaleItemDTO.Value) HeaderText="Value" Format="c2" Type="ColumnType.Number" Width="90"></GridColumn>
-
 
                                     </GridColumns>
                                 </SfGrid>

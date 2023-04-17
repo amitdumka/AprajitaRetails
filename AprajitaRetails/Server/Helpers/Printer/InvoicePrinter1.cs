@@ -1,9 +1,5 @@
-﻿using AprajitaRetails.Client.Helpers;
-using AprajitaRetails.Shared.AutoMapper.DTO;
+﻿using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Inventory;
-using Blazor.AdminLte;
-using Syncfusion.Blazor.BarcodeGenerator;
-using Syncfusion.Blazor.Kanban.Internal;
 using Syncfusion.Drawing;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Barcode;
@@ -73,16 +69,16 @@ namespace AprajitaRetails.Server.Helpers.Printer
                 try
                 {
                     pdfDoc.PageSettings.Size = new SizeF(PageWith, PageHeight);
-                
+
                     //Create a new font.
                     PdfStandardFont font = new PdfStandardFont(PdfFontFamily.TimesRoman, this.FontSize);
                     if (Page2Inch)
                         pdfDoc.PageSettings.SetMargins(90, 25, 90, 8);
                     else
                         pdfDoc.PageSettings.SetMargins(25, 25, 40, 25);
-                    
+
                     PdfPage page = pdfDoc.Pages.Add();
-                    
+
                     // pdfDoc.PageSettings.SetMargins(170, 25, 90, 35);
                     PdfLayoutFormat format = new PdfLayoutFormat();
                     //format.Layout = PdfLayoutType.Paginate;
@@ -90,7 +86,6 @@ namespace AprajitaRetails.Server.Helpers.Printer
 
                     PdfTextElement title = new PdfTextElement($"{StoreName}\n{Address}\n{City}\nPhone No: {Phone}\n{TaxNo}", font, PdfBrushes.Black);
                     PdfLayoutResult result = title.Draw(page, new PointF(0, 0));
-
 
                     string line = "";
                     string sBill = "";
@@ -101,12 +96,11 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     if (ServiceBill)
                     {
                         sBill = $"Service Invoice\n{line}";
-
                     }
                     string detailString = $"{line}{InvoiceTitle}\n{line}{sBill}{Employee}\nBill No: {ProductSale.InvoiceNo}\nDate: {ProductSale.OnDate.ToShortDateString()}\n{line}";
                     string d2 = $"Name: {CustomerName}\nMobile : {MobileNumber}\n{line}{ItemLineHeader1}\n{ItemLineHeader2}\n{line}";
 
-                    PdfTextElement details = new PdfTextElement($"{ detailString}{d2}", font, PdfBrushes.Black);
+                    PdfTextElement details = new PdfTextElement($"{detailString}{d2}", font, PdfBrushes.Black);
                     result = details.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
 
                     string invItemStr = "";
@@ -115,7 +109,6 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     {
                         invItemStr += $"{itm.Barcode} / {itm.ProductName} /{itm.HSNCode} \n";
                         invItemStr += $"{itm.MRP.ToString(f)} / {itm.BilledQty.ToString(f)} / {itm.DiscountAmount.ToString(f)} / {itm.Value.ToString(f)}\n\n";
-
                     }
                     invItemStr += line;
                     invItemStr += $"Total: {ProductSale.BilledQty.ToString(f)}   \t                          {(ProductSale.TotalPrice - ProductSale.RoundOff).ToString(f)}\n";
@@ -126,7 +119,6 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     invItemStr += $"Basic Price: \t{ProductSale.TotalBasicAmount.ToString("0.##")}";
                     invItemStr += $"\nCGST:   \t \t {(ProductSale.TotalTaxAmount / 2).ToString("0.##")}";
                     invItemStr += $"\nSGST:   \t \t {(ProductSale.TotalTaxAmount / 2).ToString("0.##")}\n{line}";
-
 
                     PdfTextElement invitm = new PdfTextElement(invItemStr, font, PdfBrushes.Black);
                     result = invitm.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
@@ -150,15 +142,13 @@ namespace AprajitaRetails.Server.Helpers.Printer
                             }
                             else
                             {
-                                if(string.IsNullOrEmpty(pd.RefId)==false && pd.PayMode!=PayMode.Cash)
-                                payStr += $"Ref No:{pd.RefId}\n";
+                                if (string.IsNullOrEmpty(pd.RefId) == false && pd.PayMode != PayMode.Cash)
+                                    payStr += $"Ref No:{pd.RefId}\n";
                             }
                         }
                         payStr += line;
                         PdfTextElement pay = new PdfTextElement(payStr, font, PdfBrushes.Black);
                         result = pay.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
-
-
                     }
 
                     //Footer
@@ -178,7 +168,6 @@ namespace AprajitaRetails.Server.Helpers.Printer
 
                     footerstr += $"Printed on:  {DateTime.Now}  \n\n\n\n\n\n{DotedLine}\n\n\n";
 
-
                     PdfTextElement foot = new PdfTextElement(footerstr, font, PdfBrushes.Black);
                     result = foot.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
 
@@ -194,19 +183,17 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     qrBarcode.Draw(page, new PointF(30, result.Bounds.Bottom + paragraphAfterSpacing));
 
                     pdfDoc.PageSettings.Height = result.Bounds.Bottom + paragraphAfterSpacing + 100;
-                    
 
                     //using (
-                        MemoryStream stream = new MemoryStream();
-                      //  )
+                    MemoryStream stream = new MemoryStream();
+                    //  )
                     //{
-                        //Saving the PDF document into the stream.
-                        pdfDoc.Save(stream);
-                        //Closing the PDF document.
-                        pdfDoc.Close(true);
-                        return stream;
+                    //Saving the PDF document into the stream.
+                    pdfDoc.Save(stream);
+                    //Closing the PDF document.
+                    pdfDoc.Close(true);
+                    return stream;
                     //}
-
                 }
                 catch (Exception ex)
                 {

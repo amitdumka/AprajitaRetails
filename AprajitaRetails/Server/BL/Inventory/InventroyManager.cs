@@ -1,14 +1,83 @@
-﻿using System;
-using System.Text.Json;
-using AprajitaRetails.Server.Data;
+﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Inventory;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace AprajitaRetails.Server.BL.Inventory
 {
     public class InventroyManager
     {
         //TODO: Need to Handle Purhchase , Sale and Stock , and InterStore transfer.
+
+        public static bool UpdateStock(ARDBContext db, string storecode, List<SaleItem> items)
+        {
+            foreach (var tm in items)
+            {
+                var stk = db.Stocks.Where(c => c.StoreId == storecode && c.Barcode == tm.Barcode).FirstOrDefault();
+                if (stk != null)
+                {
+                    if (tm.InvoiceType == InvoiceType.ManualSale || tm.InvoiceType == InvoiceType.ManualSaleReturn)
+                    {
+                        stk.HoldQty = tm.BilledQty + tm.FreeQty;
+                    }
+                    else
+                    {
+                        stk.SoldQty = tm.BilledQty + tm.FreeQty;
+                    }
+                    db.Stocks.Update(stk);
+                }
+                else
+                {
+                    Stock mStk = new Stock
+                    {
+                        MultiPrice = false,
+                        StoreId = storecode,
+                        Barcode = tm.Barcode,
+                        EntryStatus = EntryStatus.Rejected,
+                        CostPrice = 0,
+                        MRP = (tm.Value + tm.DiscountAmount) / tm.BilledQty,
+                        HoldQty = 0,
+                        IsReadOnly = false,
+                        MarkedDeleted = false,
+                        PurchaseQty = 0,
+                        SoldQty = 0,
+                        Unit = tm.Unit,
+                        UserId = "AUTOERRORADMIN"
+                    };
+
+                    if (tm.InvoiceType == InvoiceType.ManualSale || tm.InvoiceType == InvoiceType.ManualSaleReturn)
+                    {
+                        mStk.HoldQty = tm.BilledQty + tm.FreeQty;
+                    }
+                    else
+                    {
+                        mStk.SoldQty = tm.BilledQty + tm.FreeQty;
+                    }
+                    if (db.ProductItems.Find(tm.Barcode) != null)
+                    {
+                        ProductItem pi = new ProductItem
+                        {
+                            Barcode = tm.Barcode,
+                            Description = "#missing",
+                            MRP = mStk.MRP,
+                            Name = "MISS",
+                            Unit = mStk.Unit,
+                            TaxType = TaxType.GST,
+                            ProductCategory = ProductCategory.Others,
+                            StyleCode = "",
+                            Size = Size.NOTVALID,
+                            HSNCode = "",
+                            SubCategory = "Promo",
+                            ProductTypeId = "PT00013",
+                            BrandCode = "NOB"
+                        };
+                        db.ProductItems.Add(pi);
+                    }
+                    db.Stocks.Add(mStk);
+                }
+            }
+            return db.SaveChanges() > 0;
+        }
 
         public static void CleanUpStock(ARDBContext db, string storeid)
         {
@@ -25,31 +94,30 @@ namespace AprajitaRetails.Server.BL.Inventory
             var sale = db.SaleItems.Include(c => c.ProductSale).Where(c => c.ProductSale.StoreId == storeid)
                 .Select(c => new { c.Barcode, c.BilledQty, c.FreeQty, c.InvoiceType })
                 .ToList();
-
         }
 
         public static async Task<bool> StockCorrectionAsync(ARDBContext db, string storecode)
         {
             try
             {
-                var purchases = await db.PurchaseItems.Include(c=>c.PurchaseProduct)
+                var purchases = await db.PurchaseItems.Include(c => c.PurchaseProduct)
                     .Where(c => c.PurchaseProduct.StoreId == storecode)
-                    .GroupBy(c=>c.Barcode)
-                    .Select(c=>new {Barcode=c.Key, Qty=c.Sum(x=>x.Qty+x.FreeQty)})
+                    .GroupBy(c => c.Barcode)
+                    .Select(c => new { Barcode = c.Key, Qty = c.Sum(x => x.Qty + x.FreeQty) })
                     .ToListAsync();
-                var sales=await db.SaleItems.Include(c => c.ProductSale)
+                var sales = await db.SaleItems.Include(c => c.ProductSale)
                     .Where(c => c.ProductSale.StoreId == storecode)
                     .GroupBy(c => c.Barcode)
-                    .Select(c => new {Barcode= c.Key, Qty = c.Sum(x => x.BilledQty + x.FreeQty) })
+                    .Select(c => new { Barcode = c.Key, Qty = c.Sum(x => x.BilledQty + x.FreeQty) })
                     .ToListAsync();
                 var stocks = await db.Stocks.Where(c => c.StoreId == storecode).ToListAsync();
-               // List<Stock> updateList = new List<Stock>();
+                // List<Stock> updateList = new List<Stock>();
                 int x = 0;
                 foreach (var stk in stocks)
                 {
-                    var ss=sales.Where(c => c.Barcode == stk.Barcode).FirstOrDefault();
-                    if(ss!=null) 
-                    stk.SoldQty =ss.Qty ;
+                    var ss = sales.Where(c => c.Barcode == stk.Barcode).FirstOrDefault();
+                    if (ss != null)
+                        stk.SoldQty = ss.Qty;
                     var pp = purchases.Where(c => c.Barcode == stk.Barcode).FirstOrDefault();
                     if (pp != null)
                         stk.PurchaseQty = pp.Qty;
@@ -59,13 +127,11 @@ namespace AprajitaRetails.Server.BL.Inventory
                 if (stocks.Count != x)
                 {
                     Console.WriteLine("X doesnt match with stock");
-
                 }
                 Console.WriteLine($"X={x}/ Stock={stocks.Count}/ pur={purchases.Count}/ sales={sales.Count}");
 
-               // db.Stocks.UpdateRange(stocks);
-               return (await db.SaveChangesAsync())>0;
-
+                // db.Stocks.UpdateRange(stocks);
+                return (await db.SaveChangesAsync()) > 0;
             }
             catch (Exception ex)
             {
@@ -73,11 +139,10 @@ namespace AprajitaRetails.Server.BL.Inventory
             }
         }
 
-
         public static async Task<SortedDictionary<string, List<Stock>>> ReOraganiseStockAsync(ARDBContext db)
         {
             //Delete All Stock from List.
-            var status=	await db.Stocks.ExecuteDeleteAsync();
+            var status = await db.Stocks.ExecuteDeleteAsync();
             //Create Stock Item List.
             var storescode = db.Stores.Select(c => c.StoreId).ToList();
 
@@ -128,12 +193,11 @@ namespace AprajitaRetails.Server.BL.Inventory
                 using StreamWriter writer2 = new StreamWriter(Path.Combine("", $"Data/{sc}_WithSaleStock.json"));
                 await writer2.WriteAsync(JSONFILE);
                 writer.Close();
-              //await  db.Stocks.AddRangeAsync(stock);
-              //  int x = await db.SaveChangesAsync();
-               // System.Console.WriteLine("x:" + x);
+                //await  db.Stocks.AddRangeAsync(stock);
+                //  int x = await db.SaveChangesAsync();
+                // System.Console.WriteLine("x:" + x);
             }
             return stocks;
         }
     }
 }
-

@@ -22,14 +22,14 @@
                     <Input @bind-Value="email" />
                     <Input @bind-Value="password" />
                     @code {
-                        CustomCheckboxState rememberMe = new CustomCheckboxState()
-                        {
-                            Identifier = "customCheckbox1",
-                            Value = "option1",
-                            Label = "Remember Me?"
-                        ,
-                            IsChecked = true
-                        };
+        CustomCheckboxState rememberMe = new CustomCheckboxState()
+        {
+            Identifier = "customCheckbox1",
+            Value = "option1",
+            Label = "Remember Me?"
+        ,
+            IsChecked = true
+        };
                     }
                     <div class="row">
                         <div class="col-8">
@@ -64,7 +64,7 @@
 @code {
     string CompanyName = "Aprajita Retails";
     //string userName = "", Password = "";
-   // bool remme;
+    // bool remme;
     InputState email = new InputState() { Value = "AmitKumar", Identifier = "email", Placeholder = "Enter email", Type = "email" };
     @*Icon = "fas fa-envelope" };*@
     InputState password = new InputState() { Value = "Dumka@1234", Identifier = "password", Placeholder = "Enter password", Type = "password" };
@@ -91,12 +91,12 @@
                 }
 
                 var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Success",
-                    Detail = $"User Loged In: {user.FullName}",
-                    Duration = 14000
-                };
+                    {
+                        Severity = NotificationSeverity.Info,
+                        Summary = "Success",
+                        Detail = $"User Loged In: {user.FullName}",
+                        Duration = 14000
+                    };
                 NotificationService.Notify(msg);
                 NavigationManager.NavigateTo("/home");
             }
@@ -104,12 +104,12 @@
             {
                 // Display error message
                 var msg = new Radzen.NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = "Error",
-                    Detail = "err" + login.Content,
-                    Duration = 14000
-                };
+                    {
+                        Severity = NotificationSeverity.Info,
+                        Summary = "Error",
+                        Detail = "err" + login.Content,
+                        Duration = 14000
+                    };
                 NotificationService.Notify(msg);
 
             }
@@ -119,12 +119,12 @@
             // Dispaly error message
             // Display error message
             var msg = new Radzen.NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Error",
-                Detail = "err" + ex.Message,
-                Duration = 14000
-            };
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = "Error",
+                    Detail = "err" + ex.Message,
+                    Duration = 14000
+                };
             NotificationService.Notify(msg);
         }
     }

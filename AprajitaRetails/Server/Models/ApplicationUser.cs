@@ -8,6 +8,4 @@ namespace AprajitaRetails.Server.Models
         public string? StoreId { get; set; }
         public string? EmployeeId { get; set; }
     }
-
-
 }

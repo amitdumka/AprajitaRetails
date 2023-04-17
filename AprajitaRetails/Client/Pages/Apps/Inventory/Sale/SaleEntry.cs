@@ -1,47 +1,43 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using AprajitaRetails.Shared.AutoMapper.DTO;
-using AprajitaRetails.Shared.Models.Inventory;
+﻿using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.ViewModels;
 using Syncfusion.Blazor.Grids;
-using Syncfusion.Blazor.Grids.Internal;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Navigations;
- 
+using System.Reflection;
+
 namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 {
     public partial class SaleEntry
     {
-        string Title = "Sale Invoice ";
-        string backUrl = "/sales/false/Regular";
+        private string Title = "Sale Invoice ";
+        private string backUrl = "/sales/false/Regular";
 
-        ProductSale? entity = new ProductSale { OnDate = DateTime.Now };
-        SalePaymentDetail payment = new SalePaymentDetail { PayMode = PayMode.Cash };
-        CardPaymentDetail cardPayment= new CardPaymentDetail { PaidAmount= 0 };
-        List<SaleItem>? saleItems = new List<SaleItem>();
-        IList<string> payModes = Enum.GetNames(typeof(PayMode));
-        IList<string> invTypes = Enum.GetNames(typeof(InvoiceType));
-        IList<string> cards= Enum.GetNames(typeof(CARD));
-        IList<string> cardTypes = Enum.GetNames(typeof(CARDType));
-        IList<SelectOption>? Stores;
-        IList<SelectOption>? Salesmen;
-        IList<SelectOption>? EDCList;
-        SItem Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
+        private ProductSale? entity = new ProductSale { OnDate = DateTime.Now };
+        private SalePaymentDetail payment = new SalePaymentDetail { PayMode = PayMode.Cash };
+        private CardPaymentDetail cardPayment = new CardPaymentDetail { PaidAmount = 0 };
+        private List<SaleItem>? saleItems = new List<SaleItem>();
+        private IList<string> payModes = Enum.GetNames(typeof(PayMode));
+        private IList<string> invTypes = Enum.GetNames(typeof(InvoiceType));
+        private IList<string> cards = Enum.GetNames(typeof(CARD));
+        private IList<string> cardTypes = Enum.GetNames(typeof(CARDType));
+        private IList<SelectOption>? Stores;
+        private IList<SelectOption>? Salesmen;
+        private IList<SelectOption>? EDCList;
+        private SItem Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
 
+        private List<object> toolbar = new List<object>() { new ItemModel() { Text = "Add", TooltipText = "Add", PrefixIcon = "e-icons e-collapse", Id = "New" }, new ItemModel() { Text = "Delete", TooltipText = "Delete", PrefixIcon = "e-icons e-collapse", Id = "Delete" } };
+        private List<GridColumn> Columns { get; set; }
 
-        List<object> toolbar = new List<object>() { new ItemModel() { Text = "Add", TooltipText = "Add", PrefixIcon = "e-icons e-collapse", Id = "New" }, new ItemModel() { Text = "Delete", TooltipText = "Delete", PrefixIcon = "e-icons e-collapse", Id = "Delete" } };
-         List<GridColumn> Columns { get; set; }
-
-        SfGrid<SItem>? Grid;
-        List<SItem> SaleItemList = new List<SItem>();
+        private SfGrid<SItem>? Grid;
+        private List<SItem> SaleItemList = new List<SItem>();
 
         //Base Info
-        string InvoiceNumber = "";
-        InvoiceType invType = InvoiceType.Sales;
-        TaxType taxType = TaxType.GST;
+        private string InvoiceNumber = "";
 
-        void SetInvoiceMode()
+        private InvoiceType invType = InvoiceType.Sales;
+        private TaxType taxType = TaxType.GST;
+
+        private void SetInvoiceMode()
         {
             if (Returns)
             {
@@ -54,42 +50,42 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 case "Regular":
                     invType = Returns ? InvoiceType.SalesReturn : InvoiceType.Sales;
                     break;
+
                 case "Manual": invType = Returns ? InvoiceType.ManualSaleReturn : InvoiceType.ManualSale; break;
                 //case "Service":
                 default:
                     invType = InvoiceType.Sales; break;
                     break;
             }
-
         }
+
         private async void OnItemValChange(ChangedEventArgs args)
         {
             //Item.Qty = stock[0].CurrentQty;
             //Item.Rate = stock[0].Rate;
-            
-            Item.Amount = Item.Qty * Item.Rate-Item.Discount;
+
+            Item.Amount = Item.Qty * Item.Rate - Item.Discount;
             StateHasChanged();
         }
-         
+
         private async void OnBarcodeChange(ChangedEventArgs args)
         {
-            
             // Here you can customize your code
             if (args.Value.Length > 8)
             {
                 Helper.Msg("Barcode", args.Value);
 
-             var stock=  await Helper.FetchBarcodeAsync(args.Value, Setting.StoreCode);
-                if(stock!=null && stock.Count > 0)
+                var stock = await Helper.FetchBarcodeAsync(args.Value, Setting.StoreCode);
+                if (stock != null && stock.Count > 0)
                 {
                     Item.Qty = stock[0].CurrentQty;
                     Item.Rate = stock[0].Rate;
                     Item.Amount = Item.Qty * Item.Rate;
                     StateHasChanged();
                 }
-
             }
         }
+
         public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
         {
             if (args.Item.Id == "New")
@@ -102,8 +98,8 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             {
                 // ExportPDF(Title);
             }
-
         }
+
         private async Task<bool> FetchSelectData()
         {
             try
@@ -117,10 +113,9 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 Helper.Msg("Error", e.Message, true);
             }
             return true;
-
         }
 
-        void ReloadItem()
+        private void ReloadItem()
         {
             foreach (var im in saleItems)
             {
@@ -132,8 +127,8 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                     Discount = im.DiscountAmount,
                     Qty = im.BilledQty,
                     Rate = im.ProductItem.MRP,
-                    TaxRate = CalculateTaxRate(im.Value,im.TaxAmount),
-                }); 
+                    TaxRate = CalculateTaxRate(im.Value, im.TaxAmount),
+                });
             }
         }
 
@@ -188,13 +183,13 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             GenerateColums(typeof(SItem).GetProperties(), "Barcode");
             StateHasChanged();
             base.OnInitialized();
-
         }
 
         private static decimal CalculateTaxRate(decimal amt, decimal tax)
         {
             return (tax * 100) / amt;
         }
+
         private static decimal CalculateTaxAmount(decimal amt, decimal tax)
         {
             return (amt * (tax / 100));
@@ -205,16 +200,25 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             foreach (var im in SaleItemList)
             {
                 saleItems.Add(
-                new SaleItem { Barcode=im.Barcode, Adjusted=false, BilledQty=im.Qty,
-                 FreeQty=0, LastPcs=false, Unit=im.Unit, DiscountAmount=im.Discount,
-                  Value=im.Amount, BasicAmount=(im.Qty*im.Rate)-im.Discount,
-                  TaxAmount =im.TaxAmount,  InvoiceNumber=this.InvoiceNumber,
-                   TaxType=this.taxType, InvoiceType=this.invType
+                new SaleItem
+                {
+                    Barcode = im.Barcode,
+                    Adjusted = false,
+                    BilledQty = im.Qty,
+                    FreeQty = 0,
+                    LastPcs = false,
+                    Unit = im.Unit,
+                    DiscountAmount = im.Discount,
+                    Value = im.Amount,
+                    BasicAmount = (im.Qty * im.Rate) - im.Discount,
+                    TaxAmount = im.TaxAmount,
+                    InvoiceNumber = this.InvoiceNumber,
+                    TaxType = this.taxType,
+                    InvoiceType = this.invType
                 });
-
             }
         }
-         
+
         private void AddItem()
         {
             if (Item.Qty != 0)
@@ -226,12 +230,11 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 entity.TotalPrice += Item.Amount;
                 Grid.Refresh();
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
-                
+
                 StateHasChanged();
             }
-           
-
         }
+
         private void AddDiscount()
         {
             //Show pop window to ask amount in per/ or rs
@@ -244,7 +247,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             foreach (var prop in infos)
             {
                 if (prop.Name.StartsWith("Tax") == false && prop.Name.StartsWith("TAX") == false)
-                                {
+                {
                     var v = new GridColumn()
                     {
                         AutoFit = true,
@@ -262,11 +265,11 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                             v.Format = "C2";
                     }
 
-                   this.Columns.Add(v);
+                    this.Columns.Add(v);
                 }
             }
 
-           // var CommandsList = new List<GridCommandColumn>();
+            // var CommandsList = new List<GridCommandColumn>();
             //var edit = new GridCommandColumn()
             //{
             //    ID = "edit",
@@ -300,9 +303,9 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             //};
             //Columns.Add(cCol);
         }
-
     }
-    class SItem
+
+    internal class SItem
     {
         public string Barcode { get; set; }
         public decimal Rate { get; set; }
@@ -312,8 +315,5 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         public decimal Amount { get; set; }
         public Unit Unit { get; set; }
         public decimal TaxAmount { get; set; }
-
-
     }
 }
-
