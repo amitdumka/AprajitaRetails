@@ -1,5 +1,7 @@
-﻿using AprajitaRetails.Shared.Models.Inventory;
+﻿using AprajitaRetails.Client.Pages.Apps.Accounts.Vouchers;
+using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.ViewModels;
+using Microsoft.AspNetCore.Components.Web;
 using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Navigations;
@@ -58,7 +60,13 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                     break;
             }
         }
-
+         void KeyPressed(KeyboardEventArgs args)
+        {
+            if (args.Key == "5")
+            {
+                Console.WriteLine("5 was pressed");
+            }
+        }
         private async void OnItemValChange(ChangedEventArgs args)
         {
             //Item.Qty = stock[0].CurrentQty;
@@ -67,7 +75,10 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             Item.Amount = Item.Qty * Item.Rate - Item.Discount;
             StateHasChanged();
         }
-
+        private async void OnChange()
+        {
+            Helper.Msg("OnChange", $"{Item.Qty} {Item.Discount}",false);
+        }
         private async void OnBarcodeChange(ChangedEventArgs args)
         {
             // Here you can customize your code
@@ -228,6 +239,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 entity.TotalTaxAmount += Item.TaxAmount;
                 entity.TotalMRP += Item.Rate * Item.Qty;
                 entity.TotalPrice += Item.Amount;
+                entity.TotalDiscountAmount += Item.Discount;
                 Grid.Refresh();
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
 
