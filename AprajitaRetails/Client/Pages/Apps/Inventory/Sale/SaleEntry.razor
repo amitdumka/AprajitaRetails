@@ -94,13 +94,12 @@
         <Row>
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalMRP Name="MRPAmount" Label="MRP" /></Column>
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalDiscountAmount Name="qq" Label="Discount Amount" /></Column>
-            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalBasicAmount Name="NAmount" Label="Basic Amount" /></Column>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalPrice Name="qq" Label="Bill Amount" /></Column>
         </Row>
         <Row>
+            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalBasicAmount Name="NAmount" Label="Basic Amount" /></Column>
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalTaxAmount Name="MRPAmount" Label="Tax" /></Column>
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.RoundOff Name="NAmount" Label="Round Off" /></Column>
-            <Column Classes="col.md"><AInputNumber @bind-Value=@entity.TotalPrice Name="qq" Label="Bill Amount" /></Column>
-
         </Row>
         <div class="row  text-center row-cols-5 justify-content-start ">
             <Column Classes="col.sm">
@@ -119,8 +118,8 @@
                 <SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
             </Column>
             <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange"  @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange"  @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange"  @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
             <Column Classes="col.sm"><SfNumericTextBox @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
             @*<Column Classes="col.sm"><SfButton  OnClick="AddItem" CssClass="e-round e-small e-success	" IconCss="e-icons e-plus-icon" IsPrimary="false"></SfButton></Column>*@
             <Column>
@@ -273,6 +272,7 @@
     }
     private void SendBtnclicked()
     {
+        //Calculating Discount!
         if (this.TextboxObj.Value != "")
         {
             try
@@ -287,6 +287,7 @@
                     Item.Discount = decimal.Parse(TextBoxValue.Trim());
 
                 }
+
                 Item.Amount = Item.Qty * Item.Rate - Item.Discount;
                 TextboxObj.Value = "";
                 StateHasChanged();

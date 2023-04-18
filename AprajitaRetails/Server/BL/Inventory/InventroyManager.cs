@@ -9,6 +9,64 @@ namespace AprajitaRetails.Server.BL.Inventory
     {
         //TODO: Need to Handle Purhchase , Sale and Stock , and InterStore transfer.
 
+        //TODO:Need to Update or Change For Support of New Product been Added to List. 
+        public static bool UpdateStock(ARDBContext db, string storecode, List<PurchaseItem> items)
+        {
+            foreach (var tm in items)
+            {
+                var stk = db.Stocks.Where(c => c.StoreId == storecode && c.Barcode == tm.Barcode).FirstOrDefault();
+                if (stk != null)
+                {
+                        stk.PurchaseQty = tm.Qty + tm.FreeQty;
+                    
+                    db.Stocks.Update(stk);
+                }
+                else
+                {
+                    Stock mStk = new Stock
+                    {
+                        MultiPrice = false,
+                        StoreId = storecode,
+                        Barcode = tm.Barcode,
+                        EntryStatus = EntryStatus.Added,
+                        CostPrice = tm.CostPrice+(tm.TaxAmount/tm.Qty),
+                        MRP = 0,
+                        HoldQty = 0,
+                        IsReadOnly = false,
+                        MarkedDeleted = false,
+                        PurchaseQty = tm.Qty+tm.FreeQty,
+                         SoldQty = 0,
+                        Unit = tm.Unit,
+                        UserId = "AUTOERRORADMIN"
+                    };
+
+                     
+                    if (db.ProductItems.Find(tm.Barcode) != null)
+                    {
+                        ProductItem pi = new ProductItem
+                        {
+                            Barcode = tm.Barcode,
+                            Description = "#missing",
+                            MRP = mStk.MRP,
+                            Name = "MISS",
+                            Unit = mStk.Unit,
+                            TaxType = TaxType.GST,
+                            ProductCategory = ProductCategory.Others,
+                            StyleCode = "",
+                            Size = Size.NOTVALID,
+                            HSNCode = "",
+                            SubCategory = "Promo",
+                            ProductTypeId = "PT00013",
+                            BrandCode = "NOB"
+                        };
+                        db.ProductItems.Add(pi);
+                    }
+                    db.Stocks.Add(mStk);
+                }
+            }
+            return db.SaveChanges() > 0;
+        }
+
         public static bool UpdateStock(ARDBContext db, string storecode, List<SaleItem> items)
         {
             foreach (var tm in items)

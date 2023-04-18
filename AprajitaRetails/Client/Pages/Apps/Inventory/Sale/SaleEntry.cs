@@ -60,24 +60,23 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                     break;
             }
         }
-         void KeyPressed(KeyboardEventArgs args)
+        void KeyPressed(KeyboardEventArgs args)
         {
-            if (args.Key == "5")
-            {
-                Console.WriteLine("5 was pressed");
-            }
+        //    if (args.Key == "5")
+        //    {
+        //        Console.WriteLine("5 was pressed");
+        //    }
         }
-        private async void OnItemValChange(ChangedEventArgs args)
-        {
-            //Item.Qty = stock[0].CurrentQty;
-            //Item.Rate = stock[0].Rate;
-
-            Item.Amount = Item.Qty * Item.Rate - Item.Discount;
-            StateHasChanged();
-        }
+        //private async void OnItemValChange(ChangedEventArgs args)
+        //{
+        //    Item.Amount = Item.Qty * Item.Rate - Item.Discount;
+        //    StateHasChanged();
+        //}
         private async void OnChange()
         {
-            Helper.Msg("OnChange", $"{Item.Qty} {Item.Discount}",false);
+            //Helper.Msg("OnChange", $"{Item.Qty} {Item.Discount}",false);
+            Item.Amount = Item.Qty * Item.Rate - Item.Discount;
+            StateHasChanged();
         }
         private async void OnBarcodeChange(ChangedEventArgs args)
         {
@@ -206,6 +205,25 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             return (amt * (tax / 100));
         }
 
+        // Use this on basic Amount
+        private static decimal CalculateTaxAmount(decimal amt, Unit unit)
+        {
+            return(decimal) ((unit != Unit.Meters && amt > 999) ? (decimal)0.12*amt : (decimal)0.5 *amt);
+        }
+        private static decimal CalculateTaxAmountOnMRP(decimal mrp, Unit unit)
+        {
+           var tr =(unit != Unit.Meters && mrp > 999) ? (decimal)1.12 : (decimal)1.05;
+            return  mrp-(mrp / tr);
+        }
+
+        public static decimal SetTaxRate(decimal amt, Unit unit)
+        {
+            //decimal r = 5;
+            //if (unit != Unit.Meters && amt > 999) r = 12;
+            //return r;
+           return (unit != Unit.Meters && amt > 999) ? 12 : 5;
+        }
+
         private void UpdateSaleItemList()
         {
             foreach (var im in SaleItemList)
@@ -234,11 +252,19 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         {
             if (Item.Qty != 0)
             {
+                //TODO:Calculate Item then add to list and update in maim
+                //Calculating Tax and TaxRate.
+                var v = Item.Rate * Item.Qty;
+                Item.TaxAmount = CalculateTaxAmountOnMRP(v, Item.Unit);
+                Item.TaxRate = SetTaxRate(v, Item.Unit);
+
                 SaleItemList.Add(Item);
+
                 entity.BilledQty += Item.Qty;
                 entity.TotalTaxAmount += Item.TaxAmount;
-                entity.TotalMRP += Item.Rate * Item.Qty;
+                entity.TotalMRP += v;
                 entity.TotalPrice += Item.Amount;
+                entity.TotalBasicAmount += (Item.Amount - Item.TaxAmount);
                 entity.TotalDiscountAmount += Item.Discount;
                 Grid.Refresh();
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
@@ -323,9 +349,10 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         public decimal Rate { get; set; }
         public decimal Qty { get; set; }
         public decimal TaxRate { get; set; }
+        public decimal TaxAmount { get; set; }
         public decimal Discount { get; set; }
         public decimal Amount { get; set; }
         public Unit Unit { get; set; }
-        public decimal TaxAmount { get; set; }
+        
     }
 }
