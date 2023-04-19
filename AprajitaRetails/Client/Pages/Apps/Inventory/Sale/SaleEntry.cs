@@ -197,23 +197,23 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
         private static decimal CalculateTaxRate(decimal amt, decimal tax)
         {
-            return (tax * 100) / amt;
+            return Math.Round( (tax * 100) / amt);
         }
 
         private static decimal CalculateTaxAmount(decimal amt, decimal tax)
         {
-            return (amt * (tax / 100));
+            return Math.Round( (amt * (tax / 100)),2);
         }
 
         // Use this on basic Amount
         private static decimal CalculateTaxAmount(decimal amt, Unit unit)
         {
-            return(decimal) ((unit != Unit.Meters && amt > 999) ? (decimal)0.12*amt : (decimal)0.5 *amt);
+            return Math.Round( (decimal) ((unit != Unit.Meters && amt > 999) ? (decimal)0.12*amt : (decimal)0.5 *amt),2);
         }
         private static decimal CalculateTaxAmountOnMRP(decimal mrp, Unit unit)
         {
            var tr =(unit != Unit.Meters && mrp > 999) ? (decimal)1.12 : (decimal)1.05;
-            return  mrp-(mrp / tr);
+            return Math.Round( mrp-(mrp / tr),2);
         }
 
         public static decimal SetTaxRate(decimal amt, Unit unit)
@@ -260,12 +260,19 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
                 SaleItemList.Add(Item);
 
+                if (Item.Amount == 0)
+                    entity.FreeQty += Item.Qty;
+                else
+
                 entity.BilledQty += Item.Qty;
+
+
                 entity.TotalTaxAmount += Item.TaxAmount;
                 entity.TotalMRP += v;
                 entity.TotalPrice += Item.Amount;
                 entity.TotalBasicAmount += (Item.Amount - Item.TaxAmount);
                 entity.TotalDiscountAmount += Item.Discount;
+                entity.RoundOff = entity.TotalPrice - Math.Round(entity.TotalPrice, 0);
                 Grid.Refresh();
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
 
