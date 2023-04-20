@@ -1,0 +1,95 @@
+﻿@page "/storegroups"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Shared.Models.Stores
+@attribute [Authorize]
+
+@inject HttpClient Http
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title=@Title />
+    </Header>
+</ContentHeader>
+<ContentMain>
+
+    @if (entities == null)
+    {
+
+
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <Row>
+            <Card ToolOptions="new CardToolOptions {Collapsable = true,Maximizable=true }">
+                <Title>
+                    <CardTitle>@Title</CardTitle>
+
+                </Title>
+                <Header>
+                    <CardTools>
+                        <CustomTools>
+                            <a class="btn btn-primary btn-xs btn" href="/stores/edit/false">Add</a>
+                        </CustomTools>
+                    </CardTools>
+                </Header>
+                <Body>
+                    <AprajitaRetails.AdminLte.Table.ATable Bordered=true Hover=true>
+                        <TableHead>
+                            <TableHeadCell>Id</TableHeadCell>
+                            <TableHeadCell>Name</TableHeadCell>
+                            <TableHeadCell>Remarks</TableHeadCell>
+                            <TableHeadCell>AppId</TableHeadCell>
+                            <TableHeadCell>Client Name</TableHeadCell>
+                            <TableHeadCell>Address</TableHeadCell>
+                           
+                            <TableHeadCell>     </TableHeadCell>
+                        </TableHead>
+                        <TableBody>
+
+                            @foreach (var ent in entities)
+                            {
+                                <TableRow>
+                                    <TableCell>@ent.StoreGroupId</TableCell>
+                                    <TableCell>@ent.GroupName</TableCell>
+                                    <TableCell>@ent.Remarks.</TableCell>
+                                    <TableCell>@ent.AppClientId.</TableCell>
+                                    <TableCell>@ent.AppClient.ClientName</TableCell>
+                                    <TableCell>@ent.AppClient.ClientAddress</TableCell>
+
+                                    <TableCell>
+                                        <AprajitaRetails.AdminLte.ActionMenu Link="/stores" Id="@ent.StoreGroupId" />
+                                    </TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </AprajitaRetails.AdminLte.Table.ATable>
+                </Body>
+            </Card>
+        </Row>
+    }
+
+</ContentMain>
+
+
+
+
+@code{
+
+    private const string Title = "Store Groups";
+    private StoreGroup[]? entities;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            entities = await Http.GetFromJsonAsync<StoreGroup[]>("api/Storegroups");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

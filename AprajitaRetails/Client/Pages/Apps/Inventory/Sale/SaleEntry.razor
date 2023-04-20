@@ -1,6 +1,6 @@
-﻿@*@page "/sales/edit/{Returns:bool}/{params}/{IsEdit:bool}/{*Id}"*@
-@page "/sales/{Returns:bool}/{params}/edit/{IsEdit:bool}/{*Id}"
-@page "/sales/{Returns:bool}/{params}/edit/{IsEdit:bool}"
+﻿@*@page "/sales/edit/{Returns:bool}/{params}/{IsEdit:bool}/{*Id}"
+    @page "/sales/{Returns:bool}/{params}/edit/{IsEdit:bool}/{*Id}"
+    @page "/sales/{Returns:bool}/{params}/edit/{IsEdit:bool}"*@
 
 @using AprajitaRetails.Shared.Models.Stores
 @using Microsoft.AspNetCore.Authorization
@@ -117,9 +117,9 @@
                 @*<ABTextInput Label="Barcode" @bind-Value="Item.Barcode" Placeholder="Barcode" />*@
                 <SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
             </Column>
-            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange"  @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange"  @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
-            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange"  @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
+            <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
             <Column Classes="col.sm"><SfNumericTextBox @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
             @*<Column Classes="col.sm"><SfButton  OnClick="AddItem" CssClass="e-round e-small e-success	" IconCss="e-icons e-plus-icon" IsPrimary="false"></SfButton></Column>*@
             <Column>
@@ -163,10 +163,10 @@
                     </div>
                 </div>
             </Column>
-             <Column Classes="col.md"/>
+            <Column Classes="col.md" />
             <Column Classes="col.md" /><Column Classes="col.md" /><Column Classes="col.md" />
-            </Row>
-            <Row>
+        </Row>
+        <Row>
             @if (payment.PayMode != PayMode.Cash && payment.PayMode != PayMode.Card)
             {
                 <Column Classes="col.md">
@@ -175,14 +175,14 @@
             }
             else if (payment.PayMode == PayMode.Card)
             {
-                 <Column Classes="col.md">
+                <Column Classes="col.md">
                     <div class="mb-3 row">
                         <label for="sm" class="col-sm-4 col-form-label">Card Type</label>
                         <div class="col-sm-6">
                             <SfComboBox TValue="CARDType" TItem="string" Placeholder="PayMode"
-                                    Autofill="true"
-                                    @bind-Value="@cardPayment.CardType" PopupHeight="230px"
-                                    DataSource="@cardTypes">
+                                        Autofill="true"
+                                        @bind-Value="@cardPayment.CardType" PopupHeight="230px"
+                                        DataSource="@cardTypes">
                                 <ComboBoxFieldSettings Text="Value" Value="ID" />
                             </SfComboBox>
                         </div>
@@ -193,9 +193,9 @@
                         <label for="sm" class="col-sm-4 col-form-label">Card</label>
                         <div class="col-sm-6">
                             <SfComboBox TValue="CARD" TItem="string" Placeholder="Card"
-                                    Autofill="true"
-                                    @bind-Value="@cardPayment.Card" PopupHeight="230px"
-                                    DataSource="@cards">
+                                        Autofill="true"
+                                        @bind-Value="@cardPayment.Card" PopupHeight="230px"
+                                        DataSource="@cards">
                                 <ComboBoxFieldSettings Text="Value" Value="ID" />
                             </SfComboBox>
                         </div>
@@ -209,9 +209,9 @@
                         <label for="sm" class="col-sm-4 col-form-label">POS</label>
                         <div class="col-sm-6">
                             <SfComboBox TValue="PayMode" TItem="string" Placeholder="POS"
-                                    Autofill="true"
-                                    @bind-Value="@payment.PayMode" PopupHeight="230px"
-                                    DataSource="@payModes">
+                                        Autofill="true"
+                                        @bind-Value="@payment.PayMode" PopupHeight="230px"
+                                        DataSource="@payModes">
                                 <ComboBoxFieldSettings Text="Value" Value="ID" />
                             </SfComboBox>
                         </div>

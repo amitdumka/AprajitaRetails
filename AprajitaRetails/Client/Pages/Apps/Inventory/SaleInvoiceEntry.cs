@@ -1,4 +1,9 @@
-﻿using AprajitaRetails.Client.Pages.Apps.Accounts.Vouchers;
+﻿using System;
+using AprajitaRetails.Shared.Models.Inventory;
+using Microsoft.AspNetCore.Components.Web;
+using Syncfusion.Blazor.Grids;
+using System.Reflection;
+using AprajitaRetails.Client.Pages.Apps.Accounts.Vouchers;
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.AspNetCore.Components.Web;
@@ -7,38 +12,13 @@ using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Navigations;
 using System.Reflection;
 
-namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
+namespace AprajitaRetails.Client.Pages.Apps.Inventory
 {
-    public partial class SaleEntry
+    public partial class SaleInvoiceEntry
     {
-        private string Title = "Sale Invoice ";
-        private string backUrl = "/sales/false/Regular";
-
-        private ProductSale? entity = new ProductSale { OnDate = DateTime.Now };
-        private SalePaymentDetail payment = new SalePaymentDetail { PayMode = PayMode.Cash };
-        private CardPaymentDetail cardPayment = new CardPaymentDetail { PaidAmount = 0 };
-        private List<SaleItem>? saleItems = new List<SaleItem>();
-        private IList<string> payModes = Enum.GetNames(typeof(PayMode));
-        private IList<string> invTypes = Enum.GetNames(typeof(InvoiceType));
-        private IList<string> cards = Enum.GetNames(typeof(CARD));
-        private IList<string> cardTypes = Enum.GetNames(typeof(CARDType));
-        private IList<SelectOption>? Stores;
-        private IList<SelectOption>? Salesmen;
-        private IList<SelectOption>? EDCList;
-        private SItem Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
-
-        private List<object> toolbar = new List<object>() { new ItemModel() { Text = "Add", TooltipText = "Add", PrefixIcon = "e-icons e-collapse", Id = "New" }, new ItemModel() { Text = "Delete", TooltipText = "Delete", PrefixIcon = "e-icons e-collapse", Id = "Delete" } };
-        private List<GridColumn> Columns { get; set; }
-
-        private SfGrid<SItem>? Grid;
-        private List<SItem> SaleItemList = new List<SItem>();
-
-        //Base Info
-        private string InvoiceNumber = "";
-
-        private InvoiceType invType = InvoiceType.Sales;
-        private TaxType taxType = TaxType.GST;
-
+        public SaleInvoiceEntry()
+        {
+        }
         private void SetInvoiceMode()
         {
             if (Returns)
@@ -62,10 +42,10 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         }
         void KeyPressed(KeyboardEventArgs args)
         {
-        //    if (args.Key == "5")
-        //    {
-        //        Console.WriteLine("5 was pressed");
-        //    }
+            //    if (args.Key == "5")
+            //    {
+            //        Console.WriteLine("5 was pressed");
+            //    }
         }
         //private async void OnItemValChange(ChangedEventArgs args)
         //{
@@ -144,7 +124,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
         protected override async Task OnInitializedAsync()
         {
-            backUrl = $"/sales/{Returns}/{Params}";
+            ReturnUrl = $"/sales/{Returns}/{Params}";
             SetInvoiceMode();
             await FetchSelectData();
             //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
@@ -197,23 +177,23 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
 
         private static decimal CalculateTaxRate(decimal amt, decimal tax)
         {
-            return Math.Round( (tax * 100) / amt);
+            return Math.Round((tax * 100) / amt);
         }
 
         private static decimal CalculateTaxAmount(decimal amt, decimal tax)
         {
-            return Math.Round( (amt * (tax / 100)),2);
+            return Math.Round((amt * (tax / 100)), 2);
         }
 
         // Use this on basic Amount
         private static decimal CalculateTaxAmount(decimal amt, Unit unit)
         {
-            return Math.Round( (decimal) ((unit != Unit.Meters && amt > 999) ? (decimal)0.12*amt : (decimal)0.5 *amt),2);
+            return Math.Round((decimal)((unit != Unit.Meters && amt > 999) ? (decimal)0.12 * amt : (decimal)0.5 * amt), 2);
         }
         private static decimal CalculateTaxAmountOnMRP(decimal mrp, Unit unit)
         {
-           var tr =(unit != Unit.Meters && mrp > 999) ? (decimal)1.12 : (decimal)1.05;
-            return Math.Round( mrp-(mrp / tr),2);
+            var tr = (unit != Unit.Meters && mrp > 999) ? (decimal)1.12 : (decimal)1.05;
+            return Math.Round(mrp - (mrp / tr), 2);
         }
 
         public static decimal SetTaxRate(decimal amt, Unit unit)
@@ -221,7 +201,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
             //decimal r = 5;
             //if (unit != Unit.Meters && amt > 999) r = 12;
             //return r;
-           return (unit != Unit.Meters && amt > 999) ? 12 : 5;
+            return (unit != Unit.Meters && amt > 999) ? 12 : 5;
         }
 
         private void UpdateSaleItemList()
@@ -263,7 +243,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 if (Item.Amount == 0)
                     entity.FreeQty += Item.Qty;
                 else
-                entity.BilledQty += Item.Qty;
+                    entity.BilledQty += Item.Qty;
 
 
                 entity.TotalTaxAmount += Item.TaxAmount;
@@ -314,39 +294,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
                 }
             }
 
-            // var CommandsList = new List<GridCommandColumn>();
-            //var edit = new GridCommandColumn()
-            //{
-            //    ID = "edit",
-            //    Title = "Edit",
-            //    Type = CommandButtonType.None,
-            //    ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" }
-            //};
-            //var delete = new GridCommandColumn()
-            //{
-            //    ID = "delete",
-            //    Title = "Delete",
-            //    Type = CommandButtonType.None,
-            //    ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-delete", CssClass = "e-flat" }
-            //};
-            //var info = new GridCommandColumn()
-            //{
-            //    ID = "info",
-            //    Title = "Detail",
-            //    Type = CommandButtonType.None,
-            //    ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-update", CssClass = "e-flat" }
-            //};
-            //CommandsList.Add(info);
-            //CommandsList.Add(edit);
-            //CommandsList.Add(delete);
-            //var cCol = new GridColumn()
-            //{
-            //    HeaderText = "Actions",
-            //    AutoFit = true,
-            //    Commands = CommandsList
-
-            //};
-            //Columns.Add(cCol);
         }
     }
+
 }
