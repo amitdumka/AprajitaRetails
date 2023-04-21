@@ -26,7 +26,30 @@ namespace AprajitaRetails.Server.Controllers.Stores
             }
             return await _context.Customers.ToListAsync();
         }
-       
+        [HttpGet("byMobile")]
+        public async Task<ActionResult<string?>> GetCustomerByMobile(string mobile)
+        {
+            if (_context.Customers == null)
+            {
+                return NotFound();
+            }
+            return await _context.Customers.Where(c=>c.MobileNo.Contains(mobile)).Select(c=>c.CustomerName).FirstOrDefaultAsync();
+        }
+        [HttpGet("byname")]
+        public async Task<ActionResult<SortedDictionary<string,string>>> GetCustomerByName(string name)
+        {
+            if (_context.Customers == null)
+            {
+                return NotFound();
+            }
+            var x= await _context.Customers.Where(c => c.FirstName.ToLower().Contains(name)|| c.LastName.ToLower().Contains(name)).Select(c => new  { c.MobileNo, c.CustomerName }).ToListAsync();
+            SortedDictionary<string, string> custs = new SortedDictionary<string, string>();
+            foreach(var i in x)
+            {
+                custs.Add(i.MobileNo, i.CustomerName);
+            }
+            return custs;
+        }
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(string id)

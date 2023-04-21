@@ -15,25 +15,17 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.Shared.Models.Stores
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
 @using AprajitaRetails.AdminLte.Forms
 @using Radzen.Blazor
 @using AprajitaRetails.Shared.ViewModels
 @using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.Models.Inventory
-@using Syncfusion.Blazor.DropDowns
-@using Syncfusion.Blazor.Buttons
-@using Syncfusion.Blazor.Calendars
-@using AprajitaRetails.Helpers
-@using Syncfusion.Blazor.Grids
-@using Syncfusion.Blazor.Navigations
-@using AprajitaRetails.Aks
-@using AprajitaRetails.Aks.Forms
-@using Syncfusion.Blazor.Inputs
-@using Syncfusion.Blazor.Popups
+
 
 @inject NavigationManager NavigationManager
+@inject HttpClient HttpC
+
 @attribute [Authorize]
 @inject ClientSetting Setting
 @inject DataHelper Helper
@@ -87,6 +79,26 @@
                         </div>
                     </Column>
                 </Row>
+                <div class="row  text-center row-cols-5 justify-content-start mb-3">
+                    <Column Classes="col.sm">
+                        <SfTextBox @bind-Value="@mobileno" Placeholder="Customer Mobile" FloatLabelType="FloatLabelType.Never" />
+                    </Column>
+                    <Column Classes="col.sm">
+                        <SfTextBox Placeholder="Customer Name" @bind-Value="custname" />
+                    </Column>
+                    <Column>
+                        <button type="button" @onclick="@SearchCustomerAsync" class="btn btn-info btn-circle btn-sm">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <button type="button" @onclick="@AddCustomer" class="btn btn-warning btn-circle btn-sm">
+                            <i class="fa-solid fa-person-circle-plus"></i>
+                        </button>
+
+                    </Column>
+                    <Column Classes="col.md"></Column>
+                    @*<Column Classes="col.md"><SfButton IsPrimary="true">Search</SfButton> </Column>
+                        <Column Classes="col.md"><SfButton>Add</SfButton> </Column>*@
+                </div>
                 <Row>
                     @if (IsEdit)
                     {
@@ -111,7 +123,7 @@
                     </Column>
                 </Row>
                 <Row>
-                    @*<Column Classes="col.md"><AInputNumber  @bind-Value=@entity.TotalQty Name="MRPAmount" Label="MRP" /></Column>*@
+                    <Column Classes="col.md"><AInputNumber Value="@entity.TotalQty" Name="MRPAmount" Label="MRP" /></Column>
                     <Column Classes="col.md"><AInputNumber @bind-Value=@entity.FreeQty Name="qq" Label="Free Qty" /></Column>
                     <Column Classes="col.md"><AInputNumber @bind-Value=@entity.BilledQty Name="NAmount" Label="Billed Qty" /></Column>
                 </Row>
@@ -141,10 +153,10 @@
                         @*<ABTextInput Label="Barcode" @bind-Value="Item.Barcode" Placeholder="Barcode" />*@
                         <SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
                     </Column>
-                    <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
-                    <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
-                    <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
-                    <Column Classes="col.sm"><SfNumericTextBox @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
+                    <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
+                    <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
+                    <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
+                    <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Amount" @bind-Value="Item.Amount" Placeholder="Amount" /> </Column>
                     @*<Column Classes="col.sm"><SfButton  OnClick="AddItem" CssClass="e-round e-small e-success	" IconCss="e-icons e-plus-icon" IsPrimary="false"></SfButton></Column>*@
 
                     <Column>
@@ -175,7 +187,7 @@
                     </SfGrid>
                 </Row>
                 <Row>
-                    <Column Classes="col.md">
+                    <Column Classes="col.auto">
                         <div class="mb-3 row">
                             <label for="sm" class="col-sm-4 col-form-label">Payment</label>
                             <div class="col-sm-6">
@@ -188,8 +200,16 @@
                             </div>
                         </div>
                     </Column>
+
                     <Column Classes="col.md" />
-                    <Column Classes="col.md" /><Column Classes="col.md" /><Column Classes="col.md" />
+                    <Column Classes="col.auto">
+                        <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
+                                @onclick="@AddPayment">
+                            Add Payment
+                        </Button>
+                    </Column>
+                    <Column Classes="col.md" />
+                    <Column Classes="col.md" />
                 </Row>
                 <Row>
                     @if (payment.PayMode != PayMode.Cash && payment.PayMode != PayMode.Card)
@@ -200,7 +220,7 @@
                     }
                     else if (payment.PayMode == PayMode.Card)
                     {
-                        <Column Classes="col.md">
+                        <Column Classes="col.auto">
                             <div class="mb-3 row">
                                 <label for="sm" class="col-sm-4 col-form-label">Card Type</label>
                                 <div class="col-sm-6">
@@ -213,7 +233,7 @@
                                 </div>
                             </div>
                         </Column>
-                        <Column Classes="col.md">
+                        <Column Classes="col.auto">
                             <div class="mb-3 row">
                                 <label for="sm" class="col-sm-4 col-form-label">Card</label>
                                 <div class="col-sm-6">
@@ -229,7 +249,7 @@
                         <Column Classes="col.sm"><SfNumericTextBox TValue="int" Label="Card Last 4 Digit" @bind-Value="cardPayment.CardLastDigit" Placeholder="Card Four Digit" /> </Column>
                         <Column Classes="col.sm"><SfNumericTextBox TValue="int" Label="Auth Code" @bind-Value="cardPayment.AuthCode" Placeholder="Auth Code" /> </Column>
                         <Column Classes="col.sm"><SfNumericTextBox TValue="decimal" Label="Amount" @bind-Value="cardPayment.PaidAmount" Placeholder="Amount" /> </Column>
-                        <Column Classes="col.md">
+                        <Column Classes="col.sm.auto">
                             <div class="mb-3 row">
                                 <label for="sm" class="col-sm-4 col-form-label">POS</label>
                                 <div class="col-sm-6">
@@ -294,45 +314,25 @@
     [Parameter] public bool Returns { get; set; } = false;
     [Parameter] public string Params { get; set; } = "Regular";
 
-    private bool disable = false;
 
-    private string Title = "Sale Invoice ";
-    private string ReturnUrl = "/sales/false/Regular";
 
-    private ProductSale? entity = new ProductSale { OnDate = DateTime.Now };
-    private SalePaymentDetail payment = new SalePaymentDetail { PayMode = PayMode.Cash };
-    private CardPaymentDetail cardPayment = new CardPaymentDetail { PaidAmount = 0 };
-    private List<SaleItem>? saleItems = new List<SaleItem>();
 
-    private IList<string> payModes = Enum.GetNames(typeof(PayMode));
-    private IList<string> invTypes = Enum.GetNames(typeof(InvoiceType));
-    private IList<string> cards = Enum.GetNames(typeof(CARD));
-    private IList<string> cardTypes = Enum.GetNames(typeof(CARDType));
-    private IList<SelectOption>? Stores;
-    private IList<SelectOption>? Salesmen;
-    private IList<SelectOption>? EDCList;
 
-     private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
-    private string ApiUrl = "api/productSales";
-    private SItem Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
 
-    private List<object> toolbar = new List<object>() { new ItemModel() { Text = "Add", TooltipText = "Add", PrefixIcon = "e-icons e-collapse", Id = "New" }, new ItemModel() { Text = "Delete", TooltipText = "Delete", PrefixIcon = "e-icons e-collapse", Id = "Delete" } };
-    private List<GridColumn> Columns { get; set; }
 
-    private SfGrid<SItem>? Grid;
-    private List<SItem> SaleItemList = new List<SItem>();
+    private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
 
-    //Base Info
-    private string InvoiceNumber = "";
-
-    private InvoiceType invType = InvoiceType.Sales;
-    private TaxType taxType = TaxType.GST;
+    //SF Dailog
 
     bool Visibility = false;
     private bool ShowButton { get; set; } = false;
     SfTextBox TextboxObj;
     private string TextBoxValue;
-
+    private void AddDiscount()
+    {
+        //Show pop window to ask amount in per/ or rs
+        this.Visibility = true;
+    }
     private void DialogOpen(Object args)
     {
         TextBoxValue = "0";
@@ -386,10 +386,10 @@
 
     private async void Save()
     {
-        if (!disable)
+        if (!disable && PrepareToSave())
         {
-
-            var flag = await Helper.SaveAsync<ProductSale>(ApiUrl, entity, "ProductSale", InvoiceNumber, IsEdit);
+          
+            var flag = await Helper.SaveAsync<SaleInvoiceVM>($"{ApiUrl}/SaveInvoice", invoiceVM, "ProductSale", InvoiceNumber, IsEdit);
             if (flag && !IsEdit)
             {
                 disable = true;
@@ -398,6 +398,54 @@
             }
 
         }
+    }
+
+    private async Task SearchCustomerAsync()
+    {
+
+        if (string.IsNullOrEmpty(mobileno) == false)
+        {
+
+            try
+            {
+                custname = await HttpC.GetStringAsync($"api/Customers/bymobile?mobile={mobileno}");
+                if (string.IsNullOrEmpty(custname))
+                    Helper.Msg("Error", "Mobile No not found!", true);
+                StateHasChanged();
+            }
+            catch (Exception exception)
+            {
+                Helper.Msg("Error", "Failed to get customer", true);
+            }
+        }
+        else if (string.IsNullOrEmpty(custname) == false)
+        {
+
+            var cust = await Helper.GetRecordAsSDAsync($"api/Customers/byName?name={custname.ToLower()}");
+
+            if (cust.Count > 1)
+            {
+                //TODO: Handle this using List Dailog and Select. and remove below line!
+                mobileno = cust.First().Key;
+                custname = cust.First().Value;
+                StateHasChanged();
+            }
+            else if (cust.Count == 1)
+            {
+                mobileno = cust.First().Key;
+                custname = cust.First().Value;
+                StateHasChanged();
+            }
+            else
+            {
+                Helper.Msg("Error", $"Customer with Name {custname} not found!", true);
+            }
+        }
+        else
+        {
+            Helper.Msg("Error", "Enter Name of Mobile number to search!", true);
+        }
+
     }
 
 

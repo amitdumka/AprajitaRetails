@@ -137,6 +137,8 @@ namespace AprajitaRetails.Client.Helpers
                 return null;
             }
         }
+
+
         public async Task<SortedDictionary<string, List<T>>?> FetchDictAsync<T>(string url, string condition)
         {
             try
@@ -175,6 +177,19 @@ namespace AprajitaRetails.Client.Helpers
                 exception.Redirect();
                 Msg("Error", "Kindly login before use", true);
                 return default(T);
+            }
+        }
+        public async Task<SortedDictionary<string,string>?> GetRecordAsSDAsync(string url)
+        {
+            try
+            {
+                return await Http.GetFromJsonAsync<SortedDictionary<string, string>?>(url);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default(SortedDictionary<string, string>?);
             }
         }
 

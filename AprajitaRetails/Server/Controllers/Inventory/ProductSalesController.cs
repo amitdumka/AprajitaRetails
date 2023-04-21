@@ -211,7 +211,38 @@ namespace AprajitaRetails.Server.Controllers.Inventory
 
             return NoContent();
         }
+        [HttpPut("SaveInvoice{id}")]
+        public async Task<IActionResult> PutProductSale(string id, SaleInvoiceVM productSale)
+        {
+            if (id != productSale.Invoice.InvoiceNo)
+            {
+                return BadRequest();
+            }
+            //TODO: Need to handle customer name or number is changed in Invoice is changed.
+            //TODO: Need to Handle Cancled Invoice
+            _context.Entry(productSale.Invoice).State = EntityState.Modified;
+            _context.Entry(productSale.PaymentDetail).State = EntityState.Modified;
+            _context.Entry(productSale.CardPayment).State = EntityState.Modified;
+            _context.Entry(productSale.Items).State = EntityState.Modified;
 
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductSaleExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
         // POST: api/ProductSales
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -239,6 +270,49 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             }
 
             return CreatedAtAction("GetProductSale", new { id = productSale.InvoiceNo }, productSale);
+        }
+        [HttpPost("SaveInvoice")]
+        public async Task<ActionResult<ProductSale>> PostProductSale(SaleInvoiceVM productSale)
+        {
+            if (_context.ProductSales == null)
+            {
+                return Problem("Entity set 'ARDBContext.ProductSales'  is null.");
+            }
+
+            _context.ProductSales.Add(productSale.Invoice);
+
+            _context.SaleItems.AddRange(productSale.Items);
+            _context.SalePaymentDetails.AddRange(productSale.PaymentDetail);
+            _context.CardPaymentDetails.AddRange(productSale.CardPayment);
+
+            if (string.IsNullOrEmpty(productSale.MobileNo) == false)
+            {
+                CustomerSale cs = new CustomerSale { MobileNo=productSale.MobileNo, 
+                    InvoiceNumber=productSale.Invoice.InvoiceNo };
+
+                if((_context.CustomerSales?.Any(e => e.MobileNo == productSale.MobileNo)).GetValueOrDefault())
+                {
+                    _context.CustomerSales.Add(cs);
+                }
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (ProductSaleExists(productSale.Invoice.InvoiceNo))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetProductSale", new { id = productSale.Invoice.InvoiceNo }, productSale);
         }
 
         // DELETE: api/ProductSales/5
