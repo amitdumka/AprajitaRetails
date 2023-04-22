@@ -10,6 +10,7 @@ using Syncfusion.Blazor.Navigations;
 using AprajitaRetails.Shared.Models.Stores;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using static System.Net.WebRequestMethods;
+using System.Text.Json;
 
 namespace AprajitaRetails.Client.Pages.Apps.Inventory
 {
@@ -44,6 +45,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
         private IList<SelectOption>? EDCList;
 
         private int LastInvCount = 0;
+        private decimal PaidAmount = 0;
 
         private string ApiUrl = "api/productSales";
         private SItem Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
@@ -287,6 +289,8 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
 
                 string invC = "IN";
                 this.InvoiceNumber = $"{Setting.StoreCode}-{invC}-{entity.OnDate.Year}-{entity.OnDate.Month}-{entity.OnDate.Day}-{++LastInvCount}";
+                entity.InvoiceNo = this.InvoiceNumber;
+
                 UpdateSaleItemList();
                 //pay
                 decimal amt = 0;
@@ -312,6 +316,10 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                     PaymentDetail = payments
 
                 };
+
+                var json = JsonSerializer.Serialize<SaleInvoiceVM>(invoiceVM);
+                Helper.Msg("json", json);
+                Console.WriteLine(json);
                 return true;
             }
             catch (Exception ex)
@@ -323,6 +331,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
 
         private void AddPayment()
         {
+            
             payments.Add(payment);
             if (payment.PayMode == PayMode.Card)
             {
@@ -330,6 +339,8 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 cardPayment = new CardPaymentDetail { InvoiceNumber = this.InvoiceNumber, Card = CARD.DebitCard, CardType = CARDType.Visa, EDCTerminalId = "", AuthCode = 0, CardLastDigit = 0, PaidAmount = 0 };
             }
             payment = new SalePaymentDetail { InvoiceNumber = this.InvoiceNumber, PaidAmount = 0, PayMode = PayMode.Cash, RefId = "" };
+            StateHasChanged();
+            Helper.Msg("Payment", "Added");
         }
         private async Task AddCustomer()
         {

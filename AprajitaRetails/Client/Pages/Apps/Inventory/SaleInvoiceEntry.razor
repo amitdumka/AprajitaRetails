@@ -201,7 +201,9 @@
                         </div>
                     </Column>
 
-                    <Column Classes="col.md" />
+                    <Column Classes="col.md" ><SfNumericTextBox Placeholder="Paid Amount" TValue="decimal"
+                            FloatLabelType="FloatLabelType.Auto" 
+                                                                @bind-Value="@payment.PaidAmount" /> </Column>
                     <Column Classes="col.auto">
                         <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
                                 @onclick="@AddPayment">
@@ -264,7 +266,24 @@
                         </Column>
                     }
                 </Row>
-
+                <Row>
+                    <Column Classes="col.auto">
+                        @if (payments != null && payments.Count > 0)
+                        {
+                                <Row>
+                                    @foreach (var item in payments)
+                                        {
+                                            <Column Classes="col.sm.auto">
+                                               @item.PayMode
+                                            </Column>
+                                            <Column Classes="col.sm.auto">
+                                                @item.PaidAmount.ToString("0.##");
+                                            </Column>
+                                        }
+                                </Row>
+                        }
+                    </Column>
+                </Row>
             </Body>
             <Footer>
                 <Row>
