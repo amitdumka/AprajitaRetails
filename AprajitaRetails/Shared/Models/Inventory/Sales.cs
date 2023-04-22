@@ -13,10 +13,10 @@ namespace AprajitaRetails.Shared.Models.Inventory
         public string MobileNo { get; set; }
 
         [ForeignKey("MobileNo")]
-        public virtual Customer Customer { get; set; }
+        public virtual Customer? Customer { get; set; }
 
         [ForeignKey("InvoiceNumber")]
-        public virtual ProductSale Sale { get; set; }
+        public virtual ProductSale? Sale { get; set; }
     }
 
     public class PSale
@@ -44,7 +44,7 @@ namespace AprajitaRetails.Shared.Models.Inventory
         public bool ServiceBill { get; set; }
 
         [ForeignKey("RefInvoice")]
-        public virtual IEnumerable<SaleItem> SaleItems { get; set; }
+        public virtual IEnumerable<SaleItem>? SaleItems { get; set; }
     }
 
     public class ProductSale : BaseST
@@ -75,12 +75,12 @@ namespace AprajitaRetails.Shared.Models.Inventory
 
         public bool Adjusted { get; set; }
 
-        public virtual ICollection<SaleItem> Items { get; set; }
+        public virtual ICollection<SaleItem>? Items { get; set; }
         public bool Paid { get; set; }
 
         public string SalesmanId { get; set; }
         public bool Tailoring { get; set; }
-        public virtual Salesman Salesman { get; set; }
+        public virtual Salesman? Salesman { get; set; }
     }
    
 
@@ -117,10 +117,10 @@ public class SaleItem
         public bool LastPcs { get; set; }
 
         [ForeignKey("InvoiceNumber")]
-        public virtual ProductSale ProductSale { get; set; }
+        public virtual ProductSale? ProductSale { get; set; }
 
         [ForeignKey("Barcode")]
-        public virtual ProductItem ProductItem { get; set; }
+        public virtual ProductItem? ProductItem { get; set; }
     }
 
     public class SalePaymentDetail
@@ -132,7 +132,7 @@ public class SaleItem
         public string RefId { get; set; }
 
         [ForeignKey("InvoiceNumber")]
-        public virtual ProductSale ProductSale { get; set; }
+        public virtual ProductSale? ProductSale { get; set; }
     }
 
     public class CardPaymentDetail
@@ -145,7 +145,7 @@ public class SaleItem
         public int CardLastDigit { get; set; }
         public int AuthCode { get; set; }
         public string? EDCTerminalId { get; set; }
-        public virtual EDCTerminal PosMachine { get; set; }
+        public virtual EDCTerminal? PosMachine { get; set; }
     }
 
      

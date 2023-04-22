@@ -164,11 +164,11 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                     MarkedDeleted = false,
                     StoreId = Setting.StoreCode,
                     UserId = Setting.UserName,
-                    SalesmanId = Salesmen[0].ID,
-                    Items = saleItems = new List<SaleItem>()
+                    SalesmanId = Salesmen[0].ID
+                    //Items = saleItems = new List<SaleItem>()
                 };
                 SaleItemList = new List<SItem>();
-                // saleItems = new List<SaleItem>();
+                 saleItems = new List<SaleItem>();
             }
             GenerateColums(typeof(SItem).GetProperties(), "Barcode");
             StateHasChanged();
@@ -298,6 +298,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 {
                     item.InvoiceNumber = this.InvoiceNumber;
                     amt += item.PaidAmount;
+                    
                 }
                 foreach (var item in cardPayments)
                 {
@@ -331,8 +332,12 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
 
         private void AddPayment()
         {
-            
+            if (string.IsNullOrEmpty(payment.RefId))
+            {
+                payment.RefId = payment.PayMode.ToString() + " Sale";
+            }
             payments.Add(payment);
+
             if (payment.PayMode == PayMode.Card)
             {
                 cardPayments.Add(cardPayment);

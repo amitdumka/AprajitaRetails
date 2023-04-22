@@ -311,8 +311,9 @@ namespace AprajitaRetails.Server.Controllers.Inventory
                     throw;
                 }
             }
-
-            return CreatedAtAction("GetProductSale", new { id = productSale.Invoice.InvoiceNo }, productSale);
+            //productSale.Items = null;
+            productSale.Invoice.Items = null;
+            return CreatedAtAction("GetProductSale", new { id = productSale.Invoice.InvoiceNo }, productSale.Invoice);
         }
 
         // DELETE: api/ProductSales/5

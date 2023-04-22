@@ -23,7 +23,7 @@ namespace AprajitaRetails.Shared.ViewModels
 	public class SaleInvoiceVM//:ProductSale
 	{
         public ProductSale Invoice { get; set; }
-        public List<SaleItem> Items { get; set; }
+        public List<SaleItem>? Items { get; set; }
 
 		public string MobileNo { get; set; }
 		public string CustomerName { get; set; }
