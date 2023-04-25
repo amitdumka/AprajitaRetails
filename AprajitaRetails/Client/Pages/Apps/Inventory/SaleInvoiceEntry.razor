@@ -21,8 +21,11 @@
 @using AprajitaRetails.Shared.ViewModels
 @using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.Models.Inventory
+@using Append.Blazor.Printing
 
+@inject IPrintingService PrintingService
 
+@inject NavigationManager Navigation
 @inject NavigationManager NavigationManager
 @inject HttpClient HttpC
 
@@ -171,8 +174,10 @@
                 </div>
                 <Row>
                     <SfGrid TValue="SItem" DataSource="@SaleItemList" AllowTextWrap=true AllowResizing="true"
+                            AllowSelection="true"
                             AllowPaging="true" ID="Grid" @ref="Grid" Columns="@Columns">
                         <GridPageSettings PageSize="4"></GridPageSettings>
+                        
                         <GridTemplates>
                             <EmptyRecordTemplate Context="newname">
                                 <span>Product Item : No SKU has been added!  </span>
@@ -201,9 +206,11 @@
                         </div>
                     </Column>
 
-                    <Column Classes="col.md" ><SfNumericTextBox Placeholder="Paid Amount" TValue="decimal"
-                            FloatLabelType="FloatLabelType.Auto" 
-                                                                @bind-Value="@payment.PaidAmount" /> </Column>
+                    <Column Classes="col.md">
+                        <SfNumericTextBox Placeholder="Paid Amount" TValue="decimal"
+                                          FloatLabelType="FloatLabelType.Auto"
+                                          @bind-Value="@payment.PaidAmount" />
+                    </Column>
                     <Column Classes="col.auto">
                         <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
                                 @onclick="@AddPayment">
@@ -270,17 +277,17 @@
                     <Column Classes="col.auto">
                         @if (payments != null && payments.Count > 0)
                         {
-                                <Row>
-                                    @foreach (var item in payments)
-                                        {
-                                            <Column Classes="col.sm.auto">
-                                               @item.PayMode
-                                            </Column>
-                                            <Column Classes="col.sm.auto">
-                                                @item.PaidAmount.ToString("0.##");
-                                            </Column>
-                                        }
-                                </Row>
+                            <Row>
+                                @foreach (var item in payments)
+                                {
+                                    <Column Classes="col.sm.auto">
+                                        @item.PayMode
+                                    </Column>
+                                    <Column Classes="col.sm.auto">
+                                        @item.PaidAmount.ToString("0.##");
+                                    </Column>
+                                }
+                            </Row>
                         }
                     </Column>
                 </Row>
@@ -328,10 +335,10 @@
 
 @code {
 
-    [Parameter] public string ID { get; set; }
-    [Parameter] public bool IsEdit { get; set; }
-    [Parameter] public bool Returns { get; set; } = false;
-    [Parameter] public string Params { get; set; } = "Regular";
+            [Parameter] public string ID { get; set; }
+            [Parameter] public bool IsEdit { get; set; }
+            [Parameter] public bool Returns { get; set; } = false;
+            [Parameter] public string Params { get; set; } = "Regular";
 
 
 
@@ -339,135 +346,150 @@
 
 
 
-    private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
+            private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
 
-    //SF Dailog
+            //SF Dailog
 
-    bool Visibility = false;
+            bool Visibility = false;
     private bool ShowButton { get; set; } = false;
-    SfTextBox TextboxObj;
-    private string TextBoxValue;
-    private void AddDiscount()
-    {
-        //Show pop window to ask amount in per/ or rs
-        this.Visibility = true;
-    }
-    private void DialogOpen(Object args)
-    {
-        TextBoxValue = "0";
-    }
-    private void DialogClose(Object args)
-    {
-
-        TextBoxValue = "0";
-    }
-    private void OnBtnclicked()
-    {
-        this.Visibility = true;
-    }
-    private void OnBtnCloseclicked()
-    {
-        this.Visibility = false;
-    }
-    private void AddButtonClicked()
-    {
-
-        if (this.TextboxObj.Value != "")
+        SfTextBox TextboxObj;
+        private string TextBoxValue;
+        private void AddDiscount()
         {
-            try
+            //Show pop window to ask amount in per/ or rs
+            this.Visibility = true;
+        }
+        private void DialogOpen(Object args)
+        {
+            TextBoxValue = "0";
+        }
+        private void DialogClose(Object args)
+        {
+
+            TextBoxValue = "0";
+        }
+        private void OnBtnclicked()
+        {
+            this.Visibility = true;
+        }
+        private void OnBtnCloseclicked()
+        {
+            this.Visibility = false;
+        }
+        private void AddButtonClicked()
+        {
+
+            if (this.TextboxObj.Value != "")
             {
-                if (TextBoxValue.Contains("%"))
+                try
                 {
-                    Item.Discount = decimal.Parse(TextBoxValue.Replace("%", "").Trim());
-                    Item.Discount = (Item.Rate * Item.Qty) * (Item.Discount / 100);
+                    if (TextBoxValue.Contains("%"))
+                    {
+                        Item.Discount = decimal.Parse(TextBoxValue.Replace("%", "").Trim());
+                        Item.Discount = (Item.Rate * Item.Qty) * (Item.Discount / 100);
+                    }
+                    else
+                    {
+                        Item.Discount = decimal.Parse(TextBoxValue.Trim());
+
+                    }
+
+                    Item.Amount = Item.Qty * Item.Rate - Item.Discount;
+                    TextboxObj.Value = "";
+                    StateHasChanged();
+                    Visibility = false;
+                }
+                catch (Exception)
+                {
+                    Helper.Msg("Error", "Enter only numeric and % ", true);
+                    TextboxObj.Value = "";
+                }
+
+            }
+        }
+
+        private async Task PrintInvoice(string invNumber)
+        {
+
+            if (string.IsNullOrEmpty(invNumber) == false)
+            {
+                //"/Sales/InvoicePrinting/View/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{param:string}"
+                // Navigation.NavigateTo($"/Sales/InvoicePrinting/View/{false}/{false}/{2}/{invNumber}");
+
+                PrintingService.Print($"api/productsales/invoiceprint?id={invNumber}&copy={2}&pagesmall={false}&reprint={false}");
+
+            }
+    }
+
+
+        private async void Save()
+        {
+            if (!disable && PrepareToSave())
+            {
+
+                var flag = await Helper.SaveAsync<SaleInvoiceVM>($"{ApiUrl}/SaveInvoice", invoiceVM, "ProductSale", InvoiceNumber, IsEdit);
+                if (flag && !IsEdit)
+                {
+
+                    disable = true;
+                    //  EntityModel = entity;
+                    StateHasChanged();
+                    PrintInvoice(invoiceVM.Invoice.InvoiceNo);
+
+                }
+
+            }
+        }
+
+        private async Task SearchCustomerAsync()
+        {
+
+            if (string.IsNullOrEmpty(mobileno) == false)
+            {
+
+                try
+                {
+                    custname = await HttpC.GetStringAsync($"api/Customers/bymobile?mobile={mobileno}");
+                    if (string.IsNullOrEmpty(custname))
+                        Helper.Msg("Error", "Mobile No not found!", true);
+                    StateHasChanged();
+                }
+                catch (Exception exception)
+                {
+                    Helper.Msg("Error", "Failed to get customer", true);
+                }
+            }
+            else if (string.IsNullOrEmpty(custname) == false)
+            {
+
+                var cust = await Helper.GetRecordAsSDAsync($"api/Customers/byName?name={custname.ToLower()}");
+
+                if (cust.Count > 1)
+                {
+                    //TODO: Handle this using List Dailog and Select. and remove below line!
+                    mobileno = cust.First().Key;
+                    custname = cust.First().Value;
+                    StateHasChanged();
+                }
+                else if (cust.Count == 1)
+                {
+                    mobileno = cust.First().Key;
+                    custname = cust.First().Value;
+                    StateHasChanged();
                 }
                 else
                 {
-                    Item.Discount = decimal.Parse(TextBoxValue.Trim());
-
+                    Helper.Msg("Error", $"Customer with Name {custname} not found!", true);
                 }
-
-                Item.Amount = Item.Qty * Item.Rate - Item.Discount;
-                TextboxObj.Value = "";
-                StateHasChanged();
-                Visibility = false;
-            }
-            catch (Exception)
-            {
-                Helper.Msg("Error", "Enter only numeric and % ", true);
-                TextboxObj.Value = "";
-            }
-
-        }
-    }
-
-
-
-    private async void Save()
-    {
-        if (!disable && PrepareToSave())
-        {
-          
-            var flag = await Helper.SaveAsync<SaleInvoiceVM>($"{ApiUrl}/SaveInvoice", invoiceVM, "ProductSale", InvoiceNumber, IsEdit);
-            if (flag && !IsEdit)
-            {
-                disable = true;
-                //  EntityModel = entity;
-                StateHasChanged();
-            }
-
-        }
-    }
-
-    private async Task SearchCustomerAsync()
-    {
-
-        if (string.IsNullOrEmpty(mobileno) == false)
-        {
-
-            try
-            {
-                custname = await HttpC.GetStringAsync($"api/Customers/bymobile?mobile={mobileno}");
-                if (string.IsNullOrEmpty(custname))
-                    Helper.Msg("Error", "Mobile No not found!", true);
-                StateHasChanged();
-            }
-            catch (Exception exception)
-            {
-                Helper.Msg("Error", "Failed to get customer", true);
-            }
-        }
-        else if (string.IsNullOrEmpty(custname) == false)
-        {
-
-            var cust = await Helper.GetRecordAsSDAsync($"api/Customers/byName?name={custname.ToLower()}");
-
-            if (cust.Count > 1)
-            {
-                //TODO: Handle this using List Dailog and Select. and remove below line!
-                mobileno = cust.First().Key;
-                custname = cust.First().Value;
-                StateHasChanged();
-            }
-            else if (cust.Count == 1)
-            {
-                mobileno = cust.First().Key;
-                custname = cust.First().Value;
-                StateHasChanged();
             }
             else
             {
-                Helper.Msg("Error", $"Customer with Name {custname} not found!", true);
+                Helper.Msg("Error", "Enter Name of Mobile number to search!", true);
             }
+
         }
-        else
-        {
-            Helper.Msg("Error", "Enter Name of Mobile number to search!", true);
-        }
+
+
 
     }
-
-
-
-}
 

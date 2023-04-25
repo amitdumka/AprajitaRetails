@@ -281,14 +281,28 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
             }
         }
 
+        private string SetInvoiceCode()
+        {   
+            switch (this.invType)
+            {
+                case InvoiceType.Sales: return "IN";
+                case InvoiceType.SalesReturn: return "SR";
+                case InvoiceType.ManualSale: return "MIN";
+                case InvoiceType.ManualSaleReturn: return "MSR";
+                default:
+                    return "IN";
+                   
+            }
+        }
+
         private bool PrepareToSave()
         {
             try
             {
 
 
-                string invC = "IN";
-                this.InvoiceNumber = $"{Setting.StoreCode}-{invC}-{entity.OnDate.Year}-{entity.OnDate.Month}-{entity.OnDate.Day}-{++LastInvCount}";
+               // string invC = "IN";
+                this.InvoiceNumber = $"{Setting.StoreCode}-{SetInvoiceCode()}-{entity.OnDate.Year}-{entity.OnDate.Month}-{entity.OnDate.Day}-{++LastInvCount}";
                 entity.InvoiceNo = this.InvoiceNumber;
 
                 UpdateSaleItemList();
@@ -315,7 +329,6 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                     Invoice = entity,
                     Items = saleItems,
                     PaymentDetail = payments
-
                 };
 
                 var json = JsonSerializer.Serialize<SaleInvoiceVM>(invoiceVM);
