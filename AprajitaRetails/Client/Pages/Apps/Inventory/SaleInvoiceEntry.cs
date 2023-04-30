@@ -168,7 +168,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                     //Items = saleItems = new List<SaleItem>()
                 };
                 SaleItemList = new List<SItem>();
-                 saleItems = new List<SaleItem>();
+                saleItems = new List<SaleItem>();
             }
             GenerateColums(typeof(SItem).GetProperties(), "Barcode");
             StateHasChanged();
@@ -238,6 +238,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
         protected void GenerateColums(PropertyInfo[] infos, string idName)
         {
             this.Columns = new List<GridColumn>();
+            this.Columns.Add(new GridColumn() {AutoFit=true, Type=ColumnType.CheckBox });
             foreach (var prop in infos)
             {
                 if (prop.Name.StartsWith("Tax") == false && prop.Name.StartsWith("TAX") == false)
@@ -251,7 +252,9 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                         //IsPrimaryKey = prop.Name == idName ? true : false,
                         AllowEditing = prop.CanWrite,
                         HeaderText = prop.Name,
-                        HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center
+                        HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center,
+                        DisplayAsCheckBox=prop.GetType()==typeof(bool)?true:false
+                        
                     };
                     if (prop.GetType() == typeof(decimal))
                     {
@@ -282,7 +285,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
         }
 
         private string SetInvoiceCode()
-        {   
+        {
             switch (this.invType)
             {
                 case InvoiceType.Sales: return "IN";
@@ -291,7 +294,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 case InvoiceType.ManualSaleReturn: return "MSR";
                 default:
                     return "IN";
-                   
+
             }
         }
 
@@ -301,7 +304,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
             {
 
 
-               // string invC = "IN";
+                // string invC = "IN";
                 this.InvoiceNumber = $"{Setting.StoreCode}-{SetInvoiceCode()}-{entity.OnDate.Year}-{entity.OnDate.Month}-{entity.OnDate.Day}-{++LastInvCount}";
                 entity.InvoiceNo = this.InvoiceNumber;
 
@@ -312,7 +315,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 {
                     item.InvoiceNumber = this.InvoiceNumber;
                     amt += item.PaidAmount;
-                    
+
                 }
                 foreach (var item in cardPayments)
                 {

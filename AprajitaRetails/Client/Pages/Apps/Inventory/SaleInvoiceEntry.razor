@@ -175,14 +175,17 @@
                 <Row>
                     <SfGrid TValue="SItem" DataSource="@SaleItemList" AllowTextWrap=true AllowResizing="true"
                             AllowSelection="true"
+                            Toolbar="@(new List<string>() { "Delete", "Cancel" })"
                             AllowPaging="true" ID="Grid" @ref="Grid" Columns="@Columns">
                         <GridPageSettings PageSize="4"></GridPageSettings>
-                        
+                        <GridSelectionSettings Type="Syncfusion.Blazor.Grids.SelectionType.Multiple"></GridSelectionSettings>
+                        <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" ShowDeleteConfirmDialog="true"></GridEditSettings>
                         <GridTemplates>
                             <EmptyRecordTemplate Context="newname">
                                 <span>Product Item : No SKU has been added!  </span>
                             </EmptyRecordTemplate>
                         </GridTemplates>
+                        <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Order"></GridEvents>
                         @* <GridEvents OnToolbarClick="ToolbarClick" TValue="SItem"></GridEvents>*@
                         <EntityAggregator>
                             <EntityAggSumFooter Title="Total Amount" Field="@nameof(SItem.Amount)"></EntityAggSumFooter>
@@ -335,161 +338,176 @@
 
 @code {
 
-            [Parameter] public string ID { get; set; }
-            [Parameter] public bool IsEdit { get; set; }
-            [Parameter] public bool Returns { get; set; } = false;
-            [Parameter] public string Params { get; set; } = "Regular";
+    [Parameter] public string ID { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+    [Parameter] public bool Returns { get; set; } = false;
+    [Parameter] public string Params { get; set; } = "Regular";
 
 
+    public void ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
 
-
-
-
-
-            private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
-
-            //SF Dailog
-
-            bool Visibility = false;
-    private bool ShowButton { get; set; } = false;
-        SfTextBox TextboxObj;
-        private string TextBoxValue;
-        private void AddDiscount()
+        if (args.Item.Id == "Click")
         {
-            //Show pop window to ask amount in per/ or rs
-            this.Visibility = true;
+            //You can customize your code here.
+            Helper.Msg("Clcik", args.Item.Text);
         }
-        private void DialogOpen(Object args)
-        {
-            TextBoxValue = "0";
-        }
-        private void DialogClose(Object args)
-        {
+        if(args.OriginalEvent.Button.ToString() == "Delete")
+    {
+          
+    }
+    {
 
-            TextBoxValue = "0";
-        }
-        private void OnBtnclicked()
-        {
-            this.Visibility = true;
-        }
-        private void OnBtnCloseclicked()
-        {
-            this.Visibility = false;
-        }
-        private void AddButtonClicked()
-        {
-
-            if (this.TextboxObj.Value != "")
-            {
-                try
-                {
-                    if (TextBoxValue.Contains("%"))
-                    {
-                        Item.Discount = decimal.Parse(TextBoxValue.Replace("%", "").Trim());
-                        Item.Discount = (Item.Rate * Item.Qty) * (Item.Discount / 100);
-                    }
-                    else
-                    {
-                        Item.Discount = decimal.Parse(TextBoxValue.Trim());
-
-                    }
-
-                    Item.Amount = Item.Qty * Item.Rate - Item.Discount;
-                    TextboxObj.Value = "";
-                    StateHasChanged();
-                    Visibility = false;
-                }
-                catch (Exception)
-                {
-                    Helper.Msg("Error", "Enter only numeric and % ", true);
-                    TextboxObj.Value = "";
-                }
-
-            }
-        }
-
-        private async Task PrintInvoice(string invNumber)
-        {
-
-            if (string.IsNullOrEmpty(invNumber) == false)
-            {
-                //"/Sales/InvoicePrinting/View/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{param:string}"
-                // Navigation.NavigateTo($"/Sales/InvoicePrinting/View/{false}/{false}/{2}/{invNumber}");
-
-                PrintingService.Print($"api/productsales/invoiceprint?id={invNumber}&copy={2}&pagesmall={false}&reprint={false}");
-
-            }
+    }
     }
 
 
-        private async void Save()
+
+
+    private void BackButton() => NavigationManager.NavigateTo(ReturnUrl);
+
+    //SF Dailog
+
+    bool Visibility = false;
+    private bool ShowButton { get; set; } = false;
+    SfTextBox TextboxObj;
+    private string TextBoxValue;
+    private void AddDiscount()
+    {
+        //Show pop window to ask amount in per/ or rs
+        this.Visibility = true;
+    }
+    private void DialogOpen(Object args)
+    {
+        TextBoxValue = "0";
+    }
+    private void DialogClose(Object args)
+    {
+
+        TextBoxValue = "0";
+    }
+    private void OnBtnclicked()
+    {
+        this.Visibility = true;
+    }
+    private void OnBtnCloseclicked()
+    {
+        this.Visibility = false;
+    }
+    private void AddButtonClicked()
+    {
+
+        if (this.TextboxObj.Value != "")
         {
-            if (!disable && PrepareToSave())
+            try
             {
-
-                var flag = await Helper.SaveAsync<SaleInvoiceVM>($"{ApiUrl}/SaveInvoice", invoiceVM, "ProductSale", InvoiceNumber, IsEdit);
-                if (flag && !IsEdit)
+                if (TextBoxValue.Contains("%"))
                 {
-
-                    disable = true;
-                    //  EntityModel = entity;
-                    StateHasChanged();
-                    PrintInvoice(invoiceVM.Invoice.InvoiceNo);
-
-                }
-
-            }
-        }
-
-        private async Task SearchCustomerAsync()
-        {
-
-            if (string.IsNullOrEmpty(mobileno) == false)
-            {
-
-                try
-                {
-                    custname = await HttpC.GetStringAsync($"api/Customers/bymobile?mobile={mobileno}");
-                    if (string.IsNullOrEmpty(custname))
-                        Helper.Msg("Error", "Mobile No not found!", true);
-                    StateHasChanged();
-                }
-                catch (Exception exception)
-                {
-                    Helper.Msg("Error", "Failed to get customer", true);
-                }
-            }
-            else if (string.IsNullOrEmpty(custname) == false)
-            {
-
-                var cust = await Helper.GetRecordAsSDAsync($"api/Customers/byName?name={custname.ToLower()}");
-
-                if (cust.Count > 1)
-                {
-                    //TODO: Handle this using List Dailog and Select. and remove below line!
-                    mobileno = cust.First().Key;
-                    custname = cust.First().Value;
-                    StateHasChanged();
-                }
-                else if (cust.Count == 1)
-                {
-                    mobileno = cust.First().Key;
-                    custname = cust.First().Value;
-                    StateHasChanged();
+                    Item.Discount = decimal.Parse(TextBoxValue.Replace("%", "").Trim());
+                    Item.Discount = (Item.Rate * Item.Qty) * (Item.Discount / 100);
                 }
                 else
                 {
-                    Helper.Msg("Error", $"Customer with Name {custname} not found!", true);
+                    Item.Discount = decimal.Parse(TextBoxValue.Trim());
+
                 }
+
+                Item.Amount = Item.Qty * Item.Rate - Item.Discount;
+                TextboxObj.Value = "";
+                StateHasChanged();
+                Visibility = false;
             }
-            else
+            catch (Exception)
             {
-                Helper.Msg("Error", "Enter Name of Mobile number to search!", true);
+                Helper.Msg("Error", "Enter only numeric and % ", true);
+                TextboxObj.Value = "";
             }
 
         }
+    }
+
+    private async Task PrintInvoice(string invNumber)
+    {
+
+        if (string.IsNullOrEmpty(invNumber) == false)
+        {
+            //"/Sales/InvoicePrinting/View/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{param:string}"
+            // Navigation.NavigateTo($"/Sales/InvoicePrinting/View/{false}/{false}/{2}/{invNumber}");
+
+            PrintingService.Print($"api/productsales/invoiceprint?id={invNumber}&copy={2}&pagesmall={false}&reprint={false}");
+
+        }
+    }
 
 
+    private async void Save()
+    {
+        if (!disable && PrepareToSave())
+        {
+
+            var flag = await Helper.SaveAsync<SaleInvoiceVM>($"{ApiUrl}/SaveInvoice", invoiceVM, "ProductSale", InvoiceNumber, IsEdit);
+            if (flag && !IsEdit)
+            {
+
+                disable = true;
+                //  EntityModel = entity;
+                StateHasChanged();
+                PrintInvoice(invoiceVM.Invoice.InvoiceNo);
+
+            }
+
+        }
+    }
+
+    private async Task SearchCustomerAsync()
+    {
+
+        if (string.IsNullOrEmpty(mobileno) == false)
+        {
+
+            try
+            {
+                custname = await HttpC.GetStringAsync($"api/Customers/bymobile?mobile={mobileno}");
+                if (string.IsNullOrEmpty(custname))
+                    Helper.Msg("Error", "Mobile No not found!", true);
+                StateHasChanged();
+            }
+            catch (Exception exception)
+            {
+                Helper.Msg("Error", "Failed to get customer", true);
+            }
+        }
+        else if (string.IsNullOrEmpty(custname) == false)
+        {
+
+            var cust = await Helper.GetRecordAsSDAsync($"api/Customers/byName?name={custname.ToLower()}");
+
+            if (cust.Count > 1)
+            {
+                //TODO: Handle this using List Dailog and Select. and remove below line!
+                mobileno = cust.First().Key;
+                custname = cust.First().Value;
+                StateHasChanged();
+            }
+            else if (cust.Count == 1)
+            {
+                mobileno = cust.First().Key;
+                custname = cust.First().Value;
+                StateHasChanged();
+            }
+            else
+            {
+                Helper.Msg("Error", $"Customer with Name {custname} not found!", true);
+            }
+        }
+        else
+        {
+            Helper.Msg("Error", "Enter Name of Mobile number to search!", true);
+        }
 
     }
+
+
+
+}
 
