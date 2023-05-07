@@ -185,7 +185,7 @@
                                 <span>Product Item : No SKU has been added!  </span>
                             </EmptyRecordTemplate>
                         </GridTemplates>
-                        <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Order"></GridEvents>
+                        <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="SItem"></GridEvents>
                         @* <GridEvents OnToolbarClick="ToolbarClick" TValue="SItem"></GridEvents>*@
                         <EntityAggregator>
                             <EntityAggSumFooter Title="Total Amount" Field="@nameof(SItem.Amount)"></EntityAggSumFooter>

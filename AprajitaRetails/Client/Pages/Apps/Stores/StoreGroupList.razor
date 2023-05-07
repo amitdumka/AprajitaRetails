@@ -1,0 +1,74 @@
+﻿@page "/stores/groups"
+
+@inherits AprajitaRetails.BasicViews.IndexView
+
+@using AprajitaRetails.Shared.ViewModels;
+@using Syncfusion.Blazor.Grids
+@using AprajitaRetails.Shared.Models.Stores
+@using Syncfusion.Blazor.Navigations
+
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+
+<ContentMain>
+    @*<Stg TItem="StoreGroup" Title="Store Groups" EnableAggretor=true Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+         @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=false />*@
+</ContentMain>
+
+@code {
+    private const string BaseURL = "/stores/storegroups";
+    private List<StoreGroup>? entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            GroupedColumn = new string[0]; 
+            InitView();
+            await FetchDataAsync();
+            GenerateColums(typeof(StoreGroup).GetProperties(), "StoreGroupId");
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task<List<StoreGroup>?> FetchDataAsync()
+    {
+        entities = await Helper.FetchAsync<StoreGroup>($"api/StoreGroups", "");
+        return entities;
+
+    }
+    public void OnCommandClicked(CommandClickEventArgs<StoreGroup> args)
+    {
+
+        if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
+        {
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.StoreGroupId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StoreGroupId}");
+        }
+        else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
+        {
+
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StoreGroupId}");
+        }
+        else
+        {
+            Helper.Msg("Error", "This function is not enabled!", true);
+        }
+    }
+
+}
+

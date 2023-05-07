@@ -1,0 +1,168 @@
+﻿
+@using AprajitaRetails.Shared.ViewModels;
+@using Syncfusion.Blazor.Grids
+@using AprajitaRetails.Shared.Models.Vouchers
+@using Syncfusion.Blazor.Navigations
+
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
+@typeparam TItem
+
+
+
+<ContentHeader>
+    <Header> <Blazor.AdminLte.PageTitle Title="@Title" /></Header>
+</ContentHeader>
+
+<ContentMain>
+    <SfGrid TValue="TItem" DataSource="@Entities" Toolbar="@toolbar" ContextMenuItems="@contextMenuItem"
+            AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping=@Grouping
+            AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true"
+            ID="Grid" @ref="Grid" Columns="@Columns" EnableAltRow="false">
+        <GridEvents OnToolbarClick="ToolbarClick" CommandClicked="CommandClicked" TValue="TItem"></GridEvents>
+
+        <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+
+        <GridTemplates>
+            <EmptyRecordTemplate>
+                <span>@Title : No Record found! Kindly add records </span>
+            </EmptyRecordTemplate>
+        </GridTemplates>
+
+        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+
+        @if (Grouping)
+        {
+            <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="false"></GridGroupSettings>
+        }
+        <GridPageSettings PageCount="5"></GridPageSettings>
+
+        @ChildContent
+
+    </SfGrid>
+</ContentMain>
+
+<style>
+    .e-collapse::before {
+        content: '\e834';
+    }
+</style>
+
+@code {
+
+
+    SfGrid<TItem>? Grid;
+
+
+    [Parameter] public string Title { get; set; } = "Store Group";
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public List<TItem> Entities { get; set; }
+    [Parameter] public bool EnableAggretor { get; set; } = false;
+    [Parameter] public string AggTitle { get; set; } = "Total";
+    [Parameter] public string AggSumField { get; set; } = "Amount";
+    [Parameter] public string Baseurl { get; set; } = "/";
+    [Parameter] public List<GridColumn> Columns { get; set; }
+    [Parameter] public EventCallback<List<TItem>> EntitiesChanged { get; set; }
+    [Parameter] public bool Grouping { get; set; } = true;
+    [Parameter] public string[] GroupedColumn { get; set; }
+    [Parameter] public EventCallback<string[]> GroupedColumnChanged { get; set; }
+
+    //[Parameter] public EventCallback OnCommandClick { get; set; }
+
+    [Parameter] public EventCallback<CommandClickEventArgs<TItem>> CommandClicked { get; set; }
+    //Toolbar
+    List<object> toolbar = new List<object>() { "Print", "ExcelExport", "PdfExport", "ColumnChooser", "Search", new ItemModel() { Text = "Add", TooltipText = "Add New Record", PrefixIcon = "e-icons e-collapse", Id = "New" } };
+    List<object> contextMenuItem = new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending", "Delete", "Cancel", "FirstPage", "PrevPage", "LastPage", "NextPage" };
+    private async Task OnGroupedColumnChanged(Microsoft.AspNetCore.Components.ChangeEventArgs e)
+    {
+        if (Grouping)
+        {
+            GroupedColumn = (string[])e?.Value;
+            await GroupedColumnChanged.InvokeAsync(GroupedColumn);
+            StateHasChanged();
+        }
+    }
+    private async Task OnEntityChanged(Microsoft.AspNetCore.Components.ChangeEventArgs e)
+    {
+        Entities = (List<TItem>)e?.Value;
+        await EntitiesChanged.InvokeAsync(Entities);
+        if (Grid != null)
+        {
+            await Grid.AutoFitColumnsAsync();
+            StateHasChanged();
+        }
+
+    }
+
+    private void ExportPDF(string headerText, string storename = "Aprajita Retails", string address = "Bhagalpur Road, Dumka")
+    {
+        PdfExportProperties Props = new PdfExportProperties();
+        Props.PageSize = PdfPageSize.A4;
+        Props.PageOrientation = PageOrientation.Landscape;
+        List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
+{
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value=headerText, Position = new PdfPosition() { X = 280, Y = 0 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 20} },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value="Report Date", Position = new PdfPosition() { X = 500, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050"} },
+
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value= DateTime.Now.ToString("d"), Position = new PdfPosition() { X = 501, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#000000"} },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value=storename, Position = new PdfPosition() { X = 22, Y = 30 }, Style = new PdfContentStyle() { TextBrushColor = "#C25050", FontSize = 14} },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value=address, Position = new PdfPosition() { X = 19, Y = 55 }, Style = new PdfContentStyle() { TextBrushColor = "#000000", FontSize = 10} },
+
+            };
+        List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
+{
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="AKS Labs(India)",  Position = new PdfPosition() { X = 250, Y = 20 }, Style = new PdfContentStyle() { TextBrushColor = "#C77878", FontSize = 12 } },
+                new PdfHeaderFooterContent() { Type = ContentType.Text, Value ="amit.dumka@gmail.com",  Position = new PdfPosition() { X = 200, Y = 45 }, Style = new PdfContentStyle() { TextBrushColor = "#C67878", FontSize = 12 } }
+                };
+
+        PdfHeader Header = new PdfHeader()
+        {
+            FromTop = 0,
+            Height = 130,
+            Contents = HeaderContent
+        };
+        PdfFooter Footer = new PdfFooter()
+        {
+            FromBottom = 160,
+            Height = 150,
+            Contents = FooterContent
+        };
+        Props.Header = Header;
+        Props.Footer = Footer;
+        Props.FileName = $"{headerText.Replace(" ", "_")}_{DateTime.Now.ToShortDateString()}_1.pdf";
+
+        this.Grid.ExportToPdfAsync(Props);
+    }
+
+
+    void ExportExcel()
+    {
+        this.Grid.ExportToExcelAsync();
+    }
+
+    public void ToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "New")
+        {
+            NavigationManager.NavigateTo($"{Baseurl}/edit/false");
+        }
+        else
+            if (args.Item.Id == "Grid_pdfexport")
+        {
+            ExportPDF(Title);
+        }
+        else if (args.Item.Id == "Grid_excelexport")
+        {
+            this.Grid.ExcelExport();
+        }
+        else if (args.Item.Id == "Grid_csvexport")
+        {
+            this.Grid.ExportToCsvAsync();
+        }
+    }
+}
+

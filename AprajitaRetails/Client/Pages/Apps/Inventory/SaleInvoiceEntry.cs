@@ -424,7 +424,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
         }
     }
 
-    internal class ss
+    internal class SS
     {
 
         // void KeyPressed(KeyboardEventArgs args)
