@@ -22,6 +22,23 @@ namespace AprajitaRetails.BasicViews
 
         }
 
+        protected ColumnType GetType(Type t)
+        {
+            if (t == typeof(string))
+            {
+                return ColumnType.String;
+            }
+            else if (t == typeof(DateTime))
+            {
+                return ColumnType.DateTime;
+            }
+            else if (t == typeof(bool)) return ColumnType.CheckBox;
+            else if (t == typeof(decimal) || t == typeof(int) || t == typeof(double) || t == typeof(float))
+                return ColumnType.Number;
+            else return ColumnType.String;
+
+        }
+
         protected void GenerateColums(PropertyInfo[] infos, string idName)
         {
             GridCols = new List<GridColumn>();
@@ -34,8 +51,10 @@ namespace AprajitaRetails.BasicViews
                     var v = new GridColumn()
                     {
                         AutoFit = true,
+                        DisplayAsCheckBox=prop.GetType()==typeof(bool)?true:false,
 
-                        Field = prop.Name,
+                        Field = prop.Name,Type= GetType(prop.GetType()),
+                        EditType=EditType.DefaultEdit,
                         AllowSorting = true,
                         IsPrimaryKey = prop.Name == idName ? true : false,
                         AllowEditing = prop.CanWrite,

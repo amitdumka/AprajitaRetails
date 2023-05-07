@@ -24,7 +24,7 @@
             ID="Grid" @ref="Grid" Columns="@Columns" EnableAltRow="false">
         <GridEvents OnToolbarClick="ToolbarClick" CommandClicked="CommandClicked" TValue="TItem"></GridEvents>
 
-        <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
+        <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Normal"></GridEditSettings>
 
         <GridTemplates>
             <EmptyRecordTemplate>
@@ -75,7 +75,7 @@
 
     [Parameter] public EventCallback<CommandClickEventArgs<TItem>> CommandClicked { get; set; }
     //Toolbar
-    List<object> toolbar = new List<object>() { "Print", "ExcelExport", "PdfExport", "ColumnChooser", "Search", new ItemModel() { Text = "Add", TooltipText = "Add New Record", PrefixIcon = "e-icons e-collapse", Id = "New" } };
+    List<object> toolbar = new List<object>() {"Add","Edit","Update","Delete", "Cancel", "Print", "ExcelExport", "PdfExport", "ColumnChooser", "Search" };
     List<object> contextMenuItem = new List<object>() { "AutoFit", "AutoFitAll", "SortAscending", "SortDescending", "Delete", "Cancel", "FirstPage", "PrevPage", "LastPage", "NextPage" };
     private async Task OnGroupedColumnChanged(Microsoft.AspNetCore.Components.ChangeEventArgs e)
     {

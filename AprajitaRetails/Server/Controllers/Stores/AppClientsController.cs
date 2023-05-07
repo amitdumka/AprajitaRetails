@@ -12,11 +12,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppClinetsController : ControllerBase
+    public class AppClientsController : ControllerBase
     {
         private readonly ARDBContext _context;
 
-        public AppClinetsController(ARDBContext context)
+        public AppClientsController(ARDBContext context)
         {
             _context = context;
         }

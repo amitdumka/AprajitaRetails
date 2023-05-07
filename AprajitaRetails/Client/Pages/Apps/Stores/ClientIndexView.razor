@@ -1,4 +1,4 @@
-﻿@page "/storesgroups"
+﻿@page "/clients"
 
 @inherits AprajitaRetails.BasicViews.IndexView
 
@@ -14,22 +14,22 @@
 
 
 <ContentMain>
-    <Stg TItem="StoreGroup" Title="Store Groups" EnableAggretor=true Baseurl=@BaseURL CommandClicked="OnCommandClicked"
+    <Stg TItem="AppClient" Title="Clients" EnableAggretor=true Baseurl=@BaseURL CommandClicked="OnCommandClicked"
          @bind-Entities="@entities" @bind-GroupedColumn="@GroupedColumn" Grouping=false />
 </ContentMain>
 
 @code {
-    private const string BaseURL = "storesgroups";
-    private List<StoreGroup>? entities;
+    private const string BaseURL = "/clients";
+    private List<AppClient>? entities;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            GroupedColumn = new string[0]; 
+            GroupedColumn = new string[0];
             InitView();
             await FetchDataAsync();
-            GenerateColums(typeof(StoreGroup).GetProperties(), "StoreGroupId");
+            GenerateColums(typeof(AppClient).GetProperties(), "AppClinetId");
             StateHasChanged();
             base.OnInitialized();
         }
@@ -41,28 +41,28 @@
 
     }
 
-    async Task<List<StoreGroup>?> FetchDataAsync()
+    async Task<List<AppClient>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<StoreGroup>($"api/StoreGroups", "");
+        entities = await Helper.FetchAsync<AppClient>($"api/AppClients", "");
         return entities;
 
     }
-    public void OnCommandClicked(CommandClickEventArgs<StoreGroup> args)
+    public void OnCommandClicked(CommandClickEventArgs<AppClient> args)
     {
 
         if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Edit")
         {
-            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.StoreGroupId}");
+            NavigationManager.NavigateTo($"{BaseURL}/Edit/true/{args.RowData.AppClientId}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Delete")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StoreGroupId}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.AppClientId}");
         }
         else if (args.CommandColumn.Type == CommandButtonType.None && args.CommandColumn.Title == "Detail")
         {
 
-            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.StoreGroupId}");
+            NavigationManager.NavigateTo($"{BaseURL}/Detail/{args.RowData.AppClientId}");
         }
         else
         {
