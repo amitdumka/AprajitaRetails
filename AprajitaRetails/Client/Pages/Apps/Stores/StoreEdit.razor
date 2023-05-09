@@ -1,0 +1,187 @@
+﻿@page "/stores/edit/{IsEdit:bool}/{*Id}"
+
+@using AprajitaRetails.Shared.Models.Stores
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using AprajitaRetails.AdminLte.Forms
+@using Radzen.Blazor
+@using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Commons
+@using AprajitaRetails.Shared.Models.Payroll
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+
+@attribute [Authorize]
+@inject ClientSetting Setting
+@inject DataHelper Helper
+
+
+
+<ContentMain>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@Store" Title="Stores" ApiUrl="stores" ReturnUrl="/Stores" Id="@ID" IsEdit=@IsEdit>
+        <Row>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="Store" class="col-sm-4 col-form-label">Client</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="Guid?" TItem="SelectOption" Placeholder="Client"
+                                    Autofill="true"
+                                    @bind-Value="@entity.AppClientId" PopupHeight="230px"
+                                    DataSource="@Clients">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="party" class="col-sm-4 col-form-label">Store Group</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Ledger"
+                                    Autofill="true"
+                                    @bind-Value="@entity.StoreGroupId" PopupHeight="230px"
+                                    DataSource="@StoreGroups">
+                            <ComboBoxFieldSettings Text="Value" Value="ID" />
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md">
+                <ACheckBox Title="Active" Name="isactive" @bind-Checked="@entity.IsActive" />
+            </Column>
+            <Column Classes="col.md">
+                <div class="mb-3 row">
+                    <label for="ondate" class="col-sm-4 col-form-label">Begin Date</label>
+                    <div class="col-sm-6">
+                        <SfDatePicker @bind-Value="@entity.BeginDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                    </div>
+                </div>
+            </Column>
+            @if (entity.IsActive == false)
+            {
+                <Column Classes="col.md">
+                    <div class="mb-3 row">
+                        <label for="ondate" class="col-sm-4 col-form-label">End Date</label>
+                        <div class="col-sm-6">
+                            <SfDatePicker @bind-Value="@entity.EndDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        </div>
+                    </div>
+                </Column>
+            }
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.StoreCode Name="SlipNo" Label="Store Code" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.StoreId Name="StoreId" Label="Store Id" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.StoreName Name="Particulars" Label="Store Name" /></Column>
+
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.GSTIN Name="GSTIN" Label="GST No" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.PanNo Name="Pan" Label="PAN No" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.VatNo Name="Vat" Label="VAT No" /></Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.City Name="city" Label="City" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.State Name="state" Label="State" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.ZipCode Name="zipcode" Label="ZipCode" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@entity.Country Name="Con" Label="Country" /></Column>
+
+        </Row>
+        <Row>
+
+
+
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.StoreManager Name="Details" Label="Store Manager" />
+            </Column>
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.StoreManagerContactNo Name="Details" Label="Store Manager Contact" />
+            </Column>
+
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.StorePhoneNumber Name="Details" Label="Store Phone No" />
+            </Column>
+
+            <Column Classes="col.md">
+                <ATextInput @bind-Value=@entity.StoreEmailId Name="Details" Label="Store Email" />
+            </Column>
+
+
+        </Row>
+
+
+    </EntityEdit>
+</ContentMain>
+
+@code {
+
+    private string Title = "Store";
+
+
+    [Parameter] public string ID { get; set; }
+    [Parameter] public bool IsEdit { get; set; }
+    private Store entity = null;
+    
+
+    private IList<SelectOption>? StoreGroups;
+    private IList<SelectOption>? Clients;
+   
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchSelectData();
+
+
+        if (IsEdit)
+        {
+            Title = "Edit Store #" + ID;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                Title = Title + " #ID: " + ID;
+                entity = await Helper.GetRecordAsync<Store>("Stores", ID);
+
+
+                StateHasChanged();
+            }
+
+        }
+        else
+        {
+            Title = "Add " + Title;
+
+            entity = new Store
+            {
+                AppClientId=null, BeginDate=DateTime.Today,
+                City="Dumka", Country="India", EndDate=null,
+                GSTIN="", IsActive=true, MarkedDeleted=false,
+                PanNo="", State="Jharkhand", StoreCode="", StoreEmailId="",
+                StoreGroupId=null, StoreId="", StoreManager="",
+                ZipCode="814101", VatNo="", StorePhoneNumber="", StoreName="",
+                StoreManagerContactNo="" , AppClient=null, StoreGroup=null
+
+            };
+        }
+
+
+    }
+
+    private async Task<bool> FetchSelectData()
+    {
+        try
+        {
+            StoreGroups = await Helper.FetchOptionsAsync("StoreGroups","");
+            Clients = await Helper.FetchOptionsAsync("Clients", "");          
+
+        }
+        catch (Exception e)
+        {
+            Helper.Msg("Error", e.Message, true);
+        }
+        return true;
+
+    }
+}

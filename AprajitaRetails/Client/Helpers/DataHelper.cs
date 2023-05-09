@@ -224,6 +224,12 @@ namespace AprajitaRetails.Client.Helpers
                 case "LedgerGroups":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/LedgerGroups?storeid={storeid}");
                     break;
+                case "StoreGroups":
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/StoreGroups");
+                    break;
+                case "Clients":
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/Clients");
+                    break;
                 default:
                     break;
             }

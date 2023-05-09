@@ -100,7 +100,7 @@ namespace AprajitaRetails.Shared.Models.Stores
         public string Remarks { get; set; }
 
         [ForeignKey("AppClientId")]
-        public virtual AppClient AppClient { get; set; }
+        public virtual AppClient? AppClient { get; set; }
     }
     public class Store
     {
@@ -130,11 +130,11 @@ namespace AprajitaRetails.Shared.Models.Stores
         public bool MarkedDeleted { get; set; }
 
         public string? StoreGroupId { get; set; }
-      public virtual StoreGroup StoreGroup { get; set; }
+      public virtual StoreGroup? StoreGroup { get; set; }
 
         public Guid? AppClientId { get; set; }
         [ForeignKey("AppClientId")]
-        public virtual AppClient AppClient { get; set; }
+        public virtual AppClient? AppClient { get; set; }
     }
 
 

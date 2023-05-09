@@ -18,6 +18,24 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             _context = context;
         }
 
+        [HttpGet("StoreGroups")]
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetStoreGroups()
+        {
+            if (_context.StoreGroups == null)
+            {
+                return NotFound();
+            }
+            return await _context.StoreGroups.Include(c=>c.AppClient).Select(c => new SelectOption { ID = c.StoreGroupId, Value = c.GroupName+ $"[ {c.AppClient.ClientName} ]" }).ToListAsync();
+        }
+        [HttpGet("Clients")]
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetClinets()
+        {
+            if (_context.AppClients == null)
+            {
+                return NotFound();
+            }
+            return await _context.AppClients.Select(c => new SelectOption { ID = c.AppClientId.ToString(), Value = c.ClientName }).ToListAsync();
+        }
         [HttpGet("LedgerGroups")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetLedgerGroups(string storeid)
         {
