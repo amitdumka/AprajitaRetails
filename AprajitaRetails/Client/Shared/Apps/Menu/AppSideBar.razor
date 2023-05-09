@@ -31,8 +31,8 @@
             <Authorized>
                 @if (string.IsNullOrEmpty(SelectedStore) == false)
                 {
-                    <SideBarMenuItem Icon="fas fa-solid fa-store" Link="/stores/details/SelectedStore">
-                        Store Code: @SelectedStore
+                    <SideBarMenuItem Icon="fas fa-solid fa-store" Link="/stores/SelectedStore">
+                        Store Code: @Setting.StoreCode 
                     </SideBarMenuItem>
 
                 }
