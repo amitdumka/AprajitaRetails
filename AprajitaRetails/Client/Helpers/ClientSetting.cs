@@ -3,12 +3,21 @@
     public class ClientSetting
     {
         public string Name { get; set; }
+
         public string StoreCode { get; set; }
         public string StoreName { get; set; }
+        public string StoreGroupId { get; set; }
+        public Guid? AppClientId { get; set; }
+
+        
         public string UserName { get; set; }
         public string UserId { get; set; }
         public string UserType { get; set; }
+        //TODO: Need to implemnet Role and User based operation
+        //TODO: Multiple store access or default single role access.
+
         public string Role { get; set; }
+
         public string EmployeeId { get; set; }
 
         //public event EventHandler UserChangedEvent;

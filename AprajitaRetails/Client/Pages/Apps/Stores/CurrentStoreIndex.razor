@@ -10,6 +10,7 @@
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Calendars
 @using AprajitaRetails.Helpers
+
 @attribute [Authorize]
 @*@inject HttpClient Http*@
 @inject ClientSetting Setting
@@ -60,6 +61,7 @@
     }
     void SetStore()
     {
+
         Setting.StoreCode = SelectedStoreId;
         Setting.StoreName = Stores.Where(c => c.ID == SelectedStoreId).First().Value;
         DataHelper.Msg("Store", $"Current Store: {Setting.StoreCode}/{Setting.StoreName}");
