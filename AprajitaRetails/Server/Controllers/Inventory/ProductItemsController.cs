@@ -28,10 +28,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductItem>>> GetProductItems()
         {
-          if (_context.ProductItems == null)
-          {
-              return NotFound();
-          }
+            if (_context.ProductItems == null)
+            {
+                return NotFound();
+            }
             return await _context.ProductItems.ToListAsync();
         }
         [HttpGet("ByStoreDTO")]
@@ -41,7 +41,17 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             {
                 return NotFound();
             }
-            return await _context.ProductItems.Include(c=>c.Brand).Include(c=>c.ProductType).Include(c=>c.ProductSubCategory)
+            if (string.IsNullOrEmpty(storeid))
+            {
+                var grp = _context.Stores.Find(storeid)?.StoreGroupId;
+                if (string.IsNullOrEmpty(grp)) return NotFound();
+                return await _context.ProductItems.Include(c => c.Brand).Include(c => c.ProductType).Include(c => c.ProductSubCategory)
+                    .Where(c => c.StoreGroupId == grp)
+                    .ProjectTo<ProductItemDTO>(_mapper.ConfigurationProvider)
+               .ToListAsync();
+            }
+
+            return await _context.ProductItems.Include(c => c.Brand).Include(c => c.ProductType).Include(c => c.ProductSubCategory)
                 .ProjectTo<ProductItemDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -50,10 +60,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductItem>> GetProductItem(string id)
         {
-          if (_context.ProductItems == null)
-          {
-              return NotFound();
-          }
+            if (_context.ProductItems == null)
+            {
+                return NotFound();
+            }
             var productItem = await _context.ProductItems.FindAsync(id);
 
             if (productItem == null)
@@ -100,10 +110,10 @@ namespace AprajitaRetails.Server.Controllers.Inventory
         [HttpPost]
         public async Task<ActionResult<ProductItem>> PostProductItem(ProductItem productItem)
         {
-          if (_context.ProductItems == null)
-          {
-              return Problem("Entity set 'ARDBContext.ProductItems'  is null.");
-          }
+            if (_context.ProductItems == null)
+            {
+                return Problem("Entity set 'ARDBContext.ProductItems'  is null.");
+            }
             _context.ProductItems.Add(productItem);
             try
             {
