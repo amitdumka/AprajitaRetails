@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AprajitaRetails.Server.BL.Dashboard;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.ViewModels;
+using AprajitaRetails.Shared.ViewModels.Dashboards;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,13 +25,11 @@ namespace AprajitaRetails.Server.Controllers.Reports
         }
 
         [HttpGet("StoreManagerDashboard")]
-        public async Task<ActionResult<IEnumerable<SelectOption>>> GetLedgerGroups(string storeid)
+        public async Task<ActionResult<DashboardVM>> GetStoreManagerDashboard(string storeid)
         {
-            if (_context.LedgerGroups == null)
-            {
-                return NotFound();
-            }
-            return await _context.LedgerGroups.Select(c => new SelectOption { ID = c.LedgerGroupId, Value = c.GroupName }).ToListAsync();
+            DashboardWidget widgetwidget = new DashboardWidget();
+
+            return await widgetwidget.GenerateDashboard(storeid,_context);
         }
     }
 }

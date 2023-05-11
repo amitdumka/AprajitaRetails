@@ -1,0 +1,73 @@
+﻿@page "/widgets"
+
+
+
+@using AprajitaRetails.Shared.ViewModels.Dashboards
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<ContentHeader>
+    <Header>
+        <Blazor.AdminLte.PageTitle Title="Store Manager Dashboard" />
+    </Header>
+</ContentHeader>
+<ContentMain>
+    <H5>Dashboard [Store Manager]</H5>
+    @if (Loading)
+    {
+        <p>Loading.....</p>    
+    }
+    else{
+    <Row>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Danger" Icon="far fa-envelope">
+                <Title>Today Sale</Title>
+                <Value>@vm.TodaySale</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Success" Icon="far fa-flag">
+                <Title>Monthly Sale</Title>
+                <Value>@vm.MonthlySale</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox IconBackgroundColor="Color.Warning" Icon="far fa-copy">
+                <Title>Yearly Sale</Title>
+                <Value>@vm.YearlySale</Value>
+            </InfoBox>
+        </Column>
+        <Column Classes="col.md._3">
+            <InfoBox Gradient="Gradient.Gradient" IconBackgroundColor="Color.Info" Icon="far fa-star">
+                <Value>@vm.QuarterlySale</Value>
+                <Title>Quarterly Sale</Title>
+            </InfoBox>
+        </Column>
+    </Row>
+    }
+</ContentMain>
+
+@code {
+    private  DashboardVM vm;
+    bool Loading = true;
+    protected override async void OnInitialized()
+    {
+        try
+        {
+            vm = await Helper.GetRecordAsync<DashboardVM>($"api/dashboard/StoreManagerDashboard?storeid={Setting.StoreCode}");
+            if (vm != null) Loading = false;
+            StateHasChanged();
+        }
+        catch (Exception)
+        {
+            
+            throw;
+        }
+    }
+
+}

@@ -63,7 +63,7 @@ namespace AprajitaRetails.Server.BL.Inventory
 
 			//Current
 			TodaySale = sale.Where(c => c.OnDate == DateTime.Today).FirstOrDefault().Amount;
-            YesterdaySale=sale.Where(c => c.OnDate == DateTime.Today.AddDays(-1)).FirstOrDefault().Qty;
+            YesterdaySale=sale.Where(c => c.OnDate == DateTime.Today.AddDays(-1)).FirstOrDefault().Amount;
             TodayQty = sale.Where(c => c.OnDate == DateTime.Today).FirstOrDefault().Amount;
             YesterdayQty = sale.Where(c => c.OnDate == DateTime.Today.AddDays(-1)).FirstOrDefault().Qty;
 
