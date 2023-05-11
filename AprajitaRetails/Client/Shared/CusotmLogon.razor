@@ -5,12 +5,12 @@
 
 <AuthorizeView>
     <Authorized>
-        <NavBarMenuItem Link="authentication/profile">
+       @* <NavBarMenuItem Link="authentication/profile">
             @if (string.IsNullOrEmpty(currentUserName))
             {@context.User.Identity?.Name}
         else
         { @currentUserName}
-        </NavBarMenuItem>
+        </NavBarMenuItem>*@
         <NavBarMenuItem OnClick="BeginLogOut">Logout</NavBarMenuItem>
     </Authorized>
 @*    <NotAuthorized>

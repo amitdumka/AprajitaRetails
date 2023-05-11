@@ -266,5 +266,33 @@ namespace AprajitaRetails.Client.Helpers
                 return false;
             }
         }
+
+
+        public async Task<bool> PostOperationsAsync<T>(string url, T tentity, string className)
+        {
+            try
+            {
+                HttpResponseMessage? result;
+                result= await Http.PostAsJsonAsync<T>($"{url}", tentity);
+                if (result.IsSuccessStatusCode)
+                {
+                    Msg(className, $"{await result.Content.ReadAsStringAsync()} ");
+                    return true;
+                   
+                }
+                else
+                {
+                    Msg("Error", $"An error occurred  {className} and error is { await result.Content.ReadAsStringAsync()}", true);
+                    return false;
+                }
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return false;
+            }
+        }
+
     }
 }

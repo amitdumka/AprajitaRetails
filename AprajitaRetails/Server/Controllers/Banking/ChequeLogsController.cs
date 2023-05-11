@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Banking;
+using AutoMapper;
 
 namespace AprajitaRetails.Server.Controllers.Banking
 {
@@ -15,10 +16,11 @@ namespace AprajitaRetails.Server.Controllers.Banking
     public class ChequeLogsController : ControllerBase
     {
         private readonly ARDBContext _context;
-
-        public ChequeLogsController(ARDBContext context)
+        private readonly IMapper _mapper;
+        public ChequeLogsController(ARDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/ChequeLogs
@@ -30,6 +32,18 @@ namespace AprajitaRetails.Server.Controllers.Banking
               return NotFound();
           }
             return await _context.ChequeLogs.ToListAsync();
+        }
+
+        [HttpGet("ByStore")]
+        public async Task<ActionResult<IEnumerable<ChequeLog>>> GetChequeLogsByStore(string storeid)
+        {
+            if (_context.ChequeLogs == null)
+            {
+                return NotFound();
+            }
+            return await _context.ChequeLogs.Include(c => c.Store).Where(c => c.StoreId == storeid).OrderByDescending(c => c.OnDate)
+                // .ProjectTo<DailySaleDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         // GET: api/ChequeLogs/5

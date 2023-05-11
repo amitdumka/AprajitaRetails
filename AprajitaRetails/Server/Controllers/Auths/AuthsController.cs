@@ -1,9 +1,11 @@
 ﻿using AprajitaRetails.Server.Areas.Identity.Pages.Account;
 using AprajitaRetails.Server.Models;
 using AprajitaRetails.Shared.Models.Auth;
+using Blazor.AdminLte;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
 
 namespace AprajitaRetails.Server.Controllers.Auths
 {
@@ -33,10 +35,11 @@ namespace AprajitaRetails.Server.Controllers.Auths
             _emailSender = emailSender;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<bool>> GetUser(){
-        //    _
-        //}
+       [HttpGet]
+       public async Task<ActionResult<ApplicationUser?>> GetUser(string userid){
+            var user = _userManager.Users.First(c => c.UserName == userid);
+            if (user != null) return user; else return NotFound();
+        }
 
         [HttpPost("customlogout")]
         public async Task<ActionResult<bool>> PostLogout()
@@ -78,6 +81,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
 
                 if (result.Succeeded)
                 {
+
                     var user = _userManager.Users.First(c => c.UserName == login.UserName);
                     var logged = new LoggedUser { EmployeeId = user.EmployeeId, FullName = login.UserName, StoreId = user.StoreId, Id = user.UserName };
                     _logger.LogInformation("User logged in.");
@@ -127,7 +131,40 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
             return Problem("Model is not valid!");
         }
+        [HttpPost("changepassword")]
+        public async Task<ActionResult<bool>> PostChangePassword(NewPassowrd Input)
+        {
+            var result = await _signInManager.PasswordSignInAsync(Input.Id, Input.Password, true, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if(user == null)
+                 user = _userManager.Users.First(c => c.UserName == Input.Id);
 
+                if (user == null)
+                {
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.Password, Input.NewPassword);
+                if (!changePasswordResult.Succeeded)
+                {
+                    string err = "";
+                    foreach (var error in changePasswordResult.Errors)
+                    {
+                        err += $"#{error.Description} ";
+                    }
+                    return Problem(err);
+                }
+
+                await _signInManager.RefreshSignInAsync(user);
+                _logger.LogInformation("User changed their password successfully.");
+
+
+                return Ok("Password is changed");
+            }
+            return Problem("Failed to validate user");
+        }
         private ApplicationUser CreateUser()
         {
             try
@@ -142,6 +179,8 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
         }
 
+       
+        
         private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
@@ -178,5 +217,8 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 return true;
             }
         }
+   
+    
+
     }
 }

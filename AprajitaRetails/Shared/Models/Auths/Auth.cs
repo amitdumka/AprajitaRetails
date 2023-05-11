@@ -23,5 +23,12 @@
         public string StoreId { get; set; }
         public string EmployeeId { get; set; }
     }
+
+    public class NewPassowrd
+    {
+        public string Id { get; set; }
+        public string Password { get; set; }
+        public string NewPassword { get; set; }
+    }
 }
 

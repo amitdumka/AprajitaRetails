@@ -26,6 +26,7 @@
         {
             EmployeeId = eid; StoreCode = code; StoreName = sName; UserId = userid; UserName = uName;
             Name= uName; UserType = "StoreManager"; Role = "User";
+            
         }
 
         public void Clear()
