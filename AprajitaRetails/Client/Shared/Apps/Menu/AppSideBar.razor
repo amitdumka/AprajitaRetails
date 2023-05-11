@@ -5,8 +5,26 @@
 
 <SideBar>
     <!-- Sidebar user panel (optional) -->
-    <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Five" UserImage="../dist/img/aks.jpg">Amit Kumar</SideBarUserPanel>
+    <AuthorizeView>
+        @if (string.IsNullOrEmpty(LoggedUser))
+        {
+            if (context.User.Identity?.Name != "Amit Kumar")
+            {
+                avtarUrl = "../Users/avatar5.png";
+            }
+            <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Five" UserImage="@avtarUrl">@context.User.Identity?.Name</SideBarUserPanel>
+
+
+        }
+        else
+        {
+            <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Five" UserImage="@avtarUrl">@LoggedUser</SideBarUserPanel>
+
+        }
+    </AuthorizeView>
+
     @*<SideBarSearch></SideBarSearch>*@
+
     <SideBarMenu>
         <AuthorizeView>
             <NotAuthorized>
@@ -32,7 +50,7 @@
                 @if (string.IsNullOrEmpty(SelectedStore) == false)
                 {
                     <SideBarMenuItem Icon="fas fa-solid fa-store" Link="/stores/SelectedStore">
-                        Store Code: @Setting.StoreCode 
+                        Store Code: @Setting.StoreCode
                     </SideBarMenuItem>
 
                 }
@@ -222,31 +240,37 @@
             </Authorized>
         </AuthorizeView>
         @*<SideBarTreeView Icon="far fa-plus-square">
-        <Title>Extras</Title>
-        <Items>
-        <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
-        Lockscreen
-        </SideBarMenuItem>
-        <SideBarMenuItem Icon="far fa-circle" Link="404">
-        Error 404
-        </SideBarMenuItem>
-        <SideBarMenuItem Icon="far fa-circle" Link="500">
-        Error 500
-        </SideBarMenuItem>
-        </Items>
-        </SideBarTreeView>*@
-       
-      
+            <Title>Extras</Title>
+            <Items>
+            <SideBarMenuItem Icon="far fa-circle" Link="lockscreen">
+            Lockscreen
+            </SideBarMenuItem>
+            <SideBarMenuItem Icon="far fa-circle" Link="404">
+            Error 404
+            </SideBarMenuItem>
+            <SideBarMenuItem Icon="far fa-circle" Link="500">
+            Error 500
+            </SideBarMenuItem>
+            </Items>
+            </SideBarTreeView>*@
+
+
     </SideBarMenu>
 </SideBar>
 
 @code {
     string SelectedStore;
     string LoggedUser;
+    string avtarUrl = "../Users/aks.jpg";
     protected override async Task OnInitializedAsync()
     {
-        Setting.UserName= LoggedUser = await LocalStorage.GetValueAsync<string>("UserFullName");
+        Setting.UserName = LoggedUser = await LocalStorage.GetValueAsync<string>("UserFullName");
+
         Setting.StoreCode = SelectedStore = await LocalStorage.GetValueAsync<string>("StoreCode");
+        if(LoggedUser!="Amit Kumar")
+        {
+            avtarUrl = "../Users/avatar5.png";
+        }
         //Setting = await LocalStorage.GetValueAsync<ClientSetting>("ClientSettings");
         StateHasChanged();
 
