@@ -54,7 +54,7 @@
 
     async Task<List<ChequeBook>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<ChequeBook>($"ChequeBooks/bystore", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<ChequeBook>($"api/ChequeBooks/bystore", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }
