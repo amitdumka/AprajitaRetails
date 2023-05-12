@@ -36,7 +36,8 @@
     {
         try
         {
-            GroupedColumn = new string[] { "InFavorOf" };
+            GroupedColumn = new string[0]; //new string[] { "VoucherType" };
+           // GroupedColumn = new string[] { "InFavorOf" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(ChequeLog).GetProperties(), "ChequeLogId");

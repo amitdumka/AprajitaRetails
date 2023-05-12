@@ -36,7 +36,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "City" };
+             GroupedColumn = new string[0]; //{ "City" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(Contact).GetProperties(), "ContactId");

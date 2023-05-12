@@ -39,7 +39,7 @@
         try
         {
 
-            GroupedColumn = new string[] { "SalaryMonth", "StaffName" };
+             GroupedColumn = new string[0]; //{ "SalaryMonth", "StaffName" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(SalaryPaymentDTO).GetProperties(), "SalaryPaymentId");

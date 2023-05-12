@@ -35,7 +35,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "" };
+             GroupedColumn = new string[0]; //{ "" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(ProductType).GetProperties(), "ProductTypeId");

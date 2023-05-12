@@ -38,7 +38,7 @@
         try
         {
             
-            GroupedColumn = new string[] { "IsEffective","StaffName", };
+             GroupedColumn = new string[0]; //{ "IsEffective","StaffName", };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(SalaryDTO).GetProperties(), "SalaryId");

@@ -41,7 +41,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "OnDate" };
+             GroupedColumn = new string[0]; //{ "OnDate" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(CustomerDue).GetProperties(), "InvoiceNumber");

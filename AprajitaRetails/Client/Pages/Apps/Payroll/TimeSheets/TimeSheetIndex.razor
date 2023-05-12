@@ -37,7 +37,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "OnDate", "StaffName" };
+             GroupedColumn = new string[0]; //{ "OnDate", "StaffName" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(TimeSheetDTO).GetProperties(), "Id");

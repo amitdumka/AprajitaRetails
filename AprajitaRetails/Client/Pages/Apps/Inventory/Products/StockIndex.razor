@@ -35,7 +35,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "MultiPrice","Unit" };
+             GroupedColumn = new string[0]; //{ "MultiPrice","Unit" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(StockDTO).GetProperties(), "Id");

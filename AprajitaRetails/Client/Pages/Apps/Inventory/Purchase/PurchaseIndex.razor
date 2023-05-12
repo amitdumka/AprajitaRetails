@@ -35,7 +35,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "VendorName" };
+             GroupedColumn = new string[0]; //{ "VendorName" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(ProductPurchaseDTO).GetProperties(), "InwardNumber");

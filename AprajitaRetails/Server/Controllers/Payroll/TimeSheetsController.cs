@@ -36,7 +36,7 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return NotFound();
             }
-            return await _context.TimeSheets.Include(c => c.Employee).Where(c => c.OutTime.Year == DateTime.Today.Year )
+            return await _context.TimeSheets.Include(c => c.Employee).Include(c=>c.Store).Where(c => c.OutTime.Year == DateTime.Today.Year )
                 .OrderByDescending(c => c.OutTime).ProjectTo<TimeSheetDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

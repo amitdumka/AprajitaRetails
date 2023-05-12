@@ -36,7 +36,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "Category" };
+            GroupedColumn = new string[0]; //new string[] { "Category" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(LedgerGroup).GetProperties(), "LedgerGroupId");

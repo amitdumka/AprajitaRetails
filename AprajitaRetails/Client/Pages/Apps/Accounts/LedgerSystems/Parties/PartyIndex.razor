@@ -35,7 +35,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "StoreName" };
+            GroupedColumn = new string[0]; //new string[] { "StoreName" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(PartyDTO).GetProperties(), "PartyId");

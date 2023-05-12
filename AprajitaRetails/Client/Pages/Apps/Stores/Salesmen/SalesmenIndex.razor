@@ -36,7 +36,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "IsActive" };
+             GroupedColumn = new string[0]; //{ "IsActive" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(Salesman).GetProperties(), "SalesmanId");

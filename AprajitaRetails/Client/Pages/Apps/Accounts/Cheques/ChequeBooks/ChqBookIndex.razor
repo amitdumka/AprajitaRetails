@@ -37,7 +37,7 @@
     {
         try
         {
-            GroupedColumn = new string[] { "AccountId" };
+            GroupedColumn = new string[0]; //new string[] { "AccountId" };
             InitView();
             await FetchDataAsync();
             GenerateColums(typeof(ChequeBook).GetProperties(), "ChequeBookId");
