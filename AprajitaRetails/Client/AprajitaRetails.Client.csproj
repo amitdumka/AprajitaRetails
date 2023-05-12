@@ -95,9 +95,14 @@
 		<Folder Include="Pages\Apps\Stores\Customers\" />
 		<Folder Include="Pages\Apps\Stores\Salesmen\" />
 		<Folder Include="Shared\Aks\Forms\" />
-		<Folder Include="wwwroot\Users\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Remove="wwwroot\Users\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="wwwroot\Users\aks.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 </Project>
