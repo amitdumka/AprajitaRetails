@@ -6,30 +6,30 @@ namespace AprajitaRetails.Shared.ViewModels.Dashboards
 		public string StoreId { get; set; }
 
         //Sale
-		public decimal TodaySale { get; set; }
-        public decimal YesterdaySale { get; set; }
+        public decimal? TodaySale { get; set; } = 0;
+        public decimal? YesterdaySale { get; set; } = 0;
 
-        public decimal MonthlySale { get; set; }
-        public decimal LastMonthSale { get; set; }
+        public decimal? MonthlySale { get; set; } = 0;
+        public decimal? LastMonthSale { get; set; } = 0;
 
-        public decimal WeeklySale { get; set; }
-        public decimal YearlySale { get; set; }
-        
-        public decimal QuarterlySale { get; set; }
+        public decimal? WeeklySale { get; set; } = 0;
+        public decimal? YearlySale { get; set; } = 0;
+
+        public decimal? QuarterlySale { get; set; } = 0;
 
         //Voucher
-        public decimal YearlyPayments { get; set; }
-        public decimal YearlyReceipts { get; set; }
-        public decimal YearlyExpenses { get; set; }
+        public decimal? YearlyPayments { get; set; } = 0;
+        public decimal? YearlyReceipts { get; set; } = 0;
+        public decimal? YearlyExpenses { get; set; } = 0;
 
-        public decimal MonthlyPayments { get; set; }
-        public decimal MonthlyReceipts { get; set; }
-        public decimal MonthlyExpenses { get; set; }
+        public decimal? MonthlyPayments { get; set; } = 0;
+        public decimal? MonthlyReceipts { get; set; } = 0;
+        public decimal? MonthlyExpenses { get; set; } = 0;
 
         //Salary
-        public decimal YearlySalaries { get; set; }
-        public decimal MonthlySalaries { get; set; }
-        public decimal QuarterlyExpenses { get; set; }
+        public decimal? YearlySalaries { get; set; } = 0;
+        public decimal? MonthlySalaries { get; set; } = 0;
+        public decimal? QuarterlySalaries{ get; set; } = 0;
 
         public PayrollInfo PayrollInfo { get; set; }
  

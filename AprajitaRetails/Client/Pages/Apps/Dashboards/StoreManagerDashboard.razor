@@ -20,40 +20,138 @@
     <H5>Dashboard [Store Manager]</H5>
     @if (Loading)
     {
-        <p>Loading.....</p>    
+        <p>Loading.....</p>
     }
-    else{
-    <Row>
-        <Column Classes="col.md._3">
-            <InfoBox IconBackgroundColor="Color.Danger" Icon="far fa-envelope">
-                <Title>Today Sale</Title>
-                <Value>@vm.TodaySale</Value>
-            </InfoBox>
-        </Column>
-        <Column Classes="col.md._3">
-            <InfoBox IconBackgroundColor="Color.Success" Icon="far fa-flag">
-                <Title>Monthly Sale</Title>
-                <Value>@vm.MonthlySale</Value>
-            </InfoBox>
-        </Column>
-        <Column Classes="col.md._3">
-            <InfoBox IconBackgroundColor="Color.Warning" Icon="far fa-copy">
-                <Title>Yearly Sale</Title>
-                <Value>@vm.YearlySale</Value>
-            </InfoBox>
-        </Column>
-        <Column Classes="col.md._3">
-            <InfoBox Gradient="Gradient.Gradient" IconBackgroundColor="Color.Info" Icon="far fa-star">
-                <Value>@vm.QuarterlySale</Value>
-                <Title>Quarterly Sale</Title>
-            </InfoBox>
-        </Column>
-    </Row>
+    else
+    {
+
+        <Row>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Danger" Icon="fa-sharp fa-solid fa-money-bill ">
+                    <Title>Today Sale</Title>
+                    <Value>@vm.TodaySale</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Success" Icon="fa-sharp fa-solid fa-money-bill fa-beat">
+                    <Title>Monthly Sale</Title>
+                    <Value>@vm.MonthlySale</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Warning" Icon="fa-sharp fa-solid fa-cash-register">
+                    <Title>Yearly Sale</Title>
+                    <Value>@vm.YearlySale</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox Gradient="Gradient.Gradient" IconBackgroundColor="Color.Info" Icon="fa-duotone fa-money-bill-wave">
+                    <Value>@vm.QuarterlySale</Value>
+                    <Title>Quarterly Sale</Title>
+                </InfoBox>
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Danger" Icon="far fa-envelope">
+                    <Title>Monthly Expenses</Title>
+                    <Value>@vm.MonthlyExpenses</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Success" Icon="far fa-flag">
+                    <Title>Monthly Payment</Title>
+                    <Value>@vm.MonthlyPayments</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Warning" Icon="fa-solid fa-receipt">
+                    <Title>Monthly Receipts</Title>
+                    <Value>@vm.MonthlyReceipts</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+
+            </Column>
+        </Row>
+        <Row>
+
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Orange" Icon="far fa-envelope">
+                    <Title>Yearly Expenses</Title>
+                    <Value>@vm.YearlyExpenses</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Purple" Icon="far fa-flag">
+                    <Title>Yearl Payment</Title>
+                    <Value>@vm.YearlyPayments</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Olive" Icon="fa-solid fa-receipt">
+                    <Title>Yearly Receipts</Title>
+                    <Value>@vm.YearlyReceipts</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+
+            </Column>
+        </Row>
+        <Row>
+
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Warning" Icon="fa-solid fa-envelope">
+                    <Title>Yearly Salaries</Title>
+                    <Value>@vm.YearlySalaries</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox BackgroundColor="Color.Orange" Icon="fa-solid fa-envelope">
+                    <Title>Monthly Salaries</Title>
+                    <Value>@vm.MonthlySalaries</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+                <InfoBox IconBackgroundColor="Color.Info" Icon="fa-solid fa-envelope" BackgroundColor="Color.Info">
+                    <Title>Quatarly Salaries</Title>
+                    <Value>@vm.QuarterlySalaries</Value>
+                </InfoBox>
+            </Column>
+            <Column Classes="col.md._3">
+
+            </Column>
+        </Row>
+        <Row>
+            @if (vm.PayrollInfo != null && vm.PayrollInfo.Emps.Any())
+            {
+                foreach (var item in vm.PayrollInfo.Emps)
+                {
+
+
+                    <InfoBox IconBackgroundColor="Color.Info" Icon="fa-solid fa-envelope" BackgroundColor="Color.Info">
+                        <Title>@item.Name</Title>
+                        <Value>
+                            <ol class="sm small">
+                                <li>@item.Today</li>
+                                <li>Attd: @item.Present</li>
+                                @if (item.TotalSale > 0)
+                                {
+                                    <li>Sale:@item.TotalSale</li>
+                                }
+                            </ol>
+                        </Value>
+                    </InfoBox>
+                }
+
+            }
+        </Row>
+
     }
 </ContentMain>
 
 @code {
-    private  DashboardVM vm;
+    private DashboardVM vm;
     bool Loading = true;
     protected override async void OnInitialized()
     {
@@ -65,7 +163,7 @@
         }
         catch (Exception)
         {
-            
+
             throw;
         }
     }
