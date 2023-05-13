@@ -128,20 +128,23 @@
                 foreach (var item in vm.PayrollInfo.Emps)
                 {
 
+                 
+                    <Column Classes="col.md._3">
+                        <Card HeaderBackgroundColor="Color.Info" Styles="new CardStyle[] { CardStyle.Solid }">
+                            <Title><CardTitle>@item.Name</CardTitle></Title>
+                            <Body>
+                                <ul class="sm small">
+                                    <li>@item.Today</li>
+                                    <li>Attd: @item.Present</li>
+                                    @if (item.TotalSale > 0)
+                                    {
+                                        <li>Sale:@item.TotalSale</li>
+                                    }
+                                </ul>
+                            </Body>
+                        </Card>
+                    </Column>
 
-                    <InfoBox IconBackgroundColor="Color.Info" Icon="fa-solid fa-envelope" BackgroundColor="Color.Info">
-                        <Title>@item.Name</Title>
-                        <Value>
-                            <ol class="sm small">
-                                <li>@item.Today</li>
-                                <li>Attd: @item.Present</li>
-                                @if (item.TotalSale > 0)
-                                {
-                                    <li>Sale:@item.TotalSale</li>
-                                }
-                            </ol>
-                        </Value>
-                    </InfoBox>
                 }
 
             }
