@@ -12,14 +12,14 @@
 @inject HttpClient Http
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel=@entity TItem="@Bank" Title="Bank " ApiUrl="Bank" ReturnUrl="/banking/banks" Id="@Id" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel=@entity TItem="@Bank" Title="Bank " ApiUrl="api/Banks" ReturnUrl="/banking/banks" Id="@Id" IsEdit=@IsEdit>
 
         <Row>
             <Column Classes="col.md">
                 <ATextInput @bind-Value=@entity.BankId Name="accno" Label="Bank ID" />
             </Column>
             <Column Classes="col.md">
-                <ATextInput @bind-Value=@entity.Name Name="holder" Label=""Name" />
+                <ATextInput @bind-Value=@entity.Name Name="holder" Label="Name" />
             </Column>
         </Row>
     </EntityEdit>
@@ -27,7 +27,7 @@
 @code {
     [Parameter] public bool IsEdit { get; set; }
     [Parameter] public string? Id { get; set; }
-    private Bank entity = new Bank { Name = " ", BankId = "" };
+    private Bank entity = new Bank { Name = "", BankId = "" };
     protected override async Task OnInitializedAsync()
     {
         if (IsEdit)

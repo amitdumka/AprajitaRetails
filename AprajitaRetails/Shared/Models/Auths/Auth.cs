@@ -1,4 +1,6 @@
-﻿namespace AprajitaRetails.Shared.Models.Auth
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AprajitaRetails.Shared.Models.Auth
 {
     public class RegisterUserVM
     {
@@ -29,6 +31,17 @@
         public string Id { get; set; }
         public string Password { get; set; }
         public string NewPassword { get; set; }
+    }
+
+
+    public class Role
+    {
+        [Key]
+        public string Id { get; set; }
+        public string RoleName { get; set; }
+        public bool IsAdmin { get; set; } = false;
+        public bool IsEnabled { get; set; } = true;
+
     }
 }
 
