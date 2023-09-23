@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-body register-card-body">
                     <p class="login-box-msg">Register a new user</p>
-                    @*                    <form action="../../index.html" method="post">
+                    @* <form action="../../index.html" method="post">
                     *@
                     <Input @bind-Value="fullName" />
                     <Input @bind-Value="userName" />
@@ -32,12 +32,16 @@
                     <Input @bind-Value="passwordVerify" />
                     <Input @bind-Value="storeid" />
                     <Input @bind-Value="employeeid" />
+                    <Input @bind-Value="appClinetId" />
+                    <Input @bind-Value="storeGroupId" />
+                    <Input @bind-Value="permission" />
+
                     <div class="row">
                         <div class="col-8">
                             <CustomCheckbox @bind-Value="isAgreeTos" />
                         </div>
                         @*@if (captchaGenerateResponse != null)
-                        {   Need to update
+                        { Need to update
                         <img src="@captchaGenerateResponse.Image" />
                         <Input @bind-Value="captchaKey" />
                         }*@
@@ -46,7 +50,7 @@
                         </div>
 
                     </div>
-                    @*                    </form>*@
+                    @* </form>*@
                     @if (!string.IsNullOrEmpty(alertBody))
                     {
                         <Blazor.AdminLte.Alert Type="AlertType.Danger" Title="@alertTitle">
@@ -81,16 +85,45 @@
     // CaptchaGenerateResponse captchaGenerateResponse;
 
     InputState fullName = new InputState() { Identifier = "fullName", Placeholder = "Enter Full Name", Type = "text" };
-    InputState userName = new InputState() { Identifier = "userName", Placeholder = "Enter  UserName", Type = "text" };
+    InputState userName = new InputState() { Identifier = "userName", Placeholder = "Enter UserName", Type = "text" };
     InputState storeid = new InputState() { Identifier = "storeid", Placeholder = "Enter Store Code", Type = "text" };
-    InputState employeeid = new InputState() { Identifier = "employeeid", Placeholder = "Enter Employee id", Type = "text" };
+    InputState employeeid = new InputState()
+        {
+            Identifier = "employeeid",
+            Placeholder = "Enter Employee id",
+            Type = "text"
+        };
+
+    InputState userType = new InputState() { Identifier = "userType", Placeholder = "Enter User Type", Type = "text" };
+    InputState premission = new InputState() { Identifier = "permission", Placeholder = "Enter Permission", Type = "text" };
+    InputState storeGroupId = new InputState()
+        {
+            Identifier = "storeGroupId",
+            Placeholder = "Enter Store Group Id",
+            Type =
+        "text"
+        };
+    InputState appClientId = new InputState()
+        {
+            Identifier = "appClinetId",
+            Placeholder = "Enter App Clinet Id",
+            Type =
+        "text"
+        };
+
     @*//Icon = "fas fa-user" };
-     //IconBgColor = Color.Info };*@
+//IconBgColor = Color.Info };*@
     InputState email = new InputState() { Identifier = "email", Placeholder = "Enter email", Type = "email" };
     //Icon = "fas fa-envelope" };
     InputState password = new InputState() { Identifier = "password", Placeholder = "Enter password", Type = "password" };
     //Icon = "fas fa-lock" };
-    InputState passwordVerify = new InputState() { Identifier = "passwordVerify", Placeholder = "Verify password", Type = "password" };
+    InputState passwordVerify = new InputState()
+        {
+            Identifier = "passwordVerify",
+            Placeholder = "Verify password",
+            Type =
+        "password"
+        };
     @*Icon = "fas fa-lock" };*@
     InputState captchaKey = new InputState() { Identifier = "captchaKey", Placeholder = "Enter Captcha", Type = "text" };
     //Icon = "fas fa-sync", IconBgColor = Color.Warning };
@@ -118,6 +151,14 @@
             {
                 RegisterUserVM vm = new RegisterUserVM
                     {
+                        //TODO: to be enabled
+                        //StoreId=storeGroupId,
+                        //AppClientId=appClientId,
+                        //Permission=permission,
+                        //UserType=userType,
+                        //Approved=false,
+
+
                         Email = email.Value,
                         EmployeeId = employeeid.Value,
                         FullName = fullName.Value,
@@ -177,28 +218,28 @@
     {
         //try
         //{
-        //    await UserApiClient.RegisterAsync(new RegisterRequest()
-        //    {
-        //        AcceptTerms = true,
-        //        Email = email.Value,
-        //        FirstName = fullName.Value,
-        //        LastName = "bla",
-        //        Title = "",
-        //        Password = password.Value,
-        //        ConfirmPassword = passwordVerify.Value
-        //    });
-        //    NavigationManager.NavigateTo("thanks-for-registering");
+        // await UserApiClient.RegisterAsync(new RegisterRequest()
+        // {
+        // AcceptTerms = true,
+        // Email = email.Value,
+        // FirstName = fullName.Value,
+        // LastName = "bla",
+        // Title = "",
+        // Password = password.Value,
+        // ConfirmPassword = passwordVerify.Value
+        // });
+        // NavigationManager.NavigateTo("thanks-for-registering");
         //}
         //catch (ApiException ex)
         //{
-        //    var l = ex.ResponseObject;
-        //    alertTitle = l.Title;
-        //    alertBody = "";
-        //    email.Validate(l.Errors.Email);
-        //    password.Validate(l.Errors.Password);
-        //    fullName.Validate(l.Errors.FirstName);
-        //    passwordVerify.Validate(l.Errors.ConfirmPassword);
-        //    StateHasChanged();
+        // var l = ex.ResponseObject;
+        // alertTitle = l.Title;
+        // alertBody = "";
+        // email.Validate(l.Errors.Email);
+        // password.Validate(l.Errors.Password);
+        // fullName.Validate(l.Errors.FirstName);
+        // passwordVerify.Validate(l.Errors.ConfirmPassword);
+        // StateHasChanged();
         //}
     }
 }

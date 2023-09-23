@@ -35,8 +35,9 @@ namespace AprajitaRetails.Server.Controllers.Auths
             _emailSender = emailSender;
         }
 
-       [HttpGet]
-       public async Task<ActionResult<ApplicationUser?>> GetUser(string userid){
+        [HttpGet]
+        public async Task<ActionResult<ApplicationUser?>> GetUser(string userid)
+        {
             var user = _userManager.Users.First(c => c.UserName == userid);
             if (user != null) return user; else return NotFound();
         }
@@ -64,7 +65,11 @@ namespace AprajitaRetails.Server.Controllers.Auths
                     EmployeeId = user.EmployeeId,
                     FullName = "Amit Kumar",
                     StoreId = user.StoreId,
-                    Id = "AmitKumar"
+                    Id = "AmitKumar",
+                    StoreGroupId = "",
+                    AppClinetId = "",
+                    Permission = RolePermission.Owner,
+                    UserType = UserType.Admin
                 };
                 _logger.LogInformation("User logged in.");
                 return Ok(logged);
@@ -83,7 +88,26 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 {
 
                     var user = _userManager.Users.First(c => c.UserName == login.UserName);
-                    var logged = new LoggedUser { EmployeeId = user.EmployeeId, FullName = login.UserName, StoreId = user.StoreId, Id = user.UserName };
+
+                    if (!user.Approved)
+                    {
+                        return Problem("User account is not approved for operations. Kindly contact Admin for futher operations!");
+                    }
+
+                    var logged = new LoggedUser
+                    {
+                        EmployeeId = user.EmployeeId,
+                        FullName = login.UserName,
+                        StoreId = user.StoreId,
+                        Id = user.UserName
+
+
+                     StoreGroupId = user.StoreGroupId,
+                        AppClinetId = user.AppClinetId,
+                        Permission = user.Permission,
+                        UserType = user.UserType
+
+                    };
                     _logger.LogInformation("User logged in.");
                     return Ok(logged);
                 }
@@ -116,6 +140,10 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 if (!string.IsNullOrEmpty(newUser.StoreId)) user.StoreId = newUser.StoreId;
                 if (!string.IsNullOrEmpty(newUser.EmployeeId)) user.EmployeeId = newUser.EmployeeId;
 
+                if (!string.IsNullOrEmpty(newUser.StoreGroupId)) user.StoreGroupId = newUser.StoreGroupId;
+                if (!string.IsNullOrEmpty(newUser.AppClinetId)) user.AppClinetId = newUser.AppClinetId;
+                if (newUser.Premission != null) user.Premission = newUser.Premission;
+
                 var result = await _userManager.CreateAsync(user, newUser.Password);
 
                 if (result.Succeeded)
@@ -138,8 +166,8 @@ namespace AprajitaRetails.Server.Controllers.Auths
             if (result.Succeeded)
             {
                 var user = await _userManager.GetUserAsync(User);
-                if(user == null)
-                 user = _userManager.Users.First(c => c.UserName == Input.Id);
+                if (user == null)
+                    user = _userManager.Users.First(c => c.UserName == Input.Id);
 
                 if (user == null)
                 {
@@ -179,8 +207,8 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
         }
 
-       
-        
+
+
         private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
@@ -217,8 +245,8 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 return true;
             }
         }
-   
-    
+
+
 
     }
 }

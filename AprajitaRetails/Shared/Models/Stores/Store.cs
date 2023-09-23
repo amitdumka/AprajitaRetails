@@ -21,6 +21,22 @@ namespace AprajitaRetails.Shared.Models.Bases
         public virtual Store? Store { get; set; }
         public EntryStatus EntryStatus { get; set; }
     }
+    public class BaseSG : Base
+    {
+        [DefaultValue("ARD")]
+        [Display(Name = "Store")]
+        public string StoreGroupId { get; set; }
+        public virtual StoreGroup? StoreGroup { get; set; }
+        public EntryStatus EntryStatus { get; set; }
+    }
+     public class BaseAC : Base
+    {
+        [DefaultValue("ARD")]
+        [Display(Name = "Store")]
+        public Guid AppClinetId { get; set; }
+        public virtual AppClient? AppClient { get; set; }
+        public EntryStatus EntryStatus { get; set; }
+    }
 
 
 

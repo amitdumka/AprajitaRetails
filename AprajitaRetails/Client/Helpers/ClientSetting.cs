@@ -12,7 +12,8 @@
         
         public string UserName { get; set; }
         public string UserId { get; set; }
-        public string UserType { get; set; }
+        public UserType UserType { get; set; }
+        public RolePermission Permission{get;set;}
         //TODO: Need to implemnet Role and User based operation
         //TODO: Multiple store access or default single role access.
 
@@ -27,6 +28,14 @@
             EmployeeId = eid; StoreCode = code; StoreName = sName; UserId = userid; UserName = uName;
             Name= uName; UserType = "StoreManager"; Role = "User";
             
+        }
+
+        public void SetLogin(string clientid, string groupcode, string storeName, string code, string userName, UserType userType, RolePermission rolePermission, string userid, string eid)
+        {
+            EmployeeId = eid; StoreCode = code; StoreName = storeName; UserId = userid; UserName = userName;
+
+            Name= userName; UserType = userType; Role = "User";
+            Permission =rolePermission;
         }
 
         public void Clear()

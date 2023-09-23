@@ -13,9 +13,10 @@
 
 <ContentHeader>
     <Header>
-        <Blazor.AdminLte.PageTitle Title="Store Manager Dashboard" />
+        <Blazor.AdminLte.PageTitle Title="@Title" />
     </Header>
 </ContentHeader>
+
 <ContentMain>
     <H5>Dashboard [Store Manager]</H5>
     @if (Loading)
@@ -24,6 +25,8 @@
     }
     else
     {
+
+
 
         <Row>
             <Column Classes="col.md._3">
@@ -128,10 +131,13 @@
                 foreach (var item in vm.PayrollInfo.Emps)
                 {
 
-                 
+
                     <Column Classes="col.md._3">
                         <Card HeaderBackgroundColor="Color.Info" Styles="new CardStyle[] { CardStyle.Solid }">
-                            <Title><CardTitle>@item.Name</CardTitle></Title>
+                            <Title>
+                                <CardTitle>@item.Name</CardTitle>
+                            </Title>
+
                             <Body>
                                 <ul class="sm small">
                                     <li>@item.Today</li>
@@ -156,10 +162,17 @@
 @code {
     private DashboardVM vm;
     bool Loading = true;
+    private string Title = "Dashboard";
+
     protected override async void OnInitialized()
     {
         try
         {
+            if (Permission == RolePermission.Owner)
+                Title = "President's Dashboard";
+            else
+                Title = $"Dashboard [{Permission.ToString()}] ";
+
             vm = await Helper.GetRecordAsync<DashboardVM>($"api/dashboard/StoreManagerDashboard?storeid={Setting.StoreCode}");
             if (vm != null) Loading = false;
             StateHasChanged();

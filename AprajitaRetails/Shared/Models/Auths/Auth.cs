@@ -10,6 +10,13 @@ namespace AprajitaRetails.Shared.Models.Auth
         public string Email { get; set; }
         public string StoreId { get; set; }
         public string EmployeeId { get; set; }
+
+        //public string StoreGroupId { get; set; }
+        //public Guid AppClinetId { get; set; }
+        //public UserType UserType{get;set;} 
+        //public RolePremission Premission { get; set; } 
+
+
     }
     public class LoginVM
     {
@@ -24,6 +31,12 @@ namespace AprajitaRetails.Shared.Models.Auth
         public string FullName { get; set; }
         public string StoreId { get; set; }
         public string EmployeeId { get; set; }
+
+        public string StoreGroupId { get; set; }
+        public Guid AppClinetId { get; set; }
+        public UserType UserType { get; set; }
+        public RolePremission Premission { get; set; }
+
     }
 
     public class NewPassowrd

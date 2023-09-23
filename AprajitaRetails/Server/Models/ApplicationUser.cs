@@ -9,10 +9,14 @@ namespace AprajitaRetails.Server.Models
         public string? EmployeeId { get; set; }
         //public string? StoreGroupId { get; set; }
         //public Guid? AppClinetId { get; set; }
-       // public RolePremission Premission { get; set; }
+        //public UserType? UserType{get;set;}=UserType.Guest;
+        //public RolePremission? Premission { get; set; }=Guest;
+        //public bool Approved{get;set;}=false;
 
     }
 
-    
+
 }
-public enum RolePremission { Owner, Accountant, CA, StoreManager, Salesmen, Guest, Other }
+public enum UserType { Admin, SuperUser, PwoerUser, User, Guest }
+
+public enum RolePremission { Owner, GeneralManager, GroupManager, Accountant, CA, StoreManager, Salesmen, Guest, Other }
