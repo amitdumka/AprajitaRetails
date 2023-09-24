@@ -18,7 +18,7 @@
 </ContentHeader>
 
 <ContentMain>
-    <H5>Dashboard [Store Manager]</H5>
+    <H5>Dashboard</H5>
     @if (Loading)
     {
         <p>Loading.....</p>
@@ -26,7 +26,11 @@
     else
     {
 
-
+    <Row>
+            <Column Classes="col.md._3">
+                <div class="mb primary text-large">Sale's</div>
+            </Column>
+    </Row>
 
         <Row>
             <Column Classes="col.md._3">
@@ -52,6 +56,11 @@
                     <Value>@vm.QuarterlySale</Value>
                     <Title>Quarterly Sale</Title>
                 </InfoBox>
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md._3">
+                Expenses, Payments and Reciepts
             </Column>
         </Row>
         <Row>
@@ -87,7 +96,7 @@
             </Column>
             <Column Classes="col.md._3">
                 <InfoBox IconBackgroundColor="Color.Purple" Icon="far fa-flag">
-                    <Title>Yearl Payment</Title>
+                    <Title>Yearly Payment</Title>
                     <Value>@vm.YearlyPayments</Value>
                 </InfoBox>
             </Column>
@@ -99,6 +108,11 @@
             </Column>
             <Column Classes="col.md._3">
 
+            </Column>
+        </Row>
+        <Row>
+            <Column Classes="col.md._3">
+                Salaries
             </Column>
         </Row>
         <Row>
@@ -125,10 +139,17 @@
 
             </Column>
         </Row>
+
         <Row>
             @if (vm.PayrollInfo != null && vm.PayrollInfo.Emps.Any())
             {
-                foreach (var item in vm.PayrollInfo.Emps)
+                <Row>
+                    <Column Classes="col.md._3">
+                        Payroll
+                    </Column>
+                </Row>
+                <Row>
+                @foreach (var item in vm.PayrollInfo.Emps)
                 {
 
 
@@ -152,6 +173,7 @@
                     </Column>
 
                 }
+                </Row>
 
             }
         </Row>

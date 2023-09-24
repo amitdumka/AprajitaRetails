@@ -143,7 +143,6 @@
     <Folder Include="BL\Accounts\" />
     <Folder Include="Controllers\Helpers\" />
     <Folder Include="wwwroot\Tables\" />
-    <Folder Include="Controllers\Auths\" />
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
     <Folder Include="Controllers\Reports\" />

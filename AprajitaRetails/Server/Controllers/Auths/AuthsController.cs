@@ -67,7 +67,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
                     StoreGroupId = user.StoreGroupId,
                     AppClinetId = user.AppClinetId.Value,
                     Permission = RolePermission.Owner,
-                    UserType = UserType.Admin
+                    UserType = UserType.SuperAdmin
                 };
                 _logger.LogInformation("User logged in.");
                 return Ok(logged);
