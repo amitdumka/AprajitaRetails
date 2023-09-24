@@ -36,9 +36,11 @@ namespace AprajitaRetails.Shared.Models.Banking
         public DateTime OpeningDate { get; set; }
         public DateTime? ClosingDate { get; set; }
 
-        public string StoreId { get; set; }
+        public string StoreId { get; set; } //TODO: remove 
         public bool MarkedDeleted { get; set; }
-         public Guid? AppClientId { get; set; }
+
+        public string? StoreGroupId { get; set; }
+        public Guid? AppClientId { get; set; }
     }
 
     public class VendorBankAccount : BankAccountBase
@@ -49,20 +51,21 @@ namespace AprajitaRetails.Shared.Models.Banking
         public DateTime OpeningDate { get; set; }
         public DateTime? ClosingDate { get; set; }
 
-        public string StoreId { get; set; }
+        public string StoreId { get; set; } //TODO: Remove
         public bool MarkedDeleted { get; set; }
-         public Guid? AppClientId { get; set; }
-         public string? StoreGroupId{get;set;}
+
+        public Guid? AppClientId { get; set; }
+        public string? StoreGroupId { get; set; }
     }
 
     public class BankAccountList : BankAccountBase
     {
         public bool SharedAccount { set; get; }
-        public string StoreId { get; set; }
+        public string StoreId { get; set; }   //TODO: Remove
         public bool MarkedDeleted { get; set; }
-        
-         public Guid? AppClientId { get; set; }
-         public string? StoreGroupId{get;set;}
+
+        public Guid? AppClientId { get; set; }
+        public string? StoreGroupId { get; set; }
     }
 
     public class ChequeBook : BaseST
@@ -77,7 +80,8 @@ namespace AprajitaRetails.Shared.Models.Banking
         public int NoOfChequeIssued { get; set; }
         public int NoOfPDC { get; set; }
         public int NoOfClearedCheques { get; set; }
-         public Guid? AppClinetId{get;set;}
+
+        public Guid? AppClinetId { get; set; }
     }
 
     public class ChequeIssued : BaseST
@@ -91,7 +95,9 @@ namespace AprajitaRetails.Shared.Models.Banking
         public string ChequeBookId { get; set; }
         public virtual ChequeBook? ChequeBook { get; set; }
         public long ChequeNumber { get; set; }
-         public Guid? AppClinetId{get;set;}
+        
+        public Guid? AppClinetId { get; set; }
+        public string? StoreGroupId { get; set; }
     }
 
     public class ChequeLog : BaseST
@@ -105,9 +111,9 @@ namespace AprajitaRetails.Shared.Models.Banking
         public string BankId { get; set; }
         public long ChequeNumber { get; set; }
         public string Status { get; set; }
-        public Guid? AppClinetId{get;set;}
-        public string? StoreGroupId{get;set;}
-
+        
+        public Guid? AppClinetId { get; set; }
+        public string? StoreGroupId { get; set; }
     }
 
     public class BankTransaction : BaseST
@@ -128,20 +134,23 @@ namespace AprajitaRetails.Shared.Models.Banking
         [ForeignKey("AccountNumber")]
         public virtual BankAccount BankAccount { get; set; }
 
-        public Guid? AppClinetId{get;set;}
+        public Guid? AppClinetId { get; set; }
+        public string? StoreGroupId { get; set; }
     }
 
-    public class BankAccountLedger:BaseAC{
+    public class BankAccountLedger : BaseAC
+    {
         [Key]
-        public Guid Id{get;set;}
-        public DateTime OnDate{get;set;}
-        public int BankTransactionId{get;set;}
-        public string TransferFrom{get;set;}
-        
-        public string TransferTo{get;set;}
-        public decimal Amount{get;set;}
+        public Guid Id { get; set; }
+
+        public DateTime OnDate { get; set; }
+        public int BankTransactionId { get; set; }
+        public string TransferFrom { get; set; }
+
+        public string TransferTo { get; set; }
+        public decimal Amount { get; set; }
         public DateTime? BankDate { get; set; }
         public bool Verified { get; set; }
-
+        public string StoreGroupId { get; set; }
     }
 }
