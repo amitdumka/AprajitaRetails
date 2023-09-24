@@ -43,6 +43,18 @@ namespace AprajitaRetails.Server.Controllers.Auths
             return _authDb.SaveChanges()>0;
         }
 
+        [HttpGet("UpdateBankAccount")]
+        public async Task<ActionResult<bool?>> GetBankAccount()
+        {
+            var list = _context.BankAccounts.ToList();
+            foreach (var item in list)
+            {
+                item.AppClientId = Guid.Parse("a765c480-25c8-440b-9fc4-047e4a66834f");
+                item.StoreGroupId = "TAS";
+               
+            }
+            return _context.SaveChanges() > 0;
+        }
         // GET: AuthHelperController
         public ActionResult Index()
         {

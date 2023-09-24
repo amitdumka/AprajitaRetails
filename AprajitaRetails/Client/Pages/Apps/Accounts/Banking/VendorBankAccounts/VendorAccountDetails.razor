@@ -25,7 +25,7 @@
         <EntityRow Lable="Closing Date " Value="@entity.ClosingDate.ToString()" />}
     <EntityRow Lable="Vendor" Value="@entity.VendorId.ToString()" />
     <EntityRow Lable="IFSC" Value="@entity.IFSCCode.ToString()" />
-    <EntityRow Lable="Store" Value="@entity.StoreId.ToString()" />
+    <EntityRow Lable="Store" Value="@entity.StoreGroupId.ToString()" />
 </EntityDetails>
 
 @code {
@@ -96,7 +96,5 @@
         };
         NotificationService.Notify(msg);
     }
-
-
 
 }

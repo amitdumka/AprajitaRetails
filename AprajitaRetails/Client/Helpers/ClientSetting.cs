@@ -7,7 +7,7 @@
         public string StoreCode { get; set; }
         public string StoreName { get; set; }
         public string StoreGroupId { get; set; }
-        public Guid? AppClientId { get; set; }
+        public Guid? AppClientId { get; set; } = Guid.Parse("a765c480-25c8-440b-9fc4-047e4a66834f");
 
         
         public string UserName { get; set; }

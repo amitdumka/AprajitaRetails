@@ -44,7 +44,7 @@ namespace AprajitaRetails.BasicViews
             GridCols = new List<GridColumn>();
             foreach (var prop in infos)
             {
-                if (prop.Name.EndsWith("Id")==false && prop.Name.EndsWith("ID") == false )
+                if (prop.Name.EndsWith("Id")==false && prop.Name.EndsWith("ID") == false && prop.Name.EndsWith("id") == false)
                     //&& prop.Name != "EmployeeId" && prop.Name != "TransactionId" 
                     //&& prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
                 {

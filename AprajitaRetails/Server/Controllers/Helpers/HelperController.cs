@@ -27,6 +27,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             }
             return await _context.StoreGroups.Include(c=>c.AppClient).Select(c => new SelectOption { ID = c.StoreGroupId, Value = c.GroupName+ $"[ {c.AppClient.ClientName} ]" }).ToListAsync();
         }
+
         [HttpGet("Clients")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetClinets()
         {
@@ -36,6 +37,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             }
             return await _context.AppClients.Select(c => new SelectOption { ID = c.AppClientId.ToString(), Value = c.ClientName }).ToListAsync();
         }
+        
         [HttpGet("LedgerGroups")]
         public async Task<ActionResult<IEnumerable<SelectOption>>> GetLedgerGroups(string storeid)
         {
@@ -122,6 +124,15 @@ namespace AprajitaRetails.Server.Controllers.Helpers
                 return NotFound();
             }
             return await _context.Stores.Select(c => new SelectOption { ID = c.StoreId, Value = c.StoreName + ", #: " + c.City }).ToListAsync();
+        }
+        [HttpGet("Stores{ID}")]
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetStoresByGroups(string storeGroupId)
+        {
+            if (_context.Stores == null)
+            {
+                return NotFound();
+            }
+            return await _context.Stores.Where(c=>c.StoreGroupId==storeGroupId).Select(c => new SelectOption { ID = c.StoreId, Value = c.StoreName + ", #: " + c.City }).ToListAsync();
         }
     }
 }

@@ -33,7 +33,9 @@ namespace AprajitaRetails.Server.Controllers.Stores
             {
                 return NotFound();
             }
-            return await _context.Salesmen.Where(c=>c.StoreId==storeid && !c.MarkedDeleted ).ToListAsync();
+            //return await _context.Salesmen.Where(c=>c.StoreId==storeid && !c.MarkedDeleted ).ToListAsync();
+            return await _context.Salesmen.Where(c => c.StoreId == storeid ).ToListAsync();
+
         }
 
         // GET: api/Salesmen/5

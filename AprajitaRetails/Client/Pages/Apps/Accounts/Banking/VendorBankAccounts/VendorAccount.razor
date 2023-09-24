@@ -16,11 +16,11 @@
         <TableHead>
             <TableHeadCell>Acc No</TableHeadCell>
             <TableHeadCell>Holder </TableHeadCell>
-            <TableHeadCell> Bank</TableHeadCell>
+            <TableHeadCell>Bank</TableHeadCell>
             <TableHeadCell>Branch</TableHeadCell>
             <TableHeadCell>IFSC</TableHeadCell>
             <TableHeadCell>Type </TableHeadCell>
-            <TableHeadCell> Date</TableHeadCell>
+            <TableHeadCell>Date</TableHeadCell>
             <TableHeadCell>Status </TableHeadCell>
             <TableHeadCell>Balance </TableHeadCell>
 
@@ -59,12 +59,12 @@
     void Msg(string title, string text, bool error = false)
     {
         var msg = new Radzen.NotificationMessage
-        {
-            Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
-            Summary = title,
-            Detail = text,
-            Duration = 14000
-        };
+            {
+                Severity = error ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
         NotificationService.Notify(msg);
     }
     async void ConfirmDelete(string id)

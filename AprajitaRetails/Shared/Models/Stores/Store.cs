@@ -44,11 +44,11 @@ namespace AprajitaRetails.Shared.Models.Bases
     {
         public int ContactId { get; set; }
         [Phone]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         [Phone]
-        public string MobileNumber { get; set; }
+        public string? MobileNumber { get; set; }
         [EmailAddress]
-        public string EMail { get; set; }
+        public string? EMail { get; set; }
     }
 
 
@@ -58,8 +58,8 @@ namespace AprajitaRetails.Shared.Models.Bases
         public string? LastName { get; set; }
         public string FullName { get { return FirstName + " " + LastName; } }
         public string? Title { get; set; }
-        public Gender Gender { get; set; } // Enum Gender
-        public DateTime DOB { get; set; }
+        public Gender Gender { get; set; } = Gender.Male;// Enum Gender
+        public DateTime? DOB { get; set; }
     }
 
     public class Address

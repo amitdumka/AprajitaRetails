@@ -10,6 +10,7 @@
 @using Syncfusion.Blazor.Calendars
 @attribute [Authorize]
 @inject HttpClient Http
+@inject ClientSetting Setting
 
 <ContentMain>
 
@@ -22,7 +23,7 @@
                     <div class="col-sm-6">
                         <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
                                     Autofill="true"
-                                    @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                    @bind-Value="@entity.StoreGroupId" PopupHeight="230px"
                                     DataSource="@Stores">
                             <ComboBoxFieldSettings Text="Value" Value="ID" />
                         </SfComboBox>
@@ -65,7 +66,7 @@
                 <div class="mb-3 row">
                     <label for="ondate" class="col-sm-4 col-form-label">Opening Date</label>
                     <div class="col-sm-6">
-                         <SfDatePicker  @bind-Value="@entity.OpeningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        <SfDatePicker @bind-Value="@entity.OpeningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
                     </div>
                 </div>
             </Column>
@@ -88,7 +89,7 @@
                 </div>
 
             </Column>
-           
+
 
         </Row>
 
@@ -97,7 +98,7 @@
                 <div class="mb-3 row">
                     <label for="close" class="col-sm-4 col-form-label">Closing Date</label>
                     <div class="col-sm-6">
-                         <SfDatePicker  @bind-Value="@entity.ClosingDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        <SfDatePicker @bind-Value="@entity.ClosingDate" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
                     </div>
                 </div>
             </Column>
@@ -105,7 +106,7 @@
                 <ACheckBox Title="Active" Name="Active" @bind-Checked="@entity.IsActive" />
             </Column>
         </Row>
-        
+
 
     </EntityEdit>
 </ContentMain>
@@ -122,7 +123,7 @@
     {
         try
         {
-            Stores = await Http.GetFromJsonAsync<SelectOption[]>("Helper/Stores");
+            Stores = await Http.GetFromJsonAsync<SelectOption[]>("Helper/StoreGroups");
             var bb = await Http.GetFromJsonAsync<IList<Bank>>("api/Banks");
             Banks = bb.Select(c => new SelectOption { ID = c.BankId, Value = c.Name }).ToList();
             return true;
@@ -146,21 +147,23 @@
         else
         {
             entity = new VendorBankAccount
-            {
-                OpeningDate = DateTime.Now,
-                MarkedDeleted = false,
-                StoreId = Stores != null ? Stores[0].ID : "ARD",
-                AccountHolderName = "",
-                BankId = Banks != null ? Banks[0].ID : "",
-                AccountNumber = "",
-                AccountType = AccountType.Current,
-                BranchName = "",
-                ClosingDate = null,
-                IFSCCode = "",
-                IsActive = true,
-                OpeningBalance = 0,
-         
-            };
+                {
+                    OpeningDate = DateTime.Now,
+                    MarkedDeleted = false,
+                    StoreGroupId = Stores != null ? Stores[0].ID : "TAS",
+                    StoreId = "ARD",
+                    AccountHolderName = "",
+                    BankId = Banks != null ? Banks[0].ID : "",
+                    AccountNumber = "",
+                    AccountType = AccountType.Current,
+                    BranchName = "",
+                    ClosingDate = null,
+                    IFSCCode = "",
+                    IsActive = true,
+                    OpeningBalance = 0,
+                    AppClientId = Setting.AppClientId
+
+                };
         }
 
     }
