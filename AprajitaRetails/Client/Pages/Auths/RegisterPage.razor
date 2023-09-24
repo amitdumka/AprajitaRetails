@@ -32,9 +32,10 @@
                     <Input @bind-Value="passwordVerify" />
                     <Input @bind-Value="storeid" />
                     <Input @bind-Value="employeeid" />
-                    <Input @bind-Value="appClinetId" />
                     <Input @bind-Value="storeGroupId" />
-                    <Input @bind-Value="permission" />
+
+                    @* <Input @bind-Value="appClinetId" />
+                    <Input @bind-Value="permission" /> *@
 
                     <div class="row">
                         <div class="col-8">
@@ -152,13 +153,11 @@
                 RegisterUserVM vm = new RegisterUserVM
                     {
                         //TODO: to be enabled
-                        //StoreId=storeGroupId,
-                        //AppClientId=appClientId,
+                        StoreGroupId=storeGroupId.Value,
+                        //AppClientId=appClientId.Value,
                         //Permission=permission,
-                        //UserType=userType,
-                        //Approved=false,
-
-
+                        //UserType=userType.Value,
+                        
                         Email = email.Value,
                         EmployeeId = employeeid.Value,
                         FullName = fullName.Value,

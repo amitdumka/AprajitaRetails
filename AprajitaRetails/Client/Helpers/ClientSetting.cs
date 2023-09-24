@@ -20,13 +20,13 @@
         public string Role { get; set; }
 
         public string EmployeeId { get; set; }
+         
 
-        //public event EventHandler UserChangedEvent;
-
+        //TODO: need to handle user settings on login
         public void SetLogin(string code, string sName, string uName, string userid, string eid)
         {
             EmployeeId = eid; StoreCode = code; StoreName = sName; UserId = userid; UserName = uName;
-            Name= uName; UserType = "StoreManager"; Role = "User";
+            Name= uName; UserType = UserType.PowerUser; Role = "User";
             
         }
 

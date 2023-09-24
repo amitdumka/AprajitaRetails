@@ -44,7 +44,7 @@ public enum Size
 { S, M, L, XL, XXL, XXXL, T28, T30, T32, T34, T36, T38, T40, T41, T42, T44, T46, T48, FreeSize, NS, NOTVALID, B36, B38, B40, B42, B44, B46, B96, B100, B104, B108 }
 
 public enum ProductCategory
-{ Fabric, Apparel, Accessories, Tailoring, Trims, PromoItems, Coupons, GiftVouchers, Others, SuitCovers,InnerWear }
+{ Fabric, Apparel, Accessories, Tailoring, Trims, PromoItems, Coupons, GiftVouchers, Others, SuitCovers, InnerWear }
 
 public enum CARD
 { DebitCard, CreditCard, AmexCard }
@@ -63,3 +63,9 @@ public enum VendorType
 
 public enum DebitCredit
 { In, Out }
+
+public enum UserType
+{ Admin, SuperAdmin, SuperUser, PowerUser, User, Guest }
+
+public enum RolePermission
+{ Owner, GeneralManager, GroupManager, Accountant, CA, StoreManager, Salesmen, Guest, Other }

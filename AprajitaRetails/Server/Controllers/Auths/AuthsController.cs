@@ -1,11 +1,9 @@
 ﻿using AprajitaRetails.Server.Areas.Identity.Pages.Account;
 using AprajitaRetails.Server.Models;
 using AprajitaRetails.Shared.Models.Auth;
-using Blazor.AdminLte;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
 
 namespace AprajitaRetails.Server.Controllers.Auths
 {
@@ -66,8 +64,8 @@ namespace AprajitaRetails.Server.Controllers.Auths
                     FullName = "Amit Kumar",
                     StoreId = user.StoreId,
                     Id = "AmitKumar",
-                    StoreGroupId = "",
-                    AppClinetId = "",
+                    StoreGroupId = user.StoreGroupId,
+                    AppClinetId = user.AppClinetId.Value,
                     Permission = RolePermission.Owner,
                     UserType = UserType.Admin
                 };
@@ -86,7 +84,6 @@ namespace AprajitaRetails.Server.Controllers.Auths
 
                 if (result.Succeeded)
                 {
-
                     var user = _userManager.Users.First(c => c.UserName == login.UserName);
 
                     if (!user.Approved)
@@ -99,14 +96,12 @@ namespace AprajitaRetails.Server.Controllers.Auths
                         EmployeeId = user.EmployeeId,
                         FullName = login.UserName,
                         StoreId = user.StoreId,
-                        Id = user.UserName
+                        Id = user.UserName,
 
-
-                     StoreGroupId = user.StoreGroupId,
-                        AppClinetId = user.AppClinetId,
-                        Permission = user.Permission,
-                        UserType = user.UserType
-
+                        StoreGroupId = user.StoreGroupId,
+                        AppClinetId = user.AppClinetId.Value,
+                        Permission = user.Permission.Value,
+                        UserType = user.UserType.Value
                     };
                     _logger.LogInformation("User logged in.");
                     return Ok(logged);
@@ -141,8 +136,8 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 if (!string.IsNullOrEmpty(newUser.EmployeeId)) user.EmployeeId = newUser.EmployeeId;
 
                 if (!string.IsNullOrEmpty(newUser.StoreGroupId)) user.StoreGroupId = newUser.StoreGroupId;
-                if (!string.IsNullOrEmpty(newUser.AppClinetId)) user.AppClinetId = newUser.AppClinetId;
-                if (newUser.Premission != null) user.Premission = newUser.Premission;
+                user.Approved = false; user.Permission = RolePermission.Guest;
+
 
                 var result = await _userManager.CreateAsync(user, newUser.Password);
 
@@ -159,6 +154,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
             return Problem("Model is not valid!");
         }
+
         [HttpPost("changepassword")]
         public async Task<ActionResult<bool>> PostChangePassword(NewPassowrd Input)
         {
@@ -188,11 +184,11 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 await _signInManager.RefreshSignInAsync(user);
                 _logger.LogInformation("User changed their password successfully.");
 
-
                 return Ok("Password is changed");
             }
             return Problem("Failed to validate user");
         }
+
         private ApplicationUser CreateUser()
         {
             try
@@ -206,8 +202,6 @@ namespace AprajitaRetails.Server.Controllers.Auths
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
-
-
 
         private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
@@ -245,8 +239,5 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 return true;
             }
         }
-
-
-
     }
 }

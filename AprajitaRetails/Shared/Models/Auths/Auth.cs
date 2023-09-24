@@ -10,14 +10,13 @@ namespace AprajitaRetails.Shared.Models.Auth
         public string Email { get; set; }
         public string StoreId { get; set; }
         public string EmployeeId { get; set; }
+        public string StoreGroupId { get; set; }
 
-        //public string StoreGroupId { get; set; }
-        //public Guid AppClinetId { get; set; }
-        //public UserType UserType{get;set;} 
-        //public RolePremission Premission { get; set; } 
-
-
+        //public Guid AppClientId { get; set; }
+        //public UserType UserType { get; set; }
+        //public RolePermission Permission { get; set; }
     }
+
     public class LoginVM
     {
         public string StoreId { get; set; }
@@ -25,6 +24,7 @@ namespace AprajitaRetails.Shared.Models.Auth
         public string Password { get; set; }
         public bool RememberMe { get; set; }
     }
+
     public class LoggedUser
     {
         public string Id { get; set; }
@@ -35,8 +35,7 @@ namespace AprajitaRetails.Shared.Models.Auth
         public string StoreGroupId { get; set; }
         public Guid AppClinetId { get; set; }
         public UserType UserType { get; set; }
-        public RolePremission Premission { get; set; }
-
+        public RolePermission Permission { get; set; }
     }
 
     public class NewPassowrd
@@ -46,15 +45,14 @@ namespace AprajitaRetails.Shared.Models.Auth
         public string NewPassword { get; set; }
     }
 
-
+    [Obsolete]
     public class Role
     {
         [Key]
         public string Id { get; set; }
+
         public string RoleName { get; set; }
         public bool IsAdmin { get; set; } = false;
         public bool IsEnabled { get; set; } = true;
-
     }
 }
-

@@ -168,10 +168,10 @@
     {
         try
         {
-            if (Permission == RolePermission.Owner)
+            if (Setting.Permission == RolePermission.Owner)
                 Title = "President's Dashboard";
             else
-                Title = $"Dashboard [{Permission.ToString()}] ";
+                Title = $"Dashboard [{Setting.Permission.ToString()}] ";
 
             vm = await Helper.GetRecordAsync<DashboardVM>($"api/dashboard/StoreManagerDashboard?storeid={Setting.StoreCode}");
             if (vm != null) Loading = false;
