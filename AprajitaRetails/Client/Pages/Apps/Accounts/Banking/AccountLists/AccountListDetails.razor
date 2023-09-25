@@ -1,4 +1,4 @@
-﻿@page "/banking/accountlists/detail/{*ID}"
+﻿@page "/banking/accountLists/detail/{*ID}"
 
 @using AprajitaRetails.Shared.Models.Banking
 @using AprajitaRetails.Commons
@@ -30,7 +30,7 @@
     string Title = "Details";
     bool Loading = true;
     bool isDeleted = false;
-    void BackButton() { NavigationManager.NavigateTo("/banking/accountlists"); }
+    void BackButton() { NavigationManager.NavigateTo("/banking/accountLists"); }
    
     protected override async void OnInitialized()
     {

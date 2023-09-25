@@ -1,4 +1,4 @@
-﻿@page "/banking/vendorAccouts/edit/{IsEdit:bool}/{*Id}"
+﻿@page "/banking/vendoraccounts/edit/{IsEdit:bool}/{*Id}"
 @using AprajitaRetails.Commons
 @using AprajitaRetails.Shared.Models.Banking
 @using AprajitaRetails.Shared.ViewModels;
@@ -14,7 +14,7 @@
 
 <ContentMain>
 
-    <EntityEdit @bind-EntityModel=@entity TItem="@VendorBankAccount" Title="Vendor Account" ApiUrl="VendorBankAccounts" ReturnUrl="/banking/vendoraccounts" Id="@Id" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel=@entity TItem="@VendorBankAccount" Title="Vendor Account" ApiUrl="api/VendorBankAccounts" ReturnUrl="/banking/vendoraccounts" Id="@Id" IsEdit=@IsEdit>
 
         <Row>
             <Column Classes="col.md">

@@ -38,7 +38,7 @@
                     <TableCell>@ent.AccountType.ToString()</TableCell>
                     <TableCell>@ent.SharedAccount.</TableCell>
                     <TableCell>@ent.IsActive.ToString()</TableCell>
-                    
+
                     <TableCell>  <ActionMenu Link="/banking/accountLists" Id="@ent.AccountNumber" OnClickDelete="()=>ConfirmDelete(ent.AccountNumber)" /></TableCell>
                 </TableRow>
             }
