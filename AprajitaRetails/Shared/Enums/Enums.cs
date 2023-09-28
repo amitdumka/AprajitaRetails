@@ -69,3 +69,8 @@ public enum UserType
 
 public enum RolePermission
 { Owner, GeneralManager, GroupManager, Accountant, CA, StoreManager, Salesmen, Guest, Other }
+
+
+//For Mobile Client 
+public enum ConType { Local, Remote, RemoteDb, HybridApi, HybridDB, Hybrid }
+public enum DBType { Local, Azure, API, Remote, Mango, Others }
