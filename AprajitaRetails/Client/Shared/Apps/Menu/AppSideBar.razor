@@ -8,9 +8,12 @@
     <AuthorizeView>
         @if (string.IsNullOrEmpty(LoggedUser))
         {
-            if (context.User.Identity?.Name != "Amit Kumar" || context.User.Identity?.Name != "AmitKumar")
+            if (context.User.Identity?.Name != "Amit Kumar" && context.User.Identity?.Name != "AmitKumar")
             {
                 avtarUrl = "../Users/avatar5.png";
+            }else
+            {
+                avtarUrl = "../Users/aks.jpg";
             }
             <SideBarUserPanel ImageEffect="ImageEffect.Circle" Link="#" Elevation="Elevation.Five" UserImage="@avtarUrl">@context.User.Identity?.Name</SideBarUserPanel>
 
@@ -276,10 +279,11 @@
     {
         Setting.UserName = LoggedUser = await LocalStorage.GetValueAsync<string>("UserFullName");
         Setting.StoreCode = SelectedStore = await LocalStorage.GetValueAsync<string>("StoreCode");
-        if (LoggedUser != "Amit Kumar" || LoggedUser != "AmitKumar")
+        if (LoggedUser != "Amit Kumar")
         {
             avtarUrl = "../Users/avatar5.png";
         }
+        else avtarUrl = "../Users/aks.jpg";
         //Setting = await LocalStorage.GetValueAsync<ClientSetting>("ClientSettings");
         StateHasChanged();
 

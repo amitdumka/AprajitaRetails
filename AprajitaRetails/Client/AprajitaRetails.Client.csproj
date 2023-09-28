@@ -79,7 +79,6 @@
 	<ItemGroup>
 		<Folder Include="Shared\Apps\Menu\" />
 		<Folder Include="Pages\Apps\Accounts\Vouchers\Cash\" />
-		<Folder Include="Pages\Apps\Accounts\Vouchers\Notes\" />
 		<Folder Include="Pages\Apps\Accounts\Vouchers\Transcations\" />
 		<Folder Include="wwwroot\js\bootstrap\" />
 		<Folder Include="Pages\Setup\" />

@@ -40,6 +40,10 @@ namespace AprajitaRetails.Server
                 .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))
                 .ForMember(dest => dest.AccountNumber, opt => opt.MapFrom(src => src.AccountId))
                 .ForMember(dest => dest.LedgerName, opt => opt.MapFrom(src => src.Party.PartyName)).ReverseMap();
+            CreateMap<Note, NoteDTO>()
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))
+                .ForMember(dest => dest.LedgerName, opt => opt.MapFrom(src => src.Party.PartyName)).ReverseMap();
+
             CreateMap<CashVoucher, CashVoucherDTO>()
                 .ForMember(dest => dest.StaffName, opt => opt.MapFrom(src => src.Employee.StaffName))
                 .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName))
@@ -51,7 +55,6 @@ namespace AprajitaRetails.Server
 
             CreateMap<Salary, SalaryDTO>().ForMember(dest => dest.StaffName, opt => opt.MapFrom(src => src.Employee.StaffName))
                 .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Store.StoreName)).ReverseMap();
-
 
             CreateMap<DailySale, DailySaleDTO>().ForMember(dest => dest.SalesmanName, opt => opt.MapFrom(src => src.Salesman.Name))
                  .ForMember(dest => dest.POSName, opt => opt.MapFrom(src => src.EDC.Name))
@@ -73,14 +76,13 @@ namespace AprajitaRetails.Server
 
             CreateMap<SaleItem, SaleItemDTO>()
                  .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Name))
-                 .ForMember(dest=>dest.MRP, opt=>opt.MapFrom(src=>src.ProductItem.MRP))
+                 .ForMember(dest => dest.MRP, opt => opt.MapFrom(src => src.ProductItem.MRP))
                   .ForMember(dest => dest.MRP, opt => opt.MapFrom(src => src.ProductItem.MRP))
               .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.ProductSale.Store.StoreName)).ReverseMap();
 
             CreateMap<CardPaymentDetail, CardPaymentDetailDTO>()
                  .ForMember(dest => dest.EDCTerminalName, opt => opt.MapFrom(src => src.PosMachine.Name))
               .ReverseMap();
-            
         }
     }
 }
