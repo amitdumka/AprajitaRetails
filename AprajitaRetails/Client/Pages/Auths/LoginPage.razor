@@ -43,8 +43,7 @@
                     @*                    </form>*@
                     <div class="social-auth-links text-center mb-3">
 
-                       
-                      <p>- OR -</p>
+                        <p>- OR -</p>
                         <a href="#" class="btn btn-block btn-primary">
                             <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
                         </a>
@@ -87,9 +86,9 @@
                 {
                     LocalStorage.SetValueAsync("UserFullName", user.FullName);
                     LocalStorage.SetValueAsync("StoreCode", user.StoreId);
-                    // LocalStorage.SetValueAsync("Employee", user.EmployeeId);
-                    // LocalStorage.SetValueAsync("UserName", user.Id);
-                    ClientSetting.SetLogin(user.StoreId, "", user.FullName, user.Id, user.EmployeeId);
+                    
+                    ClientSetting.SetLogin(user);
+                    LocalStorage.SetValueAsync<ClientSetting>("ClientSettings", ClientSetting);
 
                 }
 

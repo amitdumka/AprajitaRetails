@@ -44,6 +44,16 @@ namespace AprajitaRetails.Shared.Models.Auth
         public string Password { get; set; }
         public string NewPassword { get; set; }
     }
+    public class AproveUserVM
+    {
+        public string UserName { get; set; }
+        public string AdminUserName { get; set; }
+        public string AdminPassword { get; set; }
+
+        public UserType UserType { get; set; }
+        public RolePermission RolePermission { get; set; }
+        public bool Aproved { get; set; }
+    }
 
     [Obsolete]
     public class Role

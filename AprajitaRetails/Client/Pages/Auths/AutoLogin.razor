@@ -30,11 +30,9 @@
                 var user = login.Content.ReadFromJsonAsync<LoggedUser>().Result;
                 if (user != null)
                 {
-
                     LocalStorage.SetValueAsync("UserFullName", user.FullName);
                     LocalStorage.SetValueAsync("StoreCode", user.StoreId);
-
-                    Setting.SetLogin(user.StoreId, "", user.FullName, user.Id, user.EmployeeId);
+                    Setting.SetLogin(user);
                     LocalStorage.SetValueAsync<ClientSetting>("ClientSettings", Setting);
                 }
 

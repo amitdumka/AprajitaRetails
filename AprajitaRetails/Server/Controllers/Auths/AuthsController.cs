@@ -1,6 +1,7 @@
 ﻿using AprajitaRetails.Server.Areas.Identity.Pages.Account;
 using AprajitaRetails.Server.Models;
 using AprajitaRetails.Shared.Models.Auth;
+using Blazor.AdminLte;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -189,6 +190,54 @@ namespace AprajitaRetails.Server.Controllers.Auths
             return Problem("Failed to validate user");
         }
 
+        [HttpPost("ApproveUser")]
+        public async Task<ActionResult<bool>> PostAprroveUser(AproveUserVM user)
+        {
+            var result = await _signInManager.PasswordSignInAsync(user.AdminUserName, user.AdminPassword, true, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                var admin = await _userManager.GetUserAsync(User);
+                
+                if (admin == null)
+                    admin = _userManager.Users.First(c => c.UserName == user.AdminUserName);
+
+                if (admin == null)
+                {
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+                if (admin.UserType == UserType.Admin|| admin.UserType == UserType.SuperAdmin)
+                {
+
+                     var usr= await _userManager.FindByIdAsync(user.UserName);
+                    if (usr != null)
+                    {
+                        usr.Approved = user.Aproved; 
+                        usr.UserType=user.UserType;
+                        usr.Permission = user.RolePermission; 
+
+                    }
+                    else
+                    {
+                        return Problem("User not found");
+                    }
+                }
+                else
+                {
+                    return Problem("Not authzised to perform this task");
+                }
+
+               
+                _logger.LogInformation("User is approved successfully.");
+
+                return Ok("Approved");
+            }
+            return Problem("Failed to validate user");
+
+        }
+        //TODO: Club all four function to one function for user creation
+        //User Registration
         private ApplicationUser CreateUser()
         {
             try
@@ -240,4 +289,6 @@ namespace AprajitaRetails.Server.Controllers.Auths
             }
         }
     }
+
+    
 }
