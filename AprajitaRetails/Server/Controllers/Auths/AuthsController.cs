@@ -85,8 +85,9 @@ namespace AprajitaRetails.Server.Controllers.Auths
 
                 if (result.Succeeded)
                 {
+                    
                     var user = _userManager.Users.First(c => c.UserName == login.UserName);
-
+                    
                     if (!user.Approved)
                     {
                         return Problem("User account is not approved for operations. Kindly contact Admin for futher operations!");
