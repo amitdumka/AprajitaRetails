@@ -199,36 +199,36 @@ namespace AprajitaRetails.Client.Helpers
             switch (optionName)
             {
                 case "Accounts":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/BankAccounts?storeid={storeid}");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/BankAccounts?storeid={storeid}");
                     break;
 
                 case "Transactions":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/Transactions"); break;
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Transactions"); break;
                 case "Parties":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/Parties?storeid={storeid}");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Parties?storeid={storeid}");
                     break;
 
                 case "Stores":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/Stores");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Stores");
                     break;
 
                 case "Employees":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/Employees?storeid={storeid}");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"apiHelper/Employees?storeid={storeid}");
                     break;
                 case "MPOS":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/MPOS?storeid={storeid}");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/MPOS?storeid={storeid}");
                     break;
                 case "Salesman":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/Salesman?storeid={storeid}");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Salesman?storeid={storeid}");
                     break;
                 case "LedgerGroups":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/LedgerGroups?storeid={storeid}");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/LedgerGroups?storeid={storeid}");
                     break;
                 case "StoreGroups":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/StoreGroups");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/StoreGroups");
                     break;
                 case "Clients":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"Helper/Clients");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Clients");
                     break;
                 default:
                     break;
