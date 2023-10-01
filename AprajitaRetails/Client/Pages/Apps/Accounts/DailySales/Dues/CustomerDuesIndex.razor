@@ -58,7 +58,7 @@
 
     async Task<List<CustomerDue>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<CustomerDue>($"CustomerDues/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<CustomerDue>($"api/CustomerDues/bystoredto", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

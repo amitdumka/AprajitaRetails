@@ -93,7 +93,7 @@
         }
         try
         {
-            vchlist = await Http.GetFromJsonAsync<Note[]>($"Notes/ByStore?storeid={Setting.StoreCode}");
+            vchlist = await Http.GetFromJsonAsync<Note[]>($"api/Notes/ByStore?storeid={Setting.StoreCode}");
         }
         catch (AccessTokenNotAvailableException exception)
         {

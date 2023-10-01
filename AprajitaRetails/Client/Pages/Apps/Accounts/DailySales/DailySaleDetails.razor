@@ -48,10 +48,10 @@
         if (!string.IsNullOrEmpty(ID))
         {
 
-            entity = await Http.GetFromJsonAsync<DailySale>($"DailySales/{ID}");
+            entity = await Http.GetFromJsonAsync<DailySale>($"api/DailySales/{ID}");
             employee = await Http.GetFromJsonAsync<Salesman>($"api/Salesmen/{entity.SalesmanId}");
             if (string.IsNullOrEmpty(entity.EDCTerminalId) == false)
-                edc = await Http.GetFromJsonAsync<EDCTerminal>($"EDCTerminals/{entity.EDCTerminalId}");
+                edc = await Http.GetFromJsonAsync<EDCTerminal>($"api/EDCTerminals/{entity.EDCTerminalId}");
             else edc = null;
             Title = "Sale Details of " + entity.InvoiceNumber;
             Loading = false;
@@ -70,7 +70,7 @@
             bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
             if (isConfirm)
             {
-                var result = await Http.DeleteAsync($"DailySales/{ID}");
+                var result = await Http.DeleteAsync($"api/DailySales/{ID}");
                 if (result.IsSuccessStatusCode)
                 {
                     isDeleted = true;

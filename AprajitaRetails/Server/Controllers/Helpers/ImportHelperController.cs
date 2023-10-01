@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AprajitaRetails.Server.Controllers.Helpers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ImportHelperController : ControllerBase
     {

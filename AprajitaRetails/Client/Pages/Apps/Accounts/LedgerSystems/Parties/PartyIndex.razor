@@ -53,7 +53,7 @@
 
     async Task<List<PartyDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<PartyDTO>($"Parties/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<PartyDTO>($"api/Parties/bystoredto", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

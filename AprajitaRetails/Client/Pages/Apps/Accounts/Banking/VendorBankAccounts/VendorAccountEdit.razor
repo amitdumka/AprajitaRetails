@@ -123,7 +123,7 @@
     {
         try
         {
-            Stores = await Http.GetFromJsonAsync<SelectOption[]>("Helper/StoreGroups");
+            Stores = await Http.GetFromJsonAsync<SelectOption[]>("api/Helper/StoreGroups");
             var bb = await Http.GetFromJsonAsync<IList<Bank>>("api/Banks");
             Banks = bb.Select(c => new SelectOption { ID = c.BankId, Value = c.Name }).ToList();
             return true;

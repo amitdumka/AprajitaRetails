@@ -115,8 +115,8 @@
     {
         try
         {
-            Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
-            Stores = await Helper.FetchOptionsAsync("Stores", null);
+            Employees = await Helper.FetchOptionsAsync("api/Employees", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("api/Stores", null);
             return true;
         }
         catch (Exception)
@@ -131,7 +131,7 @@
 
         if (IsEdit)
         {
-            entity = await Helper.GetRecordAsync<SalaryPayment>("SalaryPayments", Id);
+            entity = await Helper.GetRecordAsync<SalaryPayment>("api/SalaryPayments", Id);
             StateHasChanged();
         }
         else

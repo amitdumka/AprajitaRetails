@@ -11,7 +11,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
 {
     //[Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CashVouchersController : ControllerBase
     {
         private readonly ARDBContext _context;

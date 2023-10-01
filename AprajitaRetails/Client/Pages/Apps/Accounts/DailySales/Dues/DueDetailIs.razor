@@ -42,7 +42,7 @@
         if (!string.IsNullOrEmpty(ID))
         {
 
-            entity = await Http.GetFromJsonAsync< CustomerDue>($"CustomerDues/{ID}");
+            entity = await Http.GetFromJsonAsync< CustomerDue>($"api/CustomerDues/{ID}");
 
             Title = "Customer Dues Details of " + entity.InvoiceNumber;
             Loading = false;
@@ -61,7 +61,7 @@
             bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
             if (isConfirm)
             {
-                var result = await Http.DeleteAsync($"CustomerDues/{ID}");
+                var result = await Http.DeleteAsync($"api/CustomerDues/{ID}");
                 if (result.IsSuccessStatusCode)
                 {
                     isDeleted = true;

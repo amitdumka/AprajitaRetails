@@ -64,7 +64,7 @@
 
         if (isConfirm)
         {
-            var result = await Http.DeleteAsync($"EDCTerminals/{id}");
+            var result = await Http.DeleteAsync($"api/EDCTerminals/{id}");
             if (result.IsSuccessStatusCode)
             {
                 entities.Remove(entities.First(c => c.EDCTerminalId == id));
@@ -82,7 +82,7 @@
         try
         {
             banks = await Http.GetFromJsonAsync<Bank[]>("api/Banks");
-            entities = await Http.GetFromJsonAsync<List<EDCTerminal>>("EDCTerminals");
+            entities = await Http.GetFromJsonAsync<List<EDCTerminal>>("api/EDCTerminals");
             Loading = false;
             StateHasChanged();
         }

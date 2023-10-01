@@ -64,7 +64,7 @@
             modes = await Http.GetFromJsonAsync<TransactionMode>($"TransactionModes/{entity.TransactionId}");
             employee = await Http.GetFromJsonAsync<Employee>($"Employees/{entity.EmployeeId}");
             if (string.IsNullOrEmpty(entity.PartyId) == false)
-                party = await Http.GetFromJsonAsync<Party>($"Parties/{entity.PartyId}");
+                party = await Http.GetFromJsonAsync<Party>($"api/Parties/{entity.PartyId}");
 
             Loading = false;
             StateHasChanged();

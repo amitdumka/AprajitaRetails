@@ -53,7 +53,7 @@
 
     async Task<List<CashDetailDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<CashDetailDTO>($"CashDetails/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<CashDetailDTO>($"api/CashDetails/bystoredto", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

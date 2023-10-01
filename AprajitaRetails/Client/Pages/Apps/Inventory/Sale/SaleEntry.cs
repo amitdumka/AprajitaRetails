@@ -114,9 +114,9 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         {
             try
             {
-                Salesmen = await Helper.FetchOptionsAsync("Salesman", Setting.StoreCode);
-                EDCList = await Helper.FetchOptionsAsync("MPOS", Setting.StoreCode);
-                Stores = await Helper.FetchOptionsAsync("Stores", "");
+                Salesmen = await Helper.FetchOptionsAsync("api/Salesman", Setting.StoreCode);
+                EDCList = await Helper.FetchOptionsAsync("api/MPOS", Setting.StoreCode);
+                Stores = await Helper.FetchOptionsAsync("api/Stores", "");
             }
             catch (Exception e)
             {

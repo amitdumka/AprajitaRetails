@@ -69,7 +69,7 @@
         {
             //ID = ID ?? "NO ID Found";
 
-            entity = await Http.GetFromJsonAsync<PettyCashSheet>($"PettyCashSheets/{ID}");
+            entity = await Http.GetFromJsonAsync<PettyCashSheet>($"api/PettyCashSheets/{ID}");
 
             TotalSale = entity.DailySale + entity.ManualSale + entity.TailoringSale;
             TotalNonCashSale = entity.CardSale + entity.NonCashSale;
@@ -94,7 +94,7 @@
             bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
             if (isConfirm)
             {
-                var result = await Http.DeleteAsync($"PettyCashSheets/{ID}");
+                var result = await Http.DeleteAsync($"api/PettyCashSheets/{ID}");
                 if (result.IsSuccessStatusCode)
                 {
                     isDeleted = true;

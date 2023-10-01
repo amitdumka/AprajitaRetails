@@ -142,7 +142,7 @@
             if (!string.IsNullOrEmpty(ID))
             {
                 Title = Title + " #ID: " + ID;
-                entity = await Helper.GetRecordAsync<Store>("Stores", ID);
+                entity = await Helper.GetRecordAsync<Store>("api/Stores", ID);
 
 
                 StateHasChanged();
@@ -173,8 +173,8 @@
     {
         try
         {
-            StoreGroups = await Helper.FetchOptionsAsync("StoreGroups","");
-            Clients = await Helper.FetchOptionsAsync("Clients", "");          
+            StoreGroups = await Helper.FetchOptionsAsync("api/StoreGroups","");
+            Clients = await Helper.FetchOptionsAsync("api/Clients", "");          
 
         }
         catch (Exception e)

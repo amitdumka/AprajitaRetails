@@ -86,7 +86,7 @@
         //ConfirmDelete(ID);
         try
         {
-            isDeleted = await DataHelper.DeleteAsync("Attendances", "Attendance", ID);
+            isDeleted = await DataHelper.DeleteAsync("api/Attendances", "Attendance", ID);
             StateHasChanged();
         }
         catch (Exception ex)
@@ -100,7 +100,7 @@
     {
         try
         {
-            isDeleted = await DataHelper.DeleteAsync("Attendances", "Attendance", id);
+            isDeleted = await DataHelper.DeleteAsync("api/Attendances", "Attendance", id);
             StateHasChanged();
         }
         catch (Exception ex)
@@ -121,7 +121,7 @@
 
             try
             {
-                entity = await Http.GetFromJsonAsync<Attendance>($"Attendances/{ID}");
+                entity = await Http.GetFromJsonAsync<Attendance>($"api/Attendances/{ID}");
                 Title = "Attendance of " + entity.Employee.StaffName;
                 StateHasChanged();
             }catch(HttpRequestException e)

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AprajitaRetails.Server.Controllers.Auths
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthsController : ControllerBase
     {

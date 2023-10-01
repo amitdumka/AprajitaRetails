@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Accounts
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DailySalesController : ControllerBase
     {

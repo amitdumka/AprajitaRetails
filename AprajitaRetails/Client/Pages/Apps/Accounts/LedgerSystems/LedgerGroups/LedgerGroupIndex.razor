@@ -53,7 +53,7 @@
 
     async Task<List<LedgerGroup>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<LedgerGroup>($"LedgerGroups", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<LedgerGroup>($"api/LedgerGroups", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

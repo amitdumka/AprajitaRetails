@@ -70,7 +70,7 @@
     {
         try
         {
-            vchlist = await Http.GetFromJsonAsync<TransactionMode[]>("TransactionModes");
+            vchlist = await Http.GetFromJsonAsync<TransactionMode[]>("api/TransactionModes");
         }
         catch (AccessTokenNotAvailableException exception)
         {

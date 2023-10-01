@@ -18,7 +18,7 @@
 @inject DataHelper Helper
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel="@entity" TItem="@DueRecovery" Title="DueRecoveries" ApiUrl="DueRecoveries" ReturnUrl="/accounts/DueRecoveries" Id="@ID" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@DueRecovery" Title="api/DueRecoveries" ApiUrl="api/DueRecoveries" ReturnUrl="/accounts/DueRecoveries" Id="@ID" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
@@ -99,7 +99,7 @@
             if (!string.IsNullOrEmpty(ID))
             {
                 Title = Title + " #Inv: " + ID;
-                entity = await Helper.GetRecordAsync<DueRecovery>("DueRecoveries", ID);
+                entity = await Helper.GetRecordAsync<DueRecovery>("api/DueRecoveries", ID);
                 StateHasChanged();
             }
 
@@ -131,7 +131,7 @@
     {
         try
         {
-            Stores = await Helper.FetchOptionsAsync("Stores", "");
+            Stores = await Helper.FetchOptionsAsync("api/Stores", "");
 
         }
         catch (Exception e)

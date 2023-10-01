@@ -54,7 +54,7 @@
 
     async Task<List<AttendanceDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<AttendanceDTO>($"Attendances/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<AttendanceDTO>($"api/Attendances/bystoredto", $"?storeid={Setting.StoreCode}");
         
         return entities;
 

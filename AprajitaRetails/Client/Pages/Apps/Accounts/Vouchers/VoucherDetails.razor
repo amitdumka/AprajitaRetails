@@ -74,7 +74,7 @@
 
             if (string.IsNullOrEmpty(entity.PartyId) == false)
                 party = await Helper.GetRecordAsync<Party>
-                    ($"Parties", entity.PartyId);
+                    ($"api/Parties", entity.PartyId);
 
             Loading = false;
             StateHasChanged();

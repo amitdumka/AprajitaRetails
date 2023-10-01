@@ -72,7 +72,7 @@
     async Task<List<PaySlipDTO>?> FetchDataAsync()
     {
          
-            entities = await Helper.FetchAsync<PaySlipDTO>($"payslips/bystoredto", $"?storeid={Setting.StoreCode}");
+            entities = await Helper.FetchAsync<PaySlipDTO>($"api/payslips/bystoredto", $"?storeid={Setting.StoreCode}");
             return entities;
         
 

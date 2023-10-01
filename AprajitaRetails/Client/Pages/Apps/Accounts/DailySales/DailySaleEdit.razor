@@ -143,7 +143,7 @@
             if (!string.IsNullOrEmpty(ID))
             {
                 Title = Title + " #Inv: " + ID;
-                entity = await Helper.GetRecordAsync<DailySale>("DailySales", ID);
+                entity = await Helper.GetRecordAsync<DailySale>("api/DailySales", ID);
                 StateHasChanged();
             }
 
@@ -183,9 +183,9 @@
         try
         {
 
-            Salesmen = await Helper.FetchOptionsAsync("Salesman", Setting.StoreCode);
-            EDCList = await Helper.FetchOptionsAsync("MPOS", Setting.StoreCode);
-            Stores = await Helper.FetchOptionsAsync("Stores", "");
+            Salesmen = await Helper.FetchOptionsAsync("api/Salesman", Setting.StoreCode);
+            EDCList = await Helper.FetchOptionsAsync("api/MPOS", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("api/Stores", "");
 
         }
         catch (Exception e)

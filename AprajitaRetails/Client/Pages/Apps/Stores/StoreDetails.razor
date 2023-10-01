@@ -54,7 +54,7 @@
         {
             //ID = ID ?? "NO ID Found";
 
-            entity = await Http.GetFromJsonAsync<Store>($"Stores/{ID}");
+            entity = await Http.GetFromJsonAsync<Store>($"api/Stores/{ID}");
 
             Title = "Details of " + entity.StoreName;
             Loading = false;
@@ -73,7 +73,7 @@
             bool isConfirm = await DialogService.ConfirmAsync("Are you sure you want to permanently delete ?", "Delete");
             if (isConfirm)
             {
-                var result = await Http.DeleteAsync($"Stores/{ID}");
+                var result = await Http.DeleteAsync($"api/Stores/{ID}");
                 if (result.IsSuccessStatusCode)
                 {
                     isDeleted = true;

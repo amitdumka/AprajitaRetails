@@ -149,7 +149,7 @@
             if (!string.IsNullOrEmpty(ID))
             {
                 Title = Title + " #VCHNo: " + ID;
-                entity = await Helper.GetRecordAsync<CashVoucher>("/CashVouchers", ID);
+                entity = await Helper.GetRecordAsync<CashVoucher>("api/CashVouchers", ID);
                 this.VoucherType = entity.VoucherType;
 
                 StateHasChanged();
@@ -191,10 +191,10 @@
     {
         try
         {
-            TransMode = await Helper.FetchOptionsAsync("Transactions", Setting.StoreCode);
-            Parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
-            Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
-            Stores = await Helper.FetchOptionsAsync("Stores", "");
+            TransMode = await Helper.FetchOptionsAsync("api/Transactions", Setting.StoreCode);
+            Parties = await Helper.FetchOptionsAsync("api/Parties", Setting.StoreCode);
+            Employees = await Helper.FetchOptionsAsync("api/Employees", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("api/Stores", "");
 
         }
         catch (Exception e)

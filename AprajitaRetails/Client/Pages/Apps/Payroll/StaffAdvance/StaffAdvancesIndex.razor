@@ -56,7 +56,7 @@
 
     async Task<List<StaffAdvanceReceiptDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<StaffAdvanceReceiptDTO>($"StaffAdvanceReceipts/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<StaffAdvanceReceiptDTO>($"api/StaffAdvanceReceipts/bystoredto", $"?storeid={Setting.StoreCode}");
 
         return entities;
 

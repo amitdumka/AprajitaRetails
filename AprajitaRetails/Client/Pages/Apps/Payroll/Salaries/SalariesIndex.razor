@@ -55,7 +55,7 @@
 
     async Task<List<SalaryDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<SalaryDTO>($"salaries/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<SalaryDTO>($"api/salaries/bystoredto", $"?storeid={Setting.StoreCode}");
 
         return entities;
 

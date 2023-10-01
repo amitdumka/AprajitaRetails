@@ -55,7 +55,7 @@
 
     async Task<List<MonthlyAttendanceDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<MonthlyAttendanceDTO>($"MonthlyAttendances/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<MonthlyAttendanceDTO>($"api/MonthlyAttendances/bystoredto", $"?storeid={Setting.StoreCode}");
 
         return entities;
 

@@ -100,8 +100,8 @@
     {
         try
         {
-            Employees = await DataHelper.FetchOptionsAsync("Employees", Setting.StoreCode);
-            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
+            Employees = await DataHelper.FetchOptionsAsync("api/Employees", Setting.StoreCode);
+            Stores = await DataHelper.FetchOptionsAsync("api/Stores", null);
             return true;
         }
         catch (Exception)
@@ -117,7 +117,7 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            attendance = await DataHelper.GetRecordAsync<Attendance>("Attendances", Id);
+            attendance = await DataHelper.GetRecordAsync<Attendance>("api/Attendances", Id);
             StateHasChanged();
 
         }

@@ -50,7 +50,7 @@
 
     async Task<List<EmployeeDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<EmployeeDTO>($"Employees/bystoredto", $"?storeid={Setting.StoreCode}&isWorking=false");
+        entities = await Helper.FetchAsync<EmployeeDTO>($"api/Employees/bystoredto", $"?storeid={Setting.StoreCode}&isWorking=false");
         return entities;
 
     }

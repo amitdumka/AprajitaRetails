@@ -75,7 +75,7 @@
     {
         try
         {
-            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
+            Stores = await DataHelper.FetchOptionsAsync("api/Stores", null);
             return true;
         }
         catch (Exception)
@@ -88,10 +88,10 @@
     protected override async Task OnInitializedAsync()
     {
         await FetchSelectData();
-        employee = await DataHelper.GetRecordAsync<Employee>("Employees", Id);
+        employee = await DataHelper.GetRecordAsync<Employee>("api/Employees", Id);
         if (IsEdit)
         {
-            employeeDetail = await DataHelper.GetRecordAsync<EmployeeDetails>("EmployeeDetails", Id);
+            employeeDetail = await DataHelper.GetRecordAsync<EmployeeDetails>("api/EmployeeDetails", Id);
 
 
         }

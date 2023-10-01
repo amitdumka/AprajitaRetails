@@ -47,7 +47,7 @@
 
     async Task<List<CashVoucherDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<CashVoucherDTO>($"CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<CashVoucherDTO>($"api/CashVouchers/bystoredto", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

@@ -53,7 +53,7 @@
 
     async Task<List<PettyCashSheet>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<PettyCashSheet>($"PettyCashSheets/bystore", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<PettyCashSheet>($"api/PettyCashSheets/bystore", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

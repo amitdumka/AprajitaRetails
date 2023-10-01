@@ -57,7 +57,7 @@
 
     async Task<List<DueRecovery>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<DueRecovery>($"DueRecoveries/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<DueRecovery>($"api/DueRecoveries/bystoredto", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

@@ -52,7 +52,7 @@
 
     async Task<List<DailySaleDTO>?> FetchDataAsync()
     {
-        entities = await Helper.FetchAsync<DailySaleDTO>($"DailySales/bystoredto", $"?storeid={Setting.StoreCode}");
+        entities = await Helper.FetchAsync<DailySaleDTO>($"api/DailySales/bystoredto", $"?storeid={Setting.StoreCode}");
         return entities;
 
     }

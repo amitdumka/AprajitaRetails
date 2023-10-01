@@ -67,7 +67,7 @@
         //TODO: move to EntityDetail Page
         try
         {
-            isDeleted = await Helper.DeleteAsync("SalaryPayments", "Salary Payment", ID);
+            isDeleted = await Helper.DeleteAsync("api/SalaryPayments", "Salary Payment", ID);
             StateHasChanged();
         }
         catch (Exception ex)

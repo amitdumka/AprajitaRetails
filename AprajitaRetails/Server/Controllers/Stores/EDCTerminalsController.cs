@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EDCTerminalsController : ControllerBase
     {

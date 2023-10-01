@@ -65,7 +65,7 @@
             entity = await Http.GetFromJsonAsync<Note>($"api/Notes/{ID}");
             Title = "Details of Note: " + entity.NoteNumber;
             if (string.IsNullOrEmpty(entity.PartyId) == false)
-                party = await Http.GetFromJsonAsync<Party>($"Parties/{entity.PartyId}");
+                party = await Http.GetFromJsonAsync<Party>($"api/Parties/{entity.PartyId}");
             Loading = false;
             StateHasChanged();
         }

@@ -110,20 +110,20 @@
 
     private async void FetchExcel()
     {
-        // var x = await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}");
-        await JS.SaveAs($"SaleReports-For_{Year}_{Month}.xlsx", await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}&pl=false"));
+        // var x = await Helper.FetchFileAsync("api/importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}");
+        await JS.SaveAs($"SaleReports-For_{Year}_{Month}.xlsx", await Helper.FetchFileAsync("api/importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}&pl=false"));
     }
     private async void FetchExcelPL()
     {
-        // var x = await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}");
-        await JS.SaveAs($"SaleReports-For_{Year}_{Month}.xlsx", await Helper.FetchFileAsync("importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}&pl=true"));
+        // var x = await Helper.FetchFileAsync("api/importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}");
+        await JS.SaveAs($"SaleReports-For_{Year}_{Month}.xlsx", await Helper.FetchFileAsync("api/importHelper/salerp", @$"?StoreId={Setting.StoreCode}&year={Year}&month={Month}&pl=true"));
     }
     protected override async Task OnInitializedAsync()
     {
         //await FetchSelectData();
         try
         {
-            Stores = await Helper.FetchOptionsAsync("Stores", "");
+            Stores = await Helper.FetchOptionsAsync("api/Stores", "");
             YearList = await Helper.FetchAsync<int>("api/ProductSales/YearList", $"?StoreId={Setting.StoreCode}");
             Year = DateTime.Today.Year;
             StateHasChanged();
@@ -139,7 +139,7 @@
         try
         {
             YearList = await Helper.FetchAsync<int>("api/ProductSale/YearList", $"?StoreId={Setting.StoreCode}");
-            Stores = await Helper.FetchOptionsAsync("Stores", "");
+            Stores = await Helper.FetchOptionsAsync("api/Stores", "");
             StateHasChanged();
         }
         catch (Exception e)

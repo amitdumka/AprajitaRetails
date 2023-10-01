@@ -14,7 +14,7 @@
 @inject HttpClient Http 
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel=@entity TItem="@CashDetail" Title="Cash Tally" ApiUrl="CashDetails" ReturnUrl="/accounts/CashDetails" Id="@Id" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel=@entity TItem="@CashDetail" Title="Cash Tally" ApiUrl="api/CashDetails" ReturnUrl="/accounts/CashDetails" Id="@Id" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
@@ -107,7 +107,7 @@
         try
         {
 
-            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("Helper/Stores");
+            Stores = await Http.GetFromJsonAsync<IList<SelectOption>>("api/Helper/Stores");
             return true;
         }
         catch (AccessTokenNotAvailableException exception)
@@ -123,7 +123,7 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            entity = await Http.GetFromJsonAsync<CashDetail>($"CashDetails/{Id}");
+            entity = await Http.GetFromJsonAsync<CashDetail>($"api/CashDetails/{Id}");
             StateHasChanged();
         }
         else

@@ -88,7 +88,7 @@
     {
         try
         {
-            entities = await Http.GetFromJsonAsync<Store[]>("Stores");
+            entities = await Http.GetFromJsonAsync<Store[]>("api/Stores");
         }
         catch (AccessTokenNotAvailableException exception)
         {

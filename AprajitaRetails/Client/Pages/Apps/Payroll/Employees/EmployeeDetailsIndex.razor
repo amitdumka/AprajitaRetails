@@ -46,9 +46,9 @@
         if (!string.IsNullOrEmpty(ID))
         {
             //ID = ID ?? "NO ID Found";
-            entity = await Http.GetFromJsonAsync<Employee>($"Employees/{ID}");
+            entity = await Http.GetFromJsonAsync<Employee>($"api/Employees/{ID}");
             Title = "Details of " + entity.StaffName;
-            details = await Http.GetFromJsonAsync<EmployeeDetails>($"EmployeeDetails/{ID}");
+            details = await Http.GetFromJsonAsync<EmployeeDetails>($"api/EmployeeDetails/{ID}");
             Loading = false;
             StateHasChanged();
         }

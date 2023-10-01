@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AprajitaRetails.Server.Controllers.Payroll
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StaffAdvanceReceiptsController : ControllerBase
     {
