@@ -77,7 +77,7 @@
         try
         {
             var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
-            var login = await client.PostAsJsonAsync<LoginVM>("auths", vm);
+            var login = await client.PostAsJsonAsync<LoginVM>("api/auths", vm);
             if (login.IsSuccessStatusCode)
             {
                 //Redirect to page or home

@@ -20,7 +20,7 @@
         try
         {
             var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
-            var login = await client.PostAsync("auths/autoLogin", null);
+            var login = await client.PostAsync("api/auths/autoLogin", null);
             if (login.IsSuccessStatusCode)
             {
                 //Redirect to page or home

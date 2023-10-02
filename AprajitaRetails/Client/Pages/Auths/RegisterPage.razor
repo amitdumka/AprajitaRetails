@@ -166,7 +166,7 @@
                         StoreId = storeid.Value
                     };
                 var client = ClientFactory.CreateClient("AprajitaRetails.ServerAPI.Auth");
-                var login = await client.PostAsJsonAsync<RegisterUserVM>("auths/register", vm);
+                var login = await client.PostAsJsonAsync<RegisterUserVM>("api/auths/register", vm);
 
                 if (login.IsSuccessStatusCode)
                 {
