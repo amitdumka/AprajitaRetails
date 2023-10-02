@@ -213,7 +213,7 @@ namespace AprajitaRetails.Client.Helpers
                     break;
 
                 case "Employees":
-                    option = await Http.GetFromJsonAsync<SelectOption[]>($"apiHelper/Employees?storeid={storeid}");
+                    option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Employees?storeid={storeid}");
                     break;
                 case "MPOS":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/MPOS?storeid={storeid}");
