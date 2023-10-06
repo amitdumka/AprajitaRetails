@@ -18,7 +18,7 @@
 @inject DataHelper Helper
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel="@entity" TItem="@CashVoucher" Title="Vouchers[Cash]" ApiUrl="cashvouchers" ReturnUrl="/vouchers/cash" Id="@ID" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@CashVoucher" Title="Vouchers[Cash]" ApiUrl="api/cashvouchers" ReturnUrl="/vouchers/cash" Id="@ID" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.lg">
 
@@ -191,10 +191,10 @@
     {
         try
         {
-            TransMode = await Helper.FetchOptionsAsync("api/Transactions", Setting.StoreCode);
-            Parties = await Helper.FetchOptionsAsync("api/Parties", Setting.StoreCode);
-            Employees = await Helper.FetchOptionsAsync("api/Employees", Setting.StoreCode);
-            Stores = await Helper.FetchOptionsAsync("api/Stores", "");
+            TransMode = await Helper.FetchOptionsAsync("Transactions", Setting.StoreCode);
+            Parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
+            Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("Stores", "");
 
         }
         catch (Exception e)

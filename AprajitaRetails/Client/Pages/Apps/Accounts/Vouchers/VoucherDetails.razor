@@ -70,7 +70,7 @@
     ($"api/Vouchers", ID);
             Title = "Voucher: " + entity.VoucherNumber;
             employee = await Helper.GetRecordAsync<Employee>
-                ($"Employees", entity.EmployeeId);
+                ($"api/Employees", entity.EmployeeId);
 
             if (string.IsNullOrEmpty(entity.PartyId) == false)
                 party = await Helper.GetRecordAsync<Party>

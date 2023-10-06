@@ -141,15 +141,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
+    
     app.UseSwagger(options =>
     {
         options.SerializeAsV2 = true;
     });
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v2");
-        options.RoutePrefix = string.Empty;
-    });
+    //app.UseSwaggerUI(options =>
+    //{
+    //    options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
+    //    options.RoutePrefix = string.Empty;
+    //});
 }
 else
 {
