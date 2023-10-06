@@ -20,7 +20,7 @@
 
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel="@entity" TItem="@Store" Title="Stores" ApiUrl="stores" ReturnUrl="/Stores" Id="@ID" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@Store" Title="Stores" ApiUrl="api/stores" ReturnUrl="/Stores" Id="@ID" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
@@ -173,8 +173,8 @@
     {
         try
         {
-            StoreGroups = await Helper.FetchOptionsAsync("api/StoreGroups","");
-            Clients = await Helper.FetchOptionsAsync("api/Clients", "");          
+            StoreGroups = await Helper.FetchOptionsAsync("StoreGroups","");
+            Clients = await Helper.FetchOptionsAsync("Clients", "");          
 
         }
         catch (Exception e)

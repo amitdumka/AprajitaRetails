@@ -17,7 +17,7 @@
 @inject DataHelper DataHelper
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel=@employeeDetail TItem="@EmployeeDetails" Title="Employee[Detail]" ApiUrl="EmployeeDetails" ReturnUrl="/payroll/employeeDetails" Id="@Id" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel=@employeeDetail TItem="@EmployeeDetails" Title="Employee[Detail]" ApiUrl="api/EmployeeDetails" ReturnUrl="/payroll/employeeDetails" Id="@Id" IsEdit=@IsEdit>
 
         <Row>
             <Column Classes="col.md"><ATextInput @bind-Value=@employeeDetail.EmployeeId Name="ID" Label="Highest Emp Id" /></Column>

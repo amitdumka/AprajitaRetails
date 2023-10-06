@@ -18,7 +18,7 @@
 @inject DataHelper Helper
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel="@entity" TItem="@DailySale" Title="DailySales" ApiUrl="DailySales" ReturnUrl="/accounts/DailySales" Id="@ID" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@DailySale" Title="DailySales" ApiUrl="api/DailySales" ReturnUrl="/accounts/DailySales" Id="@ID" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
@@ -183,9 +183,9 @@
         try
         {
 
-            Salesmen = await Helper.FetchOptionsAsync("api/Salesman", Setting.StoreCode);
-            EDCList = await Helper.FetchOptionsAsync("api/MPOS", Setting.StoreCode);
-            Stores = await Helper.FetchOptionsAsync("api/Stores", "");
+            Salesmen = await Helper.FetchOptionsAsync("Salesman", Setting.StoreCode);
+            EDCList = await Helper.FetchOptionsAsync("MPOS", Setting.StoreCode);
+            Stores = await Helper.FetchOptionsAsync("Stores", "");
 
         }
         catch (Exception e)
