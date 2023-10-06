@@ -3,7 +3,9 @@ using AprajitaRetails.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Oracle.ManagedDataAccess.Client;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 //"SyncFusionLic": "OTIwMjA3QDMyMzAyZTM0MmUzMFlOM29rWTFKdm1xcXRHZi9Sb1FpQTNCSnhBN1JWSC9oeFNaTjYvYWs5MHc9", 20.4.41
@@ -94,6 +96,29 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 builder.Services.AddIdentityServer()
     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v2", new OpenApiInfo
+    {
+        Version = "v2",
+        Title = "Aprajita Retails API",
+        Description = "An web API server for Aprajita Retails",
+        TermsOfService = new Uri("https://www.aprajitaretatils.store/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Contact",
+            Url = new Uri("https://www.aprajitaretatils.store/contact")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "License",
+            Url = new Uri("https://www.aprajitaretatils.store/license")
+        }
+    });
+    // using System.Reflection;
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
@@ -116,6 +141,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
+    app.UseSwagger(options =>
+    {
+        options.SerializeAsV2 = true;
+    });
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v2");
+        options.RoutePrefix = string.Empty;
+    });
 }
 else
 {
@@ -123,6 +157,7 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 
