@@ -55,6 +55,7 @@ namespace AprajitaRetails.Shared.Models.Stores
 
     public class DueRecovery : BaseST
     {
+        [Key]
         public string Id { get; set; }
         public DateTime OnDate { set; get; }
         public string InvoiceNumber { set; get; }
@@ -62,7 +63,7 @@ namespace AprajitaRetails.Shared.Models.Stores
         public PayMode PayMode { get; set; }
         public string? Remarks { get; set; }
         public bool PartialPayment { get; set; }
-        public virtual CustomerDue Due { get; set; }
+        public virtual CustomerDue? Due { get; set; }
 
         public static string GenerateId(string inv, DateTime onDate)
         {

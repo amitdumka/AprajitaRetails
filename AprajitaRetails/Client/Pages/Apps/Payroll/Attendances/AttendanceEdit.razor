@@ -100,8 +100,8 @@
     {
         try
         {
-            Employees = await DataHelper.FetchOptionsAsync("api/Employees", Setting.StoreCode);
-            Stores = await DataHelper.FetchOptionsAsync("api/Stores", null);
+            Employees = await DataHelper.FetchOptionsAsync("Employees", Setting.StoreCode);
+            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
             return true;
         }
         catch (Exception)

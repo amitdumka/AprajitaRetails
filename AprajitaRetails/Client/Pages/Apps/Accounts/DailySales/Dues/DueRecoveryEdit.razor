@@ -18,7 +18,7 @@
 @inject DataHelper Helper
 
 <ContentMain>
-    <EntityEdit @bind-EntityModel="@entity" TItem="@DueRecovery" Title="api/DueRecoveries" ApiUrl="api/DueRecoveries" ReturnUrl="/accounts/DueRecoveries" Id="@ID" IsEdit=@IsEdit>
+    <EntityEdit @bind-EntityModel="@entity" TItem="@DueRecovery" Title="Due Recoveries" ApiUrl="api/DueRecoveries" ReturnUrl="/accounts/DueRecoveries" Id="@ID" IsEdit=@IsEdit>
         <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
@@ -109,7 +109,7 @@
             Title = "Add " + Title;
 
             entity = new DueRecovery
-            {
+            {   Id="",
                 OnDate = DateTime.Now,
                 Amount = 0,
                 EntryStatus = EntryStatus.Added,
@@ -119,7 +119,9 @@
                 StoreId = Setting.StoreCode,
                 UserId = Setting.UserName,
                 InvoiceNumber = "",
-                PayMode = PayMode.Cash,   PartialPayment=false, 
+                PayMode = PayMode.Cash,   PartialPayment=false,
+                 
+
                 
             };
         }

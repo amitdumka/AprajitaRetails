@@ -98,6 +98,16 @@ namespace AprajitaRetails.Server.Controllers.Accounts
             return NoContent();
         }
 
+
+
+        public string GenerateID(DueRecovery rec) {
+
+
+            DateTime dt = DateTime.Now;
+            var x = _context.DuesRecovery.Count();
+            string id = $"DR-{dt.Year}-{dt.Month}-{dt.Day}-{rec.StoreId}-{++x}";
+            return id;
+        }
         // POST: api/DueRecoveries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -107,6 +117,8 @@ namespace AprajitaRetails.Server.Controllers.Accounts
             {
                 return Problem("Entity set 'ARDBContext.DuesRecovery'  is null.");
             }
+
+            dueRecovery.Id = GenerateID(dueRecovery);
             _context.DuesRecovery.Add(dueRecovery);
             try
             {
