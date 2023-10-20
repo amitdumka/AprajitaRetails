@@ -33,6 +33,7 @@ namespace AprajitaRetails.Server.BL.Inventory
 		public decimal YesterdayQty { get; set; }
 
 		public decimal MonthlyQty { get; set; }
+		public decimal LastMonthQty { get; set; }
 		public decimal YearlyQty { get; set; }
 		public decimal[] QuartlyQty { get; set; } = new decimal[4];
 
@@ -72,6 +73,7 @@ namespace AprajitaRetails.Server.BL.Inventory
             MonthlyQty = sale.Where(c => c.OnDate.Year == DateTime.Today.Year && c.OnDate.Month == DateTime.Today.Month).Sum(c => c.Qty);
 
             LastMonthSale = sale.Where(c => c.OnDate.Year == DateTime.Today.Year && c.OnDate.Month == DateTime.Today.Month-1).Sum(c => c.Amount);
+			LastMonthQty = sale.Where(c => c.OnDate.Year == DateTime.Today.Year && c.OnDate.Month == DateTime.Today.Month-1).Sum(c => c.Qty);
 
 			//Year
 			YearlySale= sale.Where(c => c.OnDate.Year == DateTime.Today.Year).Sum(c => c.Amount);

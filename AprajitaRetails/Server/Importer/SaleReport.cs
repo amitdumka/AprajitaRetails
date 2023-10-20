@@ -24,6 +24,7 @@ namespace AprajitaRetails.Server.Importer
         public decimal BasicAmount { get; set; }
         public decimal Tax { get; set; }
         public decimal Amount { get; set; }
+
         public decimal BasicValue { get; set; }
         public decimal TaxValue { get; set; }
         public decimal RoundOff { get; set; }
@@ -49,6 +50,7 @@ namespace AprajitaRetails.Server.Importer
         public decimal TaxValue { get; set; }
         public decimal RoundOff { get; set; }
         public decimal BillAmount { get; set; }
+
         public decimal CostPrice { get; set; }
         public decimal CostValue { get; set; }
         public decimal Profit { get; set; }
@@ -78,6 +80,7 @@ namespace AprajitaRetails.Server.Importer
                     BasicAmount = c.BasicAmount,
                     Tax = c.TaxAmount,
                     Amount = c.Value,
+
                     RoundOff = c.ProductSale.RoundOff,
                     BasicValue = c.ProductSale.TotalBasicAmount,
                     TaxValue = c.ProductSale.TotalTaxAmount,
@@ -87,6 +90,7 @@ namespace AprajitaRetails.Server.Importer
             var invList = dataList.GroupBy(c => c.InvoiceNumber).ToList();
             int i = 0;
             List<SaleReportVM> SaleList = new List<SaleReportVM>();
+            
             foreach (var inv in invList)
             {
                 var inSum = dataList.Where(c => c.InvoiceNumber == inv.Key).ToList();
