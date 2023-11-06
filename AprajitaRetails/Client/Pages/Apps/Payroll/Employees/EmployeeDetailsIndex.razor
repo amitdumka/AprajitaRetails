@@ -11,7 +11,6 @@
 @inject ClientSetting Setting
 @inject DataHelper Helper
 
-
 @using AprajitaRetails.Helpers
 
 <EntityDetails Title="@Title" Loading=@Loading OnBack="BackButton" OnDelete="DeleteButton" @bind-Deleted="@isDeleted">
@@ -49,7 +48,7 @@
             entity = await Http.GetFromJsonAsync<Employee>($"api/Employees/{ID}");
             Title = "Details of " + entity.StaffName;
             //details = await Http.GetFromJsonAsync<EmployeeDetails>($"api/EmployeeDetails/{ID}");
-            //TODO: Implement it 
+            //TODO: Implement it
             Loading = false;
             StateHasChanged();
         }
