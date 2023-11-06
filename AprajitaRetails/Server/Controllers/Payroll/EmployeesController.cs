@@ -117,8 +117,9 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return Problem("Entity set 'ARDBContext.Employees'  is null.");
             }
-            employee.EmployeeId = PayrollHelper.EmployeeIdGenerator(employee.StoreId, employee.JoiningDate.Year, employee.Category);
             employee.EmpId = _context.Employees.Count() + 1;
+            employee.EmployeeId = $"{PayrollHelper.EmployeeIdGenerator(employee.StoreId, employee.JoiningDate.Year, employee.Category)}-{employee.EmpId}";
+            
             _context.Employees.Add(employee);
 
             try

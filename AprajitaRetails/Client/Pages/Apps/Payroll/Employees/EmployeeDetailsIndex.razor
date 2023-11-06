@@ -48,7 +48,8 @@
             //ID = ID ?? "NO ID Found";
             entity = await Http.GetFromJsonAsync<Employee>($"api/Employees/{ID}");
             Title = "Details of " + entity.StaffName;
-            details = await Http.GetFromJsonAsync<EmployeeDetails>($"api/EmployeeDetails/{ID}");
+            //details = await Http.GetFromJsonAsync<EmployeeDetails>($"api/EmployeeDetails/{ID}");
+            //TODO: Implement it 
             Loading = false;
             StateHasChanged();
         }

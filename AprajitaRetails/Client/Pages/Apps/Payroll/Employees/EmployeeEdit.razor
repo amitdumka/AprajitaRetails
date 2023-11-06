@@ -37,7 +37,7 @@
             <Column Classes="col.md">
 
                 <div class="mb-3 row">
-                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Category</label>
                     <div class="col-sm-6">
                         <SfComboBox TValue="EmpType" TItem="string" Placeholder="Category"
                                     Autofill="true"
@@ -61,14 +61,29 @@
         </Row>
 
         <Row>
-            <Column Classes="col.md"><ATextInput @bind-Value=@employee.Title Name="Title" Label="Title" /></Column>
-            <Column Classes="col.md"><ATextInput @bind-Value=@employee.FirstName Name="FirstNAme" Label="FirstName" /></Column>
-            <Column Classes="col.md"><ATextInput @bind-Value=@employee.LastName Name="LastName" Label="LastName" /></Column>
+            @* <Column Classes="col.md"><ATextInput @bind-Value=@employee.Title Name="Title" Label="Title" /></Column> *@
+
+            <Column Classes="col.md">
+
+                <div class="mb-3 row">
+                    <label for="Title" class="col-sm-4 col-form-label">Title</label>
+                    <div class="col-sm-6">
+                        <SfComboBox TValue="string" TItem="string" Placeholder="Title"
+                                    Autofill="true"
+                                    @bind-Value="@employee.Title" PopupHeight="230px"
+                                    DataSource="@Titles">
+                            
+                        </SfComboBox>
+                    </div>
+                </div>
+            </Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.FirstName Name="FirstNAme" Label="First Name" /></Column>
+            <Column Classes="col.md"><ATextInput @bind-Value=@employee.LastName Name="LastName" Label="Last Name" /></Column>
         </Row>
         <Row>
             <Column Classes="col.md">
                 <div class="mb-3 row">
-                    <label for="AttUnit" class="col-sm-4 col-form-label">Status</label>
+                    <label for="AttUnit" class="col-sm-4 col-form-label">Gender</label>
                     <div class="col-sm-6">
                         <SfComboBox TValue="Gender" TItem="string" Placeholder="Gender"
                                     Autofill="true"
@@ -82,9 +97,9 @@
 
             <Column Classes="col.md">
                 <div class="mb-3 row">
-                    <label for="ondate" class="col-sm-4 col-form-label">Joining Date</label>
+                    <label for="ondate" class="col-sm-4 col-form-label">Birth Date</label>
                     <div class="col-sm-6">
-                         <SfDatePicker  @bind-Value="@employee.JoiningDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                         <SfDatePicker  @bind-Value="@employee.DOB" Format="dd-MM-yyyy" TValue="DateTime?" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
 
                     </div>
                 </div>
@@ -130,6 +145,7 @@
     private IList<SelectOption>? Stores;
     IList<string> EmpTypes = Enum.GetNames(typeof(EmpType));
     IList<string> Genders = Enum.GetNames(typeof(Gender));
+    List<string> Titles = new List<string> { "Mr.","Mrs.","Ms.","Master"};
 
     private async Task<bool> FetchSelectData()
     {
@@ -150,7 +166,7 @@
         await FetchSelectData();
         if (IsEdit)
         {
-            employee = await DataHelper.GetRecordAsync<Employee>("Employees", Id);
+            employee = await DataHelper.GetRecordAsync<Employee>("api/Employees", Id);
             StateHasChanged();
 
         }
