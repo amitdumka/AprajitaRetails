@@ -149,9 +149,7 @@
     <Folder Include="wwwroot\Tables\" />
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
-    <Folder Include="Controllers\Reports\" />
     <Folder Include="BL\Inventory\" />
-    <Folder Include="BL\Reports\" />
     <Folder Include="BL\Reports\Inventory\" />
     <Folder Include="wwwroot\Tables\Over\" />
     <Folder Include="KyS\" />
