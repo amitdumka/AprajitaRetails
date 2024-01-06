@@ -30,6 +30,8 @@ namespace AprajitaRetails.Server.Data
             }
         }
 
+        public DbSet<TallyServerInfo> TallyServers { get; set; }
+
         public DbSet<Tax> Taxes { get; set; }
         //Client and Group
         public DbSet<AppClient> AppClients { get; set; }

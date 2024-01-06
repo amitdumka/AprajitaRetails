@@ -6,6 +6,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AprajitaRetails.Shared.Models.Bases
 {
+    public class TallyServerInfo
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string Port {  get; set; }
+        public string FullUrl { get {  return $"{Url}:{Port}"; } }
+        public string UserName {  get; set; }
+        public string Password { get; set; }
+    }
     public class Base
     {
         public string UserId { get; set; }
