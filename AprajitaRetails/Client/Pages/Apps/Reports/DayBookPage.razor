@@ -1,0 +1,191 @@
+﻿@page "/reports/daybook"
+
+@using Microsoft.AspNetCore.Authorization;
+@using AprajitaRetails.Commons
+@using AprajitaRetails.AdminLte
+@using AprajitaRetails.Shared.Models.Banking
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using AprajitaRetails.Shared.Models.Payroll;
+@using Syncfusion.Blazor.Grids
+@using System.Globalization;
+@using AprajitaRetails.Shared.AutoMapper.DTO
+@using AprajitaRetails.Shared
+@using AprajitaRetails.Client.Helpers
+@using AprajitaRetails.Shared.ViewModels
+@using AprajitaRetails.Aks
+@using System.Reflection
+
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Calendars
+
+@attribute [Authorize]
+
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+@inject NotificationService NotificationService
+@inject SfDialogService DialogService
+@inject HttpClient Http
+
+<ContentHeader>
+    <Header> <Blazor.AdminLte.PageTitle Title="@Title" /></Header>
+</ContentHeader>
+
+<ContentMain>
+    <Row>
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <div class="col-sm-6">
+                    <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Danger" @onclick="OnNegClick">-</Button>
+                </div>
+            </div>
+        
+        </Column>
+        
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                <div class="col-sm-6">
+                    <SfDatePicker   Value="@OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true">
+                        <DatePickerEvents TValue="DateTime" ValueChange="DateChange"></DatePickerEvents>
+                    </SfDatePicker>
+
+                </div>
+            </div>
+        </Column>
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <div class="col-sm-6">
+                    <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning" @onclick="OnPlusClick">+</Button>
+                </div>
+            </div>
+
+        </Column>
+
+
+
+
+    </Row>
+    <Row>
+        <div class="card   card-success bg-primary">
+            <div class="card-header">
+                <h3 class="card-title">Day Book   <span class="badge badge-warning ">[@OnDate.Date.ToShortDateString()]</span></h3>
+                <div class="card-tools">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+                    <!-- Here is a label for example -->
+                    <span class="badge badge-primary">Close</span>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                Day Book Details
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableHeadCell>#</TableHeadCell>
+                            <TableHeadCell>Particulars</TableHeadCell>
+                            <TableHeadCell>Voucher Type</TableHeadCell>
+                            <TableHeadCell>Voucher Number</TableHeadCell>
+                            <TableHeadCell>In Amount</TableHeadCell>
+                            <TableHeadCell>Out Amount</TableHeadCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+
+                        @if (entity != null && entity.DayBooks != null)
+                        {
+                            int count = 1;
+                            foreach (var item in entity.DayBooks)
+                            {
+
+                                <TableRow>
+                                    <TableCell>@(count++)</TableCell>
+                                        <TableCell>@item.ParticularsName</TableCell>
+                                        <TableCell>@item.VoucherType</TableCell>
+                                        <TableCell>@item.VoucherNumber</TableCell>
+                                        <TableCell>
+                                            @if (item.InAmount > 0)
+                                        {
+                                            intotal += item.InAmount;
+                                            <span>@item.InAmount</span>
+                                        }
+                                    </TableCell>
+
+                                    <TableCell>
+                                        @if (item.OutAmount > 0)
+                                        {
+                                            outtotal += item.OutAmount;
+                                            <span>@item.OutAmount</span>
+                                        }
+                                    </TableCell>
+                                </TableRow>
+                            }
+                        }
+                    </TableBody>
+                </Table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer align-content-end text-end text-bg-warning">
+                Day Book Total  <span class="text-success mr-2 ml-2">@intotal</span> <span class="text-danger">@outtotal</span>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+
+    </Row>
+</ContentMain>
+
+@code {
+    private string Title = "Day Book";
+    private const string URL = "api/FinReports/DayBook";
+    private DateTime OnDate = DateTime.Today;
+    private DayBookReturn entity = null;
+    private decimal intotal = 0, outtotal = 0;
+    async void OnNegClick()
+    {
+        OnDate = OnDate.AddDays(-1);
+        await FetchDataAsync();
+    }
+    async void OnPlusClick()
+    {
+        OnDate = OnDate.AddDays(1);
+        await FetchDataAsync();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            this.OnDate = new DateTime(2024, 1, 3);
+            await FetchDataAsync();
+
+            StateHasChanged();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+
+            Helper.Msg("Error On Init", exception.Message, true);
+        }
+
+    }
+
+    async Task FetchDataAsync()
+    {
+        entity = await Helper.PostDataFromAsync<DayBookReturn, DayBookRequest>(URL, new DayBookRequest { CashVoucher = true, OnDate = OnDate, StoreCode = "ARD", StoreCodeName = "StoreCode" }, Title);
+        StateHasChanged();
+
+
+
+    }
+    // private async Task DateChange(EventArgs e)
+    // {
+    //     await FetchDataAsync();
+    //     // StateHasChanged();
+    // }
+    public async void DateChange(ChangedEventArgs<DateTime> args)
+    {
+        OnDate = args.Value.Date;
+        await FetchDataAsync();
+    }
+}

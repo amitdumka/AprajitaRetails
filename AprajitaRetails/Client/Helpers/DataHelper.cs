@@ -268,6 +268,45 @@ namespace AprajitaRetails.Client.Helpers
         }
 
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T">Return Type</typeparam>
+        /// <typeparam name="R">Request Type</typeparam>
+        /// <param name="url"> post Url</param>
+        /// <param name="tentity">Request Object</param>
+        /// <param name="className">Data Request class Name</param>
+        /// <returns></returns>
+        public async Task<T?> PostDataFromAsync<T,R>(string url, R tentity, string className)
+        {
+            try
+            {
+                HttpResponseMessage? result;
+                result = await Http.PostAsJsonAsync<R>($"{url}", tentity);
+                
+                if (result.IsSuccessStatusCode)
+                {
+                    Msg(className, "Success!");
+                    
+                    return await result.Content.ReadFromJsonAsync<T>();
+                    
+
+                }
+                else
+                {
+                    Msg("Error", $"An error occurred  {className} and error is {await result.Content.ReadAsStringAsync()}", true);
+                    return default;
+                }
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default;
+            }
+        }
+
         public async Task<bool> PostOperationsAsync<T>(string url, T tentity, string className)
         {
             try
