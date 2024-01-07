@@ -6,15 +6,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AprajitaRetails.Shared.Models.Bases
 {
+    //public class TallyServerInfo
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string Url { get; set; }
+    //    public string Port {  get; set; }
+    //    public string FullUrl { get {  return $"{Url}:{Port}"; } }
+    //    public string UserName {  get; set; }
+    //    public string Password { get; set; }
+    //}
     public class TallyServerInfo
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Url { get; set; }
-        public string Port {  get; set; }
-        public string FullUrl { get {  return $"{Url}:{Port}"; } }
-        public string UserName {  get; set; }
-        public string Password { get; set; }
+        public string ServerUrl { get; set; }
+        public string? UserName { get; set; }
+        public string? Password { get; set; } = null;
+        public string? TallyPort { get; set; } = "9000";
+        public string? TallyUrlBase { get; set; } = "http://localhost";
+        public string? TallyUrl { get { return $"{TallyUrlBase}:{TallyPort}"; } }
+        public bool Status { get; set; } = false;
+        public bool Live { get; set; } = false;
     }
     public class Base
     {
