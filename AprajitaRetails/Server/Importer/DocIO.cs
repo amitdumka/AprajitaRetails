@@ -6,6 +6,12 @@ namespace AprajitaRetails.Server.Importer
 {
     public class DocIO
     {
+        /// <summary>
+        /// Convert List item to Datatable format
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public static DataTable ToDataTable<T>(List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
@@ -29,7 +35,11 @@ namespace AprajitaRetails.Server.Importer
             //put a breakpoint here and check datatable
             return dataTable;
         }
-
+        /// <summary>
+        /// Convert paymode string to paymode
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static PayMode PayModeType(string p)
         {
             switch (p.ToLower())
@@ -49,6 +59,12 @@ namespace AprajitaRetails.Server.Importer
             }
         }
 
+        /// <summary>
+        /// Convert Datatable to List item
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dt"></param>
+        /// <returns></returns>
         public static List<T> ConvertDataTable<T>(DataTable dt)
         {
             List<T> data = new List<T>();
