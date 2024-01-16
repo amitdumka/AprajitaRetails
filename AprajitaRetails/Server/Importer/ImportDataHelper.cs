@@ -7,6 +7,10 @@ using System.Text.Json;
 
 namespace AprajitaRetails.Server.Importer
 {
+    public static class HelperFunctions
+    {
+    }
+
     public class ExcelToDB : ExcelToJson
     {
         private ARDBContext _db;
@@ -20,16 +24,9 @@ namespace AprajitaRetails.Server.Importer
             sizeList = Enum.GetNames(typeof(Size)).ToList();
         }
 
-        public async void UpdateCat()
-        {
-            //TODO: implementing StoreGroup conpect here
-            var subcats = await _db.ProductSubCategories.ToListAsync();
-            var ptypes = await _db.ProductTypes.ToListAsync();
-            this.UpdateSubCategory(subcats);
-            this.UpdateProductType(ptypes);
-        }
         public static bool SeedBasicVendor(ARDBContext db)
         {
+            //TODO: Need to change storeid to StoreGroup
             List<Vendor> vendors = new List<Vendor>();
 
             Vendor v1 = new()
@@ -136,6 +133,32 @@ namespace AprajitaRetails.Server.Importer
                 VendorType = VendorType.InHouse,
                 VendorName = "Aprajita Retails, Dumka",
             };
+            Vendor v9 = new Vendor {
+                Active = true,
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = true,
+                MarkedDeleted = false,
+                OnDate = new DateTime(2015, 11, 1),
+                StoreId = "ARD",
+                UserId = "AUTO",
+                VendorId = "ARD/VIN/0009",
+                VendorType = VendorType.BrandAuth,
+                VendorName = "The Arvind Store - Jamshedpur COCO"
+            };
+            Vendor v10 = new Vendor
+            {
+                Active = true,
+                EntryStatus = EntryStatus.Added,
+                IsReadOnly = true,
+                MarkedDeleted = false,
+                OnDate = new DateTime(2015, 11, 1),
+                StoreId = "ARD",
+                UserId = "AUTO",
+                VendorId = "ARD/VIN/0010",
+                VendorType = VendorType.TempVendor,
+                VendorName = "UnVerifired Vendor"
+            };
+
             vendors.Add(v1);
             vendors.Add(v2);
             vendors.Add(v3);
@@ -143,21 +166,43 @@ namespace AprajitaRetails.Server.Importer
             vendors.Add(v5);
             vendors.Add(v6);
             vendors.Add(v7);
-            vendors.Add(v8);
+            vendors.Add(v8); vendors.Add(v9); vendors.Add(v10);
 
             db.Vendors.AddRange(vendors);
             return (db.SaveChanges() == 7);
+        }
+
+        public async void UpdateCat()
+        {
+            //TODO: implementing StoreGroup conpect here
+            var subcats = await _db.ProductSubCategories.ToListAsync();
+            var ptypes = await _db.ProductTypes.ToListAsync();
+            this.UpdateSubCategory(subcats);
+            this.UpdateProductType(ptypes);
         }
     }
 
     public class ExcelToJson
     {
-        //TODO: Move Static or supporting functions to one class so only main function should be here. 
+        //TODO: Move Static or supporting functions to one class so only main function should be here.
         protected string _storeCode, _storeGroup;
 
         protected List<ProductSubCategory> _subCategories;
         protected List<ProductType> _typeCategories;
         protected List<string> sizeList;
+
+        /// <summary>
+        /// set Unit for item
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Unit SetUnitFromProductName(string name)
+        {
+            if (name.StartsWith("Apparel")) { return Unit.Pcs; }
+            else if (name.StartsWith("Promo") || name.StartsWith("Suit Cover")) { return Unit.Nos; }
+            else if (name.StartsWith("Shirting") || name.StartsWith("Suiting")) { return Unit.Meters; }
+            return Unit.NoUnit;
+        }
 
         /// <summary>
         /// Convert Excel sheet to json data for futher process
@@ -194,93 +239,6 @@ namespace AprajitaRetails.Server.Importer
             }
         }
 
-        private ProductCategory GetProductCategory(string cat) => ToProductCategory(cat);
-
-        private string GetProductType(string product)
-        {
-            var pt = product.Split("/")[1].Trim();
-            if (_typeCategories == null)
-            {
-                _typeCategories = new List<ProductType> { new ProductType { ProductTypeName = pt, ProductTypeId = "PT0001" } };
-                return "PT0001";
-            }
-            else
-            {
-                var type = _typeCategories.FirstOrDefault(c => c.ProductTypeName == pt);
-                if (type == null)
-                {
-                    var p = new ProductType { ProductTypeName = pt, ProductTypeId = $"PT00{(_typeCategories.Count + 1)}" };
-                    _typeCategories.Add(p);
-                    return p.ProductTypeId;
-                }
-                else
-                {
-                    return type.ProductTypeId;
-                }
-            }
-        }
-
-        private string GetSubCategoryId(string cat)
-        {
-            var pt = cat.Split("/");
-            if (_typeCategories == null)
-            {
-                _subCategories = new List<ProductSubCategory> { new ProductSubCategory { SubCategory = pt[2].Trim(), ProductCategory = GetProductCategory(pt[0].Trim()) } };
-                return "PT0001";
-            }
-            else
-            {
-                var type = _subCategories.FirstOrDefault(c => c.SubCategory == pt[2].Trim());
-
-                if (type == null)
-                {
-                    var p = new ProductSubCategory { SubCategory = pt[2].Trim(), ProductCategory = GetProductCategory(pt[0].Trim()) };
-                    _subCategories.Add(p);
-                    return p.SubCategory;
-                }
-                else
-                {
-                    return type.SubCategory;
-                }
-            }
-        }
-
-        private string GetVendorId(string sup)
-        {
-
-            return VendorMapping(sup);
-        }
-        /// <summary>
-        /// Map Vendor from Supplier
-        /// </summary>
-        /// <param name="supplier"></param>
-        /// <returns></returns>
-        private static string VendorMapping(string supplier)
-        {
-            string id = supplier switch
-            {
-                "TAS RMG Warehouse - Bangalore" => "ARD/VIN/0003",
-                "TAS - Warhouse -FOFO" => "ARD/VIN/0003",
-                "Bangalore WH" => "ARD/VIN/0003",
-                "Arvind Brands Limited" => "ARD/VIN/0002",
-                "TAS RTS -Warhouse" => "ARD/VIN/0002",
-                "Arvind Limited" => "ARD/VIN/0001",
-                "Khush" => "ARD/VIN/0005",
-                "Safari Industries India Ltd" => "ARD/VIN/0004",
-                "DTR Packed WH" => "ARD/VIN/0002",
-                "DTR - TAS Warehouse" => "ARD/VIN/0002",
-                "Aprajita Retails - Jamshedpur" => "ARD/VIN/0007",
-                "Aprajita Retails - Dumka" => "ARD/VIN/0008",
-                _ => "ARD/VIN/0002",
-            };
-            return id;
-        }
-        private static string MapStoreCode(string tascode)
-        {
-            if (tascode.Trim().EndsWith("14")) return "ARJ";
-            else if (tascode.Trim().EndsWith("06")) return "ARD";
-            else return "ARD";
-        }
         public async Task<string> ImportPurchaseInvoiceAsync(string path, string excelfilename, string worksheet, string range, string storecode, string storegroup, bool savejson)
         {
             string jsonFileName = "";
@@ -292,7 +250,6 @@ namespace AprajitaRetails.Server.Importer
                     basedirectory = Path.Combine(path, storegroup, storecode, $@"json/{worksheet}");
                     jsonFileName = Path.Combine(basedirectory, $@"/wsheet/PurchaseInvoice.json");
                     Directory.CreateDirectory(Path.GetDirectoryName(jsonFileName));
-
                 }
                 //var jsondata = await this.ConvertExcelToJson<PurchaseInvoiceItem>(path, excelfilename, worksheet, range, jsonFileName, savejson);
 
@@ -393,126 +350,19 @@ namespace AprajitaRetails.Server.Importer
                     VendorId = GetVendorId(c.Select(x => x.SupplierName).First()),
                     BasicAmount = c.Sum(x => x.CostValue),
                 }).ToList();
-                //Convert all Data and Save to json File 
+                //Convert all Data and Save to json File
                 await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, "ImportedObjects", "ProductPurchases"));
                 await ImportDataHelper.ObjectToJsonFileAsync(stocks, Path.Combine(basedirectory, "ImportedObjects", "Stocks"));
                 await ImportDataHelper.ObjectToJsonFileAsync(productitems, Path.Combine(basedirectory, "ImportedObjects", "ProductItems"));
                 await ImportDataHelper.ObjectToJsonFileAsync(invs, Path.Combine(basedirectory, "ImportedObjects", "PurchaseItems"));
 
                 return basedirectory;
-
-
-
             }
             catch (Exception ex)
             {
                 return $"#Error#Msg#{ex.Message}";
             }
         }
-
-        /// <summary>
-        /// Set Unit name fromm String Name
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public Unit StringToUnit(string str)
-        {
-            if (str.ToLower() == "pcs") return Unit.Pcs;
-            else if (str.ToLower() == "mtrs") return Unit.Meters;
-            else if (str.ToLower() == "nos") return Unit.Nos;
-            else return Unit.NoUnit;
-        }
-
-        public ProductCategory ToProductCategory(string str)
-        {
-            if (str == "Readmade") return ProductCategory.Apparel;
-            else if (str == "Fabric") return ProductCategory.Fabric;
-            else if (str == "Promo") return ProductCategory.PromoItems;
-            else if (str == "Tailoring") return ProductCategory.Tailoring;
-            else return ProductCategory.Others;
-        }
-
-        public Size ToSize(string size)
-        {
-            //TODO: Implemenet Size 
-            return Size.S;
-        }
-
-        /// <summary>
-        /// set Unit for item
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static Unit SetUnitFromProductName(string name)
-        {
-            if (name.StartsWith("Apparel")) { return Unit.Pcs; }
-            else if (name.StartsWith("Promo") || name.StartsWith("Suit Cover")) { return Unit.Nos; }
-            else if (name.StartsWith("Shirting") || name.StartsWith("Suiting")) { return Unit.Meters; }
-            return Unit.NoUnit;
-        }
-
-        public void UpdateProductType(List<ProductType> productType)
-        {
-            if (_typeCategories == null)
-            {
-                _typeCategories = productType;
-            }
-            else
-            {
-                _typeCategories.AddRange(productType);
-                _typeCategories = _typeCategories.DistinctBy(c => c.ProductTypeName).ToList();
-            }
-        }
-
-        public void UpdateSubCategory(List<ProductSubCategory> category)
-        {
-            if (_subCategories == null)
-            {
-                _subCategories = category;
-            }
-            else
-            {
-                _subCategories.AddRange(category);
-                _subCategories = _subCategories.DistinctBy(c => c.SubCategory).ToList();
-            }
-        }
-        private string ToBrandCode(string style, string type)
-        {
-            string bcode = "";
-            if (type == "Readmade")
-            {
-                if (style.StartsWith("FM"))
-                {
-                    bcode = "FM";
-                }
-                else if (style.StartsWith("ARI")) bcode = "ADR";
-                else if (style.StartsWith("HA")) bcode = "HAN";
-                else if (style.StartsWith("AA")) bcode = "ARN";
-                else if (style.StartsWith("AF")) bcode = "ARR";
-                else if (style.StartsWith("US")) bcode = "USP";
-                else if (style.StartsWith("AB")) bcode = "ARR";
-                else if (style.StartsWith("AK")) bcode = "ARR";
-                else if (style.StartsWith("AN")) bcode = "ARR";
-                else if (style.StartsWith("ARE")) bcode = "ARR";
-                else if (style.StartsWith("ARG")) bcode = "ARR";
-                else if (style.StartsWith("AS")) bcode = "ARS";
-                else if (style.StartsWith("AT")) bcode = "ARR";
-                else if (style.StartsWith("F2")) bcode = "FM";
-                else if (style.StartsWith("UD")) bcode = "UD";
-            }
-            else if (type == "Fabric") { }
-            else if (type == "Promo")
-            {
-                bcode = "ARP";
-            }
-            else
-            {
-                bcode = "ARD";
-            }
-
-            return bcode;
-        }
-
 
         /// <summary>
         /// Set Size based on style code and Category
@@ -586,6 +436,188 @@ namespace AprajitaRetails.Server.Importer
                 size = Size.NOTVALID;
             }
             return size;
+        }
+
+        /// <summary>
+        /// Set Unit name fromm String Name
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public Unit StringToUnit(string str)
+        {
+            if (str.ToLower() == "pcs") return Unit.Pcs;
+            else if (str.ToLower() == "mtrs") return Unit.Meters;
+            else if (str.ToLower() == "nos") return Unit.Nos;
+            else return Unit.NoUnit;
+        }
+
+        public ProductCategory ToProductCategory(string str)
+        {
+            if (str == "Readmade") return ProductCategory.Apparel;
+            else if (str == "Fabric") return ProductCategory.Fabric;
+            else if (str == "Promo") return ProductCategory.PromoItems;
+            else if (str == "Tailoring") return ProductCategory.Tailoring;
+            else return ProductCategory.Others;
+        }
+
+        public Size ToSize(string size)
+        {
+            //TODO: Implemenet Size
+            return Size.S;
+        }
+
+        public void UpdateProductType(List<ProductType> productType)
+        {
+            if (_typeCategories == null)
+            {
+                _typeCategories = productType;
+            }
+            else
+            {
+                _typeCategories.AddRange(productType);
+                _typeCategories = _typeCategories.DistinctBy(c => c.ProductTypeName).ToList();
+            }
+        }
+
+        public void UpdateSubCategory(List<ProductSubCategory> category)
+        {
+            if (_subCategories == null)
+            {
+                _subCategories = category;
+            }
+            else
+            {
+                _subCategories.AddRange(category);
+                _subCategories = _subCategories.DistinctBy(c => c.SubCategory).ToList();
+            }
+        }
+
+        private static string MapStoreCode(string tascode)
+        {
+            if (tascode.Trim().EndsWith("14")) return "ARJ";
+            else if (tascode.Trim().EndsWith("06")) return "ARD";
+            else return "ARD";
+        }
+
+        /// <summary>
+        /// Map Vendor from Supplier
+        /// </summary>
+        /// <param name="supplier"></param>
+        /// <returns></returns>
+        private static string VendorMapping(string supplier)
+        {
+            string id = supplier switch
+            {
+                "TAS RMG Warehouse - Bangalore" => "ARD/VIN/0003",
+                "TAS - Warhouse -FOFO" => "ARD/VIN/0003",
+                "Bangalore WH" => "ARD/VIN/0003",
+                "Arvind Brands Limited" => "ARD/VIN/0002",
+                "TAS RTS -Warhouse" => "ARD/VIN/0002",
+                "Arvind Limited" => "ARD/VIN/0001",
+                "Khush" => "ARD/VIN/0005",
+                "Safari Industries India Ltd" => "ARD/VIN/0004",
+                "DTR Packed WH" => "ARD/VIN/0002",
+                "DTR - TAS Warehouse" => "ARD/VIN/0002",
+                "Aprajita Retails - Jamshedpur" => "ARD/VIN/0007",
+                "The Arvind Store - Jamshedpur CO" => "ARD/VIN/0009",
+                "Aprajita Retails - Dumka" => "ARD/VIN/0008",
+                "TAS - Dumka FOFO" => "ARD/VIN/0008",
+                "Satish Mandal, Dhandbad" => "ARD/VIN/0006",
+                _ => "ARD/VIN/0002",
+            };
+            return id;
+        }
+
+        private ProductCategory GetProductCategory(string cat) => ToProductCategory(cat);
+
+        private string GetProductType(string product)
+        {
+            var pt = product.Split("/")[1].Trim();
+            if (_typeCategories == null)
+            {
+                _typeCategories = new List<ProductType> { new ProductType { ProductTypeName = pt, ProductTypeId = "PT0001" } };
+                return "PT0001";
+            }
+            else
+            {
+                var type = _typeCategories.FirstOrDefault(c => c.ProductTypeName == pt);
+                if (type == null)
+                {
+                    var p = new ProductType { ProductTypeName = pt, ProductTypeId = $"PT00{(_typeCategories.Count + 1)}" };
+                    _typeCategories.Add(p);
+                    return p.ProductTypeId;
+                }
+                else
+                {
+                    return type.ProductTypeId;
+                }
+            }
+        }
+
+        private string GetSubCategoryId(string cat)
+        {
+            var pt = cat.Split("/");
+            if (_typeCategories == null)
+            {
+                _subCategories = new List<ProductSubCategory> { new ProductSubCategory { SubCategory = pt[2].Trim(), ProductCategory = GetProductCategory(pt[0].Trim()) } };
+                return "PT0001";
+            }
+            else
+            {
+                var type = _subCategories.FirstOrDefault(c => c.SubCategory == pt[2].Trim());
+
+                if (type == null)
+                {
+                    var p = new ProductSubCategory { SubCategory = pt[2].Trim(), ProductCategory = GetProductCategory(pt[0].Trim()) };
+                    _subCategories.Add(p);
+                    return p.SubCategory;
+                }
+                else
+                {
+                    return type.SubCategory;
+                }
+            }
+        }
+
+        private string GetVendorId(string sup)
+        {
+            return VendorMapping(sup);
+        }
+        private string ToBrandCode(string style, string type)
+        {
+            string bcode = "";
+            if (type == "Readmade")
+            {
+                if (style.StartsWith("FM"))
+                {
+                    bcode = "FM";
+                }
+                else if (style.StartsWith("ARI")) bcode = "ADR";
+                else if (style.StartsWith("HA")) bcode = "HAN";
+                else if (style.StartsWith("AA")) bcode = "ARN";
+                else if (style.StartsWith("AF")) bcode = "ARR";
+                else if (style.StartsWith("US")) bcode = "USP";
+                else if (style.StartsWith("AB")) bcode = "ARR";
+                else if (style.StartsWith("AK")) bcode = "ARR";
+                else if (style.StartsWith("AN")) bcode = "ARR";
+                else if (style.StartsWith("ARE")) bcode = "ARR";
+                else if (style.StartsWith("ARG")) bcode = "ARR";
+                else if (style.StartsWith("AS")) bcode = "ARS";
+                else if (style.StartsWith("AT")) bcode = "ARR";
+                else if (style.StartsWith("F2")) bcode = "FM";
+                else if (style.StartsWith("UD")) bcode = "UD";
+            }
+            else if (type == "Fabric") { }
+            else if (type == "Promo")
+            {
+                bcode = "ARP";
+            }
+            else
+            {
+                bcode = "ARD";
+            }
+
+            return bcode;
         }
     }
 
@@ -717,11 +749,6 @@ namespace AprajitaRetails.Server.Importer
                 return objList;
             }
         }
-    }
-
-    public static class HelperFunctions
-    {
-
     }
     public class ImportHelper
     {
