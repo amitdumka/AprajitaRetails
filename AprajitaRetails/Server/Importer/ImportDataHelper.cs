@@ -10,6 +10,7 @@ namespace AprajitaRetails.Server.Importer
     public class ExcelToDB : ExcelToJson
     {
         private ARDBContext _db;
+        private string _importedDataPath;
 
         public ExcelToDB(ARDBContext db, string sc, string sg)
         {
@@ -151,6 +152,7 @@ namespace AprajitaRetails.Server.Importer
 
     public class ExcelToJson
     {
+        //TODO: Move Static or supporting functions to one class so only main function should be here. 
         protected string _storeCode, _storeGroup;
 
         protected List<ProductSubCategory> _subCategories;
@@ -192,9 +194,9 @@ namespace AprajitaRetails.Server.Importer
             }
         }
 
-        public ProductCategory GetProductCategory(string cat) => ToProductCategory(cat);
+        private ProductCategory GetProductCategory(string cat) => ToProductCategory(cat);
 
-        public string GetProductType(string product)
+        private string GetProductType(string product)
         {
             var pt = product.Split("/")[1].Trim();
             if (_typeCategories == null)
@@ -218,7 +220,7 @@ namespace AprajitaRetails.Server.Importer
             }
         }
 
-        public string GetSubCategoryId(string cat)
+        private string GetSubCategoryId(string cat)
         {
             var pt = cat.Split("/");
             if (_typeCategories == null)
@@ -243,7 +245,7 @@ namespace AprajitaRetails.Server.Importer
             }
         }
 
-        public string GetVendorId(string sup)
+        private string GetVendorId(string sup)
         {
 
             return VendorMapping(sup);
@@ -253,7 +255,7 @@ namespace AprajitaRetails.Server.Importer
         /// </summary>
         /// <param name="supplier"></param>
         /// <returns></returns>
-        public static string VendorMapping(string supplier)
+        private static string VendorMapping(string supplier)
         {
             string id = supplier switch
             {
@@ -273,15 +275,24 @@ namespace AprajitaRetails.Server.Importer
             };
             return id;
         }
-        public async Task ImportPurchaseInvoiceAsync(string path, string excelfilename, string worksheet, string range, string storecode, string storegroup, bool savejson)
+        private static string MapStoreCode(string tascode)
+        {
+            if (tascode.Trim().EndsWith("14")) return "ARJ";
+            else if (tascode.Trim().EndsWith("06")) return "ARD";
+            else return "ARD";
+        }
+        public async Task<string> ImportPurchaseInvoiceAsync(string path, string excelfilename, string worksheet, string range, string storecode, string storegroup, bool savejson)
         {
             string jsonFileName = "";
+            string basedirectory = "";
             try
             {
                 if (savejson)
                 {
-                    jsonFileName = Path.Combine(path, storegroup, storecode, $@"json/{worksheet}/PurchaseInvoice.json");
+                    basedirectory = Path.Combine(path, storegroup, storecode, $@"json/{worksheet}");
+                    jsonFileName = Path.Combine(basedirectory, $@"/wsheet/PurchaseInvoice.json");
                     Directory.CreateDirectory(Path.GetDirectoryName(jsonFileName));
+
                 }
                 //var jsondata = await this.ConvertExcelToJson<PurchaseInvoiceItem>(path, excelfilename, worksheet, range, jsonFileName, savejson);
 
@@ -301,6 +312,9 @@ namespace AprajitaRetails.Server.Importer
                     InwardNumber = c.InwardNumber,
                     Qty = c.Quantity,
                     TaxAmount = c.IGST_CGSTAmount,
+                    ProductItem = null,
+                    PurchaseProduct = null,
+                    Id = 0,
                 }).ToList();
 
                 //Create ProductItem,
@@ -330,7 +344,7 @@ namespace AprajitaRetails.Server.Importer
                 //filter stock at adding to db for duplicate stock item.
                 var stocks = data.Select(c => new Stock
                 {
-                    StoreId = storecode,
+                    StoreId = MapStoreCode(c.StoreCode),
                     Barcode = c.Barcode,
                     CostPrice = c.UnitCost,
                     HoldQty = 0,
@@ -345,6 +359,7 @@ namespace AprajitaRetails.Server.Importer
                     PurchaseQty = c.Quantity,
                     Store = null,
                     Product = null,
+                    Id = Guid.NewGuid(),
                 }).ToList();
 
                 // Create purchase Invoice
@@ -355,7 +370,7 @@ namespace AprajitaRetails.Server.Importer
                     InvoiceNo = c.Key,
                     FreeQty = 0,
                     InvoiceType = PurchaseInvoiceType.Purchase,
-                    StoreId = storecode,
+                    StoreId = MapStoreCode(c.Select(x => x.StoreCode).First()),
                     InwardDate = c.Select(x => x.InwardDate).First(),
                     InwardNumber = c.Select(x => x.InwardNumber).First(),
                     IsReadOnly = true,
@@ -378,10 +393,20 @@ namespace AprajitaRetails.Server.Importer
                     VendorId = GetVendorId(c.Select(x => x.SupplierName).First()),
                     BasicAmount = c.Sum(x => x.CostValue),
                 }).ToList();
+                //Convert all Data and Save to json File 
+                await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, "ImportedObjects", "ProductPurchases"));
+                await ImportDataHelper.ObjectToJsonFileAsync(stocks, Path.Combine(basedirectory, "ImportedObjects", "Stocks"));
+                await ImportDataHelper.ObjectToJsonFileAsync(productitems, Path.Combine(basedirectory, "ImportedObjects", "ProductItems"));
+                await ImportDataHelper.ObjectToJsonFileAsync(invs, Path.Combine(basedirectory, "ImportedObjects", "PurchaseItems"));
+
+                return basedirectory;
+
+
+
             }
             catch (Exception ex)
             {
-                throw;
+                return $"#Error#Msg#{ex.Message}";
             }
         }
 
@@ -412,7 +437,7 @@ namespace AprajitaRetails.Server.Importer
             //TODO: Implemenet Size 
             return Size.S;
         }
-        
+
         /// <summary>
         /// set Unit for item
         /// </summary>
@@ -694,6 +719,10 @@ namespace AprajitaRetails.Server.Importer
         }
     }
 
+    public static class HelperFunctions
+    {
+
+    }
     public class ImportHelper
     {
         private ARDBContext aRDB;
