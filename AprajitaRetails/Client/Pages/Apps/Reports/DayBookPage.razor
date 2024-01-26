@@ -36,7 +36,7 @@
     <Row>
         <Column Classes="col.md">
             <div class="mb-3 row">
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Danger" @onclick="OnNegClick">-</Button>
                 </div>
             </div>
@@ -46,7 +46,7 @@
         <Column Classes="col.md">
             <div class="mb-3 row">
                 <label for="ondate" class="col-sm-4 col-form-label">Date</label>
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <SfDatePicker   Value="@OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true">
                         <DatePickerEvents TValue="DateTime" ValueChange="DateChange"></DatePickerEvents>
                     </SfDatePicker>
@@ -55,8 +55,8 @@
             </div>
         </Column>
         <Column Classes="col.md">
-            <div class="mb-3 row">
-                <div class="col-sm-6">
+            <div class="mb-3 row align-end">
+                <div class="col-sm-2">
                     <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning" @onclick="OnPlusClick">+</Button>
                 </div>
             </div>
@@ -68,7 +68,7 @@
 
     </Row>
     <Row>
-        <div class="card   card-success bg-primary">
+        <div class="card   bg-primary">
             <div class="card-header">
                 <h3 class="card-title">Day Book   <span class="badge badge-warning ">[@OnDate.Date.ToShortDateString()]</span></h3>
                 <div class="card-tools">
@@ -97,6 +97,7 @@
                         @if (entity != null && entity.DayBooks != null)
                         {
                             int count = 1;
+                            intotal=0; outtotal = 0;
                             foreach (var item in entity.DayBooks)
                             {
 
@@ -127,8 +128,8 @@
                 </Table>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer align-content-end text-end text-bg-warning">
-                Day Book Total  <span class="text-success mr-2 ml-2">@intotal</span> <span class="text-danger">@outtotal</span>
+            <div class="card-footer align-content-end text-end ml-5 mr-5">
+                Day Book Total  <span class="text-success mr-5 ml-5">@intotal</span> <span class="text-warning mr-5 ml-5">@outtotal</span>
             </div>
             <!-- /.card-footer -->
         </div>
@@ -144,11 +145,15 @@
     private decimal intotal = 0, outtotal = 0;
     async void OnNegClick()
     {
+        intotal = 0;outtotal=0;
+        StateHasChanged();
         OnDate = OnDate.AddDays(-1);
         await FetchDataAsync();
     }
     async void OnPlusClick()
     {
+        intotal = 0; outtotal = 0;
+        StateHasChanged();
         OnDate = OnDate.AddDays(1);
         await FetchDataAsync();
     }
@@ -172,7 +177,9 @@
 
     async Task FetchDataAsync()
     {
+        //intotal = 0; outtotal = 0;
         entity = await Helper.PostDataFromAsync<DayBookReturn, DayBookRequest>(URL, new DayBookRequest { CashVoucher = true, OnDate = OnDate, StoreCode = "ARD", StoreCodeName = "StoreCode" }, Title);
+      
         StateHasChanged();
 
 
