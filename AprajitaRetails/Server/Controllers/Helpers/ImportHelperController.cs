@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
+using AprajitaRetails.Shared.Constants;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
@@ -27,11 +28,22 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             var imp = new ExcelToDB(aRDB, sc,sg);
 
             // Need to import excel and convert to json file and store in server 
+            ExcelFile ef=null;
 
-            var fileanme = await imp.ImportPurchaseInvoiceAsync(hostingEnv.ContentRootPath, "TheArvindStorePurchaseData.xlsx", "PurchaseData", "A1:Z8000", "ARD", sg, true);
+            if (sc == "ARD")
+            {
+                ef = AKSConstant.Dumka;
+            }else if(sc == "ARJ")
+            {
+                ef = AKSConstant.Jamshedpur;
+            }else ef= AKSConstant.Dumka;
+
+
+            var fileanme = await imp.ImportPurchaseInvoiceAsync( Path.Combine(hostingEnv.WebRootPath, "Data","ImportData"), "TheArvindStorePurchaseData.xlsx", ef.SheetName,ef.Range, ef.StoreCode, sg, true);
             return fileanme;
         }
 
+        [HttpGet("JsonDataFromFile")]
         public async Task<ActionResult<string>> GetPurchaseImorptedTempData(string filename)
         {
             return ImportDataHelper.ReadJsonFile(filename);

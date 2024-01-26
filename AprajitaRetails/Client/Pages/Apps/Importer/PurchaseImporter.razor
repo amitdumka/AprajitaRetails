@@ -1,8 +1,12 @@
 ﻿@page "/import/purchaseimport"
+@using AprajitaRetails.Shared.Constants
+@using AprajitaRetails.Shared.ViewModels.Imports
 @using Syncfusion.Blazor.Navigations
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Grids
 @using Microsoft.AspNetCore.Authorization;
+@using AprajitaRetails.Shared.Models.Inventory;
+@using System.Text.Json
 @attribute [Authorize]
 
 @inject DataHelper Helper
@@ -16,8 +20,27 @@
 </ContentHeader>
 <ContentMain>
     <div class="row">
+        <div class="col-md-3"><Button OnClick="@Importdata">Import</Button></div>
+        <div class="col-md-3"><Button OnClick="@ShowPurchaseInv">Show Purchase Invoices</Button></div>
+        <div class="col-md-3"><Button  OnClick="@ShowProcessData">Show Process Data</Button></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">FileName:</div>
+        <div class="col-md-3">
+            @if (string.IsNullOrEmpty(fileName) == false)
+            {
+                <span class="text-success">@fileName</span>
+            }
+            else
+            {
+                <span class="text-danger">File is not set!</span>
+            }
+        </div>
+    </div>
+    
+    <div class="row mt-lg-5">
         <div class="col-md-12">
-            <SfTab CssClass=@("default-tab e-fill e-background")>
+            <SfTab CssClass=@("default-tab e-fill e-background") >
                 <TabAnimationSettings>
                     <TabAnimationPrevious Effect=AnimationEffect.None></TabAnimationPrevious>
                     <TabAnimationNext Effect=AnimationEffect.None></TabAnimationNext>
@@ -25,20 +48,27 @@
                 <TabItems>
                     <TabItem>
                         <ChildContent>
-                            <TabHeader Text="Product Invoice"></TabHeader>
+                            <TabHeader Text="Product Invoice Excel"></TabHeader>
                         </ChildContent>
                         <ContentTemplate>
+                            @if (PurchaseInvoiceItems == null)
+                            {
+                                <span class="text-danager">No Data</span>
+                            }
+                            else
+                            {
 
-                            <SfGrid DataSource="@Orders" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                    AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                <GridTemplates>
-                                    <EmptyRecordTemplate>
-                                        <span> No Record found! Kindly add records </span>
-                                    </EmptyRecordTemplate>
-                                </GridTemplates>
-                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                <GridPageSettings PageCount="5"></GridPageSettings>
-                            </SfGrid>
+                                <SfGrid DataSource="@PurchaseInvoiceItems" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
+                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
+                                    <GridTemplates>
+                                        <EmptyRecordTemplate>
+                                            <span> No Record found! Kindly add records </span>
+                                        </EmptyRecordTemplate>
+                                    </GridTemplates>
+                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+                                    <GridPageSettings PageCount="5"></GridPageSettings>
+                                </SfGrid>
+                            }
                         </ContentTemplate>
                     </TabItem>
                     <TabItem>
@@ -46,33 +76,52 @@
                             <TabHeader Text="Purchase Item"></TabHeader>
                         </ChildContent>
                         <ContentTemplate>
-                            <SfGrid DataSource="@Orders" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                    AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                <GridTemplates>
-                                    <EmptyRecordTemplate>
-                                        <span> No Record found! Kindly add records </span>
-                                    </EmptyRecordTemplate>
-                                </GridTemplates>
-                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                <GridPageSettings PageCount="5"></GridPageSettings>
-                            </SfGrid>
+                            @if (PurchaseItems == null)
+                            {
+                                <span class="text-danager">No Data</span>
+                            }
+                            else
+                            {
+
+
+                                <SfGrid DataSource="@PurchaseItems" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
+                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
+                                    <GridTemplates>
+                                        <EmptyRecordTemplate>
+                                            <span> No Record found! Kindly add records </span>
+                                        </EmptyRecordTemplate>
+                                    </GridTemplates>
+                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+                                    <GridPageSettings PageCount="5"></GridPageSettings>
+                                </SfGrid>
+                            }
                         </ContentTemplate>
+
                     </TabItem>
                     <TabItem>
                         <ChildContent>
                             <TabHeader Text="Stock"></TabHeader>
                         </ChildContent>
                         <ContentTemplate>
-                            <SfGrid DataSource="@Orders" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                    AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                <GridTemplates>
-                                    <EmptyRecordTemplate>
-                                        <span> No Record found! Kindly add records </span>
-                                    </EmptyRecordTemplate>
-                                </GridTemplates>
-                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                <GridPageSettings PageCount="5"></GridPageSettings>
-                            </SfGrid>
+                            @if (Stocks == null)
+                            {
+                                <span class="text-danager">No Data</span>
+                            }
+                            else
+                            {
+
+
+                                <SfGrid DataSource="@Stocks" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
+                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
+                                    <GridTemplates>
+                                        <EmptyRecordTemplate>
+                                            <span> No Record found! Kindly add records </span>
+                                        </EmptyRecordTemplate>
+                                    </GridTemplates>
+                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+                                    <GridPageSettings PageCount="5"></GridPageSettings>
+                                </SfGrid>
+                            }
                         </ContentTemplate>
                     </TabItem>
                     <TabItem>
@@ -80,32 +129,145 @@
                             <TabHeader Text="Products"></TabHeader>
                         </ChildContent>
                         <ContentTemplate>
-                            <SfGrid DataSource="@Orders" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                    AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                <GridTemplates>
-                                    <EmptyRecordTemplate>
-                                        <span> No Record found! Kindly add records </span>
-                                    </EmptyRecordTemplate>
-                                </GridTemplates>
-                                <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                <GridPageSettings PageCount="5"></GridPageSettings>
-                            </SfGrid>
+                            @if (ProductItems == null)
+                            {
+                                <span class="text-danager">No Data</span>
+                            }
+                            else
+                            {
+
+
+                                <SfGrid DataSource="@ProductItems" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
+                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
+                                    <GridTemplates>
+                                        <EmptyRecordTemplate>
+                                            <span> No Record found! Kindly add records </span>
+                                        </EmptyRecordTemplate>
+                                    </GridTemplates>
+                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+                                    <GridPageSettings PageCount="5"></GridPageSettings>
+                                </SfGrid>
+                            }
+                        </ContentTemplate>
+                    </TabItem>
+                    <TabItem>
+                        <ChildContent>
+                            <TabHeader Text="Purchase Invoice"></TabHeader>
+                        </ChildContent>
+                        <ContentTemplate>
+                            @if (PurchaseProducts == null)
+                            {
+                                <span class="text-danager">No Data</span>
+                            }
+                            else
+                            {
+
+
+                                <SfGrid DataSource="@PurchaseProducts" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
+                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
+                                    <GridTemplates>
+                                        <EmptyRecordTemplate>
+                                            <span> No Record found! Kindly add records </span>
+                                        </EmptyRecordTemplate>
+                                    </GridTemplates>
+                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+                                    <GridPageSettings PageCount="5"></GridPageSettings>
+                                </SfGrid>
+                            }
                         </ContentTemplate>
                     </TabItem>
                 </TabItems>
+
             </SfTab>
         </div>
     </div>
 </ContentMain>
 
 @code {
+    List<PurchaseItem> PurchaseItems;
+    List<ProductPurchase> PurchaseProducts;
+    List<ProductItem> ProductItems;
+    List<Stock> Stocks;
+    List<PurchaseInvoiceItem> PurchaseInvoiceItems;
+    string fileName = "";
 
-    async Task FetchDataAsync()
+    void Importdata()
     {
-        entities = await Helper.FetchAsync<StockDTO>($"api/Stocks/bystoredto", $"?storeid={Setting.StoreCode}");
-        StateHasChanged();
+        FetchDataAsync("ImportPurchase");
+    }
+
+    void ShowPurchaseInv()
+    {
+        FetchDataAsync("PurchaseInvoice");
+    }
+    void ShowProcessData()
+    {
+
+        FetchDataAsync("ProductPurchase");
+        FetchDataAsync("PurchaseItem");
+        FetchDataAsync("ProductItem");
+        FetchDataAsync("Stocks");
+    }
+
+    async Task FetchDataAsync(string option)
+    {
+        switch (option)
+        {
+            case "ImportPurchase":
+                fileName = await Helper.GetRecordAsync<string>($"api/ImportHelper/purchaseimport", "?sc=ARJ");
+                StateHasChanged(); break;
+            case "PurchaseInvoice":
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    Helper.Msg("Error", "File path is set yet...", true);
+                    break;
+                }
+                var data = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.PurchaseInvoice)}");
+                PurchaseInvoiceItems = JsonSerializer.Deserialize<List<PurchaseInvoiceItem>>(data);
+                StateHasChanged(); break;
+            case "Stocks":
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    Helper.Msg("Error", "File path is set yet...", true);
+                    break;
+                }
+                var stocks = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.Stocks)}");
+                Stocks = JsonSerializer.Deserialize<List<Stock>>(stocks);
+                StateHasChanged(); break;
+            case "PurchaseItem":
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    Helper.Msg("Error", "File path is set yet...", true);
+                    break;
+                }
+                var pi = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.PurchaseItems)}");
+                PurchaseItems = JsonSerializer.Deserialize<List<PurchaseItem>>(pi);
+                StateHasChanged(); break;
+
+            case "ProductItem":
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    Helper.Msg("Error", "File path is set yet...", true);
+                    break;
+                }
+                var item = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.ProductItems)}");
+                ProductItems = JsonSerializer.Deserialize<List<ProductItem>>(item);
+                StateHasChanged(); break;
+            case "ProductPurchase":
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    Helper.Msg("Error", "File path is set yet...", true);
+                    break;
+                }
+                var pp = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.ProductPurchase)}");
+                PurchaseProducts = JsonSerializer.Deserialize<List<ProductPurchase>>(pp);
+                StateHasChanged(); break;
+            default:
+                break;
+        }
 
     }
+
 }
 <style>
     .default-tab {

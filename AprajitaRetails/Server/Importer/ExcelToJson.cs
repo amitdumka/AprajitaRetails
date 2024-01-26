@@ -1,4 +1,6 @@
-﻿using AprajitaRetails.Shared.Models.Inventory; 
+﻿using AprajitaRetails.Shared.Constants;
+using AprajitaRetails.Shared.Models.Inventory;
+using AprajitaRetails.Shared.ViewModels.Imports;
 using Path = System.IO.Path;
 
 namespace AprajitaRetails.Server.Importer
@@ -56,14 +58,17 @@ namespace AprajitaRetails.Server.Importer
                 if (savejson)
                 {
                     basedirectory = Path.Combine(path, storegroup, storecode, $@"json/{worksheet}");
-                    jsonFileName = Path.Combine(basedirectory, $@"/wsheet/PurchaseInvoice.json");
-                    Directory.CreateDirectory(Path.GetDirectoryName(jsonFileName));
+                    var x = Directory.CreateDirectory(basedirectory);
+                    Console.WriteLine(x.FullName);
+                    jsonFileName = Path.Combine(basedirectory, $@"/wsheet/{AKSConstant.PurchaseInvoice}");
+                    x=  Directory.CreateDirectory(Path.GetDirectoryName(jsonFileName));
+                    Console.WriteLine(x.FullName);
                 }
                 //var jsondata = await this.ConvertExcelToJson<PurchaseInvoiceItem>(path, excelfilename, worksheet, range, jsonFileName, savejson);
 
                 // Convert to Purchase Invoice, item, and stock
                 //var data = ImportDataHelper.JsonToObject<PurchaseInvoiceItem>(jsondata);
-                var data = ImportDataHelper.ReadExcel<PurchaseInvoiceItem>(path, excelfilename, worksheet, range);
+                var data = ImportDataHelper.ReadExcel<PurchaseInvoiceItem>(Path.Combine(path,"Excel"), excelfilename, worksheet, range);
 
                 //Create ProductItem,
                 var productitems = data.DistinctBy(c => c.Barcode).Select(c => new ProductItem
@@ -162,10 +167,11 @@ namespace AprajitaRetails.Server.Importer
 
 
                 //Convert all Data and Save to json File
-                await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, "ImportedObjects", "ProductPurchases.json"));
-                await ImportDataHelper.ObjectToJsonFileAsync(stocks, Path.Combine(basedirectory, "ImportedObjects", "Stocks.json"));
-                await ImportDataHelper.ObjectToJsonFileAsync(productitems, Path.Combine(basedirectory, "ImportedObjects", "ProductItems.json"));
-                await ImportDataHelper.ObjectToJsonFileAsync(invs, Path.Combine(basedirectory, "ImportedObjects", "PurchaseItems.json"));
+                await ImportDataHelper.ObjectToJsonFileAsync(data, jsonFileName);
+                await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, AKSConstant.ImportedObjects,  AKSConstant.ProductPurchase));
+                await ImportDataHelper.ObjectToJsonFileAsync(stocks, Path.Combine(basedirectory, AKSConstant.ImportedObjects, AKSConstant.Stocks));
+                await ImportDataHelper.ObjectToJsonFileAsync(productitems, Path.Combine(basedirectory, AKSConstant.ImportedObjects, AKSConstant.ProductItems));
+                await ImportDataHelper.ObjectToJsonFileAsync(invs, Path.Combine(basedirectory, AKSConstant.ImportedObjects, AKSConstant.PurchaseItems));
 
                 return basedirectory;
             }

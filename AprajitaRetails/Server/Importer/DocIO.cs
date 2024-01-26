@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Reflection;
 using System.Text.Json;
+using TypeSupport.Extensions;
 
 namespace AprajitaRetails.Server.Importer
 {
@@ -93,6 +94,9 @@ namespace AprajitaRetails.Server.Importer
                             {
                                 switch (column.ColumnName)
                                 {
+                                    
+                                    case "SGSTAmount":
+                                    case "IGST_CGSTAmount":
                                     case "Amount":
                                     case "BillAmount":
                                     case "Qty":
@@ -101,17 +105,26 @@ namespace AprajitaRetails.Server.Importer
                                     case "LineTotal":
                                     case "SaleAmount":
                                     case "CostPrice":
+                                    case "CostValue":
+                                    case "UnitMRP":
+                                    case "UnitCost":
+                                    case "MRPValue":
+                                    case "IGST_CGSTRate":
+                                    case "SGSTRate":
                                     case "TaxAmount":
                                     case "BasicPrice":
                                     case "RoundOff":
                                     case "ProfitLoss":
                                     case "QTY":
                                     case "Discount":
+                                    case "DiscountP":
                                     case "DiscountAmount":
                                         pro.SetValue(obj, decimal.Parse((string)dr[column.ColumnName]), null);
                                         break;
 
                                     case "Date":
+                                    case "InwardDate":
+                                    case "InvoiceDate":
                                     case "OnDate":
                                         pro.SetValue(obj, DateTime.Parse((string)dr[column.ColumnName]), null);
                                         break;
@@ -158,7 +171,7 @@ namespace AprajitaRetails.Server.Importer
                         continue;
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     continue;
                 }

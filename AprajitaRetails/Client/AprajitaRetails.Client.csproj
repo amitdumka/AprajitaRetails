@@ -94,6 +94,7 @@
 		<Folder Include="Pages\Apps\Stores\Customers\" />
 		<Folder Include="Pages\Apps\Stores\Salesmen\" />
 		<Folder Include="Shared\Aks\Forms\" />
+		<Folder Include="wwwroot\Data\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Remove="wwwroot\Users\" />

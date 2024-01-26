@@ -1,60 +1,25 @@
 ﻿using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.ViewModels;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using Microsoft.JSInterop;
 using Radzen;
-using Syncfusion.Blazor.PivotView;
 using Syncfusion.Blazor.Popups;
-using System;
 using System.Net.Http.Json;
 
 namespace AprajitaRetails.Client.Helpers
 {
-    public static class FileUtils
-    {
-        public static ValueTask<object> SaveAs(this IJSRuntime js, string filename, byte[] data)
-            => js.InvokeAsync<object>(
-                "saveAsFile",
-                filename,
-                Convert.ToBase64String(data));
-
-    }
-
     public class DataHelper : IAsyncDisposable
     {
-        private HttpClient Http;
-        private SfDialogService DialogService;
-        private NotificationService NotificationService;
         private static List<StockViewModel> CurrentStock = new List<StockViewModel>();
-        public void ErrorMsg()
-        { Msg("Error", "Enter data is not valid or missing mandatory data, Kindly check all fields and try again!", true); }
+        private SfDialogService DialogService;
+        private HttpClient Http;
+        private NavigationManager NavigationManager;
+        private NotificationService NotificationService;
 
-        //public void Goto(string url) => NavigationManager.NavigateTo(url);
-        public DataHelper(HttpClient client, SfDialogService sf, NotificationService not)
+        public DataHelper(HttpClient client, SfDialogService sf, NotificationService not, NavigationManager nav)
         {
             Http = client; DialogService = sf; NotificationService = not;
-        }
-
-        public async Task<List<StockViewModel>?> FetchBarcodeAsync(string Barcode,string storeid)
-        {
-            var stock = CurrentStock.Where(c => c.Barcode == Barcode).ToList();
-            if (stock != null && stock.Count > 0)
-            {
-                return stock;
-            }
-            else
-            {
-                try
-                {
-                    return await Http.GetFromJsonAsync<List<StockViewModel>>($"api/Stocks/ByBarcode?barcode={Barcode}&storeid={storeid}");
-                }
-                catch (AccessTokenNotAvailableException exception)
-                {
-                    exception.Redirect();
-                    Msg("Error", "Kindly login before use", true);
-                    return null;
-                }
-            }
+            NavigationManager = nav;
         }
 
         public async Task<bool> DeleteAsync(string apiUrl, string className, string id)
@@ -89,45 +54,26 @@ namespace AprajitaRetails.Client.Helpers
             }
         }
 
-        public void Msg(string title, string text, bool isError = false)
-        {
-            var msg = new Radzen.NotificationMessage
-            {
-                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
-                Summary = title,
-                Detail = text,
-                Duration = 14000
-            };
-            NotificationService.Notify(msg);
-        }
-
-        ValueTask IAsyncDisposable.DisposeAsync()
+         ValueTask IAsyncDisposable.DisposeAsync()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<byte[]> FetchFileAsync(string url, string condition)
-        {
-            try
-            {
+        public void ErrorMsg()
+        { Msg("Error", "Enter data is not valid or missing mandatory data, Kindly check all fields and try again!", true); }
 
-                var x= await Http.GetAsync($"{url}{condition}");
-                x.EnsureSuccessStatusCode();
-              return  await x.Content.ReadAsByteArrayAsync();
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-                Msg("Error", "Kindly login before use", true);
-                return null;
-            }
-        }
         // Condition ?id=adasd&storeid=ARD etc
+        /// <summary>
+        /// Fetch data from Get method and return in list of data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url">api url</param>
+        /// <param name="condition">condition if any </param>
+        /// <returns></returns>
         public async Task<List<T>?> FetchAsync<T>(string url, string condition)
         {
             try
             {
-                
                 return await Http.GetFromJsonAsync<List<T>>($"{url}{condition}");
             }
             catch (AccessTokenNotAvailableException exception)
@@ -138,7 +84,41 @@ namespace AprajitaRetails.Client.Helpers
             }
         }
 
+        /// <summary>
+        /// Get Stock View Model by barcode and storeid
+        /// </summary>
+        /// <param name="Barcode"></param>
+        /// <param name="storeid"></param>
+        /// <returns></returns>
+        public async Task<List<StockViewModel>?> FetchBarcodeAsync(string Barcode, string storeid)
+        {
+            var stock = CurrentStock.Where(c => c.Barcode == Barcode).ToList();
+            if (stock != null && stock.Count > 0)
+            {
+                return stock;
+            }
+            else
+            {
+                try
+                {
+                    return await Http.GetFromJsonAsync<List<StockViewModel>>($"api/Stocks/ByBarcode?barcode={Barcode}&storeid={storeid}");
+                }
+                catch (AccessTokenNotAvailableException exception)
+                {
+                    exception.Redirect();
+                    Msg("Error", "Kindly login before use", true);
+                    return null;
+                }
+            }
+        }
 
+        /// <summary>
+        /// get data in Sorteddictory having string key and List of type data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public async Task<SortedDictionary<string, List<T>>?> FetchDictAsync<T>(string url, string condition)
         {
             try
@@ -153,46 +133,34 @@ namespace AprajitaRetails.Client.Helpers
             }
         }
 
-        public async Task<T?> GetRecordAsync<T>(string url, string id)
+        /// <summary>
+        /// Get File from server
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public async Task<byte[]> FetchFileAsync(string url, string condition)
         {
             try
             {
-                return await Http.GetFromJsonAsync<T>($"{url}/{id}");
+                var x = await Http.GetAsync($"{url}{condition}");
+                x.EnsureSuccessStatusCode();
+                return await x.Content.ReadAsByteArrayAsync();
             }
             catch (AccessTokenNotAvailableException exception)
             {
                 exception.Redirect();
                 Msg("Error", "Kindly login before use", true);
-                return default(T);
-            }
-        }
-        public async Task<T?> GetRecordAsync<T>(string url)
-        {
-            try
-            {
-                return await Http.GetFromJsonAsync<T>(url);
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-                Msg("Error", "Kindly login before use", true);
-                return default(T);
-            }
-        }
-        public async Task<SortedDictionary<string,string>?> GetRecordAsSDAsync(string url)
-        {
-            try
-            {
-                return await Http.GetFromJsonAsync<SortedDictionary<string, string>?>(url);
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-                Msg("Error", "Kindly login before use", true);
-                return default(SortedDictionary<string, string>?);
+                return null;
             }
         }
 
+        /// <summary>
+        /// Fetch Option data for Combox box
+        /// </summary>
+        /// <param name="optionName"></param>
+        /// <param name="storeid"></param>
+        /// <returns></returns>
         public async Task<SelectOption[]?> FetchOptionsAsync(string optionName, string? storeid)
         {
             SelectOption[]? option = null;
@@ -215,27 +183,197 @@ namespace AprajitaRetails.Client.Helpers
                 case "Employees":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Employees?storeid={storeid}");
                     break;
+
                 case "MPOS":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/MPOS?storeid={storeid}");
                     break;
+
                 case "Salesman":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Salesman?storeid={storeid}");
                     break;
+
                 case "LedgerGroups":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/LedgerGroups?storeid={storeid}");
                     break;
+
                 case "StoreGroups":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/StoreGroups");
                     break;
+
                 case "Clients":
                     option = await Http.GetFromJsonAsync<SelectOption[]>($"api/Helper/Clients");
                     break;
+
                 default:
                     break;
             }
             return option;
         }
 
+        /// <summary>
+        /// Fetch data in sorted dic have key and value list
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<SortedDictionary<string, string>?> GetRecordAsSDAsync(string url)
+        {
+            try
+            {
+                return await Http.GetFromJsonAsync<SortedDictionary<string, string>?>(url);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default(SortedDictionary<string, string>?);
+            }
+        }
+
+        /// <summary>
+        /// Fetch record by id 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T?> GetRecordAsync<T>(string url, string id)
+        {
+            try
+            {
+                return await Http.GetFromJsonAsync<T>($"{url}/{id}");
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default(T);
+            }
+        }
+
+        /// <summary>
+        /// Fetch Record by url using get Methord.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<T?> GetRecordAsync<T>(string url)
+        {
+            try
+            {
+                return await Http.GetFromJsonAsync<T>(url);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default(T);
+            }
+        }
+
+        /// <summary>
+        /// Navigate ti URl
+        /// </summary>
+        /// <param name="url"></param>
+        public void Goto(string url) => NavigationManager.NavigateTo(url);
+        /// <summary>
+        /// Display Toast msg
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="text"></param>
+        /// <param name="isError"></param>
+        public void Msg(string title, string text, bool isError = false)
+        {
+            var msg = new Radzen.NotificationMessage
+            {
+                Severity = isError ? NotificationSeverity.Error : NotificationSeverity.Info,
+                Summary = title,
+                Detail = text,
+                Duration = 14000
+            };
+            NotificationService.Notify(msg);
+        }
+
+        /// <summary>
+        /// Post data 
+        /// </summary>
+        /// <typeparam name="T">Return Type</typeparam>
+        /// <typeparam name="R">Request Type</typeparam>
+        /// <param name="url"> post Url</param>
+        /// <param name="tentity">Request Object</param>
+        /// <param name="className">Data Request class Name</param>
+        /// <returns></returns>
+        public async Task<T?> PostDataFromAsync<T, R>(string url, R tentity, string className)
+        {
+            try
+            {
+                HttpResponseMessage? result;
+                result = await Http.PostAsJsonAsync<R>($"{url}", tentity);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    Msg(className, "Success!");
+
+                    return await result.Content.ReadFromJsonAsync<T>();
+                }
+                else
+                {
+                    Msg("Error", $"An error occurred  {className} and error is {await result.Content.ReadAsStringAsync()}", true);
+                    return default;
+                }
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default;
+            }
+        }
+
+
+        /// <summary>
+        ///  Perfom post operation and return if it successful
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="tentity"></param>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public async Task<bool> PostOperationsAsync<T>(string url, T tentity, string className)
+        {
+            try
+            {
+                HttpResponseMessage? result;
+                result = await Http.PostAsJsonAsync<T>($"{url}", tentity);
+                if (result.IsSuccessStatusCode)
+                {
+                    Msg(className, $"{await result.Content.ReadAsStringAsync()} ");
+                    return true;
+                }
+                else
+                {
+                    Msg("Error", $"An error occurred  {className} and error is {await result.Content.ReadAsStringAsync()}", true);
+                    return false;
+                }
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// Save Data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ApiUrl"></param>
+        /// <param name="EntityModel"></param>
+        /// <param name="className"></param>
+        /// <param name="Id"></param>
+        /// <param name="IsEdit"></param>
+        /// <returns></returns>
         public async Task<bool> SaveAsync<T>(string ApiUrl, T EntityModel, string className, string? Id = null, bool IsEdit = false)
         {
             try
@@ -266,72 +404,5 @@ namespace AprajitaRetails.Client.Helpers
                 return false;
             }
         }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T">Return Type</typeparam>
-        /// <typeparam name="R">Request Type</typeparam>
-        /// <param name="url"> post Url</param>
-        /// <param name="tentity">Request Object</param>
-        /// <param name="className">Data Request class Name</param>
-        /// <returns></returns>
-        public async Task<T?> PostDataFromAsync<T,R>(string url, R tentity, string className)
-        {
-            try
-            {
-                HttpResponseMessage? result;
-                result = await Http.PostAsJsonAsync<R>($"{url}", tentity);
-                
-                if (result.IsSuccessStatusCode)
-                {
-                    Msg(className, "Success!");
-                    
-                    return await result.Content.ReadFromJsonAsync<T>();
-                    
-
-                }
-                else
-                {
-                    Msg("Error", $"An error occurred  {className} and error is {await result.Content.ReadAsStringAsync()}", true);
-                    return default;
-                }
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-                Msg("Error", "Kindly login before use", true);
-                return default;
-            }
-        }
-
-        public async Task<bool> PostOperationsAsync<T>(string url, T tentity, string className)
-        {
-            try
-            {
-                HttpResponseMessage? result;
-                result= await Http.PostAsJsonAsync<T>($"{url}", tentity);
-                if (result.IsSuccessStatusCode)
-                {
-                    Msg(className, $"{await result.Content.ReadAsStringAsync()} ");
-                    return true;
-                   
-                }
-                else
-                {
-                    Msg("Error", $"An error occurred  {className} and error is { await result.Content.ReadAsStringAsync()}", true);
-                    return false;
-                }
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-                Msg("Error", "Kindly login before use", true);
-                return false;
-            }
-        }
-
     }
 }

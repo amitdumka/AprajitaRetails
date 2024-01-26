@@ -1,4 +1,5 @@
 ﻿using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.Constants;
 using AprajitaRetails.Shared.Models.Inventory;
 using Microsoft.EntityFrameworkCore;
 using Telerik.Maui;
@@ -22,24 +23,24 @@ namespace AprajitaRetails.Server.Importer
         public ReturnData UpdatePurchaseInvoiceToDB(string basePath)
         {
             _importedDataPath = basePath;
-            basePath = Path.Combine(basePath, "ImportedObjects");
+            basePath = Path.Combine(basePath, AKSConstant.ImportedObjects);
 
             ReturnData returnData = new ReturnData();
             //First Update ProductItem to DB
-            var flag = UpdateProductItem(Path.Combine(basePath, "ProductItems.json"));
+            var flag = UpdateProductItem(Path.Combine(basePath, AKSConstant.ProductItems));
             if (!flag.Error)
             {
                 returnData.Message += $"#ProdutItem=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
                 // Insert PurchaseInvoice then PurchaseItems
-                flag = UpdatePurchaseInv(Path.Combine(basePath, "ProductPurchases.json"));
+                flag = UpdatePurchaseInv(Path.Combine(basePath, AKSConstant.ProductPurchase));
                 if (!flag.Error)
                 {
                     returnData.Message += $"#ProductPurchases=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
-                    flag = UpdatePurchaseItem(Path.Combine(basePath, "PurchaseItems.json"));
+                    flag = UpdatePurchaseItem(Path.Combine(basePath, AKSConstant.PurchaseItems));
                     if (!flag.Error)
                     {
                         returnData.Message += $"#PurchaseItems=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
-                        flag = UpdateStockItem(Path.Combine(basePath, "Stocks.json"));
+                        flag = UpdateStockItem(Path.Combine(basePath, AKSConstant.Stocks));
                         if (!flag.Error)
                         {
                             returnData.Message += $"#Stocks=[{flag.Success},Skipped=0, Added={(flag.Added + flag.Skipped)}, Saved={flag.SavedToDB} ]";
