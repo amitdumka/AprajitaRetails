@@ -19,7 +19,7 @@ namespace AprajitaRetails.Server.Importer
             sizeList = Enum.GetNames(typeof(Size)).ToList();
         }
 
-        public static bool SeedBasicVendor(ARDBContext db)
+        private static bool SeedBasicVendor(ARDBContext db)
         {
             //TODO: Need to change storeid to StoreGroup
             List<Vendor> vendors = new List<Vendor>();
@@ -168,7 +168,7 @@ namespace AprajitaRetails.Server.Importer
             return (db.SaveChanges() == 7);
         }
 
-        public async void UpdateCat()
+        private async void UpdateCat()
         {
             //TODO: implementing StoreGroup conpect here
             var subcats = await _db.ProductSubCategories.ToListAsync();
