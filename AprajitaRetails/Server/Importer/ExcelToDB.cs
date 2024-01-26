@@ -19,6 +19,60 @@ namespace AprajitaRetails.Server.Importer
             sizeList = Enum.GetNames(typeof(Size)).ToList();
         }
 
+        public ReturnData UpdatePurchaseInvoiceToDB(string basePath)
+        {
+            _importedDataPath = basePath;
+            basePath = Path.Combine(basePath, "ImportedObjects");
+
+            ReturnData returnData = new ReturnData();
+            //First Update ProductItem to DB
+            var flag = UpdateProductItem(Path.Combine(basePath, "ProductItems.json"));
+            if (!flag.Error)
+            {
+                returnData.Message += $"#ProdutItem=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
+                // Insert PurchaseInvoice then PurchaseItems
+                flag = UpdatePurchaseInv(Path.Combine(basePath, "ProductPurchases.json"));
+                if (!flag.Error)
+                {
+                    returnData.Message += $"#ProductPurchases=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
+                    flag = UpdatePurchaseItem(Path.Combine(basePath, "PurchaseItems.json"));
+                    if (!flag.Error)
+                    {
+                        returnData.Message += $"#PurchaseItems=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
+                        flag = UpdateStockItem(Path.Combine(basePath, "Stocks.json"));
+                        if (!flag.Error)
+                        {
+                            returnData.Message += $"#Stocks=[{flag.Success},Skipped=0, Added={(flag.Added + flag.Skipped)}, Saved={flag.SavedToDB} ]";
+                            returnData.Success = flag.Success;
+                            returnData.Message += "##Do manual check and verify that added properly";
+                        }
+                        else
+                        {
+                            returnData.Error = true;
+                            returnData.ErrorMessage += $"#Stocks={flag.ErrorMessage}";
+                        }
+                    }
+                    else
+                    {
+                        returnData.Error = true;
+                        returnData.ErrorMessage += $"#PurchaseItems={flag.ErrorMessage}";
+                    }
+                }
+                else
+                {
+                    returnData.Error = true;
+                    returnData.ErrorMessage += $"#ProductPurchases={flag.ErrorMessage}";
+                }
+            }
+            else
+            {
+                returnData.Error = true;
+                returnData.ErrorMessage += $"#ProductItem={flag.ErrorMessage}";
+            }
+
+            return returnData;
+        }
+
         private static bool SeedBasicVendor(ARDBContext db)
         {
             //TODO: Need to change storeid to StoreGroup
@@ -164,8 +218,19 @@ namespace AprajitaRetails.Server.Importer
             vendors.Add(v7);
             vendors.Add(v8); vendors.Add(v9); vendors.Add(v10);
 
-            db.Vendors.AddRange(vendors);
-            return (db.SaveChanges() == 7);
+            foreach (var item in vendors)
+            {
+                if (db.Vendors.Any(c => c.VendorName == item.VendorName) == false)
+                {
+                    db.Vendors.Add(item);
+                }
+            }
+
+
+            //  db.Vendors.AddRange(vendors);
+            db.SaveChanges();
+
+            return (db.Vendors.Count() == 10);
         }
 
         private async void UpdateCat()
@@ -176,58 +241,6 @@ namespace AprajitaRetails.Server.Importer
             this.UpdateSubCategory(subcats);
             this.UpdateProductType(ptypes);
         }
-
-        public ReturnData UpdatePurchaseInvoiceToDB(string basePath)
-        {
-            ReturnData returnData = new ReturnData();
-            //First Update ProductItem to DB
-            var flag = UpdateProductItem(Path.Combine(basePath, "ProductItems.json"));
-            if (!flag.Error)
-            {
-                returnData.Message += $"#ProdutItem=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
-                // Insert PurchaseInvoice then PurchaseItems
-                flag = UpdatePurchaseInv(Path.Combine(basePath, "ProductPurchases.json"));
-                if (!flag.Error)
-                {
-                    returnData.Message += $"#ProductPurchases=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
-                    flag = UpdatePurchaseItem(Path.Combine(basePath, "PurchaseItems.json"));
-                    if (!flag.Error)
-                    {
-                        returnData.Message += $"#PurchaseItems=[{flag.Success},Skipped={flag.Skipped}, Added={flag.Added}, Saved={flag.SavedToDB} ]";
-                        flag = UpdateStockItem(Path.Combine(basePath, "Stocks.json"));
-                        if (!flag.Error)
-                        {
-                            returnData.Message += $"#Stocks=[{flag.Success},Skipped=0, Added={(flag.Added + flag.Skipped)}, Saved={flag.SavedToDB} ]";
-                            returnData.Success = flag.Success;
-                            returnData.Message += "##Do manual check and verify that added properly";
-                        }
-                        else
-                        {
-                            returnData.Error = true;
-                            returnData.ErrorMessage += $"#Stocks={flag.ErrorMessage}";
-                        }
-                    }
-                    else
-                    {
-                        returnData.Error = true;
-                        returnData.ErrorMessage += $"#PurchaseItems={flag.ErrorMessage}";
-                    }
-                }
-                else
-                {
-                    returnData.Error = true;
-                    returnData.ErrorMessage += $"#ProductPurchases={flag.ErrorMessage}";
-                }
-            }
-            else
-            {
-                returnData.Error = true;
-                returnData.ErrorMessage += $"#ProductItem={flag.ErrorMessage}";
-            }
-
-            return returnData;
-        }
-
         private ReturnData UpdateProductItem(string filename)
         {
             try

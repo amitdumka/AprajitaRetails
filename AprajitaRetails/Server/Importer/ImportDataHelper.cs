@@ -10,6 +10,25 @@ namespace AprajitaRetails.Server.Importer
 
     public class ImportDataHelper
     {
+
+        public static string ReadJsonFile(string filename)
+        {
+            try
+            {
+                using StreamReader reader = new StreamReader(filename);
+                var json = reader.ReadToEnd();
+                reader.Close();
+                // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
+                return json;// JsonSerializer.Deserialize<List<T>>(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// Convert Json File to Object List
         /// </summary>

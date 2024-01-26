@@ -3,6 +3,7 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace AprajitaRetails.Server.Controllers.Helpers
 {
@@ -18,6 +19,25 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             this.hostingEnv = env;
             aRDB = db;
         }
+        //TODO: this is only for test remove this from prod.
+        [HttpGet("purchaseimport")]
+        public async Task<ActionResult<string>> GetPurchaseImport(string sc)
+        {
+            var sg= aRDB.Stores.Find(sc).StoreGroupId ?? "";
+            var imp = new ExcelToDB(aRDB, sc,sg);
+
+            // Need to import excel and convert to json file and store in server 
+
+            var fileanme = await imp.ImportPurchaseInvoiceAsync(hostingEnv.ContentRootPath, "TheArvindStorePurchaseData.xlsx", "PurchaseData", "A1:Z8000", "ARD", sg, true);
+            return fileanme;
+        }
+
+        public async Task<ActionResult<string>> GetPurchaseImorptedTempData(string filename)
+        {
+            return ImportDataHelper.ReadJsonFile(filename);
+        }
+
+
 
         [HttpGet("StockUpdate")]
         public async Task<ActionResult<bool>> GetStiockUpdate(string storeid="ARD")

@@ -13,19 +13,6 @@ namespace AprajitaRetails.Server.Importer
         protected List<string> sizeList;
 
         /// <summary>
-        /// set Unit for item
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static Unit SetUnitFromProductName(string name)
-        {
-            if (name.StartsWith("Apparel")) { return Unit.Pcs; }
-            else if (name.StartsWith("Promo") || name.StartsWith("Suit Cover")) { return Unit.Nos; }
-            else if (name.StartsWith("Shirting") || name.StartsWith("Suiting")) { return Unit.Meters; }
-            return Unit.NoUnit;
-        }
-
-        /// <summary>
         /// Convert Excel sheet to json data for futher process
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -175,10 +162,10 @@ namespace AprajitaRetails.Server.Importer
 
 
                 //Convert all Data and Save to json File
-                await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, "ImportedObjects", "ProductPurchases"));
-                await ImportDataHelper.ObjectToJsonFileAsync(stocks, Path.Combine(basedirectory, "ImportedObjects", "Stocks"));
-                await ImportDataHelper.ObjectToJsonFileAsync(productitems, Path.Combine(basedirectory, "ImportedObjects", "ProductItems"));
-                await ImportDataHelper.ObjectToJsonFileAsync(invs, Path.Combine(basedirectory, "ImportedObjects", "PurchaseItems"));
+                await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, "ImportedObjects", "ProductPurchases.json"));
+                await ImportDataHelper.ObjectToJsonFileAsync(stocks, Path.Combine(basedirectory, "ImportedObjects", "Stocks.json"));
+                await ImportDataHelper.ObjectToJsonFileAsync(productitems, Path.Combine(basedirectory, "ImportedObjects", "ProductItems.json"));
+                await ImportDataHelper.ObjectToJsonFileAsync(invs, Path.Combine(basedirectory, "ImportedObjects", "PurchaseItems.json"));
 
                 return basedirectory;
             }
@@ -188,109 +175,7 @@ namespace AprajitaRetails.Server.Importer
             }
         }
 
-        /// <summary>
-        /// Set Size based on style code and Category
-        /// </summary>
-        /// <param name="style"></param>
-        /// <param name="category"></param>
-        /// <returns></returns>
-        public Size SetSize(string style, string category)
-        {
-            Size size = Size.NOTVALID;
-            var name = style.Substring(style.Length - 4, 4);
-
-            // Jeans and Trousers
-
-            if (category.Contains("Boxer") || category.Contains("Socks") || category.Contains("H-Shorts") || category.Contains("Shirt") || category.Contains("Vests") || category.Contains("Briefs") || category.Contains("Jackets") || category.Contains("Sweat Shirt") || category.Contains("Sweater") || category.Contains("T shirts"))
-            {
-                if (name.EndsWith(Size.XXXL.ToString())) size = Size.XXXL;
-                else if (name.EndsWith(Size.XXL.ToString())) size = Size.XXL;
-                else if (name.EndsWith(Size.XL.ToString())) size = Size.XL;
-                else if (name.EndsWith(Size.L.ToString())) size = Size.L;
-                else if (name.EndsWith(Size.M.ToString())) size = Size.M;
-                else if (name.EndsWith(Size.S.ToString())) size = Size.S;
-                else if (name.EndsWith("FS")) size = Size.FreeSize;
-                else
-                {
-                    var nn = name.Substring(name.Length - 2).Trim();
-                    int nx = 0;
-                    if (Int32.TryParse(nn, out nx))
-                    {
-                        size = nx switch
-                        {
-                            39 => Size.S,
-                            40 => Size.M,
-                            42 => Size.L,
-                            44 => Size.XL,
-                            46 => Size.XXL,
-                            48 => Size.XXXL,
-                            _ => Size.NOTVALID,
-                        };
-                    }
-                    else
-                    {
-                    }
-                }
-            }
-            else if (category.Contains("Shorts") || category.Contains("Jeans") || category.Contains("Trouser") || category.Contains("Trousers"))
-            {
-                int x = sizeList.IndexOf($"T{name[2]}{name[3]}");
-                size = (Size)x;
-            }
-            else if (category.Contains("Bundis") || category.Contains("Blazer") || category.Contains("Blazers") || category.Contains("Suits"))
-            {
-                int x = sizeList.IndexOf($"B{name[2]}{name[3]}");
-                if (x == -1)
-                {
-                    x = sizeList.IndexOf($"B{name[1]}{name[2]}{name[3]}");
-                }
-                if (x == -1)
-                {
-                    size = Size.NOTVALID;
-                }
-                else
-                    size = (Size)x;
-            }
-            else if (category.Contains("Accessories"))
-            {
-                size = Size.NS;
-            }
-            else
-            {
-                size = Size.NOTVALID;
-            }
-            return size;
-        }
-
-        /// <summary>
-        /// Set Unit name fromm String Name
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public Unit StringToUnit(string str)
-        {
-            if (str.ToLower() == "pcs") return Unit.Pcs;
-            else if (str.ToLower() == "mtrs") return Unit.Meters;
-            else if (str.ToLower() == "nos") return Unit.Nos;
-            else return Unit.NoUnit;
-        }
-
-        public ProductCategory ToProductCategory(string str)
-        {
-            if (str == "Readmade") return ProductCategory.Apparel;
-            else if (str == "Fabric") return ProductCategory.Fabric;
-            else if (str == "Promo") return ProductCategory.PromoItems;
-            else if (str == "Tailoring") return ProductCategory.Tailoring;
-            else return ProductCategory.Others;
-        }
-
-        public Size ToSize(string size)
-        {
-            //TODO: Implemenet Size
-            return Size.S;
-        }
-
-        public void UpdateProductType(List<ProductType> productType)
+        protected void UpdateProductType(List<ProductType> productType)
         {
             if (_typeCategories == null)
             {
@@ -303,7 +188,7 @@ namespace AprajitaRetails.Server.Importer
             }
         }
 
-        public void UpdateSubCategory(List<ProductSubCategory> category)
+        protected void UpdateSubCategory(List<ProductSubCategory> category)
         {
             if (_subCategories == null)
             {
@@ -323,6 +208,18 @@ namespace AprajitaRetails.Server.Importer
             else return "ARD";
         }
 
+        /// <summary>
+        /// set Unit for item
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static Unit SetUnitFromProductName(string name)
+        {
+            if (name.StartsWith("Apparel")) { return Unit.Pcs; }
+            else if (name.StartsWith("Promo") || name.StartsWith("Suit Cover")) { return Unit.Nos; }
+            else if (name.StartsWith("Shirting") || name.StartsWith("Suiting")) { return Unit.Meters; }
+            return Unit.NoUnit;
+        }
         /// <summary>
         /// Map Vendor from Supplier
         /// </summary>
@@ -407,6 +304,94 @@ namespace AprajitaRetails.Server.Importer
         {
             return VendorMapping(sup);
         }
+
+        /// <summary>
+        /// Set Size based on style code and Category
+        /// </summary>
+        /// <param name="style"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        private Size SetSize(string style, string category)
+        {
+            Size size = Size.NOTVALID;
+            var name = style.Substring(style.Length - 4, 4);
+
+            // Jeans and Trousers
+
+            if (category.Contains("Boxer") || category.Contains("Socks") || category.Contains("H-Shorts") || category.Contains("Shirt") || category.Contains("Vests") || category.Contains("Briefs") || category.Contains("Jackets") || category.Contains("Sweat Shirt") || category.Contains("Sweater") || category.Contains("T shirts"))
+            {
+                if (name.EndsWith(Size.XXXL.ToString())) size = Size.XXXL;
+                else if (name.EndsWith(Size.XXL.ToString())) size = Size.XXL;
+                else if (name.EndsWith(Size.XL.ToString())) size = Size.XL;
+                else if (name.EndsWith(Size.L.ToString())) size = Size.L;
+                else if (name.EndsWith(Size.M.ToString())) size = Size.M;
+                else if (name.EndsWith(Size.S.ToString())) size = Size.S;
+                else if (name.EndsWith("FS")) size = Size.FreeSize;
+                else
+                {
+                    var nn = name.Substring(name.Length - 2).Trim();
+                    int nx = 0;
+                    if (Int32.TryParse(nn, out nx))
+                    {
+                        size = nx switch
+                        {
+                            39 => Size.S,
+                            40 => Size.M,
+                            42 => Size.L,
+                            44 => Size.XL,
+                            46 => Size.XXL,
+                            48 => Size.XXXL,
+                            _ => Size.NOTVALID,
+                        };
+                    }
+                    else
+                    {
+                    }
+                }
+            }
+            else if (category.Contains("Shorts") || category.Contains("Jeans") || category.Contains("Trouser") || category.Contains("Trousers"))
+            {
+                int x = sizeList.IndexOf($"T{name[2]}{name[3]}");
+                size = (Size)x;
+            }
+            else if (category.Contains("Bundis") || category.Contains("Blazer") || category.Contains("Blazers") || category.Contains("Suits"))
+            {
+                int x = sizeList.IndexOf($"B{name[2]}{name[3]}");
+                if (x == -1)
+                {
+                    x = sizeList.IndexOf($"B{name[1]}{name[2]}{name[3]}");
+                }
+                if (x == -1)
+                {
+                    size = Size.NOTVALID;
+                }
+                else
+                    size = (Size)x;
+            }
+            else if (category.Contains("Accessories"))
+            {
+                size = Size.NS;
+            }
+            else
+            {
+                size = Size.NOTVALID;
+            }
+            return size;
+        }
+
+        /// <summary>
+        /// Set Unit name fromm String Name
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        private Unit StringToUnit(string str)
+        {
+            if (str.ToLower() == "pcs") return Unit.Pcs;
+            else if (str.ToLower() == "mtrs") return Unit.Meters;
+            else if (str.ToLower() == "nos") return Unit.Nos;
+            else return Unit.NoUnit;
+        }
+
         private string ToBrandCode(string style, string type)
         {
             string bcode = "";
@@ -442,6 +427,21 @@ namespace AprajitaRetails.Server.Importer
             }
 
             return bcode;
+        }
+
+        private ProductCategory ToProductCategory(string str)
+        {
+            if (str == "Readmade") return ProductCategory.Apparel;
+            else if (str == "Fabric") return ProductCategory.Fabric;
+            else if (str == "Promo") return ProductCategory.PromoItems;
+            else if (str == "Tailoring") return ProductCategory.Tailoring;
+            else return ProductCategory.Others;
+        }
+
+        private Size ToSize(string size)
+        {
+            //TODO: Implemenet Size
+            return Size.S;
         }
     }
 
