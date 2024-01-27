@@ -20,6 +20,13 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             this.hostingEnv = env;
             aRDB = db;
         }
+        //[HttpGet("mapsize")]
+        public async Task<ActionResult<bool>> GetMapSize()
+        {
+            var imp = new ExcelToDB(aRDB, "ARD", "TAS");
+            return imp.RemapSizeToSize2();
+        }
+
         //TODO: this is only for test remove this from prod.
         [HttpGet("purchaseimport")]
         public async Task<ActionResult<string>> GetPurchaseImport(string sc)

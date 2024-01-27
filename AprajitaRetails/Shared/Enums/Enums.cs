@@ -40,9 +40,9 @@ public enum PayMode
 public enum PaymentMode
 { Cash, Card, RTGS, NEFT, IMPS, Wallets, Cheque, DemandDraft, Others, UPI };
 
-public enum Size
-{ S, M, L, XL, XXL, XXXL, T28, T30, T32, T34, T36, T38, T40, T41, T42, T44, T46, T48, FreeSize, NS, NOTVALID, B36, B38, B40, B42, B44, B46, B96, B100, B104, B108 }
 public enum Size2
+{ S, M, L, XL, XXL, XXXL, T28, T30, T32, T34, T36, T38, T40, T41, T42, T44, T46, T48, FreeSize, NS, NOTVALID, B36, B38, B40, B42, B44, B46, B96, B100, B104, B108 }
+public enum Size
 { S, M, L, XL, XXL, XXXL, C28, C30, C32, C34, C36, C38, C40, C41, C42, C44, C46, C48, C96, C100, C104, C108, FreeSize, NS, NOTVALID  }
 
 public enum ProductCategory

@@ -313,9 +313,9 @@ namespace AprajitaRetails.Server.Importer
             return VendorMapping(sup);
         }
 
-        private Size2 SetSize(string sz)
+        private Size ToSize(string sz)
         {
-            Size2 size = Size2.NOTVALID;
+            Size size = Size.NOTVALID;
             int x = 0;
             if (Int32.TryParse(sz, out _))
             {
@@ -326,99 +326,100 @@ namespace AprajitaRetails.Server.Importer
             {
                 x = sizeList.IndexOf(sz);
             }
-            return (Size2)x;
+            return (Size)x;
 
         }
 
-        protected Size2 MapToSize2(Size size)
+        protected Size MapToSize2(Size2 size)
         {
             switch (size)
             {
-                case Size.S:
-                case Size.M:
+                case Size2.S:
+                case Size2.M:
 
-                case Size.L:
+                case Size2.L:
 
-                case Size.XL:
+                case Size2.XL:
 
-                case Size.XXL:
+                case Size2.XXL:
 
-                case Size.XXXL:
+                case Size2.XXXL:
                     var jj = size.ToString();
-                    return (Size2)sizeList.IndexOf(jj);
+                    return (Size)sizeList.IndexOf(jj);
                     break;
-                case Size.FreeSize:
-                    return Size2.FreeSize;
+                case Size2.FreeSize:
+                    return Size.FreeSize;
                     break;
-                case Size.NS:
-                    return Size2.NS;
+                case Size2.NS:
+                    return Size.NS;
                     break;
-                case Size.NOTVALID:
-                    return Size2.NOTVALID;
+                case Size2.NOTVALID:
+                    return Size.NOTVALID;
                     break;
 
 
-                case Size.T28:
+                case Size2.T28:
 
-                case Size.T30:
+                case Size2.T30:
 
-                case Size.T32:
+                case Size2.T32:
 
-                case Size.T34:
+                case Size2.T34:
 
-                case Size.T36:
+                case Size2.T36:
 
-                case Size.T38:
+                case Size2.T38:
 
-                case Size.T40:
+                case Size2.T40:
 
-                case Size.T41:
+                case Size2.T41:
 
-                case Size.T42:
+                case Size2.T42:
 
-                case Size.T44:
+                case Size2.T44:
 
-                case Size.T46:
+                case Size2.T46:
 
-                case Size.T48:
+                case Size2.T48:
 
-                case Size.B36:
+                case Size2.B36:
 
-                case Size.B38:
+                case Size2.B38:
 
-                case Size.B40:
+                case Size2.B40:
 
-                case Size.B42:
+                case Size2.B42:
 
-                case Size.B44:
+                case Size2.B44:
 
-                case Size.B46:
+                case Size2.B46:
 
-                case Size.B96:
+                case Size2.B96:
 
-                case Size.B100:
+                case Size2.B100:
 
-                case Size.B104:
+                case Size2.B104:
 
-                case Size.B108:
+                case Size2.B108:
 
-                    var jj = size.ToString().Remove(0, 1);
-                    return (Size2)sizeList.IndexOf($"C{jj}");
+                    var jj2 = size.ToString().Remove(0, 1);
+                    return (Size)sizeList.IndexOf($"C{jj2}");
                     break;
                 default:
-                    return Size2.NOTVALID;
+                    return Size.NOTVALID;
                     break;
             }
         }
 
 
-
+        
         /// <summary>
         /// Set Size based on style code and Category
         /// </summary>
         /// <param name="style"></param>
         /// <param name="category"></param>
         /// <returns></returns>
+        
         private Size SetSize(string style, string category)
         {
             Size size = Size.NOTVALID;
@@ -459,15 +460,15 @@ namespace AprajitaRetails.Server.Importer
             }
             else if (category.Contains("Shorts") || category.Contains("Jeans") || category.Contains("Trouser") || category.Contains("Trousers"))
             {
-                int x = sizeList.IndexOf($"T{name[2]}{name[3]}");
+                int x = sizeList.IndexOf($"C{name[2]}{name[3]}");
                 size = (Size)x;
             }
             else if (category.Contains("Bundis") || category.Contains("Blazer") || category.Contains("Blazers") || category.Contains("Suits"))
             {
-                int x = sizeList.IndexOf($"B{name[2]}{name[3]}");
+                int x = sizeList.IndexOf($"C{name[2]}{name[3]}");
                 if (x == -1)
                 {
-                    x = sizeList.IndexOf($"B{name[1]}{name[2]}{name[3]}");
+                    x = sizeList.IndexOf($"C{name[1]}{name[2]}{name[3]}");
                 }
                 if (x == -1)
                 {
@@ -546,11 +547,11 @@ namespace AprajitaRetails.Server.Importer
             else return ProductCategory.Others;
         }
 
-        private Size ToSize(string size)
-        {
-            //TODO: Implemenet Size
-            return Size.S;
-        }
+        //private Size ToSize(string size)
+        //{
+        //    //TODO: Implemenet Size
+        //    return Size.S;
+        //}
     }
 
     ///SN	InwardNumber	InwardDate	InvoiceNumber	InvoiceDate	SupplierName	StoreCode	ProductCategory	Barcode	ProductName	StyleCode	ProductDescription	HSNCODE	Size	Unit	Quantity	UnitMRP	MRPValue	UnitCost	CostValue	IGST_CGSTRate	SGSTRate	IGST_CGSTAmount	SGSTAmount	Amount	RoundOff	BillAmount

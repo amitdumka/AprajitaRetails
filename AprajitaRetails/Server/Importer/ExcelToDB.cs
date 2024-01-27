@@ -17,7 +17,7 @@ namespace AprajitaRetails.Server.Importer
             _db = db;
             _storeCode = sc; _storeGroup = sg;
             UpdateCat();
-            sizeList = Enum.GetNames(typeof(Size)).ToList();
+            sizeList = Enum.GetNames(typeof(Size2)).ToList();
         }
 
         public ReturnData UpdatePurchaseInvoiceToDB(string basePath)
@@ -425,14 +425,22 @@ namespace AprajitaRetails.Server.Importer
         /// Remap to new size enum 
         /// </summary>
         /// <returns></returns>
+        
         public bool RemapSizeToSize2()
         {
-            var data = _db.ProductItems.ToList();
-            foreach (var item in data)
-            {
-                item.Size =(Size) MapToSize2(item.Size);
-                _db.ProductItems.Update(item);
-            }
+            //var data = _db.ProductItems.ToList();
+            //int x = 0;
+            //foreach (var item in data)
+            //{
+            //     x=(int) MapToSize2(item.Size);
+            //    if (x < 0)
+            //    {
+            //        x=(int)Size2.NOTVALID;
+            //        item.Size = (Size)x;
+            //    }
+            //    item.Size = (Size)x;
+            //    _db.ProductItems.Update(item);
+            //}
             return _db.SaveChanges() > 0;
         }
     

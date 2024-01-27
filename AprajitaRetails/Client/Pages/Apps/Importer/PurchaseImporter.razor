@@ -215,7 +215,7 @@
         switch (option)
         {
             case "ImportPurchase":
-                fileName = await Helper.GetRecordAsync<string>($"api/ImportHelper/purchaseimport", "?sc=ARJ");
+                fileName = await Helper.GetRecordAsStringAsync($"api/ImportHelper/purchaseimport?sc=ARJ");
                 StateHasChanged(); 
                 break;
             case "PurchaseInvoice":
@@ -261,7 +261,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var pp = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.ProductPurchase)}");
+                var pp = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName,AKSConstant.ImportedObjects ,AKSConstant.ProductPurchase)}");
                 PurchaseProducts = JsonSerializer.Deserialize<List<ProductPurchase>>(pp);
                 StateHasChanged(); break;
             default:

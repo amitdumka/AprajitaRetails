@@ -240,13 +240,18 @@ namespace AprajitaRetails.Client.Helpers
         {
             try
             {
-                return await Http.GetFromJsonAsync<T>($"{url}/{id}");
+                var x= await Http.GetFromJsonAsync<T>($"{url}/{id}");
+                return x;
             }
             catch (AccessTokenNotAvailableException exception)
             {
                 exception.Redirect();
                 Msg("Error", "Kindly login before use", true);
                 return default(T);
+            }
+            catch(Exception e)
+            {
+                Msg("Error", e.ToString(), true); return default(T);
             }
         }
 
@@ -267,6 +272,28 @@ namespace AprajitaRetails.Client.Helpers
                 exception.Redirect();
                 Msg("Error", "Kindly login before use", true);
                 return default(T);
+            }
+            catch (Exception e)
+            {
+                Msg("Error", e.ToString(), true); return default;
+            }
+        }
+
+        public async Task<string?> GetRecordAsStringAsync(string url)
+        {
+            try
+            {
+                return await Http.GetStringAsync(url);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+                Msg("Error", "Kindly login before use", true);
+                return default;
+            }
+            catch (Exception e)
+            {
+                Msg("Error", e.ToString(), true); return default;
             }
         }
 
