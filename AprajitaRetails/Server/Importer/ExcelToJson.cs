@@ -57,18 +57,20 @@ namespace AprajitaRetails.Server.Importer
             {
                 if (savejson)
                 {
-                    basedirectory = Path.Combine(path, storegroup, storecode, $@"json/{worksheet}");
+                    basedirectory = Path.Combine(path, storegroup, storecode, "json", worksheet);
                     var x = Directory.CreateDirectory(basedirectory);
                     Console.WriteLine(x.FullName);
-                    jsonFileName = Path.Combine(basedirectory, $@"/wsheet/{AKSConstant.PurchaseInvoice}");
-                    x=  Directory.CreateDirectory(Path.GetDirectoryName(jsonFileName));
+
+                    jsonFileName = Path.Combine(basedirectory, "wsheet", AKSConstant.PurchaseInvoice);
+                    x = Directory.CreateDirectory(Path.GetDirectoryName(jsonFileName));
                     Console.WriteLine(x.FullName);
+                    x = Directory.CreateDirectory(Path.Combine(basedirectory, AKSConstant.ImportedObjects));
                 }
                 //var jsondata = await this.ConvertExcelToJson<PurchaseInvoiceItem>(path, excelfilename, worksheet, range, jsonFileName, savejson);
 
                 // Convert to Purchase Invoice, item, and stock
                 //var data = ImportDataHelper.JsonToObject<PurchaseInvoiceItem>(jsondata);
-                var data = ImportDataHelper.ReadExcel<PurchaseInvoiceItem>(Path.Combine(path,"Excel"), excelfilename, worksheet, range);
+                var data = ImportDataHelper.ReadExcel<PurchaseInvoiceItem>(Path.Combine(path, "Excel"), excelfilename, worksheet, range);
 
                 //Create ProductItem,
                 var productitems = data.DistinctBy(c => c.Barcode).Select(c => new ProductItem
@@ -168,7 +170,7 @@ namespace AprajitaRetails.Server.Importer
 
                 //Convert all Data and Save to json File
                 await ImportDataHelper.ObjectToJsonFileAsync(data, jsonFileName);
-                await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, AKSConstant.ImportedObjects,  AKSConstant.ProductPurchase));
+                await ImportDataHelper.ObjectToJsonFileAsync(purchaseInvoice, Path.Combine(basedirectory, AKSConstant.ImportedObjects, AKSConstant.ProductPurchase));
                 await ImportDataHelper.ObjectToJsonFileAsync(stocks, Path.Combine(basedirectory, AKSConstant.ImportedObjects, AKSConstant.Stocks));
                 await ImportDataHelper.ObjectToJsonFileAsync(productitems, Path.Combine(basedirectory, AKSConstant.ImportedObjects, AKSConstant.ProductItems));
                 await ImportDataHelper.ObjectToJsonFileAsync(invs, Path.Combine(basedirectory, AKSConstant.ImportedObjects, AKSConstant.PurchaseItems));
@@ -311,6 +313,106 @@ namespace AprajitaRetails.Server.Importer
             return VendorMapping(sup);
         }
 
+        private Size2 SetSize(string sz)
+        {
+            Size2 size = Size2.NOTVALID;
+            int x = 0;
+            if (Int32.TryParse(sz, out _))
+            {
+                x = sizeList.IndexOf($"C{sz}");
+
+            }
+            else
+            {
+                x = sizeList.IndexOf(sz);
+            }
+            return (Size2)x;
+
+        }
+
+        protected Size2 MapToSize2(Size size)
+        {
+            switch (size)
+            {
+                case Size.S:
+                case Size.M:
+
+                case Size.L:
+
+                case Size.XL:
+
+                case Size.XXL:
+
+                case Size.XXXL:
+                    var jj = size.ToString();
+                    return (Size2)sizeList.IndexOf(jj);
+                    break;
+                case Size.FreeSize:
+                    return Size2.FreeSize;
+                    break;
+                case Size.NS:
+                    return Size2.NS;
+                    break;
+                case Size.NOTVALID:
+                    return Size2.NOTVALID;
+                    break;
+
+
+                case Size.T28:
+
+                case Size.T30:
+
+                case Size.T32:
+
+                case Size.T34:
+
+                case Size.T36:
+
+                case Size.T38:
+
+                case Size.T40:
+
+                case Size.T41:
+
+                case Size.T42:
+
+                case Size.T44:
+
+                case Size.T46:
+
+                case Size.T48:
+
+                case Size.B36:
+
+                case Size.B38:
+
+                case Size.B40:
+
+                case Size.B42:
+
+                case Size.B44:
+
+                case Size.B46:
+
+                case Size.B96:
+
+                case Size.B100:
+
+                case Size.B104:
+
+                case Size.B108:
+
+                    var jj = size.ToString().Remove(0, 1);
+                    return (Size2)sizeList.IndexOf($"C{jj}");
+                    break;
+                default:
+                    return Size2.NOTVALID;
+                    break;
+            }
+        }
+
+
+
         /// <summary>
         /// Set Size based on style code and Category
         /// </summary>
@@ -437,7 +539,7 @@ namespace AprajitaRetails.Server.Importer
 
         private ProductCategory ToProductCategory(string str)
         {
-            if (str == "Readmade") return ProductCategory.Apparel;
+            if (str == "Readmade" || str == "Readymade") return ProductCategory.Apparel;
             else if (str == "Fabric") return ProductCategory.Fabric;
             else if (str == "Promo") return ProductCategory.PromoItems;
             else if (str == "Tailoring") return ProductCategory.Tailoring;

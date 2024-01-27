@@ -419,6 +419,24 @@ namespace AprajitaRetails.Server.Importer
                 return new ReturnData { Error = true, ErrorMessage = e.Message };
             }
         }
+    
+    
+        /// <summary>
+        /// Remap to new size enum 
+        /// </summary>
+        /// <returns></returns>
+        public bool RemapSizeToSize2()
+        {
+            var data = _db.ProductItems.ToList();
+            foreach (var item in data)
+            {
+                item.Size =(Size) MapToSize2(item.Size);
+                _db.ProductItems.Update(item);
+            }
+            return _db.SaveChanges() > 0;
+        }
+    
+    
     }
 
     ///SN	InwardNumber	InwardDate	InvoiceNumber	InvoiceDate	SupplierName	StoreCode	ProductCategory	Barcode	ProductName	StyleCode	ProductDescription	HSNCODE	Size	Unit	Quantity	UnitMRP	MRPValue	UnitCost	CostValue	IGST_CGSTRate	SGSTRate	IGST_CGSTAmount	SGSTAmount	Amount	RoundOff	BillAmount

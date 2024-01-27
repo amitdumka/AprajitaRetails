@@ -194,6 +194,7 @@
     void Importdata()
     {
         FetchDataAsync("ImportPurchase");
+        StateHasChanged();
     }
 
     void ShowPurchaseInv()
@@ -215,7 +216,8 @@
         {
             case "ImportPurchase":
                 fileName = await Helper.GetRecordAsync<string>($"api/ImportHelper/purchaseimport", "?sc=ARJ");
-                StateHasChanged(); break;
+                StateHasChanged(); 
+                break;
             case "PurchaseInvoice":
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -265,6 +267,7 @@
             default:
                 break;
         }
+        StateHasChanged();
 
     }
 
