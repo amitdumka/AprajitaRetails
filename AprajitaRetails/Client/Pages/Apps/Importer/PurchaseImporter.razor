@@ -224,7 +224,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var data = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.PurchaseInvoice)}");
+                var data = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,"wsheet",AKSConstant.PurchaseInvoice)}");
                 PurchaseInvoiceItems = JsonSerializer.Deserialize<List<PurchaseInvoiceItem>>(data);
                 StateHasChanged(); break;
             case "Stocks":
@@ -261,7 +261,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var pp = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName,AKSConstant.ImportedObjects ,AKSConstant.ProductPurchase)}");
+                var pp = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects ,AKSConstant.ProductPurchase)}");
                 PurchaseProducts = JsonSerializer.Deserialize<List<ProductPurchase>>(pp);
                 StateHasChanged(); break;
             default:

@@ -251,7 +251,7 @@ namespace AprajitaRetails.Client.Helpers
             }
             catch(Exception e)
             {
-                Msg("Error", e.ToString(), true); return default(T);
+                Msg("Error", e.Message.ToString(), true); return default(T);
             }
         }
 
