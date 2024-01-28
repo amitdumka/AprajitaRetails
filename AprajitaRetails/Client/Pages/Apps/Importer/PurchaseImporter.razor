@@ -58,7 +58,8 @@
                             else
                             {
 
-                                <SfGrid DataSource="@PurchaseInvoiceItems" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
+                                <SfGrid ID="Grid" @ref="Grid"  Height="100%" Width="100%" DataSource="@PurchaseInvoiceItems" EnableAdaptiveUI="true" AdaptiveUIMode="AdaptiveMode.Both" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true" RowHeight="20"
+                                Toolbar="@(new List <string> () { "Add", "Edit", "Delete", "Cancel", "Update", "Search","ColumnChooser" })"
                                         AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
                                     <GridTemplates>
                                         <EmptyRecordTemplate>
@@ -66,6 +67,7 @@
                                         </EmptyRecordTemplate>
                                     </GridTemplates>
                                     <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+                                    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
                                     <GridPageSettings PageCount="5"></GridPageSettings>
                                 </SfGrid>
                             }
@@ -191,6 +193,8 @@
     List<PurchaseInvoiceItem> PurchaseInvoiceItems;
     string fileName = "";
 
+    SfGrid<PurchaseInvoiceItem>? Grid;
+
     void Importdata()
     {
         FetchDataAsync("ImportPurchase");
@@ -226,14 +230,17 @@
                 }
                 var data = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,"wsheet",AKSConstant.PurchaseInvoice)}");
                 PurchaseInvoiceItems = JsonSerializer.Deserialize<List<PurchaseInvoiceItem>>(data);
-                StateHasChanged(); break;
+                StateHasChanged();
+                await Grid.AutoFitColumnsAsync();
+
+                break;
             case "Stocks":
                 if (string.IsNullOrEmpty(fileName))
                 {
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var stocks = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.Stocks)}");
+                var stocks = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects, AKSConstant.Stocks)}");
                 Stocks = JsonSerializer.Deserialize<List<Stock>>(stocks);
                 StateHasChanged(); break;
             case "PurchaseItem":
@@ -242,7 +249,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var pi = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.PurchaseItems)}");
+                var pi = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects, AKSConstant.PurchaseItems)}");
                 PurchaseItems = JsonSerializer.Deserialize<List<PurchaseItem>>(pi);
                 StateHasChanged(); break;
 
@@ -252,7 +259,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var item = await Helper.GetRecordAsync<string>($"api/ImportHelper/JsonDataFromFile", $@"?filename={Path.Combine(fileName, AKSConstant.ProductItems)}");
+                var item = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects, AKSConstant.ProductItems)}");
                 ProductItems = JsonSerializer.Deserialize<List<ProductItem>>(item);
                 StateHasChanged(); break;
             case "ProductPurchase":
