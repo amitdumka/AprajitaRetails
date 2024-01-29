@@ -1,12 +1,50 @@
 ﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using Syncfusion.Blazor.RichTextEditor;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.PerformanceData;
+using System.Runtime.CompilerServices;
 
 namespace AprajitaRetails.Server.BL.Reports.Fins
 {
     public class FinReports
     {
+        public class MonthView
+        {
+
+            public int Id { get; set; }
+            public string VoucherType { get; set; }
+            public string VoucherNumber { get; set; }
+            public string StoreCode { get; set; }
+            public string Location { get; set; }
+            public string ParticularsName { get; set; }
+            public DateTime OnDate { get; set; }
+            public decimal InAmount { get; set; }
+            public decimal OutAmount { get; set; }
+            public PayMode PayMode { get; set; }
+            public string Naration { get; set; }
+            [NotMapped]
+            public bool IsExpense { get; set; } = false;
+            [NotMapped]
+            public bool IsIncome { get; set; } = false;
+            [NotMapped]
+            public bool IsReceipt { get; set; } = false;
+
+        }
+        public class MonthViewReturn
+        {
+            public DateTime OnDate { get; set; }
+            public string FilterMode { get; set; }
+            public ClientReportMode Mode { get; set; }
+            public string Location { get; set; }
+            public List<MonthView> MonthViews { get; set; }
+        }
+
+
+        public enum ClientReportMode { Store, StoreGroup, Client }
+
         public static DayBookReturn GetDayView(ARDBContext db, DateTime? ondate, string storecode, bool cashvouchers = false)
         {
             // if ondate is null
@@ -18,7 +56,8 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
             {
                 OnDate = ondate,
                 StoreCode = storecode,
-                Location = storeLocation, DayBooks= new List<DayBook>()
+                Location = storeLocation,
+                DayBooks = new List<DayBook>()
             };
             // Sales
             var sales = db.ProductSales.Where(c => c.OnDate == ondate && c.StoreId == storecode)
@@ -76,7 +115,7 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                    Naration = $"SlipNo:{c.SlipNumber}, PartyName= {c.PartyName}, Payment={c.PaymentMode.ToString()},{c.PaymentDetails}"
                })
                .ToList();
-          
+
             var salarypayments = db.SalaryPayments.Where(c => c.OnDate == ondate && c.StoreId == storecode).Select(c => new DayBook
             {
                 Id = count,
@@ -137,7 +176,7 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
             returndata.DayBooks.AddRange(salarypayments);
             returndata.DayBooks.AddRange(rcpvoucherers);
             returndata.DayBooks.AddRange(Expvoucherers);
-           
+
             if (cashvouchers)
             {
                 var cashExpvoucherers = db.CashVouchers.Include(c => c.TransactionMode).Where(c => c.OnDate == ondate && c.StoreId == storecode && (c.VoucherType == VoucherType.CashPayment))
@@ -170,8 +209,99 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                 returndata.DayBooks.AddRange(cashExpvoucherers);
                 returndata.DayBooks.AddRange(cashrcpvoucherers);
             }
-            
-            return  returndata;
+
+            return returndata;
+        }
+
+        public static void GetMonthView(ARDBContext db, DateTime? ondate, string storecode, ClientReportMode mode = ClientReportMode.Store, bool cashvoucher = false)
+        {
+            var applcientid = "";
+            var storegroupid = "";
+            ondate = ondate ?? DateTime.Today;
+            var count = 0;
+            string storeLocation = "";
+            List<string> StoreList = new List<string>();
+
+            if (mode == ClientReportMode.Client)
+            {
+                var client = db.AppClients.Find(storecode);
+                storeLocation = $"{client.ClientName},{client.City}";
+                applcientid = client.AppClientId.ToString();
+                var sgs = db.StoreGroups.Where(c => c.AppClientId == client.AppClientId).Select(c => c.StoreGroupId).ToList();
+
+                foreach (var item in sgs)
+                {
+                    var scs = db.Stores.Where(c => c.StoreGroupId == item).Select(c => c.StoreCode).ToList();
+                    StoreList.AddRange(scs);
+                }
+
+            }
+            if (mode == ClientReportMode.StoreGroup)
+            {
+                var sg = db.StoreGroups.Include(s => s.AppClient).Where(c => c.StoreGroupId == storecode).FirstOrDefault();
+                storeLocation = $"{sg.AppClient.ClientName}, {sg.AppClient.City}, Group[{sg.GroupName}]";
+                applcientid = sg.AppClientId.ToString();
+                storegroupid = sg.StoreGroupId;
+
+                var scs = db.Stores.Where(c => c.StoreGroupId == sg.StoreGroupId).Select(c => c.StoreCode).ToList();
+                StoreList.AddRange(scs);
+
+            }
+            if (mode == ClientReportMode.Store)
+            {
+                var st = db.Stores.Find(storecode);
+                storeLocation = $"{st.StoreName},{st.City}";
+                StoreList.Add(storecode);
+            }
+
+            MonthViewReturn returnData = new MonthViewReturn
+            {
+                FilterMode = storecode,
+                Location = storeLocation,
+                Mode = mode,
+                OnDate = ondate.Value,
+                MonthViews = new List<MonthView>()
+
+            };
+
+
+            foreach (var scode in StoreList)
+            {
+                //Incomes.
+                //Sales
+                var sales = db.ProductSales.Where(c => c.OnDate == ondate && c.StoreId == scode)
+               .Select(c => new MonthView
+               {
+                   Id = (count),
+                   IsExpense = false,
+                   IsIncome = true,
+                   IsReceipt = true,
+                   VoucherType = "Sales",
+                   StoreCode=c.StoreId,
+                   VoucherNumber = c.InvoiceNo,
+                   InAmount = c.TotalPrice,
+                   Location = storeLocation,
+                   OutAmount = 0,
+                   ParticularsName = $"Sale Inv:{c.InvoiceNo}",
+                   Naration = $"Sale Inv{c.InvoiceNo}, Paid={c.Paid}, Qty={c.TotalQty}, Tax={c.TotalTaxAmount}, Discount={c.TotalDiscountAmount}"
+               })
+               .ToList();
+                returnData.MonthViews.AddRange(sales);
+
+                //Reciepts
+
+
+                //StaffAdv Reciepts
+                //CashReceipts
+
+                //Expenses
+                //Expense Vouchers
+                //Salary Payments
+
+                //Payments
+                //CashExpenses
+
+            }
         }
     }
 
