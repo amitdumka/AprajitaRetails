@@ -3,6 +3,7 @@ using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.Constants;
 using AprajitaRetails.Shared.ViewModels;
+using AprajitaRetails.Shared.ViewModels.Imports;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
 
@@ -20,6 +21,15 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             this.hostingEnv = env;
             aRDB = db;
         }
+
+        [HttpGet("ImportDryRun")]
+        public async Task<ActionResult<ReturnData>> GetDryrunImport(string mode, string path)
+        {
+            ExcelToDBTrail val = new ExcelToDBTrail(aRDB, "ARD", "TAS");
+            return val.UpdatePurchasesDataToDB(path, mode);
+        }
+
+
         //[HttpGet("mapsize")]
         public async Task<ActionResult<bool>> GetMapSize()
         {
@@ -31,22 +41,24 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         [HttpGet("purchaseimport")]
         public async Task<ActionResult<string>> GetPurchaseImport(string sc)
         {
-            var sg= aRDB.Stores.Find(sc).StoreGroupId ?? "";
-            var imp = new ExcelToDB(aRDB, sc,sg);
+            var sg = aRDB.Stores.Find(sc).StoreGroupId ?? "";
+            var imp = new ExcelToDB(aRDB, sc, sg);
 
             // Need to import excel and convert to json file and store in server 
-            ExcelFile ef=null;
+            ExcelFile ef = null;
 
             if (sc == "ARD")
             {
                 ef = AKSConstant.Dumka;
-            }else if(sc == "ARJ")
+            }
+            else if (sc == "ARJ")
             {
                 ef = AKSConstant.Jamshedpur;
-            }else ef= AKSConstant.Dumka;
+            }
+            else ef = AKSConstant.Dumka;
 
 
-            var fileanme = await imp.ImportPurchaseInvoiceAsync( Path.Combine(hostingEnv.WebRootPath, "Data","ImportData"), "TheArvindStorePurchaseData.xlsx", ef.SheetName,ef.Range, ef.StoreCode, sg, true);
+            var fileanme = await imp.ImportPurchaseInvoiceAsync(Path.Combine(hostingEnv.WebRootPath, "Data", "ImportData"), "TheArvindStorePurchaseData.xlsx", ef.SheetName, ef.Range, ef.StoreCode, sg, true);
             return fileanme;
         }
 
@@ -59,7 +71,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
 
 
         [HttpGet("StockUpdate")]
-        public async Task<ActionResult<bool>> GetStiockUpdate(string storeid="ARD")
+        public async Task<ActionResult<bool>> GetStiockUpdate(string storeid = "ARD")
         {
             var im = new ImportData(hostingEnv, aRDB);
             StockImporter stockImporter = new StockImporter(hostingEnv, aRDB, storeid);
@@ -81,7 +93,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         }
 
         [HttpGet("SaleRP")]
-        public async Task<ActionResult> GetSaleRepAsync(string storeid="ARD", int year=2023, int month=3, bool pl=false)
+        public async Task<ActionResult> GetSaleRepAsync(string storeid = "ARD", int year = 2023, int month = 3, bool pl = false)
         {
             if (pl)
             {

@@ -160,22 +160,7 @@ namespace AprajitaRetails.Server.Importer
         }
     }
 
-    public class ReturnData
-    {
-        public decimal Added { get; set; } = 0;
-
-        public bool Error { get; set; } = false;
-
-        public string ErrorMessage { get; set; } = string.Empty;
-
-        public string Message { get; set; } = string.Empty;
-
-        public decimal SavedToDB { get; set; } = 0;
-
-        public decimal Skipped { get; set; } = 0;
-
-        public bool Success { get; set; } = false;
-    }
+    
 
     ///SN	InwardNumber	InwardDate	InvoiceNumber	InvoiceDate	SupplierName	StoreCode	ProductCategory	Barcode	ProductName	StyleCode	ProductDescription	HSNCODE	Size	Unit	Quantity	UnitMRP	MRPValue	UnitCost	CostValue	IGST_CGSTRate	SGSTRate	IGST_CGSTAmount	SGSTAmount	Amount	RoundOff	BillAmount
 }

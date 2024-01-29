@@ -85,8 +85,8 @@
                                 <EntityGridIndex TItem="PurchaseItem" Title="" Columns="@GridCols004" Baseurl="@BaseURL"
                                                  @bind-Entities="@PurchaseItems" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-                             
-                                 
+
+
                             }
                         </ContentTemplate>
 
@@ -106,7 +106,7 @@
                                 <EntityGridIndex TItem="Stock" Title="" Columns="@GridCols005" Baseurl="@BaseURL"
                                                  @bind-Entities="@Stocks" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-                                
+
                             }
                         </ContentTemplate>
                     </TabItem>
@@ -124,7 +124,7 @@
                                 <EntityGridIndex TItem="ProductItem" Title="" Columns="@GridCols003" Baseurl="@BaseURL"
                                                  @bind-Entities="@ProductItems" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-                                
+
                             }
                         </ContentTemplate>
                     </TabItem>
@@ -144,6 +144,38 @@
                             }
                         </ContentTemplate>
                     </TabItem>
+                    <TabItem>
+                        <ChildContent>
+                            <TabHeader Text="Process Info"></TabHeader>
+                        </ChildContent>
+                        <ContentTemplate>
+                            <H3>Return Data Message</H3>
+                            <hr />
+                            @if (string.IsNullOrEmpty(CommandProcessing) == false)
+                            {
+                                <H5>Command: @CommandProcessing</H5>
+                                <hr />
+
+                            }
+                            @if (returnData != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-3">Success: @returnData.Success</div>
+                                    <div class="col-md-8">Message: @returnData.Message</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">Error: @returnData.Error</div>
+                                    <div class="col-md-8">Message: @returnData.ErrorMessage</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">Success: @returnData.Added</div>
+                                    <div class="col-md-3">Message: @returnData.Skipped</div>
+                                    <div class="col-md-3">Message: @returnData.SavedToDB</div>
+
+                                </div>
+                            }
+                        </ContentTemplate>
+                    </TabItem>
                 </TabItems>
 
             </SfTab>
@@ -153,9 +185,9 @@
 
 @code {
     //Flags
-    bool excelImported = false, productitem=false, pruchaseinv=false, stock=false;
-
-
+    bool excelImported = false, productitem = false, pruchaseinv = false, stock = false;
+    ReturnData? returnData;
+    string CommandProcessing = "";
     List<GridColumn> GridCols001, GridCols002, GridCols003, GridCols004, GridCols005;
     string[] GroupedColumn;
     string BaseURL = "/import/purchaseimport";
@@ -166,12 +198,40 @@
     List<PurchaseInvoiceItem>? PurchaseInvoiceItems;
     string fileName = "";
 
-   // SfGrid<PurchaseInvoiceItem>? Grid;
+    // SfGrid<PurchaseInvoiceItem>? Grid;
 
-   void ProcessProductItems(){}
-   void ProcessPurchsase(){}
-   void ProcessStocks(){}
-    
+    async void ProcessProductItems()
+    {
+        CommandProcessing = "Processing Dry Run ProductItem";
+        returnData = null;
+        StateHasChanged();
+
+        returnData = await Helper.GetRecordAsync<ReturnData>($"api/ImportHelper/ImportDryRun?mode=ProductItems&path={fileName}");
+        StateHasChanged();
+
+    }
+    async void ProcessPurchsase()
+    {
+        //PurchaseInvoice
+        CommandProcessing = "Processing Dry Run Pruchase Invoice.";
+        returnData = null;
+        StateHasChanged();
+
+        returnData = await Helper.GetRecordAsync<ReturnData>($"api/ImportHelper/ImportDryRun?mode=PurchaseInvoice&path={fileName}");
+        StateHasChanged();
+    }
+    async void ProcessStocks()
+
+    {
+        //Stocks
+        CommandProcessing = "Processing Dry Run Stock";
+        returnData = null;
+        StateHasChanged();
+
+        returnData = await Helper.GetRecordAsync<ReturnData>($"api/ImportHelper/ImportDryRun?mode=Stocks&path={fileName}");
+        StateHasChanged();
+    }
+
 
 
 
@@ -285,8 +345,8 @@
     async void ShowPurchaseInv()
     {
         FetchDataAsync("PurchaseInvoice");
-       // if(Grid!=null)
-       // await Grid.AutoFitColumnsAsync();
+        // if(Grid!=null)
+        // await Grid.AutoFitColumnsAsync();
         StateHasChanged();
     }
     void ShowProcessData()
@@ -319,7 +379,7 @@
                 var data = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName, "wsheet", AKSConstant.PurchaseInvoice)}");
                 PurchaseInvoiceItems = JsonSerializer.Deserialize<List<PurchaseInvoiceItem>>(data);
                 StateHasChanged();
-               //await Grid.AutoFitColumnsAsync();
+                //await Grid.AutoFitColumnsAsync();
                 StateHasChanged();
 
                 break;
@@ -363,7 +423,7 @@
             default:
                 break;
         }
-       // if (Grid != null)
+        // if (Grid != null)
         //    await Grid.AutoFitColumnsAsync();
         StateHasChanged();
 

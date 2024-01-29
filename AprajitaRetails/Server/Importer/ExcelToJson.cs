@@ -66,6 +66,13 @@ namespace AprajitaRetails.Server.Importer
                     Console.WriteLine(x.FullName);
                     x = Directory.CreateDirectory(Path.Combine(basedirectory, AKSConstant.ImportedObjects));
                 }
+
+                //Check if Lasted Processed Present or not 
+                if(Path.Exists(jsonFileName))
+                {
+                    return basedirectory;
+                }
+
                 //var jsondata = await this.ConvertExcelToJson<PurchaseInvoiceItem>(path, excelfilename, worksheet, range, jsonFileName, savejson);
 
                 // Convert to Purchase Invoice, item, and stock

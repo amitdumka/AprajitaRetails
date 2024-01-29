@@ -3,7 +3,22 @@
 namespace AprajitaRetails.Shared.ViewModels.Imports
 {
 
+    public class ReturnData
+    {
+        public decimal Added { get; set; } = 0;
 
+        public bool Error { get; set; } = false;
+
+        public string ErrorMessage { get; set; } = string.Empty;
+
+        public string Message { get; set; } = string.Empty;
+
+        public decimal SavedToDB { get; set; } = 0;
+
+        public decimal Skipped { get; set; } = 0;
+
+        public bool Success { get; set; } = false;
+    }
 
     public class PurchaseInvoiceItem
     {
