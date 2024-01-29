@@ -7,6 +7,7 @@
 @using Microsoft.AspNetCore.Authorization;
 @using AprajitaRetails.Shared.Models.Inventory;
 @using System.Text.Json
+@using System.Reflection
 @attribute [Authorize]
 
 @inject DataHelper Helper
@@ -22,7 +23,11 @@
     <div class="row">
         <div class="col-md-3"><Button OnClick="@Importdata">Import</Button></div>
         <div class="col-md-3"><Button OnClick="@ShowPurchaseInv">Show Purchase Invoices</Button></div>
-        <div class="col-md-3"><Button  OnClick="@ShowProcessData">Show Process Data</Button></div>
+        <div class="col-md-3"><Button OnClick="@ShowProcessData">Show Process Data</Button></div>
+
+        <div class="col-md-3"><Button OnClick="@ProcessProductItems">Process ProductItem</Button></div>
+        <div class="col-md-3"><Button OnClick="@ProcessPurchsase">Process Purchase Invoices</Button></div>
+        <div class="col-md-3"><Button OnClick="@ProcessStocks">Process Stock</Button></div>
     </div>
     <div class="row">
         <div class="col-md-3">FileName:</div>
@@ -37,10 +42,10 @@
             }
         </div>
     </div>
-    
+
     <div class="row mt-lg-5">
         <div class="col-md-12">
-            <SfTab CssClass=@("default-tab e-fill e-background") >
+            <SfTab CssClass=@("default-tab e-fill e-background")>
                 <TabAnimationSettings>
                     <TabAnimationPrevious Effect=AnimationEffect.None></TabAnimationPrevious>
                     <TabAnimationNext Effect=AnimationEffect.None></TabAnimationNext>
@@ -58,18 +63,10 @@
                             else
                             {
 
-                                <SfGrid ID="Grid" @ref="Grid"  Height="100%" Width="100%" DataSource="@PurchaseInvoiceItems" EnableAdaptiveUI="true" AdaptiveUIMode="AdaptiveMode.Both" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true" RowHeight="20"
-                                Toolbar="@(new List <string> () { "Add", "Edit", "Delete", "Cancel", "Update", "Search","ColumnChooser" })"
-                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                    <GridTemplates>
-                                        <EmptyRecordTemplate>
-                                            <span> No Record found! Kindly add records </span>
-                                        </EmptyRecordTemplate>
-                                    </GridTemplates>
-                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog"></GridEditSettings>
-                                    <GridPageSettings PageCount="5"></GridPageSettings>
-                                </SfGrid>
+                                <EntityGridIndex TItem="PurchaseInvoiceItem" Title="Purchase Invoice Excel" Columns="@GridCols001" Baseurl="@BaseURL"
+                                                 @bind-Entities="@PurchaseInvoiceItems" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
+
+
                             }
                         </ContentTemplate>
                     </TabItem>
@@ -85,17 +82,11 @@
                             else
                             {
 
+                                <EntityGridIndex TItem="PurchaseItem" Title="" Columns="@GridCols004" Baseurl="@BaseURL"
+                                                 @bind-Entities="@PurchaseItems" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-                                <SfGrid DataSource="@PurchaseItems" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                    <GridTemplates>
-                                        <EmptyRecordTemplate>
-                                            <span> No Record found! Kindly add records </span>
-                                        </EmptyRecordTemplate>
-                                    </GridTemplates>
-                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                    <GridPageSettings PageCount="5"></GridPageSettings>
-                                </SfGrid>
+                             
+                                 
                             }
                         </ContentTemplate>
 
@@ -112,17 +103,10 @@
                             else
                             {
 
+                                <EntityGridIndex TItem="Stock" Title="" Columns="@GridCols005" Baseurl="@BaseURL"
+                                                 @bind-Entities="@Stocks" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-                                <SfGrid DataSource="@Stocks" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                    <GridTemplates>
-                                        <EmptyRecordTemplate>
-                                            <span> No Record found! Kindly add records </span>
-                                        </EmptyRecordTemplate>
-                                    </GridTemplates>
-                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                    <GridPageSettings PageCount="5"></GridPageSettings>
-                                </SfGrid>
+                                
                             }
                         </ContentTemplate>
                     </TabItem>
@@ -137,18 +121,10 @@
                             }
                             else
                             {
+                                <EntityGridIndex TItem="ProductItem" Title="" Columns="@GridCols003" Baseurl="@BaseURL"
+                                                 @bind-Entities="@ProductItems" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
 
-
-                                <SfGrid DataSource="@ProductItems" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                    <GridTemplates>
-                                        <EmptyRecordTemplate>
-                                            <span> No Record found! Kindly add records </span>
-                                        </EmptyRecordTemplate>
-                                    </GridTemplates>
-                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                    <GridPageSettings PageCount="5"></GridPageSettings>
-                                </SfGrid>
+                                
                             }
                         </ContentTemplate>
                     </TabItem>
@@ -163,18 +139,8 @@
                             }
                             else
                             {
-
-
-                                <SfGrid DataSource="@PurchaseProducts" AllowFiltering=true AllowSelection=true AllowSorting=true AllowTextWrap=true AllowGrouping="true"
-                                        AllowExcelExport="true" AllowPdfExport="true" AllowResizing="true" AllowPaging="true" ShowColumnChooser="true">
-                                    <GridTemplates>
-                                        <EmptyRecordTemplate>
-                                            <span> No Record found! Kindly add records </span>
-                                        </EmptyRecordTemplate>
-                                    </GridTemplates>
-                                    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-                                    <GridPageSettings PageCount="5"></GridPageSettings>
-                                </SfGrid>
+                                <EntityGridIndex TItem="ProductPurchase" Title="" Columns="@GridCols002" Baseurl="@BaseURL"
+                                                 @bind-Entities="@PurchaseProducts" @bind-GroupedColumn="@GroupedColumn" Grouping=true></EntityGridIndex>
                             }
                         </ContentTemplate>
                     </TabItem>
@@ -186,14 +152,129 @@
 </ContentMain>
 
 @code {
+    //Flags
+    bool excelImported = false, productitem=false, pruchaseinv=false, stock=false;
+
+
+    List<GridColumn> GridCols001, GridCols002, GridCols003, GridCols004, GridCols005;
+    string[] GroupedColumn;
+    string BaseURL = "/import/purchaseimport";
     List<PurchaseItem> PurchaseItems;
     List<ProductPurchase> PurchaseProducts;
     List<ProductItem> ProductItems;
     List<Stock> Stocks;
-    List<PurchaseInvoiceItem> PurchaseInvoiceItems;
+    List<PurchaseInvoiceItem>? PurchaseInvoiceItems;
     string fileName = "";
 
-    SfGrid<PurchaseInvoiceItem>? Grid;
+   // SfGrid<PurchaseInvoiceItem>? Grid;
+
+   void ProcessProductItems(){}
+   void ProcessPurchsase(){}
+   void ProcessStocks(){}
+    
+
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        GroupedColumn = new string[0]; //new string[] { "VoucherType" };
+        InitView();
+        StateHasChanged();
+    }
+    void InitView()
+    {
+        GridCols001 = GenerateColums(typeof(PurchaseInvoiceItem).GetProperties(), nameof(PurchaseInvoiceItem.InwardNumber));
+        GridCols002 = GenerateColums(typeof(ProductPurchase).GetProperties(), nameof(PurchaseInvoiceItem.InwardNumber));
+        GridCols003 = GenerateColums(typeof(ProductItem).GetProperties(), nameof(ProductItem.Barcode));
+        GridCols004 = GenerateColums(typeof(PurchaseItem).GetProperties(), nameof(PurchaseItem.InwardNumber));
+        GridCols005 = GenerateColums(typeof(Stock).GetProperties(), nameof(Stock.Id));
+    }
+
+
+    protected ColumnType GetType(Type t)
+    {
+        if (t == typeof(string))
+        {
+            return ColumnType.String;
+        }
+        else if (t == typeof(DateTime))
+        {
+            return ColumnType.DateTime;
+        }
+        else if (t == typeof(bool)) return ColumnType.CheckBox;
+        else if (t == typeof(decimal) || t == typeof(int) || t == typeof(double) || t == typeof(float))
+            return ColumnType.Number;
+        else return ColumnType.String;
+
+    }
+    List<GridColumn> GenerateColums(PropertyInfo[] infos, string idName)
+    {
+        var GridCols = new List<GridColumn>();
+        foreach (var prop in infos)
+        {
+            if (prop.Name.EndsWith("Id") == false && prop.Name.EndsWith("ID") == false && prop.Name.EndsWith("id") == false)
+            //&& prop.Name != "EmployeeId" && prop.Name != "TransactionId"
+            //&& prop.Name != "TransactionMode" && prop.Name != "PartyId" && prop.Name != "StoreId")
+            {
+                var v = new GridColumn()
+                    {
+                        AutoFit = true,
+                        DisplayAsCheckBox = prop.GetType() == typeof(bool) ? true : false,
+
+                        Field = prop.Name,
+                        Type = GetType(prop.GetType()),
+                        EditType = EditType.DefaultEdit,
+                        AllowSorting = true,
+                        IsPrimaryKey = prop.Name == idName ? true : false,
+                        AllowEditing = prop.CanWrite,
+                        HeaderText = prop.Name,
+                        HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center
+                    };
+                if (prop.GetType() == typeof(decimal))
+                {
+                    if (prop.Name.Contains("Amount"))
+                        v.Format = "C2";
+                }
+
+                GridCols.Add(v);
+            }
+        }
+        return GridCols;
+        // var CommandsList = new List<GridCommandColumn>();
+        // var edit = new GridCommandColumn()
+        //     {
+        //         ID = "edit",
+        //         Title = "Edit",
+        //         Type = CommandButtonType.None,
+        //         ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-edit", CssClass = "e-flat" }
+        //     };
+        // var delete = new GridCommandColumn()
+        //     {
+        //         ID = "delete",
+        //         Title = "Delete",
+        //         Type = CommandButtonType.None,
+        //         ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-delete", CssClass = "e-flat" }
+        //     };
+        // var info = new GridCommandColumn()
+        //     {
+        //         ID = "info",
+        //         Title = "Detail",
+        //         Type = CommandButtonType.None,
+        //         ButtonOption = new CommandButtonOptions() { IconCss = "e-icons e-update", CssClass = "e-flat" }
+        //     };
+        // CommandsList.Add(info);
+        // CommandsList.Add(edit);
+        // CommandsList.Add(delete);
+        // var cCol = new GridColumn()
+        //     {
+        //         HeaderText = "Actions",
+        //         AutoFit = true,
+        //         Commands = CommandsList
+
+        //     };
+        // GridCols.Add(cCol);
+    }
 
     void Importdata()
     {
@@ -201,17 +282,24 @@
         StateHasChanged();
     }
 
-    void ShowPurchaseInv()
+    async void ShowPurchaseInv()
     {
         FetchDataAsync("PurchaseInvoice");
+       // if(Grid!=null)
+       // await Grid.AutoFitColumnsAsync();
+        StateHasChanged();
     }
     void ShowProcessData()
     {
 
         FetchDataAsync("ProductPurchase");
+        StateHasChanged();
         FetchDataAsync("PurchaseItem");
+        StateHasChanged();
         FetchDataAsync("ProductItem");
+        StateHasChanged();
         FetchDataAsync("Stocks");
+        StateHasChanged();
     }
 
     async Task FetchDataAsync(string option)
@@ -220,7 +308,7 @@
         {
             case "ImportPurchase":
                 fileName = await Helper.GetRecordAsStringAsync($"api/ImportHelper/purchaseimport?sc=ARJ");
-                StateHasChanged(); 
+                StateHasChanged();
                 break;
             case "PurchaseInvoice":
                 if (string.IsNullOrEmpty(fileName))
@@ -228,10 +316,11 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var data = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,"wsheet",AKSConstant.PurchaseInvoice)}");
+                var data = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName, "wsheet", AKSConstant.PurchaseInvoice)}");
                 PurchaseInvoiceItems = JsonSerializer.Deserialize<List<PurchaseInvoiceItem>>(data);
                 StateHasChanged();
-                await Grid.AutoFitColumnsAsync();
+               //await Grid.AutoFitColumnsAsync();
+                StateHasChanged();
 
                 break;
             case "Stocks":
@@ -240,7 +329,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var stocks = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects, AKSConstant.Stocks)}");
+                var stocks = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName, AKSConstant.ImportedObjects, AKSConstant.Stocks)}");
                 Stocks = JsonSerializer.Deserialize<List<Stock>>(stocks);
                 StateHasChanged(); break;
             case "PurchaseItem":
@@ -249,7 +338,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var pi = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects, AKSConstant.PurchaseItems)}");
+                var pi = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName, AKSConstant.ImportedObjects, AKSConstant.PurchaseItems)}");
                 PurchaseItems = JsonSerializer.Deserialize<List<PurchaseItem>>(pi);
                 StateHasChanged(); break;
 
@@ -259,7 +348,7 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var item = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects, AKSConstant.ProductItems)}");
+                var item = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName, AKSConstant.ImportedObjects, AKSConstant.ProductItems)}");
                 ProductItems = JsonSerializer.Deserialize<List<ProductItem>>(item);
                 StateHasChanged(); break;
             case "ProductPurchase":
@@ -268,12 +357,14 @@
                     Helper.Msg("Error", "File path is set yet...", true);
                     break;
                 }
-                var pp = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName,AKSConstant.ImportedObjects ,AKSConstant.ProductPurchase)}");
+                var pp = await Helper.GetRecordAsStringAsync($"api/ImportHelper/JsonDataFromFile?filename={Path.Combine(fileName, AKSConstant.ImportedObjects, AKSConstant.ProductPurchase)}");
                 PurchaseProducts = JsonSerializer.Deserialize<List<ProductPurchase>>(pp);
                 StateHasChanged(); break;
             default:
                 break;
         }
+       // if (Grid != null)
+        //    await Grid.AutoFitColumnsAsync();
         StateHasChanged();
 
     }

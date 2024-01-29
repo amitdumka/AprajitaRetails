@@ -11,8 +11,12 @@
 @inject NavigationManager NavigationManager
 @typeparam TItem
 
+
 <ContentHeader>
-    <Header> <Blazor.AdminLte.PageTitle Title="@Title" /></Header>
+    @if (string.IsNullOrEmpty(Title) == false)
+    {
+        <Header> <Blazor.AdminLte.PageTitle Title="@Title" /></Header>
+    }
 </ContentHeader>
 
 <ContentMain>
@@ -28,7 +32,7 @@
             </EmptyRecordTemplate>
         </GridTemplates>
         <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
-        
+
         @if (Grouping)
         {
             <GridGroupSettings EnableLazyLoading="true" ShowDropArea="true" Columns=@GroupedColumn ShowToggleButton="false"></GridGroupSettings>
@@ -38,7 +42,8 @@
         {
             <EntityAggregator>
                 <EntityAggCol Title="@AggTitle" Field="@AggSumField"></EntityAggCol>
-        </EntityAggregator>}
+            </EntityAggregator>
+        }
         @ChildContent
     </SfGrid>
 </ContentMain>
@@ -114,17 +119,17 @@
                 };
 
         PdfHeader Header = new PdfHeader()
-        {
-            FromTop = 0,
-            Height = 130,
-            Contents = HeaderContent
-        };
+            {
+                FromTop = 0,
+                Height = 130,
+                Contents = HeaderContent
+            };
         PdfFooter Footer = new PdfFooter()
-        {
-            FromBottom = 160,
-            Height = 150,
-            Contents = FooterContent
-        };
+            {
+                FromBottom = 160,
+                Height = 150,
+                Contents = FooterContent
+            };
         Props.Header = Header;
         Props.Footer = Footer;
         Props.FileName = $"{headerText.Replace(" ", "_")}_{DateTime.Now.ToShortDateString()}_1.pdf";
