@@ -988,3 +988,41 @@ namespace AprajitaRetails.Server.Importer
 
     ///SN	InwardNumber	InwardDate	InvoiceNumber	InvoiceDate	SupplierName	StoreCode	ProductCategory	Barcode	ProductName	StyleCode	ProductDescription	HSNCODE	Size	Unit	Quantity	UnitMRP	MRPValue	UnitCost	CostValue	IGST_CGSTRate	SGSTRate	IGST_CGSTAmount	SGSTAmount	Amount	RoundOff	BillAmount
 }
+
+
+/*
+ //Create an instance of ExcelEngine
+using (ExcelEngine excelEngine = new ExcelEngine())
+{
+  //Instantiate the Excel application object
+  IApplication application = excelEngine.Excel;
+
+  //Set the default application version
+  application.DefaultVersion = ExcelVersion.Xlsx;
+
+  //Load the existing Excel workbook into IWorkbook
+  Stream inputStream = await client.GetStreamAsync("sample-data/Sample.xlsx");
+  IWorkbook workbook = application.Workbooks.Open(inputStream);
+
+  //Get the first worksheet in the workbook into IWorksheet
+  IWorksheet worksheet = workbook.Worksheets[0];
+
+  //Assign some text in a cell
+  worksheet.Range["A3"].Text = "Hello World";
+
+  //Access a cell value from Excel
+  var value = worksheet.Range["A1"].Value;
+
+  //Save the document as a stream and retrun the stream.
+  using (MemoryStream stream = new MemoryStream())
+  {
+    //Save the created Excel document to MemoryStream
+    workbook.SaveAs(stream);
+
+    //Download the excel file
+    await JS.SaveAs("Output.xlsx", stream.ToArray());
+  }
+}
+ 
+ 
+ */
