@@ -25,7 +25,12 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         [HttpGet("ImportDryRun")]
         public async Task<ActionResult<ReturnData>> GetDryrunImport(string mode, string path)
         {
-            ExcelToDBTrail val = new ExcelToDBTrail(aRDB, "ARD", "TAS");
+            ExcelToDB val = new ExcelToDB(aRDB, "ARJ", "TAS");
+            if (mode == "StockTransfer")
+            {
+                var x = val.StockTransferFromOneToAnother("ARJ", "ARD");
+                return new ReturnData { SavedToDB = 0, Added = 0, Error = !x, ErrorMessage = "", Message = "Processed", Skipped = 0, Success = x };
+            }
             return val.UpdatePurchasesDataToDB(path, mode);
         }
 

@@ -1,1 +1,20 @@
-{"BasePath":"D:\\UserArea\\ARD\\ARD","CardPayment":"D:\\UserArea\\ARD\\ARD\\Sales\\CardPayments.json","HSNCodes":"D:\\UserArea\\ARD\\ARD\\HSN\\HSNCodeList.json","ProductCategory":"D:\\UserArea\\ARD\\ARD/Category/productcategory.json","ProductStocks":"D:\\UserArea\\ARD\\ARD\\Products\\ProductStocks.json","ProductType":"D:\\UserArea\\ARD\\ARD/Category/productTypes.json","ProdutItems":"D:\\UserArea\\ARD\\ARD\\Products\\ProductItems.json","Purchase":"D:\\UserArea\\ARD\\ARD\\ImportedJSON\\PurchaseInvoice.json","Purchase-Invoices":"D:\\UserArea\\ARD\\ARD\\Purchase/PurchaseInvoice.json","PurchaseItem":"D:\\UserArea\\ARD\\ARD\\Purchase/PurchaseItem.json","Sale":"D:\\UserArea\\ARD\\ARD\\ImportedJSON\\SaleInvoices.json","Sale Summary":"D:\\UserArea\\ARD\\ARD\\ImportedJSON\\SaleSummary.json","SaleInvoice":"D:\\UserArea\\ARD\\ARD\\Sales\\saleInvoice.json","SaleInvoiceItems":"D:\\UserArea\\ARD\\ARD\\Sales\\salesItems.json","SalePayment":"D:\\UserArea\\ARD\\ARD\\Sales\\SalePayments.json","SubCategory":"D:\\UserArea\\ARD\\ARD/Category/SubCategory.json","VoyPurchase":"D:\\UserArea\\ARD\\ARD\\Purchase\\VoyPurchase.json","VoySale":"D:\\UserArea\\ARD\\ARD\\Sales\\VoySale.json"}
+{
+  "BasePath": "D:\\UserArea\\ARD\\ARD",
+  "CardPayment": "D:\\UserArea\\ARD\\ARD\\Sales\\CardPayments.json",
+  "HSNCodes": "D:\\UserArea\\ARD\\ARD\\HSN\\HSNCodeList.json",
+  "ProductCategory": "D:\\UserArea\\ARD\\ARD/Category/productcategory.json",
+  "ProductStocks": "D:\\UserArea\\ARD\\ARD\\Products\\ProductStocks.json",
+  "ProductType": "D:\\UserArea\\ARD\\ARD/Category/productTypes.json",
+  "ProdutItems": "D:\\UserArea\\ARD\\ARD\\Products\\ProductItems.json",
+  "Purchase": "D:\\UserArea\\ARD\\ARD\\ImportedJSON\\PurchaseInvoice.json",
+  "Purchase-Invoices": "D:\\UserArea\\ARD\\ARD\\Purchase/PurchaseInvoice.json",
+  "PurchaseItem": "D:\\UserArea\\ARD\\ARD\\Purchase/PurchaseItem.json",
+  "Sale": "D:\\UserArea\\ARD\\ARD\\ImportedJSON\\SaleInvoices.json",
+  "Sale Summary": "D:\\UserArea\\ARD\\ARD\\ImportedJSON\\SaleSummary.json",
+  "SaleInvoice": "D:\\UserArea\\ARD\\ARD\\Sales\\saleInvoice.json",
+  "SaleInvoiceItems": "D:\\UserArea\\ARD\\ARD\\Sales\\salesItems.json",
+  "SalePayment": "D:\\UserArea\\ARD\\ARD\\Sales\\SalePayments.json",
+  "SubCategory": "D:\\UserArea\\ARD\\ARD/Category/SubCategory.json",
+  "VoyPurchase": "D:\\UserArea\\ARD\\ARD\\Purchase\\VoyPurchase.json",
+  "VoySale": "D:\\UserArea\\ARD\\ARD\\Sales\\VoySale.json"
+}

@@ -68,7 +68,7 @@ namespace AprajitaRetails.Server.Importer
                 }
 
                 //Check if Lasted Processed Present or not 
-                if(Path.Exists(jsonFileName))
+                if (Path.Exists(jsonFileName))
                 {
                     return basedirectory;
                 }
@@ -327,13 +327,23 @@ namespace AprajitaRetails.Server.Importer
             if (Int32.TryParse(sz, out _))
             {
                 x = sizeList.IndexOf($"C{sz}");
+                size = (Size)x;
 
             }
             else
             {
                 x = sizeList.IndexOf(sz);
+                size = (Size)x;
             }
-            return (Size)x;
+            if (x == -1)
+            {
+                if (sz.ToLower() == "no size")
+                    size = Size.NS;
+                else
+                    size = Size.NOTVALID;
+
+            }
+            return size;
 
         }
 
@@ -419,14 +429,14 @@ namespace AprajitaRetails.Server.Importer
         }
 
 
-        
+
         /// <summary>
         /// Set Size based on style code and Category
         /// </summary>
         /// <param name="style"></param>
         /// <param name="category"></param>
         /// <returns></returns>
-        
+
         private Size SetSize(string style, string category)
         {
             Size size = Size.NOTVALID;
@@ -511,7 +521,7 @@ namespace AprajitaRetails.Server.Importer
         private string ToBrandCode(string style, string type)
         {
             string bcode = "";
-            if (type == "Readymade"|| type == "Readmade")
+            if (type == "Readymade" || type == "Readmade")
             {
                 if (style.StartsWith("FM"))
                 {
@@ -529,10 +539,14 @@ namespace AprajitaRetails.Server.Importer
                 else if (style.StartsWith("ARG")) bcode = "ARR";
                 else if (style.StartsWith("AS")) bcode = "ARS";
                 else if (style.StartsWith("AT")) bcode = "ARR";
+                else if (style.StartsWith("AU")) bcode = "ARR";
                 else if (style.StartsWith("F2")) bcode = "FM";
                 else if (style.StartsWith("UD")) bcode = "UD";
             }
-            else if (type == "Fabric") { }
+            else if (type == "Fabric")
+            {
+                bcode = "ARD";
+            }
             else if (type == "Promo")
             {
                 bcode = "ARP";

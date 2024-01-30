@@ -21,13 +21,14 @@
 </ContentHeader>
 <ContentMain>
     <div class="row">
-        <div class="col-md-3"><Button OnClick="@Importdata">Import</Button></div>
-        <div class="col-md-3"><Button OnClick="@ShowPurchaseInv">Show Purchase Invoices</Button></div>
-        <div class="col-md-3"><Button OnClick="@ShowProcessData">Show Process Data</Button></div>
+        <div class="col-md-2"><Button OnClick="@Importdata">Import</Button></div>
+        <div class="col-md-2"><Button OnClick="@ShowPurchaseInv">Show Purchase Invoices</Button></div>
+        <div class="col-md-2"><Button OnClick="@ShowProcessData">Show Process Data</Button></div>
 
-        <div class="col-md-3"><Button OnClick="@ProcessProductItems">Process ProductItem</Button></div>
-        <div class="col-md-3"><Button OnClick="@ProcessPurchsase">Process Purchase Invoices</Button></div>
-        <div class="col-md-3"><Button OnClick="@ProcessStocks">Process Stock</Button></div>
+        <div class="col-md-2"><Button OnClick="@ProcessProductItems">Process ProductItem</Button></div>
+        <div class="col-md-2"><Button OnClick="@ProcessPurchsase">Process Purchase Invoices</Button></div>
+        <div class="col-md-2"><Button OnClick="@ProcessStocks">Process Stock</Button></div>
+        <div class="col-md-2"><Button OnClick="@ProcessStocksTransfer">Stock Transfer</Button></div>
     </div>
     <div class="row">
         <div class="col-md-3">FileName:</div>
@@ -231,7 +232,17 @@
         returnData = await Helper.GetRecordAsync<ReturnData>($"api/ImportHelper/ImportDryRun?mode=Stocks&path={fileName}");
         StateHasChanged();
     }
+    async void ProcessStocksTransfer()
 
+    {
+        //Stocks
+        CommandProcessing = "Processing  Run Stock Transfer";
+        returnData = null;
+        StateHasChanged();
+
+        returnData = await Helper.GetRecordAsync<ReturnData>($"api/ImportHelper/ImportDryRun?mode=StockTransfer&path={fileName}");
+        StateHasChanged();
+    }
 
 
 
