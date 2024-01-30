@@ -511,7 +511,7 @@ namespace AprajitaRetails.Server.Importer
         private string ToBrandCode(string style, string type)
         {
             string bcode = "";
-            if (type == "Readmade")
+            if (type == "Readymade"|| type == "Readmade")
             {
                 if (style.StartsWith("FM"))
                 {
