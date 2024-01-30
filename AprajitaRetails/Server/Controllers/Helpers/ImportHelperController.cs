@@ -22,8 +22,18 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             aRDB = db;
         }
 
+        [HttpGet("inner")]
+        public async Task<ActionResult<ReturnData>> GetDryrunImport()
+        {
+            InearWearToDB val = new InearWearToDB(aRDB);
+
+            var x = val.RemapIWear(Path.Combine(hostingEnv.WebRootPath, "Data", "ImportData"));
+            return new ReturnData { SavedToDB = 0, Added = 0, Error = !x, ErrorMessage = "", Message = "Processed", Skipped = 0, Success = x };
+
+        }
+
         [HttpGet("ImportDryRun")]
-        public async Task<ActionResult<ReturnData>> GetDryrunImport(string mode, string path)
+        public async Task<ActionResult<ReturnData>> GetInner(string mode, string path)
         {
             ExcelToDB val = new ExcelToDB(aRDB, "ARJ", "TAS");
             if (mode == "StockTransfer")
