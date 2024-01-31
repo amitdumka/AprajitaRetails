@@ -248,4 +248,5 @@
   <ItemGroup>
   <Content Include="**\*.xml" Exclude="bin\**\*;obj\**\*" CopyToOutputDirectory="PreserveNewest" />
 </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4data_4importdata_4tas_4ard_4json_4innearwears_4wsheet_4innerwear_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
 </Project>

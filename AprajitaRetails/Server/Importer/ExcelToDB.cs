@@ -14,6 +14,15 @@ using Path = System.IO.Path;
 
 namespace AprajitaRetails.Server.Importer
 {
+
+    public class A1
+    {
+        public List<AModel> InnerWear { get; set; }
+    }
+    public class A2
+    {
+        public List<PurchaseInvoiceItem> InnearWear_Sheet { get; set; }
+    }
     public class AModel
     {
         //SN	StyleCode	HSNCode	Qty	Rate	Unit	Per	Amount	CGST	SGST	CGSTAmount	SGSTAmount	TotalAmount
@@ -86,12 +95,13 @@ namespace AprajitaRetails.Server.Importer
                     //Save the Range to a JSON file stream without schema
                     using (FileStream stream2 = new FileStream(jsonFileNameS, FileMode.Create, FileAccess.ReadWrite))
                     {
-                        workbook.SaveAsJson(stream2, rangeS, false);
+                        workbook.SaveAsJson(stream2, rangeS);
                     }
                     //Read Json File For Processing Further
-                    var rowDataR = ImportDataHelper.JsonToObject<AModel>(jsonFileNameR);
-                    var rowDataS = ImportDataHelper.JsonToObject<PurchaseInvoiceItem>(jsonFileNameS);
+                    var rowDataR = ImportDataHelper.JsonToObject<A1>(jsonFileNameR)[0].InnerWear.ToList();
+                    var rowDataS = ImportDataHelper.JsonToObject<A2>(jsonFileNameS)[0].InnearWear_Sheet.ToList() ;
                     List<PurchaseInvoiceItem> FinalData = new List<PurchaseInvoiceItem>();
+                   
                     foreach (var item in rowDataR)
                     {
                         var sData = rowDataS.FirstOrDefault(c => c.StyleCode == item.StyleCode);
