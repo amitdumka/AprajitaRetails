@@ -34,7 +34,7 @@ namespace AprajitaRetails.Server.Importer
 
     public class InearWearToDB : ExcelToDB
     {
-        public InearWearToDB(ARDBContext db) : base(db, "ARD", "TAS")
+        public InearWearToDB(ARDBContext db) : base(db)
         {
 
         }
@@ -514,6 +514,13 @@ namespace AprajitaRetails.Server.Importer
             _storeCode = sc; _storeGroup = sg;
             UpdateCat();
             sizeList = Enum.GetNames(typeof(Size)).ToList();
+        }
+        public ExcelToDB(ARDBContext db)
+        {
+            _db = db;
+            _storeCode = "ÁRD"; _storeGroup = "TAS";
+           // UpdateCat();
+           // sizeList = Enum.GetNames(typeof(Size)).ToList();
         }
 
 

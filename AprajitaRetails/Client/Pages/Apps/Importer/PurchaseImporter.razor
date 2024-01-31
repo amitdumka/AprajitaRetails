@@ -29,6 +29,7 @@
         <div class="col-md-2"><Button OnClick="@ProcessPurchsase">Process Purchase Invoices</Button></div>
         <div class="col-md-2"><Button OnClick="@ProcessStocks">Process Stock</Button></div>
         <div class="col-md-2"><Button OnClick="@ProcessStocksTransfer">Stock Transfer</Button></div>
+         <div class="col-md-2"><Button OnClick="@ProcessUG">USPA UG</Button></div>
     </div>
     <div class="row">
         <div class="col-md-3">FileName:</div>
@@ -200,7 +201,14 @@
     string fileName = "";
 
     // SfGrid<PurchaseInvoiceItem>? Grid;
-
+   async void ProcessUG()
+    {
+        CommandProcessing = "Processing Dry Run ProductItem";
+        returnData = null;
+        StateHasChanged();
+        returnData = await Helper.GetRecordAsync<ReturnData>($"api/ImportHelper/inner");
+        StateHasChanged();
+    }
     async void ProcessProductItems()
     {
         CommandProcessing = "Processing Dry Run ProductItem";
