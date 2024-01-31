@@ -56,6 +56,7 @@ namespace AprajitaRetails.Server.Helpers.Printer
         private const int paragraphAfterSpacing = 8;
         private const string Employee = "Cashier: M0001      Name: Manager";
 
+
         public MemoryStream InvoiceThermalPdf()
         {
             if (!this.InvoiceSet) return null;
