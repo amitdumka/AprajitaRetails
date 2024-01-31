@@ -28,6 +28,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{09B6DE17-08D1-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AprajitaRetails.ClientUI", "AprajitaRetails.ClientUI\AprajitaRetails.ClientUI.csproj", "{C67673F0-3AAB-44F9-A6B5-8A46019FF346}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelperProjects", "HelperProjects", "{ACBBC607-65DC-4EBD-AE2D-F7BBE2BA3070}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AprajitaRetails.Services.InfoManager", "AprajitaRetails.Services.InfoManager\AprajitaRetails.Services.InfoManager.csproj", "{6D2CF8D4-01F4-4288-85D8-C16FEB436838}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,6 +126,18 @@ Global
 		{C67673F0-3AAB-44F9-A6B5-8A46019FF346}.ReleaseLinux|Any CPU.Build.0 = ReleaseLinux|Any CPU
 		{C67673F0-3AAB-44F9-A6B5-8A46019FF346}.ReleaseLinux|x64.ActiveCfg = ReleaseLinux|Any CPU
 		{C67673F0-3AAB-44F9-A6B5-8A46019FF346}.ReleaseLinux|x64.Build.0 = ReleaseLinux|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.Release|x64.Build.0 = Release|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.ReleaseLinux|Any CPU.ActiveCfg = Release|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.ReleaseLinux|Any CPU.Build.0 = Release|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.ReleaseLinux|x64.ActiveCfg = Release|Any CPU
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838}.ReleaseLinux|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +146,7 @@ Global
 		{6858C377-35FD-428D-8009-01A5A5765842} = {0FB83FB7-38CE-42B9-A3C6-48F8967BABAB}
 		{6434253B-07F2-4EF7-987B-B593E7C9424E} = {0FB83FB7-38CE-42B9-A3C6-48F8967BABAB}
 		{C67673F0-3AAB-44F9-A6B5-8A46019FF346} = {09B6DE17-08D1-4115-9C38-1B200E447461}
+		{6D2CF8D4-01F4-4288-85D8-C16FEB436838} = {ACBBC607-65DC-4EBD-AE2D-F7BBE2BA3070}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {466E6B11-3675-4976-A6CF-C5E013CC7E95}
