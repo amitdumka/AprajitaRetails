@@ -44,66 +44,66 @@
 
         <Card ToolOptions="new CardToolOptions { Collapsable = true, Maximizable=true}">
             <Title><CardTitle>@Title</CardTitle></Title>
-            <Header><CardTools /></Header>
-            <Body>
-                <Row>
-                    <Column Classes="col.md">
-                        <div class="mb-3 row">
-                            <label for="Store" class="col-sm-4 col-form-label">Store</label>
-                            <div class="col-sm-6">
-                                <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
-                                            Autofill="true"
-                                            @bind-Value="@entity.StoreId" PopupHeight="230px"
-                                            DataSource="@Stores">
-                                    <ComboBoxFieldSettings Text="Value" Value="ID" />
-                                </SfComboBox>
+                <Header><CardTools /></Header>
+                <Body>
+                    <Row>
+                        <Column Classes="col.md">
+                            <div class="mb-3 row">
+                                <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                                <div class="col-sm-6">
+                                    <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                                Autofill="true"
+                                                @bind-Value="@entity.StoreId" PopupHeight="230px"
+                                                DataSource="@Stores">
+                                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                                    </SfComboBox>
+                                </div>
                             </div>
-                        </div>
-                    </Column>
-                    <Column Classes="col.md">
-                        <div class="mb-3 row">
-                            <label for="ondate" class="col-sm-4 col-form-label">Date</label>
-                            <div class="col-sm-6">
-                                <SfDatePicker @bind-Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                        </Column>
+                        <Column Classes="col.md">
+                            <div class="mb-3 row">
+                                <label for="ondate" class="col-sm-4 col-form-label">Date</label>
+                                <div class="col-sm-6">
+                                    <SfDatePicker @bind-Value="@entity.OnDate" Format="dd-MM-yyyy" TValue="DateTime" Placeholder="Choose a Date" ShowClearButton="true"></SfDatePicker>
+                                </div>
                             </div>
-                        </div>
-                    </Column>
-                    <Column Classes="col.md">
-                        <div class="mb-3 row">
-                            <label for="inv" class="col-sm-4 col-form-label">Invoice Type</label>
-                            <div class="col-sm-6">
-                                <SfComboBox TValue="InvoiceType" TItem="string" Placeholder="Invoice Type"
-                                            Autofill="true"
-                                            @bind-Value="@entity.InvoiceType" PopupHeight="230px"
-                                            DataSource="@invTypes">
-                                    <ComboBoxFieldSettings Text="Value" Value="ID" />
-                                </SfComboBox>
+                        </Column>
+                        <Column Classes="col.md">
+                            <div class="mb-3 row">
+                                <label for="inv" class="col-sm-4 col-form-label">Invoice Type</label>
+                                <div class="col-sm-6">
+                                    <SfComboBox TValue="InvoiceType" TItem="string" Placeholder="Invoice Type"
+                                                Autofill="true"
+                                                @bind-Value="@entity.InvoiceType" PopupHeight="230px"
+                                                DataSource="@invTypes">
+                                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                                    </SfComboBox>
+                                </div>
                             </div>
-                        </div>
-                    </Column>
-                </Row>
-                <div class="row  text-center row-cols-5 justify-content-start mb-3">
-                    <Column Classes="col.sm">
-                        <SfTextBox @bind-Value="@mobileno" Placeholder="Customer Mobile" FloatLabelType="FloatLabelType.Never" />
-                    </Column>
-                    <Column Classes="col.sm">
-                        <SfTextBox Placeholder="Customer Name" @bind-Value="custname" />
-                    </Column>
-                    <Column>
-                        <button type="button" @onclick="@SearchCustomerAsync" class="btn btn-info btn-circle btn-sm">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                        <button type="button" @onclick="@AddCustomer" class="btn btn-warning btn-circle btn-sm">
-                            <i class="fa-solid fa-person-circle-plus"></i>
-                        </button>
+                        </Column>
+                    </Row>
+                    <div class="row  text-center row-cols-5 justify-content-start mb-3">
+                        <Column Classes="col.sm">
+                            <SfTextBox @bind-Value="@mobileno" Placeholder="Customer Mobile" FloatLabelType="FloatLabelType.Never" />
+                        </Column>
+                        <Column Classes="col.sm">
+                            <SfTextBox Placeholder="Customer Name" @bind-Value="custname" />
+                        </Column>
+                        <Column>
+                            <button type="button" @onclick="@SearchCustomerAsync" class="btn btn-info btn-circle btn-sm">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                            <button type="button" @onclick="@AddCustomer" class="btn btn-warning btn-circle btn-sm">
+                                <i class="fa-solid fa-person-circle-plus"></i>
+                            </button>
 
-                    </Column>
-                    <Column Classes="col.md"></Column>
-                    @*<Column Classes="col.md"><SfButton IsPrimary="true">Search</SfButton> </Column>
-                        <Column Classes="col.md"><SfButton>Add</SfButton> </Column>*@
-                </div>
-                <Row>
-                    @if (IsEdit)
+                        </Column>
+                        <Column Classes="col.md"></Column>
+                        <Column Classes="col.md"></Column>
+                       
+                    </div>
+                    <Row>
+                        @if (IsEdit)
                     {
                         <Column Classes="col.md"><ATextInput disabled @bind-Value=@entity.InvoiceNo Name="Invno" Label="Invoice No" /></Column>
                     }
@@ -126,7 +126,7 @@
                     </Column>
                 </Row>
                 <Row>
-                    <Column Classes="col.md"><AInputNumber Value="@entity.TotalQty" Name="MRPAmount" Label="MRP" /></Column>
+                    <Column Classes="col.md"><AInputNumber Value="@entity.TotalQty" Name="TotalQty" Label="Qty" /></Column>
                     <Column Classes="col.md"><AInputNumber @bind-Value=@entity.FreeQty Name="qq" Label="Free Qty" /></Column>
                     <Column Classes="col.md"><AInputNumber @bind-Value=@entity.BilledQty Name="NAmount" Label="Billed Qty" /></Column>
                 </Row>
@@ -227,8 +227,10 @@
                     @if (payment.PayMode != PayMode.Cash && payment.PayMode != PayMode.Card)
                     {
                         <Column Classes="col.md">
-                            <SfTextBox Placeholder="Refenece No" FloatLabelType="FloatLabelType.Always" />
+                            <SfTextBox Placeholder="Refenece No" FloatLabelType="FloatLabelType.Auto" />
                         </Column>
+                        <Column Classes="col.md" />
+                        <Column Classes="col.md" />
                     }
                     else if (payment.PayMode == PayMode.Card)
                     {
@@ -265,10 +267,10 @@
                             <div class="mb-3 row">
                                 <label for="sm" class="col-sm-4 col-form-label">POS</label>
                                 <div class="col-sm-6">
-                                    <SfComboBox TValue="PayMode" TItem="string" Placeholder="POS"
+                                    <SfComboBox TValue="string" TItem="SelectOption" Placeholder="POS"
                                                 Autofill="true"
-                                                @bind-Value="@payment.PayMode" PopupHeight="230px"
-                                                DataSource="@payModes">
+                                                @bind-Value="@cardPayment.EDCTerminalId" PopupHeight="230px"
+                                                DataSource="@EDCList">
                                         <ComboBoxFieldSettings Text="Value" Value="ID" />
                                     </SfComboBox>
                                 </div>
@@ -352,13 +354,13 @@
             //You can customize your code here.
             Helper.Msg("Clcik", args.Item.Text);
         }
-        if(args.OriginalEvent.Button.ToString() == "Delete")
-    {
-          
-    }
-    {
+        if (args.OriginalEvent.Button.ToString() == "Delete")
+        {
 
-    }
+        }
+        {
+
+        }
     }
 
 

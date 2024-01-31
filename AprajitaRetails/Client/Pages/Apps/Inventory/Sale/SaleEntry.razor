@@ -87,7 +87,7 @@
             </Column>
         </Row>
         <Row>
-            @*<Column Classes="col.md"><AInputNumber  @bind-Value=@entity.TotalQty Name="MRPAmount" Label="MRP" /></Column>*@
+            <Column Classes="col.md"><AInputNumber  Value=@entity.TotalQty Name="Total Qty" Label="Qty" /></Column>
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.FreeQty Name="qq" Label="Free Qty" /></Column>
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.BilledQty Name="NAmount" Label="Billed Qty" /></Column>
         </Row>
@@ -102,10 +102,7 @@
             <Column Classes="col.md"><AInputNumber @bind-Value=@entity.RoundOff Name="NAmount" Label="Round Off" /></Column>
         </Row>
         <div class="row  text-center row-cols-5 justify-content-start ">
-            <Column Classes="col.sm">
-
-                <label class="small">Barcode</label>
-            </Column>
+            <Column Classes="col.sm"> <label class="small">Barcode</label></Column>
             <Column Classes="col.sm"> <label class="small">Qty</label></Column>
             <Column Classes="col.sm"> <label class="small">Rate</label></Column>
             <Column Classes="col.sm"> <label class="small">Discount</label></Column>
@@ -113,10 +110,7 @@
             <Column Classes="col.sm"> </Column>
         </div>
         <div class="row  text-center row-cols-5 justify-content-start mb-3">
-            <Column Classes="col.sm">
-                @*<ABTextInput Label="Barcode" @bind-Value="Item.Barcode" Placeholder="Barcode" />*@
-                <SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox>
-            </Column>
+            <Column Classes="col.sm"><SfTextBox ValueChange="@OnBarcodeChange" @bind-Value="@Item.Barcode" Placeholder='Barcode'></SfTextBox></Column>
             <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Qty" @bind-Value="Item.Qty" Placeholder="Qty" /> </Column>
             <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Rate" @bind-Value="Item.Rate" Placeholder="Rate" /> </Column>
             <Column Classes="col.sm"><SfNumericTextBox OnChange="@OnChange" @onkeypress='@(e => KeyPressed(e))' TValue="decimal" Label="Discount" @bind-Value="Item.Discount" Placeholder="Discount" Readonly="true" /> </Column>
@@ -154,7 +148,7 @@
                 <div class="mb-3 row">
                     <label for="sm" class="col-sm-4 col-form-label">Payment</label>
                     <div class="col-sm-6">
-                        <SfComboBox TValue="PayMode" TItem="string" Placeholder="PayMode"
+                        <SfComboBox TValue="PayMode" TItem="string" Placeholder="Payment Mode"
                                     Autofill="true"
                                     @bind-Value="@payment.PayMode" PopupHeight="230px"
                                     DataSource="@payModes">
@@ -164,13 +158,15 @@
                 </div>
             </Column>
             <Column Classes="col.md" />
-            <Column Classes="col.md" /><Column Classes="col.md" /><Column Classes="col.md" />
+            <Column Classes="col.md" />
+            <Column Classes="col.md" />
+            <Column Classes="col.md" />
         </Row>
         <Row>
             @if (payment.PayMode != PayMode.Cash && payment.PayMode != PayMode.Card)
             {
                 <Column Classes="col.md">
-                    <SfTextBox Placeholder="Refenece No" FloatLabelType="FloatLabelType.Always" />
+                    <SfTextBox Placeholder="Refenece No" FloatLabelType="FloatLabelType.Auto" />
                 </Column>
             }
             else if (payment.PayMode == PayMode.Card)
@@ -208,13 +204,13 @@
                     <div class="mb-3 row">
                         <label for="sm" class="col-sm-4 col-form-label">POS</label>
                         <div class="col-sm-6">
-                            <SfComboBox TValue="PayMode" TItem="string" Placeholder="POS"
+                            <SfComboBox TValue="string" TItem="SelectOption" Placeholder="POS"
                                         Autofill="true"
-                                        @bind-Value="@payment.PayMode" PopupHeight="230px"
-                                        DataSource="@payModes">
+                                        @bind-Value="@cardPayment.EDCTerminalId" PopupHeight="230px"
+                                        DataSource="@EDCList">
                                 <ComboBoxFieldSettings Text="Value" Value="ID" />
                             </SfComboBox>
-                        </div>
+                        </div>                      
                     </div>
                 </Column>
             }
@@ -228,9 +224,7 @@
         <Content>
             <div class="dialogContent">
                 <label class="text-danger-emphasis"> Discount:</label>
-                <SfTextBox ID="inVal" @bind-Value="@TextBoxValue" @ref="TextboxObj"
-                           Type="InputType.Text"
-                           Placeholder="Percentage/Amount!" />
+                <SfTextBox ID="inVal" @bind-Value="@TextBoxValue" @ref="TextboxObj" Type="InputType.Text" Placeholder=" Percentage(%) / Amount!" />
                 <button @onclick="@SendBtnclicked" class="e-control e-btn e-primary" data-ripple="true">Add</button>
             </div>
         </Content>
