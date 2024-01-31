@@ -2,6 +2,7 @@
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.Constants;
+using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.ViewModels;
 using AprajitaRetails.Shared.ViewModels.Imports;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,41 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             this.hostingEnv = env;
             aRDB = db;
         }
+        [HttpGet("missing")]
+        public async Task<ActionResult<bool>> GetAddMissingStock(ProductItem? item)
+        {
+
+            if(item == null)
+            {
+                item = new ProductItem { Barcode = "M65800901032", BrandCode="ARD", Description="#Missing", HSNCode="NA", MRP=2450, Name="Shirting/Missing", ProductCategory=ProductCategory.Fabric, 
+                    TaxType=TaxType.GST, Unit=Unit.Meters, SubCategory= "Shirting",  ProductTypeId= "PT00011",
+                     Size =Size.NS, StoreGroupId="TAS", StyleCode="Missing", 
+                
+                };
+                
+            }
+            Stock stk = new Stock
+            {
+                Unit = Unit.Meters,
+                Barcode = "M65800901032",
+                CostPrice = 923,
+                EntryStatus = EntryStatus.Updated,
+                Id = Guid.NewGuid(),
+                HoldQty = 0,
+                IsReadOnly = false,
+                MRP = 2450,
+                MarkedDeleted = false,
+                MultiPrice = false,
+                PurchaseQty = (decimal)2.8,
+                SoldQty = 0,
+                StoreId = "ARD",
+                UserId = "MANUAL ADD",
+                Product = item
+            };
+            this.aRDB.Stocks.Add(stk);
+            return aRDB.SaveChanges() > 0;
+        }
+
 
         [HttpGet("inner")]
         public async Task<ActionResult<ReturnData>> GetDryrunImport()

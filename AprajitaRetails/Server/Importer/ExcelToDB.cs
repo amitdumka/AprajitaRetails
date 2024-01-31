@@ -15,14 +15,7 @@ using Path = System.IO.Path;
 namespace AprajitaRetails.Server.Importer
 {
 
-    public class A1
-    {
-        public List<AModel> InnerWear { get; set; }
-    }
-    public class A2
-    {
-        public List<PurchaseInvoiceItem> InnearWear_Sheet { get; set; }
-    }
+
     public class AModel
     {
         //SN	StyleCode	HSNCode	Qty	Rate	Unit	Per	Amount	CGST	SGST	CGSTAmount	SGSTAmount	TotalAmount
@@ -66,90 +59,48 @@ namespace AprajitaRetails.Server.Importer
             x = Directory.CreateDirectory(Path.Combine(basedirectory, AKSConstant.ImportedObjects));
 
 
-            //Convert WorkSheet to JSon
-            using (ExcelEngine excelEngine = new ExcelEngine())
+            var rowDataS = ImportDataHelper.ReadExcel<PurchaseInvoiceItem>(fileName, "", bSheet, bRange, true);
+            var rowDataR = ImportDataHelper.ReadExcel<AModel>(fileName, "", rSheet, rRange, true);
+
+
+            List<PurchaseInvoiceItem> FinalData = new List<PurchaseInvoiceItem>();
+
+            foreach (var item in rowDataR)
             {
-                IApplication application = excelEngine.Excel;
-                application.DefaultVersion = ExcelVersion.Xlsx;
-                using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.ReadWrite))
+                var sData = rowDataS.FirstOrDefault(c => c.StyleCode == item.StyleCode);
+                if (sData != null)
                 {
-                    IWorkbook workbook = application.Workbooks.Open(fileStream);
-
-                    IWorksheet worksheetR = workbook.Worksheets[rSheet];
-                    IWorksheet worksheetS = workbook.Worksheets[bSheet];
-
-                    //Custom range
-                    IRange rangeS = worksheetS.Range[bRange];
-                    IRange rangeR = worksheetR.Range[rRange];
-
-
-
-                    //Save the Range to a JSON file stream as schema by default
-                    using (FileStream stream = new FileStream(jsonFileNameR, FileMode.Create, FileAccess.ReadWrite))
-                    {
-                        workbook.SaveAsJson(stream, rangeR);
-
-
-
-                    }
-                    //Save the Range to a JSON file stream without schema
-                    using (FileStream stream2 = new FileStream(jsonFileNameS, FileMode.Create, FileAccess.ReadWrite))
-                    {
-                        workbook.SaveAsJson(stream2, rangeS);
-                    }
-                    //Read Json File For Processing Further
-                    var rowDataR = ImportDataHelper.JsonToObject<A1>(jsonFileNameR)[0].InnerWear.ToList();
-                    var rowDataS = ImportDataHelper.JsonToObject<A2>(jsonFileNameS)[0].InnearWear_Sheet.ToList() ;
-                    List<PurchaseInvoiceItem> FinalData = new List<PurchaseInvoiceItem>();
-                   
-                    foreach (var item in rowDataR)
-                    {
-                        var sData = rowDataS.FirstOrDefault(c => c.StyleCode == item.StyleCode);
-                        if (sData != null)
-                        {
-                            item.SN = -2;
-                            sData.HSNCODE = item.HSNCode;
-                            if (sData.UnitMRP < item.Rate) sData.UnitMRP = item.Rate;
-                            sData.IGST_CGSTAmount = item.CGSTAmount;
-                            sData.SGSTAmount = item.SGSTAmount;
-                            sData.IGST_CGSTRate = item.CGST;
-                            sData.SGSTRate = item.SGST;
-                            sData.Amount = item.TotalAmount;
-                            sData.CostValue = item.Amount;
-                            sData.MRPValue = item.Rate * item.Qty;
-                            sData.Quantity = item.Qty;
-                            sData.DiscoutP = item.Per;
-                            sData.UnitCost = Math.Round(item.Amount / item.Qty, 2);
-                            FinalData.Add(sData);
-                        }
-                        else
-                        {
-                            item.SN = -1;
-                        }
-                    }
-
-                    //convert list to datadtabel 
-
-
-                    //Export data from DataTable to Excel worksheet.
-                    var wsr = workbook.Worksheets.Create("");
-                    var wss = workbook.Worksheets.Create("");
-                    var wsf = workbook.Worksheets.Create("");
-                    
-                    wsr.ImportDataTable(DocIO.ToDataTable<AModel>(rowDataR), true, 1, 1);
-                    wsr.UsedRange.AutofitColumns();
-
-                    wss.ImportDataTable(DocIO.ToDataTable<PurchaseInvoiceItem>(rowDataS), true, 1, 1);
-                    wss.UsedRange.AutofitColumns();
-
-                    wsf.ImportDataTable(DocIO.ToDataTable<PurchaseInvoiceItem>(FinalData), true, 1, 1);
-                    wsf.UsedRange.AutofitColumns();
-
-                    workbook.SaveAs(fileStream);
-                    return true;
-
+                    item.SN = -2;
+                    sData.HSNCODE = item.HSNCode;
+                    if (sData.UnitMRP < item.Rate) sData.UnitMRP = item.Rate;
+                    sData.IGST_CGSTAmount = item.CGSTAmount;
+                    sData.SGSTAmount = item.SGSTAmount;
+                    sData.IGST_CGSTRate = item.CGST;
+                    sData.SGSTRate = item.SGST;
+                    sData.Amount = item.TotalAmount;
+                    sData.CostValue = item.Amount;
+                    sData.MRPValue = item.Rate * item.Qty;
+                    sData.Quantity = item.Qty;
+                    sData.DiscoutP = item.Per;
+                    sData.UnitCost = Math.Round(item.Amount / item.Qty, 2);
+                    FinalData.Add(sData);
+                }
+                else
+                {
+                    item.SN = -1;
                 }
             }
+
+            //convert list to datadtabel 
+            //Need to save to excel sheet
+
+            var fs = ImportDataHelper.WriteExcel<PurchaseInvoiceItem>("", fileName, "FinalData", FinalData, true);
+            var bs = ImportDataHelper.WriteExcel<PurchaseInvoiceItem>("", fileName, "rowDataS", rowDataS, true);
+            var rs = ImportDataHelper.WriteExcel<AModel>("", fileName, "rowDataR", rowDataR, true);
+
+            return true;
+
+
 
 
 
@@ -529,8 +480,8 @@ namespace AprajitaRetails.Server.Importer
         {
             _db = db;
             _storeCode = "ÁRD"; _storeGroup = "TAS";
-           // UpdateCat();
-           // sizeList = Enum.GetNames(typeof(Size)).ToList();
+            // UpdateCat();
+            // sizeList = Enum.GetNames(typeof(Size)).ToList();
         }
 
 

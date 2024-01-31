@@ -94,7 +94,7 @@ namespace AprajitaRetails.Server.Importer
                             {
                                 switch (column.ColumnName)
                                 {
-                                    
+
                                     case "SGSTAmount":
                                     case "IGST_CGSTAmount":
                                     case "Amount":
@@ -109,6 +109,11 @@ namespace AprajitaRetails.Server.Importer
                                     case "UnitMRP":
                                     case "UnitCost":
                                     case "MRPValue":
+                                    case "CGST":
+                                    case "SGST":
+                                    case "CGSTAmount":
+                                    case "TotalAmount":
+
                                     case "IGST_CGSTRate":
                                     case "SGSTRate":
                                     case "TaxAmount":
@@ -116,6 +121,8 @@ namespace AprajitaRetails.Server.Importer
                                     case "RoundOff":
                                     case "ProfitLoss":
                                     case "QTY":
+                                    case "Per":
+                                    case "Rate":
                                     case "Discount":
                                     case "DiscountP":
                                     case "DiscountAmount":
@@ -148,6 +155,8 @@ namespace AprajitaRetails.Server.Importer
                                         pro.SetValue(obj, null, null);
                                         break;
 
+
+                                    case "Sn":
                                     case "SN":
                                         pro.SetValue(obj, int.Parse((string)dr[column.ColumnName]), null);
                                         break;

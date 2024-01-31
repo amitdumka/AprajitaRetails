@@ -51,6 +51,22 @@ namespace AprajitaRetails.Server.Importer
                 return null;
             }
         }
+        public static T? JsonToObjectSingle<T>(string filename)
+        {
+            try
+            {
+                using StreamReader reader = new StreamReader(filename);
+                var json = reader.ReadToEnd();
+                reader.Close();
+                // JsonSerializerOptions options = new CustomJsonConverterForNullableDateTime();
+                return JsonSerializer.Deserialize<T>(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return default;
+            }
+        }
 
         /// <summary>
         /// Convert Json Memomry Steam to list of Data Type
@@ -158,9 +174,49 @@ namespace AprajitaRetails.Server.Importer
                 return objList;
             }
         }
+        public static Stream WriteExcel<T>(string path, string fn, string worksheetName,   List<T> data,bool isNew = false)
+        {
+            //Excel import
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                //Step 2 : Instantiate the excel application object
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Excel2016;
+                var filename = Path.Combine(path, fn);
+                // using StreamReader reader = new StreamReader(filename);
+                using FileStream reader = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite);
+
+                //Opening the encrypted Workbook
+                IWorkbook workbook = application.Workbooks.Open(reader, ExcelParseOptions.Default);
+                
+
+                //Accessing first worksheet in the workbook
+                IWorksheet worksheet;//= workbook.Worksheets[worksheetName];
+                if (isNew)
+                {
+                    worksheet = workbook.Worksheets.Create(worksheetName);
+                }
+                else
+                {
+                    worksheet = workbook.Worksheets[worksheetName];
+                }
+                
+                //Save the document as a stream and return the stream
+                var dt = DocIO.ToDataTable(data);
+                worksheet.ImportDataTable(dt, true, 1, 1, true);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    //Save the created Excel document to MemoryStream
+                    workbook.SaveAs(reader);
+                    workbook.SaveAs(stream);
+                    reader.Close();
+                    return stream;
+                }
+            }
+        }
     }
 
-    
+
 
     ///SN	InwardNumber	InwardDate	InvoiceNumber	InvoiceDate	SupplierName	StoreCode	ProductCategory	Barcode	ProductName	StyleCode	ProductDescription	HSNCODE	Size	Unit	Quantity	UnitMRP	MRPValue	UnitCost	CostValue	IGST_CGSTRate	SGSTRate	IGST_CGSTAmount	SGSTAmount	Amount	RoundOff	BillAmount
 }
