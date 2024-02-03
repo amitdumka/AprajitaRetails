@@ -2,6 +2,7 @@
 using AprajitaRetails.Shared.Models.Vouchers;
 using AprajitaRetails.Shared.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging;
 
 namespace AprajitaRetails.Server.BL.Reports.Fins
 {
@@ -311,7 +312,7 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                 returnData.MonthViews.AddRange(rcpvoucherers);
 
                 //StaffAdv Reciepts
-                var advsalary = db.StaffAdvanceReceipts.Where(c => c.OnDate == ondate && c.StoreId == storecode).Select(c => new MonthView
+                var advsalary = db.StaffAdvanceReceipts.Where(c => c.OnDate.Year == ondate.Value.Year && c.OnDate.Month == ondate.Value.Month && c.StoreId == storecode).Select(c => new MonthView
                 {
                     Id = count,
                     StoreCode = c.StoreId,
@@ -332,7 +333,7 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                 returnData.MonthViews.AddRange(advsalary);
                 //Dues Recovery
 
-                var recovery = db.DuesRecovery.Where(c => c.OnDate == ondate && c.StoreId == storecode).Select(c => new MonthView
+                var recovery = db.DuesRecovery.Where(c => c.OnDate.Year == ondate.Value.Year && c.OnDate.Month == ondate.Value.Month && c.StoreId == storecode).Select(c => new MonthView
                 {
                     Id = count,
                     IsExpense = false,
@@ -353,7 +354,7 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                 //CashReceipts
                 if (cashvoucher)
                 {
-                    var cashrcpvoucherers = db.CashVouchers.Include(c => c.TransactionMode).Where(c => c.OnDate == ondate && c.StoreId == storecode && (c.VoucherType == VoucherType.CashReceipt))
+                    var cashrcpvoucherers = db.CashVouchers.Include(c => c.TransactionMode).Where(c => c.OnDate.Year == ondate.Value.Year && c.OnDate.Month == ondate.Value.Month && c.StoreId == storecode && (c.VoucherType == VoucherType.CashReceipt))
                       .Select(c => new MonthView
                       {
                           Id = count,
@@ -377,11 +378,50 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                 }
                 //Expenses
                 //Expense Vouchers
-                //Salary Payments
-                //Dues
-                var dues = db.CustomerDues.Where(c => c.OnDate == ondate && c.StoreId == storecode).Select(c => new DayBook
+                var Expvoucherers = db.Vouchers.Where(c => c.OnDate.Year == ondate.Value.Year && c.OnDate.Month == ondate.Value.Month && c.StoreId == storecode && (c.VoucherType == VoucherType.Payment || c.VoucherType == VoucherType.Expense))
+                .Select(c => new MonthView
                 {
                     Id = count,
+                    IsExpense = true,
+                    OnDate = c.OnDate,
+                    StoreCode = c.StoreId,
+                    PayMode = (PayMode)c.PaymentMode, 
+                    Location = storeLocation,
+                    VoucherNumber = c.VoucherNumber,
+                    VoucherType = c.VoucherType.ToString(),
+                    OutAmount = c.Amount,
+                    InAmount = 0,
+                    ParticularsName = $"{c.Particulars}",
+                    Naration = $"SlipNo:{c.SlipNumber}, PartyName= {c.PartyName}, Payment={c.PaymentMode.ToString()},{c.PaymentDetails}"
+                })
+                .ToList();
+                returnData.MonthViews.AddRange(Expvoucherers);
+
+                //Salary Payments
+                var salarypayments = db.SalaryPayments.Where(c => c.OnDate.Year == ondate.Value.Year && c.OnDate.Month == ondate.Value.Month && c.StoreId == storecode).Select(c => new MonthView
+                {
+                    Id = count,
+                    IsExpense = true,
+                    IsIncome = false,
+                    IsReceipt = false,
+                    StoreCode = c.StoreId,
+                    OnDate = c.OnDate,
+                    PayMode = c.PayMode,
+                    Location = storeLocation,
+                    VoucherNumber = c.SalaryPaymentId,
+                    VoucherType = "Payment(Staff)",
+                    OutAmount = c.Amount,
+                    InAmount = 0,
+
+                    ParticularsName = $"{c.Employee.StaffName}",
+                    Naration = $"SlipNo:{c.Employee.StaffName}, Details= {c.Details}, PayMode= {c.PayMode.ToString()}, salary Month{c.SalaryMonth}, SalComp={c.SalaryComponet}"
+                }).ToList();
+
+                returnData.MonthViews.AddRange(salarypayments);
+                //Dues
+                var dues = db.CustomerDues.Where(c => c.OnDate.Year == ondate.Value.Year && c.OnDate.Month == ondate.Value.Month && c.StoreId == storecode).Select(c => new MonthView
+                {
+                    Id = count,StoreCode=c.StoreId, PayMode=PayMode.Cash, OnDate = c.OnDate,
                     Location = storeLocation,
                     VoucherNumber = c.InvoiceNumber,
                     VoucherType = "Customer Dues",
@@ -391,15 +431,20 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                     ParticularsName = $"{c.InvoiceNumber}",
                     Naration = $"Inv No:{c.InvoiceNumber}, ClearingDate= {c.ClearingDate}, Paid= {c.Paid}"
                 }).ToList();
-
+                returnData.MonthViews.AddRange(dues);
                 //CashExpenses
                 if (cashvoucher)
                 {
-                    var cashExpvoucherers = db.CashVouchers.Include(c => c.TransactionMode).Where(c => c.OnDate == ondate && c.StoreId == storecode && (c.VoucherType == VoucherType.CashPayment))
+                    var cashExpvoucherers = db.CashVouchers.Include(c => c.TransactionMode).Where(c => c.OnDate.Year == ondate.Value.Year && c.OnDate.Month == ondate.Value.Month && c.StoreId == storecode && (c.VoucherType == VoucherType.CashPayment))
                     .Select(c => new MonthView
                     {
-                        Id = count,IsReceipt=false, IsExpense=true, IsIncome=false, OnDate=c.OnDate, StoreCode=c.StoreId, 
-                         PayMode=PayMode.Cash,  
+                        Id = count,
+                        IsReceipt = false,
+                        IsExpense = true,
+                        IsIncome = false,
+                        OnDate = c.OnDate,
+                        StoreCode = c.StoreId,
+                        PayMode = PayMode.Cash,
                         Location = storeLocation,
                         VoucherNumber = c.VoucherNumber,
                         VoucherType = c.VoucherType.ToString(),
@@ -412,7 +457,7 @@ namespace AprajitaRetails.Server.BL.Reports.Fins
                     returnData.MonthViews.AddRange(cashExpvoucherers);
                 }
             }
-       
+
             return returnData;
         }
     }

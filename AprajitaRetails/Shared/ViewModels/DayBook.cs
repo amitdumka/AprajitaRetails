@@ -49,7 +49,7 @@ namespace AprajitaRetails.Shared.ViewModels
         public DateTime OnDate { get; set; }
         public decimal InAmount { get; set; }
         public decimal OutAmount { get; set; }
-        public PayMode PayMode { get; set; }
+        public PayMode PayMode { get; set; } = PayMode.Cash;
         public string Naration { get; set; }
         [NotMapped]
         public bool IsExpense { get; set; } = false;

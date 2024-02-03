@@ -1,4 +1,4 @@
-﻿@page "/reports/monthbook"
+﻿@page "/reports/monthview2"
 
 @using Microsoft.AspNetCore.Authorization;
 @using AprajitaRetails.Commons
@@ -80,52 +80,104 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                Day Book Details
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableHeadCell>#</TableHeadCell>
-                            <TableHeadCell>Particulars</TableHeadCell>
-                            <TableHeadCell>Voucher Type</TableHeadCell>
-                            <TableHeadCell>Voucher Number</TableHeadCell>
-                            <TableHeadCell>In Amount</TableHeadCell>
-                            <TableHeadCell>Out Amount</TableHeadCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-
-                        @if (entity != null && entity.DayBooks != null)
-                        {
-                            int count = 1;
-                            intotal = 0; outtotal = 0;
-                            foreach (var item in entity.DayBooks)
-                            {
-
+                Month View Book Details
+                <Row>
+                    <Column Classes="col.md._6">
+                        <Table>
+                            <TableHead>
                                 <TableRow>
-                                    <TableCell>@(count++)</TableCell>
-                                    <TableCell>@item.ParticularsName</TableCell>
-                                        <TableCell>@item.VoucherType</TableCell>
-                                        <TableCell>@item.VoucherNumber</TableCell>
-                                        <TableCell>
-                                            @if (item.InAmount > 0)
-                                        {
-                                            intotal += item.InAmount;
-                                            <span>@item.InAmount</span>
-                                        }
-                                    </TableCell>
-
-                                    <TableCell>
-                                        @if (item.OutAmount > 0)
-                                        {
-                                            outtotal += item.OutAmount;
-                                            <span>@item.OutAmount</span>
-                                        }
-                                    </TableCell>
+                                    <TableHeadCell>#</TableHeadCell>
+                                    <TableHeadCell>Particulars</TableHeadCell>
+                                    <TableHeadCell>Voucher Type</TableHeadCell>
+                                    <TableHeadCell>Voucher Number</TableHeadCell>
+                                    <TableHeadCell>In Amount</TableHeadCell>
+                                    @* <TableHeadCell>Out Amount</TableHeadCell> *@
                                 </TableRow>
-                            }
-                        }
-                    </TableBody>
-                </Table>
+                            </TableHead>
+                            <TableBody>
+
+                                @if (entity != null && entity.MonthViews != null)
+                                {
+                                    int count = 1;
+                                    intotal = 0; outtotal = 0;
+                                    foreach (var item in entity.MonthViews)
+                                    {
+
+                                        <TableRow>
+                                            <TableCell>@(count++)</TableCell>
+                                            <TableCell>@item.ParticularsName</TableCell>
+                                                <TableCell>@item.VoucherType</TableCell>
+                                                <TableCell>@item.VoucherNumber</TableCell>
+                                                <TableCell>
+                                                    @if (item.InAmount > 0)
+                                                {
+                                                    intotal += item.InAmount;
+                                                    <span>@item.InAmount</span>
+                                                }
+                                            </TableCell>
+
+                                            @* <TableCell>
+                                                @if (item.OutAmount > 0)
+                                                {
+                                                    outtotal += item.OutAmount;
+                                                    <span>@item.OutAmount</span>
+                                                }
+                                            </TableCell> *@
+                                        </TableRow>
+                                    }
+                                }
+                            </TableBody>
+                        </Table>
+                    </Column>
+                    <Column Classes="col.md._6">
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableHeadCell>#</TableHeadCell>
+                                    <TableHeadCell>Particulars</TableHeadCell>
+                                    <TableHeadCell>Voucher Type</TableHeadCell>
+                                    <TableHeadCell>Voucher Number</TableHeadCell>
+                                   @*  <TableHeadCell>In Amount</TableHeadCell> *@
+                                    <TableHeadCell>Out Amount</TableHeadCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+
+                                @if (entity != null && entity.MonthViews != null)
+                                {
+                                    int count = 1;
+                                    intotal = 0; outtotal = 0;
+                                    foreach (var item in entity.MonthViews)
+                                    {
+
+                                        <TableRow>
+                                            <TableCell>@(count++)</TableCell>
+                                            <TableCell>@item.ParticularsName</TableCell>
+                                                <TableCell>@item.VoucherType</TableCell>
+                                                <TableCell>@item.VoucherNumber</TableCell>
+                                               @*  <TableCell>
+                                                    @if (item.InAmount > 0)
+                                                {
+                                                    intotal += item.InAmount;
+                                                    <span>@item.InAmount</span>
+                                                }
+                                            </TableCell> *@
+
+                                            <TableCell>
+                                                @if (item.OutAmount > 0)
+                                                {
+                                                    outtotal += item.OutAmount;
+                                                    <span>@item.OutAmount</span>
+                                                }
+                                            </TableCell>
+                                        </TableRow>
+                                    }
+                                }
+                            </TableBody>
+                        </Table>
+                    </Column>
+                </Row>
+
             </div>
             <!-- /.card-body -->
             <div class="card-footer align-content-end text-end ml-5 mr-5">
@@ -139,22 +191,22 @@
 
 @code {
     private string Title = "Month View Book";
-    private const string URL = "api/FinReports/DayBook";
+    private const string URL = "api/FinReports/MonthBook";
     private DateTime OnDate = DateTime.Today;
-    private DayBookReturn entity = null;
+    private MonthViewReturn? entity = null;
     private decimal intotal = 0, outtotal = 0;
     async void OnNegClick()
     {
         intotal = 0; outtotal = 0;
         StateHasChanged();
-        OnDate = OnDate.AddDays(-1);
+        OnDate = OnDate.AddMonths(-1);
         await FetchDataAsync();
     }
     async void OnPlusClick()
     {
         intotal = 0; outtotal = 0;
         StateHasChanged();
-        OnDate = OnDate.AddDays(1);
+        OnDate = OnDate.AddMonths(1);
         await FetchDataAsync();
     }
     protected override async Task OnInitializedAsync()
@@ -178,7 +230,7 @@
     async Task FetchDataAsync()
     {
         //intotal = 0; outtotal = 0;
-        entity = await Helper.PostDataFromAsync<DayBookReturn, DayBookRequest>(URL, new DayBookRequest { CashVoucher = true, OnDate = OnDate, StoreCode = "ARD", StoreCodeName = "StoreCode" }, Title);
+        entity = await Helper.PostDataFromAsync<MonthViewReturn, MonthViewRequest>(URL, new MonthViewRequest { CashVoucher = true, OnDate = OnDate, StoreCode = "ARD", StoreCodeName = "StoreCode", Mode = ClientReportMode.Store }, Title);
 
         StateHasChanged();
 

@@ -11,7 +11,8 @@
             if (context.User.Identity?.Name != "Amit Kumar" && context.User.Identity?.Name != "AmitKumar")
             {
                 avtarUrl = "../Users/avatar5.png";
-            }else
+            }
+            else
             {
                 avtarUrl = "../Users/aks.jpg";
             }
@@ -133,9 +134,7 @@
                         <SideBarMenuItem Icon="far fa-circle" Link="/legders/group">
                             Legder Group
                         </SideBarMenuItem>
-                        <SideBarMenuItem Icon="far fa-circle" Link="/reports/daybook">
-                           Day Book
-                        </SideBarMenuItem>
+
                     </Items>
                 </SideBarTreeView>
                 @*Inventory*@
@@ -234,6 +233,19 @@
                         <SideBarMenuItem Icon="far fa-circle" Link="banking/chequebooks">
                             Cheque Book
                         </SideBarMenuItem>
+                    </Items>
+                </SideBarTreeView>
+                <SideBarTreeView Icon="fa fa-file ">
+                    <Title>Reports</Title>
+                    <Items>
+                        <SideBarMenuItem Icon="far fa-circle" Link="reports/daybook">
+                            Day Book
+                        </SideBarMenuItem>
+                        <SideBarMenuItem Icon="far fa-circle" Link="reports/monthview">
+                            Month Book
+                        </SideBarMenuItem>
+
+
                     </Items>
                 </SideBarTreeView>
                 <SideBarMenuItem Link="importdata" Icon="fas fa-th">
