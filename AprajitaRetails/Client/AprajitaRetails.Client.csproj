@@ -97,6 +97,7 @@
 		<Folder Include="wwwroot\Data\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Remove="Pages\Apps\Reports\MonthViewPage.razor" />
 	  <Content Remove="wwwroot\Users\" />
 	</ItemGroup>
 	<ItemGroup>
@@ -104,5 +105,14 @@
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Pages\Apps\Reports\MonthViewPage.razor" />
+	</ItemGroup>
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Pages\Apps\Reports\MonthViewPage.razor" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="Pages\Apps\Reports\MonthViewPage.razor" />
 	</ItemGroup>
 </Project>

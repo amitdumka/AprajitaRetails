@@ -26,6 +26,11 @@ namespace AprajitaRetails.Server.Controllers.Reports
         {
             return FinReports.GetDayView(_context, req.OnDate, req.StoreCode, req.CashVoucher);
         }
+        public MonthViewReturn GetMonthView(MonthViewRequest req)
+        {
+
+            return FinReports.GetMonthView(_context, req.OnDate, req.StoreCode,req.Mode, req.CashVoucher);
+        }
 
         // GET: api/<FinReportsController>
         [HttpGet]
