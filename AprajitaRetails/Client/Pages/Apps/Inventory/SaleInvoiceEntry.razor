@@ -300,13 +300,19 @@
             <Footer>
                 <Row>
                     <Column Classes="col.sm._2">
-                        <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning"
+                        <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning" Type="@Blazor.AdminLte.ButtonType.Gradient"
                                 @onclick="BackButton">
                             Back
                         </Button>
                     </Column>
                     <Column Classes="col.md._3">
                         <ASubmitButton Title="Save" />
+                    </Column>
+                    <Column Classes="col.md._2">
+                        <Button Size="Blazor.AdminLte.ButtonSize.ExtraSmall" Color="Color.Danger"
+                                @onclick="AddNewButton">
+                            New
+                        </Button>
                     </Column>
                 </Row>
                 <Row>
@@ -455,7 +461,9 @@
                 //  EntityModel = entity;
                 StateHasChanged();
                 PrintInvoice(invoiceVM.Invoice.InvoiceNo);
-
+               // InitUI(true, false);
+               // disable = false;
+                //StateHasChanged();
             }
 
         }

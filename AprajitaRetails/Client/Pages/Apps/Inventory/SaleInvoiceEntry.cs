@@ -121,54 +121,56 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
             }
         }
 
+        
         protected override async Task OnInitializedAsync()
         {
             ReturnUrl = $"/sales/{Returns}/{Params}";
             SetInvoiceMode();
             await FetchSelectData();
-            //CultureInfo.CurrentCulture = new CultureInfo("hi-IN", false);
-            //CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol = "₹";
+
             if (IsEdit)
             {
-                Title = "Edit Daily Sales #" + ID;
-                if (!string.IsNullOrEmpty(ID))
-                {
-                    Title = Title + " #Inv: " + ID;
-                    entity = await Helper.GetRecordAsync<ProductSale>("api/ProductSales", ID);
-                    saleItems = await Helper.FetchAsync<SaleItem>("api/SaleItems", $"?InvoiceNumber={ID}");
-                    StateHasChanged();
-                }
+                //Title = "Edit Daily Sales #" + ID;
+                //if (!string.IsNullOrEmpty(ID))
+                //{
+                //    Title = Title + " #Inv: " + ID;
+                //    entity = await Helper.GetRecordAsync<ProductSale>("api/ProductSales", ID);
+                //    saleItems = await Helper.FetchAsync<SaleItem>("api/SaleItems", $"?InvoiceNumber={ID}");
+                //    StateHasChanged();
+                //}
+                InitUI(false, true);
             }
             else
             {
-                Title = "Add " + Title;
-                entity = new ProductSale
-                {
-                    OnDate = DateTime.Now,
-                    Adjusted = false,
-                    BilledQty = 0,
-                    TotalBasicAmount = 0,
-                    FreeQty = 0,
-                    InvoiceNo = "",
-                    Paid = false,
-                    InvoiceType = invType,
-                    Tailoring = false,
-                    EntryStatus = EntryStatus.Added,
-                    IsReadOnly = false,
-                    TotalTaxAmount = 0,
-                    TotalPrice = 0,
-                    TotalMRP = 0,
-                    TotalDiscountAmount = 0,
-                    RoundOff = 0,
-                    Taxed = true,
-                    MarkedDeleted = false,
-                    StoreId = Setting.StoreCode,
-                    UserId = Setting.UserName,
-                    SalesmanId = Salesmen[0].ID
-                    //Items = saleItems = new List<SaleItem>()
-                };
-                SaleItemList = new List<SItem>();
-                saleItems = new List<SaleItem>();
+                InitUI(true, false);
+                //Title = "Add " + Title;
+                //entity = new ProductSale
+                //{
+                //    OnDate = DateTime.Now,
+                //    Adjusted = false,
+                //    BilledQty = 0,
+                //    TotalBasicAmount = 0,
+                //    FreeQty = 0,
+                //    InvoiceNo = "",
+                //    Paid = false,
+                //    InvoiceType = invType,
+                //    Tailoring = false,
+                //    EntryStatus = EntryStatus.Added,
+                //    IsReadOnly = false,
+                //    TotalTaxAmount = 0,
+                //    TotalPrice = 0,
+                //    TotalMRP = 0,
+                //    TotalDiscountAmount = 0,
+                //    RoundOff = 0,
+                //    Taxed = true,
+                //    MarkedDeleted = false,
+                //    StoreId = Setting.StoreCode,
+                //    UserId = Setting.UserName,
+                //    SalesmanId = Salesmen[0].ID
+                //    //Items = saleItems = new List<SaleItem>()
+                //};
+                //SaleItemList = new List<SItem>();
+                //saleItems = new List<SaleItem>();
             }
             GenerateColums(typeof(SItem).GetProperties(), "Barcode");
             StateHasChanged();
@@ -389,20 +391,68 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 Helper.Msg("Error", "Sorry!, Failed to add new customer, Kindly Check data and Try again!", true);
         }
 
-        private void InitUI(bool addnew = false, bool isedit = false)
+        private async Task AddNewButton()
         {
-            entity = new ProductSale { OnDate = DateTime.Now };
-            payments = new List<SalePaymentDetail>();
-            cardPayments = new List<CardPaymentDetail>();
+            InitUI(true, false);
+            disable = false;
+            StateHasChanged();
+        }
+        private async void InitUI(bool addnew = false, bool isedit = false)
+        {
+            SetInvoiceMode();
+            if (isedit)
+            {
+                Title = "Edit Daily Sales #" + ID;
+                if (!string.IsNullOrEmpty(ID))
+                {
+                    Title = Title + " #Inv: " + ID;
+                    entity = await Helper.GetRecordAsync<ProductSale>("api/ProductSales", ID);
+                    saleItems = await Helper.FetchAsync<SaleItem>("api/SaleItems", $"?InvoiceNumber={ID}");
+                    StateHasChanged();
+                }
+            }
+            if (addnew)
+            {
+                Title = "Add " + Title;
+                entity = new ProductSale
+                {
+                    OnDate = DateTime.Now,
+                    Adjusted = false,
+                    BilledQty = 0,
+                    TotalBasicAmount = 0,
+                    FreeQty = 0,
+                    InvoiceNo = "",
+                    Paid = false,
+                    InvoiceType = invType,
+                    Tailoring = false,
+                    EntryStatus = EntryStatus.Added,
+                    IsReadOnly = false,
+                    TotalTaxAmount = 0,
+                    TotalPrice = 0,
+                    TotalMRP = 0,
+                    TotalDiscountAmount = 0,
+                    RoundOff = 0,
+                    Taxed = true,
+                    MarkedDeleted = false,
+                    StoreId = Setting.StoreCode,
+                    UserId = Setting.UserName,
+                    SalesmanId = Salesmen[0].ID
+                    //Items = saleItems = new List<SaleItem>()
+                };
+                payments = new List<SalePaymentDetail>();
+                cardPayments = new List<CardPaymentDetail>();
+                // Add Option for Multiple Paymnet
+                payment = new SalePaymentDetail { PayMode = PayMode.Cash };
+                cardPayment = new CardPaymentDetail { PaidAmount = 0 };
 
-            // Add Option for Multiple Paymnet
-            payment = new SalePaymentDetail { PayMode = PayMode.Cash };
-            cardPayment = new CardPaymentDetail { PaidAmount = 0 };
+                saleItems = new List<SaleItem>();
+                LastInvCount = 0;
+                PaidAmount = 0;
+                SaleItemList = new List<SItem>();
+            }
 
-            saleItems = new List<SaleItem>();
-            LastInvCount = 0;
-            PaidAmount = 0;
-            SaleItemList = new List<SItem>();
+
+
 
         }
     }
