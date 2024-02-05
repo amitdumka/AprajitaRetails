@@ -238,7 +238,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
         protected void GenerateColums(PropertyInfo[] infos, string idName)
         {
             this.Columns = new List<GridColumn>();
-            this.Columns.Add(new GridColumn() {AutoFit=true, Type=ColumnType.CheckBox });
+            this.Columns.Add(new GridColumn() { AutoFit = true, Type = ColumnType.CheckBox });
             foreach (var prop in infos)
             {
                 if (prop.Name.StartsWith("Tax") == false && prop.Name.StartsWith("TAX") == false)
@@ -253,8 +253,8 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                         AllowEditing = prop.CanWrite,
                         HeaderText = prop.Name,
                         HeaderTextAlign = Syncfusion.Blazor.Grids.TextAlign.Center,
-                        DisplayAsCheckBox=prop.GetType()==typeof(bool)?true:false
-                        
+                        DisplayAsCheckBox = prop.GetType() == typeof(bool) ? true : false
+
                     };
                     if (prop.GetType() == typeof(decimal))
                     {
@@ -389,7 +389,22 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 Helper.Msg("Error", "Sorry!, Failed to add new customer, Kindly Check data and Try again!", true);
         }
 
+        private void InitUI(bool addnew = false, bool isedit = false)
+        {
+            entity = new ProductSale { OnDate = DateTime.Now };
+            payments = new List<SalePaymentDetail>();
+            cardPayments = new List<CardPaymentDetail>();
 
+            // Add Option for Multiple Paymnet
+            payment = new SalePaymentDetail { PayMode = PayMode.Cash };
+            cardPayment = new CardPaymentDetail { PaidAmount = 0 };
+
+            saleItems = new List<SaleItem>();
+            LastInvCount = 0;
+            PaidAmount = 0;
+            SaleItemList = new List<SItem>();
+
+        }
     }
 
     public static class SaleF
