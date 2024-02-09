@@ -1,6 +1,8 @@
+using AprajitaRetails.Server.BL.Accounts;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Vouchers;
+using AprajitaRetails.Shared.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
@@ -20,16 +22,20 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         {
             _context = context; _mapper = mapper;
         }
-         [HttpGet("ledgerdetails")]
-        public async Task<ActionResult<IEnumerable<LedgerDetail>>> GetPartryDetais(string storeid, string ledgerid)
+        [HttpGet("ledgerdetails")]
+        public async Task<ActionResult<IEnumerable<LedgerDetail>?>> GetPartryDetais(string storeid, string ledgerid)
         {
             if (_context.Parties == null)
             {
                 return NotFound();
             }
-            var data = LedgerHelper.GetLedgerDetails(_context,"TAS",storeId, ledgerid);
-            return data;
-           // return await _context.Parties.ToListAsync();
+            var data = LedgerHelper.GetLedgerDetails(_context, "TAS", storeid, ledgerid);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+            // return await _context.Parties.ToListAsync();
         }
 
 
@@ -50,7 +56,7 @@ namespace AprajitaRetails.Server.Controllers.Accounts
             {
                 return NotFound();
             }
-            return await _context.Parties.Include(c=>c.LedgerGroup).Where(c=>c.StoreId==storeid && !c.MarkedDeleted)
+            return await _context.Parties.Include(c => c.LedgerGroup).Where(c => c.StoreId == storeid && !c.MarkedDeleted)
                 .ProjectTo<PartyDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

@@ -1,26 +1,39 @@
 ﻿using AprajitaRetails.BL.Vouchers;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Stores;
+using AprajitaRetails.Shared.ViewModels;
 
 namespace AprajitaRetails.Server.BL.Accounts
 {
 
-    public class LedgerHelper{
+    public class LedgerHelper
+    {
 
-        public static List<LedgerDetail> GetLedgerDetails(ARDBContext db, string storeGroup, string storeid, string LedgerId){
+        public static IEnumerable<LedgerDetail>? GetLedgerDetails(ARDBContext db, string storeGroup, string storeid, string LedgerId)
+        {
 
             //TODO: Here we need to add banking transfer and cash vouchers, then it will be preferect 
-            var ledgers=db.Voucher.Where(c=>c.StoreId==storeid && c.PartyId==LedgerId).OrderBy(c=>c.OnDate).ToList();
-            var data= ledgers.Select(c=>new LedgerDetail{ OnDate=c.OnDate,VoucherType= c.VoucherType,VoucherNumber= c.VoucherNumber,
-            Naration= c.Remarks,PaymentMode= c.PaymentMode, Amount=c.Amount PaymentDetails=c.PaymentDetails});
-            return data;
+            var ledgers = db.Vouchers.Where(c => c.StoreId == storeid && c.PartyId == LedgerId).OrderBy(c => c.OnDate).ToList();
+            var data = ledgers.Select(c => new LedgerDetail
+            {
+                OnDate = c.OnDate,
+                VoucherType = c.VoucherType.ToString(),
+                VoucherNumber = c.VoucherNumber,
+                Naration = c.Remarks+"#"+c.Particulars+"#"+c.PartyName+"#"+c.SlipNumber,
+                PaymentMode = c.PaymentMode.ToString(),
+                Amount = c.Amount,
+                PaymentDetails = c.PaymentDetails
+            });
+            return  data;
         }
 
-        public static void GeneratePdfLedgerReport(string PartyName, string StoreName, string StoreAddress, string filename){
+        public static void GeneratePdfLedgerReport(string PartyName, string StoreName, string StoreAddress, string filename)
+        {
 
         }
-        public static void GenerateExcelLedgerReport(string PartyName, string StoreName, string StoreAddress, string filename){
-            
+        public static void GenerateExcelLedgerReport(string PartyName, string StoreName, string StoreAddress, string filename)
+        {
+
         }
     }
     public class AccountHelper
@@ -59,26 +72,34 @@ namespace AprajitaRetails.Server.BL.Accounts
             CustomerDue due;
             if (isNew)
             {
-                 due = new CustomerDue {
-                EntryStatus=EntryStatus.Added, ClearingDate=null, IsReadOnly=false, OnDate=dailySale.OnDate, 
-                Paid=false, InvoiceNumber=dailySale.InvoiceNumber, MarkedDeleted=false,
-                StoreId=dailySale.StoreId,UserId=dailySale.UserId
+                due = new CustomerDue
+                {
+                    EntryStatus = EntryStatus.Added,
+                    ClearingDate = null,
+                    IsReadOnly = false,
+                    OnDate = dailySale.OnDate,
+                    Paid = false,
+                    InvoiceNumber = dailySale.InvoiceNumber,
+                    MarkedDeleted = false,
+                    StoreId = dailySale.StoreId,
+                    UserId = dailySale.UserId
                 };
 
                 if (dailySale.PayMode == PayMode.Cash)
                 {
-                    due.Amount = dailySale.Amount - dailySale.CashAmount; 
+                    due.Amount = dailySale.Amount - dailySale.CashAmount;
                 }
                 else
                 {
-                    due.Amount = dailySale.Amount -dailySale.NonCashAmount- dailySale.CashAmount;
+                    due.Amount = dailySale.Amount - dailySale.NonCashAmount - dailySale.CashAmount;
                 }
                 db.CustomerDues.Add(due);
             }
-            else {
+            else
+            {
 
                 var old = db.CustomerDues.Where(c => c.InvoiceNumber == dailySale.InvoiceNumber).FirstOrDefault();
-                if(old!=null && !dailySale.IsDue)
+                if (old != null && !dailySale.IsDue)
                 {
                     db.CustomerDues.Remove(old);
                 }

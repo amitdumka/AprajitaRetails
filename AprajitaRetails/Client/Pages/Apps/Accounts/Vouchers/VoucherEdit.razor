@@ -146,6 +146,7 @@
     IList<string> payModes = Enum.GetNames(typeof(PaymentMode));
 
     private IList<SelectOption>? Stores;
+    //private IList<SelectOption>? StoreGroups;
     private IList<SelectOption>? Employees;
     private IList<SelectOption>? Parties;
     private IList<SelectOption>? Accounts;
@@ -208,6 +209,7 @@
             Parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
             Employees = await Helper.FetchOptionsAsync("Employees", Setting.StoreCode);
             Stores = await Helper.FetchOptionsAsync("Stores", "");
+            //StoreGroups = await Helper.FetchOptionsAsync("StoreGroups", "");
 
         }
         catch (Exception e)

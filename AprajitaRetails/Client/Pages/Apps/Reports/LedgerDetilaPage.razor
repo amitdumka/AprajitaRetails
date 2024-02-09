@@ -36,26 +36,49 @@
     <Row>
         <Column Classes="col.md">
             <div class="mb-3 row">
-                <div class="col-sm-2">
-                   Store Group / StoreId
+                <label for="Stores" class="col-sm-4 col-form-label">Store Groups</label>
+                <div class="col-sm-6">
+                    <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Stores"
+                                Autofill="true"
+                                @bind-Value="@StoreGroupId" PopupHeight="230px"
+                                DataSource="@StoreGroups">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
                 </div>
             </div>
-
         </Column>
+        <Column Classes="col.md">
+            <div class="mb-3 row">
+                <label for="Store" class="col-sm-4 col-form-label">Store</label>
+                <div class="col-sm-6">
+                    <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Store"
+                                Autofill="true"
+                                @bind-Value="@StoreId" PopupHeight="230px"
+                                DataSource="@Stores">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
+                </div>
+            </div>
+        </Column>
+
 
         <Column Classes="col.md">
             <div class="mb-3 row">
-                <label for="ondate" class="col-sm-4 col-form-label">Date</label>
-                <div class="col-sm-8">
-                   PartyName
-
+                <label for="party" class="col-sm-4 col-form-label">Ledger</label>
+                <div class="col-sm-6">
+                    <SfComboBox TValue="string" TItem="SelectOption" Placeholder="Ledger"
+                                Autofill="true"
+                                @bind-Value="@PartyId" PopupHeight="230px"
+                                DataSource="@Parties">
+                        <ComboBoxFieldSettings Text="Value" Value="ID" />
+                    </SfComboBox>
                 </div>
             </div>
         </Column>
         <Column Classes="col.md">
             <div class="mb-3 row align-end">
                 <div class="col-sm-2">
-                    <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning" @onclick="FetchRecordButton">+</Button>
+                    <Button Size="Blazor.AdminLte.ButtonSize.Small" Color="Color.Warning" @onclick="FetchRecordButton">Get</Button>
                 </div>
             </div>
 
@@ -66,147 +89,124 @@
 
     </Row>
     <Row>
-        <div class="card   bg-primary">
-            <div class="card-header">
-                <h3 class="card-title">Ledger Book   <span class="badge badge-warning ">[@OnDate.Date.ToShortDateString()]</span></h3>
-                <div class="card-tools">
-                    <!-- Buttons, labels, and many other things can be placed here! -->
-                    <!-- Here is a label for example -->
-                    <span class="badge badge-primary">Close</span>
+        @if (entity != null && entity.Count > 0)
+        {
+
+            int count = 1;
+            intotal = 0; outtotal = 0;
+
+            <div class="card   bg-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Ledger Book  </h3>
+                    <div class="card-tools">
+                        <!-- Buttons, labels, and many other things can be placed here! -->
+                        <!-- Here is a label for example -->
+                        <span class="badge badge-primary">Close</span>
+                    </div>
+                    <!-- /.card-tools -->
                 </div>
-                <!-- /.card-tools -->
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                Ledger Details
-                <Row>
-                    <Column>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableHeadCell>#</TableHeadCell>
-                                    <TableHeadCell>Date</TableHeadCell>
-                                    <TableHeadCell>Type</TableHeadCell>
-                                    <TableHeadCell>Ref No</TableHeadCell>
-                                    <TableHeadCell>Naration</TableHeadCell>
-                                    <TableHeadCell>Payment Mode</TableHeadCell>
-                                    <TableHeadCell>Details</TableHeadCell>
-                                    <TableHeadCell>In Amount</TableHeadCell>
-                                    <TableHeadCell>Out Amount</TableHeadCell>
-                                    @* <TableHeadCell>Out Amount</TableHeadCell> *@
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    Ledger Details [@Parties.FirstOrDefault(c => c.ID == PartyId).Value]
+                    <Row>
+                        <Column>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableHeadCell>#</TableHeadCell>
+                                        <TableHeadCell>Date</TableHeadCell>
+                                        <TableHeadCell>Type</TableHeadCell>
+                                        <TableHeadCell>Ref No</TableHeadCell>
+                                        <TableHeadCell>Naration</TableHeadCell>
+                                        <TableHeadCell>Payment Mode</TableHeadCell>
+                                        <TableHeadCell>Details</TableHeadCell>
+                                        <TableHeadCell>In Amount</TableHeadCell>
+                                        <TableHeadCell>Out Amount</TableHeadCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
 
-                                @if (entity != null && entity.MonthViews != null)
-                                {
-                                    int count = 1;
-                                    intotal = 0; outtotal = 0;
-                                    foreach (var item in entity.MonthViews)
+
+
+
+                                    @foreach (var item in entity)
                                     {
 
                                         <TableRow>
                                             <TableCell>@(count++)</TableCell>
-                                            <TableCell>@item.ParticularsName</TableCell>
+                                            <TableCell>@item.OnDate.ToShortDateString()</TableCell>
                                                 <TableCell>@item.VoucherType</TableCell>
                                                 <TableCell>@item.VoucherNumber</TableCell>
+                                                <TableHeadCell>@item.Naration</TableHeadCell>
+                                                <TableHeadCell>@item.PaymentMode</TableHeadCell>
+                                                <TableHeadCell>@item.PaymentDetails</TableHeadCell>
                                                 <TableCell>
-                                                    @if (item.InAmount > 0)
+                                                    @if (item.VoucherType == "Receipt" || item.VoucherType == "CashReceipt")
                                                 {
-                                                    intotal += item.InAmount;
-                                                    <span>@item.InAmount</span>
+                                                    intotal += item.Amount;
+                                                    <span class="Text-Success">@item.Amount</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>0</span>
                                                 }
                                             </TableCell>
-
-                                            @* <TableCell>
-                                    @if (item.OutAmount > 0)
-                                    {
-                                    outtotal += item.OutAmount;
-                                    <span>@item.OutAmount</span>
-                                    }
-                                    </TableCell> *@
-                                        </TableRow>
-                                    }
-                                }
-                            </TableBody>
-                        </Table>
-                    </Column>
-                    <Column>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableHeadCell>#</TableHeadCell>
-                                    <TableHeadCell>Particulars</TableHeadCell>
-                                    <TableHeadCell>Voucher Type</TableHeadCell>
-                                    <TableHeadCell>Voucher Number</TableHeadCell>
-                                    @*  <TableHeadCell>In Amount</TableHeadCell> *@
-                                    <TableHeadCell>Out Amount</TableHeadCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-
-                                @if (entity != null && entity.MonthViews != null)
-                                {
-                                    int count = 1;
-                                    intotal = 0; outtotal = 0;
-                                    foreach (var item in entity.MonthViews)
-                                    {
-
-                                        <TableRow>
-                                            <TableCell>@(count++)</TableCell>
-                                            <TableCell>@item.ParticularsName</TableCell>
-                                                <TableCell>@item.VoucherType</TableCell>
-                                                <TableCell>@item.VoucherNumber</TableCell>
-                                                @*  <TableCell>
-                                    @if (item.InAmount > 0)
-                                    {
-                                    intotal += item.InAmount;
-                                    <span>@item.InAmount</span>
-                                    }
-                                    </TableCell> *@
-
-                                                <TableCell>
-                                                    @if (item.OutAmount > 0)
+                                            <TableCell>
+                                                @if (item.VoucherType != "Receipt" && item.VoucherType != "CashReceipt")
                                                 {
-                                                    outtotal += item.OutAmount;
-                                                    <span>@item.OutAmount</span>
+                                                    outtotal += item.Amount;
+                                                    <span class="text-danger">@item.Amount</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="Text-Secondary">0</span>
                                                 }
                                             </TableCell>
                                         </TableRow>
                                     }
-                                }
-                            </TableBody>
-                        </Table>
-                    </Column>
-                </Row>
 
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer align-content-end text-end ml-5 mr-5">
-                Day Book Total  <span class="text-success mr-5 ml-5">@intotal</span> <span class="text-warning mr-5 ml-5">@outtotal</span>
-            </div>
-            <!-- /.card-footer -->
-        </div>
 
+                                </TableBody>
+                            </Table>
+                        </Column>
+                    </Row>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer align-content-end text-end ml-5 mr-5">
+                    Ledger Total  <span class="text-success mr-5 ml-5">@intotal</span> <span class="text-warning mr-5 ml-5">@outtotal</span>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+        }
+    else{
+        <span class="text-warning">No Option selected / No Data present</span>
+    }
     </Row>
 </ContentMain>
 
 @code {
+    private string StoreId, StoreGroupId, PartyId;
+    private IList<SelectOption>? Stores;
+    private IList<SelectOption>? StoreGroups;
+    private IList<SelectOption>? Parties;
     private string Title = "Ledger Book";
     private const string URL = "api/Parties/ledgerdetails";
-   //private DateTime OnDate = DateTime.Today;
+    //private DateTime OnDate = DateTime.Today;
     private List<LedgerDetail>? entity = null;
     private decimal intotal = 0, outtotal = 0;
-    void FetchRecordButton(){
+    async void FetchRecordButton()
+    {
+        entity = await Helper.FetchAsync<LedgerDetail>($"{URL}", $"?storeid={StoreId}&ledgerid={PartyId}");
+        StateHasChanged();
 
     }
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            this.OnDate = new DateTime(2024, 1, 3);
-            await FetchDataAsync();
 
+            await FetchDataAsync();
             StateHasChanged();
             base.OnInitialized();
         }
@@ -220,22 +220,15 @@
 
     async Task FetchDataAsync()
     {
-        //intotal = 0; outtotal = 0;
-        entity = await Helper.PostDataFromAsync<MonthViewReturn, MonthViewRequest>(URL, new MonthViewRequest { CashVoucher = true, OnDate = OnDate, StoreCode = "ARD", StoreCodeName = "StoreCode", Mode = ClientReportMode.Store }, Title);
-
+        intotal = 0; outtotal = 0;
+        Parties = await Helper.FetchOptionsAsync("Parties", Setting.StoreCode);
+        Stores = await Helper.FetchOptionsAsync("Stores", "");
+        StoreGroups = await Helper.FetchOptionsAsync("StoreGroups", "");
+        StateHasChanged();
+        await Task.Delay(5000);
         StateHasChanged();
 
 
+    }
 
-    }
-    // private async Task DateChange(EventArgs e)
-    // {
-    //     await FetchDataAsync();
-    //     // StateHasChanged();
-    // }
-    public async void DateChange(ChangedEventArgs<DateTime> args)
-    {
-        OnDate = args.Value.Date;
-        await FetchDataAsync();
-    }
 }
