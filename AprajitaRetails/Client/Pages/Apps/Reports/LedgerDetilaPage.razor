@@ -95,7 +95,7 @@
             int count = 1;
             intotal = 0; outtotal = 0;
 
-            <div class="card   bg-primary">
+            <div class="card   bg-dark">
                 <div class="card-header">
                     <h3 class="card-title">Ledger Book  </h3>
                     <div class="card-tools">
@@ -141,26 +141,26 @@
                                                 <TableHeadCell>@item.PaymentMode</TableHeadCell>
                                                 <TableHeadCell>@item.PaymentDetails</TableHeadCell>
                                                 <TableCell>
-                                                    @if (item.VoucherType == "Receipt" || item.VoucherType == "CashReceipt")
-                                                {
-                                                    intotal += item.Amount;
-                                                    <span class="Text-Success">@item.Amount</span>
-                                                }
-                                                else
+                                               @*  @if (item.VoucherType == "Receipt" || item.VoucherType == "CashReceipt")
+                                                { *@
+                                                  @*  @intotal += item.InAmount; *@
+                                                    <span class="Text-Success">@item.InAmount</span>
+                                                @* }
+                                                 else
                                                 {
                                                     <span>0</span>
-                                                }
+                                                } *@
                                             </TableCell>
                                             <TableCell>
-                                                @if (item.VoucherType != "Receipt" && item.VoucherType != "CashReceipt")
-                                                {
-                                                    outtotal += item.Amount;
-                                                    <span class="text-danger">@item.Amount</span>
-                                                }
-                                                else
+                                                @* @if (item.VoucherType != "Receipt" && item.VoucherType != "CashReceipt")
+                                                { *@
+                                                  @*   @outtotal += item.OutAmount; *@
+                                                    <span class="text-danger">@item.OutAmount</span>
+                                               @*  }
+                                                 else
                                                 {
                                                     <span class="Text-Secondary">0</span>
-                                                }
+                                                }   *@
                                             </TableCell>
                                         </TableRow>
                                     }
@@ -174,7 +174,8 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer align-content-end text-end ml-5 mr-5">
-                    Ledger Total  <span class="text-success mr-5 ml-5">@intotal</span> <span class="text-warning mr-5 ml-5">@outtotal</span>
+                    Ledger Total  <span class="text-danger mr-5 ml-5">@entity.Sum(c => c.InAmount)</span> <span class="text-warning mr-5 ml-5">@entity.Sum(c=>c.OutAmount)</span>
+                    <span class="text-warning mr-5 ml-5">@entity.Sum(c => c.InAmount-c.OutAmount)</span>
                 </div>
                 <!-- /.card-footer -->
             </div>

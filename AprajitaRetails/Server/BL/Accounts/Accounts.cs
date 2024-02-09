@@ -14,16 +14,29 @@ namespace AprajitaRetails.Server.BL.Accounts
 
             //TODO: Here we need to add banking transfer and cash vouchers, then it will be preferect 
             var ledgers = db.Vouchers.Where(c => c.StoreId == storeid && c.PartyId == LedgerId).OrderBy(c => c.OnDate).ToList();
-            var data = ledgers.Select(c => new LedgerDetail
+            var data = ledgers.Where(c=>c.VoucherType==VoucherType.Receipt).Select(c => new LedgerDetail
             {
                 OnDate = c.OnDate,
                 VoucherType = c.VoucherType.ToString(),
                 VoucherNumber = c.VoucherNumber,
                 Naration = c.Remarks+"#"+c.Particulars+"#"+c.PartyName+"#"+c.SlipNumber,
                 PaymentMode = c.PaymentMode.ToString(),
-                Amount = c.Amount,
+                InAmount = c.Amount,OutAmount=0,
                 PaymentDetails = c.PaymentDetails
-            });
+            }).ToList();
+
+             data.AddRange( ledgers.Where(c => c.VoucherType == VoucherType.Payment || c.VoucherType==VoucherType.Expense).Select(c => new LedgerDetail
+            {
+                OnDate = c.OnDate,
+                VoucherType = c.VoucherType.ToString(),
+                VoucherNumber = c.VoucherNumber,
+                Naration = c.Remarks + "#" + c.Particulars + "#" + c.PartyName + "#" + c.SlipNumber,
+                PaymentMode = c.PaymentMode.ToString(),
+                OutAmount = c.Amount,
+                InAmount = 0,
+                PaymentDetails = c.PaymentDetails
+            }).ToList());
+            
             return  data;
         }
 

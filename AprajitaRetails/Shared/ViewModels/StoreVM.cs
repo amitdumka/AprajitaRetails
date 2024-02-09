@@ -43,6 +43,7 @@ namespace AprajitaRetails.Shared.ViewModels
         public string PaymentMode{get;set;}
         public string? Naration{get;set;}
         public string? PaymentDetails{get;set;}
-        public decimal Amount{get;set;}
+        public decimal InAmount{get;set;}
+        public decimal OutAmount { get; set; }
     }
 }
