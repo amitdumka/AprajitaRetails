@@ -20,6 +20,18 @@ namespace AprajitaRetails.Server.Controllers.Accounts
         {
             _context = context; _mapper = mapper;
         }
+         [HttpGet("ledgerdetails")]
+        public async Task<ActionResult<IEnumerable<LedgerDetail>>> GetPartryDetais(string storeid, string ledgerid)
+        {
+            if (_context.Parties == null)
+            {
+                return NotFound();
+            }
+            var data = LedgerHelper.GetLedgerDetails(_context,"TAS",storeId, ledgerid);
+            return data;
+           // return await _context.Parties.ToListAsync();
+        }
+
 
         // GET: api/Parties
         [HttpGet]

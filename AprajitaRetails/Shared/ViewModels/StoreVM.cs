@@ -32,4 +32,17 @@ namespace AprajitaRetails.Shared.ViewModels
         public string SalesmanId { get; set; }
         public string? EDCTerminalId { get; set; }
     }
+
+
+    public class LedgerDetail{
+        public int Id{get;set;}
+        public string LedgerName{get;set;}
+        public DateTime OnDate{get;set;}
+        public string VoucherType{get;set;}
+        public string VoucherNumber{get;set;}
+        public string PaymentMode{get;set;}
+        public string? Naration{get;set;}
+        public string? PaymentDetails{get;set;}
+        public decimal Amount{get;set;}
+    }
 }

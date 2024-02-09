@@ -4,6 +4,25 @@ using AprajitaRetails.Shared.Models.Stores;
 
 namespace AprajitaRetails.Server.BL.Accounts
 {
+
+    public class LedgerHelper{
+
+        public static List<LedgerDetail> GetLedgerDetails(ARDBContext db, string storeGroup, string storeid, string LedgerId){
+
+            //TODO: Here we need to add banking transfer and cash vouchers, then it will be preferect 
+            var ledgers=db.Voucher.Where(c=>c.StoreId==storeid && c.PartyId==LedgerId).OrderBy(c=>c.OnDate).ToList();
+            var data= ledgers.Select(c=>new LedgerDetail{ OnDate=c.OnDate,VoucherType= c.VoucherType,VoucherNumber= c.VoucherNumber,
+            Naration= c.Remarks,PaymentMode= c.PaymentMode, Amount=c.Amount PaymentDetails=c.PaymentDetails});
+            return data;
+        }
+
+        public static void GeneratePdfLedgerReport(string PartyName, string StoreName, string StoreAddress, string filename){
+
+        }
+        public static void GenerateExcelLedgerReport(string PartyName, string StoreName, string StoreAddress, string filename){
+            
+        }
+    }
     public class AccountHelper
     {
         /// <summary>
