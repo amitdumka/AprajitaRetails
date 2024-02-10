@@ -8,7 +8,9 @@ namespace AprajitaRetails.Server.BL.Printers
 {
     public class VoucherPrinters
     {
-         
+       public static MemoryStream VoucherPrinter(bool Page2Inch, StoreBasicDTO store, Voucher voucher, int copy=2, int isReprinted=false){
+        
+       }
 
 
         public static MemoryStream InvoicePrinter(bool Page2Inch, SaleDetailsDTO details, StoreBasicDTO store, string CustomerName, string MobileNo, int copy, bool isReprinted)
