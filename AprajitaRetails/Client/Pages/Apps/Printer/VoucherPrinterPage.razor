@@ -1,4 +1,4 @@
-﻿@page "/printer/voucherPrinters"
+﻿@page "/inventory/printInvoices"
 
 @using Syncfusion.Blazor.Inputs
 @using Syncfusion.Blazor.Popups
@@ -10,7 +10,7 @@
 @using Syncfusion.Blazor.Navigations
 @using AprajitaRetails.Commons
 
- 
+@using AprajitaRetails.Helpers
 @using AprajitaRetails.Aks
 @using AprajitaRetails.Aks.Forms
 @using System;
@@ -19,15 +19,23 @@
 @using AprajitaRetails.Shared.AutoMapper.DTO;
 @using AprajitaRetails.Shared.Models.Inventory;
 @using AprajitaRetails.Shared.ViewModels;
- 
+@using Syncfusion.Blazor.Grids;
 @using Syncfusion.Blazor.Grids.Internal;
- 
+@using Syncfusion.Blazor.Inputs;
+@using Syncfusion.Blazor.Navigations;
 @using AprajitaRetails.Shared.Models.Stores
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using AprajitaRetails.AdminLte.Forms
 @using Radzen.Blazor
- 
+@using AprajitaRetails.Commons
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using AprajitaRetails.Helpers
+@using AprajitaRetails.Aks
+@using AprajitaRetails.Aks.Forms
+@using Syncfusion.Blazor.Popups
 @using Append.Blazor.Printing
 
 @inject IPrintingService PrintingService
@@ -38,7 +46,7 @@
 @inject ClientSetting Setting
 <ContentHeader>
     <Header>
-        <Blazor.AdminLte.PageTitle Title="Voucher Printing" />
+        <Blazor.AdminLte.PageTitle Title="Invoice Printing" />
     </Header>
 </ContentHeader>
 <ContentMain>
@@ -71,19 +79,6 @@
             </div>
         </Column>
         <Column Classes="col.md">
-            <div class="mb-3 row">
-                <label for="inv" class="col-sm-4 col-form-label">Voucher Type</label>
-                <div class="col-sm-6">
-                    <SfComboBox TValue="string" TItem="string" Placeholder="Voucher Type"
-                                Autofill="true"
-                                @bind-Value="@vchType" PopupHeight="230px"
-                                DataSource="@VoucherTypeList">
-                        <ComboBoxFieldSettings Text="Value" Value="ID" />
-                    </SfComboBox>
-                </div>
-            </div>
-        </Column>
-        <Column Classes="col.md">
 
             <SfButton CssClass="e-primary e-small" OnClick="FetchInvList">Get Invoice List</SfButton>
         </Column>
@@ -91,11 +86,11 @@
     <Row>
         <Column Classes="col.md">
             <div class="mb-3 row">
-                <label for="inv" class="col-sm-4 col-form-label">Voucher Number</label>
+                <label for="inv" class="col-sm-4 col-form-label">Invoice</label>
                 <div class="col-sm-6">
                     <SfComboBox TValue="string" TItem="string" Placeholder="Invoice  "
                                 Autofill="true" AllowFiltering="true"
-                                @bind-Value="@voucherNumber" PopupHeight="230px"
+                                @bind-Value="@invoiceNumber" PopupHeight="230px"
                                 DataSource="@InvoiceList">
                         <ComboBoxFieldSettings Text="Value" Value="ID" />
                     </SfComboBox>
@@ -107,7 +102,7 @@
         </Column>
 
         <Column Classes="col.md">
-            <SfButton CssClass="e-warning e-small" @onclick='@(()=> PrintingService.Print($"api/productsales/invoiceprint?id={voucherNumber}&copy={copy}&pagesmall={smallPage}&reprint={Reprint}"))'>Print Invoice</SfButton>
+            <SfButton CssClass="e-warning e-small" @onclick='@(()=> PrintingService.Print($"api/productsales/invoiceprint?id={invoiceNumber}&copy={copy}&pagesmall={smallPage}&reprint={Reprint}"))'>Print Invoice</SfButton>
 
         </Column>
 
@@ -119,21 +114,21 @@
     IList<SelectOption>? Stores;
     IList<int>? YearList;
     IList<int>? MonthList = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };// "July", "Aug", "Sept", "Oct", "Nov","Dec" };
-    IList<string>? VoucherTypeList= new List<string> { "Invoice","Voucher","CashVoucher", "DebitNote","CreditNote","PaySlip","Leger"};
+
     private List<string> InvoiceList;
     private int year = DateTime.Today.Year, month = DateTime.Today.Month;
-    private string vchType = "Invoice";
+
     private bool Reprint = true;
     private int copy = 1;
-    private string voucherNumber = "";
+    private string invoiceNumber = "";
     private bool smallPage = false;
 
     void PrintInvoice(MouseEventArgs args)
     {
-        if (string.IsNullOrEmpty(voucherNumber) == false)
+        if (string.IsNullOrEmpty(invoiceNumber) == false)
         {
-            //"/printer/view/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{VoucherType:string}/{*param}"
-            Navigation.NavigateTo($"/printer/View/{Reprint}/{smallPage}/{copy}/{vchType}/{voucherNumber}");
+            //"/Sales/InvoicePrinting/View/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{param:string}"
+            Navigation.NavigateTo($"/Sales/InvoicePrinting/View/{Reprint}/{smallPage}/{copy}/{invoiceNumber}");
         }
     }
 

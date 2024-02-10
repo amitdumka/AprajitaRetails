@@ -1,7 +1,9 @@
 ﻿using AprajitaRetails.Server.BL.Accounts;
+using AprajitaRetails.Server.BL.Printers;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Vouchers;
+using AprajitaRetails.Shared.ViewModels;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +23,33 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
             _context = context;
             _mapper = mapper;
         }
+        [HttpGet("VoucherPrint")]
+        public async Task<ActionResult> GetInvoice(string id, int copy = 1, bool pagesmall = false, bool reprint = false)
+        {
+            
+            var vch= await _context.Vouchers.Include(c => c.Store).Include(c => c.Party).Include(c => c.Employee).Where(c => c.VoucherNumber == id)
+               .ProjectTo<VoucherDTO>(_mapper.ConfigurationProvider)
+               .FirstOrDefaultAsync();
 
+            var inv = await _context.ProductSales.Include(c => c.Salesman).Include(c => c.Store)
+                 .Where(c => c.InvoiceNo == id).ProjectTo<ProductSaleDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+
+            if (vch == null) return NotFound();
+            else
+            {
+                var storedto = await _context.Stores.Where(c => c.StoreId == inv.StoreId).
+                 ProjectTo<StoreBasicDTO>(_mapper.ConfigurationProvider)
+               .FirstOrDefaultAsync();
+                 
+                var pdfile = VoucherPrinters.VoucherPrinter(pagesmall,  storedto, vch, copy, reprint);
+                pdfile.Position = 0;
+                return File(pdfile, "application/pdf", $"{id}.pdf");
+            }
+
+
+        }
         // DELETE: api/Vouchers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVoucher(string id)

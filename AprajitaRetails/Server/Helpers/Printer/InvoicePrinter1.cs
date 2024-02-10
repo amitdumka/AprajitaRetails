@@ -1,4 +1,5 @@
-﻿using AprajitaRetails.Shared.AutoMapper.DTO;
+﻿using AprajitaRetails.Client.Pages.Apps.Accounts.Vouchers;
+using AprajitaRetails.Shared.AutoMapper.DTO;
 using AprajitaRetails.Shared.Models.Inventory;
 using Syncfusion.Drawing;
 using Syncfusion.Pdf;
@@ -9,56 +10,49 @@ using System.ComponentModel.DataAnnotations;
 namespace AprajitaRetails.Server.Helpers.Printer
 {
 
-    public class PrinterConfig{
-        protected int PageWith=150; 
-        protected int PageHeight=1500;
-        private int FontSize = 8;
+    public class PrinterConfig
+    {
+        protected int PageWith = 150;
+        protected int PageHeight = 1500;
+        protected int FontSize = 8;
         public bool Page2Inch { get; set; } = false;
-
-        public bool ServiceBill { get; set; } = false;
-
+ 
         public const string DotedLine = "---------------------------------\n";
         public const string DotedLineLong = "--------------------------------------------------\n";
-
         public const string tab = "    ";
-
         public string StoreName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }
         public string TaxNo { get; set; }
-         public int NoOfCopy { get; set; }
+        public int NoOfCopy { get; set; }
         public bool Reprint { get; set; }
-         public const int paragraphAfterSpacing = 8;
-
+        public const int paragraphAfterSpacing = 8;
         public string PathName { get; set; }
         public string FileName { get; set; }
-
     }
-    public class VoucherPrinter:PrinterConfig{
+
+    public class VoucherPrinter : PrinterConfig
+    {
         [Required]
-        public bool VoucherSet{get;set;}
-       
+        public bool VoucherSet { get; set; }
         public string PartyName { get; set; }
-        public string PartyAddress{get;set;}
+        public string PartyAddress { get; set; }
         public string MobileNumber { get; set; }
+        public string VoucherType = "Payment";
+        private string VoucherTitle = $"                  VOUCHER";
+        public VoucherDTO Voucher { get; set; }
 
-        public string VoucherType="Payment";
-        private const string VoucherTitle = $"                {VoucherType} VOUCHER";
-        private const string ItemLineHeader1 = "SKU Code / Description / HSN";
-        private const string ItemLineHeader2 = "MRP     Qty     Disc     Amount";
-        private const string ItemLineHeader3 = "CGST%    AMT     SGST%   AMT";
+        //private const string FooterFirstMessage = "For";
+        private const string FooterThanksMessage = "Payer Signature";
+        private const string FooterLastMessage = "Reciver Signature";
 
-        private const string FooterFirstMessage = "** Amount Inclusive GST **";
-        private const string FooterThanksMessage = "Thank You";
-        private const string FooterLastMessage = "Visit Again";
-       
-        private const string Employee = "Cashier: M0001      Name: Manager";
+        private  string Employee = "Cashier: M0001      Name: Manager";
 
-        public MemoryStream VoucherThermalPdf()
+        public MemoryStream VoucherThermalPdf( )
         {
             if (!this.VoucherSet) return null;
-            
+
             if (!Page2Inch)
             {
                 PageWith = 240;
@@ -93,69 +87,45 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     if (!Page2Inch) line = DotedLineLong;
                     else line = DotedLine;
 
-                    if (ServiceBill)
+                     
+                    VoucherTitle = $"{VoucherType} Voucher";
+                    Employee = $"Cashier: M0001      Name: {Voucher.StaffName}";
+                    string detailString = $"{line}{VoucherTitle}\n{line}{sBill}{Employee}\nVch No: {Voucher.VoucherNumber}\nDate: {Voucher.OnDate.ToShortDateString()}\n{line}";
+                    
+                    string d2 = $"Name: {PartyName}\n";
+                    if (string.IsNullOrEmpty(MobileNumber) == false)
                     {
-                        sBill = $"Service Invoice\n{line}";
+                        d2+=$"Mobile :{MobileNumber}\n ";
                     }
-                    string detailString = $"{line}{InvoiceTitle}\n{line}{sBill}{Employee}\nBill No: {ProductSale.InvoiceNo}\nDate: {ProductSale.OnDate.ToShortDateString()}\n{line}";
-                    string d2 = $"Name: {CustomerName}\nMobile : {MobileNumber}\n{line}{ItemLineHeader1}\n{ItemLineHeader2}\n{line}";
+                    if (string.IsNullOrEmpty(PartyAddress) == false)
+                    {
+                        d2 += $"Address :{PartyAddress}\n ";
+                    }
+                    d2+= $"{line}\n";
 
                     PdfTextElement details = new PdfTextElement($"{detailString}{d2}", font, PdfBrushes.Black);
                     result = details.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
 
-                    string invItemStr = "";
+                    string paystr = "";
                     string f = "0.##";
-                    foreach (var itm in SaleItems)
+                    paystr = $"On Account Of {Voucher.Particulars}\n The Sum of  {Voucher.Amount.ToString("0.##")}\n Payment through {Voucher.PaymentMode.ToString()}\n";
+                    if (string.IsNullOrEmpty(Voucher.PaymentDetails) == false)
                     {
-                        invItemStr += $"{itm.Barcode} / {itm.ProductName} /{itm.HSNCode} \n";
-                        invItemStr += $"{itm.MRP.ToString(f)} / {itm.BilledQty.ToString(f)} / {itm.DiscountAmount.ToString(f)} / {itm.Value.ToString(f)}\n\n";
+                        paystr += $"Details: {Voucher.PaymentDetails}\n";
+                        
                     }
-                    invItemStr += line;
-                    invItemStr += $"Total: {ProductSale.BilledQty.ToString(f)}   \t                          {(ProductSale.TotalPrice - ProductSale.RoundOff).ToString(f)}\n";
-                    invItemStr += $"Items(s): {ProductSale.TotalQty.ToString(f)} \t Net Amount: {(ProductSale.TotalPrice - ProductSale.RoundOff).ToString(f)}\n{line}";
+                    if (!string.IsNullOrEmpty(Voucher.AccountNumber))
+                    {
+                        paystr += $"A/c No: {Voucher.AccountNumber}\n";
+                    }
 
-                    invItemStr += $"Tender (s)\t\nPaid Amount:\t\t Rs. {(ProductSale.TotalPrice).ToString(f)}\n{line}";
+                    
 
-                    invItemStr += $"Basic Price: \t{ProductSale.TotalBasicAmount.ToString("0.##")}";
-                    invItemStr += $"\nCGST:   \t \t {(ProductSale.TotalTaxAmount / 2).ToString("0.##")}";
-                    invItemStr += $"\nSGST:   \t \t {(ProductSale.TotalTaxAmount / 2).ToString("0.##")}\n{line}";
-
-                    PdfTextElement invitm = new PdfTextElement(invItemStr, font, PdfBrushes.Black);
+                    PdfTextElement invitm = new PdfTextElement(paystr, font, PdfBrushes.Black);
                     result = invitm.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
 
-                    if (PaymentDetails.Count > 0)
-                    {
-                        string payStr = line;
-
-                        foreach (var pd in PaymentDetails)
-                        {
-                            payStr += $"Paid Rs. {pd.PaidAmount.ToString("0.##")} in {pd.PayMode}\n";
-
-                            if (pd.PayMode == PayMode.Card)
-                            {
-                                if (CardDetails != null)
-                                    payStr += $"{CardDetails.CardType}/{CardDetails.CardLastDigit}";
-                            }
-                            else if (pd.PayMode == PayMode.UPI || pd.PayMode == PayMode.Wallets)
-                            {
-                                payStr += $"Ref No:{pd.RefId}\n";
-                            }
-                            else
-                            {
-                                if (string.IsNullOrEmpty(pd.RefId) == false && pd.PayMode != PayMode.Cash)
-                                    payStr += $"Ref No:{pd.RefId}\n";
-                            }
-                        }
-                        payStr += line;
-                        PdfTextElement pay = new PdfTextElement(payStr, font, PdfBrushes.Black);
-                        result = pay.Draw(page, new RectangleF(0, result.Bounds.Bottom + paragraphAfterSpacing, page.GetClientSize().Width, page.GetClientSize().Height), format);
-                    }
-
-                    //Footer
-                    string footerstr = $"{FooterFirstMessage}\n";
-
-                    if (ServiceBill) footerstr += "** Tailoring Service Invoice **";
-                    footerstr += $"{DotedLineLong}{FooterThanksMessage}\n{FooterLastMessage}\n{DotedLineLong}\n";
+                      //Footer
+                    string footerstr = $"{DotedLineLong}\n\n\nFor {StoreName},\n\n\t\t\t{FooterLastMessage}\n{DotedLineLong}\n";
 
                     if (Reprint)
                     {
@@ -163,7 +133,7 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     }
                     else
                     {
-                        footerstr += "(Customer Copy)\n";
+                        footerstr += "(Orignal Copy)\n";
                     }
 
                     footerstr += $"Printed on:  {DateTime.Now}  \n\n\n\n\n\n{DotedLine}\n\n\n";
@@ -177,7 +147,7 @@ namespace AprajitaRetails.Server.Helpers.Printer
                     //Set XDimension
 
                     qrBarcode.XDimension = 3;
-                    qrBarcode.Text = ProductSale.InvoiceNo;
+                    qrBarcode.Text = $"{Voucher.VoucherNumber}#Dt:{Voucher.OnDate.ToShortDateString()}#Rs.{Voucher.Amount.ToString(f)}";
 
                     //Printing barcode on to the PDF
                     qrBarcode.Draw(page, new PointF(30, result.Bounds.Bottom + paragraphAfterSpacing));
@@ -202,7 +172,7 @@ namespace AprajitaRetails.Server.Helpers.Printer
                 }
             }
         }
-   
+
     }
     public class InvoicePrinter
     {

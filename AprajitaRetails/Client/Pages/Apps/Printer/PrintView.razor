@@ -1,0 +1,89 @@
+﻿@page "/printer/view/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{VoucherType:string}/{*param}"
+@* @page "/Sales/InvoicePrinting/View/{Reprint:bool}/{smallPage:bool}/{Copy:int}/{*param}" *@
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.PdfViewer
+@using Syncfusion.Blazor.Buttons
+@using System.Web
+
+@inject NavigationManager NavigationManager
+
+@inject HttpClient Http
+@inject DataHelper Helper
+
+
+
+
+
+<SfButton OnClick="LoadAnotherDocument">Load Another Document</SfButton>
+<h2>Invoice</h2>
+
+
+<SfPdfViewer DocumentPath="@DocumentPath" @ref="@PdfViewer" EnableDownload="true" EnablePrint="true"
+             ServiceUrl="@url"
+             Height="500px" Width="1060px"></SfPdfViewer>
+
+<h4>Print this</h4>
+
+
+@code {
+
+
+    [Parameter] public bool smallPage { get; set; } = false;
+    [Parameter] public string Param { get; set; } = "";
+    [Parameter] public bool Reprint { get; set; } = true;
+    [Parameter] public int Copy { get; set; } = 1;
+    [Parameter] public string VoucherType { get; set; } = "Invoice";
+    string DocumentPath { get; set; } = "";
+    string url = "";//$"api/productsales/invoiceprint?id={Param}&copy={Copy}&pagesmall={smallPage}&reprint={Reprint}";
+    SfPdfViewer PdfViewer;
+
+    private async Task LoadAnotherDocument()
+    {
+
+        var apiroute = "productsales/invoiceprint";
+        if (VoucherType.Contains("Invoice"))
+        {
+            apiroute = "productsales/invoiceprint";
+        }
+        else if (VoucherType.Contains("Credit"))
+        {
+            apiroute = "cashvouchers/voucherprint";
+        }
+        else if (VoucherType.Contains("CashVouche"))
+        {
+            apiroute = "vouchers/voucherprint";
+        }
+
+        //Sends a GET request to a specified Uri and return the response body as a byte array.
+        byte[] byteArray = await Http.GetByteArrayAsync($"api/{apiroute}?id={Param}&copy={Copy}&pagesmall={smallPage}&reprint={Reprint}");
+
+        if (byteArray != null && byteArray.Count<byte>() > 0)
+        {
+            //Converts the byte array into base64 string.
+            string base64String = Convert.ToBase64String(byteArray);
+
+            //Sets the base64 string as document path for the PDF Viewer.
+            DocumentPath = "data:application/pdf;base64," + base64String;
+            StateHasChanged();
+        }
+    }
+
+    
+    protected override async Task OnInitializedAsync()
+    {
+        
+       await LoadAnotherDocument();
+        if (string.IsNullOrEmpty(Param) && string.IsNullOrEmpty(DocumentPath))
+        {
+            Helper.Msg("Error", $"Failed to get {VoucherType} Not found!", true);
+            NavigationManager.NavigateTo("/inventory/printInvoices");
+        }
+        else
+        {
+            StateHasChanged();
+           
+        }
+
+    }
+}
+

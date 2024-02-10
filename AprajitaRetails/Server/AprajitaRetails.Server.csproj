@@ -145,7 +145,6 @@
   <ItemGroup>
     <Folder Include="Controllers\Payroll\" />
     <Folder Include="BL\Accounts\" />
-    <Folder Include="Controllers\Helpers\" />
     <Folder Include="wwwroot\Tables\" />
     <Folder Include="Extensions\" />
     <Folder Include="BL\Payrolls\" />
