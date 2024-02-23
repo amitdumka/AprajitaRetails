@@ -49,7 +49,7 @@
     {
         try
         {
-            Stores = await DataHelper.FetchOptionsAsync("api/Stores", null);
+            Stores = await DataHelper.FetchOptionsAsync("Stores", null);
             return true;
         }
         catch (Exception)

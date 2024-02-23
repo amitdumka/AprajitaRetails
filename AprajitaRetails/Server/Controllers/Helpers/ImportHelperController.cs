@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using AprajitaRetails.Importer;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.Constants;
@@ -22,6 +23,14 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             this.hostingEnv = env;
             aRDB = db;
         }
+
+        [HttpGet("move")]
+        public async Task<ActionResult<string>> GetMove(string ops)
+        {
+            StoreMover storeMover = new StoreMover(aRDB);
+            return storeMover.Move(ops, hostingEnv.WebRootPath);
+        }
+
         [HttpGet("missing")]
         public async Task<ActionResult<bool>> GetAddMissingStock(ProductItem? item)
         {
