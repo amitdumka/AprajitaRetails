@@ -18,6 +18,8 @@ namespace AprajitaRetails.Shared.Models.Inventory
 
     public class ProductItem
     {
+        
+
         [Key]
         public string Barcode { get; set; }
 
