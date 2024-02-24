@@ -1,4 +1,5 @@
 
+using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using System.Text.Json;
 using AprajitaRetails.Server.Data;
@@ -89,13 +90,23 @@ public class StoreMover
         return $"Moved   Emp and salesman {y}";
     }
 
+    public Unit ToUnit(string cat)
+    {
+        if (cat.ToLower().Contains("fabric")) return Unit.Meters; else return Unit.Pcs; 
+    }
+
+    public ProductCategory ToCat(string cat)
+    {
+        if (cat.ToLower().Contains("fabric")) return ProductCategory.Fabric;
+        else if (cat.ToLower().Contains("readymade")) return ProductCategory.Apparel;
+        else if (cat.ToLower().Contains("inear")) return ProductCategory.InnerWear;
+        else return ProductCategory.Others;
+    }
+
     public string MoveStock(List<OldStock> oldStocks)
     {
         //List<ProductItem> productItems = new List<ProductItem>();
         // List<Stock> stocks = new List<Stock>();
-
-
-
 
         foreach (var oStock in oldStocks)
         {
@@ -109,19 +120,43 @@ public class StoreMover
                 nStock.PurchaseQty = oStock.Qty;
                 nStock.Id = Guid.NewGuid();
                 db.Stocks.Add(nStock);
-            }else{
-                Stock stock= new Stock{
+            }
+            else
+            {
+                Stock stock = new Stock
+                {
 
-                    StoreId=StoreId, Barcode=oStock.Barcode, CostPrice=oStock.Cost, EntryStatus=EntryStatus.Added, HoldQty=0,
-                    IsReadOnly=false, MarkedDeleted=false, MRP=oStock.MRP, MultiPrice=false, PurchaseQty=oStock.Qty,
-                    SoldQty=0, Unit=ToUnit(oStock.Category), UserId="AutoAdmin", Id=Guid.NewGuid(), Product=new ProductItem{
-                        Barcode=oStock.Barcode, 
-                         Name=oStock.Name, Description="Missing Stock", StoreGroupId="TAS",
-                          BrandCode="NBR", MRP=oStock.OldMRP, Size=Size.FreeSize, StyleCode=oStock.Name,
-                           TaxType=TaxType.GST, HSNCode="MISSING",
-                           
-                      
-                                            }
+                    StoreId = StoreId,
+                    Barcode = oStock.Barcode,
+                    CostPrice = oStock.Cost,
+                    EntryStatus = EntryStatus.Added,
+                    HoldQty = 0,
+                    IsReadOnly = false,
+                    MarkedDeleted = false,
+                    MRP = oStock.MRP,
+                    MultiPrice = false,
+                    PurchaseQty = oStock.Qty,
+                    SoldQty = 0,
+                    Unit = ToUnit(oStock.Category),
+                    UserId = "AutoAdmin",
+                    Id = Guid.NewGuid(),
+                    
+                    Product = new ProductItem
+                    {
+                        Barcode = oStock.Barcode,
+                        Name = oStock.Name,
+                        Description = "Missing Stock",
+                        StoreGroupId = "TAS",
+                        BrandCode = "NBR",
+                        MRP = oStock.OldMRP,
+                        Size = Size.FreeSize,
+                        StyleCode = oStock.Name,
+                        TaxType = TaxType.GST,
+                        HSNCode = "MISSING", ProductCategory=ToCat(oStock.Category),
+                        Unit=ToUnit(oStock.Category),
+                        SubCategory= "UnSorted", 
+                        ProductTypeId="PT00013",  
+                    }
 
                 };
             }
@@ -168,14 +203,20 @@ public class StoreMover
     }
     public async Task<string> MoveAsync(string ops, string basepath)
     {
-         if(ops=="stock"){
-            var data=await ReadStockExcelAsync(basepath);
-            return MoveMain(ops,data);
-         }
-         else if(ops=="missing"){
-            var data=await ReadStockExcelAsync(basepath);
+        if (ops == "stock")
+        {
+            var data = await ReadStockExcelAsync(basepath);
+            return MoveMain(ops, data);
+        }
+        else if (ops == "missing")
+        {
+            var data = await ReadStockExcelAsync(basepath);
             return MissingStock(data);
-         }
+        }else if (ops == "dup")
+        {
+            var data = await ReadStockExcelAsync(basepath);
+            return DuplicateStock(data);
+        }
 
         return MoveMain(ops, null);
     }
@@ -195,24 +236,28 @@ public class StoreMover
 
     public async Task<List<OldStock>?> ReadStockExcelAsync(string basepath)
     {
-        string pathname=Path.Combine(basepath,"data","excel"); 
-         try
+        string pathname = Path.Combine(basepath, "data", "excel");
+        try
+        {
+            if(Path.Exists(Path.Combine(pathname, "CurrentStock.json")))
             {
-                var data = ImportDataHelper.ReadExcel<OldStock>(pathname, "currentstock.xlsx", "Sheet1", "A1:Z1");
-                if(data==null) return null;
-                var json = await ImportDataHelper.ObjectToJsonFileAsync(data, "CurrentStock.json");
+                return DocIO.JsonToObject<OldStock>(Path.Combine(pathname, "CurrentStock.json"));
+            }
+            var data = ImportDataHelper.ReadExcel<OldStock>(pathname, "CurrentStock.xlsx", "Sheet1", "A1:I241");
+            if (data == null) return null;
+            var json = await ImportDataHelper.ObjectToJsonFileAsync(data, "CurrentStock.json");
 
-                return data;
-                    
-                 
-            }
-            catch (Exception ex)
-            {
-                //TODO: insert Loging and notificaton and exception handling
-                //return (string)($"#ERROR#MSG#{ex.Message}");
-                // throw;
-                return null;
-            }
+            return data;
+
+
+        }
+        catch (Exception ex)
+        {
+            //TODO: insert Loging and notificaton and exception handling
+            //return (string)($"#ERROR#MSG#{ex.Message}");
+            // throw;
+            return null;
+        }
 
     }
 
@@ -222,36 +267,56 @@ public class StoreMover
         {
             case "stock":
                 return MoveStock(stocks);
-                break;
+                
             case "vouchers":
-                return MoveVouchers(); break;
+                return MoveVouchers();  
             case "employee":
                 return MoveEmployee();
             case "attendance":
                 return MoveAttendance();
-                break;
+                
             case "invoice":
                 return MoveInvoice();
             default:
                 return "error";
-                break;
+                 
         }
 
     }
 
-    public string MissingStock(List<OldStock> oldStocks){
+    public string DuplicateStock(List<OldStock> oldstock)
+    {
+        var duplicate = oldstock.GroupBy(x => x.Barcode).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
+        var dup = "List are [";
+        foreach (var item in duplicate)
+        {
+            dup = dup +item+ ",";
+        }
+        dup = dup + "] are duplciatedata"; 
+        return dup;
+    }
+
+    public string MissingStock(List<OldStock> oldStocks)
+    {
+        List<OldStock> missing = new List<OldStock>();
         foreach (var item in oldStocks)
         {
-            
-             if(db.Stocks.Any(c=>c.Barcode==item.Barcode)){
-                oldStocks.Remove(item);
-             }
+
+            if (db.Stocks.Any(c => c.Barcode == item.Barcode))
+            {
+                //oldStocks.Remove(item);
+            }else
+            {
+                missing.Add(item);
+            }
         }
 
-        if(oldStocks.Any()){
-            return System.Text.Json.JsonSerializer.Serialize<List<OldStock>>(oldStocks);
+        if (missing.Any())
+        {
+            return System.Text.Json.JsonSerializer.Serialize<List<OldStock>>(missing);
         }
-        else{
+        else
+        {
             return "No Missing Stock";
         }
     }
@@ -259,17 +324,19 @@ public class StoreMover
 
 public class OldStock
 {
+    [Key]
+    public int SN { get; set; }
     public string Barcode { get; set; }
     public string Name { get; set; }
     public decimal MRP { get; set; }
     public decimal Qty { get; set; }
     public decimal Cost { get; set; }
     public decimal OldMRP { get; set; }
-    public decimal OpeningStock{get;set;}
-    public string Category{get;set;}
-    public decimal StockOutOld { get{return (OpeningStock-Qty);}}
-    public decimal NewMargin{get {return(MRP-Cost);}}
-    public decimal Percentage{get {return((NewMargin*100)/Cost);}}
+    public decimal OpeningStock { get; set; }
+    public string Category { get; set; }
+    public decimal StockOutOld { get { return (OpeningStock - Qty); } }
+    public decimal NewMargin { get { return (MRP - Cost); } }
+    public decimal Percentage { get { return ((NewMargin * 100) / Cost); } }
 
 }
 

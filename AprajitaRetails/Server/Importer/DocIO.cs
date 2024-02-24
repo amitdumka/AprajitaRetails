@@ -99,6 +99,9 @@ namespace AprajitaRetails.Server.Importer
                                     case "IGST_CGSTAmount":
                                     case "Amount":
                                     case "BillAmount":
+                                    case "OldMRP":
+                                    case "OpeningStock":
+                                    case "Cost":
                                     case "Qty":
                                     case "Quantity":
                                     case "MRP":
