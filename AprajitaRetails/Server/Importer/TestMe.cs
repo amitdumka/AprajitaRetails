@@ -1,10 +1,12 @@
 
 using System.Data.Common;
+using System.Text.Json;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.Models.Stores;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Newtonsoft.Json;
 
 namespace AprajitaRetails.Importer;
 
@@ -107,6 +109,21 @@ public class StoreMover
                 nStock.PurchaseQty = oStock.Qty;
                 nStock.Id = Guid.NewGuid();
                 db.Stocks.Add(nStock);
+            }else{
+                Stock stock= new Stock{
+
+                    StoreId=StoreId, Barcode=oStock.Barcode, CostPrice=oStock.Cost, EntryStatus=EntryStatus.Added, HoldQty=0,
+                    IsReadOnly=false, MarkedDeleted=false, MRP=oStock.MRP, MultiPrice=false, PurchaseQty=oStock.Qty,
+                    SoldQty=0, Unit=ToUnit(oStock.Category), UserId="AutoAdmin", Id=Guid.NewGuid(), Product=new ProductItem{
+                        Barcode=oStock.Barcode, 
+                         Name=oStock.Name, Description="Missing Stock", StoreGroupId="TAS",
+                          BrandCode="NBR", MRP=oStock.OldMRP, Size=Size.FreeSize, StyleCode=oStock.Name,
+                           TaxType=TaxType.GST, HSNCode="MISSING",
+                           
+                      
+                                            }
+
+                };
             }
 
 
@@ -154,6 +171,10 @@ public class StoreMover
          if(ops=="stock"){
             var data=await ReadStockExcelAsync(basepath);
             return MoveMain(ops,data);
+         }
+         else if(ops=="missing"){
+            var data=await ReadStockExcelAsync(basepath);
+            return MissingStock(data);
          }
 
         return MoveMain(ops, null);
@@ -216,6 +237,23 @@ public class StoreMover
                 break;
         }
 
+    }
+
+    public string MissingStock(List<OldStock> oldStocks){
+        foreach (var item in oldStocks)
+        {
+            
+             if(db.Stocks.Any(c=>c.Barcode==item.Barcode)){
+                oldStocks.Remove(item);
+             }
+        }
+
+        if(oldStocks.Any()){
+            return System.Text.Json.JsonSerializer.Serialize<List<OldStock>>(oldStocks);
+        }
+        else{
+            return "No Missing Stock";
+        }
     }
 }
 
