@@ -28,7 +28,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         public async Task<ActionResult<string>> GetMove(string ops)
         {
             StoreMover storeMover = new StoreMover(aRDB);
-            return storeMover.Move(ops, hostingEnv.WebRootPath);
+            return await storeMover.MoveAsync(ops, hostingEnv.WebRootPath);
         }
 
         [HttpGet("missing")]

@@ -1,6 +1,7 @@
 
 using System.Data.Common;
 using AprajitaRetails.Server.Data;
+using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.Models.Stores;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -148,8 +149,12 @@ public class StoreMover
         int x = db.SaveChanges();
         return $"Moved {x} attendances";
     }
-    public string Move(string ops, string basepath)
+    public async Task<string> MoveAsync(string ops, string basepath)
     {
+         if(ops=="stock"){
+            var data=await ReadStockExcelAsync(basepath);
+            return MoveMain(ops,data);
+         }
 
         return MoveMain(ops, null);
     }
@@ -167,7 +172,28 @@ public class StoreMover
 
     }
 
+    public async Task<List<OldStock>?> ReadStockExcelAsync(string basepath)
+    {
+        string pathname=Path.Combine(basepath,"data","excel"); 
+         try
+            {
+                var data = ImportDataHelper.ReadExcel<OldStock>(pathname, "currentstock.xlsx", "Sheet1", "A1:Z1");
+                if(data==null) return null;
+                var json = await ImportDataHelper.ObjectToJsonFileAsync(data, "CurrentStock.json");
 
+                return data;
+                    
+                 
+            }
+            catch (Exception ex)
+            {
+                //TODO: insert Loging and notificaton and exception handling
+                //return (string)($"#ERROR#MSG#{ex.Message}");
+                // throw;
+                return null;
+            }
+
+    }
 
     public string MoveMain(string ops, List<OldStock>? stocks = null)
     {
@@ -201,5 +227,11 @@ public class OldStock
     public decimal Qty { get; set; }
     public decimal Cost { get; set; }
     public decimal OldMRP { get; set; }
+    public decimal OpeningStock{get;set;}
+    public string Category{get;set;}
+    public decimal StockOutOld { get{return (OpeningStock-Qty);}}
+    public decimal NewMargin{get {return(MRP-Cost);}}
+    public decimal Percentage{get {return((NewMargin*100)/Cost);}}
+
 }
 
