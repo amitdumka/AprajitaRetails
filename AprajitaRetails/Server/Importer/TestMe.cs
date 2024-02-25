@@ -92,7 +92,7 @@ public class StoreMover
 
     public Unit ToUnit(string cat)
     {
-        if (cat.ToLower().Contains("fabric")) return Unit.Meters; else return Unit.Pcs; 
+        if (cat.ToLower().Contains("fabric")) return Unit.Meters; else return Unit.Pcs;
     }
 
     public ProductCategory ToCat(string cat)
@@ -101,6 +101,171 @@ public class StoreMover
         else if (cat.ToLower().Contains("readymade")) return ProductCategory.Apparel;
         else if (cat.ToLower().Contains("inear")) return ProductCategory.InnerWear;
         else return ProductCategory.Others;
+    }
+
+    public string ReStock(List<OldStock> oldStocks)
+    {
+
+        var newStocks = db.Stocks.Where(c => c.StoreId == StoreId).ToList();
+        var oldStockList = oldStocks.GroupBy(c => c.Barcode)
+            .Select(c => new OldStock
+            {
+                SN = 0,
+                Barcode = c.Key,
+                Cost = c.Select(x => x.Cost).First(),
+                Category = c.Select(x => x.Category).First(),
+                MRP = c.Select(x => x.MRP).First(),
+                Name = c.Select(x => x.Name).First(),
+                OldMRP = c.Select(x => x.OldMRP).First(),
+                OpeningStock = c.Sum(x => x.OpeningStock),
+                Qty = c.Sum(x => x.Qty),
+
+            })
+        .ToList();
+        foreach (var stock in oldStockList)
+        {
+            var nstk = newStocks.Where(c => c.Barcode == stock.Barcode).FirstOrDefault();
+            if (nstk != null)
+            {
+
+                nstk.PurchaseQty = stock.Qty;
+                nstk.MRP = stock.MRP;
+                nstk.CostPrice = stock.Cost;
+                db.Stocks.Update(nstk);
+
+            }
+            else
+            {
+                var stk = db.Stocks.Where(c => c.Barcode == stock.Barcode).FirstOrDefault();
+                if (stk != null)
+                {
+                    Stock nStock = stk;
+                    nStock.StoreId = StoreId;
+                    nStock.HoldQty = stk.PurchaseQty - stk.HoldQty - stk.SoldQty;
+                    nStock.PurchaseQty = stock.Qty;
+                    nStock.Id = Guid.NewGuid();
+                    db.Stocks.Add(nStock);
+                }
+                else
+                {
+                    Stock nstock = new Stock
+                    {
+
+                        StoreId = StoreId,
+                        Barcode = stock.Barcode,
+                        CostPrice = stock.Cost,
+                        EntryStatus = EntryStatus.Added,
+                        HoldQty = 0,
+                        IsReadOnly = false,
+                        MarkedDeleted = false,
+                        MRP = stock.MRP,
+                        MultiPrice = false,
+                        PurchaseQty = stock.Qty,
+                        SoldQty = 0,
+                        Unit = ToUnit(stock.Category),
+                        UserId = "AutoAdmin",
+                        Id = Guid.NewGuid(),
+
+                        Product = new ProductItem
+                        {
+                            Barcode = stock.Barcode,
+                            Name = stock.Name,
+                            Description = "Missing Stock",
+                            StoreGroupId = "TAS",
+                            BrandCode = "NBR",
+                            MRP = stock.OldMRP,
+                            Size = Size.FreeSize,
+                            StyleCode = stock.Name,
+                            TaxType = TaxType.GST,
+                            HSNCode = "MISSING",
+                            ProductCategory = ToCat(stock.Category),
+                            Unit = ToUnit(stock.Category),
+                            SubCategory = "UnSorted",
+                            ProductTypeId = "PT00013",
+                        }
+
+                    };
+                    db.Stocks.Add(nstock);
+                }
+
+
+            }
+
+
+        }
+        int x = db.SaveChanges();
+        return $"Moved {x} items out of {oldStocks.Count}  ";
+    }
+
+    public string UpdateStock(List<OldStock> oldStocks)
+    {
+        foreach (var oStock in oldStocks)
+        {
+            var stk = db.Stocks.Where(c => c.Barcode == oStock.Barcode && c.StoreId == StoreId).FirstOrDefault();
+            if (stk != null)
+            {
+                stk.PurchaseQty += oStock.Qty;
+                db.Stocks.Update(stk);
+
+            }
+            else
+            {
+                stk = db.Stocks.Where(c => c.Barcode == oStock.Barcode && c.StoreId != StoreId).FirstOrDefault();
+                if (stk != null)
+                {
+                    Stock nStock = stk;
+                    nStock.StoreId = StoreId;
+                    nStock.HoldQty = stk.PurchaseQty - stk.HoldQty - stk.SoldQty;
+                    nStock.PurchaseQty = oStock.Qty;
+                    nStock.Id = Guid.NewGuid();
+                    db.Stocks.Add(nStock);
+                }
+                else
+                {
+                    Stock stock = new Stock
+                    {
+
+                        StoreId = StoreId,
+                        Barcode = oStock.Barcode,
+                        CostPrice = oStock.Cost,
+                        EntryStatus = EntryStatus.Added,
+                        HoldQty = 0,
+                        IsReadOnly = false,
+                        MarkedDeleted = false,
+                        MRP = oStock.MRP,
+                        MultiPrice = false,
+                        PurchaseQty = oStock.Qty,
+                        SoldQty = 0,
+                        Unit = ToUnit(oStock.Category),
+                        UserId = "AutoAdmin",
+                        Id = Guid.NewGuid(),
+
+                        Product = new ProductItem
+                        {
+                            Barcode = oStock.Barcode,
+                            Name = oStock.Name,
+                            Description = "Missing Stock",
+                            StoreGroupId = "TAS",
+                            BrandCode = "NBR",
+                            MRP = oStock.OldMRP,
+                            Size = Size.FreeSize,
+                            StyleCode = oStock.Name,
+                            TaxType = TaxType.GST,
+                            HSNCode = "MISSING",
+                            ProductCategory = ToCat(oStock.Category),
+                            Unit = ToUnit(oStock.Category),
+                            SubCategory = "UnSorted",
+                            ProductTypeId = "PT00013",
+                        }
+
+                    };
+                }
+            }
+
+        }
+        int x = db.SaveChanges();
+        return $"Moved {x} items out of {oldStocks.Count}  ";
+
     }
 
     public string MoveStock(List<OldStock> oldStocks)
@@ -140,7 +305,7 @@ public class StoreMover
                     Unit = ToUnit(oStock.Category),
                     UserId = "AutoAdmin",
                     Id = Guid.NewGuid(),
-                    
+
                     Product = new ProductItem
                     {
                         Barcode = oStock.Barcode,
@@ -152,13 +317,16 @@ public class StoreMover
                         Size = Size.FreeSize,
                         StyleCode = oStock.Name,
                         TaxType = TaxType.GST,
-                        HSNCode = "MISSING", ProductCategory=ToCat(oStock.Category),
-                        Unit=ToUnit(oStock.Category),
-                        SubCategory= "UnSorted", 
-                        ProductTypeId="PT00013",  
+                        HSNCode = "MISSING",
+                        ProductCategory = ToCat(oStock.Category),
+                        Unit = ToUnit(oStock.Category),
+                        SubCategory = "UnSorted",
+                        ProductTypeId = "PT00013",
                     }
 
                 };
+
+                db.Stocks.Add(stock);
             }
 
 
@@ -212,10 +380,21 @@ public class StoreMover
         {
             var data = await ReadStockExcelAsync(basepath);
             return MissingStock(data);
-        }else if (ops == "dup")
+        }
+        else if (ops == "dup")
         {
             var data = await ReadStockExcelAsync(basepath);
             return DuplicateStock(data);
+        }
+        else if (ops == "restock")
+        {
+            var data = await ReadStockExcelAsync(basepath);
+            return ReStock( data);
+        }
+        else if (ops == "update")
+        {
+            var data = await ReadStockExcelAsync(basepath);
+            return UpdateStock( data);
         }
 
         return MoveMain(ops, null);
@@ -239,7 +418,7 @@ public class StoreMover
         string pathname = Path.Combine(basepath, "data", "excel");
         try
         {
-            if(Path.Exists(Path.Combine(pathname, "CurrentStock.json")))
+            if (Path.Exists(Path.Combine(pathname, "CurrentStock.json")))
             {
                 return DocIO.JsonToObject<OldStock>(Path.Combine(pathname, "CurrentStock.json"));
             }
@@ -267,19 +446,19 @@ public class StoreMover
         {
             case "stock":
                 return MoveStock(stocks);
-                
+
             case "vouchers":
-                return MoveVouchers();  
+                return MoveVouchers();
             case "employee":
                 return MoveEmployee();
             case "attendance":
                 return MoveAttendance();
-                
+
             case "invoice":
                 return MoveInvoice();
             default:
                 return "error";
-                 
+
         }
 
     }
@@ -290,9 +469,9 @@ public class StoreMover
         var dup = "List are [";
         foreach (var item in duplicate)
         {
-            dup = dup +item+ ",";
+            dup = dup + item + ",";
         }
-        dup = dup + "] are duplciatedata"; 
+        dup = dup + "] are duplciatedata";
         return dup;
     }
 
@@ -305,7 +484,8 @@ public class StoreMover
             if (db.Stocks.Any(c => c.Barcode == item.Barcode))
             {
                 //oldStocks.Remove(item);
-            }else
+            }
+            else
             {
                 missing.Add(item);
             }
