@@ -29,7 +29,7 @@ namespace AprajitaRetails.Server.Controllers.Helpers
         }
 
         [HttpGet("Clients")]
-        public async Task<ActionResult<IEnumerable<SelectOption>>> GetClinets()
+        public async Task<ActionResult<IEnumerable<SelectOption>>> GetClients()
         {
             if (_context.AppClients == null)
             {
@@ -93,7 +93,8 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             {
                 return NotFound();
             }
-            return await _context.Parties.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.PartyId, Value = c.PartyName }).ToListAsync();
+            return await _context.Parties.Where(c =>  !c.MarkedDeleted).Select(c => new SelectOption { ID = c.PartyId, Value = c.PartyName }).ToListAsync();
+            //return await _context.Parties.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.PartyId, Value = c.PartyName }).ToListAsync();
         }
 
         [HttpGet("MPOS")]
@@ -103,7 +104,8 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             {
                 return NotFound();
             }
-            return await _context.EDCTerminals.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.EDCTerminalId, Value = c.Name }).ToListAsync();
+            return await _context.EDCTerminals.Where(c => !c.MarkedDeleted).Select(c => new SelectOption { ID = c.EDCTerminalId, Value = c.Name }).ToListAsync();
+           // return await _context.EDCTerminals.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.EDCTerminalId, Value = c.Name }).ToListAsync();
         }
 
         [HttpGet("BankAccounts")]
@@ -113,7 +115,9 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             {
                 return NotFound();
             }
-            return await _context.BankAccounts.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.AccountNumber, Value = c.AccountNumber + ", #: " + c.BranchName }).ToListAsync();
+            //TODO: convert all to either storegroup or appclient level
+            return await _context.BankAccounts.Where(c =>  !c.MarkedDeleted).Select(c => new SelectOption { ID = c.AccountNumber, Value = c.AccountNumber + ", #: " + c.BranchName }).ToListAsync();
+            //return await _context.BankAccounts.Where(c => c.StoreId == storeid && !c.MarkedDeleted).Select(c => new SelectOption { ID = c.AccountNumber, Value = c.AccountNumber + ", #: " + c.BranchName }).ToListAsync();
         }
 
         [HttpGet("Stores")]
