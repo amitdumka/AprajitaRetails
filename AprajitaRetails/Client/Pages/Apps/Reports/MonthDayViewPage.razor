@@ -178,7 +178,7 @@
     async Task FetchDataAsync()
     {
         //intotal = 0; outtotal = 0;
-        entity = await Helper.PostDataFromAsync<DayBookReturn, DayBookRequest>(URL, new DayBookRequest { CashVoucher = true, OnDate = OnDate, StoreCode = "ARD", StoreCodeName = "StoreCode" }, Title);
+        entity = await Helper.PostDataFromAsync<DayBookReturn, DayBookRequest>(URL, new DayBookRequest { CashVoucher = true, OnDate = OnDate, StoreCode = Setting.StoreCode, StoreCodeName = "StoreCode" }, Title);
       
         StateHasChanged();
 

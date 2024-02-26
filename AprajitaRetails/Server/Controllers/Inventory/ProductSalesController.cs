@@ -14,6 +14,7 @@ using AprajitaRetails.Shared.ViewModels;
 using AprajitaRetails.Server.BL.Printers;
 using System.Drawing.Imaging;
 
+//TODO: Need to move all database operation in   Another controller for better code insight
 namespace AprajitaRetails.Server.Controllers.Inventory
 {
     [Route("api/[controller]")]
@@ -278,7 +279,7 @@ namespace AprajitaRetails.Server.Controllers.Inventory
             {
                 return Problem("Entity set 'ARDBContext.ProductSales'  is null.");
             }
-
+            //TODO: Stock Update is needed.
             _context.ProductSales.Add(productSale.Invoice);
 
             _context.SaleItems.AddRange(productSale.Items);

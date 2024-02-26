@@ -230,7 +230,7 @@
     async Task FetchDataAsync()
     {
         //intotal = 0; outtotal = 0;
-        entity = await Helper.PostDataFromAsync<MonthViewReturn, MonthViewRequest>(URL, new MonthViewRequest { CashVoucher = true, OnDate = OnDate, StoreCode = "ARD", StoreCodeName = "StoreCode", Mode = ClientReportMode.Store }, Title);
+        entity = await Helper.PostDataFromAsync<MonthViewReturn, MonthViewRequest>(URL, new MonthViewRequest { CashVoucher = true, OnDate = OnDate, StoreCode = Setting.StoreCode, StoreCodeName = "StoreCode", Mode = ClientReportMode.Store }, Title);
 
         StateHasChanged();
 
