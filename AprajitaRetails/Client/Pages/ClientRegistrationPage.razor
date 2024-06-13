@@ -1,0 +1,71 @@
+@page "/client-registration"
+@using System.Net.Http.Json
+
+@code {
+    private ClientInfo clientInfo = new ClientInfo();
+    private bool isRegistered = false;
+
+    private async Task RegisterClient()
+    {
+        if (clientInfo != null)
+        {
+            // Here you would typically send the clientInfo to your server
+            // For example:
+            // await Http.PostAsJsonAsync("api/clients", clientInfo);
+
+            // Simulate a successful registration
+            isRegistered = true;
+        }
+    }
+}
+
+@if (!isRegistered)
+{
+    <EditForm Model="@clientInfo" OnValidSubmit="@RegisterClient">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <InputText id="name" @bind-Value="clientInfo.Name" placeholder="Name" />
+        <InputText id="address" @bind-Value="clientInfo.Address" placeholder="Address" />
+        <InputText id="city" @bind-Value="clientInfo.City" placeholder="City" />
+        <InputText id="state" @bind-Value="clientInfo.State" placeholder="State" />
+        <InputText id="country" @bind-Value="clientInfo.Country" placeholder="Country" />
+        <InputText id="pinCode" @bind-Value="clientInfo.PinCode" placeholder="Pin Code" />
+        <InputText id="mobile" @bind-Value="clientInfo.Mobile" placeholder="Mobile" />
+        <InputText id="email" @bind-Value="clientInfo.Email" placeholder="Email" />
+        <InputText id="gstin" @bind-Value="clientInfo.GSTIN" placeholder="GSTIN" />
+        <InputText id="panNo" @bind-Value="clientInfo.PanNo" placeholder="Pan No" />
+        <InputDate id="startDate" @bind-Value="clientInfo.StartDate" placeholder="Start Date" />
+        <InputText id="contactPersonName" @bind-Value="clientInfo.ContactPersonName" placeholder="Contact Person Name" />
+        <InputText id="contactPersonMobile" @bind-Value="clientInfo.ContactPersonMobile" placeholder="Contact Person Mobile" />
+        <InputText id="ownerName" @bind-Value="clientInfo.OwnerName" placeholder="Owner Name" />
+         <InputText id="storecode" @bind-Value="clientInfo.StoreCode" placeholder="First Store Code" />
+
+        <button type="submit">Register</button>
+    </EditForm>
+}
+else
+{
+    <p>Thank you for registering!</p>
+}
+
+@code {
+    public class ClientInfo
+    {
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        public string PinCode { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string GSTIN { get; set; }
+        public string PanNo { get; set; }
+        public DateTime StartDate { get; set; }
+        public string ContactPersonName { get; set; }
+        public string ContactPersonMobile { get; set; }
+        public string OwnerName { get; set; }
+        public string StoreCode{get;set;}
+    }
+}

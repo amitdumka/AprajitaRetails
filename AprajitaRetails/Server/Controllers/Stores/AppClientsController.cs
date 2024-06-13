@@ -15,10 +15,12 @@ namespace AprajitaRetails.Server.Controllers.Stores
     public class AppClientsController : ControllerBase
     {
         private readonly ARDBContext _context;
+        private readonly ApplicationDbContext _appContext;
 
-        public AppClientsController(ARDBContext context)
+        public AppClientsController(ARDBContext context, ApplicationDbContext appcon)
         {
             _context = context;
+            _appContext = appcon;
         }
 
         // GET: api/AppClinets
@@ -30,6 +32,24 @@ namespace AprajitaRetails.Server.Controllers.Stores
                 return NotFound();
             }
             return await _context.AppClients.ToListAsync();
+        }
+
+        [HttpGet("InstallStore")]
+        public async Task<ActionResult<int>> GetInstallStore(string mode){
+
+           if(mode=="Default"){
+                ClientInstaller cli = new ClientInstaller();
+                return await cli.InstallDefaultClient(_context, _appContext);
+           }else if(mode="Minimal"){
+            return NotFound("Not Implemented");
+
+           }else if(mode="Full"){
+               
+            return NotFound("Not Implemented");
+           } else {
+             return NotFound("Invalid Mode");
+           }
+
         }
         [HttpGet("AddDefault")]
         public async Task<ActionResult<IEnumerable<AppClient>>> GetAddDefaultAppClient()
@@ -102,6 +122,14 @@ namespace AprajitaRetails.Server.Controllers.Stores
             }
 
             return NoContent();
+        }
+
+        [HttpPost("RegisterClient")]
+        public async Task<ActionResult<RegisteredClient>> PostAppClient(ClinetInfo client){
+
+            ClientInstaller cli = new ClientInstaller();
+            return await cli.RegisterClient(_context, _appContext, client);
+
         }
 
         // POST: api/AppClinets
