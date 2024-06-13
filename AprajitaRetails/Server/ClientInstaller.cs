@@ -8,14 +8,6 @@ using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Identity;
 
-using AprajitaRetails.Server.Areas.Identity.Pages.Account;
-using AprajitaRetails.Server.Models;
-using AprajitaRetails.Shared.Models.Auth;
-using Blazor.AdminLte;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-
 namespace AprajitaRetails.Server
 {
     public class ClientInfo
@@ -111,7 +103,7 @@ namespace AprajitaRetails.Server
             new Bank{BankId="CANARA",Name="Canara Bank"}, new Bank{BankId="RBL",Name="RBL Bank"},
             new Bank{BankId="DBS",Name="DBS Bank"},          new Bank{BankId="UNION",Name="Union Bank"},
             new Bank{BankId="CITI",Name="Citi Bank"},          new Bank{BankId="YES",Name="Yes Bank"},
-            new Bank(BankId="OTHERS",Name="Others"), new Bank{BankId="HSBC",Name="HSBC Bank"}
+             new Bank{BankId="HSBC",Name="HSBC Bank"}
             ];
             db.Banks.AddRange(banks);
             int count = db.SaveChanges();
@@ -120,7 +112,7 @@ namespace AprajitaRetails.Server
 
             var TransactionModes = new List<TransactionMode>
             {
-                new TransactionMode(TransactionId="CI",Name="Cash In"),
+                new(TransactionId="CI",Name="Cash In"),
                 new TransactionMode(TransactionId="CO",Name="CashOut"),
                 new TransactionMode(TransactionId="PE",Name="Petty Cash Expenses"),
                 new TransactionMode(TransactionId="AE",Name="Amit Expense"),
@@ -145,35 +137,35 @@ namespace AprajitaRetails.Server
             // Default Party Ledgers
 
             var LedgerGroup = new List<LedgerGroup>{
-                new LedgerGroup{LedgerGroupId="NOPARTY",LedgerGroupName="No Party", Category=LedgerCategory.Others},
-                new LedgerGroup{LedgerGroupId="CASH",LedgerGroupName="Cash", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="BANK",LedgerGroupName="Bank", Category=LedgerCategory.Bank},
-                new LedgerGroup{LedgerGroupId="CRD",LedgerGroupName="Credit", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="DBT",LedgerGroupName="Debit", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="SLY",LedgerGroupName="Salary", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="PUR",LedgerGroupName="Purchase", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="SAL",LedgerGroupName="Sales", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="INC",LedgerGroupName="Income", Category=LedgerCategory.Income},
-                new LedgerGroup{LedgerGroupId="EXO",LedgerGroupName="Expense", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="OTH",LedgerGroupName="Others", Category=LedgerCategory.Others},
-                new LedgerGroup{LedgerGroupId="IDINC",LedgerGroupName="Indirect Income", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="IDEXP",LedgerGroupName="Indirect Expense", Category=LedgerCategory.Expense},
+                new LedgerGroup{LedgerGroupId="NOPARTY",GroupName="No Party", Category=LedgerCategory.Others},
+                new LedgerGroup{LedgerGroupId="CASH",GroupName="Cash", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="BANK",GroupName="Bank", Category=LedgerCategory.Bank},
+                new LedgerGroup{LedgerGroupId="CRD",GroupName="Credit", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="DBT",GroupName="Debit", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="SLY",GroupName="Salary", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="PUR",GroupName="Purchase", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="SAL",GroupName="Sales", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="INC",GroupName="Income", Category=LedgerCategory.Income},
+                new LedgerGroup{LedgerGroupId="EXO",GroupName="Expense", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="OTH",GroupName="Others", Category=LedgerCategory.Others},
+                new LedgerGroup{LedgerGroupId="IDINC",GroupName="Indirect Income", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="IDEXP",GroupName="Indirect Expense", Category=LedgerCategory.Expenses},
 
             };
 
             db.LedgerGroups.AddRange(LedgerGroup);
             count += db.SaveChanges();
             var partyLedgers = new List<Party>{
-                new Party{PartyId="NOPARTY",PartyName="No Party", OpeningDate=defDate,
+                new Party{PartyId="NOPARTY",PartyName="No Party", OpeningDate=(DateTime)defDate,
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Others, LedgerGroupId="NOPARTY"},
                 new Party{PartyId="TIE",PartyName="Telephone & Internet", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="SNB",PartyName="Snacks & Beverages", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="EB",PartyName="Eletricity Bill", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="SNP",PartyName="Stationary & Printing", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="ASAL",PartyName="Salary Adavances", OpeningDate=defDate,
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="SLY"},
                 new Party{PartyId="FRC",PartyName="Frieght Charges", OpeningDate=defDate,
@@ -197,30 +189,30 @@ namespace AprajitaRetails.Server
 
             client.Owner = new Employee
             {
-                EmployeeId = $"OWN/{Client.StartDate.Year}/0001",
+                EmployeeId = $"OWN/{info.StartDate.Year}/0001",
                 EmpId = 1,
-                EntryStatus = EntryStatus.Added,
+               // EntryStatus = EntryStatus.Added,
                 JoiningDate = new DateTime(2015, 10, 1),
-                IsActive = true,
+               // IsActive = true,
                 IsWorking = true,
                 Category = EmpType.Owner,
-                IsReadOnly = true,
+               // IsReadOnly = true,
                 MarkedDeleted = false,
-                Name = client.OwnerName,
+                //Name = client.OwnerName,
                 Gender = Gender.Male,
                 DOB = new DateTime(1982, 07, 24),
                 Title = "Mr.",
-                City = client.City,
-                State = client.State,
-                MobileNo = client.Mobile,
-                Country = client.Country,
-                Email = client.Email,
-                StreetName = client.Address,
-                ZipCode = client.PiCode,
-                StoreId = client.StoreCode,
-                UserId = "AutoADMIN",
-                FirstName = client.Owner.Split(' ')[0],
-                LastName = client.Owner.Split(' ')[1],
+                City = info.City,
+                State = info.State,
+                //MobileNo = client.Mobile,
+                Country = info.Country,
+                //Email = client.Email,
+                StreetName = info.Address,
+                ZipCode = info.PinCode,
+                StoreId = info.StoreCode,
+               // UserId = "AutoADMIN",
+                FirstName = info.OwnerName.Split(' ')[0],
+                LastName = info.OwnerName.Split(' ')[1],
 
             };
 
@@ -318,7 +310,7 @@ namespace AprajitaRetails.Server
                 MobileNumber = "06434224461",
                 City = "Dumka",
                 StartDate = new DateTime(2024, 04, 01),
-                EndDate = null
+                ExpireDate = null
             };
             StoreGroup group = new StoreGroup
             {
@@ -370,13 +362,13 @@ namespace AprajitaRetails.Server
         }
 
 
-        private static RegisteredClient CreateDefaultOptions(ARDBContext db, ApplicationDbContext context, RegisteredClient client)
+        private static RegisteredClient CreateDefaultOptions(ARDBContext db, ApplicationDbContext context,ClientInfo info, RegisteredClient client)
         {
 
-            DateTime defDate = client.StartDate ?? DateTime.Now;
+            DateTime defDate = info.StartDate  ;
 
             //Create Bank Name
-            var banks = [ new Bank{BankId="SBI",Name="State Bank Of India"},
+            var banks = new List<Bank>{ new Bank{BankId="SBI",Name="State Bank Of India"},
             new Bank{BankId="HDFC",Name="HDFC Bank"}, new Bank{BankId="ICICI",Name="ICICI Bank"},
             new Bank{BankId="AXIS",Name="Axis Bank"}, new Bank{BankId="KOTAK",Name="Kotak Mahindra Bank"},
             new Bank{BankId="BOB",Name="Bank Of Baroda"}, new Bank{BankId="PUNJAB",Name="Punjab National Bank"},
@@ -385,8 +377,8 @@ namespace AprajitaRetails.Server
             new Bank{BankId="CANARA",Name="Canara Bank"}, new Bank{BankId="RBL",Name="RBL Bank"},
             new Bank{BankId="DBS",Name="DBS Bank"},          new Bank{BankId="UNION",Name="Union Bank"},
             new Bank{BankId="CITI",Name="Citi Bank"},          new Bank{BankId="YES",Name="Yes Bank"},
-            new Bank(BankId="OTHERS",Name="Others"), new Bank{BankId="HSBC",Name="HSBC Bank"}
-            ];
+            new Bank{BankId="OTHERS",Name="Others" }, new Bank{BankId="HSBC",Name="HSBC Bank"}
+            };
             db.Banks.AddRange(banks);
             int count = db.SaveChanges();
 
@@ -396,22 +388,22 @@ namespace AprajitaRetails.Server
 
             var TransactionModes = new List<TransactionMode>
             {
-                new TransactionMode(TransactionId="CI",TransactionName="Cash In"),
-                new TransactionMode(TransactionId="CO",TransactionName="CashOut"),
-                new TransactionMode(TransactionId="PE",TransactionName="Petty Cash Expenses"),
-                new TransactionMode(TransactionId="AE",TransactionName="Amit Expense"),
-                new TransactionMode(TransactionId="HE",TransactionName="Home Expense"),
-                new TransactionMode(TransactionId="VE",TransactionName="Vehicle Expense"),
-                new TransactionMode(TransactionId="TE",TransactionName="Telephone Expense"),
-                new TransactionMode(TransactionId="ME",TransactionName="Miscellaneous Expense"),
-                new TransactionMode(TransactionId="PE",TransactionName="Petty Cash Income"),
-                new TransactionMode(TransactionId="BL",TransactionName="Breakfast & Lunch"),
-                new TransactionMode(TransactionId="TC",TransactionName="Tea & Coffee"),
-                new TransactionMode(TransactionId="OP",TransactionName="Online Purhcase"),
-                new TransactionMode(TransactionId="SU",TransactionName="Suspense"),
-                new TransactionMode(TransactionId="ST",TransactionName="Stationary"),
-                new TransactionMode(TransactionId="SC",TransactionName="Short In Cash"),
-                new TransactionMode(TransactionId="PU",TransactionName="Puja Expenses"),
+                new TransactionMode{TransactionId="CI",TransactionName="Cash In"},
+                new TransactionMode{TransactionId="CO",TransactionName="CashOut"},
+                new TransactionMode{TransactionId="PE",TransactionName="Petty Cash Expenses"},
+                new TransactionMode{TransactionId="AE",TransactionName="Amit Expense"},
+                new TransactionMode{TransactionId="HE",TransactionName="Home Expense"},
+                new TransactionMode{TransactionId="VE",TransactionName="Vehicle Expense"},
+                new TransactionMode{TransactionId="TE",TransactionName="Telephone Expense"},
+                new TransactionMode{TransactionId="ME",TransactionName="Miscellaneous Expense"},
+                new TransactionMode{TransactionId="PE",TransactionName="Petty Cash Income"},
+                new TransactionMode{TransactionId="BL",TransactionName="Breakfast & Lunch"},
+                new TransactionMode{TransactionId="TC",TransactionName="Tea & Coffee"},
+                new TransactionMode{TransactionId="OP",TransactionName="Online Purhcase"},
+                new TransactionMode{TransactionId="SU",TransactionName="Suspense"},
+                new TransactionMode{TransactionId="ST",TransactionName="Stationary"},
+                new TransactionMode{TransactionId="SC",TransactionName="Short In Cash"},
+                new TransactionMode{TransactionId="PU",TransactionName="Puja Expenses"},
 
         };
 
@@ -423,19 +415,19 @@ namespace AprajitaRetails.Server
             // Default Party Ledgers
 
             var LedgerGroup = new List<LedgerGroup>{
-                new LedgerGroup{LedgerGroupId="NOPARTY",LedgerGroupName="No Party", Category=LedgerCategory.Others},
-                new LedgerGroup{LedgerGroupId="CASH",LedgerGroupName="Cash", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="BANK",LedgerGroupName="Bank", Category=LedgerCategory.Bank},
-                new LedgerGroup{LedgerGroupId="CRD",LedgerGroupName="Credit", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="DBT",LedgerGroupName="Debit", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="SLY",LedgerGroupName="Salary", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="PUR",LedgerGroupName="Purchase", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="SAL",LedgerGroupName="Sales", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="INC",LedgerGroupName="Income", Category=LedgerCategory.Income},
-                new LedgerGroup{LedgerGroupId="EXO",LedgerGroupName="Expense", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="OTH",LedgerGroupName="Others", Category=LedgerCategory.Others},
-                new LedgerGroup{LedgerGroupId="IDINC",LedgerGroupName="Indirect Income", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="IDEXP",LedgerGroupName="Indirect Expense", Category=LedgerCategory.Expense},
+                new LedgerGroup{LedgerGroupId="NOPARTY",GroupName="No Party", Category=LedgerCategory.Others},
+                new LedgerGroup{LedgerGroupId="CASH",GroupName="Cash", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="BANK",GroupName="Bank", Category=LedgerCategory.Bank},
+                new LedgerGroup{LedgerGroupId="CRD",GroupName="Credit", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="DBT",GroupName="Debit", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="SLY",GroupName="Salary", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="PUR",GroupName="Purchase", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="SAL",GroupName="Sales", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="INC",GroupName="Income", Category=LedgerCategory.Income},
+                new LedgerGroup{LedgerGroupId="EXO",GroupName="Expense", Category=LedgerCategory.Expenses},
+                new LedgerGroup{LedgerGroupId="OTH",GroupName="Others", Category=LedgerCategory.Others},
+                new LedgerGroup{LedgerGroupId="IDINC",GroupName="Indirect Income", Category=LedgerCategory.Assets},
+                new LedgerGroup{LedgerGroupId="IDEXP",GroupName="Indirect Expense", Category=LedgerCategory.Expenses},
 
             };
 
@@ -448,13 +440,13 @@ namespace AprajitaRetails.Server
                 new Party{PartyId="NOPARTY",PartyName="No Party", OpeningDate=defDate,
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Others, LedgerGroupId="NOPARTY"},
                 new Party{PartyId="TIE",PartyName="Telephone & Internet", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="SNB",PartyName="Snacks & Beverages", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="EB",PartyName="Eletricity Bill", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="SNP",PartyName="Stationary & Printing", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expense, LedgerGroupId="IDEXP"},
+                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
                 new Party{PartyId="ASAL",PartyName="Salary Adavances", OpeningDate=defDate,
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="SLY"},
                 new Party{PartyId="FRC",PartyName="Frieght Charges", OpeningDate=defDate,
@@ -622,12 +614,12 @@ namespace AprajitaRetails.Server
                     IsActive = true,
                     AccountType = AccountType.Current,
                     BranchName = "Lic Colleny",
-                    IFSC = "SBI000000",
+                    IFSCCode = "SBI000000",
                     OpeningBalance = 0,
                     CurrentBalance = 0,
                     OpeningDate = DateTime.Today,
                     MarkedDeleted = false,
-                   
+
                     StoreId = "MBO",
                     StoreGroupId = "MBO",
                     AppClientId = client.AppClientId,
@@ -649,8 +641,10 @@ namespace AprajitaRetails.Server
             else return -99;
 
         }
-        private ApplicationUser CreateUser()
+        private static ApplicationUser CreateUser()
         {
+            //TODO: Move to Controller Part
+
             try
             {
                 return Activator.CreateInstance<ApplicationUser>();
@@ -663,7 +657,7 @@ namespace AprajitaRetails.Server
             }
         }
 
-        private IUserEmailStore<ApplicationUser> GetEmailStore()
+        private static IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
@@ -672,7 +666,7 @@ namespace AprajitaRetails.Server
             return (IUserEmailStore<ApplicationUser>)_userStore;
         }
 
-        private async Task<bool> ConfirmEmailAsync(ApplicationUser user, string code)
+        private static async Task<bool> ConfirmEmailAsync(ApplicationUser user, string code)
         {
             //code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
