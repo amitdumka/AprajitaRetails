@@ -40,7 +40,31 @@ namespace AprajitaRetails.Server.Controllers.Auths
             var user = _userManager.Users.First(c => c.UserName == userid);
             if (user != null) return user; else return NotFound();
         }
+        [HttpGet("initUser")]
+        public async Task<ActionResult<bool>> GetInitUser()
+        {
+            var user = CreateUser();
 
+            await _userStore.SetUserNameAsync(user, "AmitKumar", CancellationToken.None);
+            await _emailStore.SetEmailAsync(user, "amit.dumka@gmail.com", CancellationToken.None);
+
+            user.FullName = "Amit Kumar";
+            user.StoreId = "MBO";
+            user.EmployeeId = "OWN/2015/001";
+            user.Approved = true;
+            user.Permission = RolePermission.Owner;
+            var result = await _userManager.CreateAsync(user, "Dumka@1234");
+            if (result.Succeeded)
+            {
+                return Ok(await ProcessNewUserAsync(user));
+            }
+            string errormsg = "";
+            foreach (var error in result.Errors)
+            {
+                errormsg += (error.Description + "\n");
+            }
+            return Problem(errormsg);
+        }
         [HttpPost("customlogout")]
         public async Task<ActionResult<bool>> PostLogout()
         {
@@ -85,23 +109,23 @@ namespace AprajitaRetails.Server.Controllers.Auths
 
                 if (result.Succeeded)
                 {
-                    
+
                     var user = _userManager.Users.First(c => c.UserName == login.UserName);
-                    
+
                     if (!user.Approved)
                     {
                         return Problem("User account is not approved for operations. Kindly contact Admin for futher operations!");
                     }
 
-                    var logged = new LoggedUser
+                   var logged = new LoggedUser
                     {
-                        EmployeeId = user.EmployeeId,
+                        EmployeeId = user.EmployeeId??"",
                         FullName = login.UserName,
-                        StoreId = user.StoreId,
-                        Id = user.UserName,
+                        StoreId = user.StoreId??"",
+                        Id = user.UserName??"",
 
-                        StoreGroupId = user.StoreGroupId,
-                        AppClinetId = user.AppClinetId.Value,
+                        StoreGroupId = user.StoreGroupId??"",
+                        AppClinetId = user.AppClinetId??Guid.Empty,
                         Permission = user.Permission.Value,
                         UserType = user.UserType.Value
                     };
@@ -199,7 +223,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             if (result.Succeeded)
             {
                 var admin = await _userManager.GetUserAsync(User);
-                
+
                 if (admin == null)
                     admin = _userManager.Users.First(c => c.UserName == user.AdminUserName);
 
@@ -208,15 +232,15 @@ namespace AprajitaRetails.Server.Controllers.Auths
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
 
-                if (admin.UserType == UserType.Admin|| admin.UserType == UserType.SuperAdmin)
+                if (admin.UserType == UserType.Admin || admin.UserType == UserType.SuperAdmin)
                 {
 
-                     var usr= await _userManager.FindByIdAsync(user.UserName);
+                    var usr = await _userManager.FindByIdAsync(user.UserName);
                     if (usr != null)
                     {
-                        usr.Approved = user.Aproved; 
-                        usr.UserType=user.UserType;
-                        usr.Permission = user.RolePermission; 
+                        usr.Approved = user.Aproved;
+                        usr.UserType = user.UserType;
+                        usr.Permission = user.RolePermission;
 
                     }
                     else
@@ -229,7 +253,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
                     return Problem("Not authzised to perform this task");
                 }
 
-               
+
                 _logger.LogInformation("User is approved successfully.");
 
                 return Ok("Approved");
@@ -291,5 +315,5 @@ namespace AprajitaRetails.Server.Controllers.Auths
         }
     }
 
-    
+
 }

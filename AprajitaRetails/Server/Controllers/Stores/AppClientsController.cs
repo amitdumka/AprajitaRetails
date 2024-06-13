@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AprajitaRetails.Server.Data;
 using AprajitaRetails.Shared.Models.Stores;
+using AprajitaRetails.Server.InitData;
 
 namespace AprajitaRetails.Server.Controllers.Stores
 {
@@ -33,22 +34,38 @@ namespace AprajitaRetails.Server.Controllers.Stores
             }
             return await _context.AppClients.ToListAsync();
         }
+        [HttpGet("INITSTORE")]
+        public async Task<ActionResult<int>> GetMyStore()
+        {
+
+            return InitCompany.AddInitCompany(_context);
+
+
+        }
 
         [HttpGet("InstallStore")]
-        public async Task<ActionResult<int>> GetInstallStore(string mode){
+        public async Task<ActionResult<int>> GetInstallStore(string mode)
+        {
 
-           if(mode=="Default"){
+            if (mode == "Default")
+            {
                 ClientInstaller cli = new ClientInstaller();
                 return await cli.InstallDefaultClient(_context, _appContext);
-           }else if(mode="Minimal"){
-            return NotFound("Not Implemented");
+            }
+            else if (mode = "Minimal")
+            {
+                return NotFound("Not Implemented");
 
-           }else if(mode="Full"){
-               
-            return NotFound("Not Implemented");
-           } else {
-             return NotFound("Invalid Mode");
-           }
+            }
+            else if (mode = "Full")
+            {
+
+                return NotFound("Not Implemented");
+            }
+            else
+            {
+                return NotFound("Invalid Mode");
+            }
 
         }
         [HttpGet("AddDefault")]
@@ -125,7 +142,8 @@ namespace AprajitaRetails.Server.Controllers.Stores
         }
 
         [HttpPost("RegisterClient")]
-        public async Task<ActionResult<RegisteredClient>> PostAppClient(ClinetInfo client){
+        public async Task<ActionResult<RegisteredClient>> PostAppClient(ClinetInfo client)
+        {
 
             ClientInstaller cli = new ClientInstaller();
             return await cli.RegisterClient(_context, _appContext, client);

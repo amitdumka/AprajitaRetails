@@ -72,11 +72,12 @@ else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
     {
         connectionString = builder.Configuration.GetConnectionString("DefaultLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
 
+         
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        	options.UseMySQL(connectionString));
 
         builder.Services.AddDbContext<ARDBContext>(options =>
-            options.UseSqlServer(connectionString));
+             options.UseMySQL(connectionString));
     }
 }
 else
