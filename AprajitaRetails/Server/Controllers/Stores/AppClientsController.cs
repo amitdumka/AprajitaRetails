@@ -49,15 +49,15 @@ namespace AprajitaRetails.Server.Controllers.Stores
 
             if (mode == "Default")
             {
-                ClientInstaller cli = new ClientInstaller();
-                return await cli.InstallDefaultClient(_context, _appContext);
+                
+                return   await ClientInstaller.InstallDefaultClient(_context, _appContext);
             }
-            else if (mode = "Minimal")
+            else if (mode == "Minimal")
             {
                 return NotFound("Not Implemented");
 
             }
-            else if (mode = "Full")
+            else if (mode == "Full")
             {
 
                 return NotFound("Not Implemented");
@@ -142,11 +142,11 @@ namespace AprajitaRetails.Server.Controllers.Stores
         }
 
         [HttpPost("RegisterClient")]
-        public async Task<ActionResult<RegisteredClient>> PostAppClient(ClinetInfo client)
+        public async Task<ActionResult<RegisteredClient>> PostAppClient(ClientInfo client)
         {
 
-            ClientInstaller cli = new ClientInstaller();
-            return await cli.RegisterClient(_context, _appContext, client);
+             
+            return   ClientInstaller.RegisterClient(_context, _appContext, client);
 
         }
 

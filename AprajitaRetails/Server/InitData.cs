@@ -90,33 +90,43 @@ namespace AprajitaRetails.Server.InitData
                 StoreId = "MBO",
                 UserId = "AutoADMIN"
             };
-            TransactionMode m1= new TransactionMode{
-                TransactionId="HE", TransactionName="Home Expenses"
-                
+            TransactionMode m1 = new TransactionMode
+            {
+                TransactionId = "HE",
+                TransactionName = "Home Expenses"
+
             };
-            TransactionMode m2= new TransactionMode{
-                TransactionId="CI", TransactionName="Cash In"
-                
+            TransactionMode m2 = new TransactionMode
+            {
+                TransactionId = "CI",
+                TransactionName = "Cash In"
+
             };
-            TransactionMode m3= new TransactionMode{
-                TransactionId="CO", TransactionName="Cash out"
-                
+            TransactionMode m3 = new TransactionMode
+            {
+                TransactionId = "CO",
+                TransactionName = "Cash out"
+
             };
-            TransactionMode m4= new TransactionMode{
-                TransactionId="PE", TransactionName="Petty Expenses"
-                
+            TransactionMode m4 = new TransactionMode
+            {
+                TransactionId = "PE",
+                TransactionName = "Petty Expenses"
+
             };
-            TransactionMode m5= new TransactionMode{
-                TransactionId="AE", TransactionName="Amit Kumar Expenses"
-                
+            TransactionMode m5 = new TransactionMode
+            {
+                TransactionId = "AE",
+                TransactionName = "Amit Kumar Expenses"
+
             };
 
 
-            
+
             //db.AppClients.Add(client);
             //db.StoreGroups.Add(group);
             //db.Stores.Add(store);
-            
+
             int x = db.SaveChanges();
 
             db.TransactionModes.Add(m1);

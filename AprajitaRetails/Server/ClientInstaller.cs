@@ -1,3 +1,21 @@
+using AprajitaRetails.Server.Data;
+using AprajitaRetails.Shared.Models.Stores;
+using AprajitaRetails.Server.Models;
+
+using AprajitaRetails.Shared.Models.Banking;
+
+using AprajitaRetails.Shared.Models.Payroll;
+using AprajitaRetails.Shared.Models.Vouchers;
+using Microsoft.AspNetCore.Identity;
+
+using AprajitaRetails.Server.Areas.Identity.Pages.Account;
+using AprajitaRetails.Server.Models;
+using AprajitaRetails.Shared.Models.Auth;
+using Blazor.AdminLte;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+
 namespace AprajitaRetails.Server
 {
     public class ClientInfo
@@ -38,12 +56,12 @@ namespace AprajitaRetails.Server
     //TODO: Implement this in fullcontext so it can be use any place 
     public class ClientInstaller
     {
-        public static RegisteredClient RegisterClient(ARDBContext db, ApplicationDBContext context, ClientInfo info)
+        public static RegisteredClient RegisterClient(ARDBContext db, ApplicationDbContext context, ClientInfo info)
         {
             //TODO: Implement this in fullcontext so it can be use any place
             return null;
         }
-        public static int InstallDefaultOptions(ARDBContext db, ApplicationDBContext context, DateTime? defDate, string storeid = "", string groupid = "", string eid = "")
+        public static int InstallDefaultOptions(ARDBContext db, ApplicationDbContext context, DateTime? defDate, string storeid = "", string groupid = "", string eid = "")
         {
 
 
@@ -102,22 +120,22 @@ namespace AprajitaRetails.Server
 
             var TransactionModes = new List<TransactionMode>
             {
-                new TransactionMode(TransactionModeId="CI",Name="Cash In"),
-                new TransactionMode(TransactionModeId="CO",Name="CashOut"),
-                new TransactionMode(TransactionModeId="PE",Name="Petty Cash Expenses"),
-                new TransactionMode(TransactionModeId="AE",Name="Amit Expense"),
-                new TransactionMode(TransactionModeId="HE",Name="Home Expense"),
-                new TransactionMode(TransactionModeId="VE",Name="Vehicle Expense"),
-                new TransactionMode(TransactionModeId="TE",Name="Telephone Expense"),
-                new TransactionMode(TransactionModeId="ME",Name="Miscellaneous Expense"),
-                new TransactionMode(TransactionModeId="PE",Name="Petty Cash Income"),
-                new TransactionMode(TransactionModeId="BL",Name="Breakfast & Lunch"),
-                new TransactionMode(TransactionModeId="TC",Name="Tea & Coffee"),
-                new TransactionMode(TransactionModeId="OP",Name="Online Purhcase"),
-                new TransactionMode(TransactionModeId="SU",Name="Suspense"),
-                new TransactionMode(TransactionModeId="ST",Name="Stationary"),
-                new TransactionMode(TransactionModeId="SC",Name="Short In Cash"),
-                new TransactionMode(TransactionModeId="PU",Name="Puja Expenses"),
+                new TransactionMode(TransactionId="CI",Name="Cash In"),
+                new TransactionMode(TransactionId="CO",Name="CashOut"),
+                new TransactionMode(TransactionId="PE",Name="Petty Cash Expenses"),
+                new TransactionMode(TransactionId="AE",Name="Amit Expense"),
+                new TransactionMode(TransactionId="HE",Name="Home Expense"),
+                new TransactionMode(TransactionId="VE",Name="Vehicle Expense"),
+                new TransactionMode(TransactionId="TE",Name="Telephone Expense"),
+                new TransactionMode(TransactionId="ME",Name="Miscellaneous Expense"),
+                new TransactionMode(TransactionId="PE",Name="Petty Cash Income"),
+                new TransactionMode(TransactionId="BL",Name="Breakfast & Lunch"),
+                new TransactionMode(TransactionId="TC",Name="Tea & Coffee"),
+                new TransactionMode(TransactionId="OP",Name="Online Purhcase"),
+                new TransactionMode(TransactionId="SU",Name="Suspense"),
+                new TransactionMode(TransactionId="ST",Name="Stationary"),
+                new TransactionMode(TransactionId="SC",Name="Short In Cash"),
+                new TransactionMode(TransactionId="PU",Name="Puja Expenses"),
 
         };
 
@@ -174,7 +192,7 @@ namespace AprajitaRetails.Server
             else return -1;
 
         }
-        private static RegisteredClient CreateAdminUser(ARDBContext db, ApplicationDBContext context, ClientInfo info, RegisteredClient client)
+        private static RegisteredClient CreateAdminUser(ARDBContext db, ApplicationDbContext context, ClientInfo info, RegisteredClient client)
         {
 
             client.Owner = new Employee
@@ -289,7 +307,7 @@ namespace AprajitaRetails.Server
             return client;
 
         }
-        private static RegisteredClient CreateStore(ARDBContext db, ApplicationDBContext context, ClientInfo info)
+        private static RegisteredClient CreateStore(ARDBContext db, ApplicationDbContext context, ClientInfo info)
         {
 
             AppClient client = new AppClient
@@ -352,7 +370,7 @@ namespace AprajitaRetails.Server
         }
 
 
-        private static RegisteredClient CreateDefaultOptions(ARDBContext db, ApplicationDBContext context, RegisteredClient client)
+        private static RegisteredClient CreateDefaultOptions(ARDBContext db, ApplicationDbContext context, RegisteredClient client)
         {
 
             DateTime defDate = client.StartDate ?? DateTime.Now;
@@ -378,22 +396,22 @@ namespace AprajitaRetails.Server
 
             var TransactionModes = new List<TransactionMode>
             {
-                new TransactionMode(TransactionModeId="CI",Name="Cash In"),
-                new TransactionMode(TransactionModeId="CO",Name="CashOut"),
-                new TransactionMode(TransactionModeId="PE",Name="Petty Cash Expenses"),
-                new TransactionMode(TransactionModeId="AE",Name="Amit Expense"),
-                new TransactionMode(TransactionModeId="HE",Name="Home Expense"),
-                new TransactionMode(TransactionModeId="VE",Name="Vehicle Expense"),
-                new TransactionMode(TransactionModeId="TE",Name="Telephone Expense"),
-                new TransactionMode(TransactionModeId="ME",Name="Miscellaneous Expense"),
-                new TransactionMode(TransactionModeId="PE",Name="Petty Cash Income"),
-                new TransactionMode(TransactionModeId="BL",Name="Breakfast & Lunch"),
-                new TransactionMode(TransactionModeId="TC",Name="Tea & Coffee"),
-                new TransactionMode(TransactionModeId="OP",Name="Online Purhcase"),
-                new TransactionMode(TransactionModeId="SU",Name="Suspense"),
-                new TransactionMode(TransactionModeId="ST",Name="Stationary"),
-                new TransactionMode(TransactionModeId="SC",Name="Short In Cash"),
-                new TransactionMode(TransactionModeId="PU",Name="Puja Expenses"),
+                new TransactionMode(TransactionId="CI",TransactionName="Cash In"),
+                new TransactionMode(TransactionId="CO",TransactionName="CashOut"),
+                new TransactionMode(TransactionId="PE",TransactionName="Petty Cash Expenses"),
+                new TransactionMode(TransactionId="AE",TransactionName="Amit Expense"),
+                new TransactionMode(TransactionId="HE",TransactionName="Home Expense"),
+                new TransactionMode(TransactionId="VE",TransactionName="Vehicle Expense"),
+                new TransactionMode(TransactionId="TE",TransactionName="Telephone Expense"),
+                new TransactionMode(TransactionId="ME",TransactionName="Miscellaneous Expense"),
+                new TransactionMode(TransactionId="PE",TransactionName="Petty Cash Income"),
+                new TransactionMode(TransactionId="BL",TransactionName="Breakfast & Lunch"),
+                new TransactionMode(TransactionId="TC",TransactionName="Tea & Coffee"),
+                new TransactionMode(TransactionId="OP",TransactionName="Online Purhcase"),
+                new TransactionMode(TransactionId="SU",TransactionName="Suspense"),
+                new TransactionMode(TransactionId="ST",TransactionName="Stationary"),
+                new TransactionMode(TransactionId="SC",TransactionName="Short In Cash"),
+                new TransactionMode(TransactionId="PU",TransactionName="Puja Expenses"),
 
         };
 
@@ -454,7 +472,7 @@ namespace AprajitaRetails.Server
         }
 
 
-        public static int InstallDefaultClient(ARDBContext db, ApplicationDBContext context)
+        public static async Task<int> InstallDefaultClient(ARDBContext db, ApplicationDbContext context)
         {
 
             //Creating Default AppClient
@@ -466,7 +484,8 @@ namespace AprajitaRetails.Server
                 MobileNumber = "06434224461",
                 City = "Dumka",
                 StartDate = new DateTime(2024, 04, 01),
-                EndDate = null
+                ExpireDate = null
+
             };
             StoreGroup group = new StoreGroup
             {
@@ -523,26 +542,26 @@ namespace AprajitaRetails.Server
             {
                 EmployeeId = "OWN/2015/0001",
                 EmpId = 1,
-                EntryStatus = EntryStatus.Added,
+                //EntryStatus = EntryStatus.Added,
                 JoiningDate = new DateTime(2015, 10, 1),
-                IsActive = true,
+
                 IsWorking = true,
                 Category = EmpType.Owner,
-                IsReadOnly = true,
+                //IsReadOnly = true,
                 MarkedDeleted = false,
-                Name = "Amit Kumar",
+
                 Gender = Gender.Male,
                 DOB = new DateTime(1982, 07, 24),
                 Title = "Mr.",
                 City = "Dumka",
                 State = "Jharkhand",
-                MobileNo = "9334799099",
+                //MobileNo = "9334799099",
                 Country = "India",
-                Email = "amitkumar@akslabs.in",
+                //Email = "amitkumar@akslabs.in",
                 StreetName = "Police Line Road",
                 ZipCode = "814101",
                 StoreId = "MBO",
-                UserId = "AutoADMIN",
+                //UserId = "AutoADMIN",
                 FirstName = "Amit",
                 LastName = "Kumar",
 
@@ -551,7 +570,7 @@ namespace AprajitaRetails.Server
             db.Employees.Add(emp);
             int x = db.SaveChanges();
 
-            int count = InstallDefaultOptions(db, null, store.StoreId, group.StoreGroupId, salesman.EmployeeId);
+            int count = InstallDefaultOptions(db, context, new DateTime(2024, 4, 1), store.StoreId, group.StoreGroupId, salesman.EmployeeId);
             bool userCreated = false;
             if (count > 0)
             {
@@ -608,7 +627,7 @@ namespace AprajitaRetails.Server
                     CurrentBalance = 0,
                     OpeningDate = DateTime.Today,
                     MarkedDeleted = false,
-                    UserId = "AutoADMIN",
+                   
                     StoreId = "MBO",
                     StoreGroupId = "MBO",
                     AppClientId = client.AppClientId,
@@ -629,6 +648,35 @@ namespace AprajitaRetails.Server
             }
             else return -99;
 
+        }
+        private ApplicationUser CreateUser()
+        {
+            try
+            {
+                return Activator.CreateInstance<ApplicationUser>();
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+            }
+        }
+
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
+        {
+            if (!_userManager.SupportsUserEmail)
+            {
+                throw new NotSupportedException("The default UI requires a user store with email support.");
+            }
+            return (IUserEmailStore<ApplicationUser>)_userStore;
+        }
+
+        private async Task<bool> ConfirmEmailAsync(ApplicationUser user, string code)
+        {
+            //code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            return result.Succeeded ? true : false;
         }
 
     }//end of class

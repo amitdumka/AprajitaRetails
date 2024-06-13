@@ -30,7 +30,7 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public string PartyId { get; set; }
         public virtual Party? Party { get; set; }
     }
-
+ 
     public class TransactionMode
     {
         [Key]
