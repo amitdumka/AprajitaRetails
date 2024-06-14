@@ -28,6 +28,10 @@ namespace AprajitaRetails.Server
         public string ContactPersonMobile { get; set; }
         public string OwnerName { get; set; }
         public string StoreCode { get; set; }
+        public string BankAccountNumber{get;set;}
+        public string BankName{get;set;}
+        public string BranchName{get;set;}
+        public string IFSCode{get;set;}
 
     }
     public class RegisteredClient
@@ -37,11 +41,31 @@ namespace AprajitaRetails.Server
         public List<Store> Stores { get; set; }
         public string RegisterAdminUserName { get; set; }
         public string DefaultPassword { get; set; }
+        public string DefaultOwnerPassword { get; set; }
         public string Remarks { get; set; }
         public Employee Owner { get; set; }
+        public int Count { get; set; }
     }
 
 }
+
+//TODO: Items need to created for First Run
+/*
+    1. AppClinet
+    2. StoreGroup
+    3. Store
+    4. Owner Employee 
+    5. Owner Username
+    6. StoreManager Employee
+    7. Admin User
+    8. Bank
+    9. Bank Account
+    10. Transcation
+    11. LedgerGroup
+    12. Party
+    
+*/
+
 
 namespace AprajitaRetails.Server
 {
@@ -50,255 +74,14 @@ namespace AprajitaRetails.Server
     {
         public static RegisteredClient RegisterClient(ARDBContext db, ApplicationDbContext context, ClientInfo info)
         {
-            //TODO: Implement this in fullcontext so it can be use any place
+
+            var client = CreateStore(db, context, info);
+            //Creating Owner Employee Account
+            client = CreateDefaultOptions(db, context, info, client);
+
             return null;
         }
-        public static int InstallDefaultOptions(ARDBContext db, ApplicationDbContext context, DateTime? defDate, string storeid = "", string groupid = "", string eid = "")
-        {
-
-
-            defDate = defDate ?? DateTime.Now;
-            //Create Default Admin User
-            bool userCreated = false;
-            var user = CreateUser();
-            await _userStore.SetUserNameAsync(user, "Admin", CancellationToken.None);
-            await _emailStore.SetEmailAsync(user, "admin@akslabs.in", CancellationToken.None);
-
-            user.FullName = "Admin User";
-            user.StoreId = storeid;
-            user.EmployeeId = eid;
-
-            user.StoreGroupId = groupid;
-            user.Approved = true; user.Permission = RolePermission.Owner;
-
-
-            var result = await _userManager.CreateAsync(user, "Admin@123");
-
-            if (result.Succeeded)
-            {
-                //Do Conirmation here
-                _logger.LogInformation("User created a new account with password.");
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                {
-                    var result = await _userManager.ConfirmEmailAsync(user, code);
-                    if (result.Succeeded)
-                        userCreated = true;
-                }
-                else
-                {
-                    userCreated = true;
-                }
-            }
-
-            //Create Bank Name
-            var banks = [ new Bank{BankId="SBI",Name="State Bank Of India"},
-            new Bank{BankId="HDFC",Name="HDFC Bank"}, new Bank{BankId="ICICI",Name="ICICI Bank"},
-            new Bank{BankId="AXIS",Name="Axis Bank"}, new Bank{BankId="KOTAK",Name="Kotak Mahindra Bank"},
-            new Bank{BankId="BOB",Name="Bank Of Baroda"}, new Bank{BankId="PUNJAB",Name="Punjab National Bank"},
-            new Bank{BankId="IDBI",Name="IDBI Bank"}, new Bank{BankId="FEDERAL",Name="Federal Bank"},
-            new Bank{BankId="IDFC",Name="IDFC Bank"}, new Bank{BankId="INDIAN",Name="Indian Bank"},
-            new Bank{BankId="CANARA",Name="Canara Bank"}, new Bank{BankId="RBL",Name="RBL Bank"},
-            new Bank{BankId="DBS",Name="DBS Bank"},          new Bank{BankId="UNION",Name="Union Bank"},
-            new Bank{BankId="CITI",Name="Citi Bank"},          new Bank{BankId="YES",Name="Yes Bank"},
-             new Bank{BankId="HSBC",Name="HSBC Bank"}
-            ];
-            db.Banks.AddRange(banks);
-            int count = db.SaveChanges();
-
-            //TransactionMode
-
-            var TransactionModes = new List<TransactionMode>
-            {
-                new(TransactionId="CI",Name="Cash In"),
-                new TransactionMode(TransactionId="CO",Name="CashOut"),
-                new TransactionMode(TransactionId="PE",Name="Petty Cash Expenses"),
-                new TransactionMode(TransactionId="AE",Name="Amit Expense"),
-                new TransactionMode(TransactionId="HE",Name="Home Expense"),
-                new TransactionMode(TransactionId="VE",Name="Vehicle Expense"),
-                new TransactionMode(TransactionId="TE",Name="Telephone Expense"),
-                new TransactionMode(TransactionId="ME",Name="Miscellaneous Expense"),
-                new TransactionMode(TransactionId="PE",Name="Petty Cash Income"),
-                new TransactionMode(TransactionId="BL",Name="Breakfast & Lunch"),
-                new TransactionMode(TransactionId="TC",Name="Tea & Coffee"),
-                new TransactionMode(TransactionId="OP",Name="Online Purhcase"),
-                new TransactionMode(TransactionId="SU",Name="Suspense"),
-                new TransactionMode(TransactionId="ST",Name="Stationary"),
-                new TransactionMode(TransactionId="SC",Name="Short In Cash"),
-                new TransactionMode(TransactionId="PU",Name="Puja Expenses"),
-
-        };
-
-            db.TransactionModes.AddRange(TransactionModes);
-            count += db.SaveChanges();
-
-            // Default Party Ledgers
-
-            var LedgerGroup = new List<LedgerGroup>{
-                new LedgerGroup{LedgerGroupId="NOPARTY",GroupName="No Party", Category=LedgerCategory.Others},
-                new LedgerGroup{LedgerGroupId="CASH",GroupName="Cash", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="BANK",GroupName="Bank", Category=LedgerCategory.Bank},
-                new LedgerGroup{LedgerGroupId="CRD",GroupName="Credit", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="DBT",GroupName="Debit", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="SLY",GroupName="Salary", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="PUR",GroupName="Purchase", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="SAL",GroupName="Sales", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="INC",GroupName="Income", Category=LedgerCategory.Income},
-                new LedgerGroup{LedgerGroupId="EXO",GroupName="Expense", Category=LedgerCategory.Expenses},
-                new LedgerGroup{LedgerGroupId="OTH",GroupName="Others", Category=LedgerCategory.Others},
-                new LedgerGroup{LedgerGroupId="IDINC",GroupName="Indirect Income", Category=LedgerCategory.Assets},
-                new LedgerGroup{LedgerGroupId="IDEXP",GroupName="Indirect Expense", Category=LedgerCategory.Expenses},
-
-            };
-
-            db.LedgerGroups.AddRange(LedgerGroup);
-            count += db.SaveChanges();
-            var partyLedgers = new List<Party>{
-                new Party{PartyId="NOPARTY",PartyName="No Party", OpeningDate=(DateTime)defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Others, LedgerGroupId="NOPARTY"},
-                new Party{PartyId="TIE",PartyName="Telephone & Internet", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="SNB",PartyName="Snacks & Beverages", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="EB",PartyName="Eletricity Bill", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="SNP",PartyName="Stationary & Printing", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="ASAL",PartyName="Salary Adavances", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="SLY"},
-                new Party{PartyId="FRC",PartyName="Frieght Charges", OpeningDate=defDate,
-                ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-
-                //TODO: Need to add Party Ledger for basic accounting.
-            };
-
-            db.Parties.AddRange(partyLedgers);
-            count += db.SaveChanges();
-
-            if (userCreated)
-            {
-                return count;
-            }
-            else return -1;
-
-        }
-        private static RegisteredClient CreateAdminUser(ARDBContext db, ApplicationDbContext context, ClientInfo info, RegisteredClient client)
-        {
-
-            client.Owner = new Employee
-            {
-                EmployeeId = $"OWN/{info.StartDate.Year}/0001",
-                EmpId = 1,
-               // EntryStatus = EntryStatus.Added,
-                JoiningDate = new DateTime(2015, 10, 1),
-               // IsActive = true,
-                IsWorking = true,
-                Category = EmpType.Owner,
-               // IsReadOnly = true,
-                MarkedDeleted = false,
-                //Name = client.OwnerName,
-                Gender = Gender.Male,
-                DOB = new DateTime(1982, 07, 24),
-                Title = "Mr.",
-                City = info.City,
-                State = info.State,
-                //MobileNo = client.Mobile,
-                Country = info.Country,
-                //Email = client.Email,
-                StreetName = info.Address,
-                ZipCode = info.PinCode,
-                StoreId = info.StoreCode,
-               // UserId = "AutoADMIN",
-                FirstName = info.OwnerName.Split(' ')[0],
-                LastName = info.OwnerName.Split(' ')[1],
-
-            };
-
-            db.Employees.Add(client.Owner);
-            int cont = db.SaveChanges();
-
-            client.Remarks += $"#Owner Employee  Created[EmpId:{client.Owner.EmployeeId}];";
-
-            bool userCreated = false;
-            var user = CreateUser();
-            await _userStore.SetUserNameAsync(user, client.RegisterAdminUserName, CancellationToken.None);
-            await _emailStore.SetEmailAsync(user, info.Email, CancellationToken.None);
-
-            user.FullName = "Admin User";
-            user.StoreId = client.Stores[0].StoreId;
-            user.EmployeeId = client.Owner.EmployeeId;
-
-            user.StoreGroupId = client.StoreGroups[0].StoreGroupId;
-            user.Approved = true;
-            user.Permission = RolePermission.Owner;
-
-
-            var result = await _userManager.CreateAsync(user, client.DefaultPassword);
-
-            if (result.Succeeded)
-            {
-                //Do Conirmation here
-                _logger.LogInformation("User created a new account with password.");
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                {
-                    var result = await _userManager.ConfirmEmailAsync(user, code);
-                    if (result.Succeeded)
-                        userCreated = true;
-                }
-                else
-                {
-                    userCreated = true;
-                }
-                client.Remarks += $"#Admin User Created[U:{user.UserId}, P:{client.DefaultPassword}];";
-
-            }
-
-            if (userCreated)
-            {
-                var user = CreateUser();
-                await _userStore.SetUserNameAsync(user, info.OwnerName.ToLower(), CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, info.Email, CancellationToken.None);
-
-                user.FullName = info.OwnerName;
-                user.StoreId = info.StoreCode;
-                user.EmployeeId = client.Owner.EmployeeId;
-
-                user.StoreGroupId = info.StoreCode;
-                user.Approved = true;
-                user.Permission = RolePermission.Owner;
-
-
-                var result = await _userManager.CreateAsync(user, "Owner@123");
-
-                if (result.Succeeded)
-                {
-                    //Do Conirmation here
-                    _logger.LogInformation("User created a new account with password.");
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        var result = await _userManager.ConfirmEmailAsync(user, code);
-                        if (result.Succeeded)
-                            userCreated = true;
-                    }
-                    else
-                    {
-                        userCreated = true;
-                    }
-                    client.Remarks += $"#Owner User Created[U:{user.UserId}, P:Owner@123];";
-                }
-
-            }
-            return client;
-
-        }
+        //Create Store, Client and Store Group        
         private static RegisteredClient CreateStore(ARDBContext db, ApplicationDbContext context, ClientInfo info)
         {
 
@@ -357,15 +140,65 @@ namespace AprajitaRetails.Server
                 Groups = new List<StoreGroup> { group },
                 Stores = new List<Store> { store },
                 RegisterAdminUserName = "Admin",
-                DefaultPassword = "Admin@1234"
+                DefaultPassword = "Admin@1234",
+                Count = result
             };
         }
 
-
-        private static RegisteredClient CreateDefaultOptions(ARDBContext db, ApplicationDbContext context,ClientInfo info, RegisteredClient client)
+        //Create Default Options and Other entites
+        private static RegisteredClient CreateDefaultOptions(ARDBContext db, ApplicationDbContext context, ClientInfo info, RegisteredClient client)
         {
+            //Creatng Owner
+            client.Owner = new Employee
+            {
+                EmployeeId = $"OWN-{info.StartDate.Year}-0001",
+                EmpId = 1,
+                JoiningDate = new DateTime(2015, 10, 1),
+                IsWorking = true,
+                Category = EmpType.Owner,
+                MarkedDeleted = false,
+                Gender = Gender.Male,
+                DOB = new DateTime(1982, 07, 24),
+                Title = "Mr.",
+                City = info.City,
+                State = info.State,
+                Country = info.Country,
+                StreetName = info.Address,
+                ZipCode = info.PinCode,
+                StoreId = info.StoreCode,
+                FirstName = info.OwnerName.Split(' ')[0],
+                LastName = info.OwnerName.Split(' ')[1],
 
-            DateTime defDate = info.StartDate  ;
+            };
+            db.Employees.Add(client.Owner);
+            client.Count += db.SaveChanges();
+            client.Remarks += $"#Owner Employee  Created[EmpId:{client.Owner.EmployeeId}];";
+            DateTime defDate = info.StartDate;
+            
+            var smEmp = new Employee
+            {
+                EmployeeId = $"{info.StoreCode}-SM-{info.StartDate.Year}-0001",
+                EmpId = 2,
+                JoiningDate = info.StartDate,
+                IsWorking = true,
+                Category = EmpType.StoreManager,
+                MarkedDeleted = false,
+                Gender = Gender.Male,
+                DOB = info.StartDate.AddYear(-20),
+                Title = "Mr.",
+                City = info.City,
+                State = info.State,
+                Country = info.Country,
+                StreetName = info.Address,
+                ZipCode = info.PinCode,
+                StoreId = info.StoreCode,
+                FirstName = info.OwnerName.Split(' ')[0],
+                LastName = info.OwnerName.Split(' ')[1],
+
+            };
+            db.Employees.Add(smEmp);
+            client.Count += db.SaveChanges();
+            client.Remarks += $"Store Manger Employee  Created[EmpId:{smEmp.EmployeeId}];";
 
             //Create Bank Name
             var banks = new List<Bank>{ new Bank{BankId="SBI",Name="State Bank Of India"},
@@ -380,9 +213,27 @@ namespace AprajitaRetails.Server
             new Bank{BankId="OTHERS",Name="Others" }, new Bank{BankId="HSBC",Name="HSBC Bank"}
             };
             db.Banks.AddRange(banks);
-            int count = db.SaveChanges();
+            client.Count += = db.SaveChanges();
 
-            client.Remarks += $"#Created {count} Banks;";
+            client.Remarks += $"#Created {client.Count} Banks;";
+
+            //Creating Default Bank Account
+            BankAccount bankAccount= new BankAccount{
+                AccountNumber=info.BankAccountNumber, 
+                DefaultBank=true, SharedAccount=true,
+                OpeningBalance=0, CurrentBalance=0,
+                OpeningDate=info.StartDate, StoreId=info.StoreCode, 
+                StoreGroupId=info.StoreCode, MarkedDeleted=false, 
+                AppClientId=client.AppClient.AppClientId, 
+                IsActive=true, AccountType=AccountType.Current, 
+                AccountHolderName=info.Name, 
+                BranchName=info.BranchName,
+                IFSCCode=info.IFSCode, BankId=(db.BankId.Where(c=>c.Name==info.BankName).FirstOfDefault().BankId??""),
+            }; 
+
+            db.BankAccounts.Add(bankAccount);
+            client.Count += db.SaveChanges();
+            client.Remarks += $"#Created {client.Count} Bank Account;";
 
             //TransactionMode
 
@@ -408,9 +259,9 @@ namespace AprajitaRetails.Server
         };
 
             db.TransactionModes.AddRange(TransactionModes);
-            count += db.SaveChanges();
+            client.Count += db.SaveChanges();
 
-            client.Remarks += $"#Created {count} Transaction Modes;";
+            client.Remarks += $"#Created {client.Count} Transaction Modes;";
 
             // Default Party Ledgers
 
@@ -432,9 +283,9 @@ namespace AprajitaRetails.Server
             };
 
             db.LedgerGroups.AddRange(LedgerGroup);
-            count += db.SaveChanges();
+            client.Count += db.SaveChanges();
 
-            client.Remarks += $"#Created {count} Ledger Groups;";
+            client.Remarks += $"#Created {client.Count} Ledger Groups;";
 
             var partyLedgers = new List<Party>{
                 new Party{PartyId="NOPARTY",PartyName="No Party", OpeningDate=defDate,
@@ -456,222 +307,13 @@ namespace AprajitaRetails.Server
             };
 
             db.Parties.AddRange(partyLedgers);
-            count += db.SaveChanges();
+            client.Count += db.SaveChanges();
 
-            client.Remarks += $"#Created {count} Ledgers;";
+            client.Remarks += $"#Created {client.Count} Ledgers;";
             return client;
 
         }
 
-
-        public static async Task<int> InstallDefaultClient(ARDBContext db, ApplicationDbContext context)
-        {
-
-            //Creating Default AppClient
-            AppClient client = new AppClient
-            {
-                AppClientId = Guid.NewGuid(),
-                ClientName = "Aadwika Fashion",
-                ClientAddress = "Bhagalpur Road, Near TATA Showroom,Dumka",
-                MobileNumber = "06434224461",
-                City = "Dumka",
-                StartDate = new DateTime(2024, 04, 01),
-                ExpireDate = null
-
-            };
-            StoreGroup group = new StoreGroup
-            {
-                AppClientId = client.AppClientId,
-                GroupName = "Addwika Fashion MBO",
-                Remarks = "Convert to MBO",
-                StoreGroupId = "MBO",
-
-            };
-            Store store = new Store
-            {
-                AppClientId = client.AppClientId,
-                BeginDate = new DateTime(2024, 4, 1),
-                City = "Dumka",
-                Country = "India",
-                EndDate = null,
-                AppClient = null,
-                GSTIN = "20AJHPA7396P1ZV",
-                IsActive = true,
-                MarkedDeleted = false,
-                PanNo = "AJPHA7396P",
-                State = "Jharkhand",
-                StoreCode = "MBO001",
-                StoreEmailId = "aadwikafashion.mbo@gmail.com",
-                StoreGroup = group,
-                StoreGroupId = "MBO",
-                StoreId = "MBO",
-                StoreManager = "Alok Kumar",
-                StoreManagerContactNo = "",
-                StoreName = "Aadwika Fashion",
-                StorePhoneNumber = "06434224461",
-                VatNo = "",
-                ZipCode = "814101"
-
-            };
-            db.AppClients.Add(client);
-            db.StoreGroups.Add(group);
-            db.Stores.Add(store);
-
-            Salesman salesman = new Salesman
-            {
-                EmployeeId = "SM",
-                EntryStatus = EntryStatus.Added,
-                IsActive = true,
-                IsReadOnly = true,
-                MarkedDeleted = false,
-                Name = "Manager",
-                SalesmanId = "MBO-2024-SM-1",
-                StoreId = "MBO",
-                UserId = "AutoADMIN"
-            };
-            db.Salesmen.Add(salesman);
-            Employee emp = new Employee
-            {
-                EmployeeId = "OWN/2015/0001",
-                EmpId = 1,
-                //EntryStatus = EntryStatus.Added,
-                JoiningDate = new DateTime(2015, 10, 1),
-
-                IsWorking = true,
-                Category = EmpType.Owner,
-                //IsReadOnly = true,
-                MarkedDeleted = false,
-
-                Gender = Gender.Male,
-                DOB = new DateTime(1982, 07, 24),
-                Title = "Mr.",
-                City = "Dumka",
-                State = "Jharkhand",
-                //MobileNo = "9334799099",
-                Country = "India",
-                //Email = "amitkumar@akslabs.in",
-                StreetName = "Police Line Road",
-                ZipCode = "814101",
-                StoreId = "MBO",
-                //UserId = "AutoADMIN",
-                FirstName = "Amit",
-                LastName = "Kumar",
-
-            };
-
-            db.Employees.Add(emp);
-            int x = db.SaveChanges();
-
-            int count = InstallDefaultOptions(db, context, new DateTime(2024, 4, 1), store.StoreId, group.StoreGroupId, salesman.EmployeeId);
-            bool userCreated = false;
-            if (count > 0)
-            {
-
-                //Create Default Admin User
-
-                var user = CreateUser();
-                await _userStore.SetUserNameAsync(user, "AmitKumar", CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, "amitkumar@akslabs.in", CancellationToken.None);
-
-                user.FullName = "Amit Kumar";
-                user.StoreId = "MBO";
-                user.EmployeeId = "OWN/2015/0001";
-
-                user.StoreGroupId = "MBO";
-                user.Approved = true; user.Permission = RolePermission.Owner;
-
-
-                var result = await _userManager.CreateAsync(user, "Dumka@123");
-
-                if (result.Succeeded)
-                {
-                    //Do Conirmation here
-                    _logger.LogInformation("User created a new account with password.");
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        var result = await _userManager.ConfirmEmailAsync(user, code);
-                        if (result.Succeeded)
-                            userCreated = true;
-                    }
-                    else
-                    {
-                        userCreated = true;
-                    }
-                }
-
-                //TODO: Add default Bank Account, POS Machine, Cashier, etc.
-
-                BankAccount bankAccount = new BankAccount
-                {
-                    AccountNumber = "SBI CC",
-                    AccountHolderName = "Amit Kumar",
-                    BankId = "SBI",
-                    DefaultBank = true,
-                    SharedAccount = true,
-                    IsActive = true,
-                    AccountType = AccountType.Current,
-                    BranchName = "Lic Colleny",
-                    IFSCCode = "SBI000000",
-                    OpeningBalance = 0,
-                    CurrentBalance = 0,
-                    OpeningDate = DateTime.Today,
-                    MarkedDeleted = false,
-
-                    StoreId = "MBO",
-                    StoreGroupId = "MBO",
-                    AppClientId = client.AppClientId,
-
-
-                };
-
-                db.BankAccounts.Add(bankAccount);
-
-                count += db.SaveChanges();
-            }
-
-            if (userCreated)
-            {
-                if (count > 0 && x > 0)
-                    return count + x;
-                else return -9;
-            }
-            else return -99;
-
-        }
-        private static ApplicationUser CreateUser()
-        {
-            //TODO: Move to Controller Part
-
-            try
-            {
-                return Activator.CreateInstance<ApplicationUser>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
-        }
-
-        private static IUserEmailStore<ApplicationUser> GetEmailStore()
-        {
-            if (!_userManager.SupportsUserEmail)
-            {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
-            }
-            return (IUserEmailStore<ApplicationUser>)_userStore;
-        }
-
-        private static async Task<bool> ConfirmEmailAsync(ApplicationUser user, string code)
-        {
-            //code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            return result.Succeeded ? true : false;
-        }
 
     }//end of class
 }

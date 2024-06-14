@@ -37,9 +37,10 @@
         <InputText id="panNo" @bind-Value="clientInfo.PanNo" placeholder="Pan No" />
         <InputDate id="startDate" @bind-Value="clientInfo.StartDate" placeholder="Start Date" />
         <InputText id="contactPersonName" @bind-Value="clientInfo.ContactPersonName" placeholder="Contact Person Name" />
-        <InputText id="contactPersonMobile" @bind-Value="clientInfo.ContactPersonMobile" placeholder="Contact Person Mobile" />
+        <InputText id="contactPersonMobile" @bind-Value="clientInfo.ContactPersonMobile"
+            placeholder="Contact Person Mobile" />
         <InputText id="ownerName" @bind-Value="clientInfo.OwnerName" placeholder="Owner Name" />
-         <InputText id="storecode" @bind-Value="clientInfo.StoreCode" placeholder="First Store Code" />
+        <InputText id="storecode" @bind-Value="clientInfo.StoreCode" placeholder="First Store Code" />
 
         <button type="submit">Register</button>
     </EditForm>
@@ -66,6 +67,6 @@ else
         public string ContactPersonName { get; set; }
         public string ContactPersonMobile { get; set; }
         public string OwnerName { get; set; }
-        public string StoreCode{get;set;}
+        public string StoreCode { get; set; }
     }
 }
