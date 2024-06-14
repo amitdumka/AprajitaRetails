@@ -64,6 +64,7 @@ namespace AprajitaRetails.Server
     10. Transcation
     11. LedgerGroup
     12. Party
+    13. Salesman 
     
 */
 
@@ -201,6 +202,19 @@ namespace AprajitaRetails.Server
             db.Employees.Add(smEmp);
             client.Count += db.SaveChanges();
             client.Remarks += $"Store Manger Employee  Created[EmpId:{smEmp.EmployeeId}];";
+
+            //Creating Default Salesam
+            Salesman sm= new Salesman{
+                EmployeeId = smEmp.EmployeeId, Name="Manager", 
+                IsActive=true, StoreId=info.StoreCode,
+                EntryStatus=EntryStatus.Added, UserId="AutoAdmin", 
+                IsReadOnly=true,
+
+            };
+            db.Salesmen.Add(sm);
+            client.Count+= db.SaveChanges();
+            client.Remarks += $"Salesman Employee  Created[EmpId:{sm.EmployeeId}];";
+
 
             //Create Bank Name
             var banks = new List<Bank>{ new Bank{BankId="SBI",Name="State Bank Of India"},

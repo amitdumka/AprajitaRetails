@@ -39,7 +39,7 @@ namespace AprajitaRetails.Shared.Models.Bases
 
     public class BaseST : Base
     {
-        [DefaultValue("ARD")]
+        [DefaultValue("MBO")]
         [Display(Name = "Store")]
         public string StoreId { get; set; }
         public virtual Store? Store { get; set; }
@@ -47,7 +47,7 @@ namespace AprajitaRetails.Shared.Models.Bases
     }
     public class BaseSG : Base
     {
-        [DefaultValue("ARD")]
+        [DefaultValue("MBO")]
         [Display(Name = "Store Group")]
         public string StoreGroupId { get; set; }
         public virtual StoreGroup? StoreGroup { get; set; }
@@ -55,7 +55,7 @@ namespace AprajitaRetails.Shared.Models.Bases
     }
      public class BaseAC : Base
     {
-        [DefaultValue("ARD")]
+        [DefaultValue("MBO")]
         [Display(Name = "Client")]
         public Guid AppClinetId { get; set; }
         public virtual AppClient? AppClient { get; set; }

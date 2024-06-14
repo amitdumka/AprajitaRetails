@@ -20,6 +20,14 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 string connectionString = "";
 string DBType = builder.Configuration.GetSection("DatabaseMode").Value;
 
+if (DBType == "MYSQL")
+{
+    connectionString = builder.Configuration.GetConnectionString("MYSQL_CON") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseMySQL(connectionString));
+    builder.Services.AddDbContext<ARDBContext>(options =>
+         options.UseMySQL(connectionString));
+}
 if (DBType == "OracleCloud")
 {
     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -72,9 +80,9 @@ else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
     {
         connectionString = builder.Configuration.GetConnectionString("DefaultLinux") ?? throw new InvalidOperationException("Connection string 'DefaultLinux' not found.");
 
-         
+
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        	options.UseMySQL(connectionString));
+            options.UseMySQL(connectionString));
 
         builder.Services.AddDbContext<ARDBContext>(options =>
              options.UseMySQL(connectionString));
@@ -142,7 +150,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
-    
+
     app.UseSwagger(options =>
     {
         options.SerializeAsV2 = true;
