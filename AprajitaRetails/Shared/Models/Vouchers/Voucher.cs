@@ -101,7 +101,7 @@ namespace AprajitaRetails.Shared.Models.Vouchers
         public LedgerCategory Category { get; set; }
         public string? Remark { get; set; }
     }
-
+ 
     public class Party : BaseST
     {
         public string PartyId { get; set; }

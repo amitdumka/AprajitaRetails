@@ -45,7 +45,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
         {
             var user = CreateUser();
 
-            await _userStore.SetUserNameAsync(user, "AmitKumar", CancellationToken.None);
+            await _userStore.SetUserNameAsync(user, "Amit", CancellationToken.None);
             await _emailStore.SetEmailAsync(user, "amit.dumka@gmail.com", CancellationToken.None);
 
             user.FullName = "Amit Kumar";
@@ -53,7 +53,7 @@ namespace AprajitaRetails.Server.Controllers.Auths
             user.EmployeeId = "OWN/2015/001";
             user.Approved = true;
             user.Permission = RolePermission.Owner;
-            var result = await _userManager.CreateAsync(user, "Dumka@1234");
+            var result = await _userManager.CreateAsync(user, "Owner@123");
             if (result.Succeeded)
             {
                 return Ok(await ProcessNewUserAsync(user));
@@ -76,13 +76,13 @@ namespace AprajitaRetails.Server.Controllers.Auths
         [HttpPost("autoLogin")]
         public async Task<ActionResult<string>> PostAutoLogin()
         {
-            var result = await _signInManager.PasswordSignInAsync("AmitKumar", "Dumka@1234", true, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync("Amit", "Owner@123", true, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
                 //var xName = _userManager.Users.First(c => c.UserName == login.UserName).FullName;
                 _logger.LogInformation("User logged in.");
-                var user = _userManager.Users.First(c => c.UserName == "AmitKumar");
+                var user = _userManager.Users.First(c => c.UserName == "Amit");
                 var logged = new LoggedUser
                 {
                     EmployeeId = user.EmployeeId,

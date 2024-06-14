@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace AprajitaRetails.Server.Controllers
 {
 
-
+    [Route("api/[controller]")]
+    [ApiController]
     public class ClientInstallerController : ControllerBase
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -61,14 +62,18 @@ namespace AprajitaRetails.Server.Controllers
                 ContactPersonName = "Alok Kumar",
                 ContactPersonMobile = "1234567890",
                 OwnerName = "Amit Kumar",
-                StoreCode = "MBO"
+                StoreCode = "MBO",
+                BankAccountNumber = "SBI Current",
+                BankName = "State Bank If India",
+                BranchName = "LIC colony",
+                IFSCode = "SBIN001740"
 
 
             };
 
             var client = ClientInstaller.RegisterClient(_context, _authDb, info);
 
-            client = await  CreateAdminUsersAsync(info, client);
+            client = await CreateAdminUsersAsync(info, client);
             return Ok(client);
         }
 
@@ -80,7 +85,7 @@ namespace AprajitaRetails.Server.Controllers
                 //Creating  Admin User and Owner User
                 var client = ClientInstaller.RegisterClient(_context, _authDb, info);
 
-                client =await  CreateAdminUsersAsync(info, client);
+                client = await CreateAdminUsersAsync(info, client);
                 return Ok(client);
 
             }
@@ -100,7 +105,7 @@ namespace AprajitaRetails.Server.Controllers
             await _emailStore.SetEmailAsync(user, info.Email, CancellationToken.None);
 
             user.FullName = "Admin User";
-            user.StoreId = client.Stores[0].StoreId;
+            user.StoreId = client.Stores[0].StoreId??"MBO";
             user.EmployeeId = client.Owner.EmployeeId;
 
             user.StoreGroupId = client.Groups[0].StoreGroupId;
@@ -141,7 +146,7 @@ namespace AprajitaRetails.Server.Controllers
                 await _userStore.SetUserNameAsync(user, info.OwnerName.Split(' ')[0], CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, info.Email, CancellationToken.None);
                 user.FullName = info.OwnerName;
-                user.StoreId = info.StoreCode;
+                user.StoreId = info.StoreCode??"MBO";
                 user.EmployeeId = client.Owner.EmployeeId;
 
                 user.StoreGroupId = info.StoreCode;
@@ -176,7 +181,7 @@ namespace AprajitaRetails.Server.Controllers
                     client.Remarks += $"#Owner User Created[U:{user.UserName}, P:{client.DefaultOwnerPassword}];";
                 }
 
-               
+
 
             }
             return client;

@@ -142,6 +142,7 @@ namespace AprajitaRetails.Server
                 Stores = new List<Store> { store },
                 RegisterAdminUserName = "Admin",
                 DefaultPassword = "Admin@1234",
+                DefaultOwnerPassword = "Owner@123",
                 Count = result
             };
         }
@@ -214,10 +215,15 @@ namespace AprajitaRetails.Server
             new Bank{BankId="OTHERS",Name="Others" }, new Bank{BankId="HSBC",Name="HSBC Bank"}
             };
             db.Banks.AddRange(banks);
-            client.Count +=  db.SaveChanges();
+            client.Count += db.SaveChanges();
 
             client.Remarks += $"#Created {client.Count} Banks;";
-
+            var bid = "SBI";
+            var b = db.Banks.Where(c => c.Name == info.BankName).FirstOrDefault();
+            if (b != null)
+            {
+                bid = b.BankId;
+            }
             //Creating Default Bank Account
             BankAccount bankAccount = new BankAccount
             {
@@ -236,7 +242,7 @@ namespace AprajitaRetails.Server
                 AccountHolderName = info.Name,
                 BranchName = info.BranchName,
                 IFSCCode = info.IFSCode,
-                BankId = db.Banks.Where(c => c.Name == info.BankName).FirstOrDefault().BankId ?? "",
+                BankId = bid
             };
 
             db.BankAccounts.Add(bankAccount);
@@ -255,7 +261,7 @@ namespace AprajitaRetails.Server
                 new TransactionMode{TransactionId="VE",TransactionName="Vehicle Expense"},
                 new TransactionMode{TransactionId="TE",TransactionName="Telephone Expense"},
                 new TransactionMode{TransactionId="ME",TransactionName="Miscellaneous Expense"},
-                new TransactionMode{TransactionId="PE",TransactionName="Petty Cash Income"},
+                new TransactionMode{TransactionId="PI",TransactionName="Petty Cash Income"},
                 new TransactionMode{TransactionId="BL",TransactionName="Breakfast & Lunch"},
                 new TransactionMode{TransactionId="TC",TransactionName="Tea & Coffee"},
                 new TransactionMode{TransactionId="OP",TransactionName="Online Purhcase"},
@@ -296,19 +302,20 @@ namespace AprajitaRetails.Server
             client.Remarks += $"#Created {client.Count} Ledger Groups;";
 
             var partyLedgers = new List<Party>{
-                new Party{PartyId="NOPARTY",PartyName="No Party", OpeningDate=defDate,
+                new Party{PartyId="NOPARTY",PartyName="No Party", OpeningDate=defDate,StoreId="MBO",UserId="AutoAdmin",
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Others, LedgerGroupId="NOPARTY"},
-                new Party{PartyId="TIE",PartyName="Telephone & Internet", OpeningDate=defDate,
+
+                new Party{PartyId="TIE",PartyName="Telephone & Internet", OpeningDate=defDate,StoreId="MBO",UserId="AutoAdmin",
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="SNB",PartyName="Snacks & Beverages", OpeningDate=defDate,
+                new Party{PartyId="SNB",PartyName="Snacks & Beverages", OpeningDate=defDate,StoreId="MBO",UserId="AutoAdmin",
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="EB",PartyName="Eletricity Bill", OpeningDate=defDate,
+                new Party{PartyId="EB",PartyName="Eletricity Bill", OpeningDate=defDate,StoreId="MBO",UserId="AutoAdmin",
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="SNP",PartyName="Stationary & Printing", OpeningDate=defDate,
+                new Party{PartyId="SNP",PartyName="Stationary & Printing", OpeningDate=defDate,StoreId="MBO",UserId="AutoAdmin",
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
-                new Party{PartyId="ASAL",PartyName="Salary Adavances", OpeningDate=defDate,
+                new Party{PartyId="ASAL",PartyName="Salary Adavances", OpeningDate=defDate,StoreId="MBO",UserId="AutoAdmin",
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="SLY"},
-                new Party{PartyId="FRC",PartyName="Frieght Charges", OpeningDate=defDate,
+                new Party{PartyId="FRC",PartyName="Frieght Charges", OpeningDate=defDate,StoreId="MBO",UserId="AutoAdmin",
                 ClosingBalance=0,OpeningBalance=0,Category=LedgerCategory.Expenses, LedgerGroupId="IDEXP"},
 
                 //TODO: Need to add Party Ledger for basic accounting.
