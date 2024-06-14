@@ -107,7 +107,7 @@ namespace AprajitaRetails.Server.Controllers
             user.FullName = "Admin User";
             user.StoreId = client.Stores[0].StoreId??"MBO";
             user.EmployeeId = client.Owner.EmployeeId;
-
+            user.AppClinetId = client.Client.AppClientId;
             user.StoreGroupId = client.Groups[0].StoreGroupId;
             user.Approved = true;
             user.Permission = RolePermission.Owner;
@@ -146,6 +146,8 @@ namespace AprajitaRetails.Server.Controllers
                 await _userStore.SetUserNameAsync(user, info.OwnerName.Split(' ')[0], CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, info.Email, CancellationToken.None);
                 user.FullName = info.OwnerName;
+
+                user.AppClinetId = client.Client.AppClientId;
                 user.StoreId = info.StoreCode??"MBO";
                 user.EmployeeId = client.Owner.EmployeeId;
 

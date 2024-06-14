@@ -28,7 +28,7 @@ if (DBType == "MYSQL")
     builder.Services.AddDbContext<ARDBContext>(options =>
          options.UseMySQL(connectionString));
 }
-if (DBType == "OracleCloud")
+else if (DBType == "OracleCloud")
 {
     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         OracleConfiguration.TnsAdmin = @"D:\Wallet_AprajitaRetailsDB01";

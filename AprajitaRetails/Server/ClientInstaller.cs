@@ -8,6 +8,7 @@ using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using System.Configuration;
 
 namespace AprajitaRetails.Server
 {
@@ -195,8 +196,8 @@ namespace AprajitaRetails.Server
                 StreetName = info.Address,
                 ZipCode = info.PinCode,
                 StoreId = info.StoreCode,
-                FirstName = info.OwnerName.Split(' ')[0],
-                LastName = info.OwnerName.Split(' ')[1],
+                FirstName = info.ContactPersonName.Split(' ')[0],
+                LastName = info.ContactPersonName.Split(' ')[1],
 
             };
             db.Employees.Add(smEmp);
@@ -208,7 +209,7 @@ namespace AprajitaRetails.Server
                 EmployeeId = smEmp.EmployeeId, Name="Manager", 
                 IsActive=true, StoreId=info.StoreCode,
                 EntryStatus=EntryStatus.Added, UserId="AutoAdmin", 
-                IsReadOnly=true,
+                IsReadOnly=true, SalesmanId=$"{info.StoreCode}-SM-{info.StartDate.Year}-0001"
 
             };
             db.Salesmen.Add(sm);

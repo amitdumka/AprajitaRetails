@@ -83,14 +83,30 @@ namespace AprajitaRetails.Server.Controllers.Auths
                 //var xName = _userManager.Users.First(c => c.UserName == login.UserName).FullName;
                 _logger.LogInformation("User logged in.");
                 var user = _userManager.Users.First(c => c.UserName == "Amit");
+                if (user == null)
+                {
+                    var logged2 = new LoggedUser
+                    {
+                        EmployeeId = "OWN-2024-0001",
+                        FullName = "Amit Kumar",
+                        StoreId = "MBO",
+                        Id = "Amit",
+                        StoreGroupId = "MBO",
+                        AppClinetId = Guid.Empty,
+                        Permission = RolePermission.Owner,
+                        UserType = UserType.SuperAdmin
+                    };
+                    _logger.LogInformation("User logged in.");
+                    return Ok(logged2);
+                }
                 var logged = new LoggedUser
                 {
-                    EmployeeId = user.EmployeeId,
+                    EmployeeId = user.EmployeeId??"OWN-2024-0001",
                     FullName = "Amit Kumar",
-                    StoreId = user.StoreId,
+                    StoreId = user.StoreId ?? "MBO",
                     Id = "AmitKumar",
-                    StoreGroupId = user.StoreGroupId,
-                    AppClinetId = user.AppClinetId.Value,
+                    StoreGroupId = user.StoreGroupId??"MBO",
+                    AppClinetId = user.AppClinetId??Guid.Empty,
                     Permission = RolePermission.Owner,
                     UserType = UserType.SuperAdmin
                 };
