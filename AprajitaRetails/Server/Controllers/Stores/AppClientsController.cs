@@ -43,31 +43,7 @@ namespace AprajitaRetails.Server.Controllers.Stores
 
         }
 
-        [HttpGet("InstallStore")]
-        public async Task<ActionResult<int>> GetInstallStore(string mode)
-        {
-
-            if (mode == "Default")
-            {
-                
-                return   await ClientInstaller.InstallDefaultClient(_context, _appContext);
-            }
-            else if (mode == "Minimal")
-            {
-                return NotFound("Not Implemented");
-
-            }
-            else if (mode == "Full")
-            {
-
-                return NotFound("Not Implemented");
-            }
-            else
-            {
-                return NotFound("Invalid Mode");
-            }
-
-        }
+         
         [HttpGet("AddDefault")]
         public async Task<ActionResult<IEnumerable<AppClient>>> GetAddDefaultAppClient()
         {

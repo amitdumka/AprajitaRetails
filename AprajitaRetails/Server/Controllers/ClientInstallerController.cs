@@ -1,3 +1,12 @@
+using AprajitaRetails.Server.Areas.Identity.Pages.Account;
+using AprajitaRetails.Server.Data;
+using AprajitaRetails.Server.Models;
+using AprajitaRetails.Shared.Models.Auth;
+using Blazor.AdminLte;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+
 namespace AprajitaRetails.Server.Controllers
 {
 
@@ -34,7 +43,7 @@ namespace AprajitaRetails.Server.Controllers
         }
 
         [HttpGet("DefaultClientRegistration")]
-        public async Task<IActionResult<RegisteredClient>> GetDefaultClient()
+        public async Task<ActionResult<RegisteredClient>> GetDefaultClient()
         {
             var info = new ClientInfo
             {
@@ -49,7 +58,7 @@ namespace AprajitaRetails.Server.Controllers
                 PanNo = "AJHPA7396P",
                 Email = "aadwikafashion@gmail.com",
                 StartDate = new DateTime(2024, 04, 01),
-                ContactPerson = "Alok Kumar",
+                ContactPersonName = "Alok Kumar",
                 ContactPersonMobile = "1234567890",
                 OwnerName = "Amit Kumar",
                 StoreCode = "MBO"
@@ -59,7 +68,7 @@ namespace AprajitaRetails.Server.Controllers
 
             var client = ClientInstaller.RegisterClient(_context, _authDb, info);
 
-            client = CreateAdminUsers(info, client);
+            client = await  CreateAdminUsersAsync(info, client);
             return Ok(client);
         }
 
@@ -71,7 +80,7 @@ namespace AprajitaRetails.Server.Controllers
                 //Creating  Admin User and Owner User
                 var client = ClientInstaller.RegisterClient(_context, _authDb, info);
 
-                client = CreateAdminUsers(info, client);
+                client =await  CreateAdminUsersAsync(info, client);
                 return Ok(client);
 
             }
@@ -79,7 +88,7 @@ namespace AprajitaRetails.Server.Controllers
         }
 
         //Creating Admin and Owner User. 
-        private RegisteredClient CreateAdminUsers(ClientInfo info, RegisteredClient client)
+        private async Task<RegisteredClient> CreateAdminUsersAsync(ClientInfo info, RegisteredClient client)
         {
 
             // Creating Default Admin Account.
@@ -94,7 +103,7 @@ namespace AprajitaRetails.Server.Controllers
             user.StoreId = client.Stores[0].StoreId;
             user.EmployeeId = client.Owner.EmployeeId;
 
-            user.StoreGroupId = client.StoreGroups[0].StoreGroupId;
+            user.StoreGroupId = client.Groups[0].StoreGroupId;
             user.Approved = true;
             user.Permission = RolePermission.Owner;
 
@@ -108,15 +117,15 @@ namespace AprajitaRetails.Server.Controllers
 
                 if (_userManager.Options.SignIn.RequireConfirmedAccount)
                 {
-                    var result = await _userManager.ConfirmEmailAsync(user, code);
-                    if (result.Succeeded)
+                    var result2 = await _userManager.ConfirmEmailAsync(user, code);
+                    if (result2.Succeeded)
                         userCreated = true;
                 }
                 else
                 {
                     userCreated = true;
                 }
-                client.Remarks += $"#Admin User Created[U:{user.UserId}, P:{client.DefaultPassword}];";
+                client.Remarks += $"#Admin User Created[U:{user.UserName}, P:{client.DefaultPassword}];";
 
             }
 
@@ -125,7 +134,7 @@ namespace AprajitaRetails.Server.Controllers
             if (userCreated)
             {
 
-                var user = CreateUser();
+                user = CreateUser();
 
 
 
@@ -145,7 +154,7 @@ namespace AprajitaRetails.Server.Controllers
 
 
 
-                var result = await _userManager.CreateAsync(user, client.DefaultOwnerPassword);
+                result = await _userManager.CreateAsync(user, client.DefaultOwnerPassword);
 
                 if (result.Succeeded)
                 {
@@ -156,21 +165,21 @@ namespace AprajitaRetails.Server.Controllers
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        var result = await _userManager.ConfirmEmailAsync(user, code);
-                        if (result.Succeeded)
+                        var result3 = await _userManager.ConfirmEmailAsync(user, code);
+                        if (result3.Succeeded)
                             userCreated = true;
                     }
                     else
                     {
                         userCreated = true;
                     }
-                    client.Remarks += $"#Owner User Created[U:{user.UserId}, P:{client.DefaultOwnerPassword}];";
+                    client.Remarks += $"#Owner User Created[U:{user.UserName}, P:{client.DefaultOwnerPassword}];";
                 }
 
-                return client;
+               
 
             }
-
+            return client;
         }
         //Copied from Auth Controller
         private ApplicationUser CreateUser()

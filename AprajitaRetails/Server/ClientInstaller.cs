@@ -7,6 +7,7 @@ using AprajitaRetails.Shared.Models.Banking;
 using AprajitaRetails.Shared.Models.Payroll;
 using AprajitaRetails.Shared.Models.Vouchers;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace AprajitaRetails.Server
 {
@@ -28,10 +29,10 @@ namespace AprajitaRetails.Server
         public string ContactPersonMobile { get; set; }
         public string OwnerName { get; set; }
         public string StoreCode { get; set; }
-        public string BankAccountNumber{get;set;}
-        public string BankName{get;set;}
-        public string BranchName{get;set;}
-        public string IFSCode{get;set;}
+        public string BankAccountNumber { get; set; }
+        public string BankName { get; set; }
+        public string BranchName { get; set; }
+        public string IFSCode { get; set; }
 
     }
     public class RegisteredClient
@@ -79,7 +80,7 @@ namespace AprajitaRetails.Server
             //Creating Owner Employee Account
             client = CreateDefaultOptions(db, context, info, client);
 
-            return null;
+            return client;
         }
         //Create Store, Client and Store Group        
         private static RegisteredClient CreateStore(ARDBContext db, ApplicationDbContext context, ClientInfo info)
@@ -174,7 +175,7 @@ namespace AprajitaRetails.Server
             client.Count += db.SaveChanges();
             client.Remarks += $"#Owner Employee  Created[EmpId:{client.Owner.EmployeeId}];";
             DateTime defDate = info.StartDate;
-            
+
             var smEmp = new Employee
             {
                 EmployeeId = $"{info.StoreCode}-SM-{info.StartDate.Year}-0001",
@@ -184,7 +185,7 @@ namespace AprajitaRetails.Server
                 Category = EmpType.StoreManager,
                 MarkedDeleted = false,
                 Gender = Gender.Male,
-                DOB = info.StartDate.AddYear(-20),
+                DOB = info.StartDate.AddYears(-20),
                 Title = "Mr.",
                 City = info.City,
                 State = info.State,
@@ -213,23 +214,30 @@ namespace AprajitaRetails.Server
             new Bank{BankId="OTHERS",Name="Others" }, new Bank{BankId="HSBC",Name="HSBC Bank"}
             };
             db.Banks.AddRange(banks);
-            client.Count += = db.SaveChanges();
+            client.Count +=  db.SaveChanges();
 
             client.Remarks += $"#Created {client.Count} Banks;";
 
             //Creating Default Bank Account
-            BankAccount bankAccount= new BankAccount{
-                AccountNumber=info.BankAccountNumber, 
-                DefaultBank=true, SharedAccount=true,
-                OpeningBalance=0, CurrentBalance=0,
-                OpeningDate=info.StartDate, StoreId=info.StoreCode, 
-                StoreGroupId=info.StoreCode, MarkedDeleted=false, 
-                AppClientId=client.AppClient.AppClientId, 
-                IsActive=true, AccountType=AccountType.Current, 
-                AccountHolderName=info.Name, 
-                BranchName=info.BranchName,
-                IFSCCode=info.IFSCode, BankId=(db.BankId.Where(c=>c.Name==info.BankName).FirstOfDefault().BankId??""),
-            }; 
+            BankAccount bankAccount = new BankAccount
+            {
+                AccountNumber = info.BankAccountNumber,
+                DefaultBank = true,
+                SharedAccount = true,
+                OpeningBalance = 0,
+                CurrentBalance = 0,
+                OpeningDate = info.StartDate,
+                StoreId = info.StoreCode,
+                StoreGroupId = info.StoreCode,
+                MarkedDeleted = false,
+                AppClientId = client.Client.AppClientId,
+                IsActive = true,
+                AccountType = AccountType.Current,
+                AccountHolderName = info.Name,
+                BranchName = info.BranchName,
+                IFSCCode = info.IFSCode,
+                BankId = db.Banks.Where(c => c.Name == info.BankName).FirstOrDefault().BankId ?? "",
+            };
 
             db.BankAccounts.Add(bankAccount);
             client.Count += db.SaveChanges();
