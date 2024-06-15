@@ -15,13 +15,6 @@
         "Microsoft.AspNetCore": "Warning"
       }
     },
-    "IdentityServer_win": {
-      "Clients": {
-        "AprajitaRetails.Client": {
-          "Profile": "IdentityServerSPA"
-        }
-      }
-    },
     "IdentityServer": {
       "Clients": {
         "AprajitaRetails.Client": {

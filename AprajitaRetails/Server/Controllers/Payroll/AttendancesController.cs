@@ -39,7 +39,8 @@ namespace AprajitaRetails.Server.Controllers.Payroll
             {
                 return NotFound();
             }
-            return await _context.Attendances.Include(c => c.Employee).Include(c => c.Store).Where(c => c.OnDate.Year == DateTime.Today.Year && c.StoreId == storeid)
+            return await _context.Attendances.Include(c => c.Employee).Include(c => c.Store).
+            Where(c => c.OnDate.Year >= DateTime.Today.Year && c.StoreId == storeid)
                 .OrderByDescending(c => c.OnDate).ProjectTo<AttendanceDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }

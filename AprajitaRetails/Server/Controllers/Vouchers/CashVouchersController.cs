@@ -6,7 +6,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+ 
 namespace AprajitaRetails.Server.Controllers.Vouchers
 {
     //[Authorize]
@@ -64,7 +64,7 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
 
                 return await _context.CashVouchers.Include(c => c.Store).Include(c => c.TransactionMode).Include(c => c.Partys)
                     .Include(c => c.Employee)
-                    .Where(c => c.StoreId == storeid && c.OnDate.Year == (DateTime.Today.Year ))
+                    .Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year-1 ))
                     .OrderByDescending(c => c.OnDate).ProjectTo<CashVoucherDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
             }

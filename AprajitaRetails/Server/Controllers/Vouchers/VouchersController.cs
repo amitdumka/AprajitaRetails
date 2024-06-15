@@ -119,7 +119,8 @@ namespace AprajitaRetails.Server.Controllers.Vouchers
                 return NotFound();
             }
             // int year = DateTime.Now.Year - 2;
-            return await _context.Vouchers.Include(c => c.Store).Include(c => c.Party).Include(c => c.Employee).Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate)
+            return await _context.Vouchers.Include(c => c.Store).Include(c => c.Party).Include(c => c.Employee)
+            .Where(c => c.StoreId == storeid && c.OnDate.Year >= (DateTime.Today.Year - 1)).OrderByDescending(c => c.OnDate)
                 .ProjectTo<VoucherDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             //return x;
