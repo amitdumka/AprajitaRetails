@@ -4,9 +4,7 @@ using Path = System.IO.Path;
 
 namespace AprajitaRetails.Server.Importer
 {
-    public static class HelperFunctions
-    {
-    }
+  
 
     public class ImportDataHelper
     {
