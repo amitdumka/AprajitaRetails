@@ -1,4 +1,5 @@
-﻿using AprajitaRetails.Server.Data;
+﻿using AprajitaRetails.Client.Pages.Apps.Accounts.Vouchers;
+using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.Models.Inventory;
 using AprajitaRetails.Shared.ViewModels;
@@ -7,6 +8,7 @@ using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Syncfusion.Blazor.RichTextEditor;
 using Syncfusion.XlsIO;
 using System.Net.WebSockets;
+using System.Runtime.CompilerServices;
 using System.Text.Json; 
 using Path = System.IO.Path;
 
@@ -28,7 +30,23 @@ namespace AprajitaRetails.Server.BL.Imports
         {
             _db = context;
         }
+        public async Task<bool>ImportPurchaseAsync(string storeid, List<PurchaseData> purchaseList)
+        {
+            StoreId = storeid;
+            GroupId = _db.Stores.Find(storeid).StoreGroupId ?? "MBO";
+            if (PurchaseToDB(purchaseList) > 0) return true;
+            else return false;
+        }
+        public async Task<bool> ImportPurchaseAsync(string storeid, string json)
+        {
+            StoreId = storeid;
+            GroupId = _db.Stores.Find(storeid).StoreGroupId ?? "MBO";
+            var purchaseList = JsonSerializer.Deserialize<List<PurchaseData>>(json);
 
+            //Forwaring to object to create Product Item 
+            if (PurchaseToDB(purchaseList) > 0) return true;
+            else return false;
+        }
         public async Task<bool> ImportPurchaseAsync(string storeId, string filename, string sheetName, string range)
         {
             StoreId = storeId;
@@ -47,6 +65,25 @@ namespace AprajitaRetails.Server.BL.Imports
             else return false;
 
         }
+        private bool AddOrUpdateVendor(List<string> suppliers)
+        {
+            foreach (var supplier in suppliers)
+            {
+                if (_db.Vendors.Any(c => c.VendorName == supplier) == false)
+                {
+                    Vendor vi = new Vendor { 
+                    VendorName = supplier, Active=true, EntryStatus=EntryStatus.Approved, 
+                    VendorType=VendorType.Distributor, IsReadOnly=false, MarkedDeleted=false,
+                    OnDate=DateTime.Today.Date, UserId="AutoADMIN", 
+                    StoreId=this.StoreId, VendorId=$"{this.StoreId}-{DateTime.Today.Year}-00{new Random(DateTime.Today.Month).Next(10,1000)}", 
+
+                     
+                    };
+                    _db.Vendors.Add(vi);
+                }
+            }
+            return _db.SaveChanges() > 0;
+        }
         private bool AddOrUpdateSupplier(List<string> suppliers)
         {
 
@@ -55,6 +92,8 @@ namespace AprajitaRetails.Server.BL.Imports
                 if (_db.Suppliers.Where(c => c.SupplierName == sup).Count() == 0)
                 {
                     Supplier s = new Supplier { SupplierName = sup, Warehouse = sup };
+                     
+
                     _db.Suppliers.Add(s);
                 }
             }
@@ -101,6 +140,26 @@ namespace AprajitaRetails.Server.BL.Imports
 
         }
 
+        private string GetBrandcode(string brand)
+        {
+            if (brand == "RT") return brand;
+            else return "ARM";
+        }
+
+        private void AddBrand()
+        {
+            _db.Brands.Add(new Brand {
+            BrandCode="RT", BrandName="Read & Tylaors"
+            });
+
+            _db.Brands.Add(new Brand
+            {
+                BrandCode = "ARM",
+                BrandName = "Arvind Mills"
+            });
+            _db.SaveChanges(); 
+
+        }
         private bool AddOrUpdateCat(List<string> cats)
         {
             foreach (var cat in cats)
@@ -132,8 +191,10 @@ namespace AprajitaRetails.Server.BL.Imports
 
             var catList = purchaseList.GroupBy(x => x.Category).Select(c => c.Key).Distinct().ToList();
             AddOrUpdateCat(catList);
+           // AddBrand();
             var supList = purchaseList.GroupBy(x => x.SupplierName).Select(c => c.Key).Distinct().ToList();
             AddOrUpdateSupplier(supList);
+            AddOrUpdateVendor(supList);
 
             //Creating Purchase Item
             foreach (var item in purchaseList)
@@ -154,7 +215,7 @@ namespace AprajitaRetails.Server.BL.Imports
                 ProductItem p = new ProductItem
                 {
                     Barcode = item.Barcode,
-                    BrandCode = item.Brand,
+                    BrandCode = GetBrandcode( item.Brand),
                     HSNCode = item.HSNCode,
                     MRP = item.UnitMRP,
                     Name = item.StyleCode,

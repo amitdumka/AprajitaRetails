@@ -5,6 +5,11 @@ namespace AprajitaRetails.Shared.ViewModels
 {
     public class PurchaseData
     {
+        // 	 	 	 	 	 	 	
+        // 	 	 	 	 	
+        // 	 	 	UnitPrice	
+        // 	 	 	 	
+
         public int SN { get; set; }
         public DateTime InwardDate { get; set; }
         public DateTime InvoiceDate { get; set; }
@@ -18,7 +23,7 @@ namespace AprajitaRetails.Shared.ViewModels
         public string Category { get; set; }
         public decimal Quantity { get; set; }
         public decimal Rate { get; set; }
-
+        public decimal UnitPrice { get; set; }
         public decimal UnitMRP { get; set; }
         public decimal TaxRate { get; set; }
         public decimal Discount { get; set; }
@@ -28,7 +33,11 @@ namespace AprajitaRetails.Shared.ViewModels
         public decimal CostValue { get; set; }
         public decimal ExtraAmount { get; set; }
     }
-
+    public class PurchaseUploadVM
+    {
+        public List<PurchaseData> PurchaseData { get; set; }
+        public string StoreId { get; set; }
+    }
     public class DailySaleVM : BaseST
     {
         [Key]

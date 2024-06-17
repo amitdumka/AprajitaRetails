@@ -39,7 +39,12 @@ namespace AprajitaRetails.Server.Controllers.Helpers
             return await import.ImportPurchaseAsync(storeid, filename, sheetName, range);
 
         }
-
+        [HttpPost("PurchaseUpload")]
+        public async Task<ActionResult<bool>> PostImportPurchaseData(PurchaseUploadVM upload)
+        {
+              PurchaseImport pi = new PurchaseImport(aRDB);
+            return await pi.ImportPurchaseAsync(upload.StoreId, upload.PurchaseData);
+        }
 
 
     }

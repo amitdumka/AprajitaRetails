@@ -1,4 +1,5 @@
 @page "/import/purchaseimport"
+@using AprajitaRetails.Shared.ViewModels
 @using Syncfusion.XlsIO;
 @using System.IO;
 @using Syncfusion.Blazor.Grids
@@ -7,6 +8,10 @@
 @using System.Dynamic
 @using System.Text.Json
 @inject IJSRuntime JSRuntime
+@inject DataHelper Helper
+@inject ClientSetting Setting
+@inject NavigationManager NavigationManager
+
 
 <ContentHeader>
     <Header>
@@ -25,7 +30,7 @@
         </div>
         @if (Columns != null)
         {
-            <SfGrid @ref="Grid" DataSource="@excelList" AllowFiltering="true" AllowPaging="true">
+            <SfGrid @ref="Grid" DataSource="@purchaseList" AllowFiltering="true" AllowPaging="true">
                 <GridColumns>
                     @{
                         foreach (var val in Columns)
@@ -56,17 +61,27 @@
 </ContentMain>
 
 @code {
-    SfGrid<ExpandoObject> Grid;
+    //SfGrid<ExpandoObject> Grid;
+    SfGrid<PurchaseData> Grid;
     string jsonData = "";
+
     public DataTable table = new DataTable();
 
     private async void UploadFile()
     {
         //Convert to JSON 
+        //jsonData= Docs.DocIO.ObjectToJson<PurchaseData>(purchaseList);
+        PurchaseUploadVM info = new() {
+            StoreId="MBO", 
+            PurchaseData=purchaseList
+        };
+        var flag=await  Helper.PostOperationsAsync("/api/Imports/PurchaseUpload", info, "PurchaseUploadVM");
+        if (flag) jsonData = "Uploaded";
+        StateHasChanged();
 
     }
 
-    
+
 
     private async void OnChange(Syncfusion.Blazor.Inputs.UploadChangeEventArgs args)
     {
@@ -94,7 +109,8 @@
                 //get datatable from workbook
                 table = worksheet.ExportDataTable(worksheet.UsedRange, ExcelExportDataTableOptions.ColumnNames);
                 //convert to dynamic list and append to Grid.
-                GenerateListFromTable(table);
+                //                GenerateListFromTable(table);
+                ConvertTableToObjectLust(table);
                 //memoryStream.Close();
 
             }
@@ -107,6 +123,7 @@
     }
     string[] Columns;
     public List<ExpandoObject> excelList;
+    public List<PurchaseData> purchaseList;
     public void GenerateListFromTable(DataTable input)
     {
         var list = new List<ExpandoObject>();
@@ -125,7 +142,12 @@
 
     public void ConvertTableToObjectLust(DataTable input)
     {
-       // DocIO.ConvertDataTable<T>(input);
+        Columns = input.Columns.Cast<DataColumn>()
+       .Select(x => x.ColumnName)
+       .ToArray();
+        Console.WriteLine(Columns.ToString());
+        var purchase = Docs.DocIO.ConvertDataTable<PurchaseData>(input);
+        purchaseList = purchase; 
     }
 }
 
