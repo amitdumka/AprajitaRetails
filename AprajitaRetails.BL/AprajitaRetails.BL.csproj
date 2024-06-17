@@ -7,7 +7,7 @@
     <Configurations>Debug;Release;ReleaseLinux</Configurations>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-
+	
   <ItemGroup>
     <ProjectReference Include="..\AprajitaRetails\Shared\AprajitaRetails.Shared.csproj" />
   </ItemGroup>

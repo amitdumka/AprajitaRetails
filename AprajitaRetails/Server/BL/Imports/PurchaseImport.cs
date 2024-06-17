@@ -1,12 +1,13 @@
 ﻿using AprajitaRetails.Server.Data;
 using AprajitaRetails.Server.Importer;
 using AprajitaRetails.Shared.Models.Inventory;
+using AprajitaRetails.Shared.ViewModels;
 using Blazor.AdminLte;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Syncfusion.Blazor.RichTextEditor;
 using Syncfusion.XlsIO;
 using System.Net.WebSockets;
-using System.Text.Json;
+using System.Text.Json; 
 using Path = System.IO.Path;
 
 namespace AprajitaRetails.Server.BL.Imports
@@ -504,29 +505,5 @@ namespace AprajitaRetails.Server.BL.Imports
 
 
 
-    public class PurchaseData
-    {
-        public int SN { get; set; }
-        public DateTime InwardDate { get; set; }
-        public DateTime InvoiceDate { get; set; }
-        public string SupplierName { get; set; }
-        public string GSTIN { get; set; }
-        public string InvoiceNumber { get; set; }
-        public string StyleCode { get; set; }
-        public string Barcode { get; set; }
-        public string HSNCode { get; set; }
-        public string Brand { get; set; }
-        public string Category { get; set; }
-        public decimal Quantity { get; set; }
-        public decimal Rate { get; set; }
-
-        public decimal UnitMRP { get; set; }
-        public decimal TaxRate { get; set; }
-        public decimal Discount { get; set; }
-        public decimal DiscountAmount { get; set; }
-        public decimal BasicValue { get; set; }
-        public decimal TaxAmount { get; set; }
-        public decimal CostValue { get; set; }
-        public decimal ExtraAmount { get; set; }
-    }
+    
 }

@@ -1,12 +1,12 @@
-@page "/import/purchaseUpload"
+@page "/import/purchaseimport"
 @using Syncfusion.XlsIO;
 @using System.IO;
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Inputs
 @using System.Data
 @using System.Dynamic
-@using ServerApp.Data;
-@inject WeatherForecastService WeatherService
+@using System.Text.Json
+@inject IJSRuntime JSRuntime
 
 <ContentHeader>
     <Header>
@@ -20,10 +20,12 @@
         <SfUploader AutoUpload="false">
             <UploaderEvents ValueChange="OnChange"></UploaderEvents>
         </SfUploader>
-
+        <div>
+            <Button @onclick="UploadFile">Upload Purchase</Button>
+        </div>
         @if (Columns != null)
         {
-            <SfGrid @ref="Grid" DataSource="@CustomerList" AllowFiltering="true" AllowPaging="true">
+            <SfGrid @ref="Grid" DataSource="@excelList" AllowFiltering="true" AllowPaging="true">
                 <GridColumns>
                     @{
                         foreach (var val in Columns)
@@ -40,79 +42,90 @@
         }
     </div>
 
-    <ContextMain>
+    <div>
+        @if (!string.IsNullOrEmpty(jsonData))
+        {
+            <p>@jsonData</p>
+        }
+        else
+        {
+            <hr/>
+        }
+    </div>
 
-        @code {
-            SfGrid<ExpandoObject> Grid;
-            public DataTable table = new DataTable();
-            private void OnChange(UploadChangeEventArgs args)
-            {
-                foreach (var file in args.Files)
-                {
-                    var path = file.FileInfo.Name;
-                    ExcelEngine excelEngine = new ExcelEngine();
-                    IApplication application = excelEngine.Excel;
-                    application.DefaultVersion = ExcelVersion.Excel2016;
+</ContentMain>
 
-                    //get local wwwroot path of application
-                    var check = WeatherService.GetPath(path);
-                    //create new filestream into above path
-                    FileStream openFileStream = new FileStream(check, FileMode.OpenOrCreate);
-                    //write the uploaded memorystream to file stream
-                    file.Stream.WriteTo(openFileStream);
-                    //again open the filstream from that path
-                    FileStream fileStream = new FileStream(check, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    //access the workbook from that filtestream
-                    IWorkbook workbook = application.Workbooks.Open(fileStream);
-                    IWorksheet worksheet = workbook.Worksheets[0];
-                    //get datatable from workbook
-                    table = worksheet.ExportDataTable(worksheet.UsedRange, ExcelExportDataTableOptions.ColumnNames);
-                    //convert to dynamic list and append to Grid.
-                    GenerateListFromTable(table);
-                }
-            }
-            string[] Columns;
-            public List<ExpandoObject> CustomerList;
-            public void GenerateListFromTable(DataTable input)
-            {
-                var list = new List<ExpandoObject>();
-                Columns = input.Columns.Cast<DataColumn>()
-                .Select(x => x.ColumnName)
-                .ToArray();
-                foreach (DataRow row in input.Rows)
-                {
-                    System.Dynamic.ExpandoObject e = new System.Dynamic.ExpandoObject();
-                    foreach (DataColumn col in input.Columns)
-                        e.TryAdd(col.ColumnName, row.ItemArray[col.Ordinal]);
-                    list.Add(e);
-                }
-                CustomerList = list;
-            }
+@code {
+    SfGrid<ExpandoObject> Grid;
+    string jsonData = "";
+    public DataTable table = new DataTable();
 
-            @* public class WeatherForecastService
+    private async void UploadFile()
     {
-        private IWebHostEnvironment _hostEnvironment;
-        public WeatherForecastService(IWebHostEnvironment environment)
+        //Convert to JSON 
+
+    }
+
+    
+
+    private async void OnChange(Syncfusion.Blazor.Inputs.UploadChangeEventArgs args)
+    {
+
+        try
         {
-            _hostEnvironment = environment;
-        }
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-        public string GetPath(string filename)
-        {
-            string path = Path.Combine(_hostEnvironment.WebRootPath, filename);
-            return path;
-        }
-        public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate)
-        {
-            return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
+
+
+            foreach (var file in args.Files)
             {
-                Date = startDate.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            }).ToArray());
+                var path =@"c:\DevArea\"+file.FileInfo.Name;
+                Console.WriteLine(path);
+                ExcelEngine excelEngine = new ExcelEngine();
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Excel2016;
+                FileStream openFileStream = new FileStream(path, FileMode.OpenOrCreate);
+                //write the uploaded memorystream to file stream
+                file.Stream.WriteTo(openFileStream);
+                openFileStream.Close();
+                //again open the filstream from that path
+                FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                //access the workbook from that filtestream
+                IWorkbook workbook = application.Workbooks.Open(fileStream);
+                IWorksheet worksheet = workbook.Worksheets[0];
+                //get datatable from workbook
+                table = worksheet.ExportDataTable(worksheet.UsedRange, ExcelExportDataTableOptions.ColumnNames);
+                //convert to dynamic list and append to Grid.
+                GenerateListFromTable(table);
+                //memoryStream.Close();
+
+            }
         }
-    } *@
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+
         }
+    }
+    string[] Columns;
+    public List<ExpandoObject> excelList;
+    public void GenerateListFromTable(DataTable input)
+    {
+        var list = new List<ExpandoObject>();
+        Columns = input.Columns.Cast<DataColumn>()
+        .Select(x => x.ColumnName)
+        .ToArray();
+        foreach (DataRow row in input.Rows)
+        {
+            System.Dynamic.ExpandoObject e = new System.Dynamic.ExpandoObject();
+            foreach (DataColumn col in input.Columns)
+                e.TryAdd(col.ColumnName, row.ItemArray[col.Ordinal]);
+            list.Add(e);
+        }
+        excelList = list;
+    }
+
+    public void ConvertTableToObjectLust(DataTable input)
+    {
+       // DocIO.ConvertDataTable<T>(input);
+    }
+}
+
