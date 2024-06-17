@@ -44,7 +44,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
         private IList<SelectOption>? Salesmen;
         private IList<SelectOption>? EDCList;
 
-        private int LastInvCount = 0;
+        private int LastInvCount = 100;
         private decimal PaidAmount = 0;
 
         private string ApiUrl = "api/productSales";
@@ -182,7 +182,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
             {
                 //TODO:Calculate Item then add to list and update in maim
                 //Calculating Tax and TaxRate.
-                var v = Item.Rate * Item.Qty;
+                var v = Math.Round(Item.Rate * Item.Qty,2);
                 Item.TaxAmount = SaleF.CalculateTaxAmountOnMRP(Item.Amount, Item.Unit);
                 Item.TaxRate = SaleF.SetTaxRate(Item.Amount, Item.Unit);
 
@@ -197,9 +197,9 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 entity.TotalTaxAmount += Item.TaxAmount;
                 entity.TotalMRP += v;
                 entity.TotalPrice += Item.Amount;
-                entity.TotalBasicAmount += (Item.Amount - Item.TaxAmount);
+                entity.TotalBasicAmount += Math.Round((Item.Amount - Item.TaxAmount),2);
                 entity.TotalDiscountAmount += Item.Discount;
-                entity.RoundOff = entity.TotalPrice - Math.Round(entity.TotalPrice, 0);
+                entity.RoundOff = Math.Round(entity.TotalPrice - Math.Round(entity.TotalPrice, 0),2);
                 entity.TotalPrice = Math.Round(entity.TotalPrice, 0); ;
                 Grid.Refresh();
                 Item = new SItem { Barcode = "", Amount = 0, Discount = 0, Qty = 0, Rate = 0, TaxAmount = 0, TaxRate = 0, Unit = Unit.Meters };
@@ -446,7 +446,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory
                 cardPayment = new CardPaymentDetail { PaidAmount = 0 };
 
                 saleItems = new List<SaleItem>();
-                LastInvCount = 0;
+                //LastInvCount = 0;
                 PaidAmount = 0;
                 SaleItemList = new List<SItem>();
             }
