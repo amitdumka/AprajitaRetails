@@ -130,6 +130,7 @@ namespace AprajitaRetails.Client.Docs
                                     case "QTY":
                                     case "Per":
                                     case "Rate":
+                                    case "BasicValue":
                                     case "Discount":
                                     case "DiscountP":
                                     case "DiscountAmount":

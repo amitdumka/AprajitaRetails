@@ -9,7 +9,7 @@ using Syncfusion.Blazor.RichTextEditor;
 using Syncfusion.XlsIO;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
-using System.Text.Json; 
+using System.Text.Json;
 using Path = System.IO.Path;
 
 namespace AprajitaRetails.Server.BL.Imports
@@ -30,7 +30,19 @@ namespace AprajitaRetails.Server.BL.Imports
         {
             _db = context;
         }
-        public async Task<bool>ImportPurchaseAsync(string storeid, List<PurchaseData> purchaseList)
+        private string GenerateInwardNuber(DateTime onDate)
+        {
+            int count = _db.ProductPurchases.Where(c => c.StoreId == this.StoreId && c.InwardDate == onDate).Count();
+
+            string ins = $"{this.StoreId}-{onDate.Year}-{onDate.Month}-{onDate.Day}-{++count}";
+            return ins;
+        }
+        private string GenerateInwardNuber(DateTime onDate, int count = 0)
+        {
+            string ins = $"{this.StoreId}-{onDate.Year}-{onDate.Month}-{onDate.Day}-{++count}";
+            return ins;
+        }
+        public async Task<bool> ImportPurchaseAsync(string storeid, List<PurchaseData> purchaseList)
         {
             StoreId = storeid;
             GroupId = _db.Stores.Find(storeid).StoreGroupId ?? "MBO";
@@ -61,7 +73,7 @@ namespace AprajitaRetails.Server.BL.Imports
             var purchaseList = JsonSerializer.Deserialize<List<PurchaseData>>(json);
 
             //Forwaring to object to create Product Item 
-            if(PurchaseToDB(purchaseList)>0) return true;
+            if (PurchaseToDB(purchaseList) > 0) return true;
             else return false;
 
         }
@@ -71,13 +83,20 @@ namespace AprajitaRetails.Server.BL.Imports
             {
                 if (_db.Vendors.Any(c => c.VendorName == supplier) == false)
                 {
-                    Vendor vi = new Vendor { 
-                    VendorName = supplier, Active=true, EntryStatus=EntryStatus.Approved, 
-                    VendorType=VendorType.Distributor, IsReadOnly=false, MarkedDeleted=false,
-                    OnDate=DateTime.Today.Date, UserId="AutoADMIN", 
-                    StoreId=this.StoreId, VendorId=$"{this.StoreId}-{DateTime.Today.Year}-00{new Random(DateTime.Today.Month).Next(10,1000)}", 
+                    Vendor vi = new Vendor
+                    {
+                        VendorName = supplier,
+                        Active = true,
+                        EntryStatus = EntryStatus.Approved,
+                        VendorType = VendorType.Distributor,
+                        IsReadOnly = false,
+                        MarkedDeleted = false,
+                        OnDate = DateTime.Today.Date,
+                        UserId = "AutoADMIN",
+                        StoreId = this.StoreId,
+                        VendorId = $"{this.StoreId}-{DateTime.Today.Year}-00{new Random(DateTime.Today.Month).Next(10, 1000)}",
 
-                     
+
                     };
                     _db.Vendors.Add(vi);
                 }
@@ -92,7 +111,7 @@ namespace AprajitaRetails.Server.BL.Imports
                 if (_db.Suppliers.Where(c => c.SupplierName == sup).Count() == 0)
                 {
                     Supplier s = new Supplier { SupplierName = sup, Warehouse = sup };
-                     
+
 
                     _db.Suppliers.Add(s);
                 }
@@ -125,7 +144,7 @@ namespace AprajitaRetails.Server.BL.Imports
                     s.PurchaseQty += stock.PurchaseQty;
                     if (s.MRP < stock.MRP)
                     {
-                        s.MRP = stock.MRP;
+                        s.MRP = Math.Round(stock.MRP, 0);
                     }
                     _db.Stocks.Update(s);
                 }
@@ -148,8 +167,10 @@ namespace AprajitaRetails.Server.BL.Imports
 
         private void AddBrand()
         {
-            _db.Brands.Add(new Brand {
-            BrandCode="RT", BrandName="Read & Tylaors"
+            _db.Brands.Add(new Brand
+            {
+                BrandCode = "RT",
+                BrandName = "Read & Tylaors"
             });
 
             _db.Brands.Add(new Brand
@@ -157,7 +178,7 @@ namespace AprajitaRetails.Server.BL.Imports
                 BrandCode = "ARM",
                 BrandName = "Arvind Mills"
             });
-            _db.SaveChanges(); 
+            _db.SaveChanges();
 
         }
         private bool AddOrUpdateCat(List<string> cats)
@@ -191,7 +212,7 @@ namespace AprajitaRetails.Server.BL.Imports
 
             var catList = purchaseList.GroupBy(x => x.Category).Select(c => c.Key).Distinct().ToList();
             AddOrUpdateCat(catList);
-           // AddBrand();
+            // AddBrand();
             var supList = purchaseList.GroupBy(x => x.SupplierName).Select(c => c.Key).Distinct().ToList();
             AddOrUpdateSupplier(supList);
             AddOrUpdateVendor(supList);
@@ -201,12 +222,12 @@ namespace AprajitaRetails.Server.BL.Imports
             {
                 PurchaseItem pi = new PurchaseItem
                 {
-                    Barcode = item.Barcode,
+                    Barcode =item.Barcode.ToUpper(),
                     FreeQty = 0,
                     Qty = item.Quantity,
                     CostPrice = item.Rate,
                     CostValue = item.CostValue,
-                    InwardNumber = $"{StoreId}-{item.InwardDate.Year}-{item.InwardDate.Month}-{item.InwardDate.Day}",
+                    InwardNumber = item.InvoiceNumber,
                     Unit = Unit.Meters,
                     TaxAmount = (item.Rate * item.TaxRate * item.Quantity) / 100,
                     DiscountValue = item.Discount > 0 ? item.Rate - (item.Rate * item.Discount / 100) : 0,
@@ -214,10 +235,10 @@ namespace AprajitaRetails.Server.BL.Imports
                 purchaseItems.Add(pi);
                 ProductItem p = new ProductItem
                 {
-                    Barcode = item.Barcode,
-                    BrandCode = GetBrandcode( item.Brand),
+                    Barcode =item.Barcode.ToUpper(),
+                    BrandCode = GetBrandcode(item.Brand),
                     HSNCode = item.HSNCode,
-                    MRP = item.UnitMRP,
+                    MRP = Math.Round(item.UnitMRP, 0),
                     Name = item.StyleCode,
                     StoreGroupId = GroupId,
                     StyleCode = item.StyleCode,
@@ -250,7 +271,7 @@ namespace AprajitaRetails.Server.BL.Imports
                     UserId = "AutoAdmin",
                     ShippingCost = 0,
                     StoreId = StoreId,
-                    InwardNumber = $"{StoreId}-{c.Select(x => x.InwardDate).First().Year}-{c.Select(x => x.InwardDate).First().Month}-{c.Select(x => x.InwardDate).First().Day}",
+                    InwardNumber = c.Key,
                     TaxType = TaxType.GST,
                     TotalQty = c.Sum(x => x.Quantity),
                     Warehouse = c.Select(x => x.SupplierName).First(),
@@ -267,7 +288,7 @@ namespace AprajitaRetails.Server.BL.Imports
             var stocklist = purchaseList.GroupBy(c => c.Barcode)
                 .Select(c => new Stock
                 {
-                    Barcode = c.Key,
+                    Barcode = c.Key.ToUpper(),
                     StoreId = StoreId,
                     HoldQty = 0,
                     EntryStatus = EntryStatus.Added,
@@ -307,10 +328,13 @@ namespace AprajitaRetails.Server.BL.Imports
                 .ToList();
 
 
+
             AddOrUpdateProductItem(productsItem);
-            _db.ProductPurchases.AddRange(products);
-            _db.PurchaseItems.AddRange(purchaseItems);
-            var x = _db.SaveChanges();
+            var x = AddPurchaseInvoice(purchaseItems, products);
+
+            // _db.ProductPurchases.AddRange(products);
+            // _db.PurchaseItems.AddRange(purchaseItems);
+            x += _db.SaveChanges();
             if (x > 0)
             {
                 AddOrUpdateStock(stocklist);
@@ -319,8 +343,42 @@ namespace AprajitaRetails.Server.BL.Imports
 
         }
 
-    }
+        private int AddPurchaseInvoice(List<PurchaseItem> pItems, List<ProductPurchase> productPurchases)
+        {
+            int count = 0;
+            int x = 0;
+            foreach (var item in productPurchases)
+            {
 
+                item.InwardNumber = GenerateInwardNuber(item.InwardDate, count++);
+
+                var items = pItems.Where(c => c.InwardNumber == item.InvoiceNo)
+                    .Select(c => new PurchaseItem
+                    {
+                        InwardNumber = item.InwardNumber,
+                        Barcode = c.Barcode,
+                        CostPrice = c.CostPrice,
+                        CostValue = c.CostValue,
+                        DiscountValue = c.DiscountValue,
+                        FreeQty = c.FreeQty,
+                        Qty = c.Qty,
+                        TaxAmount = c.TaxAmount,
+                        Unit = c.Unit,
+
+
+                    })
+                    .ToList();
+
+                _db.ProductPurchases.Add(item);
+                _db.PurchaseItems.AddRange(items);
+                x += _db.SaveChanges();
+
+
+            }
+            return x;
+
+        }
+    }
     public class ImportHelper
     {
         /// <summary>
@@ -566,5 +624,5 @@ namespace AprajitaRetails.Server.BL.Imports
 
 
 
-    
 }
+
