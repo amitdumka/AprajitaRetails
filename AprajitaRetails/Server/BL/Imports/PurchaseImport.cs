@@ -212,7 +212,7 @@ namespace AprajitaRetails.Server.BL.Imports
 
             var catList = purchaseList.GroupBy(x => x.Category).Select(c => c.Key).Distinct().ToList();
             AddOrUpdateCat(catList);
-            // AddBrand();
+           // AddBrand();
             var supList = purchaseList.GroupBy(x => x.SupplierName).Select(c => c.Key).Distinct().ToList();
             AddOrUpdateSupplier(supList);
             AddOrUpdateVendor(supList);
@@ -337,7 +337,7 @@ namespace AprajitaRetails.Server.BL.Imports
             x += _db.SaveChanges();
             if (x > 0)
             {
-                AddOrUpdateStock(stocklist);
+               AddOrUpdateStock(stocklist);
             }
             return x;
 

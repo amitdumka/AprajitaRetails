@@ -125,10 +125,10 @@ namespace AprajitaRetails.Server
                 StoreGroupId = "MBO",
                 StoreId = "MBO",
                 StoreManager = "Alok Kumar",
-                StoreManagerContactNo = "",
                 StoreName = "Aadwika Fashion",
                 StorePhoneNumber = "06434224461",
-                VatNo = "",
+                VatNo = "NA",
+                StoreManagerContactNo="06434224461",
                 ZipCode = "814101"
 
             };
