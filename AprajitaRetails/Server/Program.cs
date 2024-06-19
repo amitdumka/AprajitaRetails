@@ -33,7 +33,7 @@ else if (DBType == "OracleCloud")
     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         OracleConfiguration.TnsAdmin = @"C:\DevArea\OracleClould\Wallet_AprajitaRetailsDB01";
     else
-        OracleConfiguration.TnsAdmin = @"~/AprajitaRetails/Wallet_AprajitaRetailsDB01";
+        OracleConfiguration.TnsAdmin = @"/home/ubuntu/AprajitaRetails/Wallet_AprajitaRetailsDB01";
     OracleConfiguration.WalletLocation = OracleConfiguration.TnsAdmin;
 
     connectionString = builder.Configuration.GetConnectionString("OracleAD") ?? throw new InvalidOperationException("Connection string 'OracleAD' not found.");
