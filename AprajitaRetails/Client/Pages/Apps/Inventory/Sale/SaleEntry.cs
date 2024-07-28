@@ -81,7 +81,7 @@ namespace AprajitaRetails.Client.Pages.Apps.Inventory.Sale
         private async void OnBarcodeChange(ChangedEventArgs args)
         {
             // Here you can customize your code
-            if (args.Value.Length > 8)
+            if (args.Value.Length > 4)
             {
                 Helper.Msg("Barcode", args.Value);
 
